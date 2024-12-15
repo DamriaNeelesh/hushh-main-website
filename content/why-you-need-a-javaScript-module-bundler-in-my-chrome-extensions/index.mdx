@@ -1,0 +1,55 @@
+---
+title: "Why do I need a JavaScript Module Bundler in hushh Chrome extensions 🤷🏻‍♂️"
+description: "Get a detailed comparison of three popular JavaScript frameworks - Angular, React, and Vue.js. Understand the strengths, weaknesses, and use cases for each framework to make an informed decision for your next web development project."
+image: "../../public/blogs/paul-esch-laurent-oZMUrWFHOB4-unsplash.jpg"
+publishedAt: "2022-11-12"
+updatedAt: "2022-11-12"
+author: "Apoorv Bedmutha"
+isPublished: true
+tags:
+- React
+- Frontend
+- chromeextensions
+---
+
+## JavaScript Module Bundler in Hushh Chrome Extensions 
+
+As of now Chrome Extensions inherently are built for the Vanilla Web Projects i.e The Pure HTML, CSS & JS builds. While working on the [hushh.ai]('https://www.linkedin.com/company/hushh-ai/') Chrome Extension, Me and the team wanted to take benefit of the React Library for quick and dynamic development of the frontend, however the Browser will not accept a Node Project (The Create-React-App project) directly as an extension.
+To solve this problem I had to find a way to convert the Node Project into a Vanilla Web Project, this is exactly where Javascript Bundlers like Webpack come in handy!
+Let me share with you what I learnt while integrating a JS bundler like Webpack in chrome extension:
+
+- JS Module bundlers are development tools that can combine large number of JS files with their dependencies into a single static JS file which is production ready.
+- To achieve this these bundler’s make use of a data structure called dependency graph, A dependency graph starts from an entry / source JS file provided and then tracks all the files this entry file is dependent on, so that when creating the bundled code, these dependencies are also added and linked properly.
+- Dependencies can include CSS, Images even Web fonts, if a JS file is dependent on another JS file, then the dependencies are tracked recursively. This also ensures that only necessary files are included in the production build
+- The aim of these module bundlers is to make the bundle as small as possible, often with just 1 JS file, hence now we do not need to attach 10 different JS scripts to the website but rather just 1 bundled JS is enough
+- When combining the JS files, bundlers often optimise the performance via code splitting, hot module replacement, error logging etc
+- While doing dependency resolution, each file is assigned a unique id in order to resolve naming conflicts
+- Dependency resolution also helps in maintaining a dependency order, i.e. in what order should which dependencies be loaded in order to avoid errors. (reminds me of topo-sort)
+- Popular Bundlers: browserify, esbuild, parcel, rollup, webpack (most popular)
+
+Hope this introduction helps you to become a better dev, since it certainly helped me. 
+PS: also attaching some great resources to learn more as always
+
+***Happy Hushh Coding*** 🤫
+
+
+<Image
+  src="/blogs/team/apporv.png"
+  width="150"
+  height="150"
+  alt="vectoDatabaseBrands"
+  sizes="100vw"
+/>
+Apoorv Bedmutha (SDE @hushh)
+
+References: 
+[Link to the post](https://www.linkedin.com/posts/apoorvbedmutha_frontend-chromeextensions-webpack-activity-7181515666447818752-15jf?utm_source=share&utm_medium=member_desktop)  
+[Link-1](https://lnkd.in/dgG6fPyv) [Link-1](https://lnkd.in/dRgQUP3S) [Link-1](https://lnkd.in/duY67hpJ)  
+
+<iframe  href="https://www.linkedin.com/posts/apoorvbedmutha_frontend-chromeextensions-webpack-activity-7181515666447818752-15jf?utm_source=share&utm_medium=member_desktop" src="https://www.linkedin.com/embed/feed/update/urn:li:share:7181515664489140224" height="600" width="100%"  frameborder="5" allowfullscreen="false" title="Embedded post"></iframe>
+
+
+
+
+
+

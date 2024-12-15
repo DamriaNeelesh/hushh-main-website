@@ -1,0 +1,269 @@
+---
+title: "A Survey on Language Models and Related Data Privacy"
+description: "Customers regularly express preferences for brands based on their attire. How can retail adapt and learn without compromising privacy?"
+image: "../../public/blogs/marvin-meyer-SYTO3xs06fU-unsplash.jpg"
+publishedAt: "October 19, 2023"
+updatedAt: "Novemeber 19, 2023"
+author: "Justin Donaldson, Manish Sainani"
+isPublished: true
+tags:
+- LLM
+- Privacy
+- Data Privacy
+---
+
+# Language Model And Data Privacy 
+Customers regularly express preferences for brands based on their attire. How can retail adapt and learn without compromising privacy?
+
+### Abstract
+_(Note: Original form of this document available [here](https://drive.google.com/file/d/1HO4_r7gw2_HOH_FqHI7gVog4u3qYOpPn/view?usp=share_link))_
+
+This survey paper delves into the current revolution of Language models, specifically Large Language models (LLMs) and Fine-tuned models (FTMs). It explores the accessibility of these models across various domains of work while emphasizing the importance of privacy concerns when interacting with on-cloud LLMs.
+
+The study examines the influence of pre-training data, training data, and test data on the performance and capabilities of language models. Furthermore, it provides a comprehensive analysis of the potential use cases and limitations of large language models in different natural language processing tasks. These tasks include knowledge-intensive tasks, traditional natural language understanding tasks, natural language generation tasks, emergent abilities, and specific task considerations.
+
+Given that training models often require extensive and representative datasets, which may contain sensitive information, it becomes crucial to protect user privacy. The paper discusses algorithmic techniques for learning and conducts a refined analysis of privacy costs within the framework of differential privacy. It explores interrelated concepts associated with differential privacy, such as privacy loss, mechanisms of differential privacy, local and centralized differential privacy, and the applications of differential privacy in statistics, machine learning, and federated learning.
+
+By addressing the aforementioned aspects, this survey paper contributes to the understanding of language models’ revolution, their accessibility across domains, privacy concerns, and the incorporation of differential privacy to mitigate privacy risks.
+
+### Introduction
+Natural Language Processing (NLP) has garnered significant attention, largely driven by the emergence of Large Language Models (LLMs) like GPT (Generative Pre-trained Transformer). LLMs represent powerful NLP tools that enable computers to grasp and generate human-like language. They achieve this by analyzing extensive training data, learning the structure, syntax, and semantics of words and phrases. LLMs find practical applications in natural language understanding, generation, knowledge-intensive tasks, and the enhancement of reasoning capabilities.
+
+LLMs can be distinguished from fine-tuned models, which are smaller language models crafted for specific tasks. LLMs, being more versatile, excel at comprehending new or unfamiliar data and are valuable in situations with limited training data. The choice between LLMs and fine-tuned models hinges on the specific task requirements.
+
+Data plays a pivotal role in the operation of language models and can be divided into pretraining data, finetuning data, and test data. Pretraining data serves as the basis for LLMs, training them on a variety of textual sources, imparting language and contextual knowledge. Finetuning data assists in determining the suitability of LLMs or fine-tuned models based on the availability of annotated data. Test data is indispensable for evaluating model performance and detecting domain shifts.
+
+In real-world applications, language models encounter challenges stemming from noisy data and user requests that deviate from predefined distributions. LLMs, given their exposure to diverse datasets, tend to handle real-world scenarios more effectively than fine-tuned models. Privacy concerns are also paramount, especially when dealing with user data. Differential privacy algorithms, which introduce calibrated noise to the output, serve to protect the privacy of individuals’ data during language model training. The selection of privacy parameters, such as epsilon and delta, is contingent on the desired privacy level and the utility of the results.
+
+Diverse training strategies and model architectures exist within the domain of LLMs, including encoder-only language models (e.g., BERT) and decoder-only language models (e.g., GPT). These models offer various advantages and are suitable for different applications and contexts. Few-shot and zero-shot learning techniques further augment the capabilities of LLMs and fine-tuned models.
+
+Furthermore, stochastic gradient descent (SGD) and the PATE algorithm provide approaches to training language models with privacy protection. SGD introduces noise to the gradients during training, preserving the privacy of model parameters. The PATE algorithm amalgamates the predictions of multiple models with added noise, generating differentially private labels for training.
+
+Local differential privacy offers more robust privacy assurances by operating on data versions that do not retain original sensitive information. Federated Learning provides a decentralized approach where models are trained locally and then aggregated to form a global model. Different approaches, such as centralized, decentralized, and heterogeneous Federated Learning, offer distinct benefits and challenges.
+
+Through the application of techniques like differential privacy, data science researchers aim to strike a balance between utility and privacy, ensuring that language models preserve the confidentiality of sensitive information.
+
+
+
+## Discussions on Language Models
+
+In recent times, Large Language Models (LLMs) have become a focal point in the field of Natural Language Processing (NLP). NLP is the realm of computer science that delves into how computers can comprehend and interact with human language. It involves training computers to understand, interpret, and generate human language in a manner akin to human communication. LLMs, such as GPT, are significant applications in NLP. They achieve this by analyzing a substantial amount of training data to develop an understanding of the structure, syntax, and meaning of words and phrases, allowing them to produce coherent and contextually appropriate responses.
+
+To understand the abilities of Large Language Models (LLMs), it’s essential to compare them with fine-tuned models. LLMs are expansive language models trained on extensive data without specific adjustments for particular tasks. In contrast, fine-tuned models are generally smaller language models trained and further customized for specific tasks. In simple terms, fine-tuned models are more specialized and optimized for specific tasks compared to LLMs.
+
+Practical applications of language models are numerous. One crucial application is natural language understanding. LLMs excel at comprehending and making sense of human language, even when encountering new or unfamiliar data. This makes them valuable for tasks involving language comprehension in various contexts or with limited training data.
+
+Another application is natural language generation. LLMs have the ability to generate coherent, relevant, and high-quality text. This can be harnessed in various applications where computers need to create text, such as article writing, generating chatbot responses, or even crafting stories.
+
+Language models also play a significant role in knowledge-intensive tasks. LLMs have been trained on vast amounts of data, making them repositories of knowledge about different domains and general information about the world. This knowledge can be leveraged to assist in tasks that require specific expertise or a general understanding.
+
+Lastly, language models can enhance reasoning abilities. LLMs are designed to understand patterns and relationships in language, which can be useful for decision-making and problem-solving in various scenarios. By utilizing the reasoning capabilities of LLMs, we can improve decision-making and tackle complex problems effectively.
+
+Within the domain of Large Language Models (LLMs), researchers employ various training strategies, model architectures, and use cases. These models can be categorized into two main types: encoder-only language models and decoder-only language models.
+
+Encoder-only language models, also known as Encoder-Decoder models or BERT-style language models, are used when there is abundant natural language data available. These models are trained using the Masked Language Model technique, where the model predicts masked words in a sentence while considering the surrounding context. This training approach allows the model to develop a deeper understanding of word relationships and contextual usage. Typically, these models employ the Transformer architecture, a powerful deep learning model for processing and comprehending natural language.
+
+On the other hand, decoder-only language models, such as GPT-style language models, are designed to understand and generate human-like text. These models analyze patterns in large training datasets and predict what comes next in a given sequence of words. Unlike encoder-only models, decoder-only models focus on generating text rather than understanding it in a conversational context. They can be used for tasks like generating creative writing, answering questions, or aiding in language-related tasks. These models are trained as Autoregressive Language Models, where they generate the next word in a sequence based on preceding words, showcasing the strength of autoregressive language models.
+
+Furthermore, both encoder-only and decoder-only models benefit from few-shot and zero-shot learning. Few-shot learning enables the models to learn new concepts with just a few examples, while zero-shot learning allows them to grasp entirely new concepts without any examples at all. These approaches empower the models to perform well on tasks they haven’t been explicitly trained for by leveraging prior knowledge and transferring knowledge from related tasks.
+
+Speaking of data, data serves as the fuel for language models, powering their functioning. However, a challenge known as “out-of-distribution data” arises, which refers to information or examples that differ from what a machine learning model has been trained on. This includes inputs that the model has never encountered before. Large Language Models (LLMs) are known to handle such unfamiliar data better than fine-tuned models.
+
+## Understanding Different Data Categories
+To gain a deeper understanding of data, let’s categorize it into three types: pretraining data, finetuning data, and test data.
+
+### Pretraining Data
+This data plays a pivotal role as it forms the foundation for language models. Pretraining involves training language models on text sources such as websites and articles. This carefully curated data ensures that language models possess a rich understanding of word knowledge, grammar, syntax, semantics, context, and the ability to generate coherent responses. The diversity of pretraining data sets Large Language Models (LLMs) apart from other models in terms of usability.
+
+### Finetuning Data
+The choice between using LLMs or fine-tuned models depends on the availability of annotated data in three scenarios:
+
+### Zero Annotated Data
+When no annotated data is available, LLMs excel in a zero-shot setting. They outperform previous methods that do not rely on annotated data. LLMs avoid catastrophic forgetting, meaning their parameters remain unchanged as they don’t undergo a parameter update process.
+
+### Few Annotated Data
+If only a small amount of annotated data is available, LLMs incorporate these examples directly into their input prompt, known as in-context learning. This guides LLMs effectively and enables them to understand and perform tasks. Recent studies have shown that even with just one or a few annotated examples, LLMs can achieve significant improvements and match the performance of state-of-the-art fine-tuned models in open-domain tasks. Scaling LLMs can enhance their zero/few-shot capabilities. Fine-tuned models can also be improved using few-shot learning methods, but they may be outperformed by LLMs due to their smaller scale and potential overfitting.
+
+### Abundant Annotated Data
+When a substantial amount of annotated data is available, both fine-tuned models and LLMs can be considered. Fine-tuned models fit the data well in most cases, but LLMs can be preferred when specific constraints like privacy need to be addressed. The choice between fine-tuned models and LLMs depends on factors like desired performance, computational resources, and deployment constraints specific to the task at hand.\
+
+## Test Data
+This refers to a set of examples used to evaluate the performance and accuracy of a model or system. It helps researchers and developers understand how well their models work and identify areas for improvement before real-world use. Test data is crucial as it reveals disparities between the trained data and new data, known as domain shifts. These shifts can hinder the performance of fine-tuned models due to their specific distribution and limited generalization ability.
+
+Now let’s delve into the utilization of LLMs (Large Language Models) and fine-tuned models in real-world tasks. In these scenarios, we often encounter a significant challenge called “Noisy data.” This means that the input received from real-world non-experts is not always clean and well-defined. These users may have limited knowledge of how to interact with the model or may not be fluent in using text. Another challenge is the lack of task formatting, where users may not clearly express their desired predictions or may have multiple implicit intents.
+
+To overcome these challenges, it is crucial for models to understand user intents and provide outputs that align with those intents. However, real-world user requests often deviate significantly from the distribution of NLP datasets designed for specific tasks. Studies have shown that LLMs are better suited to handle real-world scenarios compared to fine-tuned models. This is because LLMs have been trained on diverse datasets that cover various writing styles, languages, and domains. They also demonstrate a strong ability to generate open-domain responses, making them well-suited for these real-world scenarios.
+
+On the other hand, fine-tuned models are specifically tailored to well-defined tasks and may struggle to adapt to new or unexpected user requests. They rely heavily on clear objectives and well-formed training data that specify the types of instructions the models should learn to follow. These fine-tuned models may face challenges with noisy input due to their narrower focus on specific distributions and structured data.
+
+In addition to considering real-world data, there are other factors that need to be taken into account, particularly the safety and privacy of user data. Since the present LLM giants are cloud-based, user data is communicated over the internet. This can pose serious security risks, especially when processing sensitive or confidential data with cloud giants. Therefore, before considering factors like cost, latency, robustness, or bias, it is essential to prioritize user privacy and ensure appropriate safeguards are in place.
+
+## Discussions on Privacy
+
+### Understanding Privacy
+Before we delve into privacy concerns related to language models, let’s first understand what privacy means. According to Alan Estin, privacy is about individuals, groups, or institutions having control over how, when, and to what extent their information is shared with others. In the context of language models, there are significant digital privacy concerns.
+
+### Historical Privacy Measures
+In the past, privacy concerns were addressed through techniques like anonymity and encryption. Anonymity involves keeping personal or identifiable information separate from data to ensure that individuals’ identities are not linked to the data they generate. Encryption converts information into a coded form that can only be accessed by authorized parties. These measures aimed to protect privacy and limit access to user information.
+
+### Limitations in Protecting Privacy
+However, these approaches are proving insufficient, especially when it comes to training machine learning models or language models. It is crucial that these models do not expose any private information from the training dataset. This has led to research on differential privacy algorithms.
+
+### Differential Privacy
+Differential privacy is a rigorous mathematical framework that can be applied to any algorithm. It has been successfully implemented by major companies in their data pipelines. In this section, we will explain the concept of differential privacy without delving into the mathematical details.
+
+### Privacy Attacks and Privacy Loss
+Unlike encryption or anonymization, differential privacy focuses on preventing privacy attacks. Privacy attacks occur when an entity or individual tries to gain access to private information by exploiting the behavior or output of a language model. Differential privacy addresses the concept of privacy leakage or privacy loss.
+
+## Key Concepts in Differential Privacy
+
+- **Privacy Parameters**: The level of privacy protection is controlled by a parameter called epsilon (<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>&#x3F5;</mi>
+</math>). A smaller value provides stronger privacy guarantees.
+- **Sensitivity**: Sensitivity of a mechanism refers to how much the output can change when a single example is added or removed from the dataset. Sensitivity helps determine the amount of noise that needs to be added to achieve the desired privacy level.
+- **Dependency Injection**: Angular's dependency injection system simplifies code modularity and testing.
+- **Privacy Compromise**: To address potential privacy compromises, (
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x3F5;</mi><mo></mo><mi>&#x3B4;</mi></math>) differential privacy is used, where 
+ represents the probability of privacy compromise.
+
+### Challenges and Variations 
+
+- **Privacy Loss Variance**: Privacy loss variance means that different individuals may experience different levels of privacy loss.
+- **Differential Privacy Extensions**: In the field of research, there are more than 500 extensions of differential privacy available in literature, focusing on different scenarios, types of data, and attacker models.
+- **External Factors**: In some cases, privacy can be compromised by external factors beyond the mechanism’s control.
+- **Alternative Approaches**: There are alternative statistical approaches, like hypothesis testing, that can be used to interpret differential privacy.
+
+### Applying Differential Privacy in Data Processing
+
+- **Data Preprocessing**: Data preprocessing involves applying differential privacy to datasets before training the model, which helps protect sensitive information.
+- **Optimization Algorithm**: Using differential privacy during the training process of the model’s parameters ensures privacy is maintained while learning from the data.
+- **Loss Function**: Applying differential privacy to the result of the loss function just before updating the model’s parameters helps control privacy loss and maintain accuracy.
+- **Final Trained Parameters**: Differential privacy can also be applied to the final trained parameters of the model, ensuring privacy even when the model is in use.  
+
+### Privacy in Stochastic Gradient Descent
+
+In deep learning, stochastic gradient descent (SGD) is used to train language models. It involves adding noise to the gradients during training to protect the privacy of the model parameters. This ensures that the model parameters do not reveal any private information.
+
+## The PATE Algorithm
+
+The PATE algorithm takes a different approach to ensure privacy. It allows a public model to learn by combining the predictions of multiple models with added noise. This creates a public dataset with differentially private labels, which are used to train a differentially private model. This approach resembles synthetic data generation and provides a way to avoid leaking private data during data processing.
+
+## Local Differential Privacy and Federated Learning
+
+In some cases, it may not be necessary to interact with a cloud server to work with a dataset. This is where “Local” differential privacy can be useful. It provides a stronger privacy guarantee for individual users by using a version of the data that doesn’t store the original sensitive information. Federated Learning is introduced to handle the variability of different input data received by the server.
+
+### Centralized Federated Learning
+
+Centralized Federated Learning involves a central server that coordinates the participating nodes to create a global model. Privacy is maintained by only sharing local models with a trusted aggregator.
+
+### Decentralized Federated Learning
+
+Decentralized Federated Learning eliminates the central server, resulting in no single point of failure. However, it presents challenges in coordinating the learning process and network performance.
+
+### Heterogeneous Federated Learning
+
+Heterogeneous Federated Learning allows for flexibility without making assumptions about data, devices, collaborative schemes, or models used. It requires careful optimization and coordination.
+
+## Further Discussions
+
+### Challenges and Improvements in Large Language Models (LLMs)
+
+Large language models (LLMs) have made remarkable strides in natural language processing, yet addressing various shortcomings is crucial for their further advancement and practical application. Future research should focus on the following areas:
+
+#### Addressing Bias and Fairness
+
+- **Bias Mitigation**: LLMs can perpetuate biases from training data, resulting in unfair and discriminatory outcomes. Future research should focus on developing debiasing techniques and meticulous dataset curation to ensure fairness.
+
+#### Enhancing Robustness
+
+- **Handling Noisy Data**: LLMs often struggle with noisy or out-of-distribution data, leading to erroneous or nonsensical outputs. Enhancing their robustness is imperative to handle diverse scenarios encountered in real-world applications. Researchers should explore techniques that improve model generalization and adaptability.
+
+#### Improving Explainability
+
+- **Enhancing Interpretability**: The lack of explainability and interpretability makes LLMs appear as black boxes, hindering the understanding of their reasoning behind predictions. To enhance trustworthiness, methods need to be developed to make LLMs more explainable, allowing users to comprehend the decision-making process.
+
+#### Data Efficiency
+
+- **Data-Efficient Models**: LLMs typically rely on vast amounts of training data, which restricts their usability in domains with limited labeled data. It is crucial to investigate methods that improve data efficiency, enabling LLMs to perform well even with fewer training examples.
+
+## Potential Applications of LLMs
+
+LLMs have a wide range of potential applications in various domains. They can be utilized in the following ways:
+
+### Customer Support and Chatbots
+
+- Creating intelligent bots capable of accurately understanding and responding to user queries, thereby improving customer interactions.
+
+### Content Generation
+
+- Automating content generation tasks, generating high-quality articles, blog posts, and product descriptions, benefiting content creators, marketers, and businesses.
+
+### Language Translation
+
+- Enhancing language translation systems, enabling more contextually accurate translations and breaking down language barriers.
+
+### Improved Search Engines
+
+- Enhancing the effectiveness of search engines by better comprehending user queries and offering more relevant search results, thereby enhancing the overall search experience.
+
+It is crucial to carefully address factors like privacy, data protection, and ethical considerations when implementing LLMs in real-life applications, ensuring the development of valuable and user-friendly solutions.
+
+## Challenges in Upscaling Data for LLMs
+
+Upscaling data for training Language Models (LLMs) presents various challenges. Researchers should explore techniques to address the following issues:
+
+### Computational Resources
+- Handling the significant computational resources encompassing storage and processing power required to upscale data for training LLMs.
+
+### Data Quality and Labeling
+- Ensuring data quality and labeling becomes more complex when upscaling data, demanding meticulous quality control and annotation procedures to maintain accuracy and consistency.
+
+### Training Time
+- Prolonging the training time for LLMs when upscaling data, potentially impacting productivity and causing delays in research and development cycles.
+
+### Overfitting
+- The risk of overfitting the model to the training data when upscaling, resulting in poor generalization to new and unseen examples.
+
+Researchers should explore techniques like distributed training, efficient data storage and processing frameworks, and automated quality assurance processes to ensure the scalability and reliability of upscaling data.
+
+## Failure Cases in Differential Privacy
+While differential privacy is a valuable technique for safeguarding individuals’ data privacy, it may fall short in certain scenarios. Researchers should address the following failure cases:
+
+### Correlation Attacks
+- When adversaries exploit correlations between multiple queries or released data points to unveil sensitive information, differential privacy mechanisms may not adequately protect against such attacks without accounting for correlations appropriately.
+
+### Adversarial Use of Auxiliary Information
+- Adversaries with access to auxiliary information can combine it with differentially private outputs to breach privacy, as differential privacy mechanisms do not safeguard against inferences made from external sources.
+
+### Insider Attacks
+- The assumption of a trusted data curator in differential privacy leaves room for insider attacks, where privacy guarantees can be violated if the curator is malicious or colludes with attackers.
+
+### Re-Identification Attacks
+- Adversaries attempt to re-identify individuals in the dataset using background knowledge or external datasets, posing a threat to privacy. Differential privacy mechanisms may not provide sufficient protection against such attacks, especially when the dataset is sparse or contains unique identifiers.
+
+Future research should prioritize the development of more robust differential privacy mechanisms, considering adversarial scenarios and exploring ways to incorporate additional privacy-preserving techniques.
+
+## Open-Ended Questions
+
+Here are some open-ended questions for the reader:
+1. How can large language models be effectively utilized in domains with limited training data, considering the trade-off between model size and performance?
+
+2. What potential ethical implications arise from deploying large language models in real-world applications, and how can we ensure their responsible use?
+
+3. What measures should be taken to mitigate biases and ensure fairness in language models, considering their impact on decision-making processes?
+
+4. How can we strike a balance between privacy and utility in language models, given the growing concerns about data protection and the need for accurate results?
+
+5. What potential risks and challenges are associated with upscaling data for training language models, and how can they be mitigated to ensure efficient and reliable model performance?
+
+
+
+
+
+
+
+
+
+
+
+

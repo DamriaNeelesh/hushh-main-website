@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.hush1one.com/
+
+# Sitemaps
+Sitemap: https://www.hush1one.com/sitemap.xml

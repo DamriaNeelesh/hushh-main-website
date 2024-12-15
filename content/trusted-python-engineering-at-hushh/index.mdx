@@ -1,0 +1,301 @@
+---
+title: "Trusted Python Engineering at Hushh"
+description: "Maintaining trusted deployments at Hushh are paramount. Here we dive into our best practices on one of our open source libraries"
+image: "../../public/blogs/python_Eng_with_hushh.png"
+publishedAt: "March 7, 2024"
+updatedAt: "March 20 2024"
+author: "Justin Donaldson"
+isPublished: true 
+tags:
+    - python
+    - engineering
+    - open source
+---
+
+# Trusted Python Engineering at Hushh
+
+Maintaining trusted deployments at Hushh are paramount. Here we dive into our best practices on one of our open source libraries
+
+Hushh utilizes cutting edge open source AI and ML libraries, and most AI startups out there will claim the same. However, Hushh’s emphasis on trust and security means that we also have to make these capabilities stable and safe. We will walk through some of the techniques we use to develop and deploy software, using our open source hushh catalog format as an example.
+
+This post winds up being a long sequence of steps. You can follow along with the basic steps:
+
+- Local Development : Settings and configuration for personal machines
+- CICD : Workflows and artifact configuration for testing and building
+- PyPi : Configuration for secure publishing
+
+<Mermaid chart={`
+flowchart LR
+    subgraph Local
+        style Local fill:#d3d3ff, stroke:#333, stroke-width:2px
+        A[Local Development]
+        style B stroke:#999, fill:#eee
+    end
+
+    subgraph CICD
+        style CICD fill:#FFFFF, stroke:#999
+        B[build] ---> C[test] ---> D[deployment]
+        style B stroke:#999, fill:#eee
+        style C stroke:#999, fill:#eee
+        style D stroke:#999, fill:#eee
+    end
+
+    subgraph PyPI
+        E[Hosting]
+        style E stroke:#999, fill:#eee
+    end
+
+    A --> B --> C --> D --> E
+`} />
+ 
+We’ll go from left to right and start with local development.
+
+
+## Local Development
+### Stable AI/ML libraries with Conda
+---
+
+Many state of the art AI libraries are available in Python. However, Python is not typically used to write the core logic of these libraries. Instead, Python is simply a convenient wrapper around a series of low level C libraries that handle the tensor operations that constitute a neural network routine.
+
+Adding to this complexity is the fact that many neural network libraries are not up to date with the latest Python version. For instance, the popular Pytorch library only recently supported Python 3.12, despite the version being available in [October of last year](https://peps.python.org/pep-0693/).
+
+At Hushh we rely heavily on the work of [Anaconda](https://www.anaconda.com/), including the open source [conda forge](https://conda-forge.org/) packages. The Conda community maintains stable python distributions for AI/ML libraries, ensuring we have the most up to date and secure python environment possible for our services. For our open source projects we will provide an [environment.yml](https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/environment.yml) file that specifies how to set up the conda environment. The environment can typically be installed and activated with:
+
+```yml
+    $> conda env create -f environment.yml
+    $> conda activate hushh-vibe-catalog
+```
+
+### Environment Management with direnv
+---
+
+At Hushh, we have many different projects and Conda environments going at once. The projects may require different versions of libraries, or require other specific configuration. This can be a source of confusion when switching between them for development work. Luckily, a tool called [direnv](https://direnv.net/) exists that enables us to switch between project environments as easily as switching between working directories.
+
+To enable this functionality, [direnv](https://direnv.net/) will refer to an .envrc file in the root of the working directory. You can see one of these in the Vibe Catalog library [here](https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/.envrc)
+
+```yml
+eval "$(conda shell.zsh hook)"
+conda activate hushh-vibe-catalog
+```
+
+When we enter the directory, we execute a simple conda shell.zsh hook to load the conda commands, and then we activate the Vibe Catalog conda environment. When we exit the directory, the environment is unloaded.
+
+### PEP vs. Poetry
+---
+
+Within the Python ecosystem, there’s a host of frameworks that make it “easy” to do a number of different automated tasks. Tools like [poetry](https://python-poetry.org/) make it easy to configure and publish libraries.
+
+In the past, we’ve experimented with these frameworks and found that they’re truly an improvement over the antiquated and cludgy Python configuration systems that are offered out of the box. However, Python has modernized significantly in the past year or two, including supporting the new [pyproject.toml](https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/) that greatly simplifies the specification of libraries, dependencies, and environments.
+
+At this point, it’s clear to us that Python is a constantly evolving standard, and that frameworks that try to remove rough edges can quickly become technical debt as Python includes those features through more universally-accepted PEP standards.
+
+So, our recommendation is to stick with basic vanilla Python-standards for packaging these days, and just try to keep your versions up to date :)
+
+### The Case for Good Makefiles
+---
+
+The Hushh Vibe Catalog uses a [Make](https://en.wikipedia.org/wiki/Make_(software)) to handle a lot of additional functionality useful during development. The [Makefile](https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/Makefile) lists some common routines for creating, cleaning, and testing the package. Make is a common tool that’s readily available in most CICD contexts, and its nice to organize and run development jobs the same way on a local machine as they are run in CICD. There’s a number of different varieties of Make out there, but Python really is just fine with vanilla <span className="highlightMdx">make</span>
+
+For instance, we use a special version of pytest that invokes code coverage testing. The specific command looks like:
+
+```js
+$> pytest --cov=python/src python/test
+```
+That can be difficult to remember to enter correctly, so we create a simple Makefile entry for it and can simply enter:
+
+```js
+$> make test
+```
+That command should always run the basic integration tests that can be expected to finish in a minute or two.
+
+## Content Integration/Content Deployment
+
+<Mermaid chart={`
+flowchart LR
+    subgraph Local
+        A[Local Development]
+        style A stroke:#999, fill:#eee
+    end
+
+    subgraph CICD
+       style CICD fill:#d3d3ff, stroke:#333, stroke-width:2px
+        B[build] ---> C[test] ---> D[deployment]
+        style B  stroke:white, fill:white
+        style C  stroke:white, fill:white
+        style D  stroke:white, fill:white
+    end
+
+    subgraph PyPI
+        E[Hosting]
+        style E stroke:#999, fill:#eee
+
+    end
+
+    A --> B --> C --> D --> E
+
+    classDef purple fill:#d3d3ff,stroke:#333,stroke-width:2px;
+    classDef white fill:#ffffff,stroke:#333,stroke-width:2px;
+    class one purple;
+    class two,three white;
+`} />
+
+### Testing And Building Python Libraries
+---
+
+We’re testing checkins using Github’s builtin CICD system, called Github Actions. This is turned on through some configuration that defines a workflow for builds and tests. You can see the Hushh Vibe Catalog’s CICD configuration here
+
+The configuration there is short, but somewhat complex. Here’s the current version:
+
+```yml 
+name: Build
+on: [push, pull_request, release]
+permissions:
+  contents: write
+  id-token: write
+jobs:
+  test:
+    name: Test wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # os: [ubuntu-20.04, windows-2019, macOS-11]
+        os: [ubuntu-20.04]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.11'
+      - name : Run Tests
+        run : |
+          pip install ".[ci]"
+          make test
+  release:
+    name: Create Github/Pypi Release
+    needs:
+      - test
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - uses: actions/setup-python@v5.0.0
+        with:
+          python-version: '3.11'
+      - name : Build library wheel
+        run : pip wheel --no-deps -w dist .
+      - name: Publish to Github Releases
+        uses: softprops/action-gh-release@v1
+      - name: Publish to Pypi
+        run: |
+          pip install twine
+          twine upload ./dist/* --verbose
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./dist/*.whl
+```
+
+The configuration defines two different jobs: test, and release. The test job has a few steps that checks out the code, and sets up a python environment. The release job is interesting for two reasons. Firstly, it depends on the test phase, which means that the library has to pass tests before the release job runs. Secondly, it has the following line:
+
+```js 
+if: github.event_name == 'push' && contains(github.ref, 'refs/tags/v')
+```
+This conditional statement means that the job only runs if the commit has a tag associated with it prefixed by “v”
+
+### Tagged, Versioned, and Released
+---
+
+The release job in the CICD config has a conditional command that causes it to only trigger when the github event is a push that contains a git tag (and the git tag should start with the letter “v”)
+
+Git tags are special markers for commits. They can mean any number of things, but one common use is to have them refer to checkpoints that correspond with releases. Having a tag against a version is a particularly good way of ensuring that a given release wheel can be rebuilt and reproduced identically. So, rather than upload the release using Github’s web interface, we’re using Github’s CICD system to build the release for us from a tag. All we need to do is make a tag like “v1.2.3”, and it will generate the corresponding version.
+
+Version numbers are also a critical part of the release process. Hushh Vibe Catalog uses a [semantic versioning](https://semver.org/)(semver) format for its version format, following a major/minor/patch number sequence. Minor and patch changes shouldn’t break compatibility, while major version numbers do.
+
+It can be an annoyance to update versions appropriately across all the parts of the library package that need to be updated (e.g. in the code, the documentation, the configuration, etc.). Hushh Vibe Catalog uses [bump2version](https://pypi.org/project/bump2version/). This utility keeps track of the current version in a config file [like this one](https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/.bumpversion.cfg). One can enter in a command like <span className="highlightMdx">bumpversion major</span> or <span className="highlightMdx">bumpversion</span> patch to increment the major/patch version of the library. When bump2version updates the version in the config, it also creates a commit that corresponds to the version change, [like this one](https://github.com/hushh-labs/hushh-vibe-catalog/commit/886596831c755728ee1fd1a5026acbe91f6928d6) It will also create a tag for the new version number.
+
+With the tag, commit, and version number all specified, all we need to do is:
+
+```js
+git push --tags
+```
+
+And the version tag will pass into the CICD system, get picked up by the release job, and build and publish the new version for us.
+
+### PyPi and Trusted Deployments
+---
+
+<Mermaid chart={`
+flowchart LR
+    subgraph Local
+        A[Local Development]
+        style A stroke:#999, fill:#eee
+    end
+
+    subgraph CICD
+        B[build] ---> C[test] ---> D[deployment]
+        style B  stroke:#999, fill:#eee
+        style C  stroke:#999, fill:#eee
+        style D  stroke:#999, fill:#eee
+    end
+
+    subgraph PyPI
+    style PyPI fill:#d3d3ff, stroke:#333, stroke-width:2px
+        E[Hosting]
+        style E stroke:white, fill:white
+
+    end
+
+    A --> B --> C --> D --> E
+
+    classDef purple fill:#d3d3ff,stroke:#333,stroke-width:2px;
+    classDef white fill:#ffffff,stroke:#333,stroke-width:2px;
+    class one purple;
+    class two,three white;
+`} />
+
+Currently, the library is published to Pypi using a twine command.
+```js
+- name: Publish to Pypi
+  run: |
+    pip install twine
+    twine upload ./dist/* --verbose
+  env:
+    TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+    TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+```
+The twine command uses Github secrets to populate Pypi/Twine API token information into the username/password environment variables. These are used by twine to authenticate with the Pypi server and upload the Python wheel files. By using secrets for our API tokens, we ensure they’re never accidentally included in any code that we upload to Github, and keep the library safe from leaked credentials.
+
+### Handling Security Vulnerabilities with pip-compile and dependabot
+---
+
+One feature that Vanilla Python lacks currently is a way to easily track dependencies. As projects get more complicated, they tend to acquire different dependencies. The more dependencies a project gathers, the more likely it is that a security vulnerability will crop up, threatening the security of the overall system.
+
+Typically, Python dependencies are listed in a “requirements.txt” file, which list the library and version depdencies used in the service. You can see the requirements file [here](https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/requirements.txt).
+
+The requirements file for hushh not only includes the full dependency list for the project, but also includes notes on which libraries depend on eachother. If a library has a security problem, it’s much easier to understand and track how this problem is spread within a given library, as well as across each project that your organization maintains.
+
+Providing a requirements file enables Github’s dependabot infrastructure to monitor potential security issues with any of the listed libraries. Dependabot can even create PRs that recommend updates for your libraries that are easy to test. Github makes it easy to set this up for each project, provide you follow the [instructions](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file).
+
+Luckily, setting dependabot up for Python is pretty straightforward. The Hushh Vibe Catalog library has a very [simple one](https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/.github/dependabot.yml)
+
+Generating the requirements.txt file with the dependency graph is possible with a utility called pip-compile, which is available through [pip-tools](https://pypi.org/project/pip-tools/)
+
+In order to generate the file, we just simply run:
+```js
+$> pip-compile .
+```
+
+## Conclusion
+---
+
+Trusted Python development involves a number of steps that don’t fit neatly in “one size fits all” solution frameworks. We have listed here what we consider our “best in breed” approaches towards supporting rapid development with straightforward tools while adhering to best-practice Python PEP standards, combined with best-practice trust and security protocols. There’s a number of hoops to jump through for Python development, but luckily none of them are terribly difficult on their own.
+
+If you have an interest in trusted Python development, or have questions/comments about any of the tools/techniques that we’ve described here, we’d love to [talk to you on Discord!](https://discord.com/invite/hpFweqj5).
+
+
+
+
+

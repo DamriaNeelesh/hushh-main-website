@@ -1,0 +1,332 @@
+---
+title: "Simplifying Gmail Receipt Extraction for Developers"
+description: "Learn how to efficiently extract and manage Gmail receipts using automated tools and techniques tailored for developers."
+image: "../../public/blogs/blog2o.png"
+publishedAt: "October 30, 2024"
+updatedAt: "October 30, 2024"
+author: "Omkar Malpure"
+isPublished: true
+tags:
+- Gmail
+- Automation
+- Development
+- Email Management
+---
+
+# Receiptor: Simplifying Gmail Receipt Extraction for Developers
+
+---
+
+## The Birth of Receiptor: A Developer's Personal Journey
+
+As a developer, I found myself deep in the trenches of building a feature called "Receipt Radar." What seemed like a straightforward task - extracting receipt data from Gmail - quickly turned into a labyrinth of complex documentation, confusing OAuth processes, and the intricate dance of access and refresh tokens.
+
+I vividly remember the frustration of sifting through Google's API documentation, trying to decipher how to generate access tokens, manage refresh tokens, and navigate the maze of Gmail's API ecosystem.
+
+I thought to myself, "There has to be a better way. Why should every developer go through this struggle?" That's when I decided to create a Python library that would shield other developers from the complexities I faced.
+
+---
+
+## Overview
+
+Receiptor is the culmination of my journey - a straightforward Python-based solution designed to extract, parse, and structure Gmail receipt and invoice data. It's built with one goal in mind: to let developers integrate Gmail receipt data ingestion functionality easily, without the need to juggle through Gmail documentation or spend hours looking at examples.
+
+In today's digital age, Gmail has become a primary tool for tracking purchases, managing expenses, and storing important financial information. Every day, millions of people receive receipts, invoices, and order details through their Gmail accounts. For developers building personal finance apps, expense management software, or business analytics tools, accessing this data efficiently is crucial.
+
+---
+
+## How Receiptor Simplifies the Process
+
+Receiptor addresses the challenges I faced head-on:
+
+**1.No More API Confusion:**
+ Say goodbye to the days of deciphering multiple Gmail APIs. Receiptor handles all the complex interactions behind the scenes.
+
+ **2.OAuth Made Easy:**
+ Remember my struggle with understanding Google OAuth? Receiptor simplifies this process, making it straightforward to set up and manage authentication.
+
+ **3.Effortless Data Extraction:**
+ With just a few lines of code, you can now fetch, parse, and structure receipt data from Gmail. No more headaches trying to navigate through email content and attachments.
+
+ **4.Structured Output:**
+ Receiptor doesn't just extract data; it presents it in a clean, structured format ready for your application to use.
+
+
+---
+## Why did I Build Receiptor ?
+
+I built Receiptor because I believe that developers should focus on creating amazing features and applications, not on wrestling with API documentation. By encapsulating my learnings and solutions into this library, I hope to save other developers the time and frustration I experienced.
+Whether you're building the next big fintech app, a simple expense tracker, or anything in between, Receiptor is designed to be your go-to tool for Gmail receipt data extraction. It's my way of contributing to the developer community and making our collective lives a little easier.
+
+---
+
+## Getting Started
+
+**1. Fetching and Parsing Data with Minimal Code**
+
+Receiptor provides a clean, straightforward implementation to interact with Gmail and extract receipt data. With only a few lines of code, developers can set up Receiptor and fetch receipt information directly from their Gmail accounts. Here’s a quick overview:
+
+- **Install Receiptor**: The package can be installed via pip, making it accessible to any Python developer:
+- 
+  ```python
+    pip install receiptor
+    ```
+
+**2. Set Up Gmail Access**
+
+Receiptor requires a Gmail access token, which can be obtained using OAuth2. This token enables secure and authenticated access to Gmail data .
+
+In order to create generate an access token you will have to configure an OAuth application in Google Cloud Platform (GCP) and set up the OAuth 2.0 flow in our application to work with it.
+
+## Configuring an OAuth application in GCP
+
+- Create an account with GCP here: [https://cloud.google.com](https://cloud.google.com)
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/5c52b19a-9b4a-4c30-b37d-b249cc0dd92f"/>
+
+- Once you open the link click on Console as you can see in the image above.
+- If you have already created a project then you may see the screen below .
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/fa43c0f6-835e-4487-9437-5423c2754d82"/>
+
+  Note : If you are new to GCP try to follow the documentation provided by GCP on how to create your first project : [Documentation](https://developers.google.com/workspace/guides/create-project)
+  OR
+  You can go through this blog on medium that will simpilfy the process : [BLog](https://medium.com/@techcontentspecialist/how-to-create-a-gcp-project-fbf412531c65)
+
+- Once you have created your project or you are already logged into one of your project on GCP .
+- Start by navigating to your project API & Services > Credentials in GCP to create a new OAuth application.
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/6f55aa6d-bc0b-4bea-91fc-b9ba901f908b"/>
+  
+- You can directly type in the search bar credentials and you can navigate to credentials by clicking on it .
+- To create the credentials click on this create credentails button , which looks like this .
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/aa9244d2-5d06-40a0-9890-0893d61aee46"/>
+  
+- Once you click on create credentials , select oAuth client ID.
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/2719b222-2dcd-4740-ad54-a753c0cbcd67"/>
+  
+ Note - If you are creating an credential for the first time you have to first configure consent screen .
+      - In this case when you click on create credentials , you will be directed to this screen .
+      
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/006f71eb-bef1-4ef7-909d-4cae4bd206af"/>
+  
+   - Once you click on configure consent screen as you can see in the above image , you will be directed to this page .
+    
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/1aae1067-8672-44c9-a6b6-7a8e0266a862"/>
+  
+   - Here you can select External , so that oauth 2 would be available to test on any external user .
+   - Click on create , and you would be directed for further flow .
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/7dfc0ba3-fc09-4c7e-a7d7-e68ae1996651"/>
+  
+      - On the first screen you have to fill the field marked with * compulsorily , like App name , User support email , and in Developer contact information: Email addresses.
+      - Once you fill all the details marked with * , and click on save and continue you will be directed to next screen given below .
+     
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/73e9e941-3bc7-4028-8851-f7c9e875044b"/>
+  
+   - Here we have to add the gmail readonly scopes which is essential to add , to generate an access token to access user's gmail .
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/27c2c932-6bf4-47e1-b979-21e5404ced25"/>
+  
+      - Click on Add or remove scopes , also ensure that you have enabled the gmail api in your project if not , just search in the search bar gmail api and enable the API .
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/5cc27af5-faa8-4377-b2ca-4a67c89203d5"/>
+  
+      - When you select Gmail Api , on click on enable to activate the gmail API .
+        
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/396c502d-effb-40ff-b8ea-9c66a60d27f1"/>
+
+   - Now go back to credentials and click on oauth consent screen.
+     
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/a52e8cd8-9c75-47b9-9473-a8af3d08faa9"/>
+  
+   - Click on Edit App .
+   - Go to the Scopes screen and click on ADD OR REMOVE SCOPES .
+   - In the Filter Section select API:Gmail , and select .../auth/gmail.readonly like given below .
+     
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/2a180f1b-daa2-459b-ab2b-819aebad93a6"/>
+  
+   - Now click on save and continue .
+   - You will be directed to Test users screen .
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/f0eada5f-d7ff-4f55-a0e9-a8a3c7580342"/>
+  
+     - Click on save and continue .
+  
+  Once you have configured the consent screen , continue the process to setup credentials given below .
+
+- Once you click on create credentials , you would be directed to this page .
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/e1501440-cfd3-4055-b3c1-428c144b3057"/>
+  
+- Here you have to select your application type . I am working on a blog to let you know how to setup and utilise oauth 2 for different type of applications . In this blog I we will go through how to setup oauth2 credentials for web application .
+- Once you click on web application , you would shown following details .
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/eeb93f23-1f8e-4703-bf8f-41a718d3d101"/>
+  
+- Here you have to fill 2 main sections Name and Authorized redirect URIs .
+- Initially you can type the name of your choice like receiptor_test , or any name of your choice .
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/14300f5b-75e3-484e-b670-a83dc282dbba"/>
+  
+- Now just click on create , regarding the redirect URI we will see how can we add this redirect URI ,and the credentials would be created .
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/74d4865e-5d3f-471e-9ab4-d976af937815"/>
+  
+- As you can see the credentials is created and you are provided with CLIENT ID , CLIENT SECRET , you can also download these credentials locally  by clicking on DOWNLOAD JSON.
+
+### Now we will setup a simple FastApi App , where you can generate an access token to access your gmail data .
+- Let's first install the libraries , required .
+```python
+pip install fastapi
+pip install python-dotenv
+pip install uvicorn
+```
+- Now we are setting up some simple API endpoints . Here you will be required to save the CLIENT ID and CLIENT SECRET into a .env file.
+- Below is the code you can copy paste .
+```python
+
+from dotenv import load_dotenv
+from fastapi import FastAPI
+import os
+import webbrowser
+
+app = FastAPI()
+load_dotenv()
+
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET =os.getenv('GOOGLE_CLIENT_SECRET')
+GOOGLE_REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI')
+
+url = f"https://accounts.google.com/o/oauth2/auth?response_type=code&client_id={GOOGLE_CLIENT_ID}&redirect_uri={GOOGLE_REDIRECT_URI}&scope=openid%20profile%20email%20https://www.googleapis.com/auth/gmail.readonly&access_type=offline"
+
+webbrowser.open(url)
+
+@app.get("/test")
+async def test_google(code:str):
+
+    # token_url = "https://accounts.google.com/o/oauth2/token"
+    print("Printing authorisation token")
+    print(code)
+    token_url="https://oauth2.googleapis.com/token"
+    data = {
+        "code": code,
+        "client_id": GOOGLE_CLIENT_ID,
+        "client_secret": GOOGLE_CLIENT_SECRET,
+        "redirect_uri": GOOGLE_REDIRECT_URI,
+        "grant_type": "authorization_code",
+        "access_type": "offline"
+    }
+    response = requests.post(token_url, data=data)
+    
+    access_token = response.json().get("access_token")
+    print("printing access token , yo yo test")
+    print(access_token)
+    return {"access_token":response.json()}
+
+
+```
+- Once you have pasted the code into your python file . Create an .env file like given below.
+  
+  <img width="798" alt="image" src="https://github.com/user-attachments/assets/c0015c18-3d8b-4578-a0af-0e906814128f"/>
+
+- Paste all of your credentials line CLIENT_ID , CLIENT_SECRET .
+- For the redirect URI use this value : http://127.0.0.1:8080/test
+- Because we would be utilising uvicorn and port 8080 to execute the above code .
+- Once you have set the values in .env file , go to credentials on your GCP account and paste this value of redirect URI as show below.
+  
+<img width="798" alt="image" src="https://github.com/user-attachments/assets/08431df1-a5ff-414f-b869-c68b9cc6d5f9"/>
+
+
+  
+## 3. Library Usage
+
+- **Import required modules**
+```bash
+from receiptor import Receiptor
+from receiptor.llm_parser.gpt_4o_mini_parser.gpt_4o_mini import DocumentStructureExtractor
+```
+- **Setup OpenAi Api Keys as follows**
+  
+ Pass the API keys into the function.
+
+```python
+structured_data = DocumentStructureExtractor.structure_document_data(
+       raw_text=data.attachments[0].attachment_raw_text
+       ,openai_api_key = "" , org_id = ""
+   )
+```
+Note : org_id is optional , if you are using any organisation project then you may require this org_id , which can be obtained through open ai account dashboard. For more information you can go through open ai official (documentation)[https://platform.openai.com/docs/api-reference/making-requests]
+
+- **Initialize the Receiptor object**
+  
+```python
+obj = Receiptor()
+```
+- **Set up Gmail access token**
+  
+Obtain a Gmail access token through the OAuth2 flow. Store this token securely.
+
+```python
+access_token = "Your_Gmail_access_token_here"
+```
+
+- **Fetch and process receipt data**
+  
+```python
+for data in obj.fetch_receipt_data(access_token=access_token):
+    print(data)
+    if data.attachments:
+        # Print the raw text of the first attachment
+        print(data.attachments[0].attachment_raw_text)
+        
+        # Structure the attachment text using DocumentStructureExtractor
+        structured_data = DocumentStructureExtractor.structure_document_data(
+            raw_text=data.attachments[0].attachment_raw_text ,openai_api_key = "your api key" , org_id = "org id but this is optional"
+        )
+        print(structured_data)
+```
+## Example Outputs
+
+Main Data
+```python
+{
+"message_id": "1dsse2342dfs3",
+"body": "body text",
+"company": "zomato.com",
+"attachments": [
+"<models.attachment.Attachment object at 0x1040d45c0>",
+"<models.attachment.Attachment object at 0x10407b440>",
+"<models.attachment.Attachment object at 0x103f90980>"
+],
+"attachment_extension": "pdf"
+}
+```
+
+Attachment Raw Text
+
+```python
+Zomato Food Order: Summary and Receipt
+```
+Structured Document Data
+
+```python
+{
+"brand": "brand name",
+"total_cost": "189",
+"location": "New york",
+"purchase_category": "Food",
+"brand_category": "Culinary Services",
+"Date": "01-01-2024",
+"currency": "INR",
+"filename": "filename",
+"payment_method": null,
+"metadata": null
+}
+```
+
+With just these steps, Receiptor handles the complexity of interacting with multiple Gmail APIs, fetching the required emails, and retrieving all relevant information, including attachments.
+
+## Conclusion: Why Receiptor is a Game-Changer for Developers
+
+Receiptor is more than just a library; it's a solution born from real-world developer challenges.Hope receiptor makes your life easy for build data ingestion pipeline from gmail !!
+I hope that Receiptor helps you build amazing things without the headaches I encountered. 
+Happy coding!

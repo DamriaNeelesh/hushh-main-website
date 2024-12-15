@@ -1,0 +1,55 @@
+import Onboarding from '../../src/app/_components/developerApiContent/onboarding'
+import { Callout } from 'nextra/components'
+import AccessToken from '../../src/app/_components/developerApiContent/accessToken'
+import { Steps } from 'nextra/components'
+import '../fonts.css'
+
+<Steps>
+### On-boarding
+
+This API provides endpoints for accepting payments in your applications. Below, you'll find detailed information on how to integrate and use the API.
+
+<Callout type="info" emoji="ℹ️">
+ You need to access API key first to proceed further and then can access Access Token
+</Callout>
+
+### Authentication
+
+You need an API key. You can obtain your API key by signing up for an account on our platform. Use this API key in the Authorization header of your HTTP requests.
+
+
+
+<Callout type="warning" emoji="⚠️">
+ Make sure to never post your API publicly
+</Callout>
+
+<Onboarding/>
+
+
+
+### User Access Token
+
+Access token programmatically authenticate your identity to the developer api hub,
+allowing applications to perform specific api actions specified by the scope of permissions granted
+[Visit the documentation to know more](https://hushh.gitbook.io/hushh-docs)
+
+
+<Callout type="warning" emoji="⚠️">
+ Make sure to never post your access tokens publicly
+</Callout>
+
+<AccessToken/>
+
+</Steps>
+
+----
+
+
+
+### Support
+If you have any questions or need assistance, please contact our support team 
+at info@hush1one.com
+
+----
+
+© Copyright 2024. HushOne Inc. All rights reserved.

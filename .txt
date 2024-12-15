@@ -1,0 +1,241 @@
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  Input,
+  Text,
+  VStack,
+  useDisclosure,
+} from "@chakra-ui/react";
+import Modal from "../primitives/Modal";
+import { SearchIcon } from "@chakra-ui/icons";
+import { useResponsiveSizes } from "../../context/responsive";
+import contentMap from "../productData/contentMap";
+import { useRouter } from "next/navigation";
+import { useMediaQuery } from "react-responsive";
+
+const SearchBar = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showRecommendations, setShowRecommendations] = useState(false);
+  const [recommendations, setRecommendations] = useState([]);
+  const router = useRouter();
+  const isMobile = useResponsiveSizes();
+  const isDesktop = useMediaQuery({ query: "(min-width: 1824px)" });
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const inputRef = useRef(null);
+  const recommendationsRef = useRef(null);
+
+  const updateRecommendations = (query) => {
+    if (!query) {
+      setRecommendations([]);
+      setShowRecommendations(false);
+      return;
+    }
+
+    const matched = contentMap.filter(
+      (item) =>
+        item.keywords.some((keyword) =>
+          keyword.toLowerCase().includes(query.toLowerCase())
+        ) || item.content.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setRecommendations(matched);
+    setShowRecommendations(true);
+  };
+
+  useEffect(() => {
+    updateRecommendations(searchQuery);
+  }, [searchQuery]);
+
+  const handleChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const highlightMatchedText = (text, query) => {
+    const index = text.toLowerCase().indexOf(query.toLowerCase());
+    if (index !== -1) {
+      const startIndex = Math.max(0, isDesktop ? index - 10 : index - 25);
+      const endIndex = Math.min(
+        text.length,
+        isDesktop ? index + query.length + 15 : index + query.length + 20
+      );
+      const highlightedText = text.substring(startIndex, endIndex);
+      const formattedText = (
+        <Text as="span" key={index}>
+          ...{highlightedText.substring(0, index - startIndex)}
+          <Text as="span" fontWeight="bold">
+            {highlightedText.substring(
+              index - startIndex,
+              index - startIndex + query.length
+            )}
+          </Text>
+          {highlightedText.substring(index - startIndex + query.length)}
+          ...
+        </Text>
+      );
+      return formattedText;
+    }
+    return <Text>{text}</Text>;
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target) &&
+        recommendationsRef.current &&
+        !recommendationsRef.current.contains(event.target)
+      ) {
+        onClose();
+        setShowRecommendations(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <>
+      <Box maxH={"50vh"} maxW={"50vh"}>
+        <IconButton
+          icon={<SearchIcon color={"#606060"} boxSize={isMobile ? 20 : 32} />}
+          aria-label="Search"
+          className="search-icon"
+          onClick={onOpen}
+          colorScheme="#606060"
+        />
+        <Box
+          maxH={"50vh"}
+          maxW={"50vh"}
+          bgColor={"_lightestgray"}
+          borderRadius={"3xl"}
+          p={"30%"}
+          mb={2}
+        >
+          <Modal
+            modalContentStyle={{
+              // mx: "4",
+              borderRadius: "3xl",
+            }}
+            modalBodyStyle={{
+               bgColor:'blue',
+               borderRadius: "3xl",
+            }}
+            modalHeaderStyles={{ textAlign: "center" }}
+            // position="fixed"
+            id="searchModal"
+            isOpen={isOpen}
+            onClose={onClose}
+            isCentered={true}
+          >
+            <VStack spacing={4}>
+              <Flex width="100%">
+                <Input
+                  ref={inputRef}
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={handleChange}
+                  variant="filled"
+                  borderRadius="none"
+                  minWidth={"100%"}
+                  zIndex={"1000"}
+                  size="md"
+                  bg="black"
+                  color={"white"}
+                  _hover={{ background: "none" }}
+                  border={"3px solid #606060"}
+                  _focus={{ color: "#FFFFFF", border: "1px solid #FFFFFF" }}
+                  _placeholder={{ color: "gray.400" }}
+                  px="4"
+                  py="2"
+                />
+              </Flex>
+              {showRecommendations && (
+                <VStack
+                  align="stretch"
+                  position="absolute"
+                  zIndex="10"
+                  borderRadius={"16px"}
+                  ref={recommendationsRef}
+                  bg="white"
+                  shadow="md"
+                  maxH="300px"
+                  overflowY="auto"
+                  p={15}
+                  maxW={"25rem"}
+                >
+                  {recommendations.length === 0 ? (
+                    <Box
+                      p={3}
+                      minW={{ base: "90%", md: "20rem" }}
+                      borderBottom="1px solid"
+                      borderColor="gray.200"
+                      display={"flex"}
+                      gap={"1rem"}
+                    >
+                      <Text
+                        color={"#111B29"}
+                        fontSize={"1rem"}
+                        fontWeight={"600"}
+                      >
+                        No results found
+                      </Text>
+                    </Box>
+                  ) : (
+                    recommendations.map((rec, index) => (
+                      <Box
+                        key={index}
+                        onClick={() => {
+                          router.push(rec.url);
+                          setShowRecommendations(false);
+                          onClose();
+                        }}
+                        _hover={{ bg: "gray.100", cursor: "pointer" }}
+                        p={3}
+                        minW={{ base: "90%", md: "20rem" }}
+                        borderBottom="1px solid"
+                        borderColor="gray.200"
+                        display={"flex"}
+                        gap={"1rem"}
+                      >
+                        <Box>{rec.icon}</Box>
+                        <Box display={"flex"} flexDirection={"column"}>
+                          <Text
+                            color={"#111B29"}
+                            fontSize={"1rem"}
+                            fontWeight={"600"}
+                          >
+                            {highlightMatchedText(
+                              rec.showRecommentationContentHeading,
+                              searchQuery
+                            )}
+                          </Text>
+                          <Text fontSize={"0.8rem"} fontWeight={"300"}>
+                            {highlightMatchedText(
+                              rec.showRecommentationContentDescription,
+                              searchQuery
+                            )}
+                          </Text>
+                          <Text fontSize={"0.7rem"} fontWeight={"300"}>
+                            {highlightMatchedText(rec.content, searchQuery)}
+                          </Text>
+                        </Box>
+                      </Box>
+                    ))
+                  )}
+                </VStack>
+              )}
+            </VStack>
+          </Modal>
+        </Box>
+      </Box>
+    </>
+  );
+};
+
+export default SearchBar;

@@ -1,0 +1,591 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Figtree" !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+/* Header CSS */
+.login {
+  display: flex;
+  gap: 0.5rem !important;
+}
+
+.search-icon {
+  width: 32;
+  height: 32;
+}
+
+/*  */
+
+.scrolled {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/*         background: linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%);
+ */
+
+.trust-text {
+  position: relative;
+  font-weight: 700;
+}
+
+.gradient {
+  background: linear-gradient(to right, #7a7a7e, #ffffff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.color-gradient {
+  background: linear-gradient(to right, #e54d60, #a342ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hushh-gradient {
+  background: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+  -webkit-background-clip: text;
+  color: transparent;
+  border-color: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+}
+
+.personalized-demo {
+  background: linear-gradient(265.12deg, #e54d60 4.12%, #a342ff 51.75%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.new-gradient {
+  background: linear-gradient(263.99deg, #e54d60 71.61%, #a342ff 99.22%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hackathon-gradient {
+  background: linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.default-gradient {
+  background: linear-gradient(#e54d60 8.81%, #a342ff 94.26%);
+  -webkit-background-clip: text;
+  color: transparent;
+  border-color: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+}
+
+/* Perfect Gradient Color for Background */
+.gradient-bg {
+  background: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+}
+
+.new-gradient-bg {
+  background: linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%);
+}
+
+.border-gradient {
+  background: linear-gradient(to right, white 0%, purple 20%, white 100%);
+}
+
+.border-gradient::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 0.1rem;
+  background: linear-gradient(to bottom, #fbf7ff 0%, #3a3a3a 50%, #fbf7ff 100%);
+}
+
+@media only screen and (max-width: 768px) {
+  .desktop-view {
+    display: none;
+  }
+
+  .hideDesktopSVG {
+    opacity: 0;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .mobile-view {
+    display: none;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #E54D60, #A342FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+
+/* :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} */
+
+/* Our technology Section  - HOME PAGE */
+.heading2 {
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.8rem;
+}
+
+/* Search Bar CSS */
+/* .search-highlight {
+  background: linear-gradient(to right, #E54D60, #A342FF); 
+  -webkit-background-clip: text;
+  color: transparent;
+} */
+
+/* Divider Gradient Color */
+.divider {
+  border: 2px solid;
+  color: linear-gradient(270deg, #262626 100%, #ada785 100%);
+}
+
+/* Slide Up text animation - home banner */
+.wrapper {
+  display: inline-flex;
+  overflow: hidden;
+  height: 1.2em;
+}
+
+.words {
+  display: flex;
+  flex-direction: column;
+  animation: cycleWords 12s infinite;
+}
+
+.slideText {
+  height: 100%;
+}
+
+@keyframes cycleWords {
+  0%, 10% {
+    transform: translateY(0%); /* Show the first word */
+  }
+  15%, 25% {
+    transform: translateY(-100%); /* Slide up to the second word */
+  }
+  30%, 40% {
+    transform: translateY(-200%); /* Slide up to the third word */
+  }
+  45%, 55% {
+    transform: translateY(-300%); /* Slide up to the third word */
+  }
+  60%, 70% {
+    transform: translateY(-400%); /* Slide up to the third word */
+  }
+  75%, 85% {
+    transform: translateY(-500%); /* Slide up to the third word */
+  }
+}
+
+pre {
+  overflow-x: auto; /* Allows horizontal scrolling within the code block */
+  white-space: pre-wrap; /* Wraps long lines */
+  word-wrap: break-word; /* Breaks long words */
+}
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+    .slideText {
+      font-size: 2rem;
+      line-height: 2.5rem;
+      width: 100%;
+      white-space: nowrap;
+    }
+    .words {
+      width: 100%; /* Ensure full width for mobile */
+    }
+  
+    .wrapper {
+      height: 2.5rem;
+      width: 100% !important;
+    }
+}
+  
+@media screen and (min-width: 769px) {
+    .slideText {
+      font-size: 5rem;
+      line-height: 5.5rem;
+      white-space: nowrap;
+    }
+  
+    .wrapper {
+      height: 5.5rem;
+    }
+}
+
+/* Chatbot Popup Notification CSS */
+.popup {
+  margin-bottom: 1rem;
+  position: fixed;
+  bottom: 80px;
+  /* Adjust based on the chatbot icon's positioning */
+  right: 80px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  /* Ensure it's above other content */
+}
+
+/* Customer review Slider CSS */
+.swiper-pagination {
+  top: -10 !important;
+  bottom: -2 !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: #7a7a7e !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ffffff !important;
+}
+
+.review-text::before,
+.review-text::after {
+  font-family: "Figtree";
+  background: linear-gradient(to right, #e54d60, #a342ff);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 2em;
+  /* Adjust the size */
+}
+
+.review-text::before {
+  content: "“";
+  margin-right: 0.1em;
+}
+
+.review-text::after {
+  content: "”";
+  margin-left: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .review-text::before,
+  .review-text::after {
+    font-size: 1.5em;
+  }
+}
+
+/* Hushh Button CSS  */
+
+@media screen and (max-width: 1024px) {
+  .frameCard1 {
+    display: none;
+  }
+
+  .hushhbuttonFrame2 {
+    display: none;
+  }
+}
+
+/* CSS for FAQ Accordian Tabs  */
+
+.gradientText {
+  background: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline;
+}
+
+.gradientUnderline {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%);
+}
+
+/* Hushh Wallet Page CSS */
+.walletDivider {
+  background: linear-gradient(to right, #7a7a7e, #ffffff);
+  content: "";
+  display: block;
+  height: 1px;
+}
+
+/* Top Loader CSS */
+@media (max-width: 767px) {
+  .spinner {
+    display: none !important;
+  }
+}
+
+/* Booking Demo Page CSS form */
+/* CSS */
+.PhoneInputCountrySelectArrow {
+  color: #ffffff;
+  margin-right: 0.15rem;
+}
+
+.formInput:active {
+  border-color: #ffffff; /* Set border color to white when input is focused */
+}
+
+.PhoneInputCountrySelectArrow:focus {
+  background-color: #ffffff;
+}
+
+.PhoneInputCountryFlag:focus {
+  outline: none;
+  border: none;
+}
+
+.PhoneInputInput {
+  background: #151515;
+  color: #ffffff;
+  border: 1px solid #242424 !important; /* Remove single quotes around the border value */
+  height: 2.5rem;
+  border-radius: 5px;
+  flex: 1;
+  min-width: 0;
+  padding: 1rem;
+}
+
+.PhoneInputInput:focus {
+  border: 1px solid #ffffff !important; /* Adjust border color when focused */
+}
+
+.PhoneInputInternationalIconPhone {
+  color: #ffffff;
+}
+
+.PhoneInputInternationalIconGlobe {
+  color: #ffffff;
+}
+
+.PhoneInput {
+  border-color: #242424;
+  border-radius: 5px;
+}
+
+.PhoneInput {
+  /* This is done to stretch the contents of this component. */
+  display: flex;
+  align-items: center;
+}
+/* Pricing Plan Hover Effect CSS */
+.plan {
+  background-color: #131414;
+  color: white;
+}
+
+.plan:hover {
+  background-color: #146EF5;
+  color: #FFFFFF;
+  /* cursor: pointer; */
+}
+
+.plan:hover .planName {
+  background: #FFFFFF;
+  color: #080808;
+}
+
+.plan:hover .planAdvertisment {
+  color:#FFFFFF;
+}
+
+.plan:hover .planButton {
+  background: #FFFFFF;
+  color: #080808;
+}
+
+
+/* Blog page mdx CSS */
+.highlightMdx {
+  background-color: rgb(36, 41, 46);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+/* Develoepr API dovumentation CSS */
+.onBoarding {
+  font-family: "Inter" !important;
+}
+
+.documentTab {
+  color:'white';
+  background: #080808;
+}
+
+
+
+/* Developer API feedback form CSS */
+.feedbackForm {
+  text-align: center;
+  height: 40vmin;
+}
+
+.feedbackForm-link {
+  color: #fba461;
+}
+
+.phoneInput {
+  color: gray.400;
+  border: gray.700;
+  background: transparent;
+  margin-bottom: 4;
+  padding: 3;
+  width: 100%;
+  text-decoration-color: white;
+}
+
+/* 3-D Button Viva Connect */
+
+
+/* Hushh Outbound Services CSS */
+.serviceBox {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+/* Header hiding for desktop and mobile issue */
+.mobile-header {
+  display: none; /* Hide mobile header by default */
+}
+
+.desktop-header {
+  display: block; /* Show desktop header by default */
+}
+
+/* Use media queries to control visibility */
+@media (max-width: 768px) {
+  .mobile-header {
+      display: flex; /* Show mobile header on small screens */
+  }
+  .desktop-header {
+      display: none; /* Hide desktop header on small screens */
+  }
+}
+
+/* Contact Form CSS  */
+@media (max-width: 768px) {
+  #form {
+    width: 100%; /* Full width */
+    padding: 1rem; /* Add padding */
+  }
+
+  input, textarea, button {
+    width: 100%; /* Full width for inputs and button */
+    margin-bottom: 1rem; /* Space between elements */
+  }
+
+  .radio-group {
+    flex-direction: column; /* Stack radio buttons vertically */
+  }
+}
+@media (max-width: 768px) {
+.nextra-nav-container {
+  display: flex !important;
+  flex-direction: row;
+  font-size: 0.75rem;
+  font-weight: 800;
+  width: 5rem;
+  padding: 0 !important;
+  justify-content: space-between !important;
+}
+}
+
+
+/* ... existing code ... */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #080808;
+  color: #ffffff;
+}
+
+.brand {
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nextra-search input {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+}
+
+.login-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.login-button {
+  margin-left: 0.5rem;
+  background-color: transparent;
+  border: none;
+  color: var(--button-text-color);
+}
+
+.nextra-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #080808;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 1rem;
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .nextra-hamburger {
+    display: block;
+  }
+}
+
+/* ... existing code ... */
