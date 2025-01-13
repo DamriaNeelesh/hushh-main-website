@@ -221,6 +221,29 @@ const Onboarding = () => {
       
   };
 
+  const handleLogout = async () => {
+    try {
+      await config.supabaseClient.auth.signOut();
+      setSession(null); // Clear the session state
+      toast({
+        title: "Logged out",
+        description: "You have been successfully logged out.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast({
+        title: "Logout failed",
+        description: "An error occurred while logging out.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
   function copyToClipboard(e) {
     textAreaRef.current.select();
     document.execCommand('copy');
@@ -280,10 +303,15 @@ const Onboarding = () => {
           </>
         )}
         {session && (
-          <Text fontSize="lg" fontWeight="bold" color="green.500">
-            Thank you for signing up, {session.user.email}!
-          </Text>
-        )}
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+      <Text fontSize="lg" fontFamily={'Inter ,sans-serif'} fontWeight="500" color="green.500">
+        Thank you for signing up, {session.user.email}
+      </Text>
+      <Button onClick={handleLogout} colorScheme="red" size="sm">
+        Logout
+      </Button>
+    </div>
+  )}
       </VStack>
     <div
       class=" shadow-sm text-white mt-8 onBoarding"

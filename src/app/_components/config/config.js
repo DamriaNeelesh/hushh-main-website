@@ -25,10 +25,8 @@ const config = {
   
   guestModeAccessToken:
     "P2H8RNXPvIiPoeM0iJEDjJ2Skk37h5pScMQF5oMRUXm3dKoUC2wxrWImx5ccA9VOrOoeaLcMQqn57vYDPucTkYnkkH6icUQy09vtd5eIrAIXhBtmUfAmPI3thD2OoUeF",
-    redirect_url:
-    redirect_urls[
-      "localhost:3000/developer-Api/on-boarding"
-    ],
+    redirect_url: redirect_urls[process.env.NODE_ENV || 'development'],
+
 };
 
 function createSupabaseClient() {
