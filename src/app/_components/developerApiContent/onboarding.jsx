@@ -45,52 +45,56 @@ const Onboarding = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  useEffect(() => {
-    async function handlePostSignIn() {
-      try {
-        console.log('Fetching the authenticated user...');
+  // ... existing code ...
 
-        // Fetch the authenticated user's session
-        const { data, error } = await config.supabaseClient.auth.getUser();
+useEffect(() => {
+  async function handlePostSignIn() {
+    try {
+      console.log('Fetching the authenticated user...');
 
-        if (error) {
-          console.error('Error fetching authenticated user:', error.message);
-          return;
-        }
+      // Fetch the authenticated user's session
+      const { data, error } = await config.supabaseClient.auth.getUser();
 
-        const user = data.user;
-        if (user) {
-          console.log('User fetched successfully:', user);
-
-          // Extract user data to be inserted
-          const userData = {
-            // user_id: user.id,
-            mail: user.email,
-            firstname: user.user_metadata?.full_name || null,
-            lastname: user.user_metadata?.full_name || null,
-            purpose:'Testing developer api onboarding',
-            password:user.user_metadata?.sub || null
-          };
-          console.log('Data to be inserted:', userData);
-
-          // Insert or update the user data into the 'dev_api_userprofile' table
-          const { error: upsertError } = await config.supabaseClient
-            .from('dev_api_userprofile')
-            .upsert([userData], { onConflict: 'mail' });
-
-          if (upsertError) {
-            console.error('Error inserting user data:', upsertError.message);
-          } else {
-            console.log('User data inserted successfully');
-          }
-        }
-      } catch (error) {
-        console.error('Unexpected error during post-sign-in handling:', error);
+      if (error) {
+        console.error('Error fetching authenticated user:', error.message);
+        return;
       }
-    }
 
+      const user = data.user;
+      if (user) {
+        console.log('User fetched successfully:', user);
+
+        // Extract user data to be inserted
+        const userData = {
+          mail: user.user_metadata?.email || null,
+          firstname: user.user_metadata?.full_name || null,
+          lastname: user.user_metadata?.full_name || null,
+          purpose: 'Testing developer api onboarding',
+          password: user.user_metadata?.sub || null
+        };
+        console.log('Data to be inserted:', userData);
+
+        // Insert or update the user data into the 'dev_api_userprofile' table
+        const { error: upsertError } = await config.supabaseClient
+          .from('dev_api_userprofile')
+          .upsert([userData], { onConflict: 'mail' });
+
+        if (upsertError) {
+          console.error('Error inserting user data:', upsertError.message);
+        } else {
+          console.log('User data inserted successfully');
+        }
+      }
+    } catch (error) {
+      console.error('Unexpected error during post-sign-in handling:', error);
+    }
+  }
+
+  if (session) {
     handlePostSignIn();
-  }, []);
+  }
+}, [session]);
+
 
   // async function fetchUserData() {
   //   try {
