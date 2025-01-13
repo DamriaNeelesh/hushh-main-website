@@ -127,12 +127,14 @@ const Onboarding = () => {
 
   const handleAppleSignIn = async () => {
     try {
-      await config.supabaseClient.auth.signInWithOAuth({
-        provider: "apple",
-        options: {
-          redirectTo: config.redirect_url,
-        },
-      });
+      // await config.supabaseClient.auth.signInWithOAuth({
+      //   provider: "apple",
+      //   options: {
+      //     redirectTo: config.redirect_url,
+      //   },
+      // });
+      await authentication.appleSignIn();
+
       console.log("Apple sign-in successful");
     } catch (error) {
       console.error("Apple sign-in error:", error);
