@@ -10,7 +10,9 @@ export default async function appleSignIn() {
     const { error } = await config.supabaseClient.auth.signInWithOAuth({
       provider: 'apple',
       options: {
-        redirectTo: redirectURL,
+        redirectTo: process.env.NODE_ENV === "development"
+          ? "http://localhost:3000/developer-Api/on-boarding" // Development URI
+          : "https://hushh.ai/developer-Api/on-boarding", // Production URI
         clientId: process.env.APPLE_CLIENT_ID, 
         // redirectURI:'http://localhost:3000/developer-Api/on-boarding',
         clientSecret: process.env.APPLE_CLIENT_SECRET,

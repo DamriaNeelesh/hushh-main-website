@@ -56,7 +56,9 @@ export default async function googleSignIn() {
     const { error } = await config.supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'http://localhost:3000/developer-Api/on-boarding',
+        redirectTo: process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/developer-Api/on-boarding" // Development URI
+        : "https://hushh.ai/developer-Api/on-boarding", // Production URI
       },
     });
 
