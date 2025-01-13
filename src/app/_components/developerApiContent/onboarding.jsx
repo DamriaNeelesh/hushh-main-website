@@ -227,6 +227,37 @@ const Onboarding = () => {
     e.target.focus();
     setCopySuccess('Copied!');
   };
+  function generateRandomString(length = 16) {
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      result += charset[randomIndex];
+    }
+    return result;
+  }
+
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.src = "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js";
+  //   script.type = "text/javascript";
+  //   script.async = true;
+  //   script.onload = () => {
+  //     // Initialize AppleID.auth after the script is loaded
+  //     AppleID.auth.init({
+  //       clientId: "com.hushhone.hushh.service, com.hushhone.hushh",
+  //       // scope: "[SCOPES]",
+  //       redirectURI: "http://localhost:3000/developer-Api/on-boarding",
+  //       state: generateRandomString(), // Function to generate a random string
+  //       nonce:  generateRandomString(),
+  //       usePopup: true,
+  //     });
+  //   };
+  //   document.body.appendChild(script);
+  //   return () => {
+  //     document.body.removeChild(script);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -239,6 +270,8 @@ const Onboarding = () => {
             <Button onClick={handleGoogleSignIn} colorScheme="blue">
               Sign in with Google
             </Button>
+            {/* <div id="appleid-signin" data-color="black" data-border="true" data-type="sign in"></div> */}
+
             <Button onClick={handleAppleSignIn} colorScheme="blackAlpha">
               Sign in with Apple
             </Button>
