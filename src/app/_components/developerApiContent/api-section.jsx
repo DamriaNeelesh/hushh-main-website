@@ -71,9 +71,9 @@ import {
             >
               {endpoint.method}
             </Badge>
-            <Text fontWeight="bold" mr={2} color="gray.700">
+            {/* <Text fontWeight="bold" mr={2} color="gray.700">
               {endpoint.path}
-            </Text>
+            </Text> */}
             <Text color="gray.500">{endpoint.description}</Text>
           </Flex>
           <CopyButton textToCopy={endpoint.path} />
@@ -86,6 +86,9 @@ import {
             {/* Request Body */}
             {Object.keys(endpoint.requestBody).length > 0 && (
               <Box w="full">
+                <Text fontWeight="900" mr={2} color="gray.700" my={5}>
+              Endpoint : <span style={{fontWeight:'400'}}>{endpoint.path}</span>
+            </Text>
                 <Text fontWeight="bold">Request Body:</Text>
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                   {Object.keys(endpoint.requestBody).map((key) => (

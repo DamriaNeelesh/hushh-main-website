@@ -124,7 +124,7 @@ const dataRetrievalEndpoints = [
 
 const DataRetrieval = () => (
     <Box p={5}>
-      <Heading mb={6} color="teal.500">Data Retrieval APIs</Heading>
+      <Heading mb={6} color="black">Data Retrieval APIs</Heading>
       {dataRetrievalEndpoints.map((endpoint, idx) => <ApiSection key={idx} endpoint={endpoint} />)}
     </Box>
   );
