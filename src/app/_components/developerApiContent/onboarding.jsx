@@ -14,11 +14,37 @@ const Onboarding = () => {
   const [apiKey, setApiKey] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const { data: session, token } = useSession()
+  // const { data: session, token } = useSession()
   const [copySuccess, setCopySuccess] = useState('Copy');
   const textAreaRef = useRef(null);
   const toast = useToast();
-  
+  const [session, setSession] = useState(null)
+
+  useEffect(() => {
+    // Get the current session
+    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      if (session) {
+        toast({
+          title: "Thank you for signing up!",
+          description: `Welcome back, ${session.user.email}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    });
+
+    // Listen for auth state changes
+    const {
+      data: { subscription },
+    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   useEffect(() => {
     async function handlePostSignIn() {
       try {
@@ -101,7 +127,12 @@ const Onboarding = () => {
 
   const handleAppleSignIn = async () => {
     try {
-      await authentication.appleSignIn();
+      await config.supabaseClient.auth.signInWithOAuth({
+        provider: "apple",
+        options: {
+          redirectTo: config.redirect_url,
+        },
+      });
       console.log("Apple sign-in successful");
     } catch (error) {
       console.error("Apple sign-in error:", error);
@@ -200,16 +231,25 @@ const Onboarding = () => {
   return (
     <>
     <VStack spacing={4}>
-      <Text fontSize="lg" fontWeight="bold">
-        Sign in to access the Developer API
-      </Text>
-      <Button onClick={handleGoogleSignIn} colorScheme="blue">
-        Sign in with Google
-      </Button>
-      <Button onClick={handleAppleSignIn} colorScheme="blackAlpha">
-        Sign in with Apple
-      </Button>
-    </VStack>
+        {!session && (
+          <>
+            <Text fontSize="lg" fontWeight="bold">
+              Sign in to access the Developer API
+            </Text>
+            <Button onClick={handleGoogleSignIn} colorScheme="blue">
+              Sign in with Google
+            </Button>
+            <Button onClick={handleAppleSignIn} colorScheme="blackAlpha">
+              Sign in with Apple
+            </Button>
+          </>
+        )}
+        {session && (
+          <Text fontSize="lg" fontWeight="bold" color="green.500">
+            Thank you for signing up, {session.user.email}!
+          </Text>
+        )}
+      </VStack>
     <div
       class=" shadow-sm text-white mt-8 onBoarding"
       data-v0-t="card"
