@@ -7,11 +7,18 @@ export default async function appleSignIn() {
         : "https://hushh.ai/developer-Api/on-boarding";
 
     console.log("Starting Apple Sign-In process...");
+    const appleConfig = {
+      clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID,
+      teamId: process.env.NEXT_PUBLIC_APPLE_TEAM_ID,
+      privateKey: process.env.NEXT_PUBLIC_APPLE_PRIVATE_KEY,
+      keyId: process.env.NEXT_PUBLIC_APPLE_KEY_ID,
+    };
 
     const { data, error } = await config.supabaseClient.auth.signInWithOAuth({
       provider: "apple",
       options: {
         redirectTo: redirectTo,
+        ...appleConfig,
       },
     });
 
