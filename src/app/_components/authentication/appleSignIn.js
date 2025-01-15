@@ -4,7 +4,7 @@ export default async function appleSignIn() {
     const redirectTo =
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000/developer-Api/on-boarding"
-        : "https://hushh.ai/developer-Api/on-boarding";
+        : "https://rpmzykoxqnbozgdoqbpc.supabase.co/auth/v1/callback";
 
     console.log("Starting Apple Sign-In process...");
     const appleConfig = {
