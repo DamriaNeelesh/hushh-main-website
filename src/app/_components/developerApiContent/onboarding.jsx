@@ -66,6 +66,7 @@ useEffect(() => {
 
         // Extract user data to be inserted
         const userData = {
+          user_id: user?.id || null ,
           mail: user.user_metadata?.email || null,
           firstname: user.user_metadata?.full_name || null,
           lastname: user.user_metadata?.full_name || null,
