@@ -15,6 +15,7 @@ import {
   } from "@chakra-ui/react";
   import emailjs from "@emailjs/browser";
 import { useState } from "react";
+import Header from '../../src/app/_components/header'
 
 const JobDetailPage = () => {
   const router = useRouter();
@@ -76,6 +77,8 @@ const JobDetailPage = () => {
   }
 
   return (
+    <>
+    <Header backgroundColor={'black'}/>
     <Box bg="black"  color="white" minH="100vh" mx={'auto'}>
       <Box className="gradient-bg " py={20} px={{ base: 6, md: 12 }}>
         <VStack align="start" spacing={4}>
@@ -142,7 +145,7 @@ const JobDetailPage = () => {
                 ))
               )}
             </UnorderedList>
-            {job.additionalRequirements.length > 0 && job.personalRequirements.length > 0 && (
+            {job?.additionalRequirements?.length > 0 && job?.personalRequirements?.length > 0 && (
               <UnorderedList spacing={3}>
                 {job.personalRequirements.map((item, index) => (
                   <ListItem key={index}>{item}</ListItem>
@@ -222,6 +225,7 @@ const JobDetailPage = () => {
       </Box>
 
     </Box>
+    </>
   );
 };
 

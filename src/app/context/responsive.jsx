@@ -3,7 +3,14 @@
 import { createContext, useContext } from "react";
 import { useMediaQuery } from "@chakra-ui/react";
 
-export const responsiveSizeContext = createContext(null);
+// Provide a default value to avoid null issues
+const defaultResponsiveSizes = {
+  isMobile: false,
+  isTablet: false,
+  isDesktop: false,
+};
+
+export const responsiveSizeContext = createContext(defaultResponsiveSizes);
 
 export default function ResponsiveSizeProvider({ children }) {
   // mobile media query. (UPDATED TO TARGET TABLETS)

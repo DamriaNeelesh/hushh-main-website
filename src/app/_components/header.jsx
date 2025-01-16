@@ -30,7 +30,7 @@ import UnicodeQR from "./svg/onelinkQrdownload.svg"
 import { isMobile, isAndroid, isIOS } from 'react-device-detect';
 
 
-export default function Header() {
+export default function Header({backgroundColor}) {
 
   const { isTablet, isDesktop } = useResponsiveSizes();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -183,7 +183,7 @@ export default function Header() {
   return (
     <>
   {shouldShowHeader &&
-    <div className={`w-full z-1000`}>
+    <div className={`w-full z-1000`} style={{background: backgroundColor}}>
       <div className=" flex items-center justify-between w-full px-3 py-2 z-1000 md:px-16 md:py-5">
         <div className="flex-1">
           <Link href="/">
@@ -200,7 +200,7 @@ export default function Header() {
        </div>
         ) : (
           // This is for desktop screens
-          <div className={`w-full px-0 desktop-header ${isMobile ? 'hidden' : ''}`}>
+          <div  className={`w-full px-0 desktop-header ${isMobile ? 'hidden' : ''}`}>
             <div className="text-white ml-12 flex gap-12 px-7 md:gap-10 text-md">
               {/* <Link
                 href="/"
@@ -375,7 +375,7 @@ export default function Header() {
           </div>
         )}
 
-        <div className="">
+        <div className="" style={{background: backgroundColor}}>
           { isDesktop && (
             <div className="login">
               {/* <SearchBar /> */}
