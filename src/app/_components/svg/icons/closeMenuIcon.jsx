@@ -2,7 +2,7 @@ export function CloseMenuIcon(props) {
   return (
     <svg
       dataSlot="icon"
-      fill="none"
+      fill="white"
       strokeWidth={1.5}
       stroke="#FFFFFF"
       viewBox="0 0 24 24"

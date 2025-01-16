@@ -191,13 +191,13 @@ export default function Header({backgroundColor}) {
           </Link>
         </div>
         {isMobile ? (
-         <div className="flex items-center justify-end w-full mobile-header py-2">
-         <Container display={"flex"} gap={"1rem"}>
-           <div className="text-white" onClick={handleMenuIconToggle}>
-             {isMenuOpen ? <CloseMenuIcon /> : <Bars3Icon />}
-           </div>
-         </Container>
-       </div>
+          <div className="flex items-center justify-end w-full mobile-header py-2">
+          <Container display={"flex"} gap={"1rem"}>
+            <div className="text-white bg-black" onClick={handleMenuIconToggle}>
+              {isMenuOpen ? <CloseMenuIcon color="white" /> : <Bars3Icon />}
+            </div>
+          </Container>
+        </div>
         ) : (
           // This is for desktop screens
           <div  className={`w-full px-0 desktop-header ${isMobile ? 'hidden' : ''}`}>
@@ -259,6 +259,13 @@ export default function Header({backgroundColor}) {
                 className={`link ${pathname === '/contact-us' ? 'gradient-text' : ''}`}
               >
                 CONTACT US
+              </Link>
+              <Link
+                href="/hushh-press"
+                onMouseEnter={() => setProductsSubmenu(false)}
+                className={`link ${pathname === '/hushh-press' ? 'gradient-text' : ''}`}
+              >
+                HUSHH PUBLISH
               </Link>
             </div>
             {productsSubmenu && (
@@ -500,12 +507,17 @@ export default function Header({backgroundColor}) {
                     </Link>
                   </li>
                   <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
-
+                  <li>
+                    <Link style={{fontWeight:'700'}} onClick={() => setIsMenuOpen(false)} href="/hushh-press" className="text-lg text-white">
+                      Hushh Press
+                    </Link>
+                  </li>
                   <li>
                     <Link style={{fontWeight:'700'}} onClick={() => setIsMenuOpen(false)} href="/hushhBlogs" className="text-lg text-white">
                       Blogs
                     </Link>
                   </li>
+
                 </ul>
               </div>
         
