@@ -52,7 +52,7 @@ const FooterComponent = () => {
   return (
     <>
       <div
-        className=" bg-footerBG text-white md:pt-[105px]"
+        className=" bg-footerBG text-white pt-[375px]"
         style={{ zIndex: "-2 !important" }}
       >
         {/* Desktop View */}
