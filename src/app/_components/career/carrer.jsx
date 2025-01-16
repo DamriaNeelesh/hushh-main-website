@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Heading,
@@ -14,11 +14,16 @@ import {
   Flex,
   List,
   ListItem,
+  useMediaQuery,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { jobs } from "./jobs";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 // const offices = ["Any", "Remote", "Palo Alto", "San Francisco", "Memphis", "Atlanta", "London", "Bay Area"];
 // const departments = ["Any", "Research, Engineering & Product", "Human Data", "Data Center Operations", "Other"];
@@ -27,6 +32,7 @@ const CareerPage = () => {
   const [selectedOffice, setSelectedOffice] = useState("Any");
   const [selectedDepartment, setSelectedDepartment] = useState("Any");
   const router = useRouter();
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   const offices = ["Any", "Pune, India", "United States"];
   const departments = [
@@ -45,6 +51,16 @@ const CareerPage = () => {
     return matchesOffice && matchesDepartment;
   });
 
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true); // Ensure component is hydrated on the client
+  }, []);
+
+  if (!isHydrated) {
+    return null; // Don't render anything until the client is hydrated
+  }
+
   const handleJobClick = (id) => {
     router.push(`/job/${id}`); // Navigate to job details page
   };
@@ -57,7 +73,7 @@ const CareerPage = () => {
         bg={"black"}
         fontFamily={"aktiv-grotesk ,sans-serif"}
       >
-        <VStack mx={'3rem'} spacing={8} align="center" mt={{ md: "5rem", base: "2.5rem" }}>
+        <VStack mx={{md:'3rem',base:'0'}} spacing={8} align="center" mt={{ md: "5rem", base: "2.5rem" }}>
           <Heading
             as="h1"
             textAlign={"center"}
@@ -397,85 +413,128 @@ const CareerPage = () => {
       </Box>
 
       <Box
-        bg="black"
-        color="white"
-        minH="100vh"
-        py={10}
-        px={{ base: 4, md: 12 }}
-      >
-        <VStack align="start" spacing={4} mb={6}>
-          <HStack spacing={4}>
-            <Text fontWeight="bold">Office:</Text>
+  bg="black"
+  color="white"
+  minH="100vh"
+  py={10}
+  px={{ base: 4, md: 12 }}
+>
+  <VStack align="start" spacing={4} mb={6}>
+    {/* Office Block */}
+    <HStack spacing={4}>
+      <Text fontWeight="bold">Office:</Text>
+      {isMobile ? (
+        <Menu>
+          <MenuButton p={2} as={Button} rightIcon={<ChevronDownIcon />}>
+            {selectedOffice || "Select Office"}
+          </MenuButton>
+          <MenuList bg="black" borderColor="#444">
             {offices.map((office) => (
-              <Button
+              <MenuItem
                 key={office}
-                variant="ghost"
-                color={selectedOffice === office ? "white" : "#aaa"}
+                bg={selectedOffice === office ? "whiteAlpha.200" : "black"}
+                _hover={{ bg: "whiteAlpha.300" }}
                 onClick={() => setSelectedOffice(office)}
               >
                 {office}
-              </Button>
+              </MenuItem>
             ))}
-          </HStack>
-          <Divider borderColor="#444" />
-          <HStack spacing={4}>
-            <Text fontWeight="bold">Department:</Text>
+          </MenuList>
+        </Menu>
+      ) : (
+        offices.map((office) => (
+          <Button
+            key={office}
+            variant="ghost"
+            color={selectedOffice === office ? "white" : "#aaa"}
+            onClick={() => setSelectedOffice(office)}
+          >
+            {office}
+          </Button>
+        ))
+      )}
+    </HStack>
+    <Divider borderColor="#444" />
+
+    {/* Department Block */}
+    <HStack spacing={4}>
+      <Text fontWeight="bold">Department:</Text>
+      {isMobile ? (
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            {selectedDepartment || "Select Department"}
+          </MenuButton>
+          <MenuList bg="black" borderColor="#444">
             {departments.map((department) => (
-              <Button
+              <MenuItem
                 key={department}
-                variant="ghost"
-                color={selectedDepartment === department ? "white" : "#aaa"}
+                bg={selectedDepartment === department ? "whiteAlpha.200" : "black"}
+                _hover={{ bg: "whiteAlpha.300" }}
                 onClick={() => setSelectedDepartment(department)}
               >
                 {department}
-              </Button>
+              </MenuItem>
             ))}
-          </HStack>
-          <Divider borderColor="#444" />
-        </VStack>
+          </MenuList>
+        </Menu>
+      ) : (
+        departments.map((department) => (
+          <Button
+            key={department}
+            variant="ghost"
+            color={selectedDepartment === department ? "white" : "#aaa"}
+            onClick={() => setSelectedDepartment(department)}
+          >
+            {department}
+          </Button>
+        ))
+      )}
+    </HStack>
+    <Divider borderColor="#444" />
+  </VStack>
 
-        {/* Job Listings */}
-        <VStack align="start" spacing={6}>
-          {filteredJobs.length > 0 ? (
-            <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4} w="100%">
-              {filteredJobs.map((job) => (
-                <Flex
-                  key={job.id}
-                  border="1px solid #444"
-                  p={4}
-                  cursor="pointer"
-                  onClick={() => handleJobClick(job.id)}
-                  _hover={{ borderColor: "white" }}
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Box flex="0.3">
-                    <Text fontWeight="bold" color="#aaa">
-                      {job.department}
-                    </Text>
-                  </Box>
-                  <Box
-                    flex="0.7"
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <Box>
-                      <Text fontWeight="bold">{job.title}</Text>
-                      <Text fontSize="sm" color="#aaa">
-                        {job.location}
-                      </Text>
-                    </Box>
-                    <ArrowForwardIcon color="#aaa" />
-                  </Box>
-                </Flex>
-              ))}
-            </SimpleGrid>
-          ) : (
-            <Text color="#aaa">No jobs found for the selected filters.</Text>
-          )}
-        </VStack>
-      </Box>
+  {/* Job Listings */}
+  <VStack align="start" spacing={6}>
+    {filteredJobs.length > 0 ? (
+      <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4} w="100%">
+        {filteredJobs.map((job) => (
+          <Flex
+            key={job.id}
+            border="1px solid #444"
+            p={4}
+            cursor="pointer"
+            onClick={() => handleJobClick(job.id)}
+            _hover={{ borderColor: "white" }}
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Box flex="0.3">
+              <Text fontWeight="bold" color="#aaa">
+                {job.department}
+              </Text>
+            </Box>
+            <Box
+              flex="0.7"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Box>
+                <Text fontWeight="bold">{job.title}</Text>
+                <Text fontSize="sm" color="#aaa">
+                  {job.location}
+                </Text>
+              </Box>
+              <ArrowForwardIcon color="#aaa" />
+            </Box>
+          </Flex>
+        ))}
+      </SimpleGrid>
+    ) : (
+      <Text color="#aaa">No jobs found for the selected filters.</Text>
+    )}
+  </VStack>
+</Box>;
     </>
   );
 };
