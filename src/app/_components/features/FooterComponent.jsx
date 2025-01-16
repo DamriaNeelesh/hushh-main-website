@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from "react";
 import HushhFooterLogo from "../svg/hushhFooterLogo";
 import Link from "next/link";
