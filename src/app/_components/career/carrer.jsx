@@ -39,8 +39,14 @@ const CareerPage = () => {
 
   const countries = ["Any", "India", "United States"];
   const employmentTypes = ["Any", "Internship", "Full-time"];
-  const categories = ["Any", "Software Development", "AI/ML", "Data Center Operations", "Product Management"];
-
+  const categories = [
+    "Any",
+    "Software Development",
+    "Customer Success",
+    "Data Science",
+    "AI/ML",
+    "Human Resources"
+  ];
   const filteredJobs = jobs.filter((job) => {
     const matchesCountry =
       selectedCountry === "Any" || job.country === selectedCountry;

@@ -33,6 +33,7 @@ export const jobs = [
     title: "Software Engineer Intern (Mobile/Web/Wallet)",
     country:"India",
     employmentType:"Internship",
+    category:"Software Development",
     location: "Bengaluru, Pune, Mumbai",
     department: "Software Development",
     aboutCompany:
@@ -61,8 +62,9 @@ export const jobs = [
     title: "Customer Engineer & Hacker Intern",
     country:"India",
     employmentType:"Internship",
+    category:"Customer Success",
     location: "Bengaluru, Pune, Mumbai",
-    department: "Software Development",
+    department: "Customer Success",
     aboutCompany:
       "At Hushh, we're building “Intelligence as a Service” to make user data accessible and valuable. We operate within our unique Hushh Garages, promoting a close-knit, collaborative environment. We are looking for mobile hackers who thrive in this fast-paced environment.",
     responsibilities: [
@@ -91,7 +93,8 @@ export const jobs = [
     country:"India",
     employmentType:"Internship",
     location: "Bengaluru, Pune, Mumbai",
-    department: "Software Development",
+    category:"Data Science",
+    department: "Data Science",
     aboutCompany:
       "Hushh uses AI/ML to make user data accessible and valuable. Experience the Hushh Garages – our integrated living and working spaces designed to maximize collaboration and innovation. We provide hands-on experience with data technologies.",
     responsibilities: [
@@ -119,6 +122,7 @@ export const jobs = [
     employmentType:"Internship",
     location: "Bengaluru, Pune, Mumbai",
     department: "AI/ML",
+    category:"AI/ML",
     aboutCompany:
       "Hushh.ai uses ML to improve data management for AI applications. We offer research opportunities with experienced teams and competitive compensation. Experience the unique Hushh Garages work environment where innovation thrives.",
     responsibilities: [
@@ -145,6 +149,7 @@ export const jobs = [
     employmentType:"Full-time",
     location: "Bengaluru, Pune, Mumbai",
     department: "AI/ML",
+    category:"AI/ML",
     aboutCompany:
       "Hushh.ai is building seamless AI and data systems. We're a small, motivated team with a flat structure, valuing initiative and excellence. Strong communication is key. Our Hushh Garages provide a unique live-work environment to foster innovation.",
     responsibilities: [
@@ -173,6 +178,7 @@ export const jobs = [
     employmentType:"Full-time",
     location: "Bengaluru, Pune, Mumbai",
     department: "AI/ML",
+    category:"Data Science",
     aboutCompany:
       "We're revolutionizing data accessibility with AI. We value a hands-on approach and a strong work ethic. Direct application reviews by our technical team. Become a part of the Hushh Garage community, where living and working intertwine for maximum productivity.",
       responsibilities: [
@@ -200,7 +206,8 @@ export const jobs = [
     country:"India",
     employmentType:"Full-time",
     location: "Bengaluru, Pune, Mumbai",
-    department: "AI/ML",
+    department: "Human Resources",
+    category:"Human Resources",
     aboutCompany:
       "Hushh seeks a People Operations Manager to shape our team's future and foster our culture of innovation. We're a flat, mission-driven organization operating within our innovative Hushh Garages, creating a unique live-work experience.",
       responsibilities: [
@@ -225,9 +232,10 @@ export const jobs = [
     id: "9",
     title: "Full Stack Web Engineer",
     country:"India",
+    category: "Software Development",
     employmentType:"Full-time",
     location: "Bengaluru, Pune, Mumbai",
-    department: "AI/ML",
+    department: "Software Development",
     aboutCompany:
       "We're pioneering data accessibility and seeking full-stack engineers from junior to senior levels. We use cutting-edge technologies like React, Rust, and gRPC. Join our team at the Hushh Garages, where innovation meets collaborative living.",
       responsibilities: [
@@ -256,6 +264,7 @@ export const jobs = [
     employmentType:"Full-time/Internship",
     location: "Bengaluru, Pune, Mumbai",
     department: "AI/ML",
+    category:"AI/ML",
     aboutCompany:
       "Hushh blends AI with luxury experiences, empowering brands with innovative tools and personalized, ethical data management. Experience the unique Hushh Garages where our team lives and works, fostering a truly collaborative atmosphere.",
       responsibilities: [
@@ -282,7 +291,8 @@ export const jobs = [
     country:"India",
     employmentType:"Full-time",
     location: "Bengaluru, Pune, Mumbai",
-    department: "AI/ML",
+    department: "UI/UX",
+    category:"UI/UX",
     aboutCompany:
       "Hushh revolutionizes data management with AI. We seek a UX Designer & Developer passionate about AI-first design tools and no-code platforms. Join our unique Hushh Garages community, combining living and working spaces for ultimate creativity.",
     responsibilities: [
@@ -309,7 +319,8 @@ export const jobs = [
     country:"India",
     employmentType:"Internship",
     location: "Bengaluru, Pune, Mumbai",
-    department: "AI/ML",
+    department: "Human Resources",
+    category:"Human Resources",
     aboutCompany:
       "Hushh empowers users to manage and monetize their data, prioritizing privacy and security. We seek MBA grads passionate about data-driven insights. Experience our unique Hushh Garages and contribute to a dynamic work environment.",
       responsibilities: [

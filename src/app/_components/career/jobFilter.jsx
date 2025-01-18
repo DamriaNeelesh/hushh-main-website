@@ -11,8 +11,17 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
-const offices = ["Any", "Remote", "United States", "Pune, India"];
-const departments = ["Any","SDE-1", "Product Management","Software Development","Research, Engineering & Product", "Human Data", "Data Center Operations", "Other"];
+const countries = ["Any", "India", "United States"];
+const employmentTypes = ["Any", "Internship", "Full-time"];
+const categories = [
+  "Any",
+  "Software Development",
+  "Customer Success",
+  "Data Science",
+  "AI/ML",
+  "Human Resources"
+];
+
 
 const jobs = [
   {
@@ -69,11 +78,10 @@ export default function JobFilter() {
   const [selectedCountry, setSelectedCountry] = useState("Any");
   const [selectedEmploymentType, setSelectedEmploymentType] = useState("Any");
   const [selectedCategory, setSelectedCategory] = useState("Any");
-
   // Filter jobs based on selected filters
   const filteredJobs = jobs.filter((job) => {
     const matchesCountry =
-      selectedCountry === "Any" || job.country === selectedCountry;
+      selectedCountry === "Any" || job.location.includes(selectedCountry);
     const matchesEmploymentType =
       selectedEmploymentType === "Any" || job.employmentType === selectedEmploymentType;
     const matchesCategory =
