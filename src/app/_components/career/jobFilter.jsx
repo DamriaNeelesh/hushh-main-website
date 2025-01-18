@@ -66,76 +66,96 @@ const jobs = [
 ];
 
 export default function JobFilter() {
-  const [selectedOffice, setSelectedOffice] = useState("Any");
-  const [selectedDepartment, setSelectedDepartment] = useState("Any");
+  const [selectedCountry, setSelectedCountry] = useState("Any");
+  const [selectedEmploymentType, setSelectedEmploymentType] = useState("Any");
+  const [selectedCategory, setSelectedCategory] = useState("Any");
 
   // Filter jobs based on selected filters
   const filteredJobs = jobs.filter((job) => {
-    const matchesOffice =
-      selectedOffice === "Any" || job.location.includes(selectedOffice);
-    const matchesDepartment =
-      selectedDepartment === "Any" || job.department === selectedDepartment;
-    return matchesOffice && matchesDepartment;
+    const matchesCountry =
+      selectedCountry === "Any" || job.country === selectedCountry;
+    const matchesEmploymentType =
+      selectedEmploymentType === "Any" || job.employmentType === selectedEmploymentType;
+    const matchesCategory =
+      selectedCategory === "Any" || job.category === selectedCategory;
+    return matchesCountry && matchesEmploymentType && matchesCategory;
   });
 
   return (
     <Box
-      bg="black"
-      color="white"
-      minH="100vh"
-      w="100%"
-      px={{ base: 4, md: 8 }}
-      py={{ base: 6, md: 12 }}
-    >
-      {/* Office Filter */}
-      <VStack align="start" spacing={4} mb={6}>
-        <HStack spacing={4} flexWrap="wrap">
-          <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
-            Office:
-          </Text>
-          {offices.map((office) => (
-            <Button
-              key={office}
-              variant="ghost"
-              color={selectedOffice === office ? "white" : "#aaa"}
-              fontWeight={selectedOffice === office ? "bold" : "normal"}
-              _hover={{ color: "white" }}
-              onClick={() => setSelectedOffice(office)}
-            >
-              {office}
-            </Button>
-          ))}
-        </HStack>
-        <Divider borderColor="#444" />
-      </VStack>
-
-      {/* Department Filter */}
-      <VStack align="start" spacing={4} mb={6}>
-        <HStack spacing={4} flexWrap="wrap">
-          <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
-            Department:
-          </Text>
-          {departments.map((department) => (
-            <Button
-              key={department}
-              variant="ghost"
-              color={selectedDepartment === department ? "white" : "#aaa"}
-              fontWeight={selectedDepartment === department ? "bold" : "normal"}
-              _hover={{ color: "white" }}
-              onClick={() => setSelectedDepartment(department)}
-            >
-              {department}
-            </Button>
-          ))}
-        </HStack>
-        <Divider borderColor="#444" />
-      </VStack>
-
-      {/* Job Listings */}
-      <VStack align="start" spacing={6}>
-        <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }}>
-          Engineering
+    bg="black"
+    color="white"
+    minH="100vh"
+    w="100%"
+    px={{ base: 4, md: 8 }}
+    py={{ base: 6, md: 12 }}
+  >
+    {/* Country Filter */}
+    <VStack align="start" spacing={4} mb={6}>
+      <HStack spacing={4} flexWrap="wrap">
+        <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+          Country:
         </Text>
+        {countries.map((country) => (
+          <Button
+            key={country}
+            variant="ghost"
+            color={selectedCountry === country ? "white" : "#aaa"}
+            fontWeight={selectedCountry === country ? "bold" : "normal"}
+            _hover={{ color: "white" }}
+            onClick={() => setSelectedCountry(country)}
+          >
+            {country}
+          </Button>
+        ))}
+      </HStack>
+      <Divider borderColor="#444" />
+    </VStack>
+
+    {/* Employment Type Filter */}
+    <VStack align="start" spacing={4} mb={6}>
+      <HStack spacing={4} flexWrap="wrap">
+        <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+          Employment Type:
+        </Text>
+        {employmentTypes.map((type) => (
+           <Button
+           key={type}
+           variant="ghost"
+           color={selectedEmploymentType === type ? "white" : "#aaa"}
+           fontWeight={selectedEmploymentType === type ? "bold" : "normal"}
+           _hover={{ color: "white" }}
+           onClick={() => setSelectedEmploymentType(type)}
+         >
+           {type}
+         </Button>
+       ))}
+     </HStack>
+     <Divider borderColor="#444" />
+   </VStack>
+
+   {/* Category Filter */}
+   <VStack align="start" spacing={4} mb={6}>
+     <HStack spacing={4} flexWrap="wrap">
+       <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+         Category:
+       </Text>
+       {categories.map((category) => (
+         <Button
+           key={category}
+           variant="ghost"
+           color={selectedCategory === category ? "white" : "#aaa"}
+           fontWeight={selectedCategory === category ? "bold" : "normal"}
+           _hover={{ color: "white" }}
+           onClick={() => setSelectedCategory(category)}
+         >
+           {category}
+         </Button>
+       ))}
+     </HStack>
+     <Divider borderColor="#444" />
+   </VStack>
+   <VStack align="start" spacing={6}>
         {filteredJobs.length > 0 ? (
           <SimpleGrid
             columns={{ base: 1, md: 2 }}

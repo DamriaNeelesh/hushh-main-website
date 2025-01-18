@@ -19,6 +19,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  OrderedList,
+  UnorderedList,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -29,26 +31,24 @@ import { ArrowForwardIcon, ChevronDownIcon } from "@chakra-ui/icons";
 // const departments = ["Any", "Research, Engineering & Product", "Human Data", "Data Center Operations", "Other"];
 
 const CareerPage = () => {
-  const [selectedOffice, setSelectedOffice] = useState("Any");
-  const [selectedDepartment, setSelectedDepartment] = useState("Any");
+  const [selectedCountry, setSelectedCountry] = useState("Any");
+  const [selectedEmploymentType, setSelectedEmploymentType] = useState("Any");
+  const [selectedCategory, setSelectedCategory] = useState("Any");
   const router = useRouter();
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
-  const offices = ["Any", "Pune, India", "United States"];
-  const departments = [
-    "Any",
-    "Research, Engineering & Product",
-    "Data Center Operations",
-    "Product Management",
-    "Software Development",
-  ];
+  const countries = ["Any", "India", "United States"];
+  const employmentTypes = ["Any", "Internship", "Full-time"];
+  const categories = ["Any", "Software Development", "AI/ML", "Data Center Operations", "Product Management"];
 
   const filteredJobs = jobs.filter((job) => {
-    const matchesOffice =
-      selectedOffice === "Any" || job.location.includes(selectedOffice) || job.country.includes(selectedOffice);
-    const matchesDepartment =
-      selectedDepartment === "Any" || job.department === selectedDepartment;
-    return matchesOffice && matchesDepartment;
+    const matchesCountry =
+      selectedCountry === "Any" || job.country === selectedCountry;
+    const matchesEmploymentType =
+      selectedEmploymentType === "Any" || job.employmentType === selectedEmploymentType;
+    const matchesCategory =
+      selectedCategory === "Any" || job.category === selectedCategory;
+    return matchesCountry && matchesEmploymentType && matchesCategory;
   });
 
   const [isHydrated, setIsHydrated] = useState(false);
@@ -73,7 +73,7 @@ const CareerPage = () => {
         bg={"black"}
         fontFamily={"aktiv-grotesk ,sans-serif"}
       >
-        <VStack mx={{md:'3rem',base:'0'}} spacing={8} align="center" mt={{ md: "5rem", base: "2.5rem" }}>
+        <VStack mx={{ md: '3rem', base: '0' }} spacing={8} align="center" mt={{ md: "5rem", base: "2.5rem" }}>
           <Heading
             as="h1"
             textAlign={"center"}
@@ -89,10 +89,15 @@ const CareerPage = () => {
             textAlign={"center"}
             color="#fff"
           >
-            Build AI That Advances Humanity
+            Join Hushh and Build the Future of AI
           </Text>
-
-          <HStack mt={{md:'6rem',base:'3rem'}} w={"100%"} gap={{ md: "1.25rem", base: "0.5rem" }}>
+          <Text fontWeight={"300"}
+            textAlign={"center"}
+            color="#fff">
+          At Hushh, we are a team of passionate AI researchers and engineers on a mission to deepen humanity's understanding of the world through groundbreaking AI systems. We thrive on ambitious goals, rapid execution, and a shared sense of urgency. If you're ready to shape the future of AI, we want to hear from you.
+          </Text>
+          <HStack mt={{ md: '6rem', base: '3rem' }}  px={{ base: 4, md: 8 }}
+            py={{ base: 6, md: 12 }} w={"100%"} gap={{ md: "1.25rem", base: "0.5rem" }}>
             <Text
               color={"#fff"}
               fontWeight={"500"}
@@ -114,7 +119,6 @@ const CareerPage = () => {
               View open roles
             </Text>
           </HStack>
-
           <Box
             bg="black"
             color="white"
@@ -125,6 +129,8 @@ const CareerPage = () => {
             justifyContent="center"
             alignItems="flex-start"
             textAlign="left"
+             px={{ base: 4, md: 8 }}
+            // py={{ base: 6, md: 12 }}
           >
             {/* Text Block */}
             <Text
@@ -161,12 +167,8 @@ const CareerPage = () => {
                 alignItems="flex-start"
                 textAlign="left"
               >
-                At Hushh, you’ll join an innovative, ambitious startup that values creativity, perseverance, and teamwork. We believe in the transformational power of personal data in the hands of the individual and are committed to building a platform that champions this belief. As part of our team, you’ll have the rare opportunity to shape something meaningful from its inception.
-              </Text>
-
-              <Text fontWeight="400">
-              Hushh is an equal opportunity employer, championing inclusivity and diversity. We welcome all qualified applicants irrespective of race, religion, gender, sexual orientation, age, disability, or veteran status.
-              </Text>
+          At Hushh, we are a team of passionate AI researchers and engineers on a mission to deepen humanity's understanding of the world through groundbreaking AI systems. We thrive on ambitious goals, rapid execution, and a shared sense of urgency. If you're ready to shape the future of AI, we want to hear from you.
+          </Text>
 
               {/* <List
                 spacing={2}
@@ -193,6 +195,191 @@ const CareerPage = () => {
               </List> */}
             </VStack>
           </Box>
+
+          <Box
+            bg="black"
+            color="white"
+            // minH="100vh"
+            w="100%"
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="flex-start"
+            textAlign="left"
+            px={{ base: 4, md: 8 }}
+          >
+            {/* Text Block */}
+            <Text
+              fontSize={{ md: "1.15rem", base: "0.65rem" }}
+              fontWeight="500"
+              color="#e7e8e8"
+              flex="0.4"
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+            >
+              What We Do ?
+            </Text>
+
+            {/* Content Block */}
+            <VStack
+              color="#ccc"
+              fontSize={{ md: "1rem", base: "0.65rem" }}
+              lineHeight={{ md: "2rem", base: "0.9rem" }}
+              flex="0.6"
+              align="start"
+              spacing={4}
+              // maxW="600px"
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              textAlign="left"
+            >
+              <Text
+                fontWeight="400"
+                fontSize={{ md: "1rem", base: "0.65rem" }}
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                textAlign="left"
+              >
+         We are pushing the boundaries of AI by tackling some of the field's most challenging problems. From developing advanced machine learning algorithms to creating innovative AI-powered applications, our work spans diverse domains. We’re constantly exploring new frontiers in AI research and development.
+          </Text>
+            </VStack>
+          </Box>
+
+          <Box
+            bg="black"
+            color="white"
+            // minH="100vh"
+            w="100%"
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="flex-start"
+            textAlign="left"
+            px={{ base: 4, md: 8 }}
+          >
+            {/* Text Block */}
+            <Text
+              fontSize={{ md: "1.15rem", base: "0.65rem" }}
+              fontWeight="500"
+              color="#e7e8e8"
+              flex="0.4"
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+            >
+              Our Culture
+            </Text>
+
+            {/* Content Block */}
+            <VStack
+              color="#ccc"
+              fontSize={{ md: "1rem", base: "0.65rem" }}
+              lineHeight={{ md: "2rem", base: "0.9rem" }}
+              flex="0.6"
+              align="start"
+              spacing={4}
+              // maxW="600px"
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              textAlign="left"
+            >
+              <Text
+                fontWeight="400"
+                fontSize={{ md: "1rem", base: "0.65rem" }}
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                textAlign="left"
+              >
+At Hushh, we foster a fast-paced, collaborative environment where innovation thrives. Our "hustling" culture encourages team members to push boundaries, continuously learn, and contribute meaningfully to our mission.
+</Text>
+<Text fontWeight="400"
+                fontSize={{ md: "1rem", base: "0.65rem" }}
+                
+                justifyContent="flex-start"
+                alignItems="flex-start"
+                textAlign="left">Our <span style={{fontWeight:'700'}}>Hushh Garages</span>  in Bengaluru, Pune, and Mumbai integrate living and working spaces to promote seamless collaboration and vibrant community engagement.</Text>
+            </VStack>
+          </Box>
+
+
+          <Box
+            bg="black"
+            color="white"
+            minH="100vh"
+            w="100%"
+            px={{ base: 4, md: 8 }}
+            py={{ base: 6, md: 12 }}
+          >
+            {/* Header Section */}
+         
+            <Box
+              mb={8}
+              display={"flex"}
+              flexDirection={"row"}
+              gap={{ md: "2rem", base: "0.75rem" }}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Text
+                fontSize={{ base: "xl", md: "3xl" }}
+                fontWeight="bold"
+                mb={2}
+                textAlign="left"
+              >
+                Perks and Other Benefits
+              </Text>
+              <Divider height={"1px"} borderColor="#9fa1a3" />
+            </Box>
+            {/* Main Content */}
+            <Box
+              display="flex"
+              mt={{ md: "6rem", base: "2.2rem" }}
+              flexDirection={{ base: "column", md: "row" }}
+            >
+              
+              {/* Left Section */}
+              <Box
+                flex={0.3}
+                mb={{ base: 6, md: 0 }}
+                textAlign={{ base: "center", md: "left" }}
+              >
+                <Text fontWeight={'500'} fontSize={{ base: "sm", md: "1.25rem" }} color="#e7e8e8">
+                Employee Benefits
+                </Text>
+              </Box>
+
+              {/* Right Section */}
+              <Box flex={0.7} pl={{ md: 8, base: "0" }}>
+                <VStack spacing={6} align="start">
+                  <Text fontSize={{ base: "sm", md: "lg" }} color="#ccc">
+                  We offer a comprehensive benefits package to support your well-being and professional growth:
+                  </Text>
+                  <UnorderedList display={'flex'} flexDirection={'column'} gap={{md:'1rem',base:'0.5rem'}} lineHeight={{md:'2rem',base:'1rem'}} color={'#ccc'}>
+                    <ListItem> <span style={{fontWeight:'600'}}>Competitive Compensation : </span>Highly competitive cash and equity-based packages.</ListItem>
+                    <ListItem> <span style={{fontWeight:'600'}}>Flexible PTO : </span>  Unlimited paid time off (subject to approval).</ListItem>
+                    <ListItem display={'flex'}  flexDirection={'column'}> <span style={{fontWeight:'600'}}>Networking Opportunities : </span>
+                    Collaborate with seasoned professionals and dynamic young innovators.
+                     </ListItem>
+                     <ListItem> <span style={{fontWeight:'600'}}>Garage Benefits :</span>  Employees working with the founding team at Hushh Garages receive:
+                     <UnorderedList listStyleType="disc">
+                       <ListItem>Free Wi-Fi, maintenance, and electricity.</ListItem>
+                       <ListItem>Accommodation and food subsidies.</ListItem>
+                     </UnorderedList>
+                     </ListItem>
+
+                  </UnorderedList>
+
+                  <Text fontStyle="italic" color={'#ccc'}>Note: All applications and interviews are handled directly by our technical team via Google Meet—no recruiters involved.</Text>
+                </VStack>
+              </Box>
+            </Box>
+          </Box>
+
 
           <Box
             bg="black"
@@ -234,8 +421,8 @@ const CareerPage = () => {
                 mb={{ base: 6, md: 0 }}
                 textAlign={{ base: "center", md: "left" }}
               >
-                <Text fontSize={{ base: "sm", md: "md" }} color="#e7e8e8">
-                  US, India
+                <Text fontWeight={'500'} fontSize={{ base: "sm", md: "1.25rem" }} color="#e7e8e8">
+                  India (currently)
                 </Text>
               </Box>
 
@@ -243,9 +430,7 @@ const CareerPage = () => {
               <Box flex={0.7} pl={{ md: 8, base: "0" }}>
                 <VStack spacing={6} align="start">
                   <Text fontSize={{ base: "sm", md: "lg" }} color="#ccc">
-                    We are currently hiring in downtown US, India. Although we
-                    prefer to work in-person, we also offer remote work
-                    opportunities for exceptional candidates.
+                  We are hiring for on-site roles at our <span style={{fontWeight:'700'}}>Hushh Garages</span>  in:
                   </Text>
 
                   {/* Grid of Locations */}
@@ -262,12 +447,7 @@ const CareerPage = () => {
                         fontWeight="bold"
                         mb={2}
                       >
-                        United States
-                      </Text>
-                      <Text fontSize={{ base: "sm", md: "md" }} color="#aaa">
-                        Our US office houses the majority of our core
-                        research teams including our pre-training,
-                        post-training, and vision teams.
+                        Bengaluru, India
                       </Text>
                     </Box>
 
@@ -280,12 +460,25 @@ const CareerPage = () => {
                       >
                         Pune, India
                       </Text>
-                      <Text fontSize={{ base: "sm", md: "md" }} color="#aaa">
-                        Our infrastructure team takes care of our large compute
-                        clusters and is predominantly located in Pune, Maharashtra, India.
+                    </Box>
+
+                    <Box>
+                      <Text
+                        fontSize={{ base: "md", md: "lg" }}
+                        fontWeight="bold"
+                        mb={2}
+                      >
+                        Mumbai, India
                       </Text>
                     </Box>
+
                   </SimpleGrid>
+                  <Text fontSize={{ base: "sm", md: "lg" }} color={'#ccc'}>While all roles are on-site to foster our unique live-work culture, we may consider remote opportunities for exceptionally qualified candidates.
+                  </Text>
+<Text fontSize={{ base: "sm", md: "lg" }} fontWeight={'700'} color={'#ccc'}>Join Us :</Text>
+                  <Text fontSize={{ base: "sm", md: "lg" }} color={'#ccc'}>
+We’re excited to connect with talented individuals who share our passion for AI. Apply today and help us build the future of AI!
+</Text>
                 </VStack>
               </Box>
             </Box>
@@ -315,7 +508,7 @@ const CareerPage = () => {
                 mb={2}
                 textAlign="left"
               >
-                Interview process
+                Application Process
               </Text>
               <Divider height={"1px"} borderColor="#9fa1a3" />
             </Box>
@@ -332,8 +525,8 @@ const CareerPage = () => {
                 mb={{ base: 6, md: 0 }}
                 textAlign={{ base: "center", md: "left" }}
               >
-                <Text fontSize={{ base: "sm", md: "md" }} color="#e7e8e8">
-                  US, India
+                <Text fontWeight={'500'} fontSize={{ base: "sm", md: "1.25rem" }} color="#e7e8e8">
+                  Step-by-Step
                 </Text>
               </Box>
 
@@ -341,63 +534,49 @@ const CareerPage = () => {
               <Box flex={0.7} pl={{ md: 8, base: "0" }}>
                 <VStack spacing={6} align="start">
                   <Text fontSize={{ base: "sm", md: "lg" }} color="#ccc">
-                    We are currently hiring in downtown US, India. Although we
-                    prefer to work in-person, we also offer remote work
-                    opportunities for exceptional candidates.
+                  We ensure a quick and efficient hiring process:
                   </Text>
+                  <OrderedList display={'flex'} flexDirection={'column'} gap={{md:'1rem',base:'0.5rem'}} lineHeight={{md:'2rem',base:'1rem'}} color={'#ccc'}>
+                    <ListItem> <span style={{fontWeight:'600'}}>Submit Your Application :</span> Apply online with your CV and a compelling statement showcasing your most challenging and impactful work. Candidates who complete the Hushh Proto Assignment (provided with the job details) will be given priority.</ListItem>
+                    <ListItem> <span style={{fontWeight:'600'}}>Initial Review :</span> Our technical team will assess your skills, experience, potential, and submitted assignments.                    </ListItem>
+                    <ListItem display={'flex'}  flexDirection={'column'}> <span style={{fontWeight:'600'}}>Technical Interviews (2 Rounds):</span>
+                    <UnorderedList>
+                      <ListItem> <span style={{fontWeight:'600'}}>1-on-1 Interviews :</span>Evaluate coding, systems design, or research expertise, depending on the role.
+                      </ListItem>
+                      <ListItem>
+                      <span style={{fontWeight:'600'}}> Team Interview :</span> Deliver a 20-minute presentation on a complex technical challenge you’ve solved.
 
-                  {/* Grid of Locations */}
-                  <SimpleGrid
-                    columns={{ base: 1, md: 3 }}
-                    spacing={{ base: 4, md: 6 }}
-                    w="100%"
-                    mt={{ md: "2.5rem", base: "1.2rem" }}
-                  >
-                    {/* Palo Alto */}
-                    <Box>
-                      <Text
-                        fontSize={{ base: "md", md: "lg" }}
-                        fontWeight="bold"
-                        mb={2}
-                      >
-                        US, India
-                      </Text>
-                      <Text fontSize={{ base: "sm", md: "md" }} color="#aaa">
-                        Our India office houses the majority of our core
-                        research teams including our pre-training,
-                        post-training, and vision teams.
-                      </Text>
-                    </Box>
+                      </ListItem>
+                    </UnorderedList>
+                     </ListItem>
+                    <ListItem> <span style={{fontWeight:'600'}}>Decision :</span>We aim to complete the process within 1–2 weeks.                    </ListItem>
 
-                    {/* San Francisco */}
-                    <Box>
-                      <Text
-                        fontSize={{ base: "md", md: "lg" }}
-                        fontWeight="bold"
-                        mb={2}
-                      >
-                        US
-                      </Text>
-                      <Text fontSize={{ base: "sm", md: "md" }} color="#aaa">
-                        Our infrastructure team takes care of our large compute
-                        clusters and is predominantly located in San Francisco.
-                      </Text>
-                    </Box>
-                  </SimpleGrid>
+                  </OrderedList>
+
+                  <Text fontStyle="italic" color={'#ccc'}>Note: All applications and interviews are handled directly by our technical team via Google Meet—no recruiters involved.</Text>
                 </VStack>
               </Box>
             </Box>
           </Box>
-        </VStack>
-      </Box>
 
-      <Box
+
+          
+
+          <Box
+            bg="black"
+            color="white"
+            minH="100vh"
+            w="100%"
+            px={{ base: 4, md: 8 }}
+            py={{ base: 6, md: 12 }}
+          >
+            <Box
         mb={8}
         display={"flex"}
         flexDirection={"row"}
         gap={{ md: "2rem", base: "0.75rem" }}
         justifyContent={"center"}
-        mx={'3rem'}
+        // mx={'3rem'}
         alignItems={"center"}
       >
         <Text
@@ -412,129 +591,109 @@ const CareerPage = () => {
         <Divider height={"1px"} borderColor="#9fa1a3" />
       </Box>
 
-      <Box
-  bg="black"
-  color="white"
-  minH="100vh"
-  py={10}
-  px={{ base: 4, md: 12 }}
->
-  <VStack align="start" spacing={4} mb={6}>
-    {/* Office Block */}
-    <HStack spacing={4}>
-      <Text fontWeight="bold">Office:</Text>
-      {isMobile ? (
-        <Menu>
-          <MenuButton p={2} as={Button} rightIcon={<ChevronDownIcon />}>
-            {selectedOffice || "Select Office"}
-          </MenuButton>
-          <MenuList bg="black" borderColor="#444">
-            {offices.map((office) => (
-              <MenuItem
-                key={office}
-                bg={selectedOffice === office ? "whiteAlpha.200" : "black"}
-                _hover={{ bg: "whiteAlpha.300" }}
-                onClick={() => setSelectedOffice(office)}
-              >
-                {office}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-      ) : (
-        offices.map((office) => (
-          <Button
-            key={office}
-            variant="ghost"
-            color={selectedOffice === office ? "white" : "#aaa"}
-            onClick={() => setSelectedOffice(office)}
-          >
-            {office}
-          </Button>
-        ))
-      )}
-    </HStack>
-    <Divider borderColor="#444" />
-
-    {/* Department Block */}
-    <HStack spacing={4}>
-      <Text fontWeight="bold">Department:</Text>
-      {isMobile ? (
-        <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-            {selectedDepartment || "Select Department"}
-          </MenuButton>
-          <MenuList bg="black" borderColor="#444">
-            {departments.map((department) => (
-              <MenuItem
-                key={department}
-                bg={selectedDepartment === department ? "whiteAlpha.200" : "black"}
-                _hover={{ bg: "whiteAlpha.300" }}
-                onClick={() => setSelectedDepartment(department)}
-              >
-                {department}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-      ) : (
-        departments.map((department) => (
-          <Button
-            key={department}
-            variant="ghost"
-            color={selectedDepartment === department ? "white" : "#aaa"}
-            onClick={() => setSelectedDepartment(department)}
-          >
-            {department}
-          </Button>
-        ))
-      )}
-    </HStack>
-    <Divider borderColor="#444" />
-  </VStack>
-
-  {/* Job Listings */}
-  <VStack align="start" spacing={6}>
-    {filteredJobs.length > 0 ? (
-      <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4} w="100%">
-        {filteredJobs.map((job) => (
-          <Flex
-            key={job.id}
-            border="1px solid #444"
-            p={4}
-            cursor="pointer"
-            onClick={() => handleJobClick(job.id)}
-            _hover={{ borderColor: "white" }}
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box flex="0.3">
-              <Text fontWeight="bold" color="#aaa">
-                {job.department}
-              </Text>
-            </Box>
-            <Box
-              flex="0.7"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Box>
-                <Text fontWeight="bold">{job.title}</Text>
-                <Text fontSize="sm" color="#aaa">
-                  {job.location}
+            {/* Country Filter */}
+            <VStack align="start" spacing={4} mb={6}>
+              <HStack spacing={4} flexWrap="wrap">
+                <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+                  Country:
                 </Text>
-              </Box>
-              <ArrowForwardIcon color="#aaa" />
-            </Box>
-          </Flex>
-        ))}
-      </SimpleGrid>
-    ) : (
-      <Text color="#aaa">No jobs found for the selected filters.</Text>
-    )}
-  </VStack>
-</Box>;
+                {countries.map((country) => (
+                  <Button
+                    key={country}
+                    variant="ghost"
+                    color={selectedCountry === country ? "white" : "#aaa"}
+                    fontWeight={selectedCountry === country ? "bold" : "normal"}
+                    _hover={{ color: "white" }}
+                    onClick={() => setSelectedCountry(country)}
+                  >
+                    {country}
+                  </Button>
+                ))}
+              </HStack>
+              <Divider borderColor="#444" />
+            </VStack>
+
+            {/* Employment Type Filter */}
+            <VStack align="start" spacing={4} mb={6}>
+              <HStack spacing={4} flexWrap="wrap">
+                <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+                  Employment Type:
+                </Text>
+                {employmentTypes.map((type) => (
+                  <Button
+                    key={type}
+                    variant="ghost"
+                    color={selectedEmploymentType === type ? "white" : "#aaa"}
+                    fontWeight={selectedEmploymentType === type ? "bold" : "normal"}
+                    _hover={{ color: "white" }}
+                    onClick={() => setSelectedEmploymentType(type)}
+                  >
+                    {type}
+                  </Button>
+                ))}
+              </HStack>
+              <Divider borderColor="#444" />
+            </VStack>
+
+            {/* Category Filter */}
+            <VStack align="start" spacing={4} mb={6}>
+              <HStack spacing={4} flexWrap="wrap">
+                <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+                  Category:
+                </Text>
+                {categories.map((category) => (
+                  <Button
+                    key={category}
+                    variant="ghost"
+                    color={selectedCategory === category ? "white" : "#aaa"}
+                    fontWeight={selectedCategory === category ? "bold" : "normal"}
+                    _hover={{ color: "white" }}
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                     {category}
+                  </Button>
+                ))}
+              </HStack>
+              <Divider borderColor="#444" />
+            </VStack>
+
+            {/* Job Listings */}
+            <VStack align="start" spacing={6}>
+              {filteredJobs.length > 0 ? (
+                <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4} w="100%">
+                  {filteredJobs.map((job) => (
+                    <HStack
+                      key={job.id}
+                      justifyContent="space-between"
+                      w="100%"
+                      borderBottom="1px solid #444"
+                      pb={2}
+                      spacing={4}
+                      onClick={() => handleJobClick(job.id)}
+                      cursor="pointer"
+                      _hover={{ borderColor: "white" }}
+                    >
+                      <VStack align="start" spacing={0}>
+                        <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+                          {job.title}
+                        </Text>
+                        <Text fontSize={{ base: "xs", md: "sm" }} color="#aaa">
+                          {job.location}
+                        </Text>
+                      </VStack>
+                      <ArrowForwardIcon color="#aaa" />
+                    </HStack>
+                  ))}
+                </SimpleGrid>
+              ) : (
+                <Text color="#aaa">No jobs found for the selected filters.</Text>
+              )}
+            </VStack>
+          </Box>
+        </VStack>
+
+
+      </Box>
     </>
   );
 };
