@@ -73,7 +73,7 @@ const CareerPage = () => {
         bg={"black"}
         fontFamily={"aktiv-grotesk ,sans-serif"}
       >
-        <VStack mx={{ md: '3rem', base: '0' }} spacing={8} align="center" mt={{ md: "5rem", base: "2.5rem" }}>
+        <VStack mx={{ md: '3rem', base: '0' }} spacing={8} align="center" mt={{ md: "6rem", base: "2.75rem" }}>
           <Heading
             as="h1"
             textAlign={"center"}
@@ -93,6 +93,7 @@ const CareerPage = () => {
           </Text>
           <Text fontWeight={"300"}
             textAlign={"center"}
+            px={{ base: 5, md: 10 }}
             color="#fff">
           At Hushh, we are a team of passionate AI researchers and engineers on a mission to deepen humanity's understanding of the world through groundbreaking AI systems. We thrive on ambitious goals, rapid execution, and a shared sense of urgency. If you're ready to shape the future of AI, we want to hear from you.
           </Text>
