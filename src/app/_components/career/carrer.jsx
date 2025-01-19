@@ -100,10 +100,12 @@ const CareerPage = () => {
           <Text fontWeight={"300"}
             textAlign={"center"}
             px={{ base: 5, md: 10 }}
-            color="#fff">
+            color="#fff"
+            fontSize={{md:'md',base:'sm'}}
+            >
           At Hushh, we are a team of passionate AI researchers and engineers on a mission to deepen humanity's understanding of the world through groundbreaking AI systems. We thrive on ambitious goals, rapid execution, and a shared sense of urgency. If you're ready to shape the future of AI, we want to hear from you.
           </Text>
-          <HStack mt={{ md: '6rem', base: '3rem' }}  px={{ base: 4, md: 8 }}
+          <HStack mt={{ md: '6rem', base: '3rem' }}  px={{ base: 0, md: 8 }}
             py={{ base: 6, md: 12 }} w={"100%"} gap={{ md: "1.25rem", base: "0.5rem" }}>
             <Text
               color={"#fff"}
@@ -136,7 +138,7 @@ const CareerPage = () => {
             justifyContent="center"
             alignItems="flex-start"
             textAlign="left"
-             px={{ base: 4, md: 8 }}
+             px={{ base: 0, md: 8 }}
             // py={{ base: 6, md: 12 }}
           >
             {/* Text Block */}
@@ -213,7 +215,7 @@ const CareerPage = () => {
             justifyContent="center"
             alignItems="flex-start"
             textAlign="left"
-            px={{ base: 4, md: 8 }}
+            px={{ base: 0, md: 8 }}
           >
             {/* Text Block */}
             <Text
@@ -265,7 +267,7 @@ const CareerPage = () => {
             justifyContent="center"
             alignItems="flex-start"
             textAlign="left"
-            px={{ base: 4, md: 8 }}
+            px={{ base: 0, md: 8 }}
           >
             {/* Text Block */}
             <Text
@@ -333,7 +335,7 @@ At Hushh, we foster a fast-paced, collaborative environment where innovation thr
               alignItems={"center"}
             >
               <Text
-                fontSize={{ base: "xl", md: "3xl" }}
+                fontSize={{ base: "md", md: "3xl" }}
                 fontWeight="bold"
                 mb={2}
                 textAlign="left"
@@ -366,7 +368,7 @@ At Hushh, we foster a fast-paced, collaborative environment where innovation thr
                   <Text fontSize={{ base: "sm", md: "lg" }} color="#ccc">
                   We offer a comprehensive benefits package to support your well-being and professional growth:
                   </Text>
-                  <UnorderedList display={'flex'} flexDirection={'column'} gap={{md:'1rem',base:'0.5rem'}} lineHeight={{md:'2rem',base:'1rem'}} color={'#ccc'}>
+                  <UnorderedList  fontSize={{ base: "xs", md: "lg" }} display={'flex'} flexDirection={'column'} gap={{md:'1rem',base:'0.5rem'}} lineHeight={{md:'2rem',base:'1rem'}} color={'#ccc'}>
                     <ListItem> <span style={{fontWeight:'600'}}>Competitive Compensation : </span>Highly competitive cash and equity-based packages.</ListItem>
                     <ListItem> <span style={{fontWeight:'600'}}>Flexible PTO : </span>  Unlimited paid time off (subject to approval).</ListItem>
                     <ListItem display={'flex'}  flexDirection={'column'}> <span style={{fontWeight:'600'}}>Networking Opportunities : </span>
@@ -510,7 +512,7 @@ We’re excited to connect with talented individuals who share our passion for A
               alignItems={"center"}
             >
               <Text
-                fontSize={{ base: "xl", md: "3xl" }}
+                fontSize={{ base: "lg", md: "3xl" }}
                 fontWeight="bold"
                 mb={2}
                 textAlign="left"
@@ -532,7 +534,7 @@ We’re excited to connect with talented individuals who share our passion for A
                 mb={{ base: 6, md: 0 }}
                 textAlign={{ base: "center", md: "left" }}
               >
-                <Text fontWeight={'500'} fontSize={{ base: "sm", md: "1.25rem" }} color="#e7e8e8">
+                <Text fontWeight={'500'} fontSize={{ base: "md", md: "1.25rem" }} color="#e7e8e8">
                   Step-by-Step
                 </Text>
               </Box>
@@ -543,7 +545,7 @@ We’re excited to connect with talented individuals who share our passion for A
                   <Text fontSize={{ base: "sm", md: "lg" }} color="#ccc">
                   We ensure a quick and efficient hiring process:
                   </Text>
-                  <OrderedList display={'flex'} flexDirection={'column'} gap={{md:'1rem',base:'0.5rem'}} lineHeight={{md:'2rem',base:'1rem'}} color={'#ccc'}>
+                  <OrderedList fontSize={{ base: "xs", md: "lg" }} display={'flex'} flexDirection={'column'} gap={{md:'1rem',base:'0.5rem'}} lineHeight={{md:'2rem',base:'1rem'}} color={'#ccc'}>
                     <ListItem> <span style={{fontWeight:'600'}}>Submit Your Application :</span> Apply online with your CV and a compelling statement showcasing your most challenging and impactful work. Candidates who complete the Hushh Proto Assignment (provided with the job details) will be given priority.</ListItem>
                     <ListItem> <span style={{fontWeight:'600'}}>Initial Review :</span> Our technical team will assess your skills, experience, potential, and submitted assignments.                    </ListItem>
                     <ListItem display={'flex'}  flexDirection={'column'}> <span style={{fontWeight:'600'}}>Technical Interviews (2 Rounds):</span>
