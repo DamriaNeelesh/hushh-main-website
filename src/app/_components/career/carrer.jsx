@@ -71,6 +71,45 @@ const CareerPage = () => {
     router.push(`/job/${id}`); // Navigate to job details page
   };
 
+  const renderDropdownFilter = (label, options, selected, setSelected) => {
+    return (
+      <HStack display={'flex'} flexDirection={'row'} spacing={4} w="100%" align="center">
+        <Text flex={1} fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+          {label}:
+        </Text>
+        <Menu>
+          <MenuButton
+            as={Button}
+            rightIcon={<ChevronDownIcon />}
+            bg="black"
+            flex={1}
+            color="white"
+            border="1px solid #444"
+            _hover={{ bg: "#333" }}
+            _expanded={{ bg: "#555" }}
+            fontSize={{ base: "sm", md: "md" }}
+          >
+            {selected}
+          </MenuButton>
+          <MenuList bg="black" borderColor="#444">
+            {options.map((option) => (
+              <MenuItem
+                key={option}
+                onClick={() => setSelected(option)}
+                bg="black"
+                _hover={{ bg: "#333" }}
+                color="white"
+                fontSize={{ base: "sm", md: "md" }}
+              >
+                {option}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+      </HStack>
+    );
+  };
+
   return (
     <>
       <Box
@@ -577,7 +616,9 @@ We’re excited to connect with talented individuals who share our passion for A
       </Box>
 
             {/* Country Filter */}
-            <VStack align="start" spacing={4} mb={6}>
+           {!isMobile && (
+<>
+             <VStack align="start" spacing={4} mb={6}>
               <HStack spacing={4} flexWrap="wrap">
                 <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
                   Country:
@@ -641,7 +682,29 @@ We’re excited to connect with talented individuals who share our passion for A
               </HStack>
               <Divider borderColor="#444" />
             </VStack>
+            </>
+          )}
 
+{isMobile && (
+            <VStack align="start" spacing={4} mb={6}>
+              {/* Country Filter */}
+              {renderDropdownFilter("Country", countries, selectedCountry, setSelectedCountry)}
+              <Divider borderColor="#444" />
+
+              {/* Employment Type Filter */}
+              {renderDropdownFilter(
+                "Employment Type",
+                employmentTypes,
+                selectedEmploymentType,
+                setSelectedEmploymentType
+              )}
+              <Divider borderColor="#444" />
+
+              {/* Category Filter */}
+              {renderDropdownFilter("Category", categories, selectedCategory, setSelectedCategory)}
+              <Divider borderColor="#444" />
+            </VStack>
+          )}
             {/* Job Listings */}
             <VStack align="start" spacing={6}>
               {filteredJobs.length > 0 ? (
