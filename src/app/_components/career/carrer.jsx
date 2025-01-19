@@ -178,30 +178,6 @@ const CareerPage = () => {
               >
           At Hushh, we are a team of passionate AI researchers and engineers on a mission to deepen humanity's understanding of the world through groundbreaking AI systems. We thrive on ambitious goals, rapid execution, and a shared sense of urgency. If you're ready to shape the future of AI, we want to hear from you.
           </Text>
-
-              {/* <List
-                spacing={2}
-                display="flex"
-                flexDirection="column"
-                fontWeight="400"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                textAlign="left"
-              >
-                <ListItem>
-                  • Competitive cash and equity-based compensation
-                </ListItem>
-                <ListItem>• Medical, dental, and vision insurance</ListItem>
-                <ListItem>
-                  • Unlimited paid time off subject to prior approval
-                </ListItem>
-                <ListItem>• Visa sponsorship</ListItem>
-                <ListItem>• Life and AD&D insurance</ListItem>
-                <ListItem>
-                  • Short-term and long-term disability insurance
-                </ListItem>
-                <ListItem>• 401(k) plan</ListItem>
-              </List> */}
             </VStack>
           </Box>
 
