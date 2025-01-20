@@ -38,23 +38,28 @@ const JobDetailPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const fromName = `${formData.firstName} ${formData.lastName}`;
+    const hasCoverLetter = formData.coverLetterLink && formData.coverLetterLink.trim() !== '';
 
     const templateParams = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
+      // firstName: formData.firstName,
+      // lastName: formData.lastName,
+      to_name: 'Hiring Manager',
+      from_name: fromName, // Concatenated firstName and lastName
+      from_email: formData.email,
       phone: formData.phone,
-      resumeLink: formData.resumeLink,
-      jobTitle: job?.title,
-      jobLocation: job?.location,
+      resume_link: formData.resumeLink,
+      position: job?.title,
+      location: job?.location,
+      cover_letter_link: hasCoverLetter ? formData?.coverLetterLink : '', // Only include if present
     };
 
     emailjs
       .send(
-        "YOUR_SERVICE_ID", // Replace with your EmailJS Service ID
-        "YOUR_TEMPLATE_ID", // Replace with your EmailJS Template ID
+        "service_tsuapx9", // Replace with your EmailJS Service ID
+        "template_fx7ipta", // Replace with your EmailJS Template ID
         templateParams,
-        "YOUR_PUBLIC_KEY" // Replace with your EmailJS Public Key
+        "DtG13YmoZDccI-GgA" // Replace with your EmailJS Public Key
       )
       .then(
         (response) => {
@@ -163,7 +168,7 @@ const JobDetailPage = () => {
         <form onSubmit={handleSubmit}>
           <VStack spacing={4}>
             <FormControl isRequired>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel>First Name</FormLabel> 
               <Input
                 type="text"
                 name="firstName"
