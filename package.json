@@ -2,6 +2,7 @@
   "name": "cilent",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://hushh-api-53407187172.us-central1.run.app",
   "scripts": {
     "dev": "next dev",
     "build": "contentlayer build && next build",

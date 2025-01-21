@@ -35,6 +35,21 @@ module.exports = {
         },
       ],
     },
+    async redirects() {
+      return [
+        {
+          source: "/:path*", // Match all paths
+          has: [
+            {
+              type: "host",
+              value: "www.hush1one.com", // Old domain
+            },
+          ],
+          destination: "https://hushh.ai*", // Redirect to the new domain
+          permanent: true, // 301 redirect
+        },
+      ];
+    },
   }
 const withNextra = require('nextra')({
     theme: 'nextra-theme-docs',
