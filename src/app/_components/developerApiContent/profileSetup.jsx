@@ -3,14 +3,15 @@ import { Box, VStack, Input, FormControl, FormLabel, Button, Text } from "@chakr
 import { httpRequest } from "../requestHandler/requestHandler";
 
 const ProfileSetup = () => {
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    mobilenumber: "",
-    companyname: "",
-    companywebsite: "",
-    purposeofusage: "",
-  });
+    const [formData, setFormData] = useState({
+        firstname: "",
+        lastname: "",
+        mobilenumber: "",
+        mail: "",
+        companyname: "",
+        companywebsite: "",
+        purposeofusage: "",
+      });
 
   const [profileData, setProfileData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,12 +26,16 @@ const ProfileSetup = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
+        console.log("Submitting data:", formData); // Debugging
+
       const response = await httpRequest("POST", "profilesetup", {
         body: formData,
       });
       setProfileData(response);
     } catch (error) {
-      console.error("Error saving profile:", error);
+    //   console.error("Error saving profile:", error);
+    console.error("Error saving profile:", error.message);
+
       // Handle error gracefully (e.g., display a message to the user)
     } finally {
       setIsLoading(false);
@@ -39,12 +44,13 @@ const ProfileSetup = () => {
 
   if (profileData) {
     return (
-      <Box bg="gray.50" p={6} rounded="md" shadow="sm" maxW="400px" mx="auto" mt={10}>
+        <Box bg="gray.50" p={6} rounded="md" shadow="sm" maxW="400px" mx="auto" mt={10}>
         <Text fontSize="lg" fontWeight="bold" mb={4}>
           User Profile
         </Text>
         <Text>First Name: {profileData.firstname}</Text>
         <Text>Last Name: {profileData.lastname}</Text>
+        <Text>Email: {profileData.mail}</Text>
         <Text>Mobile Number: {profileData.mobilenumber}</Text>
         <Text>Company Name: {profileData.companyname}</Text>
         <Text>Company Website: {profileData.companywebsite}</Text>
@@ -78,6 +84,18 @@ const ProfileSetup = () => {
               placeholder="Enter your last name"
             />
           </FormControl>
+
+          <FormControl isRequired>
+  <FormLabel>Email</FormLabel>
+  <Input
+    type="email"
+    name="mail" // Updated to match the API expectation
+    value={formData.mail}
+    onChange={handleChange}
+    placeholder="Enter your email"
+  />
+</FormControl>
+
 
           <FormControl isRequired>
             <FormLabel>Mobile Number</FormLabel>
