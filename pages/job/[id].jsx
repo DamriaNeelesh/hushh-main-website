@@ -84,7 +84,7 @@ const JobDetailPage = () => {
   return (
     <>
     <Header backgroundColor={'black'}/>
-    <Box bg="black"  color="white" minH="100vh" mx={'auto'}>
+    <Box bg="black"  color="white" minH="100vh" mx={'auto'} fontFamily="Figtree, sans-serif">
       <Box className="gradient-bg " py={20} px={{ base: 6, md: 12 }}>
         <VStack align="start" spacing={4}>
           <Text fontSize={{ base: "2xl", md: "4xl" }} fontWeight="bold">

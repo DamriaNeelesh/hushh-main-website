@@ -8,6 +8,10 @@ body {
   width: 100% !important;
 }
 
+body, input, button, textarea, select {
+  font-family: 'Figtree', sans-serif;
+}
+
 /* Header CSS */
 .login {
   display: flex;

@@ -157,15 +157,36 @@ const CareerPage = () => {
             </Text>
             <Divider height={"1px"} stroke={"#9fa1a3"} />
             <Text
-              color={"#fff"}
-              fontWeight={"500"}
-              lineHeight={"1.2"}
-              letterSpacing={"-0.25px"}
-              fontSize={{ md: "1.5rem", base: "0.75rem" }}
-              textStyle={"underline"}
-            >
-              View open roles
-            </Text>
+        color={"#9fa1a3"}
+        fontWeight={"500"}
+        cursor={'pointer'}
+        whiteSpace="nowrap"
+        lineHeight={"1.2"}
+        letterSpacing={"-0.25px"}
+        fontSize={{ md: "1.5rem", base: "0.75rem" }}
+        position="relative"
+        _after={{
+          content: '""',
+          position: 'absolute',
+          width: '100%',
+          height: '2px',
+          bottom: '0',
+          left: '0',
+          backgroundColor: '#fff',
+          transform: 'scaleX(0)',
+          transformOrigin: 'bottom right',
+          transition: 'transform 0.25s ease-out',
+        }}
+        _hover={{
+          _after: {
+            transform: 'scaleX(1)',
+            transformOrigin: 'bottom left',
+          },
+          color:'white'
+        }}
+      >
+        View open roles
+      </Text>
           </HStack>
           <Box
             bg="black"
@@ -530,6 +551,7 @@ We’re excited to connect with talented individuals who share our passion for A
                 fontSize={{ base: "lg", md: "3xl" }}
                 fontWeight="bold"
                 mb={2}
+                whiteSpace="nowrap"
                 textAlign="left"
               >
                 Application Process
@@ -565,7 +587,7 @@ We’re excited to connect with talented individuals who share our passion for A
                     <ListItem> <span style={{fontWeight:'600'}}>Initial Review:</span> Our technical team will assess your skills, experience, potential, and submitted assignments.                    </ListItem>
                     <ListItem display={'flex'}  flexDirection={'column'}> <span style={{fontWeight:'600'}}>Technical Interviews (2 Rounds):</span>
                     <UnorderedList>
-                      <ListItem> <span style={{fontWeight:'600'}}>1-on-1 Interviews:</span>Evaluate coding, systems design, or research expertise, depending on the role.
+                      <ListItem> <span style={{fontWeight:'600'}}>1-on-1 Interviews: </span>Evaluate coding, systems design, or research expertise, depending on the role.
                       </ListItem>
                       <ListItem>
                       <span style={{fontWeight:'600'}}> Team Interview:</span> Deliver a 20-minute presentation on a complex technical challenge you’ve solved.
@@ -573,7 +595,7 @@ We’re excited to connect with talented individuals who share our passion for A
                       </ListItem>
                     </UnorderedList>
                      </ListItem>
-                    <ListItem> <span style={{fontWeight:'600'}}>Decision:</span>We aim to complete the process within 1–2 weeks.                    </ListItem>
+                    <ListItem> <span style={{fontWeight:'600'}}>Decision: </span>We aim to complete the process within 1–2 weeks.                    </ListItem>
 
                   </OrderedList>
 
@@ -587,157 +609,173 @@ We’re excited to connect with talented individuals who share our passion for A
           
 
           <Box
-            bg="black"
-            color="white"
-            minH="100vh"
+  bg="black"
+  color="white"
+  minH="100vh"
+  w="100%"
+  px={{ base: 4, md: 8 }}
+  py={{ base: 6, md: 12 }}
+>
+  <Box
+    mb={8}
+    display="flex"
+    flexDirection="row"
+    alignItems="center"
+    justifyContent="center"
+    gap={{ base: "0.75rem", md: "1rem" }}
+  >
+    <Text
+      fontSize={{ base: "xl", md: "3xl" }}
+      fontWeight="bold"
+      color="white"
+      whiteSpace="nowrap"
+    >
+      Open roles
+    </Text>
+    <Divider
+      flex="1"
+      borderColor="#9fa1a3"
+      borderWidth="1px"
+      orientation="horizontal"
+    />
+  </Box>
+
+  {/* Filters and Job Listings */}
+  {!isMobile && (
+    <>
+      {/* Country Filter */}
+      <VStack align="start" spacing={4} mb={6}>
+        <HStack spacing={4} flexWrap="wrap">
+          <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+            Country:
+          </Text>
+          {countries.map((country) => (
+            <Button
+              key={country}
+              variant="ghost"
+              color={selectedCountry === country ? "white" : "#aaa"}
+              fontWeight={selectedCountry === country ? "bold" : "normal"}
+              _hover={{ color: "white" }}
+              onClick={() => setSelectedCountry(country)}
+            >
+              {country}
+            </Button>
+          ))}
+        </HStack>
+        <Divider borderColor="#444" />
+      </VStack>
+
+      {/* Employment Type Filter */}
+      <VStack align="start" spacing={4} mb={6}>
+        <HStack spacing={4} flexWrap="wrap">
+          <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+            Employment Type:
+          </Text>
+          {employmentTypes.map((type) => (
+            <Button
+              key={type}
+              variant="ghost"
+              color={selectedEmploymentType === type ? "white" : "#aaa"}
+              fontWeight={selectedEmploymentType === type ? "bold" : "normal"}
+              _hover={{ color: "white" }}
+              onClick={() => setSelectedEmploymentType(type)}
+            >
+              {type}
+            </Button>
+          ))}
+        </HStack>
+        <Divider borderColor="#444" />
+      </VStack>
+
+      {/* Category Filter */}
+      <VStack align="start" spacing={4} mb={6}>
+        <HStack spacing={4} flexWrap="wrap">
+          <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+            Category:
+          </Text>
+          {categories.map((category) => (
+            <Button
+              key={category}
+              variant="ghost"
+              color={selectedCategory === category ? "white" : "#aaa"}
+              fontWeight={selectedCategory === category ? "bold" : "normal"}
+              _hover={{ color: "white" }}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </Button>
+          ))}
+        </HStack>
+        <Divider borderColor="#444" />
+      </VStack>
+    </>
+  )}
+
+  {isMobile && (
+    <VStack align="start" spacing={4} mb={6}>
+      {/* Country Filter */}
+      {renderDropdownFilter(
+        "Country",
+        countries,
+        selectedCountry,
+        setSelectedCountry
+      )}
+      <Divider borderColor="#444" />
+
+      {/* Employment Type Filter */}
+      {renderDropdownFilter(
+        "Employment Type",
+        employmentTypes,
+        setSelectedEmploymentType,
+        selectedEmploymentType
+      )}
+      <Divider borderColor="#444" />
+
+      {/* Category Filter */}
+      {renderDropdownFilter(
+        "Category",
+        categories,
+        selectedCategory,
+        setSelectedCategory
+      )}
+      <Divider borderColor="#444" />
+    </VStack>
+  )}
+
+  {/* Job Listings */}
+  <VStack align="start" spacing={6}>
+    {filteredJobs.length > 0 ? (
+      <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4} w="100%">
+        {filteredJobs.map((job) => (
+          <HStack
+            key={job.id}
+            justifyContent="space-between"
             w="100%"
-            px={{ base: 4, md: 8 }}
-            py={{ base: 6, md: 12 }}
+            borderBottom="1px solid #444"
+            pb={2}
+            spacing={4}
+            onClick={() => handleJobClick(job.id)}
+            cursor="pointer"
+            _hover={{ borderColor: "white" }}
           >
-            <Box
-        mb={8}
-        display={"flex"}
-        flexDirection={"row"}
-        gap={{ md: "2rem", base: "0.75rem" }}
-        justifyContent={"center"}
-        // mx={'3rem'}
-        alignItems={"center"}
-      >
-        <Text
-          fontSize={{ base: "xl", md: "3xl" }}
-          fontWeight="bold"
-          mb={2}
-          textAlign="left"
-          color={"#fff"}
-        >
-          Open roles
-        </Text>
-        <Divider height={"1px"} borderColor="#9fa1a3" />
-      </Box>
-
-            {/* Country Filter */}
-           {!isMobile && (
-<>
-             <VStack align="start" spacing={4} mb={6}>
-              <HStack spacing={4} flexWrap="wrap">
-                <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
-                  Country:
-                </Text>
-                {countries.map((country) => (
-                  <Button
-                    key={country}
-                    variant="ghost"
-                    color={selectedCountry === country ? "white" : "#aaa"}
-                    fontWeight={selectedCountry === country ? "bold" : "normal"}
-                    _hover={{ color: "white" }}
-                    onClick={() => setSelectedCountry(country)}
-                  >
-                    {country}
-                  </Button>
-                ))}
-              </HStack>
-              <Divider borderColor="#444" />
+            <VStack align="start" spacing={0}>
+              <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+                {job.title}
+              </Text>
+              <Text fontSize={{ base: "xs", md: "sm" }} color="#aaa">
+                {job.location}
+              </Text>
             </VStack>
+            <ArrowForwardIcon color="#aaa" />
+          </HStack>
+        ))}
+      </SimpleGrid>
+    ) : (
+      <Text color="#aaa">No jobs found for the selected filters.</Text>
+    )}
+  </VStack>
+</Box>
 
-            {/* Employment Type Filter */}
-            <VStack align="start" spacing={4} mb={6}>
-              <HStack spacing={4} flexWrap="wrap">
-                <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
-                  Employment Type:
-                </Text>
-                {employmentTypes.map((type) => (
-                  <Button
-                    key={type}
-                    variant="ghost"
-                    color={selectedEmploymentType === type ? "white" : "#aaa"}
-                    fontWeight={selectedEmploymentType === type ? "bold" : "normal"}
-                    _hover={{ color: "white" }}
-                    onClick={() => setSelectedEmploymentType(type)}
-                  >
-                    {type}
-                  </Button>
-                ))}
-              </HStack>
-              <Divider borderColor="#444" />
-            </VStack>
-
-            {/* Category Filter */}
-            <VStack align="start" spacing={4} mb={6}>
-              <HStack spacing={4} flexWrap="wrap">
-                <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
-                  Category:
-                </Text>
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant="ghost"
-                    color={selectedCategory === category ? "white" : "#aaa"}
-                    fontWeight={selectedCategory === category ? "bold" : "normal"}
-                    _hover={{ color: "white" }}
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                     {category}
-                  </Button>
-                ))}
-              </HStack>
-              <Divider borderColor="#444" />
-            </VStack>
-            </>
-          )}
-
-{isMobile && (
-            <VStack align="start" spacing={4} mb={6}>
-              {/* Country Filter */}
-              {renderDropdownFilter("Country", countries, selectedCountry, setSelectedCountry)}
-              <Divider borderColor="#444" />
-
-              {/* Employment Type Filter */}
-              {renderDropdownFilter(
-                "Employment Type",
-                employmentTypes,
-                selectedEmploymentType,
-                setSelectedEmploymentType
-              )}
-              <Divider borderColor="#444" />
-
-              {/* Category Filter */}
-              {renderDropdownFilter("Category", categories, selectedCategory, setSelectedCategory)}
-              <Divider borderColor="#444" />
-            </VStack>
-          )}
-            {/* Job Listings */}
-            <VStack align="start" spacing={6}>
-              {filteredJobs.length > 0 ? (
-                <SimpleGrid columns={{ base: 1, md: 1 }} spacing={4} w="100%">
-                  {filteredJobs.map((job) => (
-                    <HStack
-                      key={job.id}
-                      justifyContent="space-between"
-                      w="100%"
-                      borderBottom="1px solid #444"
-                      pb={2}
-                      spacing={4}
-                      onClick={() => handleJobClick(job.id)}
-                      cursor="pointer"
-                      _hover={{ borderColor: "white" }}
-                    >
-                      <VStack align="start" spacing={0}>
-                        <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
-                          {job.title}
-                        </Text>
-                        <Text fontSize={{ base: "xs", md: "sm" }} color="#aaa">
-                          {job.location}
-                        </Text>
-                      </VStack>
-                      <ArrowForwardIcon color="#aaa" />
-                    </HStack>
-                  ))}
-                </SimpleGrid>
-              ) : (
-                <Text color="#aaa">No jobs found for the selected filters.</Text>
-              )}
-            </VStack>
-          </Box>
         </VStack>
 
 
