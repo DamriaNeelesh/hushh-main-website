@@ -270,7 +270,7 @@ export default function Header({backgroundColor}) {
                 className={`link ${pathname === '/career' ? 'gradient-text' : ''}`}
                 onMouseEnter={() => setProductsSubmenu(false)}
               >
-                CAREER
+                CAREERS
               </Link>
               <Link
                 href="/hushhBlogs"
@@ -562,7 +562,7 @@ export default function Header({backgroundColor}) {
                   <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
                   <li>
                     <Link style={{fontWeight:'700'}}  onClick={() => setIsMenuOpen(false)} href="/career" className="text-lg text-white">
-                      Career
+                      Careers
                     </Link>
                   </li>
                   <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
