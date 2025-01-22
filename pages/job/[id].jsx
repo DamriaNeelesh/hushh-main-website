@@ -20,7 +20,7 @@ import Header from '../../src/app/_components/header'
 const JobDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
-
+  
   // Find the job data based on the ID
   const job = jobs.find((job) => job.id === id);
   const [formData, setFormData] = useState({

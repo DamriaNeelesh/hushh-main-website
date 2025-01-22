@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Box,
   Heading,
@@ -47,6 +47,14 @@ const CareerPage = () => {
     "AI/ML",
     "Human Resources"
   ];
+  const openRolesRef = useRef(null);
+
+  const handleViewOpenRolesClick = () => {
+    if (openRolesRef.current) {
+      openRolesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const filteredJobs = jobs.filter((job) => {
     const matchesCountry =
       selectedCountry === "Any" || job.country === selectedCountry;
@@ -184,6 +192,7 @@ const CareerPage = () => {
           },
           color:'white'
         }}
+        onClick={handleViewOpenRolesClick}
       >
         View open roles
       </Text>
@@ -615,6 +624,7 @@ We’re excited to connect with talented individuals who share our passion for A
   w="100%"
   px={{ base: 4, md: 8 }}
   py={{ base: 6, md: 12 }}
+  ref={openRolesRef}
 >
   <Box
     mb={8}
