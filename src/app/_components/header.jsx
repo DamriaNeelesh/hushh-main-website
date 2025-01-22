@@ -227,6 +227,13 @@ export default function Header({backgroundColor}) {
                 <ChevronArrowIcon className="group-hover:rotate-0 rotate-180 transition-all duration-300" />
               </Link>
               <Link
+                href="/career"
+                className={`link ${pathname === '/career' ? 'gradient-text' : ''}`}
+                onMouseEnter={() => setProductsSubmenu(false)}
+              >
+                CAREER
+              </Link>
+              <Link
                 href="/hushhBlogs"
                 onMouseEnter={() => setProductsSubmenu(false)}
               >
@@ -504,6 +511,12 @@ export default function Header({backgroundColor}) {
                   <li>
                     <Link style={{fontWeight:'700'}}  onClick={() => setIsMenuOpen(false)} href="/contact-us" className="text-lg text-white">
                       Contact Us
+                    </Link>
+                  </li>
+                  <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
+                  <li>
+                    <Link style={{fontWeight:'700'}}  onClick={() => setIsMenuOpen(false)} href="/career" className="text-lg text-white">
+                      Career
                     </Link>
                   </li>
                   <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
