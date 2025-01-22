@@ -367,12 +367,12 @@ At Hushh, we foster a fast-paced, collaborative environment where innovation thr
             minH="100vh"
             w="100%"
             px={{ base: 4, md: 8 }}
-            py={{ base: 6, md: 12 }}
+            pt={{ base: 6, md: 12 }}
           >
             {/* Header Section */}
          
             <Box
-              mb={8}
+              mb={{md:8,base:2}}
               display={"flex"}
               flexDirection={"row"}
               gap={{ md: "2rem", base: "0.75rem" }}
@@ -445,7 +445,7 @@ At Hushh, we foster a fast-paced, collaborative environment where innovation thr
           >
             {/* Header Section */}
             <Box
-              mb={8}
+              mb={{md:8,base:2}}
               display={"flex"}
               flexDirection={"row"}
               gap={{ md: "2rem", base: "0.75rem" }}
@@ -677,25 +677,25 @@ We’re excited to connect with talented individuals who share our passion for A
 
       {/* Employment Type Filter */}
       <VStack align="start" spacing={4} mb={6}>
-        <HStack spacing={4} flexWrap="wrap">
-          <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
-            Employment Type:
-          </Text>
-          {employmentTypes.map((type) => (
-            <Button
-              key={type}
-              variant="ghost"
-              color={selectedEmploymentType === type ? "white" : "#aaa"}
-              fontWeight={selectedEmploymentType === type ? "bold" : "normal"}
-              _hover={{ color: "white" }}
-              onClick={() => setSelectedEmploymentType(type)}
-            >
-              {type}
-            </Button>
-          ))}
-        </HStack>
-        <Divider borderColor="#444" />
-      </VStack>
+      <HStack spacing={4} flexWrap="wrap">
+        <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>
+          Employment Type:
+        </Text>
+        {employmentTypes.map((type) => (
+          <Button
+            key={type}
+            variant="ghost"
+            color={selectedEmploymentType === type ? "white" : "#aaa"}
+            fontWeight={selectedEmploymentType === type ? "bold" : "normal"}
+            _hover={{ color: "white" }}
+            onClick={() => setSelectedEmploymentType(type)}
+          >
+            {type}
+          </Button>
+        ))}
+      </HStack>
+      <Divider borderColor="#444" />
+    </VStack>
 
       {/* Category Filter */}
       <VStack align="start" spacing={4} mb={6}>
@@ -736,8 +736,8 @@ We’re excited to connect with talented individuals who share our passion for A
       {renderDropdownFilter(
         "Employment Type",
         employmentTypes,
-        setSelectedEmploymentType,
-        selectedEmploymentType
+        selectedEmploymentType,
+        setSelectedEmploymentType
       )}
       <Divider borderColor="#444" />
 
