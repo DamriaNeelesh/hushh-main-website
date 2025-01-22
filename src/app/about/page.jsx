@@ -1,4 +1,4 @@
-import { Box, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, Link, Text, VStack } from "@chakra-ui/react";
 import extendedTheme from "../theme";
 import React from "react";
 import TeamSection from "../_components/features/teamSection";
@@ -158,7 +158,11 @@ export default function About() {
                 data privacy and empowerment, cutting-edge technology,
                 disrupting established industries, and making a real-world
                 impact, then Hushh might be the perfect place for you. Explore
-                our current openings [Link to careers page if applicable] and
+                our current openings {" "}
+                <Link href="/career" passHref>
+                  <a className="text-fontColor5 font-bold underline">here</a>
+                </Link>{" "}
+                 and
                 become part of the team that's changing the data landscape, one
                 user at a time.
               </p>
