@@ -12,6 +12,18 @@ body, input, button, textarea, select {
   font-family: 'Figtree', sans-serif;
 }
 
+
+.mobile-header {
+  display: flex;
+  justify-content: space-between; /* Ensures items are spaced properly */
+  align-items: center; /* Aligns items vertically */
+  width: 100%;
+}
+
+.mobile-header button {
+  margin-left: auto; /* Ensures the close icon aligns to the right */
+}
+
 /* Header CSS */
 .login {
   display: flex;
@@ -485,6 +497,7 @@ pre {
 @media (max-width: 768px) {
   .mobile-header {
       display: flex; /* Show mobile header on small screens */
+      justify-content:flex-end;
   }
   .desktop-header {
       display: none; /* Hide desktop header on small screens */

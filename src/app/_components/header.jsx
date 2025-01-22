@@ -49,9 +49,10 @@ export default function Header({backgroundColor}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentQRLink, setCurrentQRLink] = useState("");
   const noHeaderPaths = ['/vivaConnect', '/viva-connect', '/viva-connect/qrPage', '/qrCodePage'];
-
+  const isCareerPage = pathname === '/career';
   const shouldShowHeader = !noHeaderPaths.includes(pathname);
   const notify = () => toast("This Product is Coming Soon!");
+  const isJobDetailPage = pathname ===  "/job/";
 
   // useEffect(() => {
   //   const checkLoginStatus = async () => {
@@ -105,7 +106,12 @@ export default function Header({backgroundColor}) {
     const handleScroll = () => {
       const position = window.scrollY;
       setScrollPosition(position);
-
+      if (isCareerPage || isJobDetailPage) {
+        setHeaderBackground("black");
+      } else {
+        setHeaderBackground(position > 0 ? "black" : "transparent");
+      }
+      // Set background color based on scroll position
       if (position > 0) {
         setHeaderBackground("black");
       } else {
@@ -118,7 +124,7 @@ export default function Header({backgroundColor}) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isCareerPage]);
 
   const scrollTo = () => {
     scroll.scrollTo(7500);
@@ -183,7 +189,16 @@ export default function Header({backgroundColor}) {
   return (
     <>
   {shouldShowHeader &&
-    <div className={`w-full z-1000`} style={{background: backgroundColor}}>
+    <div
+    className="w-full z-1000 transition-all duration-300"
+    style={{
+      background: isJobDetailPage ? "black" : headerBackground,
+      position: "fixed",
+      top: 0,
+      width: "100%",
+      zIndex: 1000,
+    }}
+  >
       <div className=" flex items-center justify-between w-full px-3 py-2 z-1000 md:px-16 md:py-5">
         <div className="flex-1">
           <Link href="/">
@@ -191,13 +206,37 @@ export default function Header({backgroundColor}) {
           </Link>
         </div>
         {isMobile ? (
-          <div className="flex items-center justify-end w-full mobile-header py-2">
-          <Container display={"flex"} gap={"1rem"}>
-            <div className="text-white bg-black" onClick={handleMenuIconToggle}>
-              {isMenuOpen ? <CloseMenuIcon color="white" /> : <Bars3Icon />}
+        //   <div className="flex items-center justify-end w-full mobile-header py-2">
+        //   <Container display={"flex"} gap={"1rem"}>
+        //   <div
+        //     className={`text-white ${!isJobDetailPage ? 'bg-transparent' : 'bg-black'}`} // Conditionally apply bg-black
+        //     onClick={handleMenuIconToggle}
+        //   >
+        //       {isMenuOpen ? <CloseMenuIcon color="white" /> : <Bars3Icon />}
+        //     </div>
+        //   </Container>
+        // </div>
+        <div
+              className="flex items-center justify-end w-full mobile-header py-2"
+              // style={{
+              //   backgroundColor: isJobDetailPage ? "transparent" : "black",
+              // }}
+            >
+              <Container display={"flex"} justifyContent="flex-end" gap={"1rem"}>
+                <div
+                  className="text-white"
+                  onClick={handleMenuIconToggle}
+                  style={{
+                    marginLeft: "auto",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  {isMenuOpen ? <CloseMenuIcon color="white" /> : <Bars3Icon />}
+                </div>
+              </Container>
             </div>
-          </Container>
-        </div>
         ) : (
           // This is for desktop screens
           <div  className={`w-full px-0 desktop-header ${isMobile ? 'hidden' : ''}`}>
@@ -422,14 +461,21 @@ export default function Header({backgroundColor}) {
           {isMenuOpen && (isTablet || isMobile) ? (
             <div style={{zIndex:'1000 !important', position:'absolute', width:'100%'}} className="top-0 bg-black overflow-hidden flex flex-col justify-between min-h-screen min-w-screen" ref={menuRef}>
               {/* Header */}
-              <div className="px-6 mt-4 flex justify-between items-center">
-                {/* Logo */}
-                {/* <Image src={HushhHeaderLogo} alt="Hushh.ai" /> */}
-                <HushhHeaderLogo/>
-                <button onClick={() => setIsMenuOpen(false)} className="text-gray-600">
-                  <CloseIcon />
-                </button>
-              </div>
+              <div className="px-6 mt-4 flex items-center justify-between">
+  <div className="flex-1">
+    <HushhHeaderLogo />
+  </div>
+  <div className="flex items-center">
+    <button
+      onClick={() => setIsMenuOpen(false)}
+      className="text-gray-600"
+      style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}
+    >
+      <CloseIcon />
+    </button>
+  </div>
+</div>
+
         
               {/* Menu Items */}
               <div className="flex-1 bg-black mt-4 overflow-y-auto">
@@ -525,12 +571,13 @@ export default function Header({backgroundColor}) {
                       Hushh Press
                     </Link>
                   </li>
+                  <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
                   <li>
                     <Link style={{fontWeight:'700'}} onClick={() => setIsMenuOpen(false)} href="/hushhBlogs" className="text-lg text-white">
                       Blogs
                     </Link>
                   </li>
-
+                  <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
                 </ul>
               </div>
         

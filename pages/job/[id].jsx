@@ -83,11 +83,11 @@ const JobDetailPage = () => {
 
   return (
     <>
-    <Header backgroundColor={'black'}/>
+    <Header />
     <Box bg="black"  color="white" minH="100vh" mx={'auto'} fontFamily="Figtree, sans-serif">
-      <Box className="gradient-bg " py={20} px={{ base: 6, md: 12 }}>
+      <Box className="gradient-bg " py={{md:40,base:20}} px={{ base: 6, md: 12 }}>
         <VStack align="start" spacing={4}>
-          <Text fontSize={{ base: "2xl", md: "4xl" }} fontWeight="bold">
+          <Text fontSize={{ base: "xl", md: "4xl" }} fontWeight="bold">
             {job.title}
           </Text>
           <Text fontSize="lg">{job.location}</Text>
@@ -161,72 +161,23 @@ const JobDetailPage = () => {
       </Box>
 
       <Box py={10} px={{ base: 6, md: 12 }} bg="gray.100" color="black">
-        <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" mb={6}>
-          Apply for this Position
-        </Text>
-        <form onSubmit={handleSubmit}>
-          <VStack spacing={4}>
-            <FormControl isRequired>
-              <FormLabel>First Name</FormLabel> 
-              <Input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder="Enter your first name"
-              />
-            </FormControl>
-
-            <FormControl isRequired>
-              <FormLabel>Last Name</FormLabel>
-              <Input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder="Enter your last name"
-              />
-            </FormControl>
-
-            <FormControl isRequired>
-              <FormLabel>Email</FormLabel>
-              <Input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-              />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Phone</FormLabel>
-              <Input
-                type="text"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="Enter your phone number"
-              />
-            </FormControl>
-
-            <FormControl isRequired>
-              <FormLabel>Resume/CV Link</FormLabel>
-              <Input
-                type="url"
-                name="resumeLink"
-                value={formData.resumeLink}
-                onChange={handleChange}
-                placeholder="Enter a link to your resume or CV"
-              />
-            </FormControl>
-
-            <Button type="submit" colorScheme="blue" width="full">
-              Submit Application
-            </Button>
-          </VStack>
-        </form>
-      </Box>
+          <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" mb={6}>
+            Apply for this Position
+          </Text>
+          <Box
+            as="iframe"
+            src="https://docs.google.com/forms/d/e/1FAIpQLSeWzoc7AsiVKm4IX3pCxmHmiJY2OMA7Ulx_9DW6oHsQZPkrRg/viewform?embedded=true"
+            width="100%"
+            minH={{md:'160vh',base:'180vh'}}
+            frameBorder="0"
+            marginHeight="0"
+            marginWidth="0"
+            style={{ border: "none" }}
+            title="Job Application Form"
+          >
+            Loading…
+          </Box>
+        </Box>
 
     </Box>
     </>
