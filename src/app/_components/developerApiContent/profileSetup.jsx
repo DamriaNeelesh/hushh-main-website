@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, VStack, Input, FormControl, FormLabel, Button, Text } from "@chakra-ui/react";
+import { Box, VStack, Input, FormControl, FormLabel, Button, Text, useToast } from "@chakra-ui/react";
 import { httpRequest } from "../requestHandler/requestHandler";
 
 const ProfileSetup = () => {
@@ -15,6 +15,7 @@ const ProfileSetup = () => {
 
   const [profileData, setProfileData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +33,13 @@ const ProfileSetup = () => {
         body: formData,
       });
       setProfileData(response);
+      toast({
+        title: "Profile Setup",
+        description: "Thank you for setting up your profile.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+    });
     } catch (error) {
     //   console.error("Error saving profile:", error);
     console.error("Error saving profile:", error.message);
@@ -45,19 +53,12 @@ const ProfileSetup = () => {
   if (profileData) {
     return (
         <Box bg="gray.50" p={6} rounded="md" shadow="sm" maxW="400px" mx="auto" mt={10}>
-        <Text fontSize="lg" fontWeight="bold" mb={4}>
-          User Profile
-        </Text>
-        <Text>First Name: {profileData.firstname}</Text>
-        <Text>Last Name: {profileData.lastname}</Text>
-        <Text>Email: {profileData.mail}</Text>
-        <Text>Mobile Number: {profileData.mobilenumber}</Text>
-        <Text>Company Name: {profileData.companyname}</Text>
-        <Text>Company Website: {profileData.companywebsite}</Text>
-        <Text>Purpose of Usage: {profileData.purposeofusage}</Text>
-      </Box>
+            <Text fontSize="lg" fontWeight="bold" mb={4}>
+                Thank you for setting up your profile.
+            </Text>
+        </Box>
     );
-  }
+}
 
   return (
     <Box bg="gray.50" p={6} rounded="md" shadow="sm" maxW="400px" mx="auto" mt={10}>

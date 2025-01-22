@@ -1,6 +1,6 @@
 import config from "../config/config";
 
-export default async function appleSignIn() {
+export default async function appleSignIn(setUserEmail) {
   try {
     // const redirectTo =
     //   process.env.NODE_ENV === "development"
@@ -32,6 +32,10 @@ export default async function appleSignIn() {
       // Handle the error appropriately
     } else {
       console.log("Apple Sign-In successful:", data);
+      const user = data?.user || (await config.supabaseClient.auth.getUser()).data.user;
+      if (user) {
+        setUserEmail(user.email); // Capture and set the user's email
+      }
       // Handle successful sign-in
     }
   } catch (error) {
