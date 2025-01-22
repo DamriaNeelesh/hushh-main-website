@@ -100,9 +100,8 @@ const JobDetailPage = () => {
             <Text fontSize="xl" fontWeight="bold" mb={4}>
               About the Company
             </Text>
-            <Text>We are a user data api (visa for data) business that Builds products and solutions helping our users organize, manage and extract meaningful value from their own data, including ai monetization options to turn their data into a financial asset.</Text>
-            <Text>Our motto is 'Your Data, Your Business', and we prioritize ownership, observability, and control of your data and its privacy. With hushh, you can monetize your data while prioritizing your privacy preferences if you choose to, allowing your trusted brands to serve you via the best virtual and human assistants. </Text>
-            <Text>Our mission is to help make “your” data “your” business. We do this by helping you extract meaningful insights & solutions from your most valuable personal data that helps you and your family understand the power that lies within your personal data once you start collecting, organizing and managing it as a personal asset on your own devices.</Text>
+            <Text>{job.aboutCompany}</Text> {/* Display the aboutCompany field */}
+
           </Box> 
           <Box>
             <Text fontSize="xl" fontWeight="bold" mb={4}>

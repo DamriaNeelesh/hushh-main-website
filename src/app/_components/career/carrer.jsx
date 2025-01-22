@@ -384,12 +384,12 @@ At Hushh, we foster a fast-paced, collaborative environment where innovation thr
                   We offer a comprehensive benefits package to support your well-being and professional growth:
                   </Text>
                   <UnorderedList  fontSize={{ base: "xs", md: "lg" }} display={'flex'} flexDirection={'column'} gap={{md:'1rem',base:'0.5rem'}} lineHeight={{md:'2rem',base:'1rem'}} color={'#ccc'}>
-                    <ListItem> <span style={{fontWeight:'600'}}>Competitive Compensation : </span>Highly competitive cash and equity-based packages.</ListItem>
-                    <ListItem> <span style={{fontWeight:'600'}}>Flexible PTO : </span>  Unlimited paid time off (subject to approval).</ListItem>
-                    <ListItem display={'flex'}  flexDirection={'column'}> <span style={{fontWeight:'600'}}>Networking Opportunities : </span>
+                    <ListItem> <span style={{fontWeight:'600'}}>Competitive Compensation: </span>Highly competitive cash and equity-based packages.</ListItem>
+                    <ListItem> <span style={{fontWeight:'600'}}>Flexible PTO: </span>  Unlimited paid time off (subject to approval).</ListItem>
+                    <ListItem display={'flex'}  flexDirection={'column'}> <span style={{fontWeight:'600'}}>Networking Opportunities: </span>
                     Collaborate with seasoned professionals and dynamic young innovators.
                      </ListItem>
-                     <ListItem> <span style={{fontWeight:'600'}}>Garage Benefits :</span>  Employees working with the founding team at Hushh Garages receive:
+                     <ListItem> <span style={{fontWeight:'600'}}>Garage Benefits:</span>  Employees working with the founding team at Hushh Garages receive:
                      <UnorderedList listStyleType="disc">
                        <ListItem>Free Wi-Fi, maintenance, and electricity.</ListItem>
                        <ListItem>Accommodation and food subsidies.</ListItem>
@@ -499,7 +499,7 @@ At Hushh, we foster a fast-paced, collaborative environment where innovation thr
                   </SimpleGrid>
                   <Text fontSize={{ base: "sm", md: "lg" }} color={'#ccc'}>While all roles are on-site to foster our unique live-work culture, we may consider remote opportunities for exceptionally qualified candidates.
                   </Text>
-<Text fontSize={{ base: "sm", md: "lg" }} fontWeight={'700'} color={'#ccc'}>Join Us :</Text>
+<Text fontSize={{ base: "sm", md: "lg" }} fontWeight={'700'} color={'#ccc'}>Join Us:</Text>
                   <Text fontSize={{ base: "sm", md: "lg" }} color={'#ccc'}>
 We’re excited to connect with talented individuals who share our passion for AI. Apply today and help us build the future of AI!
 </Text>
@@ -561,19 +561,19 @@ We’re excited to connect with talented individuals who share our passion for A
                   We ensure a quick and efficient hiring process:
                   </Text>
                   <OrderedList fontSize={{ base: "xs", md: "lg" }} display={'flex'} flexDirection={'column'} gap={{md:'1rem',base:'0.5rem'}} lineHeight={{md:'2rem',base:'1rem'}} color={'#ccc'}>
-                    <ListItem> <span style={{fontWeight:'600'}}>Submit Your Application :</span> Apply online with your CV and a compelling statement showcasing your most challenging and impactful work. Candidates who complete the Hushh Proto Assignment (provided with the job details) will be given priority.</ListItem>
-                    <ListItem> <span style={{fontWeight:'600'}}>Initial Review :</span> Our technical team will assess your skills, experience, potential, and submitted assignments.                    </ListItem>
+                    <ListItem> <span style={{fontWeight:'600'}}>Submit Your Application:</span> Apply online with your CV and a compelling statement showcasing your most challenging and impactful work. Candidates who complete the Hushh Proto Assignment (provided with the job details) will be given priority.</ListItem>
+                    <ListItem> <span style={{fontWeight:'600'}}>Initial Review:</span> Our technical team will assess your skills, experience, potential, and submitted assignments.                    </ListItem>
                     <ListItem display={'flex'}  flexDirection={'column'}> <span style={{fontWeight:'600'}}>Technical Interviews (2 Rounds):</span>
                     <UnorderedList>
-                      <ListItem> <span style={{fontWeight:'600'}}>1-on-1 Interviews :</span>Evaluate coding, systems design, or research expertise, depending on the role.
+                      <ListItem> <span style={{fontWeight:'600'}}>1-on-1 Interviews:</span>Evaluate coding, systems design, or research expertise, depending on the role.
                       </ListItem>
                       <ListItem>
-                      <span style={{fontWeight:'600'}}> Team Interview :</span> Deliver a 20-minute presentation on a complex technical challenge you’ve solved.
+                      <span style={{fontWeight:'600'}}> Team Interview:</span> Deliver a 20-minute presentation on a complex technical challenge you’ve solved.
 
                       </ListItem>
                     </UnorderedList>
                      </ListItem>
-                    <ListItem> <span style={{fontWeight:'600'}}>Decision :</span>We aim to complete the process within 1–2 weeks.                    </ListItem>
+                    <ListItem> <span style={{fontWeight:'600'}}>Decision:</span>We aim to complete the process within 1–2 weeks.                    </ListItem>
 
                   </OrderedList>
 
