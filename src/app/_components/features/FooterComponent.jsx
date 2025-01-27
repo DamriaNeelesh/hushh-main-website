@@ -83,7 +83,7 @@ const FooterComponent = () => {
                   <Link href="/products/browserCompanion">
                     Browser Companion
                   </Link>
-                  <Link href="/products/developerApi">Developer API</Link>
+                  <Link href="/developerApi">Developer API</Link>
                   {/* <Link href="/products/conciergeApp">Concierge App​</Link> */}
                   {/* <Link href="/products/hushhValetChat">Valet Chat</Link> */}
                   <Link href="/products/hushhForStudents">HFS App</Link>
@@ -181,7 +181,7 @@ const FooterComponent = () => {
                     <Link href="/products/browserCompanion">
                       Browser Companion
                     </Link>
-                    <Link href="/products/developerApi">Developer API</Link>
+                    <Link href="/developerApi">Developer API</Link>
                     {/* <Link href="/products/conciergeApp">Concierge App​</Link> */}
                     {/* <Link href="/products/hushhValetChat">Valet Chat</Link> */}
                     <Link href="/products/hushhForStudents">HFS App</Link>
