@@ -8,7 +8,6 @@ import LogoutButton from './src/app/_components/developerApiContent/logout';
 import FeedbackPopup from './src/app/_components/developerApiContent/feedbackPopup';
 import { Box, Flex } from '@chakra-ui/react';
 import { ArrowBackIcon, ArrowLeftIcon } from '@chakra-ui/icons';
-import { Search } from 'nextra/components'; // Importing Nextra's Search component
 
 
 export default {
@@ -28,10 +27,7 @@ export default {
             Hushh Developer API
           </Box>
   
-          {/* Center Section: Search */}
-          <Box flex="1" textAlign="center">
-            <Search placeholder="Search documentation..." />
-          </Box>
+          
   
           {/* Right Section: MyLogo */}
           <Box>
