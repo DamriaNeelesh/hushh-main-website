@@ -534,7 +534,7 @@ export default function Header({backgroundColor}) {
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/developerApi" className="block text-white">
+                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/developerApi" className="block text-white">
                           <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                           <VibeSearchApi className="w-6 h-6" />
                           Developer API
