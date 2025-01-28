@@ -13,31 +13,31 @@ import { ArrowBackIcon, ArrowLeftIcon } from '@chakra-ui/icons';
 export default {
     logo: <span>Hushh Developer API </span>,
     font:false,
-    navbar: {
-      component: (
-        <Flex
-          justifyContent="space-between"
-          alignItems="center"
-          width="100%"
-          padding="1rem"
-          style={{ backgroundColor: 'white', borderBottom: '1px solid #eaeaea' }}
-        >
-          {/* Left Section: Main Logo */}
-          <Box fontWeight="bold" fontSize="lg">
-            Hushh Developer API
-          </Box>
+    // navbar: {
+    //   component: (
+    //     <Flex
+    //       justifyContent="space-between"
+    //       alignItems="center"
+    //       width="100%"
+    //       padding="1rem"
+    //       style={{ backgroundColor: 'white', borderBottom: '1px solid #eaeaea' }}
+    //     >
+    //       {/* Left Section: Main Logo */}
+    //       <Box fontWeight="bold" fontSize="lg">
+    //         Hushh Developer API
+    //       </Box>
   
           
   
-          {/* Right Section: MyLogo */}
-          <Box>
-            <MyLogo />
-          </Box>
-        </Flex>
-      ),
-    },
+    //       {/* Right Section: MyLogo */}
+    //       <Box>
+    //         <MyLogo />
+    //       </Box>
+    //     </Flex>
+    //   ),
+    // },
     project: {
-      link:'null',
+      link:'/developerApi/login',
       icon: (
         <MyLogo/>
       ),
