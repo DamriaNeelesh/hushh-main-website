@@ -8,6 +8,9 @@ import {
   Button,
   Text,
   useToast,
+  Heading,
+  Divider,
+  Container,
 } from "@chakra-ui/react";
 import config from "../config/config"; // Supabase client config
 
@@ -49,7 +52,7 @@ const ProfileSetup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-  
+
     if (!session?.user) {
       toast({
         title: "Authentication Required",
@@ -61,35 +64,30 @@ const ProfileSetup = () => {
       setIsLoading(false);
       return;
     }
-  
+
     const userEmail = session.user.email;
-  
+
     try {
       console.log("Checking existing profile...");
-  
+
       // Step 1: Check if the user profile already exists
       const { data: existingUser, error: fetchError } = await config.supabaseClient
         .from("dev_api_userprofile")
         .select("mail")
         .eq("mail", userEmail)
         .single();
-  
+
       if (fetchError && fetchError.code !== "PGRST116") {
         throw fetchError;
       }
-  
+
       const profileData = {
         mail: userEmail,
-        firstname: formData.firstname,
-        lastname: formData.lastname,
-        mobilenumber: formData.mobilenumber,
-        companyname: formData.companyname,
-        website: formData.website,
-        purpose: formData.purpose,
+        ...formData,
       };
-  
+
       let error;
-  
+
       if (existingUser) {
         // Step 2: Update existing user without modifying password
         console.log("Updating profile:", profileData);
@@ -104,9 +102,9 @@ const ProfileSetup = () => {
           .from("dev_api_userprofile")
           .insert([profileData]));
       }
-  
+
       if (error) throw error;
-  
+
       toast({
         title: "Profile Setup Complete",
         description: "Your profile has been saved successfully.",
@@ -127,98 +125,115 @@ const ProfileSetup = () => {
       setIsLoading(false);
     }
   };
-  
 
   return (
-    <Box
-      bg="gray.50"
-      p={6}
-      rounded="md"
-      shadow="sm"
-      maxW="400px"
-      mx="auto"
-      mt={10}
-    >
-      <form onSubmit={handleSubmit}>
-        <VStack spacing={4}>
-          <FormControl isRequired>
-            <FormLabel>First Name</FormLabel>
-            <Input
-              type="text"
-              name="firstname"
-              value={formData.firstname}
-              onChange={handleChange}
-              placeholder="Enter your first name"
-            />
-          </FormControl>
+    <Container maxW="lg" py={10}>
+      <Box bg="white" p={8} rounded="lg" shadow="lg">
+        <Heading size="lg" textAlign="center" color="blue.600" mb={4}>
+          FIll this form to setup up your profile
+        </Heading>
+        <Text textAlign="center" fontSize="sm" color="gray.500" mb={6}>
+          Complete your profile to access all features.
+        </Text>
 
-          <FormControl isRequired>
-            <FormLabel>Last Name</FormLabel>
-            <Input
-              type="text"
-              name="lastname"
-              value={formData.lastname}
-              onChange={handleChange}
-              placeholder="Enter your last name"
-            />
-          </FormControl>
+        <Divider mb={6} />
 
-          <FormControl isRequired>
-            <FormLabel>Mobile Number</FormLabel>
-            <Input
-              type="tel"
-              name="mobilenumber"
-              value={formData.mobilenumber}
-              onChange={handleChange}
-              placeholder="Enter your mobile number"
-            />
-          </FormControl>
+        <form onSubmit={handleSubmit}>
+          <VStack spacing={5}>
+            <FormControl isRequired>
+              <FormLabel>First Name</FormLabel>
+              <Input
+                type="text"
+                name="firstname"
+                value={formData.firstname}
+                onChange={handleChange}
+                placeholder="Enter your first name"
+                rounded="md"
+                shadow="sm"
+              />
+            </FormControl>
 
-          <FormControl isRequired>
-            <FormLabel>Company Name</FormLabel>
-            <Input
-              type="text"
-              name="companyname"
-              value={formData.companyname}
-              onChange={handleChange}
-              placeholder="Enter your company name"
-            />
-          </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Last Name</FormLabel>
+              <Input
+                type="text"
+                name="lastname"
+                value={formData.lastname}
+                onChange={handleChange}
+                placeholder="Enter your last name"
+                rounded="md"
+                shadow="sm"
+              />
+            </FormControl>
 
-          <FormControl isRequired>
-            <FormLabel>Company Website</FormLabel>
-            <Input
-              type="text"
-              name="website"
-              value={formData.website}
-              onChange={handleChange}
-              placeholder="Enter your company website"
-            />
-          </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Mobile Number</FormLabel>
+              <Input
+                type="tel"
+                name="mobilenumber"
+                value={formData.mobilenumber}
+                onChange={handleChange}
+                placeholder="Enter your mobile number"
+                rounded="md"
+                shadow="sm"
+              />
+            </FormControl>
 
-          <FormControl isRequired>
-            <FormLabel>Purpose of Usage</FormLabel>
-            <Input
-              type="text"
-              name="purpose"
-              value={formData.purpose}
-              onChange={handleChange}
-              placeholder="Enter the purpose of usage"
-            />
-          </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Company Name</FormLabel>
+              <Input
+                type="text"
+                name="companyname"
+                value={formData.companyname}
+                onChange={handleChange}
+                placeholder="Enter your company name"
+                rounded="md"
+                shadow="sm"
+              />
+            </FormControl>
 
-          <Button
-            type="submit"
-            colorScheme="blue"
-            width="full"
-            isLoading={isLoading}
-            loadingText="Submitting"
-          >
-            Submit
-          </Button>
-        </VStack>
-      </form>
-    </Box>
+            <FormControl isRequired>
+              <FormLabel>Company Website</FormLabel>
+              <Input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                placeholder="Enter your company website"
+                rounded="md"
+                shadow="sm"
+              />
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel>Purpose of Usage</FormLabel>
+              <Input
+                type="text"
+                name="purpose"
+                value={formData.purpose}
+                onChange={handleChange}
+                placeholder="Enter the purpose of usage"
+                rounded="md"
+                shadow="sm"
+              />
+            </FormControl>
+
+            <Button
+              type="submit"
+              colorScheme="blue"
+              width="full"
+              isLoading={isLoading}
+              loadingText="Submitting"
+              rounded="full"
+              _hover={{ bg: "blue.500" }}
+              _active={{ bg: "blue.700" }}
+            >
+              Submit
+            </Button>
+          </VStack>
+        </form>
+      </Box>
+    </Container>
   );
 };
 
