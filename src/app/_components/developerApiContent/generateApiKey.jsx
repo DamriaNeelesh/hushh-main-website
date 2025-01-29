@@ -13,7 +13,7 @@ import config from "../config/config";
 import crypto from "crypto"; 
 
 const GenerateApiKey = () => {
-  const [apiKey, setApiKey] = useState("");
+  const [apiKey, setApiKey] = useState(""); // Stores the original API key
   const [isLoading, setIsLoading] = useState(false);
   const [session, setSession] = useState(null);
   const toast = useToast();
@@ -37,13 +37,15 @@ const GenerateApiKey = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // ✅ Generate API Key (Matches Python Logic)
+  // ✅ Generate API Key (Original & Hashed)
   const generateApiKey = () => {
     const userMail = session?.user?.email;
     const currentTime = new Date().toISOString();
     const randomToken = crypto.randomBytes(16).toString("hex"); // Equivalent to Python's secrets.token_hex(16)
-    const combinedData = userMail + currentTime + randomToken;
-    return crypto.createHash("sha256").update(combinedData).digest("hex"); // Hashing like Python's hashlib.sha256
+    const originalApiKey = userMail + "_" + randomToken; // Keep this original key for user display
+    const hashedApiKey = crypto.createHash("sha256").update(originalApiKey).digest("hex"); // Hashing before storing
+
+    return { originalApiKey, hashedApiKey };
   };
 
   // ✅ Generate & Update API Key in Supabase (Only on Button Click)
@@ -62,17 +64,17 @@ const GenerateApiKey = () => {
     setIsLoading(true);
 
     try {
-      const newApiKey = generateApiKey(); // Generate new API Key
+      const { originalApiKey, hashedApiKey } = generateApiKey(); // Generate API Key (Original & Hashed)
 
-      // ✅ Store the API Key in Supabase
+      // ✅ Store the Hashed API Key in Supabase
       const { error } = await config.supabaseClient
         .from("dev_api_userprofile")
-        .update({ api_key: newApiKey }) // Update API Key
+        .update({ api_key: hashedApiKey }) // Store only the hashed key
         .eq("mail", session.user.email);
 
       if (error) throw error;
 
-      setApiKey(newApiKey);
+      setApiKey(originalApiKey); // Show the original key to the user
 
       toast({
         title: "API Key Generated",
@@ -120,9 +122,7 @@ const GenerateApiKey = () => {
           onClick={handleGenerateApiKey}
           color={'white'}
           bg={'#bd1e59'}
-          _hover={{
-            bg:'#a11648'
-          }}
+          _hover={{ bg:'#a11648' }}
           className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 px-4 py-2 mt-4"
           isLoading={isLoading}
           loadingText="Generating..."
