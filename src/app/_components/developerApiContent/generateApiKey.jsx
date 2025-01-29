@@ -1,147 +1,108 @@
-import React, { useState, useEffect } from 'react';
-import { httpRequest } from '../requestHandler/requestHandler';
-import config from '../config/config';
-import { useToast } from '@chakra-ui/react';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  VStack,
+  Input,
+  FormControl,
+  FormLabel,
+  Button,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import config from "../config/config";
+import crypto from "crypto"; 
 
 const GenerateApiKey = () => {
-  const [hasApiKey, setHasApiKey] = useState(null);
+  const [apiKey, setApiKey] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKey, setApiKey] = useState('');
-  const [error, setError] = useState('');
-  const [copySuccess, setCopySuccess] = useState('');
   const [session, setSession] = useState(null);
   const toast = useToast();
 
+  // ✅ Fetch Supabase session (Only when component mounts)
   useEffect(() => {
-    // Get the current session
-    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+    const fetchSession = async () => {
+      const { data } = await config.supabaseClient.auth.getSession();
+      setSession(data.session);
+    };
 
-    // Listen for auth state changes
-    const {
-      data: { subscription },
-    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
+    fetchSession();
+
+    // ✅ Listen for authentication state changes
+    const { data: subscription } = config.supabaseClient.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+      }
+    );
 
     return () => subscription.unsubscribe();
   }, []);
 
-  // Check if the user already has an API key
-  const checkApiKeyStatus = async () => {
-    if (!session?.user?.email) {
-      setError('User email is not available');
-      return;
-    }
-
-    try {
-      const { data, error } = await config.supabaseClient
-        .from('dev_api_userprofile')
-        .select('api_key')
-        .eq('mail', session.user.email)
-        .single();
-
-      if (error) {
-        console.error('Error checking API key status:', error);
-        setError('Failed to check API key status');
-      } else {
-        // If api_key is present, set `hasApiKey` to true
-        setHasApiKey(!!data?.api_key);
-      }
-    } catch (err) {
-      console.error('Error checking API key status:', err);
-      setError('Failed to check API key status');
-    }
+  // ✅ Generate API Key (Matches Python Logic)
+  const generateApiKey = () => {
+    const userMail = session?.user?.email;
+    const currentTime = new Date().toISOString();
+    const randomToken = crypto.randomBytes(16).toString("hex"); // Equivalent to Python's secrets.token_hex(16)
+    const combinedData = userMail + currentTime + randomToken;
+    return crypto.createHash("sha256").update(combinedData).digest("hex"); // Hashing like Python's hashlib.sha256
   };
 
+  // ✅ Generate & Update API Key in Supabase (Only on Button Click)
   const handleGenerateApiKey = async () => {
     if (!session?.user?.email) {
-      setError('User email is not available');
       toast({
-        title: 'Please Login First',
-        description: 'To get started with an API key, you need to first login/signup',
-        status: 'info',
+        title: "Authentication Required",
+        description: "Please sign in before generating an API key.",
+        status: "warning",
         duration: 3000,
         isClosable: true,
       });
       return;
     }
-  
+
     setIsLoading(true);
+
     try {
-      const response = await httpRequest('POST', `generateapikey?mail=${session.user.email}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const newApiKey = generateApiKey(); // Generate new API Key
+
+      // ✅ Store the API Key in Supabase
+      const { error } = await config.supabaseClient
+        .from("dev_api_userprofile")
+        .update({ api_key: newApiKey }) // Update API Key
+        .eq("mail", session.user.email);
+
+      if (error) throw error;
+
+      setApiKey(newApiKey);
+
+      toast({
+        title: "API Key Generated",
+        description: "Your new API key has been updated.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
       });
-  
-      if (response.status_code === 200) {
-        setApiKey(response.api_key); // Set the API key
-        toast({
-          title: 'API Key Generated',
-          description: 'Your API key has been successfully generated.',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        });
-        setHasApiKey(true); // Update status after key generation
-      } else {
-        setError('Failed to generate API key');
-      }
     } catch (error) {
-      setError('Failed to generate API key');
-      console.error('Error generating API key:', error);
+      console.error("Error generating API key:", error);
+      toast({
+        title: "Error",
+        description: "Failed to generate API key. Please try again.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     } finally {
       setIsLoading(false);
     }
   };
-  
 
-  const handleGetApiKey = async () => {
-    if (!session?.user?.email) {
-      setError('User email is not available');
-      return;
-    }
-  
-    setIsLoading(true);
-    try {
-      const response = await httpRequest('GET', `getapikey?mail=${session.user.email}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (response.status_code === 200) {
-        setApiKey(response.data); // Set the API key
-        setError('');
-      } else {
-        setError('Failed to retrieve API key');
-      }
-    } catch (error) {
-      setError('Failed to retrieve API key');
-      console.error('Error retrieving API key:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  
-
-  useEffect(() => {
-    if (session) {
-      // Check if the user already has an API key
-      checkApiKeyStatus();
-    }
-  }, [session]);
-
+  // ✅ Copy API Key to Clipboard
   const copyToClipboard = () => {
     if (apiKey) {
       navigator.clipboard.writeText(apiKey);
-      setCopySuccess('Copied!');
       toast({
-        title: 'Copied to Clipboard',
-        description: 'API key has been copied to clipboard.',
-        status: 'success',
+        title: "Copied to Clipboard",
+        description: "Your API key has been copied.",
+        status: "success",
         duration: 2000,
         isClosable: true,
       });
@@ -149,52 +110,40 @@ const GenerateApiKey = () => {
   };
 
   return (
-    <>
-      <div className="shadow-sm text-white mt-8 onBoarding" data-v0-t="card">
-        {hasApiKey !== null && (
-          <button
-            onClick={hasApiKey ? handleGetApiKey : handleGenerateApiKey}
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 px-4 py-2 bg-[#bd1e59] hover:bg-[#a11648] mt-4"
-          >
-            {isLoading
-              ? 'Processing...'
-              : hasApiKey
-              ? 'Get API Key'
-              : 'Generate New API Key'}
-          </button>
+    <Box bg="white" p={6} rounded="lg" shadow="md" maxW="500px" mx="auto" mt={10}>
+      <VStack spacing={4}>
+        <Text fontSize="xl" fontWeight="bold">
+          Generate API Key
+        </Text>
+
+        <Button
+          onClick={handleGenerateApiKey}
+          color={'white'}
+          bg={'#bd1e59'}
+          _hover={{
+            bg:'#a11648'
+          }}
+          className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 px-4 py-2 mt-4"
+          isLoading={isLoading}
+          loadingText="Generating..."
+          w="full"
+        >
+          Generate New API Key
+        </Button>
+
+        {apiKey && (
+          <FormControl>
+            <FormLabel>API Key</FormLabel>
+            <Box display="flex">
+              <Input value={apiKey} isReadOnly w="full" />
+              <Button onClick={copyToClipboard} ml={2} colorScheme="gray">
+                Copy
+              </Button>
+            </Box>
+          </FormControl>
         )}
-        {error && <div className="text-red-500">{error}</div>}
-        <div className="border text-card-foreground shadow-sm bg-[#1C1C1E] mt-4 p-4 flex items-center justify-between rounded" data-v0-t="card">
-          <input
-            className="flex h-10 w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-transparent border-none text-white placeholder-gray-400"
-            placeholder="Authorization: Bearer YOUR_API_KEY"
-            value={apiKey}
-            readOnly
-          />
-          <button
-            onClick={copyToClipboard}
-            className="inline-flex items-center gap-2 justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 border-none bg-[#313134] text-gray-300 ml-3"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-4 h-4"
-            >
-              <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
-              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-            </svg>
-            {copySuccess}
-          </button>
-        </div>
-      </div>
-    </>
+      </VStack>
+    </Box>
   );
 };
 
