@@ -9,7 +9,6 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { httpRequest } from "../requestHandler/requestHandler";
 import config from "../config/config"; // Supabase client config
 
 const ProfileSetup = () => {
@@ -17,13 +16,11 @@ const ProfileSetup = () => {
     firstname: "",
     lastname: "",
     mobilenumber: "",
-    mail: "",
     companyname: "",
-    companywebsite: "",
-    purposeofusage: "",
+    website: "",
+    purpose: "",
   });
 
-  const [profileData, setProfileData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [session, setSession] = useState(null);
   const toast = useToast();
@@ -52,7 +49,7 @@ const ProfileSetup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     if (!session?.user) {
       toast({
         title: "Authentication Required",
@@ -64,31 +61,55 @@ const ProfileSetup = () => {
       setIsLoading(false);
       return;
     }
-
-    // Ensure email in session matches the email in the form
-    if (session.user.email !== formData.mail) {
-      toast({
-        title: "Unauthorized Request",
-        description: "The email does not match the signed-in user.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-      setIsLoading(false);
-      return;
-    }
-
+  
+    const userEmail = session.user.email;
+  
     try {
-      console.log("Submitting profile data:", formData);
-
-      const response = await httpRequest("POST", "profilesetup", {
-        body: formData,
-      });
-
-      setProfileData(response);
+      console.log("Checking existing profile...");
+  
+      // Step 1: Check if the user profile already exists
+      const { data: existingUser, error: fetchError } = await config.supabaseClient
+        .from("dev_api_userprofile")
+        .select("mail")
+        .eq("mail", userEmail)
+        .single();
+  
+      if (fetchError && fetchError.code !== "PGRST116") {
+        throw fetchError;
+      }
+  
+      const profileData = {
+        mail: userEmail,
+        firstname: formData.firstname,
+        lastname: formData.lastname,
+        mobilenumber: formData.mobilenumber,
+        companyname: formData.companyname,
+        website: formData.website,
+        purpose: formData.purpose,
+      };
+  
+      let error;
+  
+      if (existingUser) {
+        // Step 2: Update existing user without modifying password
+        console.log("Updating profile:", profileData);
+        ({ error } = await config.supabaseClient
+          .from("dev_api_userprofile")
+          .update(profileData)
+          .eq("mail", userEmail));
+      } else {
+        // Step 3: Insert new user profile
+        console.log("Inserting profile:", profileData);
+        ({ error } = await config.supabaseClient
+          .from("dev_api_userprofile")
+          .insert([profileData]));
+      }
+  
+      if (error) throw error;
+  
       toast({
         title: "Profile Setup Complete",
-        description: "Thank you for setting up your profile.",
+        description: "Your profile has been saved successfully.",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -106,24 +127,7 @@ const ProfileSetup = () => {
       setIsLoading(false);
     }
   };
-
-  if (profileData) {
-    return (
-      <Box
-        bg="gray.50"
-        p={6}
-        rounded="md"
-        shadow="sm"
-        maxW="400px"
-        mx="auto"
-        mt={10}
-      >
-        <Text fontSize="lg" fontWeight="bold" mb={4}>
-          Thank you for setting up your profile.
-        </Text>
-      </Box>
-    );
-  }
+  
 
   return (
     <Box
@@ -160,17 +164,6 @@ const ProfileSetup = () => {
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              name="mail"
-              value={formData.mail}
-              onChange={handleChange}
-              placeholder="Enter your email"
-            />
-          </FormControl>
-
-          <FormControl isRequired>
             <FormLabel>Mobile Number</FormLabel>
             <Input
               type="tel"
@@ -196,8 +189,8 @@ const ProfileSetup = () => {
             <FormLabel>Company Website</FormLabel>
             <Input
               type="text"
-              name="companywebsite"
-              value={formData.companywebsite}
+              name="website"
+              value={formData.website}
               onChange={handleChange}
               placeholder="Enter your company website"
             />
@@ -207,8 +200,8 @@ const ProfileSetup = () => {
             <FormLabel>Purpose of Usage</FormLabel>
             <Input
               type="text"
-              name="purposeofusage"
-              value={formData.purposeofusage}
+              name="purpose"
+              value={formData.purpose}
               onChange={handleChange}
               placeholder="Enter the purpose of usage"
             />
