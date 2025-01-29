@@ -1,8 +1,26 @@
 {
-    
-    "page": {
-        "title":"API Documentation",
-        "href":"https://hushh.gitbook.io/hushh-docs"
+    "getting-started": {
+      "title": "Getting Started"
     },
-    "developer-Api":"Developer API"
-}
+    "data-resources": {
+      "title": "Data & Resources"
+    },
+    "use-cases": {
+      "title": "Use Cases"
+    },
+    "browseApi": {
+      "title": "Browse Our APIs"
+    },
+    "developer-Api": {
+      "title": "Developer APIs",
+      "items": {
+        "on-Boarding": {
+          "title": "On Boarding"
+        },
+        "data-retrieval-insertion": {
+          "title": "Data Retrieval & Insertion"
+        }
+      }
+    }
+  }
+  

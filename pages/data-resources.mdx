@@ -1,0 +1,89 @@
+## 2. Data & Sources
+
+### 2.1 Where Do We Get Our Data?
+
+At **Hushh**, data is controlled and owned by users. Individuals decide which pieces of information they want to share with third-party apps and services. This ensures:
+
+- **Complete User Control**: No data is synced to any cloud service without explicit consent.
+- **Security & Privacy First**: Our system employs multiple AI-based models and cutting-edge techniques to process data securely and efficiently, while respecting user choices and regulatory requirements.
+
+All shared data is stored in our backend only after the user has given permission. **Hushh's robust infrastructure** and GDPR-compliant practices ensure that this data remains private, encrypted, and used solely for authorized purposes.
+
+---
+
+### 2.2 Data Categories in Hushh
+
+#### **1. User-Owned Data**
+- Data a user explicitly opts to share, such as receipts, health records, location information, or app usage details.
+- Users retain absolute control—consenting to what is stored or shared.
+
+#### **2. Hushh-Collected Data**
+- Insights generated via the Hushh platform itself, such as:
+  - User surveys
+  - Hushh-Button interactions
+  - Usage metrics from our integrations
+- Users still retain ownership and can review or revoke data sharing at any point.
+
+In every scenario, **Hushh provides clear, granular opt-in controls** so users understand precisely which data points are shared and why.
+
+---
+
+### 2.3 How We Organize the Data
+
+Although users own the data, **Hushh manages it within a secure, privacy-compliant backend.** Examples of data include:
+
+- **Receipts & Transaction Data**: 
+  - Centralizes details like brand, purchase location, total cost, and currency. Useful for providing personalized recommendations or expense tracking.
+
+- **Health & Wellness Data**:
+  - Holds health metrics or user-reported information, such as daily activity or app-synced fitness logs.
+
+- **User-Installed Cards & Memberships**:
+  - Tracks brand cards or loyalty programs a user has installed or expressed interest in, enabling more personalized brand interactions.
+
+- **App Usage & Interactions**:
+  - Captures data on how users engage with certain applications or integrated features, always with user consent.
+
+- **Locations**:
+  - Stores geospatial data for location-based services. Strict opt-in policies ensure transparency around any location use.
+
+- **Consolidated Views & Summaries**:
+  - Combines various sources to create high-level summaries or dashboards, such as receipt summaries or aggregated app usage.
+
+Through this structured approach, **we ensure data is easy to manage, secure, and traceable**—always anchored by the user’s consent. Whether you’re a developer building personalized shopping experiences or a data analyst searching for trends, Hushh provides granular, consent-driven access to the information users want to share.
+
+---
+
+### 2.4 Consent-Based Data Retrieval
+
+All data in **Hushh** is governed by explicit user consent. Even if a user’s data exists in Hushh (such as receipts, browsing history, or health information), developers are **not automatically granted access.**
+
+When a developer attempts to retrieve data for which the user has not given consent, the API will respond:
+
+> **"You don’t have permission to access the data. Please request consent from the user."**
+
+#### Process for Requesting Consent:
+1. **Call the Request Consent Endpoint**:
+   - Prompt the user to approve or reject the request.
+2. **Immediate Response Window**:
+   - Users have 3 minutes to provide a quick decision (accepted or rejected).
+3. **Extended Window**:
+   - If no response is received in 3 minutes, the request remains pending for 24 hours.
+4. **Access Granted**:
+   - Once consent is given, developers can retrieve the user’s data from the relevant endpoints.
+
+#### Key Points:
+- **User-Centric Control**: Data retrieval is always subject to user approval, reinforcing privacy and compliance.
+- **Request Consent**: Developers must notify and request authorization from users if no prior permission exists.
+- **Time-Bound Process**: A 3-minute immediate response window, plus a 24-hour extended window.
+- **Dynamic Updates**: After consent is granted, subsequent retrieval calls succeed automatically.
+
+---
+
+### Key Takeaways
+
+- **User Consent is Paramount**: Hushh never collects data without explicit approval.
+- **Granular Control**: Users decide which categories of data (receipts, health, location, etc.) can be accessed.
+- **Structured Organization**: Data is separated into relevant tables and views, ensuring clarity and compliance.
+
+Ready to integrate? Check out our **Quick Start** or **API Reference** for detailed steps on accessing, retrieving, and working with these datasets in your applications.

@@ -95,26 +95,6 @@ useEffect(() => {
 }, [session]);
 
 
-  // async function fetchUserData() {
-  //   try {
-  //     // Fetch all rows from the 'dev_api_userprofile' table
-  //     const { data, error } = await config.supabaseClient
-  //       .from('dev_api_userprofile')
-  //       .select('*'); // Select all columns
-  
-  //     if (error) {
-  //       console.error('Error fetching user data:', error.message);
-  //       return;
-  //     }
-  
-  //     if (data) {
-  //       console.log('Fetched user data:', data);
-  //     }
-  //   } catch (error) {
-  //     console.error('Unexpected error while fetching user data:', error);
-  //   }
-  // }
-
   
   console.log('Session from GetSession Client', session?.session?.user?.email);
   console.log('Whole Session Data: ',session)
