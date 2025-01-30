@@ -72,7 +72,7 @@ const MyLogo = () => {
           </MenuList>
         </Menu>
       ) : (
-        <Box display="flex" alignItems="center" flexDirection={'row'} gap={{md:'2rem',base:'0'}}>
+        <Box display="flex" alignItems="center" flexDirection={'row'} gap={{md:'2rem',base:'1rem'}}>
           <Image src={HushhLogo} alt="Hushh Logo" width={34} height={34} />
           <Button
             border="1px solid #606060"
