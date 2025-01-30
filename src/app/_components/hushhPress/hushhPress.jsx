@@ -25,7 +25,7 @@ import FooterComponent from "../features/FooterComponent";
         color="white"
         py={{ base: 20, md: 24 }}
         px={{ base: 6, md: 24 }}
-        fontFamily="Helvetica, Arial, sans-serif"
+        fontFamily="Figtree, sans-serif"
         lineHeight="1.8"
       >
         <VStack spacing={{ base: 8, md: 12 }} align="start" w="full">
@@ -66,34 +66,39 @@ import FooterComponent from "../features/FooterComponent";
           </VStack>
   
           {/* Core Values Section */}
-          <VStack spacing={4} align="start">
-            <Heading fontSize={{ base: "xl", md: "2xl" }}>Our Core Values</Heading>
-            <UnorderedList fontSize={{ base: "md", md: "lg" }} spacing={3}>
-              <ListItem>
-                <b>Customers Come First:</b> Every decision we make is guided by
-                the people we serve: our users. We work backward from your needs
-                to ensure every interaction with Hushh is effortless, rewarding,
-                and trustworthy.
-              </ListItem>
-              <ListItem>
-                <b>Simplicity is Everything:</b> Inspired by the timeless wisdom
-                of Steve Jobs, we believe simplicity is the ultimate
-                sophistication. Hushh is designed to be intuitive, elegant, and
-                easy to use—so you can focus on what matters most in your life.
-              </ListItem>
-              <ListItem>
-                <b>Privacy is Non-Negotiable:</b> We are committed to
-                privacy-first technology. Your data belongs to you. Every action
-                is governed by your consent. We use end-to-end encryption and
-                on-device processing to protect your information at every step.
-              </ListItem>
-              <ListItem>
-                <b>Turning Data into Wealth:</b> Inspired by Warren Buffett’s
-                value-driven principles, Hushh transforms your personal data into
-                tangible financial rewards.
-              </ListItem>
-            </UnorderedList>
-          </VStack>
+          
+<VStack spacing={4} align="start">
+  <Heading fontSize={{ base: "xl", md: "2xl" }}>Our Core Values</Heading>
+  <UnorderedList fontSize={{ base: "md", md: "lg" }} spacing={3}>
+    <ListItem>
+      <b>Customers Come First:</b> Every decision we make is guided by
+      the people we serve: our users. We work backward from your needs
+      to ensure every interaction with Hushh is effortless, rewarding,
+      and trustworthy.
+    </ListItem>
+    <ListItem>
+      <b>Simplicity is Everything:</b> Inspired by the timeless wisdom
+      of Steve Jobs, we believe simplicity is the ultimate
+      sophistication. Hushh is designed to be intuitive, elegant, and
+      easy to use—so you can focus on what matters most in your life.
+    </ListItem>
+    <ListItem>
+      <b>Privacy is Non-Negotiable:</b> We are committed to
+      privacy-first technology. Your data belongs to you. Every action
+      is governed by your consent. We use end-to-end encryption and
+      on-device processing to protect your information at every step.
+    </ListItem>
+    <ListItem>
+      <b>Turning Data into Wealth:</b> Inspired by Warren Buffett’s
+      value-driven principles, Hushh transforms your personal data into
+      tangible financial rewards.
+    </ListItem>
+  </UnorderedList>
+  <Link href="/hushh-core-values" color="blue.400" fontSize={{ base: "md", md: "lg" }}>
+    Learn more about Hushh's core values
+  </Link>
+</VStack>
+
   
           {/* What We Offer Section */}
           <VStack spacing={4} align="start">
