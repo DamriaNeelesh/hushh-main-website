@@ -1,9 +1,9 @@
 export default {
-    'on-Boarding': {
+    'on-boarding': {
       title: 'On Boarding',
     },
-    'data-retrieval-insertion': {
-      title: 'Data Retrieval & Insertion',
-    },
+    // 'data-retrieval-insertion': {
+    //   title: 'Data Retrieval & Insertion',
+    // },
   };
   

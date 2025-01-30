@@ -1,23 +1,16 @@
 {
-    "data-retrieval-insertion": {
-      "title": "Data Retrieval & Insertion",
+  "user-on-boarding": {
+      "title": "User Guide",
       "order": 1
     },
     "on-boarding": {
-      "title": "Onboarding",
+      "title": "On Boarding",
       "order": 2
     },
-    "authentication-api's": {
-      "title": "Authentication APIs",
-      "order": 3
-    },
-    "user-on-boarding": {
-      "title": "User Onboarding",
-      "order": 4
-    },
-    "user-management-api's": {
-      "title": "User Management APIs",
-      "order": 5
+    "data-retrieval-insertion": {
+      "title": "Data Retrieval & Insertion",
+      "order": 3,
+      "hidden": true
     },
     "rootEndpoints": {
       "title": "Root Endpoints",
