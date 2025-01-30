@@ -9,12 +9,13 @@
     },
     "data-retrieval-insertion": {
       "title": "Data Retrieval & Insertion",
-      "order": 3,
-      "hidden": true
+      "display": "hidden"
+      
     },
     "rootEndpoints": {
       "title": "Root Endpoints",
-      "order": 6
+      "order": 6,
+      "display": false
     },
     "schemas": {
       "title": "Schemas",

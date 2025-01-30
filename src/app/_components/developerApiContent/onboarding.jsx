@@ -272,21 +272,7 @@ useEffect(() => {
   return (
     <>
     <VStack spacing={4}>
-        {!session && (
-          <>
-            <Text fontSize="lg" fontWeight="bold">
-              Sign in to access the Developer API
-            </Text>
-            <Button onClick={handleGoogleSignIn} colorScheme="blue">
-              Sign in with Google
-            </Button>
-            {/* <div id="appleid-signin" data-color="black" data-border="true" data-type="sign in"></div> */}
-
-            <Button onClick={handleAppleSignIn} colorScheme="blackAlpha">
-              Sign in with Apple
-            </Button>
-          </>
-        )}
+      
         {session && (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
       <Text fontSize="lg" fontFamily={'Inter ,sans-serif'} fontWeight="500" color="green.500">
