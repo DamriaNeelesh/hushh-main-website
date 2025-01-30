@@ -1,0 +1,134 @@
+# Onboarding
+
+### 0.1 Sign Up Through the Console
+
+1. **Visit our developer console**.
+2. **Choose a sign-up method**: Google or Apple.
+3. **Authorize the connection** and complete any remaining sign-up steps (e.g., verifying your email).
+
+---
+
+### 0.2 Complete Your Profile
+
+- **Enter developer or company details** in the console (e.g., organization name, website, usage goals).
+- **Save profile preferences** to simplify future requests for higher data limits or advanced features.
+
+> **Tip:** A thorough profile ensures tailored experiences and efficient support.
+
+---
+
+### 0.3 Generate Your API Credentials
+
+1. Navigate to the **"API Keys"** section in the console.
+2. Click **"Generate Key"** to receive a unique API key for your environment (test or live).
+3. **Securely store** your API key (e.g., environment variables or a secure vault).
+
+---
+
+### 0.4 Get a Session Token
+
+1. Exchange your API key and email for a session token by calling:
+
+   ```bash
+   POST /sessiontoken
+   ```
+
+2. Use the session token in request headers for data retrieval or insertion endpoints:
+
+   ```bash
+   Authorization: Bearer <token>
+   ```
+
+> **Why?** The session token is short-lived, adding an extra layer of security.
+
+#### Example Request (HTTP):
+
+```http
+POST /sessiontoken?mail=developer@example.com&api_key=A1b2C3d4E5f6G7H8I9J0
+```
+
+#### Success Response (200 OK):
+
+```json
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+#### Possible Errors:
+- **422 Validation Error:** If mail or API key is missing or invalid.
+- **Authentication Failure:** If mail and API key don’t match any existing profile.
+
+---
+
+### 0.5 Validate & Refresh
+
+- **Validate:** Check if your session token is active by calling:
+
+  ```bash
+  POST /validatetoken
+  ```
+
+- **Refresh:** Re-generate a new token if expired or invalid.
+
+#### Example Request (HTTP):
+
+```http
+POST /validatetoken?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+#### Success Response (200 OK):
+
+```json
+"Token is valid."
+```
+
+#### Possible Errors:
+- **422 Validation Error:** Missing or invalid token.
+- **Token Expired:** Re-generate via `/sessiontoken`.
+
+---
+
+### 0.6 Request User Consent
+
+1. Attempt to retrieve or insert user data.
+2. If access is denied, prompt the user for consent using:
+
+   ```bash
+   POST /api/v1/request-consent
+   ```
+
+3. Await a response within 3 minutes (immediate window) or up to 24 hours.
+
+> **Why?** User consent is at the core of Hushh’s privacy model. Only explicitly approved data can be accessed.
+
+---
+
+### 0.7 Data Retrieval & Insertion
+
+- Use endpoints such as:
+  - `POST /api/v1/get-receipt-data`
+  - `POST /api/v1/insert-receipt-data`
+
+- Explore other specialized endpoints for Health, Browsing, Fashion, Brand Preferences, and more.
+
+---
+
+### 0.8 Best Practices
+
+- **Secure Keys:** Keep API keys and tokens safe.
+- **Minimize Requests:** Respect user privacy by requesting only necessary data.
+- **Handle Errors Gracefully:** Guide users when permission or validation issues arise.
+- **Stay Updated:** Monitor announcements for new endpoints, updates, or deprecations.
+
+---
+
+### 0.9 Going Live
+
+1. **Test Mode vs. Live Mode:** Switch to live API key for production usage.
+2. **Monitor:** Track logs and metrics for optimization.
+3. **Support:** Reach out to [info@hush1one.com](mailto:info@hush1one.com) for assistance.
+
+---
+
+## Ready to Build?
+
+Follow these onboarding steps and tap into Hushh’s consent-driven data ecosystem. For any questions, visit our Support page or contact us directly. **We can’t wait to see what you create!**

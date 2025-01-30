@@ -95,26 +95,6 @@ useEffect(() => {
 }, [session]);
 
 
-  // async function fetchUserData() {
-  //   try {
-  //     // Fetch all rows from the 'dev_api_userprofile' table
-  //     const { data, error } = await config.supabaseClient
-  //       .from('dev_api_userprofile')
-  //       .select('*'); // Select all columns
-  
-  //     if (error) {
-  //       console.error('Error fetching user data:', error.message);
-  //       return;
-  //     }
-  
-  //     if (data) {
-  //       console.log('Fetched user data:', data);
-  //     }
-  //   } catch (error) {
-  //     console.error('Unexpected error while fetching user data:', error);
-  //   }
-  // }
-
   
   console.log('Session from GetSession Client', session?.session?.user?.email);
   console.log('Whole Session Data: ',session)
@@ -292,21 +272,7 @@ useEffect(() => {
   return (
     <>
     <VStack spacing={4}>
-        {!session && (
-          <>
-            <Text fontSize="lg" fontWeight="bold">
-              Sign in to access the Developer API
-            </Text>
-            <Button onClick={handleGoogleSignIn} colorScheme="blue">
-              Sign in with Google
-            </Button>
-            {/* <div id="appleid-signin" data-color="black" data-border="true" data-type="sign in"></div> */}
-
-            <Button onClick={handleAppleSignIn} colorScheme="blackAlpha">
-              Sign in with Apple
-            </Button>
-          </>
-        )}
+      
         {session && (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
       <Text fontSize="lg" fontFamily={'Inter ,sans-serif'} fontWeight="500" color="green.500">

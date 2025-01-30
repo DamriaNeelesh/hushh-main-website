@@ -6,14 +6,38 @@ import remarkGfm from 'remark-gfm';
 import MyLogo from './src/app/developerApi/userLogo';
 import LogoutButton from './src/app/_components/developerApiContent/logout';
 import FeedbackPopup from './src/app/_components/developerApiContent/feedbackPopup';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { ArrowBackIcon, ArrowLeftIcon } from '@chakra-ui/icons';
+
 
 export default {
     logo: <span>Hushh Developer API </span>,
     font:false,
+    // navbar: {
+    //   component: (
+    //     <Flex
+    //       justifyContent="space-between"
+    //       alignItems="center"
+    //       width="100%"
+    //       padding="1rem"
+    //       style={{ backgroundColor: 'white', borderBottom: '1px solid #eaeaea' }}
+    //     >
+    //       {/* Left Section: Main Logo */}
+    //       <Box fontWeight="bold" fontSize="lg">
+    //         Hushh Developer API
+    //       </Box>
+  
+          
+  
+    //       {/* Right Section: MyLogo */}
+    //       <Box>
+    //         <MyLogo />
+    //       </Box>
+    //     </Flex>
+    //   ),
+    // },
     project: {
-      link:'/developer-Api/on-boarding',
+      link:'/developerApi/login',
       icon: (
         <MyLogo/>
       ),
@@ -22,7 +46,11 @@ export default {
        text:null,
        Component:null,
     },
-    feedback:{ content: "To know more about hushh develoeper API", label:'To know more about hushh develoeper API', link:"https://hushh.gitbook.io/hushh-docs/api-reference/overview"}, 
+    feedback:{ 
+      content: "To know more about hushh develoeper API", 
+      label:'To know more about hushh develoeper API', 
+      link:'/products/developerApi'
+    }, 
   //   toc: {
   //     extraContent: () =>
   //         <FeedbackPopup/>
@@ -58,6 +86,7 @@ export default {
     // navbar: {
     //   component:  <CustomNavbar />
     // },
+    
     content: {
       components: MDXComponents,
     },
