@@ -1,0 +1,71 @@
+---
+title: Support
+---
+
+# 4. Support
+We’re here to ensure your journey with **Hushh Developer APIs** is as smooth as possible. Below you’ll find details on how to get in touch, answers to common questions, and links to further resources.
+
+---
+
+## 4.1 Contact Details
+
+📩 **Email**: [info@hush1one.com](mailto:info@hush1one.com)  
+Reach out for **technical support, partnership inquiries, or general questions** about using Hushh.
+
+🌐 **Website**: [hushh.ai](https://hushh.ai)  
+Explore our website for the **latest news, product updates, and developer announcements**.
+
+---
+
+## 4.2 FAQs
+
+### **🔹 How do I switch from test mode to live mode?**
+Your **API key** determines whether requests are handled in **test or live mode**.  
+Once you’re ready for production, **generate or request a live-mode API key** and update your credentials accordingly.  
+> ⚠️ **Note:** Currently, our live mode is **not yet available**.
+
+### **🔹 What if a user revokes consent after data has been retrieved?**
+If a user **revokes consent**, you must:
+- **Cease further data pulls** for that data scope.
+- **Delete or anonymize** any locally stored copies if requested by the user.
+- You **will not be able to access updated data** after consent has been revoked.
+
+### **🔹 Do you store all user data permanently?**
+Hushh **respects user ownership**. Data is:
+✅ **Stored securely** only with explicit **user permission**.  
+✅ **Deleted upon user request**, adhering to **GDPR and similar regulations**.
+
+### **🔹 How do I handle token expiration?**
+If you receive a **token-expired** error:
+1. Call the **`/sessiontoken`** endpoint again.
+2. Use your **valid API key** and **email** to obtain a **new session token**.
+
+### **🔹 Can I cache data for offline usage?**
+✅ If your use case **requires caching**, ensure:
+- Users are **informed**.
+- You **comply with privacy regulations**.
+- Data is **only cached for a legitimate purpose** agreed upon by the user.
+
+---
+
+## 4.3 Further Resources
+
+📖 **Developer Guides & Quick Start**  
+Refer to our **[Getting Started](/getting-started)** section to kick off your integration journey.
+
+📌 **API Reference**  
+For in-depth **endpoint documentation, schemas, and code samples**, visit our **[API Reference](/api-reference)**.
+
+🔔 **Changelog / Release Notes**  
+Keep an eye on **Hushh’s update feed** (accessible via your **developer dashboard**) for:
+- **Feature releases**
+- **Bug fixes**
+- **New API endpoints**
+
+---
+
+## **Need More Help?**
+If you can’t find answers in our **documentation or FAQs**, contact our support team at **[info@hush1one.com](mailto:info@hush1one.com)**.  
+💡 We’re always here to help you build **secure, compliant, and user-friendly solutions** with **Hushh Developer APIs**.
+
+🚀 **Happy Coding!**

@@ -1,0 +1,33 @@
+{
+  "user-on-boarding": {
+      "title": "User Guide",
+      "order": 1
+    },
+    "on-boarding": {
+      "title": "On Boarding",
+      "order": 2
+    },
+    "data-retrieval-insertion": {
+      "title": "Data Retrieval & Insertion",
+      "display": "hidden"
+      
+    },
+    "rootEndpoints": {
+      "title": "Root Endpoints",
+      "order": 6,
+      "display": false
+    },
+    "schemas": {
+      "title": "Schemas",
+      "order": 7
+    },
+    "support": {
+      "title": "Support",
+      "order": 8
+    },
+    "additional-requirements": {
+      "title": "Additional Requirements",
+      "order": 9
+    }
+  }
+  
