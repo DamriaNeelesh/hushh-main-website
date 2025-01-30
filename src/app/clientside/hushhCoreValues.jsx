@@ -7,7 +7,7 @@ const CoreValues = () => {
       <div className="relative w-full h-screen flex flex-col items-center justify-center text-center px-6 sm:px-4">
         <div>
           <h1 className="text-5xl sm:text-3xl md:text-5xl font-bold tracking-wide">
-            <span className="hushh-gradient">Hushh’s</span> Core Values
+            <span className="hushh-gradient">Hushh’s</span>{" "}<span className="gradient">Core Values</span> 
           </h1>
           <p className="mt-4 text-lg sm:text-base md:text-xl text-gray-400 max-w-3xl mx-auto">
             Below is a Steve Jobs–style rewrite of hushh’s guiding principles. It’s sharper, bolder, and leaves no room for misinterpretation—just like Jobs’s famous candor.
@@ -19,7 +19,7 @@ const CoreValues = () => {
       <div className="max-w-5xl mx-auto px-6 sm:px-4 py-12 sm:py-8">
         {/* Core Values */}
         <section className="mb-16">
-          <h2 className="text-3xl sm:text-3xl font-semibold border-b border-gray-700 pb-4">
+          <h2 className="gradient text-3xl sm:text-3xl font-[900] border-b border-gray-700 pb-4">
             Core Values
           </h2>
           <ul className="mt-6 space-y-6 sm:space-y-4">
@@ -42,7 +42,7 @@ const CoreValues = () => {
 
         {/* Leadership Principles */}
         <section className="mb-16">
-          <h2 className="text-3xl sm:text-3xl font-semibold border-b border-gray-700 pb-4">
+          <h2 className="text-3xl gradient sm:text-3xl font-[900] border-b border-gray-700 pb-4">
             Leadership Principles
           </h2>
           <ul className="mt-6 space-y-6 sm:space-y-4">
@@ -64,7 +64,7 @@ const CoreValues = () => {
 
         {/* Code of Conduct */}
         <section className="mb-16">
-          <h2 className="text-3xl sm:text-3xl font-semibold border-b border-gray-700 pb-4">
+          <h2 className="text-3xl sm:text-3xl gradient font-[900] border-b border-gray-700 pb-4">
             Code of Conduct & Ethics
           </h2>
           <ul className="mt-6 space-y-6 sm:space-y-4">
@@ -87,7 +87,7 @@ const CoreValues = () => {
 
         {/* Business Partnerships */}
         <section>
-          <h2 className="text-3xl sm:text-3xl font-semibold border-b border-gray-700 pb-4">
+          <h2 className="text-3xl sm:text-3xl gradient font-[900] border-b border-gray-700 pb-4">
             Business Partnerships Focus
           </h2>
           <ul className="mt-6 space-y-6 sm:space-y-4">
