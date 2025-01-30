@@ -178,6 +178,7 @@ const ClientHome = () => {
               display={"flex"}
               flexDirection={"row"}
               px={{ base: "0.2rem", md: "2rem" }}
+              minH={'100vh'}
               // py={{ base: "0.2rem", md: "2rem" }}
             >
               <VStack
@@ -469,6 +470,7 @@ const ClientHome = () => {
               justifyContent="space-between"
               gap="8rem"
               px={{ md: "3rem" }}
+              minH={'100vh'}
             >
               {/* Left side box */}
               <Box
