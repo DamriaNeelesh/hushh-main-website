@@ -109,7 +109,7 @@ const CoreValues = () => {
         {/* Final Conclusion */}
         <section className="mt-12 text-left text-gray-400 text-md sm:text-base md:text-lg">
           <p>
-            “Your data, your business” isn’t just a tagline; it’s our guiding light. These Core Values, Leadership Principles, Code of Conduct & Ethics, and Partnership Guidelines frame how we work, innovate, and grow—always with a win-win-win mindset.
+            <span className="hushh-gradient" style={{fontWeight:'700'}}>“Your data, your business” </span> isn’t just a tagline; it’s our guiding light. These Core Values, Leadership Principles, Code of Conduct & Ethics, and Partnership Guidelines frame how we work, innovate, and grow—always with a win-win-win mindset.
           </p>
           <p className="mt-4">
             By living these principles daily, we ensure hushh remains a beacon of trust, excellence, and data sovereignty in everything we do.
