@@ -12,20 +12,18 @@ const MyLogo = () => {
   const toast = useToast();
 
   useEffect(() => {
-    // Get the current session
-    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    const { data } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
-
-    // Listen for auth state changes
-    const {
-      data: { subscription },
-    } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
+  
+    // ✅ Ensure it unsubscribes correctly
+    return () => {
+      if (data?.subscription) {
+        data.subscription.unsubscribe();
+      }
+    };
   }, []);
+  
 
   const handleLogout = async () => {
     try {

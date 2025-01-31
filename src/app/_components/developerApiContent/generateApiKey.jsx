@@ -13,37 +13,31 @@ import config from "../config/config";
 import crypto from "crypto"; 
 
 const GenerateApiKey = () => {
-  const [apiKey, setApiKey] = useState(""); // Stores the original API key
+  const [apiKey, setApiKey] = useState(""); // Stores the original API key (for display only)
   const [isLoading, setIsLoading] = useState(false);
   const [session, setSession] = useState(null);
   const toast = useToast();
 
   // ✅ Fetch Supabase session (Only when component mounts)
   useEffect(() => {
-    const fetchSession = async () => {
-      const { data } = await config.supabaseClient.auth.getSession();
-      setSession(data.session);
-    };
+    const { data } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
 
-    fetchSession();
-
-    // ✅ Listen for authentication state changes
-    const { data: subscription } = config.supabaseClient.auth.onAuthStateChange(
-      (_event, session) => {
-        setSession(session);
+    return () => {
+      if (data?.subscription) {
+        data.subscription.unsubscribe();
       }
-    );
-
-    return () => subscription.unsubscribe();
+    };
   }, []);
 
   // ✅ Generate API Key (Original & Hashed)
-  const generateApiKey = () => {
-    const userMail = session?.user?.email;
-    const currentTime = new Date().toISOString();
-    const randomToken = crypto.randomBytes(16).toString("hex"); // Equivalent to Python's secrets.token_hex(16)
-    const originalApiKey = userMail + "_" + randomToken; // Keep this original key for user display
-    const hashedApiKey = crypto.createHash("sha256").update(originalApiKey).digest("hex"); // Hashing before storing
+  const generateApiKey = (userMail) => {
+    const currentTime = new Date().toISOString(); // Equivalent to `datetime.now().isoformat()`
+    const userData = `${userMail}${currentTime}`; // Concatenating email and timestamp
+    const randomToken = crypto.randomBytes(16).toString("hex"); // Equivalent to `secrets.token_hex(16)`
+    const originalApiKey = `${randomToken}`; // 👈 Plain key (Frontend display only)
+    const hashedApiKey = crypto.createHash("sha256").update(userData + originalApiKey).digest("hex"); // Hashed version
 
     return { originalApiKey, hashedApiKey };
   };
@@ -64,17 +58,18 @@ const GenerateApiKey = () => {
     setIsLoading(true);
 
     try {
-      const { originalApiKey, hashedApiKey } = generateApiKey(); // Generate API Key (Original & Hashed)
+      const userMail = session.user.email;
+      const { originalApiKey, hashedApiKey } = generateApiKey(userMail); // Generate API Key (Original & Hashed)
 
-      // ✅ Store the Hashed API Key in Supabase
+      // ✅ Store only the Hashed API Key in Supabase
       const { error } = await config.supabaseClient
         .from("dev_api_userprofile")
         .update({ api_key: hashedApiKey }) // Store only the hashed key
-        .eq("mail", session.user.email);
+        .eq("mail", userMail);
 
       if (error) throw error;
 
-      setApiKey(originalApiKey); // Show the original key to the user
+      setApiKey(originalApiKey); // Show only the original key to the user (not stored in DB)
 
       toast({
         title: "API Key Generated",

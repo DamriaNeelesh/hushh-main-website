@@ -30,19 +30,19 @@ const ProfileSetup = () => {
 
   // Fetch current session on component mount
   useEffect(() => {
-    config.supabaseClient.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    // Listen for auth state changes
-    const { data: subscription } = config.supabaseClient.auth.onAuthStateChange(
+    const unsubscribe = config.supabaseClient.auth.onAuthStateChange(
       (_event, session) => {
         setSession(session);
       }
     );
-
-    return () => subscription.unsubscribe();
+  
+    return () => {
+      if (typeof unsubscribe === "function") {
+        unsubscribe(); // ✅ Properly unsubscribe
+      }
+    };
   }, []);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
