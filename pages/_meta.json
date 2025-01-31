@@ -12,15 +12,7 @@
       "title": "Browse Our APIs"
     },
     "developer-Api": {
-      "title": "Developer APIs",
-      "items": {
-        "on-Boarding": {
-          "title": "On Boarding"
-        },
-        "data-retrieval-insertion": {
-          "title": "Data Retrieval & Insertion"
-        }
-      }
+      "title": "Developer APIs"
     }
   }
   

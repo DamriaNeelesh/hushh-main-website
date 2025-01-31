@@ -1,11 +1,11 @@
 {
   "user-on-boarding": {
       "title": "User Guide",
-      "order": 1
+    "display": "hidden"
     },
     "on-boarding": {
       "title": "On Boarding",
-      "order": 2
+      "order": 1
     },
     "data-retrieval-insertion": {
       "title": "Data Retrieval & Insertion",
@@ -14,8 +14,7 @@
     },
     "rootEndpoints": {
       "title": "Root Endpoints",
-      "order": 6,
-      "display": false
+      "order": 6
     },
     "schemas": {
       "title": "Schemas",
