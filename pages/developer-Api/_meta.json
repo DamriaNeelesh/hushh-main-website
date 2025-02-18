@@ -8,8 +8,8 @@
       "order": 1
     },
     "data-retrieval-insertion": {
-      "title": "Data Retrieval & Insertion",
-      "display": "hidden"
+      "title": "Data Retrieval & Insertion"
+      // "display": "hidden"
       
     },
     "rootEndpoints": {
