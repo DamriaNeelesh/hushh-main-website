@@ -131,8 +131,7 @@ const ClientHushhWallet = () => {
             fontSize={{ md: "1.25erm", base: "1rem" }}
             color={"white"}
           >
-            Higher perk adoption, instant expense management, simple benefits
-            access and much more
+            Unlock the power of your <span style={{fontWeight:'700'}}>Hushh Data Wallet</span> with AI-driven management and secure storage.
           </Text>
 
           <Box
@@ -293,7 +292,7 @@ const ClientHushhWallet = () => {
           Imagine a world where your data works for you, not against you. A
           world where your online and offline interactions paint a detailed
           picture of your unique self, accessible only by you and those you
-          choose to trust. This is the reality unlocked by Hushh Wallet, the app
+          choose to trust. This is the reality unlocked by Hushh Data Wallet, the app
           that puts you in control of your digital identity and empowers you to
           reap the rewards it holds.
         </Text>
@@ -357,7 +356,7 @@ const ClientHushhWallet = () => {
           Imagine a world where your data works for you, not against you. A
           world where your online and offline interactions paint a detailed
           picture of your unique self, accessible only by you and those you
-          choose to trust. This is the reality unlocked by Hushh Wallet, the app
+          choose to trust. This is the reality unlocked by Hushh Data Wallet, the app
           that puts you in control of your digital identity and empowers you to
           reap the rewards it holds.
         </Text>
@@ -400,7 +399,7 @@ const ClientHushhWallet = () => {
             you complete leaves a digital footprint. Your personality,
             preferences, buying power, and interests are scattered across
             phones, platforms, and brands, often inaccessible and invisible to
-            you. Hushh Wallet bridges this gap. It aggregates your data from
+            you. Hushh Data Wallet bridges this gap. It aggregates your data from
             various sources, including
           </Text>
           <Grid
