@@ -259,6 +259,7 @@ const ClientHushhWallet = () => {
             zIndex={10}
             className="gradient"
             textAlign={{ base: "center" }}
+            as={'h2'}
           >
             YOUR PERSONAL DATA,
           </Text>
@@ -275,6 +276,7 @@ const ClientHushhWallet = () => {
             zIndex={10}
             className="gradient"
             textAlign={{ base: "center" }}
+            as={'h3'}
           >
             YOUR OWN BUSINESS
           </Text>
@@ -286,6 +288,7 @@ const ClientHushhWallet = () => {
           fontWeight={"500"}
           fontSize={"1rem"}
           lineHeight={{ md: "2rem", base: "1.15rem" }}
+          as={'h4'}
         >
           Imagine a world where your data works for you, not against you. A
           world where your online and offline interactions paint a detailed
@@ -321,6 +324,7 @@ const ClientHushhWallet = () => {
             fontFamily={"Bebas Neue"}
             className="gradient"
             textAlign={{ base: "center" }}
+            as={'h3'}
           >
             YOUR PERSONAL DATA,
           </Text>
@@ -337,6 +341,7 @@ const ClientHushhWallet = () => {
             className="gradient"
             textAlign={{ base: "center" }}
             px={"1rem"}
+            as={'h4'}
           >
             YOUR OWN BUSINESS
           </Text>

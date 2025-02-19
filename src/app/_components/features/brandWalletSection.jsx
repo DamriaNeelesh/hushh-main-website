@@ -62,6 +62,7 @@ const BrandWalletSection = () => {
           fontSize={{ md: "3.75rem", base: "1.5rem" }}
           mx={"0.5rem"}
           textAlign={"center"}
+          as={'h3'}
         >
           Build your own brand wallet
         </Text>

@@ -191,13 +191,12 @@ const ClientDemoBooking = () => {
               fontWeight={"400"}
               lineHeight={"30px"}
               letterSpacing={"-0.4px"}
-              as={"h2"}
             >
               Join us for a live demonstration of Hushh and unlock the secrets
               to building apps faster.
             </Text>
             <List spacing={3} color={"#FFFFFF"}>
-              <ListItem display={"flex"} gap={"1rem"}>
+              <ListItem display={"flex"} gap={"1rem"} as={'h2'}>
                 <Image src={BlueTick} alt="blueTick" width="13" height="14" />
                 Receive a personalized introduction to the Hushh platform
               </ListItem>

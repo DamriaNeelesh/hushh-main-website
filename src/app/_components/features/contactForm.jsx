@@ -224,6 +224,7 @@ export default function ContactForm() {
                   fontWeight={"600"}
                   fontSize={{ md: "3.75rem", base: "2rem" }}
                   lineHeight={{ base: "28px", md: "55px" }}
+                  as={'h4'}
                 >
                   Connect with Hushh
                 </Text>

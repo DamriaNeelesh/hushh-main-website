@@ -171,9 +171,7 @@ const ClientHome = () => {
         )}
         <main className="bg-transparent font-Figtree">
           <div className="absolute top-0 w-full">
-            {/* {showPopup && (
-              <NotificationPopup message="Welcome! How can I help you today?" />
-            )} */}
+
             <Box
               display={"flex"}
               flexDirection={"row"}
@@ -204,6 +202,7 @@ const ClientHome = () => {
                     flexDirection={"column"}
                     bg={"transparent"}
                     className="text-headText"
+                    as={'h1'}
                   >
                     <div
                       className="wrapper"
@@ -339,7 +338,7 @@ const ClientHome = () => {
                 letterSpacing={"0.25rem"}
                 fontSize={{md:"1rem",base:'0.75rem'}}
                 mb={{ md: "1.25rem",base:'0' }}
-                as={"h1"}
+                // as={"h1"}
               >
                 BRANDS WE WANT TO WORK WITH
               </Text>
@@ -364,47 +363,6 @@ const ClientHome = () => {
             </HStack>
 
             <BrandSlider />
-
-            {/* <VStack
-              w={"100%"}
-              zIndex={2}
-              mt={{ md: "14rem", base: "3rem" }}
-              mb={"6rem"}
-              display={{ md: "flex", base: "none" }}
-              alignItems={"center"}
-              justifyContent={"center"}
-              textAlign={"center"}
-              position={"relative"}
-            >
-              <Image
-                src={YoutubeBG}
-                style={{ position: "absolute", zIndex: "-1", width: "100%" }}
-                alt="YoutubeBG"
-                title="YoutubeBG"
-              />
-              
-              <Text
-                zIndex={"5"}
-                className="gradient"
-                fontWeight={"700"}
-                lineHeight={{ md: "90px", base: "45px" }}
-                fontSize={{ md: "4.625rem", base: "2rem" }}
-                letterSpacing={"0.05rem"}
-              >
-                Glimpse into our Hushh
-              </Text>
-              <iframe
-                width="960"
-                height="561"
-                zIndex="6"
-                src="https://www.youtube.com/embed/DSG8ltkgbJE?si=An83buhkileq1NFA"
-                title="YouTube video player"
-                style={{ zIndex: "6" , borderRadius:'28.57px',marginTop:'0rem'}}
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </VStack> */}
 
             <VStack
               w={"100%"}
@@ -460,7 +418,6 @@ const ClientHome = () => {
               ></iframe>
             </VStack>
 
-            {/* From below box there is an issue arising of full width on the mobile screens */}
             <Box
               display="flex"
               h={"full"}
@@ -697,7 +654,7 @@ const ClientHome = () => {
 
             {/* <ReviewSlider /> */}
 
-            {/* Product Showcase section below */}
+           
             {/* <HStack
               pt={{ md: "8rem", base: "5rem" }}
               justify={"center"}
