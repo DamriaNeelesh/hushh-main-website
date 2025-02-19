@@ -7,26 +7,24 @@
       "title": "On Boarding",
       "order": 1
     },
-    "data-retrieval-insertion": {
-      "title": "Data Retrieval & Insertion"
-      // "display": "hidden"
-      
-    },
+
     "rootEndpoints": {
-      "title": "Root Endpoints",
-      "order": 6
+      "title": "Endpoints",
+      "order": 2
     },
-    "schemas": {
-      "title": "Schemas",
-      "order": 7
+
+    "data-retrieval-insertion": {
+      "title": "Data Retrieval & Insertion",
+      "display": 3
     },
+
     "support": {
       "title": "Support",
-      "order": 8
+      "order": 4
     },
     "additional-requirements": {
       "title": "Additional Requirements",
-      "order": 9
+      "order": 5
     }
   }
   

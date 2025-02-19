@@ -4,12 +4,99 @@ title: Root Endpoints
 
 # Root Endpoint
 
-## 2.1 Root (GET /)
+Here’s a quick rundown of the core API categories we offer. Each section links to a dedicated page with in-depth details on endpoints, request/response formats, and usage examples.
 
-### Endpoint:
-```http
-No enpoints required for this
-```
+## User Data: Retrieval & Insertion
+
+### Cards & Consents
+
+- **List Installed Cards**
+  Retrieve any brand or loyalty “cards” a user has installed.  
+  [View details →](#)
+
+- **Request Consent**
+  Send a request prompting the user to grant or reject data access.  
+  [View details →](#)
+
+- **Get Consent**
+  Retrieves a list of cards for which the user has already granted consent.  
+  [View details →](#)
+
+### Receipts
+
+- **Insert Receipt Data**
+  Add new purchase details (brand, location, cost) to the user’s record.  
+  [View details →](#)
+
+- **Get Receipt Data**
+  Fetch all receipt entries a user has shared for analysis or personalization.  
+  [View details →](#)
+
+### Health
+
+- **Insert Health Data**
+  Store user-submitted health metrics (steps, surveys, etc.).  
+  [View details →](#)
+
+- **Get Health Data**
+  Retrieve health-related information for insights or wellness applications.  
+  [View details →](#)
+
+### Browsing
+
+- **Insert Browsing Data**
+  Record user’s browsing activity (URLs visited, clicks, interest keywords).  
+  [View details →](#)
+
+- **Get Browsing Data**
+  Access previously saved browsing records for content personalization.  
+  [View details →](#)
+
+### Brand Preferences
+
+- **Insert Brand Preference Data**
+  Capture user preferences for specific brands.  
+  [View details →](#)
+
+- **Get Brand Preferences**
+  Retrieve stored brand preferences (favorite colors, styles, features).  
+  [View details →](#)
+
+### Fashion
+
+- **Insert Fashion Data**
+  Submit user fashion-related insights or survey answers.  
+  [View details →](#)
+
+- **Get Fashion Data**
+  Access stored style preferences, purchase patterns, or outfit logs.  
+  [View details →](#)
+
+### Food & Insurance
+
+- **Get Food Data**
+  Retrieve user dietary or culinary preferences.  
+  [View details →](#)
+
+- **Get Insurance Data**
+  Access insurance-related information (policies, coverage data).  
+  [View details →](#)
+
+## Root
+
+- **Root Endpoint**
+  A simple check to confirm the API is online and receiving requests.  
+  [View details →](#)
+
+---
+
+### Ready to dive deeper?
+
+- Visit the **Setup & Authentication** page to learn how to create your profile, generate an API key, and authenticate.
+- Explore the **Data Insertion & Retrieval** pages for detailed endpoint documentation, example requests, and response schemas.
+- Check out the **Consent Flow** guidelines to understand how to handle user permissions when accessing sensitive data.
+- If you have any questions, contact us at [info@hush1one.com](mailto:info@hush1one.com).
+
 
 ### Description:
 A simple check to ensure the API is up and running. It often returns a basic message or status response indicating that the Hushh Developer API is online.

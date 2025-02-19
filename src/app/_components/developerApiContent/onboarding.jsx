@@ -4,10 +4,11 @@ import { useApiKey } from "../../context/apiKeyContext";
 import axios from "axios";
 import { useSession, signIn, signOut } from "next-auth/react";
 // import { getSession } from 'next-auth/react'
-import { Button, Text, useToast, VStack } from "@chakra-ui/react";
+import { Box, Button, Image, Text, useToast, VStack } from "@chakra-ui/react";
 import '../../../../pages/fonts.css'
 import authentication from "../authentication/authentication";
 import config from "../config/config";
+import AppleIcon from '../../_components/svg/icons/appleIconLogo.svg'
 
 const Onboarding = () => {
   // const { apiKey } = useApiKey();
@@ -201,7 +202,6 @@ useEffect(() => {
         console.log('error:',error);
         console.log('Api Key:',response?.data?.userdata?.apiKey)
       }
-      
   };
 
   const handleLogout = async () => {
@@ -235,6 +235,7 @@ useEffect(() => {
     e.target.focus();
     setCopySuccess('Copied!');
   };
+
   function generateRandomString(length = 16) {
     const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
@@ -272,8 +273,7 @@ useEffect(() => {
   return (
     <>
     <VStack spacing={4}>
-      
-        {session && (
+  {session ? (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
       <Text fontSize="lg" fontFamily={'Inter ,sans-serif'} fontWeight="500" color="green.500">
         Thank you for signing up, {session.user.email}
@@ -282,8 +282,18 @@ useEffect(() => {
         Logout
       </Button>
     </div>
+  ) : (
+    <Box marginTop={{md:'1rem',base:'0.5rem'}} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+      <Button onClick={handleGoogleSignIn} colorScheme="blue" size="sm">
+        Sign in with Google
+      </Button>
+      <Button onClick={handleAppleSignIn} colorScheme="blackAlpha" size="sm">
+        <Image src={AppleIcon} alt="Apple sign in"/>
+        Sign in with Apple
+      </Button>
+    </Box>
   )}
-      </VStack>
+</VStack> 
     
   </>
   );

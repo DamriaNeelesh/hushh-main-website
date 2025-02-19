@@ -8,33 +8,36 @@ import GenerateApiKey from '../../src/app/_components/developerApiContent/genera
 import SessionToken from '../../src/app/_components/developerApiContent/sessionToken'
 
 <Steps>
-### On-boarding
+### Sign Up
+Welcome to our Developer API On Boarding
+To access our API, you must first sign up for an account via apple or google account. Visit our [sign up page](/developerApi/login) for signing up. After verifying your email, log in to your account to generate your API key. This key is essential for authenticating your API requests.
 
-This API provides endpoints for accepting payments in your applications. Below, you'll find detailed information on how to integrate and use the API.
+<Onboarding/>
 
 <Callout type="info" emoji="ℹ️">
- You need to access API key first to proceed further and then can access Access Token
+ You need to Sign Up to access API key first to proceed further and then can access Access Token
 </Callout>
 
-### Authentication
+### Get Your API Key
 
 You need an API key. You can obtain your API key by signing up for an account on our platform. Use this API key in the Authorization header of your HTTP requests.
 
+#### Access to your API key
+To interact with our API, you need an API key. This key is essential for authenticating your requests and ensuring secure communication with our services. You have two options for managing your API keys:
+
+- **Generate a New API Key**: If you are setting up for the first time or need a new key, you can generate one. This will create a new API key that you can use immediately.
+
+<GenerateApiKey/>
 
 
 <Callout type="warning" emoji="⚠️">
  Make sure to never post your API publicly
 </Callout>
 
-<Onboarding/>
 
 
-### Access to your API key
-To interact with our API, you need an API key. This key is essential for authenticating your requests and ensuring secure communication with our services. You have two options for managing your API keys:
 
-- **Generate a New API Key**: If you are setting up for the first time or need a new key, you can generate one. This will create a new API key that you can use immediately.
 
-<GenerateApiKey/>
 
 ### Profile Setup
 Please setup your profle to get started for using our developer APIs and this is compulsory step to proceed further as you ned to setup you whole profile 
