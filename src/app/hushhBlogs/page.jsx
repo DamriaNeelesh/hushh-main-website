@@ -3,11 +3,23 @@ import HomeCoverSection from "../_components/blogHome/HomeCoverSection";
 import FeaturedPosts from "../_components/blogHome/FeaturedPosts";
 import RecentPosts from "../_components/blogHome/RecentPosts";
 import ContactForm from "../_components/features/contactForm";
+import Head from "next/head";
 
 export default function hushhBlogs() {
   
   return (
     <>
+    <Head>
+        <title>Hushh Blogs | Latest Insights and Articles</title>
+        <meta
+          name="description"
+          content="Explore the latest articles on hushh covering technology, SEO, data monetization, and more. Stay updated with expert insights and trending topics."
+        />
+        <meta
+          name="keywords"
+          content="hushh blogs, technology insights, SEO, Data privacy, Data monetization , User-controlled data , Luxury consumers ,Sales agents , AI-powered personalization , Privacy-preserving technology , Decentralized data , Ethical advertising , Data marketplace ,Human-AI interaction , How to monetize my data, Secure data sharing for luxury brands, AI for personalized marketing to high-end consumers , Decentralized data ownership solutions data monetization, trending articles, expert insights"
+        />
+      </Head>
     <main className="flex flex-col mb-10 items-center justify-center">
       <HomeCoverSection blogs={allBlogs} />
       <FeaturedPosts blogs={allBlogs} />
