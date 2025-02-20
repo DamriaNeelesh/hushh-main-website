@@ -61,7 +61,7 @@ const TechnologySection = () => {
             icon={<TrustedAIIcon />}
             title="Personal Data Assistance​"
             textAlign={"left"}
-            description="Leverage AI assistants that understand your data and provide personalized support – for information retrieval, streamline work, and more​"
+            description="Ethical Data Monetization | AI-Driven Privacy Solutions – for information retrieval, streamline work, and more​"
           />
           <ServiceCard
             icon={<TechIntegrationIcon />}
