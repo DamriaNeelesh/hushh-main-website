@@ -1,5 +1,6 @@
 import React from 'react'
 import HushhCommunity from '../clientside/HushhCommunity'
+import Head from 'next/head';
 
 
 export const metadata = {

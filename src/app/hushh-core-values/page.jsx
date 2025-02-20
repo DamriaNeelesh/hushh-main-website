@@ -1,5 +1,6 @@
 import React from "react";
 import CoreValues from "../clientside/hushhCoreValues"
+import Head from "next/head";
 
 export const metadata = {
   title: "Hushh | Core Values",

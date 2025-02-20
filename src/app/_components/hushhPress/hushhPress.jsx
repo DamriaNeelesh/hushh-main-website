@@ -33,6 +33,7 @@ import FooterComponent from "../features/FooterComponent";
             fontSize={{ base: "2xl", md: "4xl" }}
             textAlign="center"
             w="full"
+            as={'h1'}
           >
             Welcome to Hushh: Your Data. Your Business.
           </Heading>
@@ -40,7 +41,7 @@ import FooterComponent from "../features/FooterComponent";
           {/* Mission Section */}
           <VStack spacing={4} align="start">
             <Heading fontSize={{ base: "xl", md: "2xl" }}>Our Mission</Heading>
-            <Text fontSize={{ base: "md", md: "lg" }}>
+            <Text fontSize={{ base: "md", md: "lg" }} as={'h2'}>
               At Hushh, we believe your data is one of your most valuable assets.
               In a world where personal information is often exploited without
               consent, we empower individuals to take back control, transform
