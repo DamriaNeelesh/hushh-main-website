@@ -59,6 +59,26 @@ const devloperApi = () => {
   };
   return (
     <>
+    <Head>
+        <title>
+          Developer APIs - Hushh | Secure & Consent-Driven Data Integration
+        </title>
+        <meta
+          name="description"
+          content="Discover Hushh Developer APIs designed to empower your applications with secure, consent-driven data integration. Enhance your systems with our privacy-compliant, cutting-edge APIs."
+        />
+        <meta
+          name="keywords"
+          content="Developer APIs, Hushh, Secure APIs, Consent-Driven Data, Data Integration, Application Development, Privacy Compliance"
+        />
+        <meta property="og:title" content="Developer APIs - Hushh" />
+        <meta
+          property="og:description"
+          content="Discover Hushh Developer APIs designed to empower your applications with secure, consent-driven data integration. Enhance your systems with our privacy-compliant, cutting-edge APIs."
+        />
+        <meta property="og:image" content="/path/to/og-image.jpg" />
+        <meta property="og:url" content="https://hushh.ai/developer-api" />
+      </Head>
       <Box
         maxW={"100"}
         minW={"100%"}
