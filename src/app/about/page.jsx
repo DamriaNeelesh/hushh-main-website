@@ -16,9 +16,25 @@ import ImageGrid from "../_components/features/dynamicImageGrid";
 export const metadata = {
   title: "Hushh | About Our Data Empowerment Mission",
   description:
-    "Intelligence as a service powered by your Data - We're user data api business",
+  "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
   keywords:
-    "HUSHH, hushh, Manish Sainani - Founder and CEO, Justin Donaldson - Co-founder, Advisors",
+  "Hushh, Data Empowerment, Privacy, Manish Sainani, Justin Donaldson, Leadership, Mission, Vision, Data Control, Personal Data, Innovation",
+  canonical: "https://hushh.ai/about",
+  openGraph: {
+    title: "Hushh | About Our Data Empowerment Mission",
+    description:
+      "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
+    url: "https://hushh.ai/about",
+    // images: [
+    //   {
+    //     url: "/path/to/about-og-image.jpg",
+    //     width: 800,
+    //     height: 600,
+    //     alt: "Hushh About Us Image",
+    //   },
+    // ],
+  },
+
 };
 
 export default function About() {

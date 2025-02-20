@@ -4,11 +4,20 @@ import ContactForm from "../../_components/features/contactForm";
 import Head from "next/head";
 
 export const metadata = {
-  title: "Hushh | Explore our Terms of use",
+  title: "Hushh | Terms of Use - Understand Your Rights",
   description:
-    "Hushh - explore our terms of use, We are user data api (visa for data) business",
+    "Review Hushh's Terms of Use to understand your rights and responsibilities when using our data services. Learn about our user agreements and data policies.",
+  keywords:
+    "Hushh, Terms of Use, User Agreement, Data Services, User Rights, Responsibilities, Data Policies, Legal Terms",
+  canonical: "https://hushh.ai/legal/termsofuse",
+  openGraph: {
+    title: "Hushh | Terms of Use - Understand Your Rights",
+    description:
+      "Review Hushh's Terms of Use to understand your rights and responsibilities when using our data services. Learn about our user agreements and data policies.",
+    url: "https://hushh.ai/legal/termsofuse",
+    
+  },
 };
-
 const TermsOfUse = () => {
   const gradient = "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)";
   return (

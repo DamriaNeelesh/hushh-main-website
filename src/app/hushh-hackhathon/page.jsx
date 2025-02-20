@@ -4,16 +4,55 @@ import Image from 'next/image';
 // import OGImage from '../../../public/OG/daraNexusOG.png';
 
 export const metadata = {
-  title: "Hushh | Data Nexus Hackhathon",
+  title: "Hushh | Data Nexus Hackathon",
   description:
-    "hackathon data nexus project on hushh.ai ",
+    "Participate in the Hushh Data Nexus Hackathon on hushh.ai. Explore innovative solutions using emerging technologies.",
   keywords:
-    "HUSHH, Hackhathon Submission, Data Nexus, data nexus, hushh hackhathon, hushh.ai, project upload, project submission, assignment submission, hackhathon submission, data nexus, Hushh Data Nexus, Extended Reality, IOT, Internet of things, Blockchain, 3D Modelling, In terms of technologies, Hushh Datanexus  will leverage the emerging technologies and technologies of tomorrow, specifically in the realm of Metaverse and AI. These themes and technologies provide a broad scope for participants to explore and develop innovative solutions that address real-world challenges in various domains",
+    "HUSHH, Hackathon Submission, Data Nexus, hushh hackathon, hushh.ai, project upload, project submission, assignment submission, hackathon submission, Hushh Data Nexus, Extended Reality, IoT, Internet of Things, Blockchain, 3D Modelling, Metaverse, AI, Emerging Technologies",
+  canonical: "https://hushh.ai/hushh-hackathon",
+  openGraph: {
+    title: "Hushh | Data Nexus Hackathon",
+    description:
+      "Participate in the Hushh Data Nexus Hackathon on hushh.ai. Explore innovative solutions using emerging technologies.",
+    url: "https://hushh.ai/hushh-hackathon",
+    // images: [
+    //   {
+    //     url: "/path/to/hackathon-og-image.jpg",
+    //     width: 800,
+    //     height: 600,
+    //     alt: "Hushh Hackathon Image",
+    //   },
+    // ],
+  },
 };
 
 const page = () => {
+
+  
   return (
+    <>
+    <Head>
+    <title>
+    Hushh | Data Nexus Hackhathon
+    </title>
+    <meta
+      name="description"
+      content="hackathon data nexus project on hushh.ai"
+    />
+    <meta
+      name="keywords"
+      content="Hushh Community, Luxury Sales, Data Empowerment, Customer Insights, Personalized Communication, Ethical Data Collection, High-Value Customers, Sales Agents, Innovative Platform"
+    />
+    <meta property="og:title" content="Hushh | Data Nexus Hackhathon" />
+    <meta
+      property="og:description"
+      content="Hackathon data nexus project on hushh.ai"
+    />
+    <meta property="og:url" content="https://hushh.ai/hushh-hackhathon" />
+    <link rel="canonical" href="https://hushh.ai/hushh-hackhathon" />
+  </Head>
    <HushhHackhathon/>
+   </>
   )
 }
 

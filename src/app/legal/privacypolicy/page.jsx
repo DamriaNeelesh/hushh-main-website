@@ -3,9 +3,18 @@ import { Heading } from "@chakra-ui/react";
 import ContactForm from "../../_components/features/contactForm";
 
 export const metadata = {
-  title: "Hushh | Privacy Policy - Secure & Safeguard ",
+  title: "Hushh | Privacy Policy - Your Data, Your Rights",
   description:
-    "Hushh privacy policy explains how we protect your data and keep it secure",
+    "Explore Hushh's Privacy Policy to understand how we protect your data, ensure privacy, and uphold your rights. Learn about our commitment to secure and transparent data practices.",
+  keywords:
+    "Hushh, Privacy Policy, Data Protection, Security, User Rights, Data Privacy, Secure Data, Transparent Practices, Data Security",
+  canonical: "https://hushh.ai/legal/privacypolicy",
+  openGraph: {
+    title: "Hushh | Privacy Policy - Your Data, Your Rights",
+    description:
+      "Explore Hushh's Privacy Policy to understand how we protect your data, ensure privacy, and uphold your rights. Learn about our commitment to secure and transparent data practices.",
+    url: "https://hushh.ai/legal/privacypolicy",
+  }
 };
 
 const PrivacyPolicy = () => {

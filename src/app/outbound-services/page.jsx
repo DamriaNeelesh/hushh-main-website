@@ -3,12 +3,27 @@ import OutBoundService from '../clientside/OutBoundService';
 
 
 export const metadata = {
-    title: "Hushh | Out Bound Services - Expert's Advice",
+  title: "Hushh | Expert Advisory Services for AI and Data Technologies",
+  description:
+    "Explore Hushh's outbound services offering expert advisory consultations in AI, data architecture, and related technologies. Get the guidance you need for business growth and innovation.",
+  keywords:
+    "Hushh, Outbound Services, Expert Advisory, AI, Data Technologies, Business Growth, Innovation, Consultation, Data Architecture, Manish Sainani, Justin Donaldson",
+  canonical: "https://hushh.ai/outbound-services",
+  openGraph: {
+    title: "Hushh | Expert Advisory Services for AI and Data Technologies",
     description:
-      "Get Expert Advice for Your Startup or Business Growth ",
-    keywords:
-      "Hushh, out bound services, Advisory, Manish, Justin, CEO, Founder, Co-founder, Business Growth, Expert Advice, Booking Call",
-  };
+      "Explore Hushh's outbound services offering expert advisory consultations in AI, data architecture, and related technologies. Get the guidance you need for business growth and innovation.",
+    url: "https://hushh.ai/outbound-services",
+    // images: [
+    //   {
+    //     url: "/path/to/outbound-services-og-image.jpg",
+    //     width: 800,
+    //     height: 600,
+    //     alt: "Hushh Outbound Services Image",
+    //   },
+    // ],
+  },
+};
 
 
 const outBoundServie = () => {

@@ -76,7 +76,8 @@ const devloperApi = () => {
           property="og:description"
           content="Discover Hushh Developer APIs designed to empower your applications with secure, consent-driven data integration. Enhance your systems with our privacy-compliant, cutting-edge APIs."
         />
-        <meta property="og:image" content="/path/to/og-image.jpg" />
+            <link rel="canonical" href="https://hushh.ai/developerApi" />
+
         <meta property="og:url" content="https://hushh.ai/developer-api" />
       </Head>
       <Box

@@ -19,6 +19,9 @@ export default function hushhBlogs() {
           name="keywords"
           content="hushh blogs, technology insights, SEO, Data privacy, Data monetization , User-controlled data , Luxury consumers ,Sales agents , AI-powered personalization , Privacy-preserving technology , Decentralized data , Ethical advertising , Data marketplace ,Human-AI interaction , How to monetize my data, Secure data sharing for luxury brands, AI for personalized marketing to high-end consumers , Decentralized data ownership solutions data monetization, trending articles, expert insights"
         />
+                <link rel="canonical" href="https://hushh.ai/hushhBlogs" />
+                <meta property="og:url" content="https://hushh.ai/hushhBlogs" />
+
       </Head>
     <main className="flex flex-col mb-10 items-center justify-center">
       <HomeCoverSection blogs={allBlogs} />
