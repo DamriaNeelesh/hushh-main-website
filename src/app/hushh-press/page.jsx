@@ -8,6 +8,9 @@ export const metadata = {
   keywords:
     "Hushh, Data Empowerment, Privacy, Personal Data, Wealth Creation, Business Growth, Mission, Vision, Core Values, Data Control, Financial Rewards, Technology, Innovation, Privacy-First, Data Monetization",
   canonical: "https://hushh.ai/hushh-press",
+  alternates: {
+    canonical: "https://hushh.ai/hushh-press",
+  },
   openGraph: {
     title: "Hushh | Empowering Your Data Journey",
     description:

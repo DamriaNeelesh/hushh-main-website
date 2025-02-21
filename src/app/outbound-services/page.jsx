@@ -9,6 +9,9 @@ export const metadata = {
   keywords:
     "Hushh, Outbound Services, Expert Advisory, AI, Data Technologies, Business Growth, Innovation, Consultation, Data Architecture, Manish Sainani, Justin Donaldson",
   canonical: "https://hushh.ai/outbound-services",
+  alternates: {
+    canonical: "https://hushh.ai/outbound-services",
+  },
   openGraph: {
     title: "Hushh | Expert Advisory Services for AI and Data Technologies",
     description:

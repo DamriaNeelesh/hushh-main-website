@@ -11,6 +11,9 @@ export const metadata = {
   keywords:
     "HUSHH, Hackathon Submission, Data Nexus, hushh hackathon, hushh.ai, project upload, project submission, assignment submission, hackathon submission, Hushh Data Nexus, Extended Reality, IoT, Internet of Things, Blockchain, 3D Modelling, Metaverse, AI, Emerging Technologies",
   canonical: "https://hushh.ai/hushh-hackathon",
+  alternates: {
+    canonical: "https://hushh.ai/hushh-hackathon",
+  },
   openGraph: {
     title: "Hushh | Data Nexus Hackathon",
     description:

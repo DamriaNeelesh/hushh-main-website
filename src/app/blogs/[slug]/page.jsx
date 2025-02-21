@@ -10,6 +10,7 @@ import { Box, Container, Divider, Flex, Heading, Link, Text, useColorModeValue, 
 import ContactForm from "src/app/_components/features/contactForm";
 import BlogLayoutOne from "src/app/_components/Blog/BlogLayoutOne";
 import RecentPosts from "src/app/_components/blogHome/RecentPosts";
+import Head from "next/head";
 
 
 export async function generateStaticParams() {
@@ -97,6 +98,15 @@ export default function BlogPage({ params }) {
 
   return (
     <>
+    <Head>
+        <title>{blog.title}</title>
+        <meta name="description" content={blog.description} />
+        {blog?.canonical && <link rel="canonical" href={blog.canonical} />}
+        <meta property="og:title" content={blog.ogTitle || blog.title} />
+        <meta property="og:description" content={blog.ogDescription || blog.description} />
+        {blog?.ogImage && <meta property="og:image" content={blog.ogImage} />}
+        {blog?.canonical && <meta property="og:url" content={blog.canonical} />}
+    </Head>
     <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

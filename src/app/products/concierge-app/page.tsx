@@ -8,6 +8,9 @@ export const metadata = {
   keywords:
     "HUSHH, Experience Luxury, Redefined , transforms luxury experiences through the power of voice, AI and Real time data, traditional concierge services,  prioritizes your needs, not just your preferences with Gen AI, Effortless Service​, Personalized Recommendations​​​, Real-Time Responses, Discretion and Privacy​​​, Exclusive Opportunities​, Travel, Events, Lifestyle, VIP access to high-profile events, private viewings, red carpet experiences, Personal shopping, home management, day-to-day errands, specialized requests, Bespoke itineraries, private jet charters, exclusive tours, Receipt Radar revolutionizes the way you handle receipts, automatic scanning, smart categorization, customizable options, managing expenses",
     canonical: "https://hushh.ai/products/concierge-app",
+    alternates: {
+      canonical: "https://hushh.ai/concierge-app",
+    },
     openGraph: {
       title: "Hushh | Concierge App - Get Luxury Experience",
       description:

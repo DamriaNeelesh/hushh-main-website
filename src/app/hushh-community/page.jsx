@@ -10,6 +10,9 @@ export const metadata = {
   keywords:
     "Hushh Community, Luxury Sales, Data Empowerment, Customer Insights, Personalized Communication, Ethical Data Collection, High-Value Customers, Sales Agents, Innovative Platform",
   canonical: "https://hushh.ai/hushh-community",
+  alternates: {
+    canonical: "https://hushh.ai/hushh-community",
+  },
   openGraph: {
     title: "Join the Hushh Community",
     description:

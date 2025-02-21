@@ -10,6 +10,9 @@ export const metadata = {
   keywords:
     "Hushh, Terms of Use, User Agreement, Data Services, User Rights, Responsibilities, Data Policies, Legal Terms",
   canonical: "https://hushh.ai/legal/termsofuse",
+  alternates: {
+    canonical: "https://hushh.ai/termsofuse",
+  },
   openGraph: {
     title: "Hushh | Terms of Use - Understand Your Rights",
     description:

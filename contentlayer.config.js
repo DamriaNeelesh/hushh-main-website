@@ -15,6 +15,10 @@ const Blog = defineDocumentType(() => ({
       type: "string",
       required: true,
     },
+    canonical: { type: 'string', required: false },
+    ogTitle: { type: "string", required: false },       // New field
+    ogDescription: { type: "string", required: false },   // New field
+    ogImage: { type: "string", required: false }, 
     publishedAt: {
       type: "date",
       required: true,

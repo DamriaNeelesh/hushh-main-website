@@ -9,6 +9,9 @@ export const metadata = {
   keywords:
     "Hushh, Core Values, Leadership Principles, Code of Conduct, Data Privacy, Integrity, Innovation, Ethical Practices, Business Partnerships",
   canonical: "https://hushh.ai/hushh-core-values",
+  alternates: {
+    canonical: "https://hushh.ai/hushh-core-values",
+  },
   openGraph: {
     title: "Hushh | Core Values",
     description:

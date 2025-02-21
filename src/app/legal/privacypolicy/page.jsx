@@ -9,6 +9,9 @@ export const metadata = {
   keywords:
     "Hushh, Privacy Policy, Data Protection, Security, User Rights, Data Privacy, Secure Data, Transparent Practices, Data Security",
   canonical: "https://hushh.ai/legal/privacypolicy",
+  alternates: {
+    canonical: "https://hushh.ai/legal/privacypolicy",
+  },
   openGraph: {
     title: "Hushh | Privacy Policy - Your Data, Your Rights",
     description:

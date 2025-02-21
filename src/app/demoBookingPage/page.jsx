@@ -11,6 +11,9 @@ export const metadata = {
     "Book a call", "Appointment", "Live Demo", "Live Demonstrations", "Quick Access", "Walkthrough", "Demo Videos", "Watch Demo", "Meet our founder", "Data API Business", "Data Autonomy", "Data Equity", "Consent-Driven Excellence", "Technology For Everyone", "Hushh Wallet App", "Hushh Button", "Vibe Search", "Browser Companion", "Concierge App", "Valet Chat", "Vibe Search API", "Hushh For Students", "Brand Wallet", "Receipt Radar", "Future of Digital Identity & Personalized Experiences", "Gen AI", "GenAI"
   ],
   canonical: "https://hushh.ai/demoBookingPgae",
+  alternates: {
+    canonical: "https://hushh.ai/demoBookingPage",
+  },
   openGraph: {
     title: "Hushh | Schedule a Live Demo Call with Us",
     description:
