@@ -14,6 +14,7 @@ export const metadata = {
   alternates: {
     canonical: "https://hushh.ai/career",
   },
+  robots: "index, follow", 
   openGraph: {
     title: "Hushh | Careers",
     description:
@@ -43,6 +44,8 @@ const Career = () => {
           name="description"
           content="Join Us and build AI that advances the personalised data experiences"
         />
+        <meta name="robots" content="index, follow" />
+
         <meta
           name="keywords"
           content="Developer APIs, Hushh, Secure APIs, Consent-Driven Data, Data Integration, Career, Join Hushh, Hushh Jobs, SDE, Product Management , Privacy Compliance"

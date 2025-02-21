@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Container, Box } from '@chakra-ui/react'
+import { Container, Box, Heading } from '@chakra-ui/react'
 import ContactForm from '../_components/features/contactForm'
 import Head from 'next/head'
 
@@ -28,7 +28,8 @@ const ContactUs = () => {
 
       </Head>
     <Box display={'flex'}>
-     <Container minW={'100%'}  mt={{ md:'4rem', base:'2rem'}}>
+     <Container minW={'100%'} textAlign={'center'} display={'flex'} flexDirection={'column'} mt={{ md:'4rem', base:'2rem'}}>
+        <Heading as={'h1'} className='gradient' my={{md:'2rem',base:'1rem'}}>Reach out to us</Heading>
         <ContactForm/>
      </Container>
      </Box> 
