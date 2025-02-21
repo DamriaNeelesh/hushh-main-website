@@ -144,6 +144,7 @@ export default function LoginPage() {
             fontSize={{ md: "1.65rem", base: "1.15rem" }}
             fontWeight={"700"}
             mb={{ md: "1.25rem", base: "1rem" }}
+            as={'h1'}
           >
             {" "}
             Get your account ready for Hushh{" "}
