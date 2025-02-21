@@ -36,30 +36,7 @@ const Career = () => {
 
   return (
     <>
-     <Head>
-        <title>
-          Hushh | Career - Join us 
-        </title>
-        <meta
-          name="description"
-          content="Join Us and build AI that advances the personalised data experiences"
-        />
-        <meta name="robots" content="index, follow" />
-
-        <meta
-          name="keywords"
-          content="Developer APIs, Hushh, Secure APIs, Consent-Driven Data, Data Integration, Career, Join Hushh, Hushh Jobs, SDE, Product Management , Privacy Compliance"
-        />
-        <meta property="og:title" content="Hushh | Careers" />
-        <meta
-          property="og:description"
-          content="Join Us and build AI that advances the personalised data experiences"
-        />
-        {/* <meta property="og:image" content="/path/to/og-image.jpg" /> */}
-        <meta property="og:url" content="https://hushh.ai/career" />
-        {/* Add canonical URL */}
-        <link rel="canonical" href="https://hushh.ai/career" />
-      </Head>
+    
        <CareerPage/>
     </>
   )
