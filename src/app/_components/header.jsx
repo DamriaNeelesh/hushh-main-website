@@ -326,7 +326,7 @@ export default function Header({backgroundColor}) {
                 <div className="flex gap-2 z-1000">
                   <div className="flex-1 flex flex-col gap-2">
                   <Link
-                      href={"/products/hushhWalletApp"}
+                      href={"/products/hushh-wallet-app"}
                       onClick={() => setProductsSubmenu(false)}
                       className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
                     >
@@ -341,7 +341,7 @@ export default function Header({backgroundColor}) {
                       </div>
                     </Link>
                     <Link
-                      href={"/products/hushhButton"}
+                      href={"/products/hushh-button"}
                       onClick={() => setProductsSubmenu(false)}
                       className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
                     >
@@ -356,7 +356,7 @@ export default function Header({backgroundColor}) {
                       </div>
                     </Link>
                     <Link
-                      href={"/products/browserCompanion"}
+                      href={"/products/browser-companion"}
                       onClick={() => setProductsSubmenu(false)}
                       className="flex gap-4 hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
                     >
@@ -376,7 +376,7 @@ export default function Header({backgroundColor}) {
 
                   <div className="flex-1 flex flex-col gap-2 w-full">
                   <Link
-                      href={"/products/vibeSearch"}
+                      href={"/products/hushh-vibe-search"}
                       onClick={() => setProductsSubmenu(false)}
                       className="flex gap-4 hover:text-white hover:bg-black px-0 py-2.5 rounded-xl"
                     >
@@ -407,7 +407,7 @@ export default function Header({backgroundColor}) {
                     </Link>
                 
                     <Link
-                      href={"/products/hushhForStudents"}
+                      href={"/products/hushh-for-students"}
                       onClick={() => setProductsSubmenu(false)}
                       className="flex gap-4 hover:text-white hover:bg-black px-0 py-2.5 rounded-xl"
                     >
@@ -502,7 +502,7 @@ export default function Header({backgroundColor}) {
                     {productsSubmenuMobile && (
                       <ul style={{listStyle:'none'}} className="mt-2 space-y-3 bg-black pl-6 text-base text-white">
                         <li>
-                          <Link style={{fontWeight:'500'}} onClick={() => setIsMenuOpen(false)} href="/products/hushhWalletApp" className="block">
+                          <Link style={{fontWeight:'500'}} onClick={() => setIsMenuOpen(false)} href="/products/hushh-wallet-app" className="block">
                           <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                           <HushhWalletIcon className="w-6 h-6" />
                             Hushh Wallet App
@@ -510,7 +510,7 @@ export default function Header({backgroundColor}) {
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/browserCompanion" className="block text-white ">
+                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/browser-companion" className="block text-white ">
                           <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                           <ChromeExtentionLogo className="w-6 h-6"/>
                             Browser Companion
@@ -518,7 +518,7 @@ export default function Header({backgroundColor}) {
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/vibeSearch" className="block text-white">
+                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/vibe-search" className="block text-white">
                           <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                           <VibeSearchIcon className="w-6 h-6"/>
                           Vibe Search
@@ -526,7 +526,7 @@ export default function Header({backgroundColor}) {
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/hushhButton" className="block text-white">
+                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/hushh-button" className="block text-white">
                           <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                          <HushhButtonIcon size={24} />
                          Hushh Button
@@ -542,7 +542,7 @@ export default function Header({backgroundColor}) {
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/hushhForStudents" className="block text-white">
+                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/hushh-for-students" className="block text-white">
                           <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                           <headerAssets.VibeSearchMarketplace className="w-6 h-6" />
                           Hushh For Students
