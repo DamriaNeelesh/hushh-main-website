@@ -154,7 +154,7 @@ const ClientHome = () => {
         {/* <meta property="og:image" content="/path/to/og-image.jpg" /> */}
         <meta property="og:url" content="https://hushh.ai" />
         {/* Add canonical URL */}
-        <link rel="canonical" href="https://hushh.ai" />
+        <link rel="canonical" href="https://hushh.ai" key="canonical"/>
       </Head>
       <DownloadModal
         isOpen={isModalOpen}

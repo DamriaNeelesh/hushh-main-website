@@ -25,5 +25,31 @@ export const metadata = {
 };
 
 export default function Home() {
-  return <ClientHome />;
+  return (
+    <>
+    <Head>
+        <title>Hushh - Home</title>
+        <meta name="title" content="HUSHH - user data API businesses" />
+        <meta
+          name="description"
+          content="Intelligence as a service powered by your Data"
+        />
+        <meta
+          name="keywords"
+          content="Data API Business, Data Autonomy, Data Equity, Consent-Driven Excellence, Technology For Everyone, Hushh Wallet App, Hushh Button, Vibe Search, Browser Companion, Concierge App, Valet Chat, Vibe Search API, Hushh For Students, Brand Wallet, Receipt Radar, Future of Digital Identity & Personalised Experiences, Gen AI, GenAI "
+        />
+         <meta property="og:title" content="Hushh - user data API businesses" />
+        <meta
+          property="og:description"
+          content="Integrated Wallet & Data Control"
+        />
+        {/* <meta property="og:image" content="/path/to/og-image.jpg" /> */}
+        <meta property="og:url" content="https://hushh.ai" />
+        {/* Add canonical URL */}
+        <link rel="canonical" href="https://hushh.ai" key="canonical"/>
+      </Head>
+      <ClientHome />
+    </>
+ 
+);
 }
