@@ -25,6 +25,8 @@ import locationIcon from "../svg/icons/locationIcon.svg";
 import jobIcon from "../svg/icons/jobIcon.svg";
 import { useMediaQuery } from "react-responsive";
 
+
+// SANI , RITU advisor, Anki friend ,Komal 
 const TeamSection = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedAdvisor, setSelectedAdvisor] = useState(null);
