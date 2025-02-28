@@ -113,18 +113,19 @@ const GenerateApiKey = () => {
           Generate API Key
         </Text>
 
-        <Button
+        <button
           onClick={handleGenerateApiKey}
-          color={'white'}
-          bg={'#bd1e59'}
-          _hover={{ bg:'#a11648' }}
-          className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 px-4 py-2 mt-4"
+          // color={'white'}
+          // bg={'#bd1e59'}
+          // _hover={{ bg:'#a11648' }}
+          // className=""
+          className=" bg-[#bd1e59] w-full text-white inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 px-4 py-2 mt-4"
           isLoading={isLoading}
           loadingText="Generating..."
           w="full"
         >
           Generate New API Key
-        </Button>
+        </button>
 
         {apiKey && (
           <FormControl>
