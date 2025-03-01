@@ -56,28 +56,31 @@ import {
     };
   
     const handleSubmit = async () => {
-      // Construct the query string if query parameters exist.
-      const queryString = new URLSearchParams(queryParams).toString();
-      const fullUrl = `${BASE_URL}${endpoint.path}${queryString ? "?" + queryString : ""}`;
-      setRequestedUrl(fullUrl);
-  
-      // Prepare headers including the API key.
-      const finalHeaders = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localApiKey}`,
-        ...headerParams,
+        // Construct the query string if query parameters exist.
+        const queryString = new URLSearchParams(queryParams).toString();
+        const fullUrl = `${BASE_URL}${endpoint.path}${queryString ? "?" + queryString : ""}`;
+        setRequestedUrl(fullUrl);
+      
+        // Prepare headers including the API key.
+        const finalHeaders = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localApiKey}`,
+          ...headerParams,
+        };
+      
+        try {
+          const res = await axios({
+            method: endpoint.method, // Use the method defined in the endpoint
+            url: fullUrl,
+            headers: finalHeaders,
+            data: endpoint.method !== "GET" ? bodyParams : undefined, // Send body only if not GET
+          });
+          setResponse(res.data);
+        } catch (error) {
+          setResponse(error.response ? error.response.data : "Error occurred.");
+        }
       };
-  
-      // Use the request body values if provided.
-      const data = Object.keys(bodyParams).length > 0 ? bodyParams : undefined;
-  
-      try {
-        const res = await axios.post(fullUrl, data, { headers: finalHeaders });
-        setResponse(res.data);
-      } catch (error) {
-        setResponse(error.response ? error.response.data : "Error occurred.");
-      }
-    };
+      
   
     return (
       <Box
