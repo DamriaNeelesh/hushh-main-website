@@ -116,7 +116,7 @@ Here’s a quick rundown of the core API categories we offer. Each section links
     endpoint={{
     method: "POST",
     path: "/api/v1/insert-health-data",
-    description: "Insert health data endpoints",
+    description: "Insert and submit health data endpoints",
     queryParams: [
       { name: "phone_number", required: true, placeholder: "Enter phone number" }
     ],
@@ -137,47 +137,178 @@ Here’s a quick rundown of the core API categories we offer. Each section links
 
 - **Get Health Data**
   Retrieve health-related information for insights or wellness applications.  
-  [View details →](#)
+  <ApiSection 
+  endpoint={{
+    method: "POST",
+    path: "/api/v1/health-data",
+    description: "Retrieve health data information for insights",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" }
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ]
+  }}
+  />
 
 ### Browsing
 
 - **Insert Browsing Data**
   Record user’s browsing activity (URLs visited, clicks, interest keywords).  
-  [View details →](#)
+  <ApiSection 
+  endpoint={{
+    method: "POST",
+    path: "/api/v1/insert-browsing-data",
+    description: "Insert your browsing data endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" }
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+    requestBody: {
+      website_url: { type: "string", placeholder: "Enter website url" },
+      visit_time: { type: "string", placeholder: "Enter the last visited time" },
+      product_clicks: { type: "number", placeholder: "Enter number of product clicks" },
+      interest_keywords: { type: "string", placeholder: "Enter your interest keywords" },
+      brand: { type: "string", placeholder: "Enter brand name" },
+      source: { type: "string", placeholder: "Enter the name of your source" },
+      duration: { type: "number", placeholder: "Enter total duration" },
+    }
+  }}
+  />
 
 - **Get Browsing Data**
   Access previously saved browsing records for content personalization.  
-  [View details →](#)
+  <ApiSection 
+  endpoint={{
+    method: "POST",
+    path: "/api/v1/browsing-data",
+    description: "Get Browsing Data Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" }
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ]
+  }}
+  />
 
 ### Brand Preferences
 
 - **Insert Brand Preference Data**
   Capture user preferences for specific brands.  
-  [View details →](#)
+  <ApiSection 
+    endpoint={{
+    method: "POST",
+    path: "/api/v1/insert-brand-preference-data",
+    description: "Insert Brand Preference Data Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+      { name: "brand_name", required: true, placeholder: "Enter your brand name" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+    requestBody: {
+      answers: {
+        type: "array",
+        items: {
+          type: "object",
+          additionalProperties: { type: "string" }
+        }
+      }
+    }
+  }}
+  />
 
 - **Get Brand Preferences**
   Retrieve stored brand preferences (favorite colors, styles, features).  
-  [View details →](#)
+  <ApiSection 
+    endpoint={{
+    method: "POST",
+    path: "/api/v1/brand-preferences",
+    description: "Get Brand Preference Data Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+      { name: "brand_name", required: true, placeholder: "Enter your brand name" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+  }}
+  />
 
 ### Fashion
 
 - **Insert Fashion Data**
   Submit user fashion-related insights or survey answers.  
-  [View details →](#)
+  <ApiSection 
+    endpoint={{
+    method: "POST",
+    path: "/api/v1/insert-fashion-data",
+    description: "Insert fashion data endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+    requestBody: {
+      answers: {
+        type: "array",
+        items: {
+          type: "object",
+          additionalProperties: { type: "string" }
+        }
+      }
+    }
+  }}
+  />
 
 - **Get Fashion Data**
   Access stored style preferences, purchase patterns, or outfit logs.  
-  [View details →](#)
+  <ApiSection 
+    endpoint={{
+    method: "POST",
+    path: "/api/v1/fashion-data",
+    description: "Get Fashion Data Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+  }}
+  />
 
 ### Food & Insurance
 
 - **Get Food Data**
   Retrieve user dietary or culinary preferences.  
-  [View details →](#)
+  <ApiSection 
+    endpoint={{
+    method: "POST",
+    path: "/api/v1/food-data",
+    description: "Get Food Data Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+  }}
+  />
 
 - **Get Insurance Data**
   Access insurance-related information (policies, coverage data).  
-  [View details →](#)
+  <ApiSection 
+    endpoint={{
+    method: "GET",
+    path: "/",
+    description: "Get Root Endpoints",
+  }}
+  />
 
 ## Root
 
