@@ -37,7 +37,7 @@ const GenerateApiKey = () => {
     const userData = `${userMail}${currentTime}`; // Concatenating email and timestamp
     const randomToken = crypto.randomBytes(16).toString("hex"); // Equivalent to `secrets.token_hex(16)`
     const originalApiKey = `${randomToken}`; // 👈 Plain key (Frontend display only)
-    const hashedApiKey = crypto.createHash("sha256").update(userData + originalApiKey).digest("hex"); // Hashed version
+    const hashedApiKey = crypto.createHash("sha256").update(originalApiKey).digest("hex"); // Hashed version
 
     return { originalApiKey, hashedApiKey };
   };
