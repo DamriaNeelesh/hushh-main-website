@@ -185,7 +185,7 @@ const ClientHome = () => {
               display={"flex"}
               flexDirection={"row"}
               px={{ base: "0.2rem", md: "2rem" }}
-              minH={'100vh'}
+              // minH={'100vh'}
               // py={{ base: "0.2rem", md: "2rem" }}
             >
               <VStack
