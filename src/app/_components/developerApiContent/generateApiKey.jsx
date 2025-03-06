@@ -13,12 +13,11 @@ import config from "../config/config";
 import crypto from "crypto"; 
 
 const GenerateApiKey = () => {
-  const [apiKey, setApiKey] = useState(""); // Stores the original API key (for display only)
+  const [apiKey, setApiKey] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [session, setSession] = useState(null);
   const toast = useToast();
 
-  // ✅ Fetch Supabase session (Only when component mounts)
   useEffect(() => {
     const { data } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
@@ -31,18 +30,16 @@ const GenerateApiKey = () => {
     };
   }, []);
 
-  // ✅ Generate API Key (Original & Hashed)
   const generateApiKey = (userMail) => {
-    const currentTime = new Date().toISOString(); // Equivalent to `datetime.now().isoformat()`
-    const userData = `${userMail}${currentTime}`; // Concatenating email and timestamp
-    const randomToken = crypto.randomBytes(16).toString("hex"); // Equivalent to `secrets.token_hex(16)`
-    const originalApiKey = `${randomToken}`; // 👈 Plain key (Frontend display only)
+    const currentTime = new Date().toISOString(); 
+    const userData = `${userMail}${currentTime}`;
+    const randomToken = crypto.randomBytes(16).toString("hex"); 
+    const originalApiKey = `${randomToken}`; 
     const hashedApiKey = crypto.createHash("sha256").update(userData + originalApiKey).digest("hex"); // Hashed version
 
     return { originalApiKey, hashedApiKey };
   };
 
-  // ✅ Generate & Update API Key in Supabase (Only on Button Click)
   const handleGenerateApiKey = async () => {
     if (!session?.user?.email) {
       toast({
@@ -54,14 +51,12 @@ const GenerateApiKey = () => {
       });
       return;
     }
-
     setIsLoading(true);
 
     try {
       const userMail = session.user.email;
       const { originalApiKey, hashedApiKey } = generateApiKey(userMail); // Generate API Key (Original & Hashed)
 
-      // ✅ Store only the Hashed API Key in Supabase
       const { error } = await config.supabaseClient
         .from("dev_api_userprofile")
         .update({ api_key: hashedApiKey }) // Store only the hashed key

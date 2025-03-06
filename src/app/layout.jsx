@@ -72,6 +72,7 @@ export default function RootLayout({ children }) {
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-1PDGMHH7CL"
       ></script>
+      <script src="https://analytics.ahrefs.com/analytics.js" data-key="yInBsXwcX1jmHJpmJk0QSQ" async></script>
       <GoogleTagManager gtmId="G-1PDGMHH7CL" />
       <meta
         name="google-site-verification"
