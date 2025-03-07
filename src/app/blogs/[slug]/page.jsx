@@ -11,6 +11,7 @@ import ContactForm from "src/app/_components/features/contactForm";
 import BlogLayoutOne from "src/app/_components/Blog/BlogLayoutOne";
 import RecentPosts from "src/app/_components/blogHome/RecentPosts";
 import Head from "next/head";
+import Script from "next/script";
 
 
 export async function generateStaticParams() {
@@ -107,9 +108,10 @@ export default function BlogPage({ params }) {
         {blog?.ogImage && <meta property="og:image" content={blog.ogImage} />}
         {blog?.canonical && <meta property="og:url" content={blog.canonical} />}
     </Head>
-    <script
+    <Script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        strategy={'afterInteractive'}
       />
       <Box w={'100%'} display={'flex'} flexDirection={'column'}>
         <Box
