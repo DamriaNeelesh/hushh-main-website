@@ -151,9 +151,7 @@ const ClientHome = () => {
           property="og:description"
           content="Integrated Wallet & Data Control"
         />
-        {/* <meta property="og:image" content="/path/to/og-image.jpg" /> */}
         <meta property="og:url" content="https://hushh.ai" />
-        {/* Add canonical URL */}
         <link rel="canonical" href="https://hushh.ai" key="canonical"/>
       </Head>
       <DownloadModal
@@ -165,6 +163,7 @@ const ClientHome = () => {
           <Image
             src={PinkShadow}
             alt="PinkShadow"
+            priority
             placeholder="blur"
             style={{ width: "50%", height: "50%" }}
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
@@ -174,6 +173,7 @@ const ClientHome = () => {
             src={PinkShadow}
             alt="PinkShadow"
             placeholder="blur"
+            priority
             style={{ width: "80%", height: "80%" }}
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
           />
@@ -185,8 +185,6 @@ const ClientHome = () => {
               display={"flex"}
               flexDirection={"row"}
               px={{ base: "0.2rem", md: "2rem" }}
-              // minH={'100vh'}
-              // py={{ base: "0.2rem", md: "2rem" }}
             >
               <VStack
                 align={"flex-start"}
@@ -308,11 +306,13 @@ const ClientHome = () => {
                   style={{ top: "-65px", position: "absolute" }}
                   src={HomeBanner}
                   alt="HomeBanner"
+                  priority
                 />
                 <Image
                   src={CircleHomeBg}
                   alt="CircleHomeBg"
                   style={{ bottom: "0px", position: "absolute" }}
+                  priority
                 />
               </VStack>
               <VStack
@@ -320,7 +320,6 @@ const ClientHome = () => {
                 position={"relative"}
                 flex={1}
               >
-                {/* <Image style={{bottom:'0px', position:'absolute',zIndex:'1'}} src={HomeBanner} alt="HomeBanner" /> */}
                 <Image
                   src={CircleHomeBg}
                   alt="CircleHomeBg"
@@ -330,6 +329,7 @@ const ClientHome = () => {
                     width: "2rem",
                     // zIndex: "0.9",
                   }}
+                  priority
                 />
               </VStack>
             </Box>
@@ -372,60 +372,6 @@ const ClientHome = () => {
             </HStack>
 
             <BrandSlider />
-
-            <VStack
-              w={"100%"}
-              zIndex={2}
-              mt={{ md: "14rem", base: "4rem" }}
-              mb={"3rem"}
-              display={{ md: "none", base: "flex" }}
-              alignItems={"center"}
-              justifyContent={"center"}
-              textAlign={"center"}
-              position={"relative"}
-            >
-              <Image
-                src={YoutubeBG}
-                style={{ position: "absolute", zIndex: "-1", width: "100%" }}
-                alt="YoutubeBG"
-                title="YoutubeBG"
-              />
-              <Text
-                zIndex={"5"}
-                color={"#FFFFFF"}
-                fontWeight={"500"}
-                lineHeight={"32px"}
-                fontSize={{ md: "1.25rem", base: "0.9rem" }}
-                letterSpacing={"0.05rem"}
-              >
-                HUSHH
-              </Text>
-              <Text
-                zIndex={"5"}
-                className="gradient"
-                fontWeight={"700"}
-                lineHeight={{ md: "90px", base: "45px" }}
-                fontSize={{ md: "4.625rem", base: "2rem" }}
-                letterSpacing={"0.05rem"}
-              >
-                Glimpse into our products
-              </Text>
-              <iframe
-                width="80%"
-                height="361"
-                zIndex="6"
-                src="https://www.youtube.com/embed/DSG8ltkgbJE?si=An83buhkileq1NFA"
-                title="YouTube video player"
-                style={{
-                  zIndex: "6",
-                  borderRadius: "28.57px",
-                  marginTop: "2rem",
-                }}
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </VStack>
 
             <Box
               display="flex"
@@ -523,7 +469,6 @@ const ClientHome = () => {
               </Text>
 
                 <Box
-                  //from here that full width issue was arising
                   pt={{ md: "40px", base: "20px" }}
                   width={"100%"}
                   pr={{ base: "1.25rem" }}
@@ -543,7 +488,6 @@ const ClientHome = () => {
                         fontWeight={"500"}
                         fontSize={{ base: "1rem", md: "1.25rem" }}
                         ml={{ base: "0.5rem" }}
-                        // lineHeight={{base:'18px'}}
                         color={extendedTheme.colors.secondary}
                       >
                         Data <br></br> Autonomy
@@ -633,155 +577,8 @@ const ClientHome = () => {
                     Creating a fair and equitable environment for data sharing.
                   </Text>
                 </VStack>
-                {/* <Box w={'100'} display={'flex'} alignItems={{ base:'center',md:'flex-start'}} justifyContent={{base:'center',md:'flex-start'}}> 
-                <Box
-                  // leftIcon={<A />}
-                  mt={{ md: "4rem", base: "3rem" }}
-                  p={{ md: "0.5rem", base: "0.25rem" }}
-                  align={"center"}
-                  border={"1px solid #606060"}
-                  borderRadius={"5px"}
-                  w={{ md: "18rem", base: "12rem" }}
-                  fontWeight={"400"}
-                  fontSize={{ md: "1.15rem", base: "0.75rem" }}
-                  className="color-gradient"
-                  lineHeight={{ md: "32.4px", base: "20px" }}
-                  letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
-                  _hover={{
-                    background:
-                      "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
-                    color: "white",
-                  }}
-                  cursor={"pointer"}
-                  onClick={() => router.push("/hushh-community")}
-                >
-                  Join Hushh Community
-                </Box>
-                </Box>  */}
               </VStack>
             </Box>
-
-            {/* <ReviewSlider /> */}
-
-           
-            {/* <HStack
-              pt={{ md: "8rem", base: "5rem" }}
-              justify={"center"}
-              display={"flex"}
-              flexDirection={"column"}
-            >
-              <Text
-                className="color-gradient"
-                fontWeight={600}
-                letterSpacing={"0.25rem"}
-                fontSize={"1rem"}
-                lineHeight={"1rem"}
-              >
-                PRODUCT SHOWCASE
-              </Text>
-              <Box
-                align={"center"}
-                lineHeight={{ md: "63.3px" }}
-                pl={{ md: "16rem" }}
-                pr={{ md: "16rem" }}
-                className="gradient"
-                fontWeight={"300"}
-                display={"flex"}
-                flexDirection={"row"}
-                fontSize={{ md: "3.75rem", base: "1.5rem" }}
-              >
-                Technology For{" "}
-                <Text
-                  fontWeight="700"
-                  display="flex"
-                  marginLeft={{ md: "1rem" }}
-                >
-                  {" "}
-                  Everyone!
-                </Text>
-              </Box>
-              <Text
-                className="description"
-                textAlign={"center"}
-                w={"full"}
-                px={{ md: "24rem", base: "2rem" }}
-                color={theme.colors.secondary}
-                fontSize={{ base: "0.75rem", md: "1rem" }}
-              >
-                We have seamless data capturing capabilities, robust security
-                with trust measures in place and in-depth insights and
-                transparency around the value of your data.
-              </Text>
-              <Container
-                display={"flex"}
-                mb={{ md: "4rem", base: "1.75rem" }}
-                pt={{ md: "2rem", base: "1rem" }}
-                px={{ md: "10rem", base: "0.5rem" }}
-                justifyContent={"center"}
-                textAlign={"center"}
-                minW={{ md: "100%", base: "100%" }}
-              >
-                <Grid
-                  templateColumns={{
-                    base: "repeat(2, 1fr)",
-                    md: "repeat(3, 1fr)",
-                  }}
-                  gap={{ md: 20, base: 5 }}
-                  justifyContent="center"
-                >
-                  <ServiceCard
-                    icon={<HushhWalletIcon />}
-                    title="Hushh Wallet App​"
-                    alignItems={"center"}
-                    textAlign={"center"}
-                    description="Secure data exchange with brands and agents (you control what you share)​"
-                    onClick={() => router.push("/products/hushhWalletApp")}
-                  />
-                  <ServiceCard
-                    icon={<HushhButtonIcon />}
-                    title="Hushh Button​​​"
-                    textAlign={"center"}
-                    alignItems={"center"}
-                    description="Easy data exchange with brands on the go (plug-in for brand apps)​"
-                    onClick={() => router.push("/products/hushhButton")}
-                  />
-                  <ServiceCard
-                    icon={<VibeSearchIcon />}
-                    title="Vibe Search​"
-                    textAlign={"center"}
-                    alignItems={"center"}
-                    description="Personalized and powerful search engine across various brands (find what you want)"
-                    onClick={() => router.push("/products/vibeSearch")}
-                  />
-                 // 2nd Row
-                  <ServiceCard
-                    icon={<ChromeExtentionLogo />}
-                    title="Browser Companion​"
-                    alignItems={"center"}
-                    textAlign={"center"}
-                    description="Track web activity and capture interests (across brands)"
-                    onClick={() => router.push("/products/browserCompanion")}
-                  />
-                  <ServiceCard
-                    icon={<VibeSearchApi />}
-                    title="Developer API's​"
-                    alignItems={"center"}
-                    textAlign={"center"}
-                    description=" Secure, trusted, and incentivized way of relaying valuable personal information"
-                    onClick={() => router.push("/developerApi")}
-                  />
-                  <ServiceCard
-                    icon={<HfsLogo />}
-                    title="Hushh For Students​"
-                    alignItems={"center"}
-                    textAlign={"center"}
-                    description="Rewards & empowers students with data control (safe & secure)"
-                    onClick={() => router.push("/products/hushhForStudents")}
-                  />
-                </Grid>
-              </Container>
-              
-            </HStack> */}
 
             <TechnologySection />
 
@@ -801,8 +598,8 @@ const ClientHome = () => {
             top: "0%",
             right: "0px",
             position: "absolute",
-            // zIndex: "0.9",
           }}
+          priority
         />
       </div>
     </>

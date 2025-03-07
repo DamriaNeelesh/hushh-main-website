@@ -1,12 +1,6 @@
 "use client";
 import {
   Box,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
   Grid,
   HStack,
   Text,
@@ -25,12 +19,9 @@ import { useRouter } from "next/navigation";
 import { isMobile, isAndroid, isIOS } from "react-device-detect";
 import { QRCode } from "react-qrcode-logo";
 import { useState } from "react";
-import AppleIcon from "../../_components/svg/icons/appleIconLogo.svg";
-import PlayStoreIcon from "../../_components/svg/icons/playStoreIcon.svg";
 import extendedTheme from "../../theme";
 import Image from "next/image";
 import theme from "../../theme";
-import UnicodeQR from '../../_components/svg/onelinkQrdownload.svg'
 import DownloadModal from "../primitives/downloadModal";
 
 const BrandWalletSection = () => {
