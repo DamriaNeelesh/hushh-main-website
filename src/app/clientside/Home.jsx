@@ -219,8 +219,9 @@ const ClientHome = () => {
                 </HStack>
 
                 <Text
-                  color={"#656565"}
-                  fontSize={{ md: "1.15rem", base: "1rem" }}
+  color={"#757575"} // Slightly darker gray
+  fontSize={{ md: "1.15rem", base: "1rem" }}
+  // color={"#656565"}
                 >
                   Revolutionize customer insights, Personalize commerce, Build
                   deeper connections with your customers consent and control.
@@ -281,33 +282,34 @@ const ClientHome = () => {
                 position={"relative"}
                 flex={1}
               >
-                <Image
+                {/* <Image
                   style={{ top: "-65px", position: "absolute" }}
                   src={HomeBanner}
                   alt="HomeBanner"
                   priority
-                />
-                <Image
+                /> */}
+                {/* <Image
                   src={CircleHomeBg}
                   alt="CircleHomeBg"
-                  style={{ bottom: "0px", position: "absolute" }}
-                />
+                  layout="responsive" // or "fill" based on your layout
+                  objectFit="cover" // or "contain" based on your design
+                  width={500} // Set appropriate width
+                  height={500} // Set appropriate height
+                /> */}
               </VStack>
               <VStack
                 display={{ md: "none", base: "block" }}
                 position={"relative"}
                 flex={1}
               >
-                <Image
+                {/* <Image
                   src={CircleHomeBg}
                   alt="CircleHomeBg"
-                  style={{
-                    bottom: "0px",
-                    height: "2rem",
-                    width: "2rem",
-                    // zIndex: "0.9",
-                  }}
-                />
+                  layout="responsive" // or "fill" based on your layout
+                  objectFit="cover" // or "contain" based on your design
+                  width={500} // Set appropriate width
+                  height={500} // Set appropriate height
+                /> */}
               </VStack>
             </Box>
 
@@ -568,7 +570,7 @@ const ClientHome = () => {
             <ContactForm />
           </div>
         </main>
-        <Image
+        {/* <Image
           src={RightCircleEclipse}
           alt="RightCircleEclipse"
           style={{
@@ -576,7 +578,7 @@ const ClientHome = () => {
             right: "0px",
             position: "absolute",
           }}
-        />
+        /> */}
       </div>
     </>
   );
