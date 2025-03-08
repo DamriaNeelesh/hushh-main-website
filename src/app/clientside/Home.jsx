@@ -242,7 +242,7 @@ const ClientHome = () => {
                   fontSize={{ md: "1.15rem", base: "1rem" }}
                 >
                   Revolutionize customer insights, Personalize commerce, Build
-                  deeper connections with your customers’ consent and control.
+                  deeper connections with your customers consent and control.
                 </Text>
                 <Box
                   mt={{ md: "2rem", base: "1rem" }}
