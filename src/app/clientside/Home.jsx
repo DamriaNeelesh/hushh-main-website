@@ -159,26 +159,8 @@ const ClientHome = () => {
         onClose={() => setIsModalOpen(false)}
       />
       <div className="relative">
-        {isMobile ? (
-          <img
-            src={PinkShadow}
-            alt="PinkShadow"
-            placeholder="blur"
-            style={{ width: "50%", height: "50%" }}
-            // blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
-          />
-        ) : (
-          <img
-            src={PinkShadow}
-            alt="PinkShadow"
-            placeholder="blur"
-            style={{ width: "80%", height: "80%" }}
-            // blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
-          />
-        )}
-        <main className="bg-transparent font-Figtree">
+        <main className="bg-transparent">
           <div className="absolute top-0 w-full">
-
             <Box
               display={"flex"}
               flexDirection={"row"}
@@ -304,13 +286,12 @@ const ClientHome = () => {
                   style={{ top: "-65px", position: "absolute" }}
                   src={HomeBanner}
                   alt="HomeBanner"
-                  // priority
+                  priority
                 />
                 <Image
                   src={CircleHomeBg}
                   alt="CircleHomeBg"
                   style={{ bottom: "0px", position: "absolute" }}
-                  // priority
                 />
               </VStack>
               <VStack
@@ -327,7 +308,6 @@ const ClientHome = () => {
                     width: "2rem",
                     // zIndex: "0.9",
                   }}
-                  // priority
                 />
               </VStack>
             </Box>
