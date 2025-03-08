@@ -160,20 +160,20 @@ const ClientHome = () => {
       />
       <div className="relative">
         {isMobile ? (
-          <Image
+          <img
             src={PinkShadow}
             alt="PinkShadow"
             placeholder="blur"
             style={{ width: "50%", height: "50%" }}
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
+            // blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
           />
         ) : (
-          <Image
+          <img
             src={PinkShadow}
             alt="PinkShadow"
             placeholder="blur"
             style={{ width: "80%", height: "80%" }}
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
+            // blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
           />
         )}
         <main className="bg-transparent font-Figtree">
