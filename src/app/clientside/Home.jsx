@@ -171,7 +171,6 @@ const ClientHome = () => {
                 w={"full"}
                 flex={1}
                 pt={20}
-                // mr={{ md: "60%", base: "10%" }}
                 display={"flex"}
                 gap={"1.5rem"}
                 mt={{ md: "7rem", base: "1rem" }}
@@ -219,13 +218,13 @@ const ClientHome = () => {
                   </Heading>
                 </HStack>
 
-                <Text
+                {/* <Text
                   color={"#656565"}
                   fontSize={{ md: "1.15rem", base: "1rem" }}
                 >
                   Revolutionize customer insights, Personalize commerce, Build
                   deeper connections with your customers consent and control.
-                </Text>
+                </Text> */}
                 <Box
                   mt={{ md: "2rem", base: "1rem" }}
                   display={"flex"}
@@ -317,7 +316,7 @@ const ClientHome = () => {
               justify={"center"}
               display={"flex"}
               flexDirection={"column"}
-              mt={{md:'6rem',base:'0'}}
+              mt={{md:'9rem',base:'0'}}
             >
               <Text
                 className="bg-gradient-to-r from-red-600 to-purple-600 text-transparent bg-clip-text"
