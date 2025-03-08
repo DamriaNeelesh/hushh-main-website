@@ -219,9 +219,9 @@ const ClientHome = () => {
                 </HStack>
 
                 <Text
-  color={"#757575"} // Slightly darker gray
+  // color={"#757575"} 
   fontSize={{ md: "1.15rem", base: "1rem" }}
-  // color={"#656565"}
+  color={"grey"}
                 >
                   Revolutionize customer insights, Personalize commerce, Build
                   deeper connections with your customers consent and control.
