@@ -50,10 +50,10 @@ import HfsLogo from "../_components/svg/hfsLogo";
 import HomeBg from "../_components/svg/homeBG.svg";
 import Image from "next/image";
 import Head from "next/head";
-import HomeBanner from "../_components/svg/homepageBanner.svg";
-import PinkShadow from "../_components/svg/pinkShadow1.svg";
-import CircleHomeBg from "../_components/svg/circleHomeBg.svg";
-import RightCircleEclipse from "../_components/svg/rightCircleEclipse.svg";
+import HomeBanner from "../_components/svg/homepageBanner.webp";
+import PinkShadow from "../_components/svg/pinkShadow1.webp";
+import CircleHomeBg from "../_components/svg/circleHomeBg.webp";
+import RightCircleEclipse from "../_components/svg/rightCircleEclipse.webp";
 import ApiVibeSearch from "../_components/svg/apiVibeSearch";
 import { HushhBlogsHome } from "../_components/HushhBlogsHome";
 import AppleIcon from "../_components/svg/icons/appleIconLogo.svg";
@@ -163,7 +163,6 @@ const ClientHome = () => {
           <Image
             src={PinkShadow}
             alt="PinkShadow"
-            priority
             placeholder="blur"
             style={{ width: "50%", height: "50%" }}
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
@@ -173,7 +172,6 @@ const ClientHome = () => {
             src={PinkShadow}
             alt="PinkShadow"
             placeholder="blur"
-            priority
             style={{ width: "80%", height: "80%" }}
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
           />
@@ -599,7 +597,6 @@ const ClientHome = () => {
             right: "0px",
             position: "absolute",
           }}
-          priority
         />
       </div>
     </>
