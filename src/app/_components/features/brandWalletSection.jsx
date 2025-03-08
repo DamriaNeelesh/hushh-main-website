@@ -208,6 +208,7 @@ const BrandWalletSection = () => {
                   src={BrandWalletMobile}
                   alt="brandWalletdesktop"
                   style={{ position: "absolute", top: "110.7%" }}
+                  priority
                 />
               </Box>
               <Box
@@ -215,7 +216,7 @@ const BrandWalletSection = () => {
                 display={{ md: "none", base: "block" }}
                 mt={"1.40rem"}
               >
-                <NextImage src={BrandWalletMobile} alt="brandWalletmobile" />
+                <NextImage priority src={BrandWalletMobile} alt="brandWalletmobile" />
               </Box>
             </VStack>
           </Box>

@@ -304,13 +304,13 @@ const ClientHome = () => {
                   style={{ top: "-65px", position: "absolute" }}
                   src={HomeBanner}
                   alt="HomeBanner"
-                  priority
+                  // priority
                 />
                 <Image
                   src={CircleHomeBg}
                   alt="CircleHomeBg"
                   style={{ bottom: "0px", position: "absolute" }}
-                  priority
+                  // priority
                 />
               </VStack>
               <VStack
@@ -327,7 +327,7 @@ const ClientHome = () => {
                     width: "2rem",
                     // zIndex: "0.9",
                   }}
-                  priority
+                  // priority
                 />
               </VStack>
             </Box>
