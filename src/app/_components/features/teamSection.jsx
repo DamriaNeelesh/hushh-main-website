@@ -79,7 +79,7 @@ const TeamSection = () => {
             <Grid
               mt={"4rem"}
               mx={{ base: "1rem" }}
-              gap={{ md: "10rem", base: "3rem" }}
+              gap={{ md: "6rem", base: "3rem" }}
               templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
             >
               <VStack mb={"1rem"}>
