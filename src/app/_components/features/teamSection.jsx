@@ -159,7 +159,7 @@ const TeamSection = () => {
             Chaitanya Modha
           </Text>
           <Text color={"#ABABAB"}>
-            CTO
+          VP Business Development
           </Text>
         </div>
         <Link href="https://www.linkedin.com/in/chaitanya-modha/">
