@@ -317,8 +317,14 @@ Here’s a quick rundown of the core API categories we offer. Each section links
   <ApiSection 
     endpoint={{
     method: "GET",
-    path: "/",
+    path: "/api/v1/insurance-data",
     description: "Get Root Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
   }}
   />
 
@@ -326,7 +332,13 @@ Here’s a quick rundown of the core API categories we offer. Each section links
 
 - **Root Endpoint**
   A simple check to confirm the API is online and receiving requests.  
-  [View details →](#)
+   <ApiSection 
+    endpoint={{
+    method: "GET",
+    path: "/",
+    description: "Get Root Endpoints",
+  }}
+  />
 
 ---
 
