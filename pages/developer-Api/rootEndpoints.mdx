@@ -87,7 +87,19 @@ Here’s a quick rundown of the core API categories we offer. Each section links
     ],
     headers: [
       { name: "token", required: true, placeholder: "Enter token" }
-    ]
+    ],
+    requestBody: {
+      brand: { type: "string", placeholder: "Enter website url" },
+      location: { type: "string", placeholder: "Enter the last visited time" },
+      purchase_category: { type: "string", placeholder: "Enter the last visited time" },
+      brand_category: { type: "string", placeholder: "Enter your interest keywords" },
+      Date: { type: "string", placeholder: "Enter brand name" },
+      currency: { type: "string", placeholder: "Enter the name of your source" },
+      payment_method: { type: "string", placeholder: "Enter the name of your source" },
+      total_cost: { type: "number", placeholder: "Enter number of product clicks" },
+      inr_total_cost: { type: "number", placeholder: "Enter number of product clicks" },
+      usd_total_cost: { type: "number", placeholder: "Enter number of product clicks" },
+    }
   }}
   />
 
