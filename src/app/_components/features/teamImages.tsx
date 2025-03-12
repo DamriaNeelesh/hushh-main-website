@@ -35,6 +35,7 @@ import stephane from "../svg/aboutImages/advisoryImages/stephane.png";
 import sudhir from "../svg/aboutImages/advisoryImages/sudhir.png";
 import suresh from "../svg/aboutImages/advisoryImages/sureshAttuluri.png";
 import valliappa from "../svg/aboutImages/advisoryImages/valliappa.png";
+import chaitanya from "../svg/aboutImages/TeamImages/chaitanya.jpeg"
 
 export const teamImages = {
   Manish,
@@ -53,6 +54,7 @@ export const teamImages = {
   YashMakan,
   AnuragGhose,
   AkashKatla,
+  chaitanya,
   KaranSoni,
   NeeleshMeena,
   ApoorvBedmutha,

@@ -79,7 +79,7 @@ const TeamSection = () => {
             <Grid
               mt={"4rem"}
               mx={{ base: "1rem" }}
-              gap={{ md: "10rem", base: "3rem" }}
+              gap={{ md: "6rem", base: "3rem" }}
               templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
             >
               <VStack mb={"1rem"}>
@@ -140,6 +140,39 @@ const TeamSection = () => {
                   </Link>
                 </div>
               </VStack>
+
+              <GridItem colSpan={{ base: 1, md: 2 }} display="flex" justifyContent="center">
+    <VStack>
+      <div className="flex flex-col gap-8 text-center items-center">
+        <Image
+          alt="justin"
+          src={teamImages.chaitanya}
+          width={260}
+          height={276}
+        />
+        <div className="flex flex-col gap-4">
+          <Text
+            color={"#E5E5E5"}
+            fontWeight={"700"}
+            fontSize={"1.3rem"}
+          >
+            Chaitanya Modha
+          </Text>
+          <Text color={"#ABABAB"}>
+          VP Business Development
+          </Text>
+        </div>
+        <Link href="https://www.linkedin.com/in/chaitanya-modha/">
+          <Image
+            alt="Chaitanya Modha"
+            src={linkedln}
+            width={24}
+            height={24}
+          />
+        </Link>
+      </div>
+    </VStack>
+  </GridItem>
             </Grid>
           </VStack>
         </div>
@@ -210,7 +243,39 @@ const TeamSection = () => {
                 </Link>
               </div>
             </VStack>
-
+            <VStack mb={{ md: "3rem", base: "1.5rem" }}>
+              <Image
+                alt="vivek"
+                src={teamImages.KavyaChauhan}
+                width={260}
+                height={276}
+              />
+              <div className="-translate-y-16 flex flex-col text-center items-center gap-8">
+                <div className="flex flex-col gap-4">
+                  <Text
+                    color={"#E5E5E5"}
+                    lineHeight={"26.4px"}
+                    fontWeight={"700"}
+                    fontSize={"1.3rem"}
+                  >
+                    Komal Naik
+                  </Text>
+                  <Text lineHeight={"18.75px"} color={"#ABABAB"}>
+                     Chief Of Staff
+                  </Text>
+                </div>
+                <Link
+                  href={"https://www.linkedin.com/in/komalsnaik/"}
+                >
+                  <Image
+                    alt="komalLinnkedIn"
+                    src={linkedln}
+                    width={{ base: 12, md: 24 }}
+                    height={24}
+                  />
+                </Link>
+              </div>
+            </VStack>
             <VStack mb={{ md: "3rem", base: "1.5rem" }}>
               <Image
                 alt="vivek"
@@ -237,38 +302,6 @@ const TeamSection = () => {
                 >
                   <Image
                     alt="rohanLinkedIn"
-                    src={linkedln}
-                    width={{ base: 12, md: 24 }}
-                    height={24}
-                  />
-                </Link>
-              </div>
-            </VStack>
-
-            <VStack mb={{ md: "3rem", base: "1.5rem" }}>
-              <Image
-                alt="vivek"
-                src={teamImages.OmkarKailasMalpure}
-                width={260}
-                height={276}
-              />
-              <div className="-translate-y-16 flex flex-col text-center items-center gap-8">
-                <div className="flex flex-col gap-4">
-                  <Text
-                    color={"#E5E5E5"}
-                    lineHeight={"26.4px"}
-                    fontWeight={"700"}
-                    fontSize={"1.3rem"}
-                  >
-                    Omkar Kailas Malpure
-                  </Text>
-                  <Text lineHeight={"18.75px"} color={"#ABABAB"}>
-                    Software Engineer - AI/ML
-                  </Text>
-                </div>
-                <Link href={"https://www.linkedin.com/in/omkar-malpure/"}>
-                  <Image
-                    alt="omkarLinkedIn"
                     src={linkedln}
                     width={{ base: 12, md: 24 }}
                     height={24}

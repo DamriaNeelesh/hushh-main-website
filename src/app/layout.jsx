@@ -1,8 +1,11 @@
 import "./globals.css";
 import { Navbar } from "./_components/Navbar";
-import { mulish } from "./_utilities/fonts";
 import HomebannerBG from "./_components/svg/images/homeBannerBg";
 import { Providers } from "./provider";
+import {
+  figtree,
+} from "./_utilities/fonts";
+import Script from "next/script";
 import Header from "./_components/header";
 import React from "react";
 import ResponsiveSizeProvider from "./context/responsive";
@@ -67,12 +70,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <script
+    <html lang="en" className={`${figtree.variable} `}>
+      <Script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-1PDGMHH7CL"
-      ></script>
-      <script src="https://analytics.ahrefs.com/analytics.js" data-key="yInBsXwcX1jmHJpmJk0QSQ" async></script>
+        strategy={'afterInteractive' }
+      />
+      <Script src="https://analytics.ahrefs.com/analytics.js" strategy={'lazyOnload' } data-key="yInBsXwcX1jmHJpmJk0QSQ" async />
+      <Script
+          type="text/javascript"
+          strategy={'lazyOnload' }
+          src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+        />
       <GoogleTagManager gtmId="G-1PDGMHH7CL" />
       <meta
         name="google-site-verification"
@@ -103,7 +112,6 @@ export default function RootLayout({ children }) {
           paddingInlineStart: "0px !important",
           paddingInlineEnd: "0px !important",
         }}
-        className={`${mulish.variable} font-sans`}
       >
         <NextTopLoader
             color="red"
@@ -141,16 +149,7 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
           rel="stylesheet"
         />
-        {/* <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
-        <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
-        <script
-          src="https://mediafiles.botpress.cloud/fbf5d1e1-066c-4f35-a420-7128eae2130c/webchat/config.js"
-          defer
-        ></script> */}
-        <script
-          type="text/javascript"
-          src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-        ></script>
+        
         {/* <div className="relative z-50">
           <HushhButtonFromLib />
         </div> */}
@@ -159,7 +158,7 @@ export default function RootLayout({ children }) {
             <HeaderComponent />
           </header>
           {" "}
-          <div className="w-full">
+          <div className={`${figtree.variable}  w-full`}>
             <Providers>{children}</Providers>
           </div>
         </ResponsiveSizeProvider>
