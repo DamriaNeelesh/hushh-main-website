@@ -210,7 +210,39 @@ const TeamSection = () => {
                 </Link>
               </div>
             </VStack>
-
+            <VStack mb={{ md: "3rem", base: "1.5rem" }}>
+              <Image
+                alt="vivek"
+                src={teamImages.KavyaChauhan}
+                width={260}
+                height={276}
+              />
+              <div className="-translate-y-16 flex flex-col text-center items-center gap-8">
+                <div className="flex flex-col gap-4">
+                  <Text
+                    color={"#E5E5E5"}
+                    lineHeight={"26.4px"}
+                    fontWeight={"700"}
+                    fontSize={"1.3rem"}
+                  >
+                    Komal Naik
+                  </Text>
+                  <Text lineHeight={"18.75px"} color={"#ABABAB"}>
+                    People Operations Manager
+                  </Text>
+                </div>
+                <Link
+                  href={"https://www.linkedin.com/in/komalsnaik/"}
+                >
+                  <Image
+                    alt="komalLinnkedIn"
+                    src={linkedln}
+                    width={{ base: 12, md: 24 }}
+                    height={24}
+                  />
+                </Link>
+              </div>
+            </VStack>
             <VStack mb={{ md: "3rem", base: "1.5rem" }}>
               <Image
                 alt="vivek"
@@ -237,38 +269,6 @@ const TeamSection = () => {
                 >
                   <Image
                     alt="rohanLinkedIn"
-                    src={linkedln}
-                    width={{ base: 12, md: 24 }}
-                    height={24}
-                  />
-                </Link>
-              </div>
-            </VStack>
-
-            <VStack mb={{ md: "3rem", base: "1.5rem" }}>
-              <Image
-                alt="vivek"
-                src={teamImages.OmkarKailasMalpure}
-                width={260}
-                height={276}
-              />
-              <div className="-translate-y-16 flex flex-col text-center items-center gap-8">
-                <div className="flex flex-col gap-4">
-                  <Text
-                    color={"#E5E5E5"}
-                    lineHeight={"26.4px"}
-                    fontWeight={"700"}
-                    fontSize={"1.3rem"}
-                  >
-                    Omkar Kailas Malpure
-                  </Text>
-                  <Text lineHeight={"18.75px"} color={"#ABABAB"}>
-                    Software Engineer - AI/ML
-                  </Text>
-                </div>
-                <Link href={"https://www.linkedin.com/in/omkar-malpure/"}>
-                  <Image
-                    alt="omkarLinkedIn"
                     src={linkedln}
                     width={{ base: 12, md: 24 }}
                     height={24}
