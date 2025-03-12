@@ -140,6 +140,39 @@ const TeamSection = () => {
                   </Link>
                 </div>
               </VStack>
+
+              <GridItem colSpan={{ base: 1, md: 2 }} display="flex" justifyContent="center">
+    <VStack>
+      <div className="flex flex-col gap-8 text-center items-center">
+        <Image
+          alt="justin"
+          src={teamImages.chaitanya}
+          width={260}
+          height={276}
+        />
+        <div className="flex flex-col gap-4">
+          <Text
+            color={"#E5E5E5"}
+            fontWeight={"700"}
+            fontSize={"1.3rem"}
+          >
+            Chaitanya Modha
+          </Text>
+          <Text color={"#ABABAB"}>
+            CTO
+          </Text>
+        </div>
+        <Link href="https://www.linkedin.com/in/chaitanya-modha/">
+          <Image
+            alt="Chaitanya Modha"
+            src={linkedln}
+            width={24}
+            height={24}
+          />
+        </Link>
+      </div>
+    </VStack>
+  </GridItem>
             </Grid>
           </VStack>
         </div>
@@ -228,7 +261,7 @@ const TeamSection = () => {
                     Komal Naik
                   </Text>
                   <Text lineHeight={"18.75px"} color={"#ABABAB"}>
-                    People Operations Manager
+                     Chief Of Staff
                   </Text>
                 </div>
                 <Link
