@@ -30,7 +30,7 @@ export default {
           borderBottom="1px solid #eaeaea"
         >
           {/* Left Section: Logo */}
-          <Box fontWeight="bold" fontSize="lg" color={isDarkMode ? 'white' : 'black'}>
+          <Box fontWeight="bold" fontSize="lg" >
             Hushh Developer API
           </Box>
 
