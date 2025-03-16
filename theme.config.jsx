@@ -10,11 +10,15 @@ import { HamburgerIcon } from '@chakra-ui/icons'
 export default {
   logo: <span>Hushh Developer API</span>,
   font: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap',
-
+  nextThemes: {
+    defaultTheme: "light", // Set the default theme to light
+    forcedTheme: "light",  // Force light mode regardless of system preference
+    disableSwitch: true,   // Hide the theme switch option
+  },
   navbar: {
     component: () => {
-      const { search } = useConfig() // ✅ Get Nextra's search component
-
+      const { search,theme } = useConfig()
+      const isDarkMode = theme === 'dark';
       return (
         <Flex
           justifyContent="space-between"
@@ -26,18 +30,15 @@ export default {
           borderBottom="1px solid #eaeaea"
         >
           {/* Left Section: Logo */}
-          <Box fontWeight="bold" fontSize="lg">
+          <Box fontWeight="bold" fontSize="lg" color={isDarkMode ? 'white' : 'black'}>
             Hushh Developer API
           </Box>
 
           {/* Center Section: Search Bar (first) + MyLogo (after) */}
           <Flex alignItems="center" gap={4}>
-            {/* ✅ Search Bar first (Only visible on Desktop) */}
             <Box display={{ base: "none", md: "block" }}>
               {search?.component && <search.component />}
             </Box>
-
-            {/* ✅ MyLogo after Search Bar */}
             <MyLogo />
           </Flex>
 
@@ -53,7 +54,7 @@ export default {
       )
     }
   },
-
+darkMode: false,
   project: {
     link: '/developerApi/login',
     icon: <MyLogo />,
