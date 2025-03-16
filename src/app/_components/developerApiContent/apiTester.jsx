@@ -256,6 +256,7 @@ const ApiSection = ({ endpoint, apiKey }) => {
                 }
                 readOnly
                 bg="gray.100"
+                minH={'200px'}
               />
             </Box>
           )}
