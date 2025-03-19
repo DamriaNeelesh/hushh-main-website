@@ -220,7 +220,9 @@ const ClientHome = () => {
 
                 <Text
   color={"#757575"} 
+  fontFamily={'Figtree, sans-serif'}
   fontSize={{ md: "1.15rem", base: "1rem" }}
+  style={{ fontDisplay: 'swap' }} // Ensure text is displayed quickly
                 >
                   Revolutionize customer insights, Personalize commerce, Build
                   deeper connections with your customers consent and control.
