@@ -1,6 +1,7 @@
 ---
 title: Root Endpoints
 ---
+import ApiSection from '../../src/app/_components/developerApiContent/apiTester'
 
 # Root Endpoint
 
@@ -12,81 +13,195 @@ Here’s a quick rundown of the core API categories we offer. Each section links
 
 - **List Installed Cards**
   Retrieve any brand or loyalty “cards” a user has installed.  
+  <ApiSection 
+  endpoint={{
+    method: "POST",
+    path: "/api/v1/list-installed-cards",
+    description: "Retrieve any brand or loyalty 'cards' a user has installed.",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" }
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ]
+  }}
+  />
 
 
 - **Request Consent**
   Send a request prompting the user to grant or reject data access.  
-  
+  <ApiSection 
+  endpoint={{
+    method: "POST",
+    path: "/api/v1/request-consent",
+    description: "Send a request prompting the user to grant or reject data access.",
+    requestBody: {
+      phone_number: { type: "string", placeholder: "Enter phone number" },
+      access_token: { type: "string", placeholder: "Enter access token" },
+      card_name: { type: "string", placeholder: "Enter card name" },
+      expiry: { type: "string", placeholder: "Enter expiry date" },
+      bid_value: { type: "number", placeholder: "Enter bid value" }
+    }
+  }}
+  />
 
 - **Get Consent**
   Retrieves a list of cards for which the user has already granted consent.  
-  
+  <ApiSection 
+  endpoint={{
+    method: "POST",
+    path: "/api/v1/list-consented-cards",
+    description: "Get a list of consented cards",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" }
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+    
+  }}
+  />
 
 ### Receipts
 
-- **Insert Receipt Data**
-  Add new purchase details (brand, location, cost) to the user’s record.  
-  
-
 - **Get Receipt Data**
   Fetch all receipt entries a user has shared for analysis or personalization.  
-  
+  <ApiSection 
+  endpoint={{
+    method: "POST",
+    path: "/api/v1/get-receipt-data",
+    description: "Get user's receipt data",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" }
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ]
+  }}
+  />
+
 
 ### Health
 
-- **Insert Health Data**
-  Store user-submitted health metrics (steps, surveys, etc.).  
-  
 
 - **Get Health Data**
   Retrieve health-related information for insights or wellness applications.  
-  
+  <ApiSection 
+  endpoint={{
+    method: "POST",
+    path: "/api/v1/health-data",
+    description: "Retrieve health data information for insights",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" }
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ]
+  }}
+  />
 
 ### Browsing
 
-- **Insert Browsing Data**
-  Record user’s browsing activity (URLs visited, clicks, interest keywords).  
-  
 
 - **Get Browsing Data**
   Access previously saved browsing records for content personalization.  
-  
+  <ApiSection 
+  endpoint={{
+    method: "POST",
+    path: "/api/v1/browsing-data",
+    description: "Get Browsing Data Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" }
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ]
+  }}
+  />
 
 ### Brand Preferences
 
-- **Insert Brand Preference Data**
-  Capture user preferences for specific brands.  
-  
 
 - **Get Brand Preferences**
   Retrieve stored brand preferences (favorite colors, styles, features).  
-  
+  <ApiSection 
+    endpoint={{
+    method: "POST",
+    path: "/api/v1/brand-preferences",
+    description: "Get Brand Preference Data Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+      { name: "brand_name", required: true, placeholder: "Enter your brand name" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+  }}
+  />
 
 ### Fashion
 
-- **Insert Fashion Data**
-  Submit user fashion-related insights or survey answers.  
-  
-
 - **Get Fashion Data**
   Access stored style preferences, purchase patterns, or outfit logs.  
-  
+  <ApiSection 
+    endpoint={{
+    method: "POST",
+    path: "/api/v1/fashion-data",
+    description: "Get Fashion Data Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+  }}
+  />
 
 ### Food & Insurance
 
 - **Get Food Data**
   Retrieve user dietary or culinary preferences.  
-  
+  <ApiSection 
+    endpoint={{
+    method: "POST",
+    path: "/api/v1/food-data",
+    description: "Get Food Data Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+  }}
+  />
 
 - **Get Insurance Data**
   Access insurance-related information (policies, coverage data).  
-  
+  <ApiSection 
+    endpoint={{
+    method: "GET",
+    path: "/api/v1/insurance-data",
+    description: "Get Root Endpoints",
+    queryParams: [
+      { name: "phone_number", required: true, placeholder: "Enter phone number" },
+    ],
+    headers: [
+      { name: "token", required: true, placeholder: "Enter token" }
+    ],
+  }}
+  />
 
 ## Root
 
 - **Root Endpoint**
   A simple check to confirm the API is online and receiving requests.  
-  
+   <ApiSection 
+    endpoint={{
+    method: "GET",
+    path: "/",
+    description: "Get Root Endpoints",
+  }}
+  />
 
 ---
 

@@ -21,13 +21,17 @@ export default {
       const isDarkMode = theme === 'dark';
       return (
         <Flex
-          justifyContent="space-between"
-          alignItems="center"
-          width="100%"
-          px={4}
-          py={2}
-          bg="white"
-          borderBottom="1px solid #eaeaea"
+        as="nav"
+        position="sticky"
+        top="0"
+        zIndex="1000"
+        justifyContent="space-between"
+        alignItems="center"
+        width="100%"
+        px={4}
+        py={2}
+        bg="white"
+        borderBottom="1px solid #eaeaea"
         >
           {/* Left Section: Logo */}
           <Box fontWeight="bold" fontSize="lg" >
