@@ -64,34 +64,6 @@ Here’s a quick rundown of the core API categories we offer. Each section links
 
 ### Receipts
 
-- **Insert Receipt Data**
-  Add new purchase details (brand, location, cost) to the user’s record.  
-  <ApiSection 
-  endpoint={{
-    method: "POST",
-    path: "/api/v1/list-consented-cards",
-    description: "Insert your receipt data",
-    queryParams: [
-      { name: "phone_number", required: true, placeholder: "Enter phone number" }
-    ],
-    headers: [
-      { name: "token", required: true, placeholder: "Enter token" }
-    ],
-    requestBody: {
-      brand: { type: "string", placeholder: "Enter website url" },
-      location: { type: "string", placeholder: "Enter the last visited time" },
-      purchase_category: { type: "string", placeholder: "Enter the last visited time" },
-      brand_category: { type: "string", placeholder: "Enter your interest keywords" },
-      Date: { type: "string", placeholder: "Enter brand name" },
-      currency: { type: "string", placeholder: "Enter the name of your source" },
-      payment_method: { type: "string", placeholder: "Enter the name of your source" },
-      total_cost: { type: "number", placeholder: "Enter number of product clicks" },
-      inr_total_cost: { type: "number", placeholder: "Enter number of product clicks" },
-      usd_total_cost: { type: "number", placeholder: "Enter number of product clicks" },
-    }
-  }}
-  />
-
 - **Get Receipt Data**
   Fetch all receipt entries a user has shared for analysis or personalization.  
   <ApiSection 
@@ -111,30 +83,6 @@ Here’s a quick rundown of the core API categories we offer. Each section links
 
 ### Health
 
-- **Insert Health Data**
-  Store user-submitted health metrics (steps, surveys, etc.).  
-  <ApiSection 
-    endpoint={{
-    method: "POST",
-    path: "/api/v1/insert-health-data",
-    description: "Insert and submit health data endpoints",
-    queryParams: [
-      { name: "phone_number", required: true, placeholder: "Enter phone number" }
-    ],
-    headers: [
-      { name: "token", required: true, placeholder: "Enter token" }
-    ],
-    requestBody: {
-      answers: {
-        type: "array",
-        items: {
-          type: "object",
-          additionalProperties: { type: "string" }
-        }
-      }
-    }
-    }}
-  />
 
 - **Get Health Data**
   Retrieve health-related information for insights or wellness applications.  
@@ -154,30 +102,6 @@ Here’s a quick rundown of the core API categories we offer. Each section links
 
 ### Browsing
 
-- **Insert Browsing Data**
-  Record user’s browsing activity (URLs visited, clicks, interest keywords).  
-  <ApiSection 
-  endpoint={{
-    method: "POST",
-    path: "/api/v1/insert-browsing-data",
-    description: "Insert your browsing data endpoints",
-    queryParams: [
-      { name: "phone_number", required: true, placeholder: "Enter phone number" }
-    ],
-    headers: [
-      { name: "token", required: true, placeholder: "Enter token" }
-    ],
-    requestBody: {
-      website_url: { type: "string", placeholder: "Enter website url" },
-      visit_time: { type: "string", placeholder: "Enter the last visited time" },
-      product_clicks: { type: "number", placeholder: "Enter number of product clicks" },
-      interest_keywords: { type: "string", placeholder: "Enter your interest keywords" },
-      brand: { type: "string", placeholder: "Enter brand name" },
-      source: { type: "string", placeholder: "Enter the name of your source" },
-      duration: { type: "number", placeholder: "Enter total duration" },
-    }
-  }}
-  />
 
 - **Get Browsing Data**
   Access previously saved browsing records for content personalization.  
@@ -197,31 +121,6 @@ Here’s a quick rundown of the core API categories we offer. Each section links
 
 ### Brand Preferences
 
-- **Insert Brand Preference Data**
-  Capture user preferences for specific brands.  
-  <ApiSection 
-    endpoint={{
-    method: "POST",
-    path: "/api/v1/insert-brand-preference-data",
-    description: "Insert Brand Preference Data Endpoints",
-    queryParams: [
-      { name: "phone_number", required: true, placeholder: "Enter phone number" },
-      { name: "brand_name", required: true, placeholder: "Enter your brand name" },
-    ],
-    headers: [
-      { name: "token", required: true, placeholder: "Enter token" }
-    ],
-    requestBody: {
-      answers: {
-        type: "array",
-        items: {
-          type: "object",
-          additionalProperties: { type: "string" }
-        }
-      }
-    }
-  }}
-  />
 
 - **Get Brand Preferences**
   Retrieve stored brand preferences (favorite colors, styles, features).  
@@ -241,31 +140,6 @@ Here’s a quick rundown of the core API categories we offer. Each section links
   />
 
 ### Fashion
-
-- **Insert Fashion Data**
-  Submit user fashion-related insights or survey answers.  
-  <ApiSection 
-    endpoint={{
-    method: "POST",
-    path: "/api/v1/insert-fashion-data",
-    description: "Insert fashion data endpoints",
-    queryParams: [
-      { name: "phone_number", required: true, placeholder: "Enter phone number" },
-    ],
-    headers: [
-      { name: "token", required: true, placeholder: "Enter token" }
-    ],
-    requestBody: {
-      answers: {
-        type: "array",
-        items: {
-          type: "object",
-          additionalProperties: { type: "string" }
-        }
-      }
-    }
-  }}
-  />
 
 - **Get Fashion Data**
   Access stored style preferences, purchase patterns, or outfit logs.  
