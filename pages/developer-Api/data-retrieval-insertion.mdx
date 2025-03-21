@@ -99,7 +99,6 @@ POST /api/v1/request-consent
 ```
 
 **Description:**
-
 When a user’s consent is required for data access (e.g., brand preferences, health info), call this endpoint to prompt the user. The user is notified about the request with details of the developer and brand.
 
 **Request Body (JSON):**
@@ -141,9 +140,7 @@ Content-Type: application/json
    - or `"Consent rejected. You cannot access the data."`
 
 2. **No Response (user does not act within 3 minutes):**
-   
    Response:
-
    ```json
    "Consent request sent and awaiting user acceptance. The request will remain valid for the next 24 hours. Please check again after 24 hours."
    ```
@@ -623,7 +620,6 @@ Retrieves previously inserted browsing records for a user, enabling analytics or
 ```http
 POST /api/v1/browsing-data?phone_number=+1234567890
 Authorization: Bearer <token>
-
 ```
 
 **Success Response:**

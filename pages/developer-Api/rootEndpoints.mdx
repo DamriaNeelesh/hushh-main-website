@@ -4,32 +4,124 @@ title: Root Endpoints
 import ApiSection from '../../src/app/_components/developerApiContent/apiTester'
 
 # Root Endpoint
+This section explains how to access and insert data in Hushh, ensuring each operation aligns with user consent protocols. All endpoints in these categories require a  valid session token (obtained via /sessiontoken) and, where applicable, a user’s phone number or ID. 
 
 Here’s a quick rundown of the core API categories we offer. Each section links to a dedicated page with in-depth details on endpoints, request/response formats, and usage examples.
 
-## User Data: Retrieval & Insertion
 
-### Cards & Consents
+## Cards & Consents
 
-- **List Installed Cards**
-  Retrieve any brand or loyalty “cards” a user has installed.  
-  <ApiSection 
-  endpoint={{
-    method: "POST",
-    path: "/api/v1/list-installed-cards",
-    description: "Retrieve any brand or loyalty 'cards' a user has installed.",
-    queryParams: [
-      { name: "phone_number", required: true, placeholder: "Enter phone number" }
-    ],
-    headers: [
-      { name: "token", required: true, placeholder: "Enter token" }
-    ]
-  }}
-  />
+### **List Installed Cards**
 
+**Description:**
+Retrieves all the “cards” (e.g., brand cards, preference cards) installed by a user. 
 
-- **Request Consent**
-  Send a request prompting the user to grant or reject data access.  
+**Parameters:**
+- `phone_number` (query, string, required) — Identifies the user.
+- `token` (header, string, required) — Your valid session token.
+```bash
+POST /api/v1/list-installed-cards
+```
+<ApiSection 
+endpoint={{
+  method: "POST",
+  path: "/api/v1/list-installed-cards",
+  description: "Retrieve any brand or loyalty 'cards' a user has installed.",
+  queryParams: [
+    { name: "phone_number", required: true, placeholder: "Enter phone number" }
+  ],
+  headers: [
+    { name: "token", required: true, placeholder: "Enter token" }
+  ]
+}}
+/>
+
+**Sample Response:**
+```json
+{
+  "status_code": 200,
+  "data": [
+    {
+      "brand_name": "Personal Information",
+      "category": "Demographic Card",
+      "id": 131
+    },
+    {
+      "brand_name": "Cuisine card",
+      "category": "Food - Personal",
+      "id": 60
+    },
+    {
+      "brand_name": "Travel Card",
+      "category": "Travel Preferences",
+      "id": 64
+    },
+    {
+      "brand_name": "Chanel",
+      "category": "Fashion, Dress, Personal",
+      "id": 15
+    },
+    {
+      "brand_name": "Insurance Card",
+      "category": "Insurance",
+      "id": 237
+    },
+    {
+      "brand_name": "Hushh ID card",
+      "category": "Hushh ID Card",
+      "id": 132
+    }
+  ]
+}
+```
+
+| Field        | Description                                                     |
+|--------------|-----------------------------------------------------------------|
+| `status_code`| HTTP-like status code for the response                          |
+| `data`       | Array of installed cards with name, category, and an internal ID|
+
+**Common Errors:**
+
+- `422 Validation Error`: Missing or invalid `phone_number` parameter.
+- `Unauthorized`: Invalid or expired session token.
+
+---
+
+### **Request Consent**
+**Description:**
+When a user’s consent is required for data access (e.g., brand preferences, health info), call this endpoint to prompt the user. The user is notified about the request with details of the developer and brand.
+
+**Request Body (JSON):**
+```json
+{
+  "phone_number": "string",
+  "access_token": "string",
+  "card_name": "string",
+  "expiry": "string"
+}
+```
+
+| Field          | Type   | Description                                                             |
+|----------------|--------|-------------------------------------------------------------------------|
+| `phone_number` | string | User’s phone number for identification                                  |
+| `access_token` | string | Additional token or identifier if needed (optional depending on flow)   |
+| `card_name`    | string | Name of the data scope (card) for which consent is requested            |
+| `expiry`       | string | Defines the timeframe or reason for which consent is being requested    |
+
+**Sample Request:**
+
+```http
+POST /api/v1/request-consent
+Content-Type: application/json
+
+{
+  "phone_number": "+1234567890",
+  "access_token": "dev-access-12345",
+  "card_name": "Health Card",
+  "expiry": "3 days"
+}
+```
+
   <ApiSection 
   endpoint={{
     method: "POST",
@@ -45,28 +137,105 @@ Here’s a quick rundown of the core API categories we offer. Each section links
   }}
   />
 
-- **Get Consent**
-  Retrieves a list of cards for which the user has already granted consent.  
-  <ApiSection 
-  endpoint={{
-    method: "POST",
-    path: "/api/v1/list-consented-cards",
-    description: "Get a list of consented cards",
-    queryParams: [
-      { name: "phone_number", required: true, placeholder: "Enter phone number" }
-    ],
-    headers: [
-      { name: "token", required: true, placeholder: "Enter token" }
-    ],
-    
-  }}
-  />
+**Possible Outcomes:**
 
-### Receipts
+1. **Immediate Accept/Reject (within 3 minutes):**
+   - Response: `"Consent granted. You can access the data."`
+   - or `"Consent rejected. You cannot access the data."`
 
-- **Get Receipt Data**
-  Fetch all receipt entries a user has shared for analysis or personalization.  
-  <ApiSection 
+2. **No Response (user does not act within 3 minutes):**
+   Response:
+   ```json
+   "Consent request sent and awaiting user acceptance. The request will remain valid for the next 24 hours. Please check again after 24 hours."
+   ```
+**Common Errors:**
+
+- `422 Validation Error`: Invalid JSON structure or missing fields.
+- `Unauthorized`: Missing or invalid session token.
+- `User Already Granted/Replied`: If the user already granted or denied this specific consent, no further action is needed.
+
+### **List Consented Cards**
+**Description:**
+
+Retrieves a list of cards for which the user has already granted consent. This helps you identify which data scopes are accessible without further consent prompts.
+
+**Parameters:**
+
+- `phone_number` (query, string, required) — The user’s phone number.
+- `token` (header, string, required) — Your valid session token.
+
+<ApiSection 
+ endpoint={{
+ method: "POST",
+ path: "/api/v1/list-consented-cards",
+ description: "Get a list of consented cards",
+ queryParams: [
+ { name: "phone_number", required: true, placeholder: "Enter phone number" }
+ ],
+ headers: [
+  { name: "token", required: true, placeholder: "Enter token" }
+ ],
+}}
+/>
+
+**Sample Request:**
+
+```http
+POST /api/v1/list-consented-cards?phone_number=+1234567890
+Authorization: Bearer <token>
+```
+
+**Sample Response:**
+
+```json
+{
+  "status_code": 200,
+  "data": [
+    {
+      "card_id": 61,
+      "card_market": {
+        "brand_name": "Fashion card"
+      }
+    }
+  ]
+}
+```
+
+| Field         | Description                                                        |
+|---------------|--------------------------------------------------------------------|
+| `status_code` | Indicates success/failure code (200 means successful retrieval).   |
+| `data`        | An array of consented cards, each with a `card_id` and `metadata`. |
+| `card_market` | Object containing card details like  brand_name `. |
+
+
+**Common Errors:**
+- **422 Validation Error**
+  - Triggered if `phone_number` is missing or invalid.
+  - Check that your request includes all required query parameters and proper formatting.
+
+- **401/403 Unauthorized/Forbidden**
+  - Missing or invalid session token.
+  - Ensure you are sending **`Authorization: Bearer <token>`** with a **valid** token.
+
+- **No Consents Found**
+  - The user may not have consented to any cards yet, resulting in an empty **`data`** array.
+
+**Usage Notes:**
+- This endpoint complements  **List Installed Cards**  but  specifically returns  only  those cards that the user has actively consented to share.
+- Use this information to determine what data you can retrieve without sending another **Request Consent**  call. 
+---
+## Receipts
+
+### **Get Receipt Data**
+**Description:**
+Retrieves a list of previously stored receipts for the specified user.
+
+
+**Parameters:**
+- `phone_number` (query, string, required) 
+- `token` (header, string, required)
+
+ <ApiSection 
   endpoint={{
     method: "POST",
     path: "/api/v1/get-receipt-data",
@@ -80,13 +249,92 @@ Here’s a quick rundown of the core API categories we offer. Each section links
   }}
   />
 
+**Sample Request(HTTP):**
 
-### Health
+```http
+POST /api/v1/health-data?phone_number=+1234567890
+Authorization: Bearer <token>
+```
+
+**Sample Response:**
+
+```json
+{
+  "status_code": 200,
+  "data": [
+    {
+      "answers": [
+        {
+          "answers": [
+            "{\"text\":\"Mental & Emotional Well-being\",\"image\":null}",
+            "{\"text\":\"Physical Health\",\"image\":null}"
+          ],
+          "metadata": null,
+          "question": "What are your top health and wellness goals?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        },
+        {
+          "answers": [
+            "{\"text\":\"Dancing\",\"image\":null}",
+            "{\"text\":\"Strength Training\",\"image\":null}"
+         ],
+          "metadata": null,
+          "question": "What types of exercise do you enjoy?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        },
+        {
+          "answers": [
+            "{\"text\":\"Vegetarian\",\"image\":null}"
+          ],
+          "metadata": null,
+          "question": "Do you have any dietary restrictions or preferences?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        },
+        {
+          "answers": [
+            "{\"text\":\"Health Apps\",\"image\":null}"
+          ],
+          "metadata": null,
+          "question": "What health apps or wearables do you use?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        }
+      ]
+    }
+  ]
+}    
+```
+
+| Field        | Description                                                     |
+|--------------|-----------------------------------------------------------------|
+| `status_code`| Indicates success/failure code                          |
+| `data`       | Array of objects, each containing answers and question info     |
+
+**Common Errors:**
+
+- `422 Validation Error`: Missing or phone_number.
+- `Forbidden`: User consent not granted for health data.
+- `Empty Data`: User has not yet stored any health information.
+
+ 
 
 
-- **Get Health Data**
-  Retrieve health-related information for insights or wellness applications.  
-  <ApiSection 
+## Health
+
+
+### **Get Health Data**
+**Description:**
+Retrieves the user’s stored health data, which often includes question-and-answer survey responses or other custom health metrics.
+
+**Parameters:**
+
+- `phone_number` (query, string, required) 
+- `token` (header, string, required)
+
+<ApiSection 
   endpoint={{
     method: "POST",
     path: "/api/v1/health-data",
@@ -100,11 +348,91 @@ Here’s a quick rundown of the core API categories we offer. Each section links
   }}
   />
 
-### Browsing
+**Sample Request(HTTP)**
+
+```http
+POST /api/v1/health-data?phone_number=+1234567890
+Authorization: Bearer <token>
+```
+
+**Success Response:**
+```json
+{
+  "status_code": 200,
+  "data": [
+    {
+      "answers": [
+        {
+          "answers": [
+            "{\"text\":\"Mental & Emotional Well-being\",\"image\":null}",
+            "{\"text\":\"Physical Health\",\"image\":null}"
+          ],
+          "metadata": null,
+          "question": "What are your top health and wellness goals?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        },
+        {
+          "answers": [
+            "{\"text\":\"Dancing\",\"image\":null}",
+            "{\"text\":\"Strength Training\",\"image\":null}"
+ ],
+          "metadata": null,
+          "question": "What types of exercise do you enjoy?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        },
+        {
+          "answers": [
+            "{\"text\":\"Vegetarian\",\"image\":null}"
+          ],
+          "metadata": null,
+          "question": "Do you have any dietary restrictions or preferences?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        },
+        {
+          "answers": [
+            "{\"text\":\"Health Apps\",\"image\":null}"
+          ],
+          "metadata": null,
+          "question": "What health apps or wearables do you use?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        }
+      ]
+    }
+  ]
+}
+```
 
 
-- **Get Browsing Data**
-  Access previously saved browsing records for content personalization.  
+| Field            | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `status_code`          | Indicates success/failure code                                 |
+| `data`       | Array of objects, each containing answers and question info  |
+
+
+**Common Errors:**
+
+- `422 Validation Error`: Missing phone_number or malformed request body.
+- `Forbidden`: User has not granted consent for health data access/updates.
+
+  
+
+## Browsing
+### **Get Browsing Data**
+Retrieves previously inserted browsing records for a user, enabling analytics or personalized recommendations.
+  **Parameters:**
+
+- `phone_number` (query, string, required) 
+- `token` (header, string, required)
+
+**Sample Request(HTTP)**
+```http
+POST /api/v1/browsing-data?phone_number=+1234567890
+Authorization: Bearer <token>
+```
   <ApiSection 
   endpoint={{
     method: "POST",
@@ -119,11 +447,63 @@ Here’s a quick rundown of the core API categories we offer. Each section links
   }}
   />
 
+**Success Response:**
+
+```json
+{
+  "status_code": 200,
+  "data": [
+    {
+      "visit_time": "2025-01-09T18:37:30+00:00",
+      "website_url": "amazon.in",
+      "product_clicks": 23,
+      "interest_keywords": [
+        {
+          "Interest Keywords": "Heels"
+        }
+      ],
+      "brand": "Monrow",
+      "source": "Amazon",
+      "duration": 45
+    }
+  ]
+}
+```
+
+| Field            | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `visit_time`          | Timestamp of when the user browsed                                 |
+| `website_url`       | The domain or page visited                                                |
+| `product_clicks` | Number of product pages clicked in that session                       |
+| `interest_keywords` | Potentially an array or structure of user interests                      |
+| `brand`           | Associated brand for this browsing session                   |
+| `source`       | Where the traffic originated (e.g., Amazon, Google, etc.)                                              |
+| `duration` | Number of seconds spent on the site                                    |
+
+
+
+**Common Errors:**
+
+- `422 Validation Error`: Invalid or missing parameters.
+- `Forbidden`:  Lack of user consent for browsing data retrieval.
+
 ### Brand Preferences
 
 
 - **Get Brand Preferences**
-  Retrieve stored brand preferences (favorite colors, styles, features).  
+Retrieves any brand-specific preferences the user has previously shared (e.g., product categories, style choices).
+  **Parameters:**
+
+- `phone_number` (query, string, required) 
+- `brand_name` (query, string, required)
+- `token` (header, string, required)
+
+**Sample Request(HTTP)**
+```http
+POST /api/v1/brand-preferences?phone_number=+1234567890&brand_name=Dior
+Authorization: Bearer <token>
+```
+
   <ApiSection 
     endpoint={{
     method: "POST",
@@ -138,11 +518,72 @@ Here’s a quick rundown of the core API categories we offer. Each section links
     ],
   }}
   />
+**Success Response:**
 
-### Fashion
+```json
+{
+  "status_code": 200,
+  "data": [
+    {
+      "answers": [
+        {
+          "answers": [
+            "{\"text\":\"Lady Dior\",\"image\":null}"
+          ],
+          "metadata": null,
+          "question": "What bag styles from Dior do you own or aspire to own?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        },
+        {
+          "answers": [
+            "{\"text\":\"Handbags\",\"image\":null}",
+            "{\"text\":\"Beauty\",\"image\":null}"
+          ],
+          "metadata": null,
+          "question": "Which Dior product categories do you prefer?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        },
+        {
+          "answers": [
+            "{\"text\":\"Neutral\",\"image\":null}"
+          ],
+          "metadata": null,
+          "question": "How important is staying up to date with Dior's seasonal runway shows and collections?",
+          "audio_url": null,
+          "questionType": "multiSelectQuestion"
+        }
+      ]
+    }
+  ]
+}
+```
 
-- **Get Fashion Data**
-  Access stored style preferences, purchase patterns, or outfit logs.  
+| Field            | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `status_code`          | Indicates success/failure code                                 |
+| `data`       | Array of preference objects with question-and-answer details          |
+
+**Common Errors:**
+- `422 Validation Error`: Missing phone_number or brand_name.
+- `Forbidden`:  User has not consented to share brand preference data or brand name is invalid.
+
+## Fashion
+
+### **Get Fashion Data**
+Retrieves previously inserted fashion preferences and Q&A responses for a given user.
+ **Parameters:**
+- `phone_number` (query, string, required) 
+- `token` (header, string, required)
+
+**Sample Request (HTTP):**
+```http
+POST /api/v1/insert-fashion-data?phone_number=+1234567890
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
   <ApiSection 
     endpoint={{
     method: "POST",
@@ -157,10 +598,55 @@ Here’s a quick rundown of the core API categories we offer. Each section links
   }}
   />
 
-### Food & Insurance
+**Sample Response (Example):**
+```json
+{
+  "status_code": 200,
+  "data": [
+    {
+      "answers": [
+        {
+          "question": "Which brands do you follow for the latest fashion trends?",
+          "answers": [
+            "{\"text\":\"Gucci\"}",
+            "{\"text\":\"Prada\"}"
+          ]
+        },
+        {
+          "question": "Preferred styles?",
+          "answers": [
+            "{\"text\":\"Streetwear\"}",
+            "{\"text\":\"Formal\"}"
+          ]
+        }
+]
+    }
+  ]
+}
+```
 
-- **Get Food Data**
-  Retrieve user dietary or culinary preferences.  
+| Field            | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `status_code`          | Custom success/failure code. |
+| `data`          | Array of objects that include user’s fashion Q&A responses or metadata.|
+
+**Common Errors:**
+- `422 Validation Error`: Missing phone_number or other required parameters.
+- `Forbidden`: User has not granted consent for fashion data retrieval.
+
+## Food & Insurance
+
+### **Get Food Data**
+Retrieves any stored food-related information for the user, which may include dietary preferences, favorite cuisines, or past food survey responses.
+**Parameters:**
+- `phone_number` (query, string, required) 
+- `token` (header, string, required)
+
+**Sample Request (HTTP):**
+```http
+POST /api/v1/food-data?phone_number=+1234567890
+Authorization: Bearer <token>
+```  
   <ApiSection 
     endpoint={{
     method: "POST",
@@ -174,9 +660,42 @@ Here’s a quick rundown of the core API categories we offer. Each section links
     ],
   }}
   />
+**Sample Response (Example):**
+```json
+{
+  "status_code": 200,
+  "data": [
+    {
+      "dietary_preferences": [
+        "Vegetarian",
+        "Gluten-Free"
+      ],
+      "favorite_cuisines": [
+        "Italian",
+        "Mexican"
+      ]
+    }
+  ]
+}
+```
+_(The exact structure may vary based on how you insert or query food data.)_
 
-- **Get Insurance Data**
-  Access insurance-related information (policies, coverage data).  
+**Common Errors:**
+- `422 Validation Error`: Missing or invalid parameters.
+- `Forbidden`: The user has not consented to share food-related data.
+- `Empty Data`: No food data found for this user.
+
+### **Get Insurance Data**
+Retrieves insurance-related information for the user, such as policy details, coverage limits, or any survey answers about insurance preferences.
+**Parameters:**
+- `phone_number` (query, string, required) 
+- `token` (header, string, required)
+
+**Sample Request (HTTP):**
+```http
+POST /api/v1/insurance-data?phone_number=+1234567890
+Authorization: Bearer <token>
+``` 
   <ApiSection 
     endpoint={{
     method: "GET",
@@ -190,11 +709,49 @@ Here’s a quick rundown of the core API categories we offer. Each section links
     ],
   }}
   />
+**Sample Response (Example):**
+```json
+{
+  "status_code": 200,
+  "data": [
+    {
+      "policy_type": "Health Insurance",
+      "policy_provider": "Global Health Co.",
+      "coverage_amount": 50000,
+      "policy_expiry_date": "2025-12-31",
+      "premium_due": 1200
+    }
+  ]
+}
+```
 
-## Root
+| Field            | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `policy_type`          | e.g., Health, Life, Travel                                 |
+| `policy_provider`       | Name of the insurance company                                                |
+| `coverage_amount`          | Coverage limit or sum assured                                |
+| `policy_expiry_date`       | Date (YYYY-MM-DD) or timestamp indicating when policy expires                                                |
+| `premium_due`       | Cost in the specified currency (USD, etc.)                                                |
 
-- **Root Endpoint**
-  A simple check to confirm the API is online and receiving requests.  
+**Common Errors:**
+- `422 Validation Error`: Missing phone_number.
+- `Forbidden`: User has not consented to share insurance data.
+- `Not Found`: User has no insurance info stored.
+
+## Root Endpoints
+
+**Description:**
+A simple check to ensure the API is up and running. It often returns a basic message or status response indicating that the Hushh Developer API is online.
+
+**Request:**
+```http
+No parameters required.
+```
+
+Success Response (200 OK):
+```json
+"Welcome to Hushh Developer API."
+```
    <ApiSection 
     endpoint={{
     method: "GET",
@@ -205,6 +762,44 @@ Here’s a quick rundown of the core API categories we offer. Each section links
 
 ---
 
+## Consent Flow
+**Overview**
+
+Hushh places **user consent** at the heart of data sharing. Even if a user’s data exists in Hushh, your application must **explicitly request** user permission to access it. This ensures **privacy**, **transparency**, and **compliance** with regulations like GDPR.
+
+---
+### Workflow Steps
+
+1. **Attempt Data Retrieval**
+   - If consent has **already been granted**, the API will return the requested data.
+   - If consent is **missing**, you receive a message:
+     > “You don’t have permission to access the data. Please request consent from the user.”
+
+2. **Request Consent**
+   - Call the `POST /api/v1/request-consent` endpoint to prompt the user.
+   - The user sees your application’s details (developer info, brand name, etc.) and decides whether to accept or reject.
+
+3. **Immediate 3-Minute Window**
+   - Hushh keeps the request open for 3 minutes for a potential instant response:
+     - **Consent Granted**: You can immediately access the data.
+     - **Consent Rejected**: You cannot access the data.
+
+4. **24-Hour Pending**
+   - If the user **does not act** within the 3-minute window, the request remains pending for **24 hours**.
+   - Your application will receive a message:
+     > “Consent request sent and awaiting user acceptance. Please check again after 24 hours.”
+
+5. **Check Status**
+   - After 24 hours (or anytime in between), you can check if the user finally responded.
+   - Once consent is granted, your subsequent data retrieval calls should succeed.
+
+
+### Best Practices
+
+- **Request Consent Only When Needed**: Avoid overwhelming the user with multiple consent prompts.
+- **Provide Context**: In your UI or notifications, clarify why the data is needed and how it benefits the user.
+- **Handle Pending Status Gracefully**: If consent is pending, inform the user that data will be available once they respond to the request.
+
 ### Ready to dive deeper?
 
 - Visit the **Setup & Authentication** page to learn how to create your profile, generate an API key, and authenticate.
@@ -213,20 +808,7 @@ Here’s a quick rundown of the core API categories we offer. Each section links
 - If you have any questions, contact us at [info@hush1one.com](mailto:info@hush1one.com).
 
 
-### Description:
-A simple check to ensure the API is up and running. It often returns a basic message or status response indicating that the Hushh Developer API is online.
 
-### Request:
-```http
-No parameters required.
-```
-
-
-
-### Success Response (200 OK):
-```json
-"Welcome to Hushh Developer API."
-```
 
 > *(Exact response may vary.)*
 
