@@ -144,13 +144,13 @@ import FooterComponent from "../features/FooterComponent";
   
           {/* Media Contact Section */}
           <VStack spacing={4} align="start">
-            <Heading fontSize={{ base: "xl", md: "2xl" }}>Media Contact</Heading>
-            <Text fontSize={{ base: "md", md: "lg" }}>
+            {/* <Heading fontSize={{ base: "xl", md: "2xl" }}>Media Contact</Heading> */}
+            {/* <Text fontSize={{ base: "md", md: "lg" }}>
               Email: press@hushh.ai
-            </Text>
-            <Text fontSize={{ base: "md", md: "lg" }}>
+            </Text> */}
+            {/* <Text fontSize={{ base: "md", md: "lg" }}>
               Phone: +14252969050 
-            </Text>
+            </Text> */}
             <Link
               href="https://www.hushh.ai"
               fontSize={{ base: "md", md: "lg" }}
