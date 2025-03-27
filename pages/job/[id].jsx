@@ -20,9 +20,10 @@ import Header from '../../src/app/_components/header'
 const JobDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  
+ 
   // Find the job data based on the ID
   const job = jobs.find((job) => job.id === id);
+  const jobRole = job?.title || "";
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -30,7 +31,8 @@ const JobDetailPage = () => {
     phone: "",
     resumeLink: "",
   });
-
+  const baseFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeWzoc7AsiVKm4IX3pCxmHmiJY2OMA7Ulx_9DW6oHsQZPkrRg/viewform?embedded=true";
+  const formUrl = `${baseFormUrl}&entry.472327161=${encodeURIComponent(jobRole)}`;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -166,7 +168,7 @@ const JobDetailPage = () => {
           </Text>
           <Box
             as="iframe"
-            src="https://docs.google.com/forms/d/e/1FAIpQLSeWzoc7AsiVKm4IX3pCxmHmiJY2OMA7Ulx_9DW6oHsQZPkrRg/viewform?embedded=true"
+            src={formUrl}
             width="100%"
             minH={{md:'160vh',base:'180vh'}}
             frameBorder="0"
