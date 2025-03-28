@@ -270,7 +270,7 @@ const ClientDemoBooking = () => {
                     marginTop: "0rem",
                     overflow: "hidden",
                   }}
-                  url={`https://calendly.com/damrianeelesh/30min?name=${formData.name}&email=${formData.email}&message=${formData.message}`}
+                  url={`https://calendly.com/hushh/30min?name=${formData.name}&email=${formData.email}&message=${formData.message}`}
                   onSubmit={() => {
                     setScheduled(false);
                     setShowCalendly(false);
