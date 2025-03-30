@@ -4,6 +4,12 @@
 
 ## "Your" Data "Your" Business
 
+## SEO Integration
+
+1. Add your site to [Google Search Console](https://search.google.com/search-console).
+2. Use the meta tag provided by Google for verification.
+3. Add Google Analytics tracking code to monitor traffic.
+
 ## Getting Started
 
 First, run the development server:

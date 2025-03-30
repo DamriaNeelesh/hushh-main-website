@@ -83,6 +83,10 @@ module.exports = {
       animation: {
         "fade-in": "fadeIn 1s ease-in-out",
       },
+      screens: {
+        tablet: "640px",
+        desktop: "1024px",
+      },
     },
   },
   plugins: [

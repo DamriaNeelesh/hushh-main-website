@@ -42,6 +42,7 @@ import VibeSearchApiDemo from "../_components/svg/demoImages/vibeSearchApiDemo.s
 import VibeSearchMarketDemo from "../_components/svg/demoImages/vibeSearchMarketplaceDemo.svg";
 import { useMediaQuery } from "react-responsive";
 import YouTubeModal from "../_components/features/youtubeModal";
+
 const ClientDemoBooking = () => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const [showCalendly, setShowCalendly] = useState(false);
@@ -150,6 +151,13 @@ const ClientDemoBooking = () => {
   return (
     <>
       <Box p={{ base: 4, md: 8 }}>
+        <Image
+          src="/path/to/image.jpg"
+          alt="Demo Image"
+          width={isTabletOrMobile ? 300 : 600}
+          height={isTabletOrMobile ? 200 : 400}
+          priority
+        />
         <Stack
           mt={{ md: "8rem", base: "4rem" }}
           display={"flex"}

@@ -8,7 +8,8 @@
     "build": "contentlayer build && next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "audit-seo": "lighthouse http://localhost:3000 --output html --output-path ./seo-report.html"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",

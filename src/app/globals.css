@@ -3,6 +3,24 @@
 @tailwind utilities;
 
 body {
+  font-family: "Figtree", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.header, .footer {
+  @apply flex flex-col md:flex-row justify-between items-center;
+}
+
+img {
+  @apply max-w-full h-auto;
+}
+
+body {
   font-family: "Figtree" !important;
   padding: 0 !important;
   width: 100% !important;
@@ -11,7 +29,6 @@ body {
 body, input, button, textarea, select {
   font-family: 'Figtree', sans-serif;
 }
-
 
 .mobile-header {
   display: flex;
@@ -49,6 +66,7 @@ body, input, button, textarea, select {
   font-weight: 700;
 }
 
+/* Optimize gradient styles */
 .gradient {
   background: linear-gradient(to right, #7a7a7e, #ffffff);
   -webkit-background-clip: text;
@@ -139,7 +157,6 @@ body, input, button, textarea, select {
   font-weight: 700;
 }
 
-
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -169,6 +186,14 @@ body {
   color: #ffffff;
   font-weight: 700;
   line-height: 1.8rem;
+}
+
+/* Ensure responsive typography */
+@media (max-width: 768px) {
+  .heading2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }
 
 /* Search Bar CSS */
@@ -380,7 +405,7 @@ pre {
 .PhoneInputInput {
   background: #151515;
   color: #ffffff;
-  border: 1px solid #242424 !important; /* Remove single quotes around the border value */
+  border: 1px solid #242424;
   height: 2.5rem;
   border-radius: 5px;
   flex: 1;
@@ -410,6 +435,7 @@ pre {
   display: flex;
   align-items: center;
 }
+
 /* Pricing Plan Hover Effect CSS */
 .plan {
   background-color: #131414;
@@ -436,7 +462,6 @@ pre {
   color: #080808;
 }
 
-
 /* Blog page mdx CSS */
 .highlightMdx {
   background-color: rgb(36, 41, 46);
@@ -452,8 +477,6 @@ pre {
   color:'white';
   background: #080808;
 }
-
-
 
 /* Developer API feedback form CSS */
 .feedbackForm {
@@ -477,7 +500,6 @@ pre {
 
 /* 3-D Button Viva Connect */
 
-
 /* Hushh Outbound Services CSS */
 .serviceBox {
   grid-column-start: 2;
@@ -493,14 +515,13 @@ pre {
   display: block; /* Show desktop header by default */
 }
 
-/* Use media queries to control visibility */
-@media (max-width: 768px) {
+/* Add responsive utilities */
+@media (max-width: 1024px) {
   .mobile-header {
-      display: flex; /* Show mobile header on small screens */
-      justify-content:flex-end;
+    display: flex;
   }
   .desktop-header {
-      display: none; /* Hide desktop header on small screens */
+    display: none;
   }
 }
 
@@ -531,9 +552,6 @@ pre {
   justify-content: space-between !important;
 }
 }
-
-
-/* ... existing code ... */
 
 .navbar {
   display: flex;
@@ -583,7 +601,6 @@ pre {
   cursor: pointer;
 }
 
-
 @media (max-width: 768px) {
   .menu {
     display: none;
@@ -605,4 +622,29 @@ pre {
   }
 }
 
-/* ... existing code ... */
+@media (max-width: 768px) {
+  .swiper-pagination {
+    bottom: 10px !important;
+  }
+
+  .swiper-slide {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Optimize button hover effects */
+.button-hover {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-hover:hover {
+  background-color: #0565FF;
+  color: white;
+}

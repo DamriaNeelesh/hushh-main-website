@@ -1,15 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://www.hushh.ai/",
-  exclude: ["/icon.svg", "/apple-icon.png", "/manifest.webmanifest", "/tags/*"],
+  siteUrl: "https://hushh.ai",
   generateRobotsTxt: true,
-  generateIndexSitemap: false,
-  robotsTxtOptions: {
-    policies: [
-      {
-        userAgent: "*",
-        allow: "/",
-      },
-    ],
-  },
+  sitemapSize: 7000,
 };
