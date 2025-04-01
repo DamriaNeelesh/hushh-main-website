@@ -16,14 +16,7 @@ export const metadata = {
   title: "Hushh | 🤫 'Your' data, make it 'Your' business",
   description: "Intelligence as a service powered by your Data, extract value from your own data",
   url: "https://hushh.ai",
-      // images: [
-      //   {
-      //     url: "/path/to/og-image.jpg",
-      //     width: 1200,
-      //     height: 630,
-      //     alt: "Hushh Open Graph Image",
-      //   },
-      // ],
+
     }, 
 };
 
