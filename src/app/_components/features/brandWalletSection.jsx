@@ -110,80 +110,27 @@ const BrandWalletSection = () => {
               gap={"1rem"}
               borderRadius={"2.5rem"}
             >
-              <WalletIcon />
+              <ChartIcon />
               <Text
                 fontSize={{ md: "1.25rem", base: "1rem" }}
                 color={extendedTheme.colors._white}
               >
-                100% SECURE WALLET
+                SEAMLESS INTEGRATION
               </Text>
               <Text color={extendedTheme.colors._white}>
-                Rest assured knowing that your digital assets are in safe hands
-                with Hushh Bot, your 100% secure wallet solution.
+                We offer robust APIs and developer tools for effortless
+                integration with trusted brands.
               </Text>
             </HStack>
           </VStack>
-
-          {/* Responsive column for mobile */}
-          <HStack
-            spacing="1rem"
-            w={"full"}
-            display={{ base: "flex", md: "none" }}
-            justifyContent="center"
-          >
-            <VStack
-              align={"left"}
-              bg="#1C1C1C"
-              px="0.5rem"
-              py="0.5rem"
-              gap={"0.5rem"}
-              borderRadius={"1rem"}
-            >
-              <SendReceiveIcon width={20} height={20} />
-              <Text fontSize={"0.875rem"} color={extendedTheme.colors._white}>
-                HUSHH BOT
-              </Text>
-              <Text
-                fontSize={"0.75rem"}
-                color={extendedTheme.colors._white}
-                textAlign="center"
-              >
-                Your all-in-one digital assistant designed to simplify your
-                life, streamline tasks, and enhance productivity..
-              </Text>
-            </VStack>
-            <VStack
-              align={"left"}
-              bg="#1C1C1C"
-              px="0.5rem"
-              py="0.5rem"
-              gap={"0.5rem"}
-              borderRadius={"1rem"}
-            >
-              <WalletIcon width={20} height={20} /> {/* Adjust icon size */}
-              <Text fontSize={"0.875rem"} color={extendedTheme.colors._white}>
-                100% SECURE WALLET
-              </Text>
-              <Text
-                fontSize={"0.75rem"}
-                color={extendedTheme.colors._white}
-                textAlign="center"
-              >
-                Rest assured knowing that your digital assets are in safe hands
-                with Hushh Bot, your 100% secure wallet solution.
-              </Text>
-            </VStack>
-          </HStack>
 
           {/* Center column */}
           <Box
             borderRadius={"2.5rem"}
             w={"full"}
-            gridColumnStart={{ base: 1, md: 2 }} // Ensure it's placed in the second column or full width on mobile
+            gridColumnStart={{ base: 1, md: 2 }}
             gridRowStart={{ base: 2, md: 1 }}
-            // gridColumn={{ md: "2", base: "2" }}
             className="gradient-bg"
-            // display={{base:'none', md:'flex'}}
           >
             <VStack
               align={"left"}
@@ -203,11 +150,21 @@ const BrandWalletSection = () => {
                 display={{ md: "block", base: "none" }}
                 align={"center"}
                 mt={"1.40rem"}
+                position="relative"
+                width="100%"
+                height="auto"
+                overflow="hidden"
               >
                 <NextImage
                   src={BrandWalletMobile}
                   alt="brandWalletdesktop"
-                  style={{ position: "absolute", top: "110.7%" }}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    maxHeight: "600px",
+                    objectFit: "contain",
+                    margin: "0 auto"
+                  }}
                   priority
                 />
               </Box>
@@ -215,19 +172,31 @@ const BrandWalletSection = () => {
                 align={"center"}
                 display={{ md: "none", base: "block" }}
                 mt={"1.40rem"}
+                position="relative"
+                width="100%"
+                height="auto"
+                overflow="hidden"
               >
-                <NextImage priority src={BrandWalletMobile} alt="brandWalletmobile" />
+                <NextImage
+                  src={BrandWalletMobile}
+                  alt="brandWalletmobile"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "contain",
+                    margin: "0 auto"
+                  }}
+                  priority
+                />
               </Box>
             </VStack>
           </Box>
 
           {/* Right column */}
           <VStack
-            w={"20rem"}
+            w={{ md: "20rem", base: "10rem" }}
             display={{ md: "flex", base: "none" }}
             gap="2rem"
-            gridColumnStart={{ base: 1, md: 3 }} // Start from the first column on mobile, third on desktop
-            gridRowStart={{ base: 3, md: 1 }}
           >
             <HStack
               align={"left"}
@@ -238,16 +207,16 @@ const BrandWalletSection = () => {
               gap={"1rem"}
               borderRadius={"2.5rem"}
             >
-              <ChartIcon />
+              <WalletIcon />
               <Text
                 fontSize={{ md: "1.25rem", base: "1rem" }}
                 color={extendedTheme.colors._white}
               >
-                SHARE AND BENEFIT
+                OPTIMIZED DATA SHARING
               </Text>
               <Text color={extendedTheme.colors._white}>
-                Share your data, earn points, and unlock rewards like discounts,
-                gift cards, and cashback offers from Brands we want to work with
+                Effortlessly share and manage your data with our solutions to
+                control and monitor data access
               </Text>
             </HStack>
             <HStack
@@ -287,10 +256,10 @@ const BrandWalletSection = () => {
               gap={"0.5rem"}
               borderRadius={"1rem"}
             >
-              <ChartIcon width={20} height={20} /> {/* Adjust icon size */}
+              <ChartIcon width={20} height={20} />
               <Text fontSize={"0.875rem"} color={extendedTheme.colors._white}>
                 Seamless Integration
-              </Text>{" "}
+              </Text>
               <Text
                 fontSize={"0.75rem"}
                 color={extendedTheme.colors._white}
