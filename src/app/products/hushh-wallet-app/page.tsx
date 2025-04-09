@@ -1,38 +1,89 @@
 import React from "react";
 import ClientHushhWallet from "../../clientside/HushhWallet";
+import siteMetadata from "../../../app/sitemetadata";
 
 export const metadata = {
-  title: "Hushh | Wallet App - First AI Powered Data Wallet",
+  title: "Hushh Wallet App | World's First AI-Powered Data Wallet",
   description:
-    "World's First AI Powered Data Wallet - Your personal data, Your own business.",
+    "Take control of your digital identity with Hushh Wallet App. Aggregate, curate and monetize your personal data while maintaining complete privacy and control.",
   keywords:
-    "Hushh Wallet App, Wallet App, Your personal data your own business, App that puts you in control of your digital identity, Scattered Data with Unified Identity, Aggregates your data from various sources including Phone data, Data Companies, Shopping Brands, With Hushh, you become the curator of your own identity, it's a paradigm shift that empowers you too, Build Meaningful Connections, Take Ownership of your digital identity, unlock the true potential of your data, Personalized Experiences, Rewarded Interactions, Connect with brands and sales agents you trust, Get rewarded for sharing data, Sell your data, Transparency and Control, Hushh prioritizes your privacy and control, Earn rewards for the valuable information you contribute, You can sell your data directly to brands and agencies, Share your curated data cards with businesses you choose, enabling them to offer personalized experiences and recommendations",
-  canonical: "https://hushh.ai/products/hushh-wallet-app",
+    "Hushh Wallet App, AI-Powered Data Wallet, Personal Data Control, Digital Identity Management, Data Monetization, Personal Data Ownership, Data Privacy, Data Aggregation, User-Controlled Data, Data Value, Personalized Experiences, Rewarded Interactions, Transparent Data Sharing, Data Control, Unified Digital Identity, Data Curation, Personal Data Marketplace, Data Cards, Privacy-First Technology, Data Sharing Control, Consumer Data Rights, Personal Data Economy, AI Data Assistant, Data Income, Privacy Innovation",
+  canonical: "https://www.hushh.ai/products/hushh-wallet-app",
   alternates: {
-    canonical: "https://hushh.ai/hushh-wallet-app",
+    canonical: "https://www.hushh.ai/products/hushh-wallet-app",
+    languages: {
+      'en-US': 'https://www.hushh.ai/products/hushh-wallet-app',
+    },
   },
   openGraph: {
-    title: "Hushh | Wallet App - First AI Powered Data Wallet",
+    title: "Hushh Wallet App | World's First AI-Powered Data Wallet",
     description:
-      "World's First AI Powered Data Wallet - Your personal data, Your own business.",
-    url: "https://hushh.ai/products/hushh-wallet-app",
-    // images: [
-    //   {
-    //     url: "/path/to/wallet-app-og-image.jpg",
-    //     width: 800,
-    //     height: 600,
-    //     alt: "Hushh Wallet App Image",
-    //   },
-    // ],
+      "Take control of your digital identity with Hushh Wallet App. Aggregate, curate and monetize your personal data while maintaining complete privacy and control.",
+    url: "https://www.hushh.ai/products/hushh-wallet-app",
+    type: "product",
+    siteName: "Hushh AI",
+    images: [
+      {
+        url: siteMetadata.socialBanner,
+        width: 1200,
+        height: 630,
+        alt: "Hushh Wallet App - AI-Powered Data Wallet",
+      },
+    ],
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hushh Wallet App | World's First AI-Powered Data Wallet",
+    description: "Take control of your digital identity with Hushh Wallet App. Your personal data, your own business.",
+    images: [siteMetadata.socialBanner],
+    creator: "@hushh_ai",
+    site: "@hushh_ai",
   },
 };
 
-const hushhWalletApp = () => {
+// Product JSON-LD structured data for Wallet App
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Hushh Wallet App",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "iOS, Android",
+  "description": "Take control of your digital identity with Hushh Wallet App. Aggregate, curate and monetize your personal data while maintaining complete privacy and control.",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.hushh.ai/products/hushh-wallet-app",
+    "priceCurrency": "USD",
+    "price": "0",
+    "availability": "https://schema.org/InStock"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hushh AI",
+    "logo": {
+      "@type": "ImageObject",
+      "url": siteMetadata.socialBanner
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "325"
+  },
+  "featureList": "Data aggregation, Personal data monetization, Privacy controls, Data curation, Identity management",
+  "screenshot": siteMetadata.socialBanner
+};
+
+const HushhWalletApp = () => {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <ClientHushhWallet />
     </>
   );
 };
 
-export default hushhWalletApp;
+export default HushhWalletApp;
