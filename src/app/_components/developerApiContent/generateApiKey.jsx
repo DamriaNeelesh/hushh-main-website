@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   VStack,
@@ -9,8 +9,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import config from "../config/config";
-import crypto from "crypto"; 
+import config from "../config/config"; // Make sure this contains supabaseClient
 
 const GenerateApiKey = () => {
   const [apiKey, setApiKey] = useState("");
@@ -19,26 +18,15 @@ const GenerateApiKey = () => {
   const toast = useToast();
 
   useEffect(() => {
-    const { data } = config.supabaseClient.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
+    const { data: authListener } =
+      config.supabaseClient.auth.onAuthStateChange((_event, session) => {
+        setSession(session);
+      });
 
     return () => {
-      if (data?.subscription) {
-        data.subscription.unsubscribe();
-      }
+      authListener?.subscription?.unsubscribe?.();
     };
   }, []);
-
-  const generateApiKey = (userMail) => {
-    const currentTime = new Date().toISOString(); 
-    const userData = `${userMail}${currentTime}`;
-    const randomToken = crypto.randomBytes(16).toString("hex"); 
-    const originalApiKey = `${randomToken}`; 
-    const hashedApiKey = crypto.createHash("sha256").update(originalApiKey).digest("hex"); // Hashed version
-
-    return { originalApiKey, hashedApiKey };
-  };
 
   const handleGenerateApiKey = async () => {
     if (!session?.user?.email) {
@@ -51,26 +39,45 @@ const GenerateApiKey = () => {
       });
       return;
     }
+
     setIsLoading(true);
+    const userMail = session.user.email;
 
     try {
-      const userMail = session.user.email;
-      const { originalApiKey, hashedApiKey } = generateApiKey(userMail); // Generate API Key (Original & Hashed)
+      // Log userMail and access token for debugging
+      console.log("User email:", userMail);
+      console.log("Access token:", session.access_token);
 
-      const { error } = await config.supabaseClient
-        .from("dev_api_userprofile")
-        .update({ api_key: hashedApiKey }) // Store only the hashed key
-        .eq("mail", userMail);
+      const response = await fetch(
+        `https://hushh-api-53407187172.us-central1.run.app/generateapikey?mail=${encodeURIComponent(userMail)}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.access_token}`, // Ensure token is valid
+          },
+        }
+      );
 
-      if (error) throw error;
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        console.error("Error response:", errorMessage);
+        throw new Error(`API error: ${response.status} - ${errorMessage}`);
+      }
 
-      setApiKey(originalApiKey); // Show only the original key to the user (not stored in DB)
+      const result = await response.json();
+
+      if (!result.api_key) {
+        throw new Error("API key missing in response");
+      }
+
+      setApiKey(result.api_key);
 
       toast({
         title: "API Key Generated",
-        description: "Your new API key has been updated.",
+        description: "Store this key securely. It won't be shown again.",
         status: "success",
-        duration: 3000,
+        duration: 4000,
         isClosable: true,
       });
     } catch (error) {
@@ -87,7 +94,6 @@ const GenerateApiKey = () => {
     }
   };
 
-  // ✅ Copy API Key to Clipboard
   const copyToClipboard = () => {
     if (apiKey) {
       navigator.clipboard.writeText(apiKey);
@@ -110,16 +116,10 @@ const GenerateApiKey = () => {
 
         <button
           onClick={handleGenerateApiKey}
-          // color={'white'}
-          // bg={'#bd1e59'}
-          // _hover={{ bg:'#a11648' }}
-          // className=""
+          disabled={isLoading}
           className=" bg-[#bd1e59] w-full text-white inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 px-4 py-2 mt-4"
-          isLoading={isLoading}
-          loadingText="Generating..."
-          w="full"
         >
-          Generate New API Key
+          {isLoading ? "Generating..." : "Generate New API Key"}
         </button>
 
         {apiKey && (

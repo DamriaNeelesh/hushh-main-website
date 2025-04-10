@@ -246,30 +246,6 @@ useEffect(() => {
     return result;
   }
 
-  // useEffect(() => {
-  //   const script = document.createElement("script");
-  //   script.src = "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js";
-  //   script.type = "text/javascript";
-  //   script.async = true;
-  //   script.onload = () => {
-  //     // Initialize AppleID.auth after the script is loaded
-  //     AppleID.auth.init({
-  //       // clientId: 'com.hushh.ai.siwa.sid',
-  //       clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID,
-  //       scope: 'email name',
-  //       // redirectURI: process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI,
-  //       redirectURI: "https://rpmzykoxqnbozgdoqbpc.supabase.co/auth/v1/callback",
-  //       state: generateRandomString(), // Function to generate a random string
-  //       nonce:  generateRandomString(),
-  //       usePopup: true,
-  //     });
-  //   };
-  //   document.body.appendChild(script);
-  //   return () => {
-  //     document.body.removeChild(script);
-  //   };
-  // }, []);
-
   return (
     <>
     <VStack spacing={4}>
