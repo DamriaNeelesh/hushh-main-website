@@ -1,9 +1,39 @@
-# *
+# Hushh.ai - Robots.txt
+# Updated: April 2023
+
+# Allow all robots
 User-agent: *
 Allow: /
 
-# Host
-Host: https://www.hushh.ai/
+# Disallow specific paths
+Disallow: /_next/
+Disallow: /api/
+Disallow: /404
+Disallow: /500
+Disallow: /google*.html
+Disallow: /error
+Disallow: /*?*
+Disallow: /*.json$
+
+# Rate limits for heavy crawlers
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: PetalBot
+Crawl-delay: 15
+
+User-agent: Baiduspider
+Crawl-delay: 15
+
+# Host preference
+Host: https://www.hushh.ai
 
 # Sitemaps
+Sitemap: https://www.hushh.ai/sitemap-index.xml
 Sitemap: https://www.hushh.ai/sitemap.xml
+Sitemap: https://www.hushh.ai/server-sitemap.xml
+Sitemap: https://www.hushh.ai/product-sitemap.xml
+Sitemap: https://www.hushh.ai/blog-sitemap.xml

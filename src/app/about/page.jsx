@@ -12,36 +12,96 @@ import ContactForm from "../_components/features/contactForm";
 import AboutFaq from "../_components/features/faq/aboutFaq";
 import Head from "next/head";
 import ImageGrid from "../_components/features/dynamicImageGrid";
+import StructuredData from "../_components/SEO/StructuredData";
+import OptimizedImage from "../_components/common/OptimizedImage";
+import siteMetadata from "../sitemetadata";
+import { generateBreadcrumbSchema } from "../_utilities/seoPerformance";
 
 export const metadata = {
-  title: "Hushh | About Our Data Empowerment Mission",
+  title: "About Hushh | Our Data Empowerment Mission & Values",
   description:
-  "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
+    "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership team, vision, and commitment to transforming personal data into valuable assets.",
   keywords:
-  "Hushh, Data Empowerment, Privacy, Manish Sainani, Justin Donaldson, Leadership, Mission, Vision, Data Control, Personal Data, Innovation",
-  canonical: "https://hushh.ai/about",
-  openGraph: {
-    title: "Hushh | About Our Data Empowerment Mission",
-    description:
-      "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
-    url: "https://hushh.ai/about",
-    // images: [
-    //   {
-    //     url: "/path/to/about-og-image.jpg",
-    //     width: 800,
-    //     height: 600,
-    //     alt: "Hushh About Us Image",
-    //   },
-    // ],
+    "Hushh About, Data Empowerment, Privacy Innovation, Manish Sainani, Justin Donaldson, Leadership Team, Mission Statement, Vision, Data Control, Personal Data, Data Autonomy, Data Privacy, User-Centric, Data Ownership, Digital Identity, Data Rights, Team Culture, Company Values, Data Ethics, User Privacy, Data Economy",
+  canonical: "https://www.hushh.ai/about",
+  alternates: {
+    canonical: "https://www.hushh.ai/about",
+    languages: {
+      'en-US': 'https://www.hushh.ai/about',
+    },
   },
-
+  openGraph: {
+    title: "About Hushh | Our Data Empowerment Mission & Values",
+    description:
+      "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership team, vision, and commitment to transforming personal data into valuable assets.",
+    url: "https://www.hushh.ai/about",
+    type: "website",
+    siteName: "Hushh AI",
+    images: [
+      {
+        url: siteMetadata.socialBanner,
+        width: 1200,
+        height: 630,
+        alt: "Hushh Team - Empowering Data Control",
+      },
+    ],
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Hushh | Our Data Empowerment Mission & Values",
+    description: "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership team and vision.",
+    images: [siteMetadata.socialBanner],
+    creator: "@hushh_ai",
+    site: "@hushh_ai",
+  },
 };
+
+// Create structured data for about page
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About Hushh",
+  "description": "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership team, vision, and commitment to transforming personal data into valuable assets.",
+  "url": "https://www.hushh.ai/about",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Hushh AI",
+    "url": "https://www.hushh.ai",
+    "logo": siteMetadata.siteLogo,
+    "sameAs": [
+      siteMetadata.twitter,
+      siteMetadata.linkedin,
+      siteMetadata.youtube
+    ],
+    "foundingDate": "2021",
+    "founders": [
+      {
+        "@type": "Person",
+        "name": "Manish Sainani",
+        "jobTitle": "Founder & CEO"
+      }
+    ],
+    "numberOfEmployees": "20+",
+    "slogan": "Your Data Your Business"
+  }
+};
+
+// Create breadcrumb schema
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Home", url: "https://www.hushh.ai" },
+  { name: "About", url: "https://www.hushh.ai/about" }
+]);
 
 export default function About() {
   const gradient = "linear(63.68deg, #ADA785, #D6D3C2)";
 
   return (
     <>
+      {/* Add structured data */}
+      <StructuredData data={aboutPageSchema} />
+      <StructuredData data={breadcrumbSchema} />
+
       <div className="w-full">
         <Box
           w={"100%"}
@@ -128,22 +188,38 @@ export default function About() {
             </div>
             <div className="flex flex-col gap-10 mt-12 md:mt-0">
               <div className="">
-                <Image src={AboutGroupPhoto} alt="Group Photo" />
+                <Image 
+                  src={AboutGroupPhoto} 
+                  alt="Hushh Team Group Photo - Data Privacy Innovators" 
+                  width={500}
+                  height={300}
+                  priority
+                />
               </div>
               <div className="flex flex-col md:flex-row gap-10 md:items-start items-center">
                 <div className="">
-                  <Image src={AboutOfficePhoto} alt="Office Photo" />
+                  <Image 
+                    src={AboutOfficePhoto} 
+                    alt="Hushh Office Space - Innovation Hub for Data Privacy" 
+                    width={240}
+                    height={180}
+                  />
                 </div>
                 <div className="">
-                  <Image src={AboutDockPhoto} alt="Dock Photo" />
+                  <Image 
+                    src={AboutDockPhoto} 
+                    alt="Hushh Team at Dock - Collaborative Culture" 
+                    width={240}
+                    height={180}
+                  />
                 </div>
               </div>
             </div>
           </div>
           <div className="md:flex-row flex flex-col gap-12 pt-12 md:pt-0 md:gap-36 md:-translate-y-40">
             <div className="md:w-[25rem] flex flex-col gap-5 ">
-              <p className=" text-fontColor5 font-bold text-[22px]">History</p>
-              <p className=" text-fontColor4 font-medium leading-9">
+              <h2 className="text-fontColor5 font-bold text-[22px]">History</h2>
+              <p className="text-fontColor4 font-medium leading-9">
                 Hushh arose from a deep understanding of the modern digital
                 landscape. In a world where our data is constantly collected,
                 analyzed, and often used without our full knowledge or consent,
@@ -160,10 +236,10 @@ export default function About() {
               </p>
             </div>
             <div className="md:w-[25rem] flex flex-col gap-5 ">
-              <p className=" text-fontColor5 font-bold text-[22px]">
+              <h2 className="text-fontColor5 font-bold text-[22px]">
                 Growing team
-              </p>
-              <p className=" text-fontColor4 font-medium leading-9">
+              </h2>
+              <p className="text-fontColor4 font-medium leading-9">
                 Hushh isn't just about technology; it's about the passionate
                 people behind it. Our team is a dynamic mix of privacy
                 champions, skilled engineers, creative designers, and visionary
@@ -249,7 +325,7 @@ export default function About() {
                 textAlign={"center"}
                 color={extendedTheme.colors.secondary}
               >
-                Building a world where data works for you, not against you.
+                At the heart of Hushh lies a mission and vision that drives everything we do.
               </Text>
             </VStack>
             <div className="flex flex-col md:flex-row gap-12 md:gap-36 mt-20 md:mt-40 mb-24 md:mb-36">
