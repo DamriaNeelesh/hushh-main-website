@@ -16,11 +16,11 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Hushh Valet Chat | AI-Powered Receipt & Finance Management",
+    title: "Hushh Valet Chat | AI-Powered Personalized Customer Support",
     description:
-      "Organize all your receipts in one place with Hushh Valet Chat. Get AI-powered insights on your spending habits and take control of your finances effortlessly.",
+      "Experience truly personalized customer support with Hushh Valet Chat, powered by AI and your personal data preferences.",
     url: "https://www.hushh.ai/products/hushh-valet-chat",
-    type: "product",
+    type: "website",
     siteName: "Hushh AI",
     images: [
       {
