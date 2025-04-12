@@ -12,29 +12,80 @@ import ContactForm from "../_components/features/contactForm";
 import AboutFaq from "../_components/features/faq/aboutFaq";
 import Head from "next/head";
 import ImageGrid from "../_components/features/dynamicImageGrid";
+import { siteMetadata } from "../sitemetadata";
 
 export const metadata = {
-  title: "Hushh | About Our Data Empowerment Mission",
+  title: "About Hushh | Pioneering Data Empowerment & Privacy",
   description:
-  "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
+    "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
   keywords:
-  "Hushh, Data Empowerment, Privacy, Manish Sainani, Justin Donaldson, Leadership, Mission, Vision, Data Control, Personal Data, Innovation",
+    "data privacy, data monetization, user-controlled data, privacy-preserving technology, decentralized data, ethical data practices, data sovereignty, Manish Sainani, Justin Donaldson, data empowerment, privacy-conscious consumers, luxury brands, AI-powered personalization, human-AI interaction, granular user consent",
   canonical: "https://hushh.ai/about",
+  alternates: {
+    canonical: "https://hushh.ai/about",
+    languages: {
+      'en-US': 'https://hushh.ai/about',
+    },
+  },
   openGraph: {
-    title: "Hushh | About Our Data Empowerment Mission",
+    title: "About Hushh | Pioneering Data Empowerment & Privacy",
     description:
       "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
     url: "https://hushh.ai/about",
-    // images: [
-    //   {
-    //     url: "/path/to/about-og-image.jpg",
-    //     width: 800,
-    //     height: 600,
-    //     alt: "Hushh About Us Image",
-    //   },
-    // ],
+    type: "website",
+    siteName: "Hushh AI",
+    images: [
+      {
+        url: siteMetadata.socialBanner,
+        width: 1200,
+        height: 630,
+        alt: "About Hushh - Data Empowerment & Privacy",
+      },
+    ],
+    locale: "en_US",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Hushh | Pioneering Data Empowerment & Privacy",
+    description: "Discover Hushh's mission to empower individuals through data control and privacy.",
+    images: [siteMetadata.socialBanner],
+    creator: "@hushh_ai",
+    site: "@hushh_ai",
+  },
+};
 
+// Organization JSON-LD structured data
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Hushh AI",
+  "url": "https://www.hushh.ai",
+  "logo": "https://www.hushh.ai/logo.png",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1021 5th St W.",
+    "addressLocality": "Kirkland",
+    "addressRegion": "WA",
+    "postalCode": "98033",
+    "addressCountry": "US"
+  },
+  "description": "Hushh empowers individuals through data control and privacy, transforming personal data into valuable assets.",
+  "foundingDate": "2022",
+  "founders": [
+    {
+      "@type": "Person",
+      "name": "Manish Sainani"
+    },
+    {
+      "@type": "Person",
+      "name": "Justin Donaldson"
+    }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/company/hushh-ai/",
+    "https://twitter.com/hushh_ai",
+    "https://www.youtube.com/@hushhai"
+  ]
 };
 
 export default function About() {
@@ -42,6 +93,10 @@ export default function About() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
       <div className="w-full">
         <Box
           w={"100%"}

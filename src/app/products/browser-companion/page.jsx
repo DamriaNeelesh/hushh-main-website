@@ -17,14 +17,7 @@ export const metadata = {
     description:
       "Hushh Web Browser Extension takes personalized online experiences to the next level.",
     url: "https://hushh.ai/products/browser-companion",
-    // images: [
-    //   {
-    //     url: "/path/to/browser-companion-og-image.jpg",
-    //     width: 800,
-    //     height: 600,
-    //     alt: "Hushh Browser Companion Image",
-    //   },
-    // ],
+   
   },
 };
 

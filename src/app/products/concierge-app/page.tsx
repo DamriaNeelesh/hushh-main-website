@@ -16,6 +16,7 @@ export const metadata = {
       description:
         "Speak Your Wish and Get Transformed Luxury Redefined Experiences with our GenAI product.",
       url: "https://hushh.ai/products/concierge-app",
+      type: "website",
       // images: [
       //   {
       //     url: "/path/to/concierge-app-og-image.jpg",

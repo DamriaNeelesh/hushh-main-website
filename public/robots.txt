@@ -1,9 +1,13 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /api/*
+Disallow: /_next/*
+Disallow: /*?q=*
 
 # Host
-Host: https://www.hushh.ai/
+Host: https://www.hushh.ai
 
 # Sitemaps
 Sitemap: https://www.hushh.ai/sitemap.xml
+Sitemap: https://www.hushh.ai/server-sitemap.xml

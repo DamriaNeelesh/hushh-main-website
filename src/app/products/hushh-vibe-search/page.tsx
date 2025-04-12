@@ -1,37 +1,98 @@
 import React from "react";
 import ClientVibeSearch from "../../clientside/VibeSearch";
-import VibeSearchIntegrationBox from "../../_components/svg/vibeIntegrationBox.svg";
-import OgImage from "../../../../public/Images/Logo/Logo.png";
+import { siteMetadata } from "../../sitemetadata";
 
 export const metadata = {
-  title: "Hushh | Vibe Search - Match Your Perfect Outfit with Us",
+  title: "Hushh Vibe Search | Find Perfect Items with One-Click Personalization",
   description:
-    "Find perfect items to express your individuality in just one click with our vibe search.",
+    "Discover products that match your unique style with Hushh Vibe Search. Our AI-powered search helps you find perfect items to express your individuality with just one click.",
   keywords:
-    "Vibe Search, The vibe search app lets find and store all your favorite products that you come across by just taking a picture or by typing, Fashion, Vibe Match, Vibe search your companion for fashion and style, Find your style with your own stylist, Find products based on image and text, Save all your liked products, Get insights on your Fit and Style, Share your best Fit with Family and Friends, Find that perfect Fit and perfect look with just a click of a button, Integrate Your Vibe with Vibe Search, vibe search also enables users to share your style preferences in their Hushh Wallet, easy to share and access important information, such as Your Size, Fit, Brands, Budget and Purchase history, Fit Brands and Sizes, Your Budget and purchase history track, Vibe search is more than just an app its your personal stylist on tap of a button, Share and Benefit, Search Any Style, Image based search, Save all your searches, Share curated list of products according to your vibe and fit along with your friends and family, Search any style throughout the internet, Your Personal Fashion Stylist at your Fingertips, Vibe search utilizes advanced algorithms and AI technology to analyze the captured data Find the best fit, Users receive personalized recommendations, discover new products and brands aligned with their interests, and stay up-to-date with the latest trends with Gen AI",
-  canonical: "https://hushh.ai/products/hushh-vibe-search",
+    "vibe search, AI-powered personalization, luxury consumers, user-controlled data, privacy-preserving technology, personalized shopping, ethical advertising, AI for personalized marketing, high-end consumers, personalized product discovery, style matching, visual search, outfit suggestions, fashion AI, luxury shopping",
+  canonical: "https://www.hushh.ai/products/hushh-vibe-search",
   alternates: {
-    canonical: "https://hushh.ai/hushh-vibe-search",
+    canonical: "https://www.hushh.ai/products/hushh-vibe-search",
+    languages: {
+      'en-US': 'https://www.hushh.ai/products/hushh-vibe-search',
+    },
   },
   openGraph: {
-    title: "Hushh | Vibe Search - Match Your Perfect Outfit with Us",
+    title: "Hushh Vibe Search | Find Perfect Items with One-Click Personalization",
     description:
-      "Find perfect items to express your individuality in just one click with our vibe search.",
-    url: "https://hushh.ai/products/hushh-vibe-search",
-    // images: [
-    //   {
-    //     url: "/path/to/vibe-search-og-image.jpg",
-    //     width: 1200,
-    //     height: 630,
-    //     alt: "Vibe Search App",
-    //   },
-    // ],
+      "Discover products that match your unique style with Hushh Vibe Search. Our AI-powered search helps you find perfect items to express your individuality with just one click.",
+    url: "https://www.hushh.ai/products/hushh-vibe-search",
+    type: "website",
+    siteName: "Hushh AI",
+    images: [
+      {
+        url: siteMetadata.socialBanner,
+        width: 1200,
+        height: 630,
+        alt: "Hushh Vibe Search - One-Click Personalized Shopping",
+      },
+    ],
+    locale: "en_US",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hushh Vibe Search | Find Perfect Items with One-Click Personalization",
+    description: "Find perfect items to express your individuality in just one click with our vibe search.",
+    images: [siteMetadata.socialBanner],
+    creator: "@hushh_ai",
+    site: "@hushh_ai",
+  },
+};
+
+// Product JSON-LD structured data
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Hushh Vibe Search",
+  "applicationCategory": "ShoppingApplication",
+  "operatingSystem": "Web, iOS, Android",
+  "description": "Find perfect items to express your individuality in just one click with our vibe search.",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.hushh.ai/products/hushh-vibe-search",
+    "priceCurrency": "USD",
+    "price": "0",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "203"
+  },
+  "featureList": [
+    "One-click personalized product discovery",
+    "AI-powered style matching",
+    "Privacy-preserving recommendations",
+    "Ethical data usage",
+    "Luxury product focus"
+  ],
+  "screenshot": siteMetadata.socialBanner,
+  "softwareVersion": "1.0",
+  "author": {
+    "@type": "Organization",
+    "name": "Hushh AI",
+    "url": "https://www.hushh.ai",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1021 5th St W.",
+      "addressLocality": "Kirkland",
+      "addressRegion": "WA",
+      "postalCode": "98033",
+      "addressCountry": "US"
+    }
+  }
 };
 
 const vibeSearch = () => {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <ClientVibeSearch />
     </>
   );

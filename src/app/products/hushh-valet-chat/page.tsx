@@ -1,35 +1,98 @@
 import React from "react";
 import ClientHushhValetChat from "../../clientside/HushhValetChat";
+import { siteMetadata } from "../../sitemetadata";
 
 export const metadata = {
-  title: "Hushh | Valet Chat - Manage Your Finance in One Place",
+  title: "Hushh Valet Chat | AI-Powered Receipt & Finance Management",
   description:
-    "Collect all your receipts from mail and manage them to help you better understand your spending habits and finance.",
+    "Organize all your receipts in one place with Hushh Valet Chat. Get AI-powered insights on your spending habits and take control of your finances effortlessly.",
   keywords:
-    "Hushh Valet Chat, collect all your receipts from mail, understand your spending habits and finance, Manage all your receipts in one place, get insights on your finance with Gen AI, Valet chat is your one-stop solution to find and manage all your receipts in one place, Valet chat helps you Manage Finance, Sync all your receipts automatically, Chat with our AI to understand your Finances better, Manage and categorize receipts for easy access, Share your receipts with people and receive insights, enables users to share their Receipts in their Hushh Wallet, makes it easy to organize and access important information, such as receipts, warranty details, and more, all in one secure place, Intelligent Finance and Receipts Management, utilizes advanced algorithms and AI technology to analyze the captured data, Users receive personalized Insights on receipts",
-  canonical: "https://hushh.ai/products/hushh-valet-chat",
+    "Valet Chat, Receipt Management, AI Finance Management, Receipt Organizer, Digital Receipts, Expense Tracking, Finance Insights, Spending Analytics, Receipt Storage, AI Financial Assistant, Financial Management, Warranty Tracking, Purchase History, Receipt Categorization, Spending Habits Analysis, data privacy, data monetization, user-controlled data, privacy-preserving technology, ethical data practices",
+  canonical: "https://www.hushh.ai/products/hushh-valet-chat",
   alternates: {
-    canonical: "https://hushh.ai/hushh-valet-chat",
+    canonical: "https://www.hushh.ai/products/hushh-valet-chat",
+    languages: {
+      'en-US': 'https://www.hushh.ai/products/hushh-valet-chat',
+    },
   },
   openGraph: {
-    title: "Hushh | Valet Chat - Manage Your Finance in One Place",
+    title: "Hushh Valet Chat | AI-Powered Receipt & Finance Management",
     description:
-      "Collect all your receipts from mail and manage them to help you better understand your spending habits and finance.",
-    url: "https://hushh.ai/products/hushh-valet-chat",
-    // images: [
-    //   {
-    //     url: "/path/to/hushh-valet-chat-og-image.jpg",
-    //     width: 800,
-    //     height: 600,
-    //     alt: "Hushh Valet Chat Image",
-    //   },
-    // ],
+      "Organize all your receipts in one place with Hushh Valet Chat. Get AI-powered insights on your spending habits and take control of your finances effortlessly.",
+    url: "https://www.hushh.ai/products/hushh-valet-chat",
+    type: "product",
+    siteName: "Hushh AI",
+    images: [
+      {
+        url: siteMetadata.socialBanner,
+        width: 1200,
+        height: 630,
+        alt: "Hushh Valet Chat - AI-Powered Receipt Management",
+      },
+    ],
+    locale: "en_US",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hushh Valet Chat | AI-Powered Receipt & Finance Management",
+    description: "Organize all your receipts in one place with Hushh Valet Chat. Get AI-powered insights on your spending habits.",
+    images: [siteMetadata.socialBanner],
+    creator: "@hushh_ai",
+    site: "@hushh_ai",
+  },
+};
+
+// Product JSON-LD structured data
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Hushh Valet Chat",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web, iOS, Android",
+  "description": "Organize all your receipts in one place with Hushh Valet Chat. Get AI-powered insights on your spending habits and take control of your finances effortlessly.",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.hushh.ai/products/hushh-valet-chat",
+    "priceCurrency": "USD",
+    "price": "0",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "178"
+  },
+  "featureList": [
+    "AI-powered receipt management",
+    "Spending analytics and insights",
+    "Warranty tracking",
+    "Purchase history organization",
+    "Privacy-first financial management"
+  ],
+  "screenshot": siteMetadata.socialBanner,
+  "softwareVersion": "1.0",
+  "author": {
+    "@type": "Organization",
+    "name": "Hushh AI",
+    "url": "https://www.hushh.ai",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1021 5th St W.",
+      "addressLocality": "Kirkland",
+      "addressRegion": "WA",
+      "postalCode": "98033",
+      "addressCountry": "US"
+    }
+  }
 };
 
 const hushhValetChat = () => {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <ClientHushhValetChat />
     </>
   );

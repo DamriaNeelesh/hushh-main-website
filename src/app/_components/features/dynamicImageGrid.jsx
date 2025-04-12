@@ -33,33 +33,76 @@ const images = {
 export default function ImageGrid() {
   const [currentLeftImage, setCurrentLeftImage] = useState(0);
   const [currentRightImages, setCurrentRightImages] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    setIsLoaded(true);
+    
     const interval = setInterval(() => {
       setCurrentLeftImage((prev) => (prev + 1) % images.left.length);
       setCurrentRightImages((prev) => (prev + 1) % images.right.length);
-    }, 3000); // Change image every 3 seconds
+    }, 4000); // 4 seconds interval for smoother experience
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <Box>
       <Grid display={'flex'} templateColumns="1fr 1fr">
         <Grid flex={1} templateRows={"2fr"}>
-          <Image src={images.left[currentLeftImage]} alt="Left Image" />
+          {images.left.map((image, index) => (
+            <div 
+              key={`left-${index}`} 
+              style={{ 
+                display: currentLeftImage === index ? 'block' : 'none',
+                width: '100%',
+                height: '100%',
+                position: 'relative'
+              }}
+            >
+              <Image
+                src={image}
+                alt={`Hushh Featured Image ${index + 1}`}
+                priority={index === 0}
+                quality={90}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ 
+                  objectFit: 'cover',
+                  opacity: isLoaded ? 1 : 0,
+                  transition: 'opacity 0.3s ease-in-out'
+                }}
+                onLoad={() => index === currentLeftImage && setIsLoaded(true)}
+              />
+            </div>
+          ))}
         </Grid>
-        <Grid flex={1} flexDirection={'column'} gap={'0'}  h={'100%'}>
-          <Image
-            src={images.right[currentRightImages][0]}
-            alt="Right Top Image"
-            style={{height:'100%', width:'100%'}}
-          />
-          <Image
-            src={images.right[currentRightImages][1]}
-            alt="Right Bottom Image"
-            style={{height:'77.75%',width:'100%'}}
-          />
+        <Grid flex={1} flexDirection={'column'} gap={'0'} h={'100%'}>
+          {images.right[currentRightImages].map((image, index) => (
+            <div 
+              key={`right-${index}`} 
+              style={{ 
+                width: '100%', 
+                height: index === 0 ? '100%' : '77.75%',
+                position: 'relative',
+                marginBottom: index === 0 ? '8px' : 0
+              }}
+            >
+              <Image
+                src={image}
+                alt={`Hushh Featured Image Right ${index + 1}`}
+                priority={index === 0 && currentRightImages === 0}
+                quality={90}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ 
+                  objectFit: 'cover',
+                  opacity: isLoaded ? 1 : 0,
+                  transition: 'opacity 0.3s ease-in-out'
+                }}
+              />
+            </div>
+          ))}
         </Grid>
       </Grid>
     </Box>
