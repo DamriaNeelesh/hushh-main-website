@@ -1,0 +1,203 @@
+'use client';
+
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Box, Text, Heading, Link as ChakraLink, OrderedList, UnorderedList, ListItem, Code, Divider, useColorMode } from '@chakra-ui/react';
+
+/**
+ * Custom MDX renderer for blog content
+ * Uses a refined, Apple-style typography system
+ */
+const MDXContent = ({ source }) => {
+  const { colorMode } = useColorMode();
+  
+  // Colors based on color mode
+  const textColor = colorMode === 'light' ? "#1d1d1f" : "#f5f5f7";
+  const mutedTextColor = colorMode === 'light' ? "#6e6e73" : "#86868b";
+  const linkColor = "#0066CC"; // Apple blue
+  const borderColor = colorMode === 'light' ? "#e5e5e7" : "#333336";
+  const codeBgColor = colorMode === 'light' ? "#f5f5f7" : "#1A1A1A";
+  
+  // Parse the content manually if needed
+  // For this implementation we'll assume source is already in HTML format
+  
+  return (
+    <div className="mdx-content">
+      <div
+        dangerouslySetInnerHTML={{ __html: source }}
+        className="prose prose-lg max-w-none"
+        style={{
+          color: textColor
+        }}
+      />
+      
+      <style jsx global>{`
+        .mdx-content {
+          width: 100%;
+        }
+        
+        .mdx-content .prose {
+          max-width: none;
+        }
+        
+        .mdx-content .prose p {
+          font-size: 1.125rem;
+          line-height: 1.8;
+          margin-top: 1.5rem;
+          margin-bottom: 1.5rem;
+          color: ${textColor};
+          letter-spacing: -0.01em;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        .mdx-content .prose h1 {
+          font-size: 2.5rem;
+          font-weight: 600;
+          line-height: 1.2;
+          margin-top: 3rem;
+          margin-bottom: 1.5rem;
+          color: ${textColor};
+          letter-spacing: -0.02em;
+        }
+        
+        .mdx-content .prose h2 {
+          font-size: 2rem;
+          font-weight: 600;
+          line-height: 1.3;
+          margin-top: 2.5rem;
+          margin-bottom: 1.25rem;
+          color: ${textColor};
+          letter-spacing: -0.02em;
+        }
+        
+        .mdx-content .prose h3 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          line-height: 1.3;
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+          color: ${textColor};
+          letter-spacing: -0.01em;
+        }
+        
+        .mdx-content .prose a {
+          color: ${linkColor};
+          text-decoration: none;
+          border-bottom: 1px solid rgba(0, 102, 204, 0.3);
+          transition: all 0.2s;
+        }
+        
+        .mdx-content .prose a:hover {
+          border-color: rgba(0, 102, 204, 0.8);
+          color: ${colorMode === 'light' ? '#004999' : '#4d94ff'};
+        }
+        
+        .mdx-content .prose ul, 
+        .mdx-content .prose ol {
+          margin-top: 1.5rem;
+          margin-bottom: 1.5rem;
+          padding-left: 1.5rem;
+        }
+        
+        .mdx-content .prose li {
+          margin-bottom: 0.5rem;
+          padding-left: 0.5rem;
+        }
+        
+        .mdx-content .prose blockquote {
+          border-left: 2px solid ${borderColor};
+          padding-left: 1rem;
+          font-style: italic;
+          color: ${mutedTextColor};
+          margin: 1.5rem 0;
+        }
+        
+        .mdx-content .prose img {
+          border-radius: 0.5rem;
+          margin: 2rem 0;
+          width: 100%;
+          height: auto;
+        }
+        
+        .mdx-content .prose pre {
+          background: ${codeBgColor};
+          padding: 1rem;
+          border-radius: 0.5rem;
+          overflow-x: auto;
+          font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+          font-size: 0.875rem;
+          margin: 1.5rem 0;
+          border: 1px solid ${borderColor};
+        }
+        
+        .mdx-content .prose code {
+          background: ${codeBgColor};
+          padding: 0.2rem 0.4rem;
+          border-radius: 0.25rem;
+          font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+          font-size: 0.875em;
+          border: 1px solid ${borderColor};
+        }
+        
+        .mdx-content .prose table {
+          width: 100%;
+          margin: 1.5rem 0;
+          border-collapse: collapse;
+        }
+        
+        .mdx-content .prose th,
+        .mdx-content .prose td {
+          padding: 0.75rem;
+          border-bottom: 1px solid ${borderColor};
+          text-align: left;
+        }
+        
+        .mdx-content .prose th {
+          background: ${codeBgColor};
+          font-weight: 600;
+        }
+        
+        .mdx-content .prose hr {
+          margin: 2rem 0;
+          border: 0;
+          border-top: 1px solid ${borderColor};
+        }
+        
+        /* Enhanced styling for the first paragraph (lede) */
+        .mdx-content .prose > p:first-of-type {
+          font-size: 1.25rem;
+          line-height: 1.6;
+          color: ${mutedTextColor};
+          letter-spacing: -0.01em;
+        }
+        
+        /* Style adjustments for mobile */
+        @media (max-width: 768px) {
+          .mdx-content .prose h1 {
+            font-size: 2rem;
+          }
+          
+          .mdx-content .prose h2 {
+            font-size: 1.75rem;
+          }
+          
+          .mdx-content .prose h3 {
+            font-size: 1.375rem;
+          }
+          
+          .mdx-content .prose p,
+          .mdx-content .prose li {
+            font-size: 1rem;
+          }
+          
+          .mdx-content .prose > p:first-of-type {
+            font-size: 1.125rem;
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default MDXContent; 

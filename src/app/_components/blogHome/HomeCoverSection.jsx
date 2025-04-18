@@ -1,51 +1,90 @@
+'use client';
 import { sortBlogs } from "../../utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Tag from "../Elements/Tag";
 import { slug } from "github-slugger";
+import { format } from "date-fns";
 
 const HomeCoverSection = ({ blogs }) => {
-  
   const sortedBlogs = sortBlogs(blogs);
   const blog = sortedBlogs[0];
+  
+  // Format date to match Apple's style: "14 April 2025"
+  const formattedDate = format(new Date(blog.publishedAt), "d MMMM yyyy");
+  
+  // Determine if the first tag is an update type
+  const isUpdate = blog.tags[0].toLowerCase().includes('update') || 
+    blog.tags[0].toLowerCase() === 'press release' || 
+    blog.tags[0].toLowerCase() === 'quick read';
 
   return (
-    <div className="w-full mt-24 inline-block">
-      <article className="flex flex-col items-start justify-end mx-5 sm:mx-10 relative h-[60vh] sm:h-[85vh]">
-        <div
-          style={{ "--tw-gradient-to": "rgba(27, 27, 27, .9)" }}
-          className="absolute top-0 left-0 bottom-0 right-0 h-full
-            bg-gradient-to-b from-transparent from-0% to-dark/90 rounded-3xl z-0
-            "
-        />
-        <Image
-          src={blog.image.filePath.replace("../public", "")}
-          placeholder="blur"
-          blurDataURL={blog.image.blurhashDataUrl}
-          alt={blog.title}
-          fill
-          className="w-full h-full object-center object-cover rounded-3xl -z-10"
-          sizes="100vw"
-          priority
-        />
-
-        <div className='w-full lg:w-3/4 p-6 sm:p-8 md:p-12  lg:p-16 flex flex-col items-start justify-center z-0 text-light'>
-            <Tag link={`/categories/${slug(blog.tags[0])}`} name={blog.tags[0]} />
-            <Link href={blog.url} className='mt-6'>
-            <h1 className='font-bold capitalize text-lg sm:text-xl md:text-3xl lg:text-4xl'>
-                <span className='text-white dark:from-accentDark/50 
-                dark:to-accentDark/50 bg-[length:0px_6px]
-                hover:bg-[length:100%_6px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 '>
-                {blog.title}
-              </span>
-            </h1>
+    <div className="w-full max-w-[1180px] mx-auto pt-24 pb-0">
+      <div className="flex flex-col mb-8 px-5 sm:px-6">
+        <h1 className="text-2xl sm:text-3xl font-semibold text-[#6e6e73] dark:text-[#86868b] mb-3">
+          Newsroom
+        </h1>
+        
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1d1d1f] dark:text-white mb-14 leading-tight tracking-tight">
+          Latest News
+        </h2>
+      </div>
+      
+      <div className="flex flex-col bg-white border-r-[50%] lg:flex-row items-start gap-10 px-5 sm:px-6">
+        {/* Main featured article - left side */}
+        <div className="w-full lg:w-[58%]">
+          <Link href={blog.url} className="block group">
+            <div className="overflow-hidden rounded-2xl mb-0">
+              <Image
+                src={blog.image.filePath.replace("../public", "")}
+                placeholder="blur"
+                blurDataURL={blog.image.blurhashDataUrl}
+                alt={blog.title}
+                width={700}
+                height={500}
+                className="w-full h-auto object-cover object-center group-hover:scale-[1.03] transition-all duration-700 ease-out"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 58vw, 700px"
+                priority
+              />
+            </div>
           </Link>
-          <p className="hidden text-white  sm:inline-block mt-4 md:text-lg lg:text-xl font-in">
+        </div>
+        
+        {/* Content - right side */}
+        <div className="w-full lg:w-[42%] flex flex-col lg:pt-3">
+          {isUpdate && (
+            <div className="mb-4">
+              <span className="text-xs uppercase font-semibold tracking-wider text-[#6e6e73] dark:text-[#86868b]">
+                {blog.tags[0]}
+              </span>
+            </div>
+          )}
+          
+          <Link href={blog.url} className="group">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1d1d1f] dark:text-white leading-tight mb-5 tracking-tight group-hover:text-[#0066CC] transition-colors duration-300">
+              {blog.title}
+            </h3>
+          </Link>
+          
+          <p className="text-lg text-[#1d1d1f] dark:text-white mb-5 leading-relaxed">
             {blog.description}
           </p>
+          
+          <span className="text-[#6e6e73] dark:text-[#86868b] text-base">
+            {formattedDate}
+          </span>
+          
+          <Link href={blog.url} className="mt-6 inline-flex items-center text-[#0066CC] font-medium hover:underline">
+            Read more
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
-      </article>
+      </div>
+      
+      <div className="h-px w-full bg-[#d2d2d7] dark:bg-[#262626] my-16 mx-auto"></div>
     </div>
   );
 };

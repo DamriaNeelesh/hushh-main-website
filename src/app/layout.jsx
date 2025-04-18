@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./_styles/blog.css";
 import React from "react";
 import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";

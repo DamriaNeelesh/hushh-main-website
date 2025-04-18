@@ -106,25 +106,29 @@ export default function Header({backgroundColor}) {
     const handleScroll = () => {
       const position = window.scrollY;
       setScrollPosition(position);
-      if (isCareerPage || isJobDetailPage) {
+      
+      // Check if we're on a blog-related page
+      const isBlogPage = pathname.includes('/blogs') || pathname.includes('/hushhBlogs') || pathname.includes('/categories');
+      
+      if (isCareerPage || isJobDetailPage || isBlogPage) {
         setHeaderBackground("black");
       } else {
         setHeaderBackground(position > 0 ? "black" : "transparent");
       }
-      // Set background color based on scroll position
-      if (position > 0) {
-        setHeaderBackground("black");
-      } else {
-        setHeaderBackground("transparent");
-      }
     };
+
+    // Initial setup without waiting for scroll
+    const isBlogPage = pathname.includes('/blogs') || pathname.includes('/hushhBlogs') || pathname.includes('/categories');
+    if (isCareerPage || isJobDetailPage || isBlogPage) {
+      setHeaderBackground("black");
+    }
 
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isCareerPage]);
+  }, [isCareerPage, isJobDetailPage, pathname]);
 
   const scrollTo = () => {
     scroll.scrollTo(7500);

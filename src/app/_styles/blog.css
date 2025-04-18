@@ -1,0 +1,202 @@
+/* Apple-style Blog Enhancements */
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Progress bar highlight effect */
+.reading-progress-bar {
+  box-shadow: 0 0 10px rgba(0, 102, 204, 0.4);
+  transition: width 0.1s ease-out;
+}
+
+/* Typography enhancements */
+.blog-typography h1, 
+.blog-typography h2, 
+.blog-typography h3 {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.blog-typography p {
+  letter-spacing: -0.01em;
+  line-height: 1.8;
+  font-weight: normal;
+}
+
+/* Enhanced social sharing buttons */
+.social-share-btn {
+  transition: all 0.2s ease;
+}
+
+.social-share-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Elegant animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.5s ease-out forwards;
+}
+
+/* Animation delay utility classes */
+.delay-1 { animation-delay: 100ms; }
+.delay-2 { animation-delay: 200ms; }
+.delay-3 { animation-delay: 300ms; }
+.delay-4 { animation-delay: 400ms; }
+.delay-5 { animation-delay: 500ms; }
+
+/* Link hover effect */
+.apple-link {
+  color: #0066CC;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 102, 204, 0.3);
+  transition: all 0.2s ease;
+}
+
+.apple-link:hover {
+  border-color: rgba(0, 102, 204, 0.8);
+}
+
+/* Quote styling */
+.apple-quote {
+  border-left: 2px solid;
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+/* Clean image presentation */
+.apple-image {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+}
+
+.apple-image:hover {
+  transform: scale(1.01);
+}
+
+/* Button styling */
+.apple-button {
+  border-radius: 40px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.apple-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Table of contents styling */
+.table-of-contents {
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.table-of-contents ul {
+  padding-left: 1.5rem;
+  list-style-type: none;
+}
+
+.table-of-contents li {
+  margin-bottom: 0.5rem;
+}
+
+.table-of-contents a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.table-of-contents a:hover {
+  color: #0066CC;
+}
+
+/* Code block styling */
+.code-block {
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.code-block pre {
+  padding: 1.5rem;
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+/* Author section styling */
+.author-section {
+  padding: 1.5rem 0;
+}
+
+.author-avatar {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* Related articles section */
+.related-articles {
+  margin-top: 3rem;
+  padding-top: 2rem;
+}
+
+.related-article-card {
+  transition: transform 0.3s ease;
+}
+
+.related-article-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Reading time indicator */
+.reading-time {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.reading-time svg {
+  margin-right: 0.5rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .blog-typography h1 {
+    font-size: 2rem;
+  }
+  
+  .blog-typography h2 {
+    font-size: 1.75rem;
+  }
+  
+  .blog-typography h3 {
+    font-size: 1.5rem;
+  }
+  
+  .blog-typography p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  .social-share-container {
+    justify-content: center;
+  }
+} 
