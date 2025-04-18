@@ -4,31 +4,40 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
 import Head from "next/head";
 import { slug } from "github-slugger";
-import { Box, Container, Divider, Flex, Heading, Link, Text, VStack, HStack, Icon, Button, useColorMode } from "@chakra-ui/react";
+import { Box, Container, Divider, Flex, Heading, Link, Text, VStack, HStack, Icon, Button, useColorMode, useToast } from "@chakra-ui/react";
 import BlogDetails from "./BlogDetails";
 import RenderMdx from "./RenderMdx";
 import RecentPosts from "../blogHome/RecentPosts";
-import MDXContent from '@/lib/mdxContent';
-import { formatDate } from "@/lib/utils";
+import MDXContent from '../../../lib/mdxContent';
+import { format } from 'date-fns';
 
 const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlogs, params }) => {
   const { colorMode } = useColorMode();
   const [mounted, setMounted] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
+  const [showProgress, setShowProgress] = useState(false);
   const progressBarRef = useRef(null);
+  const toast = useToast();
   
   // Only access window after component is mounted
   useEffect(() => {
     setMounted(true);
   }, []);
   
-  // Calculate reading progress on scroll
+  // Calculate reading progress on scroll with enhanced behavior
   useEffect(() => {
     if (!mounted) return;
     
     const updateReadingProgress = () => {
       const currentScrollPos = window.scrollY;
       const scrollHeight = document.body.scrollHeight - window.innerHeight;
+      
+      // Show progress bar only after scrolling down a bit
+      if (currentScrollPos > 150 && !showProgress) {
+        setShowProgress(true);
+      } else if (currentScrollPos <= 150 && showProgress) {
+        setShowProgress(false);
+      }
       
       if (scrollHeight) {
         const percentage = Math.round((currentScrollPos / scrollHeight) * 100);
@@ -44,12 +53,13 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
     
     // Cleanup
     return () => window.removeEventListener('scroll', updateReadingProgress);
-  }, [mounted]);
+  }, [mounted, showProgress]);
   
-  // Colors based on color mode
+  // Colors based on color mode - enhanced with Apple-style values
   const bgColor = colorMode === 'light' ? "white" : "gray.900";
   const textColor = colorMode === 'light' ? "gray.800" : "gray.100";
-  const mutedTextColor = colorMode === 'light' ? "gray.600" : "gray.400";
+  const headingColor = colorMode === 'light' ? "#1d1d1f" : "white";
+  const mutedTextColor = colorMode === 'light' ? "#6e6e73" : "#86868b";
   const socialBgColor = colorMode === 'light' ? "gray.50" : "gray.800";
   const socialHoverBgColor = colorMode === 'light' ? "gray.100" : "gray.700";
   const sectionBgColor = colorMode === 'light' ? "#f5f5f7" : "#111";
@@ -57,12 +67,46 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
   const borderColor = colorMode === 'light' ? "gray.200" : "gray.700";
   const progressBarColor = "#0066CC"; // Apple blue color for progress bar
 
-  // Copy link function
+  // Copy link function with toast notification
   const copyLinkToClipboard = () => {
     if (mounted && typeof navigator !== 'undefined' && navigator.clipboard) {
       const currentUrl = window.location.href;
       navigator.clipboard.writeText(currentUrl);
-      // Could add toast notification here
+      toast({
+        title: "Link copied",
+        description: "URL copied to clipboard",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  };
+
+  // Render safely - handle errors or missing content
+  const renderContent = () => {
+    try {
+      if (!blog || !blog.content) {
+        return (
+          <Box p={4} my={8} textAlign="center">
+            <Text>Content unavailable. Please try again later.</Text>
+          </Box>
+        );
+      }
+      
+      // Use the RenderMdx component which is specifically designed for MDX content
+      return (
+        <Box className="prose prose-lg dark:prose-invert apple-content">
+          <RenderMdx blog={blog} />
+        </Box>
+      );
+    } catch (error) {
+      console.error("Error rendering blog content:", error);
+      return (
+        <Box p={4} my={8} textAlign="center" color="red.500">
+          <Text>Error loading content. Please refresh the page.</Text>
+        </Box>
+      );
     }
   };
 
@@ -95,13 +139,14 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
         bg={progressBarColor}
         zIndex="9999"
         className="reading-progress-bar"
-        transition="width 0.1s ease-out"
+        transition="width 0.1s ease-out, opacity 0.3s ease"
         boxShadow={readingProgress > 0 ? "0 0 10px rgba(0, 102, 204, 0.4)" : "none"}
+        opacity={showProgress ? 1 : 0}
       />
       
-      <Box as="main" bg={bgColor} color={textColor} pt={{ base: "14", md: "20" }} className="fade-up">
+      <Box as="main" bg={bgColor} color={textColor} pt={{ base: "24", md: "28" }} className="fade-up apple-bg">
         {/* Navigation breadcrumb */}
-        <Container maxW="1180px" px={{ base: 5, md: 6 }} mb="8" className="fade-up delay-1">
+        <Container maxW="1180px" px={{ base: 5, md: 6 }} mb={{ base: 8, md: 10 }} className="fade-up delay-1">
           <Link 
             href="/hushhBlogs"
             color={mutedTextColor}
@@ -111,24 +156,24 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
             display="flex"
             alignItems="center"
             transition="color 0.2s"
-            className="no-style"
+            className="no-style apple-link"
           >
             <Box as="span" mr="1">‹</Box> Newsroom
           </Link>
         </Container>
         
         {/* Article header with staggered fade-in animation */}
-        <Container maxW="880px" px={{ base: 5, md: 6 }} mb={{ base: "8", md: "10" }}>
+        <Container maxW="880px" px={{ base: 5, md: 6 }} mb={{ base: 10, md: 12 }}>
           {isUpdate && (
             <Text 
-              className="uppercase fade-up delay-1"
+              className="uppercase fade-up delay-1 apple-text-tag"
               fontSize="xs"
               fontWeight="semibold"
               letterSpacing="0.05em"
               color={mutedTextColor}
               mb="3"
             >
-              {blog.tags[0]}
+              {blog.tags && blog.tags.length > 0 ? blog.tags[0] : ""}
             </Text>
           )}
           
@@ -139,7 +184,8 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
             lineHeight="1.2"
             mb={{ base: "4", md: "6" }}
             letterSpacing="-0.02em"
-            className="fade-up delay-2"
+            color={headingColor}
+            className="fade-up delay-2 apple-heading"
           >
             {blog.title}
           </Heading>
@@ -151,16 +197,16 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
             fontWeight="normal"
             mb={{ base: "5", md: "7" }}
             letterSpacing="-0.01em"
-            className="fade-up delay-3"
+            className="fade-up delay-3 apple-text"
           >
             {blog.description}
           </Text>
 
-          <HStack spacing="4" mb={{ base: "6", md: "8" }} color={mutedTextColor} className="fade-up delay-3">
+          <HStack spacing="4" mb={{ base: "6", md: "8" }} color={mutedTextColor} className="fade-up delay-3 apple-meta">
             <Text fontSize="md">{formattedDate}</Text>
             <Box as="span" w="1" h="1" borderRadius="full" bg={mutedTextColor}></Box>
             <Text fontSize="md" className="reading-time">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="apple-icon">
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
@@ -170,7 +216,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
           
           {/* Enhanced Social sharing section with Apple-style buttons */}
           <Box mb={{ base: "8", md: "10" }} className="fade-up delay-4">
-            <Text fontSize="sm" fontWeight="medium" color={mutedTextColor} mb="3">
+            <Text fontSize="sm" fontWeight="medium" color={mutedTextColor} mb="3" className="apple-text-small">
               Share this article
             </Text>
             <Flex gap="3" wrap="wrap" className="social-share-container">
@@ -196,8 +242,8 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                   transition="all 0.2s ease"
                   role="button"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="apple-icon">
+                    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
                   </svg>
                 </Box>
               </Link>
@@ -224,7 +270,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                   transition="all 0.2s ease"
                   role="button"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="apple-icon">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                     <rect x="2" y="9" width="4" height="12"></rect>
                     <circle cx="4" cy="4" r="2"></circle>
@@ -232,11 +278,11 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                 </Box>
               </Link>
               
-              {/* WhatsApp */}
+              {/* Facebook */}
               <Link 
-                href={`https://wa.me/?text=${encodeURIComponent(`${blog.title} - ${mounted ? window.location.href : ''}`)}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(mounted ? window.location.href : '')}`}
                 isExternal
-                aria-label="Share on WhatsApp"
+                aria-label="Share on Facebook"
                 _hover={{ textDecoration: 'none' }}
                 className="no-style"
               >
@@ -254,8 +300,8 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                   transition="all 0.2s ease"
                   role="button"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="apple-icon">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                   </svg>
                 </Box>
               </Link>
@@ -282,7 +328,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                   transition="all 0.2s ease"
                   role="button"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="apple-icon">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                     <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
@@ -305,7 +351,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                 onClick={copyLinkToClipboard}
                 aria-label="Copy link to clipboard"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="apple-icon">
                   <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                   <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
                 </svg>
@@ -314,37 +360,38 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
           </Box>
           
           {/* Hero Image with subtle hover animation */}
-          <Box w="100%" position="relative" mb={{ base: "12", md: "16" }} className="fade-up delay-5 apple-image">
-            <Image
-              src={blog.image || '/images/default-blog-img.png'}
-              alt={blog.title}
-              width={1200}
-              height={630}
-              style={{
-                width: '100%',
-                height: 'auto',
-                aspectRatio: '1200 / 630',
-                objectFit: 'cover',
-                borderRadius: '12px',
-              }}
-              priority
-              unoptimized={false}
-            />
-            {blog?.imageCaption && (
-              <Text fontSize="sm" color={mutedTextColor} mt="2" textAlign="center">
-                {blog.imageCaption}
-              </Text>
-            )}
-          </Box>
+          {blog.image && blog.image.filePath && (
+            <Box w="100%" position="relative" mb={{ base: "12", md: "16" }} className="fade-up delay-5 apple-card apple-image">
+              <Image
+                src={blog.image.filePath}
+                alt={blog.title}
+                width={1200}
+                height={630}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  aspectRatio: '1200 / 630',
+                  objectFit: 'cover',
+                  borderRadius: '12px',
+                }}
+                priority
+                unoptimized={false}
+                className="apple-img-zoom"
+              />
+              {blog?.imageCaption && (
+                <Text fontSize="sm" color={mutedTextColor} mt="2" textAlign="center" className="apple-text-caption">
+                  {blog.imageCaption}
+                </Text>
+              )}
+            </Box>
+          )}
           
           {/* Blog content with enhanced typography */}
-          <Box className="prose prose-lg dark:prose-invert">
-            <MDXContent source={blog.content} />
-          </Box>
+          {renderContent()}
           
           {/* Author section */}
           {blog.author && (
-            <Box mt={{ base: '10', md: '12' }} mb={{ base: '8', md: '10' }} className="author-section">
+            <Box mt={{ base: '10', md: '12' }} mb={{ base: '8', md: '10' }} className="author-section apple-card">
               <Divider mb={{ base: '6', md: '8' }} />
               <Flex 
                 direction={{ base: 'column', sm: 'row' }} 
@@ -358,7 +405,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                     h={{ base: '12', sm: '14' }}
                     borderRadius="full" 
                     overflow="hidden"
-                    className="author-avatar"
+                    className="author-avatar apple-avatar"
                   >
                     <Image 
                       src={blog.authorAvatar} 
@@ -370,15 +417,16 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                         height: '100%',
                         objectFit: 'cover',
                       }}
+                      className="apple-img"
                     />
                   </Box>
                 )}
                 <Box>
-                  <Text fontWeight="medium" fontSize={{ base: 'md', sm: 'lg' }} mb="1">
+                  <Text fontWeight="medium" fontSize={{ base: 'md', sm: 'lg' }} mb="1" className="apple-text-author">
                     Written by {blog.author}
                   </Text>
                   {blog.authorBio && (
-                    <Text color={mutedTextColor} fontSize={{ base: 'sm', sm: 'md' }}>
+                    <Text color={mutedTextColor} fontSize={{ base: 'sm', sm: 'md' }} className="apple-text-bio">
                       {blog.authorBio}
                     </Text>
                   )}
@@ -396,13 +444,15 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                 fontWeight="semibold"
                 mb={{ base: '6', md: '8' }}
                 letterSpacing="-0.02em"
+                color={headingColor}
+                className="apple-heading-2"
               >
                 More to explore
               </Heading>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {blog.relatedPosts.map((post, index) => (
-                  <div key={index} className="related-article-card">
+                  <div key={index} className="related-article-card apple-card">
                     <Link 
                       href={post.slug} 
                       className="no-style"
@@ -410,7 +460,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                       <div>
                         {post.image && (
                           <div 
-                            className="overflow-hidden rounded-xl mb-3"
+                            className="overflow-hidden rounded-xl mb-3 apple-image-container"
                           >
                             <Image
                               src={post.image}
@@ -424,7 +474,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                                 objectFit: 'cover',
                                 transition: 'all 0.6s ease-in-out',
                               }}
-                              className="hover:scale-105"
+                              className="hover:scale-105 apple-img-zoom"
                             />
                           </div>
                         )}
@@ -432,6 +482,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                           color={mutedTextColor} 
                           fontSize="sm"
                           mb="2"
+                          className="apple-text-date"
                         >
                           {formattedDate}
                         </Text>
@@ -442,8 +493,10 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                           lineHeight="1.3"
                           mb="2"
                           letterSpacing="-0.01em"
+                          color={headingColor}
                           _hover={{ color: linkHoverColor }}
                           transition="color 0.2s"
+                          className="apple-heading-3"
                         >
                           {post.title}
                         </Heading>
@@ -452,6 +505,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                             color={mutedTextColor}
                             fontSize="md"
                             noOfLines={2}
+                            className="apple-text-excerpt"
                           >
                             {post.description}
                           </Text>
@@ -479,6 +533,160 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
         }
         .dark-mode-related {
           background-color: #111;
+        }
+        
+        /* Apple-specific animations */
+        .apple-bg {
+          background: linear-gradient(to bottom, rgba(245,245,247,0.02), rgba(245,245,247,0));
+        }
+        
+        .apple-heading {
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+          font-weight: 600;
+        }
+        
+        .apple-heading-2, .apple-heading-3 {
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+          font-weight: 600;
+        }
+        
+        .apple-text {
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+          line-height: 1.47059;
+        }
+        
+        .apple-text-small, .apple-text-caption, .apple-text-date, .apple-text-bio {
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+        }
+        
+        .apple-content {
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+          font-size: 1.0625rem;
+          line-height: 1.52947;
+          letter-spacing: -0.015em;
+        }
+        
+        .apple-card {
+          transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        .apple-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .apple-link:hover {
+          text-decoration: none;
+          color: #0066CC;
+        }
+        
+        .apple-image-container {
+          overflow: hidden;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .apple-img-zoom {
+          transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .apple-img-zoom:hover {
+          transform: scale(1.03);
+        }
+        
+        .apple-avatar {
+          border: 2px solid #f5f5f7;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Apple-specific icon animations */
+        .apple-icon {
+          transition: all 0.3s ease;
+        }
+        
+        .social-share-btn {
+          transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .social-share-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          background-color: #f5f5f7;
+        }
+        
+        .social-share-btn:hover .apple-icon {
+          color: #0066CC;
+        }
+        
+        /* Dark mode adjustments */
+        .dark .apple-bg {
+          background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0));
+        }
+        
+        .dark .apple-card:hover {
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dark .apple-image-container {
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark .apple-avatar {
+          border-color: #333;
+        }
+        
+        .dark .social-share-btn:hover {
+          background-color: #2d2d2f;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Fade-up animation classes */
+        .fade-up {
+          opacity: 0;
+          transform: translateY(20px);
+          animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        
+        .delay-1 {
+          animation-delay: 0.1s;
+        }
+        
+        .delay-2 {
+          animation-delay: 0.2s;
+        }
+        
+        .delay-3 {
+          animation-delay: 0.3s;
+        }
+        
+        .delay-4 {
+          animation-delay: 0.4s;
+        }
+        
+        .delay-5 {
+          animation-delay: 0.5s;
+        }
+        
+        @keyframes fadeUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        /* Reading progress enhancements */
+        .reading-progress-bar {
+          transition: width 0.1s ease-out, opacity 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .reading-time {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+        
+        .reading-time svg {
+          margin-right: 2px;
         }
       `}</style>
     </>

@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { Box } from '@chakra-ui/react';
+import { Box, useColorMode } from '@chakra-ui/react';
 
 /**
  * Blog-specific layout wrapper with specialized blog features
@@ -10,34 +10,160 @@ import { Box } from '@chakra-ui/react';
  */
 export default function BlogLayout({ children }) {
   const pathname = usePathname();
+  const { colorMode } = useColorMode();
+  
+  // Apply header spacing adjustments when in blog detail pages
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const isDetailPage = pathname && pathname.startsWith('/blogs/') && pathname !== '/blogs';
+      
+      // Add debug log to help troubleshoot
+      console.log('Blog path:', pathname, 'Is detail page:', isDetailPage);
+      
+      // Adjust header if needed
+      const header = document.querySelector('header');
+      if (header && isDetailPage) {
+        header.style.position = 'absolute';
+        header.style.background = 'transparent';
+        header.style.backdropFilter = 'blur(10px)';
+        header.style.webkitBackdropFilter = 'blur(10px)';
+        header.style.borderBottom = '1px solid rgba(0,0,0,0.05)';
+        header.style.zIndex = '1000';
+        header.style.transition = 'all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        
+        // Scroll detection for header background change
+        const handleScroll = () => {
+          if (window.scrollY > 100) {
+            header.style.backgroundColor = colorMode === 'light' 
+              ? 'rgba(255, 255, 255, 0.8)' 
+              : 'rgba(0, 0, 0, 0.8)';
+            header.style.boxShadow = colorMode === 'light'
+              ? '0 2px 10px rgba(0, 0, 0, 0.05)'
+              : '0 2px 10px rgba(0, 0, 0, 0.2)';
+          } else {
+            header.style.backgroundColor = 'transparent';
+            header.style.boxShadow = 'none';
+          }
+        };
+        
+        // Initial check
+        handleScroll();
+        
+        // Add scroll event
+        window.addEventListener('scroll', handleScroll);
+        
+        // Clear these adjustments when component unmounts
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+          header.style.position = '';
+          header.style.background = '';
+          header.style.backdropFilter = '';
+          header.style.webkitBackdropFilter = '';
+          header.style.borderBottom = '';
+          header.style.zIndex = '';
+          header.style.boxShadow = '';
+          header.style.transition = '';
+        };
+      }
+    }
+  }, [pathname, colorMode]);
   
   return (
     <>
       {/* Apply blog-typography class to all content within the blog section */}
-      <Box as="div" className="blog-typography">
+      <Box 
+        as="div" 
+        className="blog-typography"
+      >
         {children}
       </Box>
       
       {/* Fade-in animation for initial page load */}
       <style jsx global>{`
         @keyframes blogFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from { 
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to { 
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         
         .blog-typography {
-          animation: blogFadeIn 0.5s ease-out;
+          animation: blogFadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         
         /* Enhanced link styling throughout blog pages */
         .blog-typography a:not(.no-style) {
           color: #0066CC;
           text-decoration: none;
-          transition: all 0.2s ease;
+          position: relative;
+          transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+          display: inline-block;
+        }
+        
+        .blog-typography a:not(.no-style)::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background-color: currentColor;
+          transform: scaleX(0);
+          transform-origin: right;
+          transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
         
         .blog-typography a:not(.no-style):hover {
-          color: #004499;
+          color: #0077ED;
+        }
+        
+        .blog-typography a:not(.no-style):hover::after {
+          transform: scaleX(1);
+          transform-origin: left;
+        }
+        
+        /* Ensure main content has proper spacing for header */
+        .blog-detail-page main {
+          padding-top: 90px;
+        }
+        
+        /* Apple-style scrollbar */
+        .blog-typography::-webkit-scrollbar {
+          width: 8px;
+        }
+        
+        .blog-typography::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        
+        .blog-typography::-webkit-scrollbar-thumb {
+          background-color: rgba(0, 0, 0, 0.2);
+          border-radius: 20px;
+          border: 2px solid transparent;
+        }
+        
+        .blog-typography::-webkit-scrollbar-thumb:hover {
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Dark mode scrollbar */
+        .dark .blog-typography::-webkit-scrollbar-thumb {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark .blog-typography::-webkit-scrollbar-thumb:hover {
+          background-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Focus styling */
+        .blog-typography *:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.4);
+          transition: box-shadow 0.2s ease;
         }
       `}</style>
     </>

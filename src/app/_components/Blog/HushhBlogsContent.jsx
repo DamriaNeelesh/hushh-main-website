@@ -17,7 +17,7 @@ const HushhBlogsContent = ({ blogs }) => {
   
   if (!mounted) {
     // Return a placeholder during SSR
-    return <div style={{ height: "100vh", backgroundColor: "#ffffff" }}></div>;
+    return <div style={{ height: "100vh", backgroundColor: "#f5f5f7" }}></div>;
   }
   
   return (
@@ -41,10 +41,16 @@ const HushhBlogsContent = ({ blogs }) => {
           colorMode === 'light' ? 'bg-[#f5f5f7] text-[#1d1d1f]' : 'bg-black text-white'
         } min-h-screen transition-colors duration-300`}
       >
-        <div className="pt-14 md:pt-20 pb-10 space-y-0">
+        <div className="pt-24 pb-10">
+          <div className="mb-4 px-5 sm:px-6 max-w-[1180px] mx-auto">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-[#6e6e73] dark:text-[#86868b]">
+              Newsroom
+            </h1>
+          </div>
+          
           <HomeCoverSection blogs={blogs} />
           <FeaturedPosts blogs={blogs} />
-          <RecentPosts blogs={blogs} />
+          <RecentPosts blogs={blogs.slice(5, 11)} />
         </div>
       </main>
     </>

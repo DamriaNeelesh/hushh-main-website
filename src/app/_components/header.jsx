@@ -107,10 +107,10 @@ export default function Header({backgroundColor}) {
       const position = window.scrollY;
       setScrollPosition(position);
       
-      // Check if we're on a blog-related page
-      const isBlogPage = pathname.includes('/blogs') || pathname.includes('/hushhBlogs') || pathname.includes('/categories');
+      // Special pages that need black header always
+      const isBlogHomePage = pathname === '/hushhBlogs';
       
-      if (isCareerPage || isJobDetailPage || isBlogPage) {
+      if (isCareerPage || isJobDetailPage || isBlogHomePage) {
         setHeaderBackground("black");
       } else {
         setHeaderBackground(position > 0 ? "black" : "transparent");
@@ -118,9 +118,11 @@ export default function Header({backgroundColor}) {
     };
 
     // Initial setup without waiting for scroll
-    const isBlogPage = pathname.includes('/blogs') || pathname.includes('/hushhBlogs') || pathname.includes('/categories');
-    if (isCareerPage || isJobDetailPage || isBlogPage) {
+    const isBlogHomePage = pathname === '/hushhBlogs';
+    if (isCareerPage || isJobDetailPage || isBlogHomePage) {
       setHeaderBackground("black");
+    } else {
+      setHeaderBackground("transparent");
     }
 
     window.addEventListener("scroll", handleScroll);
