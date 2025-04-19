@@ -23,11 +23,13 @@ export default function BlogLayout({ children }) {
       // Adjust header if needed
       const header = document.querySelector('header');
       if (header && isDetailPage) {
-        header.style.position = 'absolute';
+        header.style.position = 'fixed';
         header.style.background = 'transparent';
         header.style.backdropFilter = 'blur(10px)';
         header.style.webkitBackdropFilter = 'blur(10px)';
-        header.style.borderBottom = '1px solid rgba(0,0,0,0.05)';
+        header.style.borderBottom = colorMode === 'light' 
+          ? '1px solid rgba(0,0,0,0.05)' 
+          : '1px solid rgba(255,255,255,0.05)';
         header.style.zIndex = '1000';
         header.style.transition = 'all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)';
         
@@ -69,17 +71,20 @@ export default function BlogLayout({ children }) {
   }, [pathname, colorMode]);
   
   return (
-    <>
-      {/* Apply blog-typography class to all content within the blog section */}
-      <Box 
-        as="div" 
-        className="blog-typography"
-      >
-        {children}
-      </Box>
+    <Box 
+      as="div" 
+      className="blog-typography"
+      bg={colorMode === 'light' ? "white" : "black"}
+      minH="100vh"
+      transition="background-color 0.3s ease"
+    >
+      {children}
       
-      {/* Fade-in animation for initial page load */}
       <style jsx global>{`
+        .blog-typography {
+          animation: blogFadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
         @keyframes blogFadeIn {
           from { 
             opacity: 0;
@@ -89,10 +94,6 @@ export default function BlogLayout({ children }) {
             opacity: 1;
             transform: translateY(0);
           }
-        }
-        
-        .blog-typography {
-          animation: blogFadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         
         /* Enhanced link styling throughout blog pages */
@@ -124,11 +125,6 @@ export default function BlogLayout({ children }) {
         .blog-typography a:not(.no-style):hover::after {
           transform: scaleX(1);
           transform-origin: left;
-        }
-        
-        /* Ensure main content has proper spacing for header */
-        .blog-detail-page main {
-          padding-top: 90px;
         }
         
         /* Apple-style scrollbar */
@@ -165,7 +161,27 @@ export default function BlogLayout({ children }) {
           box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.4);
           transition: box-shadow 0.2s ease;
         }
+        
+        /* Ensure proper spacing for header */
+        .blog-detail-page {
+          padding-top: 90px;
+        }
+        
+        /* Enhanced typography for blog content */
+        .blog-typography {
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          font-feature-settings: "kern";
+          text-rendering: optimizeLegibility;
+        }
+        
+        .blog-typography h1,
+        .blog-typography h2,
+        .blog-typography h3 {
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+        }
       `}</style>
-    </>
+    </Box>
   );
 } 

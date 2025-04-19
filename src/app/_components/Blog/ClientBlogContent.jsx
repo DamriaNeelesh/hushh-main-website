@@ -4,20 +4,26 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
 import Head from "next/head";
 import { slug } from "github-slugger";
-import { Box, Container, Divider, Flex, Heading, Link, Text, VStack, HStack, Icon, Button, useColorMode, useToast } from "@chakra-ui/react";
+import { Box, Container, Divider, Flex, Heading, Link, Text, VStack, HStack, Icon, Button, useColorMode, useToast, IconButton } from "@chakra-ui/react";
 import BlogDetails from "./BlogDetails";
 import RenderMdx from "./RenderMdx";
 import RecentPosts from "../blogHome/RecentPosts";
 import MDXContent from '../../../lib/mdxContent';
 import { format } from 'date-fns';
+import { CalendarIcon, TimeIcon, CopyIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { FaTwitter, FaLinkedin, FaFacebook } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
 
 const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlogs, params }) => {
   const { colorMode } = useColorMode();
   const [mounted, setMounted] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
   const [showProgress, setShowProgress] = useState(false);
+  const [tableOfContents, setTableOfContents] = useState([]);
+  const [activeSection, setActiveSection] = useState('');
   const progressBarRef = useRef(null);
   const toast = useToast();
+  const articleRef = useRef(null);
   
   // Only access window after component is mounted
   useEffect(() => {
@@ -67,19 +73,85 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
   const borderColor = colorMode === 'light' ? "gray.200" : "gray.700";
   const progressBarColor = "#0066CC"; // Apple blue color for progress bar
 
+  // Generate table of contents from blog content
+  useEffect(() => {
+    if (blog?.content) {
+      const headings = blog.content.match(/#{2,3}\s+([^\n]+)/g) || [];
+      const toc = headings.map(heading => {
+        const level = (heading.match(/#/g) || []).length;
+        const title = heading.replace(/#{2,3}\s+/, '');
+        const id = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+        return { level, title, id };
+      });
+      setTableOfContents(toc);
+    }
+  }, [blog?.content]);
+
+  // Update reading progress
+  useEffect(() => {
+    const updateReadingProgress = () => {
+      if (articleRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+        const articleTop = articleRef.current.offsetTop;
+        const articleBottom = articleTop + articleRef.current.offsetHeight;
+        const windowBottom = scrollTop + clientHeight;
+        const windowTop = scrollTop;
+
+        // Show progress bar after scrolling past article top
+        setShowProgress(windowTop > articleTop);
+
+        // Calculate reading progress
+        if (windowBottom >= articleBottom) {
+          setReadingProgress(100);
+        } else if (windowTop <= articleTop) {
+          setReadingProgress(0);
+        } else {
+          const progress = ((windowBottom - articleTop) / (articleBottom - articleTop)) * 100;
+          setReadingProgress(Math.min(100, Math.max(0, progress)));
+        }
+
+        // Update active section
+        const headings = articleRef.current.querySelectorAll('h2, h3');
+        let currentSection = '';
+        
+        for (const heading of headings) {
+          const { top } = heading.getBoundingClientRect();
+          if (top <= 100) {
+            currentSection = heading.id;
+          } else {
+            break;
+          }
+        }
+        
+        setActiveSection(currentSection);
+      }
+    };
+
+    window.addEventListener('scroll', updateReadingProgress);
+    return () => window.removeEventListener('scroll', updateReadingProgress);
+  }, []);
+
   // Copy link function with toast notification
   const copyLinkToClipboard = () => {
-    if (mounted && typeof navigator !== 'undefined' && navigator.clipboard) {
-      const currentUrl = window.location.href;
-      navigator.clipboard.writeText(currentUrl);
-      toast({
-        title: "Link copied",
-        description: "URL copied to clipboard",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-        position: "top",
-      });
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    toast({
+      title: "Link copied",
+      description: "The article link has been copied to your clipboard",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+      position: "bottom-right",
+    });
+  };
+
+  // Scroll to section
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -100;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
@@ -387,7 +459,9 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
           )}
           
           {/* Blog content with enhanced typography */}
-          {renderContent()}
+          <Box className="fade-up delay-4">
+            <RenderMdx blog={blog} />
+          </Box>
           
           {/* Author section */}
           {blog.author && (
