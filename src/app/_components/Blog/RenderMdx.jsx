@@ -2,268 +2,170 @@
 import React from 'react'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import Image from 'next/image'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import { atomOneDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
-import { Button, Box, Text, useColorMode } from '@chakra-ui/react'
+import { Box, Text, useColorMode } from '@chakra-ui/react'
 import { ServiceCard } from '../primitives/serviceCard'
 import HushhWalletIcon from '../svg/hushhWalletIcon'
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 const Mermaid = dynamic(() => import('../hooks/useMermaid'), { ssr: false });
 
-const CustomLink = (props) => {
+const CustomLink = ({ href, children }) => {
   const { colorMode } = useColorMode();
-  
   return (
-    <a 
-      {...props} 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="text-[#0066CC] hover:underline font-medium relative group"
+    <Link 
+      href={href}
+      className="apple-link"
       style={{
+        color: colorMode === 'light' ? '#0066CC' : '#2997FF',
+        textDecoration: 'none',
         transition: 'all 0.2s ease',
-        paddingBottom: '1px',
-        borderBottom: `1px solid ${colorMode === 'light' ? 'rgba(0, 102, 204, 0.3)' : 'rgba(0, 102, 204, 0.5)'}`,
+        position: 'relative',
       }}
     >
-      {props.children}
-      <span 
-        className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#0066CC] transition-all duration-300 ease-in-out group-hover:w-full" 
-        style={{ opacity: 0.8 }}
-      />
-    </a>
+      {children}
+    </Link>
   );
 };
 
-const CustomImage = (props) => {
+const CustomImage = ({ src, alt }) => {
   return (
-    <div className="my-10 overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-500">
-      <Image 
+    <div className="apple-image-container">
+      <Image
+        src={src}
+        alt={alt}
+        width={800}
+        height={400}
+        className="apple-image"
+        style={{
+          borderRadius: '12px',
+          transition: 'transform 0.3s ease',
+        }}
+      />
+    </div>
+  );
+};
+
+const CustomPre = (props) => {
+  const { colorMode } = useColorMode();
+  
+  return (
+    <div className="apple-code-block">
+      <pre
         {...props}
-        className="w-full h-auto object-cover object-center transition-transform duration-500 hover:scale-[1.02]"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
-        quality={90}
+        style={{
+          borderRadius: '12px',
+          padding: '1.5rem',
+          fontSize: '0.9rem',
+          lineHeight: '1.5',
+          margin: '2rem 0',
+          overflow: 'auto',
+          backgroundColor: colorMode === 'light' ? '#f5f5f7' : '#1A1A1A',
+          border: `1px solid ${colorMode === 'light' ? '#e5e5e7' : '#333336'}`,
+        }}
       />
     </div>
   );
 };
 
 const CustomCode = (props) => {
-  const { children, className } = props;
-  const match = /language-(\w+)/.exec(className || '');
   const { colorMode } = useColorMode();
   
-  // Theme-based styling
-  const bgColor = colorMode === 'light' ? "#f5f5f7" : "#1A1A1A";
-  const textColor = colorMode === 'light' ? "#1d1d1f" : "#e5e5e7";
-  const borderColor = colorMode === 'light' ? "#e5e5e7" : "#333336";
+  const isInline = !props.className;
+  
+  if (isInline) {
+    return (
+      <code
+        {...props}
+        style={{
+          backgroundColor: colorMode === 'light' ? '#f5f5f7' : '#1A1A1A',
+          padding: '0.2rem 0.4rem',
+          borderRadius: '4px',
+          fontSize: '0.9em',
+          fontFamily: 'SF Mono, Menlo, Monaco, Consolas, monospace',
+          border: `1px solid ${colorMode === 'light' ? '#e5e5e7' : '#333336'}`,
+        }}
+      />
+    );
+  }
+  
+  return <code {...props} />;
+};
 
-  return match ? (
-    <SyntaxHighlighter
-      language={match[1]}
-      style={atomOneDark}
-      PreTag="div"
-      className="rounded-lg my-8 text-sm apple-code-block"
-      showLineNumbers
-      customStyle={{
-        padding: "1.5rem",
-        borderRadius: "0.75rem",
-        backgroundColor: bgColor,
-        color: textColor,
-        border: `1px solid ${borderColor}`,
-        fontSize: "0.9rem",
-        lineHeight: 1.6,
-        boxShadow: colorMode === 'light' 
-          ? "0 4px 16px rgba(0, 0, 0, 0.04)" 
-          : "0 4px 16px rgba(0, 0, 0, 0.2)",
-      }}
-      codeTagProps={{
-        style: {
-          fontFamily: "SF Mono, Menlo, Monaco, Consolas, monospace",
-          letterSpacing: "-0.01em",
-        },
-      }}
-      lineNumberStyle={{
-        color: colorMode === 'light' ? "#6e6e73" : "#86868b",
-        fontSize: "0.8rem", 
-        paddingRight: "1.5rem",
-      }}
-    >
-      {String(children).replace(/\n$/, '')}
-    </SyntaxHighlighter>
-  ) : (
-    <code 
-      className="px-2 py-1 rounded text-sm font-mono"
-      style={{
-        backgroundColor: bgColor,
-        color: textColor,
-        border: `1px solid ${borderColor}`,
-        fontFamily: "SF Mono, Menlo, Monaco, Consolas, monospace",
-        fontSize: "0.875rem",
-        letterSpacing: "-0.01em",
-      }}
-    >
+const CustomHeading = ({ level, children }) => {
+  const Tag = `h${level}`;
+  return (
+    <Tag className="apple-heading">
       {children}
-    </code>
+    </Tag>
   );
 };
 
-const CustomParagraph = (props) => {
-  const { colorMode } = useColorMode();
-  const textColor = colorMode === 'light' ? "#1d1d1f" : "#f5f5f7";
-  
+const CustomParagraph = ({ children }) => {
   return (
-    <p 
-      className="text-lg leading-relaxed my-6 font-normal apple-paragraph" 
-      style={{ 
-        color: textColor,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", Helvetica, Arial, sans-serif',
-        letterSpacing: '-0.01em',
-        lineHeight: 1.5,
-      }}
-      {...props} 
-    />
+    <p className="apple-paragraph">
+      {children}
+    </p>
   );
 };
 
-const CustomHeading1 = (props) => {
-  const { colorMode } = useColorMode();
-  const textColor = colorMode === 'light' ? "#1d1d1f" : "white";
-  
+const CustomList = ({ ordered, children }) => {
+  const ListTag = ordered ? 'ol' : 'ul';
   return (
-    <h1 
-      className="text-4xl font-semibold mt-12 mb-6 apple-heading" 
-      style={{ 
-        color: textColor,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Helvetica, Arial, sans-serif',
-        letterSpacing: '-0.02em',
-        lineHeight: 1.2,
-      }}
-      {...props} 
-    />
+    <ListTag className="apple-list">
+      {children}
+    </ListTag>
   );
 };
 
-const CustomHeading2 = (props) => {
-  const { colorMode } = useColorMode();
-  const textColor = colorMode === 'light' ? "#1d1d1f" : "white";
-  
+const CustomListItem = ({ children }) => {
   return (
-    <h2 
-      className="text-3xl font-semibold mt-10 mb-5 apple-heading" 
-      style={{ 
-        color: textColor,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Helvetica, Arial, sans-serif',
-        letterSpacing: '-0.02em',
-        lineHeight: 1.3,
-      }}
-      {...props} 
-    />
+    <li className="apple-list-item">
+      {children}
+    </li>
   );
 };
 
-const CustomHeading3 = (props) => {
-  const { colorMode } = useColorMode();
-  const textColor = colorMode === 'light' ? "#1d1d1f" : "white";
-  
+const CustomBlockquote = ({ children }) => {
   return (
-    <h3 
-      className="text-2xl font-semibold mt-8 mb-4 apple-heading" 
-      style={{ 
-        color: textColor,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", Helvetica, Arial, sans-serif',
-        letterSpacing: '-0.01em',
-        lineHeight: 1.3,
-      }}
-      {...props} 
-    />
-  );
-};
-
-const CustomList = (props) => {
-  const { colorMode } = useColorMode();
-  const textColor = colorMode === 'light' ? "#1d1d1f" : "#f5f5f7";
-  
-  return (
-    <ul 
-      className="list-disc pl-6 my-6 text-lg apple-list" 
-      style={{ 
-        color: textColor,
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", Helvetica, Arial, sans-serif',
-      }}
-      {...props} 
-    />
-  );
-};
-
-const CustomListItem = (props) => {
-  const { colorMode } = useColorMode();
-  const textColor = colorMode === 'light' ? "#1d1d1f" : "#f5f5f7";
-  
-  return (
-    <li 
-      className="mb-3 apple-list-item" 
-      style={{ 
-        color: textColor,
-        lineHeight: 1.5,
-      }}
-      {...props} 
-    />
-  );
-};
-
-const CustomBlockquote = (props) => {
-  const { colorMode } = useColorMode();
-  const textColor = colorMode === 'light' ? "#6e6e73" : "#86868b";
-  const borderColor = "#0066CC"; // Apple blue
-  
-  return (
-    <blockquote 
-      className="pl-4 border-l-4 italic my-8 py-1 apple-blockquote" 
-      style={{ 
-        borderColor: borderColor,
-        color: textColor,
-        paddingTop: '0.5rem',
-        paddingBottom: '0.5rem',
-        background: 'transparent',
-      }}
-      {...props} 
-    />
+    <blockquote className="apple-blockquote">
+      {children}
+    </blockquote>
   );
 };
 
 const mdxComponents = {
-    Image: CustomImage,
-    a: CustomLink,
-    code: CustomCode,
-    p: CustomParagraph,
-    h1: CustomHeading1,
-    h2: CustomHeading2,
-    h3: CustomHeading3,
-    ul: CustomList,
-    li: CustomListItem,
-    blockquote: CustomBlockquote,
-    SyntaxHighlighter,
-    Button,
-    ServiceCard,
-    HushhWalletIcon,
-    Mermaid,
+  a: CustomLink,
+  img: CustomImage,
+  code: CustomCode,
+  pre: CustomPre,
+  h1: (props) => <CustomHeading level={1} {...props} />,
+  h2: (props) => <CustomHeading level={2} {...props} />,
+  h3: (props) => <CustomHeading level={3} {...props} />,
+  p: CustomParagraph,
+  ul: (props) => <CustomList ordered={false} {...props} />,
+  ol: (props) => <CustomList ordered={true} {...props} />,
+  li: CustomListItem,
+  blockquote: CustomBlockquote,
+  ServiceCard,
+  HushhWalletIcon,
+  Mermaid,
 }
 
-const RenderMdx = ({blog}) => {
+const RenderMdx = ({ blog }) => {
   const { colorMode } = useColorMode();
-  
+
+  if (!blog?.body?.code) {
+    console.error('Blog content is missing or improperly formatted');
+    return (
+      <Box p={5} textAlign="center">
+        <Text fontSize="lg" color={colorMode === 'dark' ? 'red.300' : 'red.500'}>
+          Sorry, this blog content could not be loaded.
+        </Text>
+      </Box>
+    );
+  }
+
   try {
-    if (!blog || !blog.body || !blog.body.code) {
-      console.error("Blog content is missing or improperly formatted");
-      return (
-        <Box p={5} textAlign="center">
-          <Text fontSize="lg" color="red.500">
-            The blog content could not be loaded. Please try again later.
-          </Text>
-        </Box>
-      );
-    }
-    
     const MDXContent = useMDXComponent(blog.body.code);
 
     return (
@@ -286,6 +188,7 @@ const RenderMdx = ({blog}) => {
           
           .apple-code-block {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
           }
           
           .apple-code-block:hover {
@@ -293,6 +196,39 @@ const RenderMdx = ({blog}) => {
             box-shadow: ${colorMode === 'light' 
               ? '0 6px 20px rgba(0, 0, 0, 0.1)' 
               : '0 6px 20px rgba(0, 0, 0, 0.3)'};
+          }
+          
+          .apple-code-block pre {
+            font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+            tab-size: 2;
+          }
+          
+          .apple-code-block pre code {
+            display: grid;
+            font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+            letter-spacing: -0.01em;
+          }
+          
+          .apple-code-block pre code .line {
+            padding: 0 0.25rem;
+            min-height: 1.5rem;
+            display: block;
+            line-height: 1.5rem;
+          }
+          
+          .apple-code-block pre code .line.highlighted {
+            background-color: ${colorMode === 'light' 
+              ? 'rgba(0, 102, 204, 0.1)' 
+              : 'rgba(0, 102, 204, 0.2)'};
+            border-left: 2px solid #0066CC;
+          }
+          
+          .apple-code-block pre code .line .word {
+            background-color: ${colorMode === 'light' 
+              ? 'rgba(0, 102, 204, 0.1)' 
+              : 'rgba(0, 102, 204, 0.2)'};
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
           }
           
           .apple-heading {
@@ -303,24 +239,25 @@ const RenderMdx = ({blog}) => {
             content: '';
             display: block;
             width: 0;
-            height: 0;
+            height: 2px;
             margin-top: 8px;
             transition: width 0.3s ease;
+            background-color: ${colorMode === 'light' ? '#0066CC' : '#2997FF'};
           }
           
           .apple-heading:hover:after {
             width: 40px;
-            height: 2px;
-            background-color: #0066CC;
           }
           
           .apple-list {
             position: relative;
+            margin: 1.5rem 0;
           }
           
           .apple-list-item {
             position: relative;
             padding-left: 0.25rem;
+            margin: 0.5rem 0;
           }
           
           .apple-list-item::marker {
@@ -329,6 +266,11 @@ const RenderMdx = ({blog}) => {
           
           .apple-blockquote {
             position: relative;
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background-color: ${colorMode === 'light' ? '#f5f5f7' : '#1A1A1A'};
+            border-radius: 12px;
+            font-style: italic;
           }
           
           .apple-blockquote:before {
@@ -336,12 +278,44 @@ const RenderMdx = ({blog}) => {
             position: absolute;
             top: -0.5rem;
             left: -0.5rem;
-            font-size: 2rem;
-            color: #0066CC;
+            font-size: 4rem;
+            color: ${colorMode === 'light' ? '#0066CC' : '#2997FF'};
             opacity: 0.3;
           }
           
-          /* Enhance table styles */
+          .apple-link {
+            position: relative;
+          }
+          
+          .apple-link:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+          }
+          
+          .apple-link:hover:after {
+            transform: scaleX(1);
+            transform-origin: left;
+          }
+          
+          .apple-image-container {
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+          }
+          
+          .apple-image-container:hover {
+            transform: scale(1.02);
+          }
+          
           .apple-article table {
             width: 100%;
             border-collapse: collapse;
@@ -350,13 +324,13 @@ const RenderMdx = ({blog}) => {
             box-shadow: ${colorMode === 'light' 
               ? '0 2px 8px rgba(0, 0, 0, 0.05)' 
               : '0 2px 8px rgba(0, 0, 0, 0.2)'};
-            border-radius: 0.5rem;
+            border-radius: 12px;
             overflow: hidden;
           }
           
           .apple-article th {
             background-color: ${colorMode === 'light' ? '#f5f5f7' : '#1A1A1A'};
-            color: ${colorMode === 'light' ? '#1d1d1f' : 'white'};
+            color: ${colorMode === 'light' ? '#1d1d1f' : '#f5f5f7'};
             font-weight: 600;
             text-align: left;
             padding: 0.75rem 1rem;
@@ -376,20 +350,15 @@ const RenderMdx = ({blog}) => {
       </article>
     );
   } catch (error) {
-    console.error("Error rendering MDX content:", error);
+    console.error('Error rendering MDX content:', error);
     return (
       <Box p={5} textAlign="center">
-        <Text fontSize="lg" color="red.500">
-          There was an error rendering this blog post. Please try again later.
+        <Text fontSize="lg" color={colorMode === 'dark' ? 'red.300' : 'red.500'}>
+          An error occurred while rendering this blog post.
         </Text>
-        {process.env.NODE_ENV === 'development' && (
-          <Text mt={2} fontSize="sm" color="gray.500">
-            Error: {error.message}
-          </Text>
-        )}
       </Box>
     );
   }
-}
+};
 
 export default RenderMdx
