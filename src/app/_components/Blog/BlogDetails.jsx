@@ -4,7 +4,8 @@ import Link from "next/link";
 import React from "react";
 import { Box, Flex, Text, Divider, useColorMode, HStack, Icon } from "@chakra-ui/react";
 import { slug } from "github-slugger";
-import { CalendarIcon, TimeIcon, TagIcon } from '@chakra-ui/icons';
+import { CalendarIcon, TimeIcon } from '@chakra-ui/icons';
+import { FaTag } from 'react-icons/fa';
 
 const BlogDetails = ({ blog, slug: blogSlug }) => {
   const { colorMode } = useColorMode();
@@ -124,7 +125,7 @@ const BlogDetails = ({ blog, slug: blogSlug }) => {
         
         <Box>
           <HStack spacing="2" mb="1">
-            <Icon as={TagIcon} color={mutedTextColor} w="4" h="4" />
+            <Icon as={FaTag} color={mutedTextColor} w="4" h="4" />
             <Text 
               fontSize="sm" 
               color={mutedTextColor} 
