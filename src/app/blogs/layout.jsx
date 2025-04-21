@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Box, useColorMode } from '@chakra-ui/react';
 import BlogHeader from '../_components/Blog/BlogHeader';
-
+import Header from '../_components/header';
 /**
  * Blog-specific layout wrapper with specialized blog features
  * Uses Apple-like design patterns for enhanced reading experience
@@ -15,25 +15,25 @@ export default function BlogLayout({ children }) {
   const [mounted, setMounted] = useState(false);
   
   // Handle client-side mounting
-  useEffect(() => {
-    setMounted(true);
+  // useEffect(() => {
+  //   setMounted(true);
     
-    // Hide the main site header when in blog pages
-    if (typeof document !== 'undefined') {
-      const isDetailPage = pathname && pathname.startsWith('/blogs/') && pathname !== '/blogs';
-      const mainHeader = document.querySelector('header');
+  //   // Hide the main site header when in blog pages
+  //   if (typeof document !== 'undefined') {
+  //     const isDetailPage = pathname && pathname.startsWith('/blogs/') && pathname !== '/blogs';
+  //     const mainHeader = document.querySelector('header');
       
-      if (mainHeader) {
-        // Hide the main header
-        mainHeader.style.display = 'none';
+  //     if (mainHeader) {
+  //       // Hide the main header
+  //       mainHeader.style.display = 'none';
         
-        // Restore on unmount
-        return () => {
-          mainHeader.style.display = '';
-        };
-      }
-    }
-  }, [pathname]);
+  //       // Restore on unmount
+  //       return () => {
+  //         mainHeader.style.display = '';
+  //       };
+  //     }
+  //   }
+  // }, [pathname]);
   
   if (!mounted) {
     // Return a minimal layout during SSR to prevent hydration mismatch
@@ -56,8 +56,8 @@ export default function BlogLayout({ children }) {
       transition="background-color 0.3s ease"
     >
       {/* Use our specialized blog header */}
-      <BlogHeader />
-      
+      <Header backgroundColor={'black'} />
+
       {/* Blog content with appropriate padding for the fixed header */}
       <Box className="blog-content-container">
         {children}
@@ -66,6 +66,7 @@ export default function BlogLayout({ children }) {
       <style jsx global>{`
         .blog-typography {
           animation: blogFadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+          font-family: 'Figtree', sans-serif;
         }
         
         @keyframes blogFadeIn {
@@ -79,14 +80,14 @@ export default function BlogLayout({ children }) {
           }
         }
         
-        /* Enhanced link styling throughout blog pages */
-        .blog-typography a:not(.no-style) {
-          color: #0066CC;
-          text-decoration: none;
-          position: relative;
-          transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-          display: inline-block;
-        }
+        // /* Enhanced link styling throughout blog pages */
+        // .blog-typography a:not(.no-style) {
+        //   color: #0066CC;
+        //   text-decoration: none;
+        //   position: relative;
+        //   transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+        //   display: inline-block;
+        // }
         
         .blog-typography a:not(.no-style)::after {
           content: '';
@@ -147,7 +148,6 @@ export default function BlogLayout({ children }) {
         
         /* Enhanced typography for blog content */
         .blog-typography {
-          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
           font-feature-settings: "kern";

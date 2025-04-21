@@ -391,7 +391,7 @@
   dependencies:
     "@chakra-ui/shared-utils" "2.0.5"
 
-"@chakra-ui/icons@^2.1.1":
+"@chakra-ui/icons@^2.2.4":
   version "2.2.4"
   resolved "https://registry.npmjs.org/@chakra-ui/icons/-/icons-2.2.4.tgz"
   integrity sha512-l5QdBgwrAg3Sc2BRqtNkJpfuLw/pWRDwwT58J6c4PqQT6wzXxyNa8Q0PForu1ltB5qEiFb1kxr/F/HO1EwNa6g==

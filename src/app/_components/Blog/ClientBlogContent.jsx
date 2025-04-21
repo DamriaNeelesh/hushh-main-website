@@ -216,7 +216,14 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
         opacity={showProgress ? 1 : 0}
       />
       
-      <Box as="main" bg={bgColor} color={textColor} pt={{ base: "24", md: "28" }} className="fade-up apple-bg">
+      <Box 
+        as="main" 
+        bg={bgColor} 
+        color={textColor} 
+        className="apple-bg"
+        pt="120px"
+        mt="0"
+      >
         {/* Navigation breadcrumb */}
         <Container maxW="1180px" px={{ base: 5, md: 6 }} mb={{ base: 8, md: 10 }} className="fade-up delay-1">
           <Link 
@@ -465,20 +472,32 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
           
           {/* Author section */}
           {blog.author && (
-            <Box mt={{ base: '10', md: '12' }} mb={{ base: '8', md: '10' }} className="author-section apple-card">
-              <Divider mb={{ base: '6', md: '8' }} />
+            <Box 
+              mt={{ base: '8', md: '10' }} 
+              mb={{ base: '6', md: '8' }} 
+              p={{ base: '4', md: '5' }}
+              borderRadius="lg"
+              bg={colorMode === 'light' ? 'gray.50' : 'gray.900'}
+              border="1px solid"
+              borderColor={colorMode === 'light' ? 'gray.100' : 'gray.800'}
+              className="author-section apple-card"
+              boxShadow="sm"
+            >
               <Flex 
                 direction={{ base: 'column', sm: 'row' }} 
                 align={{ base: 'flex-start', sm: 'center' }}
-                gap={{ base: '4', sm: '5' }}
+                gap={{ base: '3', sm: '4' }}
               >
-                {blog.authorAvatar && (
+                {blog.authorAvatar ? (
                   <Box 
                     flexShrink="0" 
                     w={{ base: '12', sm: '14' }} 
                     h={{ base: '12', sm: '14' }}
                     borderRadius="full" 
                     overflow="hidden"
+                    border="1px solid"
+                    borderColor={colorMode === 'light' ? 'blue.100' : 'blue.800'}
+                    boxShadow="sm"
                     className="author-avatar apple-avatar"
                   >
                     <Image 
@@ -494,15 +513,64 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
                       className="apple-img"
                     />
                   </Box>
+                ) : (
+                  <Flex
+                    flexShrink="0" 
+                    w={{ base: '12', sm: '14' }} 
+                    h={{ base: '12', sm: '14' }}
+                    borderRadius="full"
+                    bg={colorMode === 'light' ? 'blue.500' : 'blue.400'}
+                    color="white"
+                    align="center"
+                    justify="center"
+                    fontSize={{ base: 'md', sm: 'lg' }}
+                    fontWeight="bold"
+                    border="1px solid"
+                    borderColor={colorMode === 'light' ? 'blue.100' : 'blue.800'}
+                    boxShadow="sm"
+                    className="author-avatar apple-avatar"
+                  >
+                    {blog.author.split(' ').map(name => name[0]).join('').toUpperCase()}
+                  </Flex>
                 )}
                 <Box>
-                  <Text fontWeight="medium" fontSize={{ base: 'md', sm: 'lg' }} mb="1" className="apple-text-author">
+                  <Text 
+                    fontWeight="medium" 
+                    fontSize={{ base: 'md', sm: 'lg' }} 
+                    mb="1"
+                    color={headingColor}
+                    letterSpacing="-0.01em"
+                  >
                     Written by {blog.author}
                   </Text>
                   {blog.authorBio && (
-                    <Text color={mutedTextColor} fontSize={{ base: 'sm', sm: 'md' }} className="apple-text-bio">
+                    <Text 
+                      color={mutedTextColor} 
+                      fontSize={{ base: 'sm', sm: 'md' }}
+                      lineHeight="tall"
+                      noOfLines={2}
+                      maxW="2xl"
+                    >
                       {blog.authorBio}
                     </Text>
+                  )}
+                  {blog.authorTwitter && (
+                    <Link
+                      href={`https://twitter.com/${blog.authorTwitter}`}
+                      isExternal
+                      display="inline-flex"
+                      alignItems="center"
+                      mt="2"
+                      color={linkHoverColor}
+                      fontSize="xs"
+                      fontWeight="medium"
+                      _hover={{ color: linkHoverColor, textDecoration: 'none' }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '4px' }}>
+                        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                      </svg>
+                      @{blog.authorTwitter}
+                    </Link>
                   )}
                 </Box>
               </Flex>
@@ -612,6 +680,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
         /* Apple-specific animations */
         .apple-bg {
           background: linear-gradient(to bottom, rgba(245,245,247,0.02), rgba(245,245,247,0));
+          padding-top: 120px !important;
         }
         
         .apple-heading {
@@ -761,6 +830,12 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, allBlog
         
         .reading-time svg {
           margin-right: 2px;
+        }
+        
+        @media (max-width: 768px) {
+          .apple-bg {
+            padding-top: 100px !important;
+          }
         }
       `}</style>
     </>
