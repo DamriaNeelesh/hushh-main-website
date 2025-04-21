@@ -613,4 +613,174 @@ html {
   .apple-card:hover {
     transform: translateY(-2px);
   }
+}
+
+/* Add styles for Apple-like header in blog pages */
+.apple-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  display: flex;
+  align-items: center;
+}
+
+.apple-header-glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dark .apple-header-glass {
+  background-color: rgba(0, 0, 0, 0.72);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.apple-header-transparent {
+  background-color: transparent;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+/* Apple-style typography for header links */
+.apple-header-link {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  position: relative;
+}
+
+.apple-header-link:hover {
+  opacity: 0.7;
+}
+
+.apple-header-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.apple-header-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.apple-header-logo {
+  transition: opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.apple-header-logo:hover {
+  opacity: 0.8;
+}
+
+/* Ensure blog content has proper padding for fixed header */
+.blog-content-container {
+  padding-top: 64px;
+}
+
+/* Blog header nav item */
+.blog-nav-item {
+  font-size: 14px;
+  margin: 0 16px;
+  transition: opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.blog-nav-item:hover {
+  opacity: 0.7;
+}
+
+/* Mobile menu for blog */
+.blog-mobile-menu {
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.dark .blog-mobile-menu {
+  background-color: rgba(0, 0, 0, 0.98);
+}
+
+/* Blog navbar animation */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.apple-header-animate {
+  animation: fadeInDown 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Ensure proper header display across different screen sizes */
+@media (max-width: 768px) {
+  .apple-header {
+    height: 54px;
+  }
+  
+  .blog-content-container {
+    padding-top: 54px;
+  }
+}
+
+/* Fix for any menu elements in the header */
+.apple-header .desktop-header,
+.apple-header .mobile-header {
+  background-color: transparent !important;
+}
+
+/* Hide submenu arrow in blog posts */
+.apple-header .group-hover\:rotate-0 {
+  display: none;
+}
+
+/* Enhanced logo for blog posts */
+.apple-header .logo-container svg path {
+  transition: fill 0.3s ease;
+}
+
+/* Active page indicator */
+.apple-header-active-link {
+  color: #0066CC !important;
+  font-weight: 600 !important;
+}
+
+.dark .apple-header-active-link {
+  color: #2997FF !important;
+}
+
+/* Smooth scroll indicator dot */
+.apple-scroll-dot {
+  position: absolute;
+  bottom: -4px;
+  left: calc(50% - 2px);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.apple-header-link:hover .apple-scroll-dot {
+  opacity: 1;
 } 

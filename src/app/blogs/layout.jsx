@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Box, useColorMode } from '@chakra-ui/react';
+import BlogHeader from '../_components/Blog/BlogHeader';
 
 /**
  * Blog-specific layout wrapper with specialized blog features
@@ -11,64 +12,40 @@ import { Box, useColorMode } from '@chakra-ui/react';
 export default function BlogLayout({ children }) {
   const pathname = usePathname();
   const { colorMode } = useColorMode();
+  const [mounted, setMounted] = useState(false);
   
-  // Apply header spacing adjustments when in blog detail pages
+  // Handle client-side mounting
   useEffect(() => {
+    setMounted(true);
+    
+    // Hide the main site header when in blog pages
     if (typeof document !== 'undefined') {
       const isDetailPage = pathname && pathname.startsWith('/blogs/') && pathname !== '/blogs';
+      const mainHeader = document.querySelector('header');
       
-      // Add debug log to help troubleshoot
-      console.log('Blog path:', pathname, 'Is detail page:', isDetailPage);
-      
-      // Adjust header if needed
-      const header = document.querySelector('header');
-      if (header && isDetailPage) {
-        header.style.position = 'fixed';
-        header.style.background = 'transparent';
-        header.style.backdropFilter = 'blur(10px)';
-        header.style.webkitBackdropFilter = 'blur(10px)';
-        header.style.borderBottom = colorMode === 'light' 
-          ? '1px solid rgba(0,0,0,0.05)' 
-          : '1px solid rgba(255,255,255,0.05)';
-        header.style.zIndex = '1000';
-        header.style.transition = 'all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)';
+      if (mainHeader) {
+        // Hide the main header
+        mainHeader.style.display = 'none';
         
-        // Scroll detection for header background change
-        const handleScroll = () => {
-          if (window.scrollY > 100) {
-            header.style.backgroundColor = colorMode === 'light' 
-              ? 'rgba(255, 255, 255, 0.8)' 
-              : 'rgba(0, 0, 0, 0.8)';
-            header.style.boxShadow = colorMode === 'light'
-              ? '0 2px 10px rgba(0, 0, 0, 0.05)'
-              : '0 2px 10px rgba(0, 0, 0, 0.2)';
-          } else {
-            header.style.backgroundColor = 'transparent';
-            header.style.boxShadow = 'none';
-          }
-        };
-        
-        // Initial check
-        handleScroll();
-        
-        // Add scroll event
-        window.addEventListener('scroll', handleScroll);
-        
-        // Clear these adjustments when component unmounts
+        // Restore on unmount
         return () => {
-          window.removeEventListener('scroll', handleScroll);
-          header.style.position = '';
-          header.style.background = '';
-          header.style.backdropFilter = '';
-          header.style.webkitBackdropFilter = '';
-          header.style.borderBottom = '';
-          header.style.zIndex = '';
-          header.style.boxShadow = '';
-          header.style.transition = '';
+          mainHeader.style.display = '';
         };
       }
     }
-  }, [pathname, colorMode]);
+  }, [pathname]);
+  
+  if (!mounted) {
+    // Return a minimal layout during SSR to prevent hydration mismatch
+    return (
+      <Box 
+        bg={colorMode === 'light' ? "white" : "black"}
+        minH="100vh"
+      >
+        {children}
+      </Box>
+    );
+  }
   
   return (
     <Box 
@@ -78,7 +55,13 @@ export default function BlogLayout({ children }) {
       minH="100vh"
       transition="background-color 0.3s ease"
     >
-      {children}
+      {/* Use our specialized blog header */}
+      <BlogHeader />
+      
+      {/* Blog content with appropriate padding for the fixed header */}
+      <Box className="blog-content-container">
+        {children}
+      </Box>
       
       <style jsx global>{`
         .blog-typography {
@@ -160,11 +143,6 @@ export default function BlogLayout({ children }) {
           outline: none;
           box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.4);
           transition: box-shadow 0.2s ease;
-        }
-        
-        /* Ensure proper spacing for header */
-        .blog-detail-page {
-          padding-top: 90px;
         }
         
         /* Enhanced typography for blog content */
