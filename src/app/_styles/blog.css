@@ -783,4 +783,210 @@ html {
 
 .apple-header-link:hover .apple-scroll-dot {
   opacity: 1;
+}
+
+/* Syntax Highlighting Styles */
+/**
+ * GitHub Dark theme for syntax highlighting
+ * Enhanced for better visibility and contrast
+ */
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  color: #c9d1d9;
+  background: #0d1117;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+pre:has(.hljs), .hljs {
+  color: #c9d1d9;
+  background: #0d1117;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  color: #ff7b72;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  color: #d2a8ff;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-variable {
+  color: #79c0ff;
+}
+
+.hljs-meta .hljs-string,
+.hljs-regexp,
+.hljs-string {
+  color: #a5d6ff;
+}
+
+.hljs-built_in,
+.hljs-symbol {
+  color: #ffa657;
+}
+
+.hljs-code,
+.hljs-comment,
+.hljs-formula {
+  color: #8b949e;
+}
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-pseudo,
+.hljs-selector-tag {
+  color: #7ee787;
+}
+
+.hljs-subst {
+  color: #c9d1d9;
+}
+
+.hljs-section {
+  color: #1f6feb;
+  font-weight: bold;
+}
+
+.hljs-bullet {
+  color: #f2cc60;
+}
+
+.hljs-emphasis {
+  color: #c9d1d9;
+  font-style: italic;
+}
+
+.hljs-strong {
+  color: #c9d1d9;
+  font-weight: bold;
+}
+
+.hljs-addition {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.hljs-deletion {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+/* Custom enhancements for code blocks */
+.apple-code-block {
+  position: relative;
+  margin: 2rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.apple-code-block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.apple-code-block pre {
+  margin: 0 !important;
+  background-color: #0d1117 !important;
+  color: #c9d1d9 !important;
+  padding: 1.5rem !important;
+  font-family: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+  overflow-x: auto;
+}
+
+/* Language badge for code blocks */
+.language-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #8b949e;
+  background-color: #161b22;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  z-index: 2;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Line number styling */
+.line-number {
+  display: inline-block;
+  width: 1.5rem;
+  margin-right: 1rem;
+  text-align: right;
+  color: #8b949e;
+  user-select: none;
+  opacity: 0.6;
+}
+
+/* Line highlighting */
+.hljs-line.highlighted {
+  background-color: rgba(110, 118, 129, 0.1);
+  border-left: 2px solid #58a6ff;
+}
+
+/* Word highlighting */
+.hljs .highlighted {
+  background-color: rgba(210, 153, 34, 0.15);
+  border-radius: 2px;
+  padding: 0.1rem 0.2rem;
+  margin: 0 -0.2rem;
+}
+
+/* Light mode adjustments */
+.light-mode .hljs,
+.light-mode pre:has(.hljs) {
+  color: #24292e;
+  background: #f6f8fa;
+}
+
+.light-mode .apple-code-block pre {
+  background-color: #f6f8fa !important;
+  color: #24292e !important;
+  border: 1px solid #e1e4e8;
+}
+
+.light-mode .language-badge {
+  color: #57606a;
+  background-color: #eaeef2;
+}
+
+.light-mode .line-number {
+  color: #6e7781;
+}
+
+.light-mode .hljs-line.highlighted {
+  background-color: rgba(84, 174, 255, 0.1);
+  border-left: 2px solid #0969da;
+}
+
+.light-mode .hljs .highlighted {
+  background-color: rgba(255, 235, 59, 0.2);
 } 

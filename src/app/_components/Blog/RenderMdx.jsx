@@ -7,6 +7,7 @@ import { ServiceCard } from '../primitives/serviceCard'
 import HushhWalletIcon from '../svg/hushhWalletIcon'
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+// Import syntax highlighting styles already handled in layout.jsx
 const Mermaid = dynamic(() => import('../hooks/useMermaid'), { ssr: false });
 
 const CustomLink = ({ href, children }) => {
@@ -47,9 +48,16 @@ const CustomImage = ({ src, alt }) => {
 
 const CustomPre = (props) => {
   const { colorMode } = useColorMode();
+  const className = props.children?.props?.className || '';
+  const language = className.replace('language-', '');
   
   return (
     <div className="apple-code-block">
+      {language && (
+        <div className="language-badge">
+          {language}
+        </div>
+      )}
       <pre
         {...props}
         style={{
@@ -59,9 +67,11 @@ const CustomPre = (props) => {
           lineHeight: '1.5',
           margin: '2rem 0',
           overflow: 'auto',
-          backgroundColor: colorMode === 'light' ? '#f5f5f7' : '#1A1A1A',
+          backgroundColor: '#0d1117', // GitHub dark theme background
+          color: '#c9d1d9', // Light text color for dark theme
           border: `1px solid ${colorMode === 'light' ? '#e5e5e7' : '#333336'}`,
         }}
+        className={`${props.className || ''} hljs-pre`}
       />
     </div>
   );
@@ -170,7 +180,7 @@ const RenderMdx = ({ blog }) => {
 
     return (
       <article 
-        className="max-w-none apple-article"
+        className={`max-w-none apple-article ${colorMode === 'light' ? 'light-mode' : 'dark-mode'}`}
         style={{
           color: colorMode === 'light' ? "#1d1d1f" : "#f5f5f7",
           fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", Helvetica, Arial, sans-serif',

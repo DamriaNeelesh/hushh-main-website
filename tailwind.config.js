@@ -44,6 +44,20 @@ module.exports = {
                 color: 'white', // Ensuring the marker color is white
               },
             },
+            pre: {
+              backgroundColor: '#0d1117', // Dark code block background
+              color: '#c9d1d9', // Light text for dark background
+            },
+            code: {
+              backgroundColor: 'black', // Dark code block background
+              color: '#c9d1d9', // Light text for dark background
+              '&::before': {
+                content: '""',
+              },
+              '&::after': {
+                content: '""',
+              },
+            },
           },
         },
       },
@@ -98,5 +112,15 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/container-queries'),
     `gatsby-plugin-mdx`,
-  ]
+  ],
+  safelist: [
+    // Add syntax highlighting classes to safelist
+    {
+      pattern: /hljs(-.*)?/,
+    },
+    'apple-code-block',
+    'language-badge',
+    'line-number',
+    'highlighted',
+  ],
 };
