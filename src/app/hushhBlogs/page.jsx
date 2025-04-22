@@ -1,6 +1,7 @@
 import { allBlogs } from "contentlayer/generated";
 import ContactForm from "../_components/features/contactForm";
 import HushhBlogsContent from "../_components/Blog/HushhBlogsContent";
+import { siteMetadata } from "../sitemetadata";
 
 export const metadata = {
   title: "Hushh Newsroom | Latest Insights and Updates",
@@ -18,6 +19,14 @@ export const metadata = {
       "Explore the latest news, articles, and updates from Hushh covering technology, privacy, and data solutions. Stay informed with expert insights and product announcements.",
     url: "https://hushh.ai/hushhBlogs",
     type: "website",
+    images: [
+      {
+        url: siteMetadata.socialBanner,
+        width: 1200,
+        height: 630,
+        alt: "Hushh Newsroom",
+      },
+    ],
   },
 };
 
