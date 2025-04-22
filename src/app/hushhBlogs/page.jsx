@@ -1,60 +1,31 @@
 import { allBlogs } from "contentlayer/generated";
-import HomeCoverSection from "../_components/blogHome/HomeCoverSection";
-import FeaturedPosts from "../_components/blogHome/FeaturedPosts";
-import RecentPosts from "../_components/blogHome/RecentPosts";
 import ContactForm from "../_components/features/contactForm";
-import Head from "next/head";
+import HushhBlogsContent from "../_components/Blog/HushhBlogsContent";
 
 export const metadata = {
-  title: "Hushh Blogs | Latest Insights and Articles",
+  title: "Hushh Newsroom | Latest Insights and Updates",
   description:
-    "Explore the latest articles on hushh covering technology and more. Stay updated with expert insights and trending topics.",
+    "Explore the latest news, articles, and updates from Hushh covering technology, privacy, and data solutions. Stay informed with expert insights and product announcements.",
   keywords:
-    "hushh blogs, technology insights, SEO, Data privacy, Data monetization , User-controlled data , Luxury consumers ,Sales agents , AI-powered personalization , Privacy-preserving technology , Decentralized data , Ethical advertising , Data marketplace ,Human-AI interaction , How to monetize my data, Secure data sharing for luxury brands, AI for personalized marketing to high-end consumers , Decentralized data ownership solutions data monetization, trending articles, expert insights",
+    "hushh newsroom, technology insights, data privacy, data monetization, user-controlled data, luxury consumers, AI-powered personalization, privacy-preserving technology, decentralized data, ethical advertising, data marketplace, human-AI interaction",
   canonical: "https://hushh.ai/hushhBlogs",
   alternates: {
     canonical: "https://hushh.ai/hushhBlogs",
   },
   openGraph: {
-    title: "Hushh Blogs | Latest Insights and Articles",
+    title: "Hushh Newsroom | Latest Insights and Updates",
     description:
-    "Explore the latest articles on hushh covering technologyand more. Stay updated with expert insights and trending topics.",
+      "Explore the latest news, articles, and updates from Hushh covering technology, privacy, and data solutions. Stay informed with expert insights and product announcements.",
     url: "https://hushh.ai/hushhBlogs",
-    // images: [
-    //   {
-    //     url: "/path/to/developer-api-og-image.jpg",
-    //     width: 1200,
-    //     height: 630,
-    //     alt: "Hushh Developer APIs Image",
-    //   },
-    // ],
+    type: "website",
   },
 };
 
-export default function hushhBlogs() {
-  
+export default function HushhBlogs() {
   return (
     <>
-    <Head>
-        <title>Hushh Blogs | Latest Insights and Articles</title>
-        <meta
-          name="description"
-          content="Explore the latest articles on hushh covering technology, and more updates about our product. Stay updated with expert insights and trending topics."
-        />
-        <meta
-          name="keywords"
-          content="hushh blogs, technology insights, SEO, Data privacy, Data monetization , User-controlled data , Luxury consumers ,Sales agents , AI-powered personalization , Privacy-preserving technology , Decentralized data , Ethical advertising , Data marketplace ,Human-AI interaction , How to monetize my data, Secure data sharing for luxury brands, AI for personalized marketing to high-end consumers , Decentralized data ownership solutions data monetization, trending articles, expert insights"
-        />
-                <link rel="canonical" href="https://hushh.ai/hushhBlogs" />
-                <meta property="og:url" content="https://hushh.ai/hushhBlogs" />
-
-      </Head>
-    <main className="flex flex-col mb-10 items-center justify-center">
-      <HomeCoverSection blogs={allBlogs} />
-      <FeaturedPosts blogs={allBlogs} />
-      <RecentPosts blogs={allBlogs} />
-    </main>
-    <ContactForm/>
+      <HushhBlogsContent blogs={allBlogs} />
+      <ContactForm />
     </>
-  )
+  );
 }

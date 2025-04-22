@@ -81,7 +81,34 @@ const Blog = defineDocumentType(() => ({
 
 const codeOptions = {
   theme: "github-dark",
-  grid: false,
+  grid: true,
+  keepBackground: true,
+  defaultLang: 'plaintext',
+  onVisitLine(node) {
+    // Prevent lines from collapsing in `display: grid` mode
+    if (node.children.length === 0) {
+      node.children = [{ type: 'text', value: ' ' }];
+    }
+  },
+  onVisitHighlightedLine(node) {
+    // Add line highlighting
+    node.properties.className.push('highlighted');
+  },
+  onVisitHighlightedWord(node) {
+    // Add word highlighting
+    node.properties.className = ['highlighted'];
+  },
+  // Callback hooks to add custom logic to nodes when visiting them.
+  tokensMap: {
+    // Maps language tokens to CSS classes.
+    comment: 'hljs-comment',
+    string: 'hljs-string',
+    number: 'hljs-number',
+    function: 'hljs-function',
+    keyword: 'hljs-keyword',
+    builtin: 'hljs-built_in',
+    // ... other mappings
+  },
 };
 
 export default makeSource({

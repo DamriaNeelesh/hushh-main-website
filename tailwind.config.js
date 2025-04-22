@@ -44,6 +44,20 @@ module.exports = {
                 color: 'white', // Ensuring the marker color is white
               },
             },
+            pre: {
+              backgroundColor: '#0d1117', // Dark code block background
+              color: '#c9d1d9', // Light text for dark background
+            },
+            code: {
+              backgroundColor: 'black', // Dark code block background
+              color: '#c9d1d9', // Light text for dark background
+              '&::before': {
+                content: '""',
+              },
+              '&::after': {
+                content: '""',
+              },
+            },
           },
         },
       },
@@ -82,6 +96,13 @@ module.exports = {
       },
       animation: {
         "fade-in": "fadeIn 1s ease-in-out",
+        "fadeIn": "fadeIn 0.8s ease-in-out forwards",
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0, transform: 'translateY(10px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
       },
     },
   },
@@ -91,5 +112,15 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/container-queries'),
     `gatsby-plugin-mdx`,
-  ]
+  ],
+  safelist: [
+    // Add syntax highlighting classes to safelist
+    {
+      pattern: /hljs(-.*)?/,
+    },
+    'apple-code-block',
+    'language-badge',
+    'line-number',
+    'highlighted',
+  ],
 };
