@@ -50,7 +50,7 @@ const HushhBlogsContent = ({ blogs }) => {
           
           <HomeCoverSection blogs={blogs} />
           <FeaturedPosts blogs={blogs} />
-          <RecentPosts blogs={blogs.slice(5, 11)} />
+          <RecentPosts blogs={blogs.slice(5, 16)} />
         </div>
       </main>
     </>

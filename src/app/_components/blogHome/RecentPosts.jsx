@@ -1,7 +1,7 @@
 'use client'
 import { sortBlogs } from "../../utils";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
@@ -9,11 +9,20 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Box, Text, Button, Flex } from "@chakra-ui/react";
 
 const RecentPosts = ({ blogs }) => {
+  const [displayCount, setDisplayCount] = useState(12); // Default to show 12 blogs
   const sortedBlogs = blogs && blogs.length > 0 ? sortBlogs(blogs) : [];
   const router = useRouter();
   
   // Check if we're rendering a limited set for the related posts section
   const isLimitedSet = blogs.length <= 3;
+  
+  // Get the blogs to display based on the current display count
+  const displayedBlogs = sortedBlogs.slice(0, displayCount);
+  
+  // Function to load more blogs
+  const loadMore = () => {
+    setDisplayCount(prev => prev + 8); // Load 8 more blogs when clicked
+  };
   
   if (sortedBlogs.length === 0) return null;
   
@@ -35,14 +44,16 @@ const RecentPosts = ({ blogs }) => {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {sortedBlogs.map((blog, index) => {
+        {displayedBlogs.map((blog, index) => {
           // Format date to match Apple's style: "14 April 2025"
           const formattedDate = format(new Date(blog.publishedAt), "d MMMM yyyy");
           
           // Determine if the tag is an update type
-          const isUpdate = blog.tags[0].toLowerCase().includes('update') || 
+          const isUpdate = blog.tags && blog.tags[0] && (
+            blog.tags[0].toLowerCase().includes('update') || 
             blog.tags[0].toLowerCase() === 'press release' || 
-            blog.tags[0].toLowerCase() === 'quick read';
+            blog.tags[0].toLowerCase() === 'quick read'
+          );
           
           return (
             <article 
@@ -89,6 +100,21 @@ const RecentPosts = ({ blogs }) => {
           );
         })}
       </div>
+      
+      {/* Load More button - only show if there are more blogs to load */}
+      {!isLimitedSet && displayCount < sortedBlogs.length && (
+        <div className="mt-8 text-center">
+          <Button 
+            onClick={loadMore} 
+            colorScheme="blue" 
+            size="md" 
+            className="bg-gradient-to-r from-[#E54D60] to-[#A342FF] text-white px-6 py-2 rounded-full"
+            _hover={{ opacity: 0.9 }}
+          >
+            Load More Articles
+          </Button>
+        </div>
+      )}
     </section>
   );
 };
