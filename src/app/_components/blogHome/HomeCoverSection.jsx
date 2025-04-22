@@ -23,7 +23,7 @@ const HomeCoverSection = ({ blogs }) => {
     <section className="w-full max-w-[1180px] mx-auto mt-8 mb-12">
       <div className="px-5 sm:px-6">
         <h1 className="text-2xl font-semibold text-[#1d1d1f] dark:text-white mb-4">
-          Latest News
+          Latest Blogs
         </h1>
       </div>
       
