@@ -24,6 +24,24 @@ body, input, button, textarea, select {
   margin-left: auto; /* Ensures the close icon aligns to the right */
 }
 
+/* Add hamburger icon styling */
+.hamburger-icon-container {
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 2000;
+}
+
+@media (max-width: 768px) {
+  .hamburger-icon-container {
+    padding: 8px !important;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
 /* Header CSS */
 .login {
   display: flex;

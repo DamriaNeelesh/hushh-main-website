@@ -53,6 +53,7 @@ export default function Header({backgroundColor}) {
   const shouldShowHeader = !noHeaderPaths.includes(pathname);
   const notify = () => toast("This Product is Coming Soon!");
   const isJobDetailPage = pathname ===  "/job/";
+  const isMobileScreen = useMediaQuery({ maxWidth: 768 });
 
   // useEffect(() => {
   //   const checkLoginStatus = async () => {
@@ -186,6 +187,17 @@ export default function Header({backgroundColor}) {
     setIsMenuOpen(false);
   };
 
+  useEffect(() => {
+    // Log mobile detection values for debugging
+    console.log("Mobile detection values:", { 
+      isMobile, 
+      isTablet, 
+      isTabletOrMobile, 
+      isMobileScreen,
+      innerWidth: typeof window !== 'undefined' ? window.innerWidth : null
+    });
+  }, [isMobile, isTablet, isTabletOrMobile, isMobileScreen]);
+
   return (
     <>
   {shouldShowHeader &&
@@ -205,38 +217,48 @@ export default function Header({backgroundColor}) {
             <HushhHeaderLogo />
           </Link>
         </div>
-        {isMobile ? (
-        //   <div className="flex items-center justify-end w-full mobile-header py-2">
-        //   <Container display={"flex"} gap={"1rem"}>
-        //   <div
-        //     className={`text-white ${!isJobDetailPage ? 'bg-transparent' : 'bg-black'}`} // Conditionally apply bg-black
-        //     onClick={handleMenuIconToggle}
-        //   >
-        //       {isMenuOpen ? <CloseMenuIcon color="white" /> : <Bars3Icon />}
-        //     </div>
-        //   </Container>
-        // </div>
-        <div
-              className="flex items-center justify-end w-full mobile-header py-2"
-              // style={{
-              //   backgroundColor: isJobDetailPage ? "transparent" : "black",
-              // }}
+        {(!isDesktop || isTabletOrMobile || isMobile || isMobileScreen) ? (
+          <div className="flex items-center justify-end w-full mobile-header py-2">
+            <div
+              className="text-white hamburger-icon-container cursor-pointer"
+              onClick={handleMenuIconToggle}
+              style={{
+                marginLeft: "auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                zIndex: 2000,
+                padding: "8px",
+                background: "rgba(0, 0, 0, 0.6)",
+                borderRadius: "6px",
+                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
+              }}
             >
-              <Container display={"flex"} justifyContent="flex-end" gap={"1rem"}>
-                <div
-                  className="text-white"
-                  onClick={handleMenuIconToggle}
+              {isMenuOpen ? (
+                <CloseMenuIcon color="white" />
+              ) : (
+                <svg
+                  fill="none"
+                  strokeWidth={2.5}
+                  stroke="#FFFFFF"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  width="32"
+                  height="32"
                   style={{
-                    marginLeft: "auto",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-end",
+                    filter: "drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.5))"
                   }}
                 >
-                  {isMenuOpen ? <CloseMenuIcon color="white" /> : <Bars3Icon />}
-                </div>
-              </Container>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              )}
             </div>
+          </div>
         ) : (
           // This is for desktop screens
           <div  className={`w-full px-0 desktop-header ${isMobile ? 'hidden' : ''}`}>
@@ -458,7 +480,7 @@ export default function Header({backgroundColor}) {
 
 {/* This below is for mobile screens */}
 
-          {isMenuOpen && (isTablet || isMobile) ? (
+          {isMenuOpen && (!isDesktop || isTablet || isMobile || isTabletOrMobile || isMobileScreen) ? (
             <div style={{zIndex:'1000 !important', position:'absolute', width:'100%'}} className="top-0 bg-black overflow-hidden flex flex-col justify-between min-h-screen min-w-screen" ref={menuRef}>
               {/* Header */}
               <div className="px-6 mt-4 flex items-center justify-between">
@@ -568,7 +590,7 @@ export default function Header({backgroundColor}) {
                   <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
                   <li>
                     <Link style={{fontWeight:'700'}} onClick={() => setIsMenuOpen(false)} href="/hushh-press" className="text-lg text-white">
-                      Hushh Press
+                     Press Releases
                     </Link>
                   </li>
                   <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
