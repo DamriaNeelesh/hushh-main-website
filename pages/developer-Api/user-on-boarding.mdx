@@ -1,6 +1,6 @@
 # Onboarding
 
-### 0.1 Sign Up Through the Console
+### Sign Up Through the Console
 
 1. **Visit our developer console**.
 2. **Choose a sign-up method**: Google or Apple.
@@ -8,7 +8,7 @@
 
 ---
 
-### 0.2 Complete Your Profile
+### Complete Your Profile
 
 - **Enter developer or company details** in the console (e.g., organization name, website, usage goals).
 - **Save profile preferences** to simplify future requests for higher data limits or advanced features.
@@ -17,7 +17,7 @@
 
 ---
 
-### 0.3 Generate Your API Credentials
+### Generate Your API Credentials
 
 1. Navigate to the **"API Keys"** section in the console.
 2. Click **"Generate Key"** to receive a unique API key for your environment (test or live).
@@ -25,7 +25,7 @@
 
 ---
 
-### 0.4 Get a Session Token
+### Get a Session Token
 
 1. Exchange your API key and email for a session token by calling:
 
@@ -59,7 +59,7 @@ POST /sessiontoken?mail=developer@example.com&api_key=A1b2C3d4E5f6G7H8I9J0
 
 ---
 
-### 0.5 Validate & Refresh
+### Validate & Refresh
 
 - **Validate:** Check if your session token is active by calling:
 
@@ -87,7 +87,7 @@ POST /validatetoken?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-### 0.6 Request User Consent
+### Request User Consent
 
 1. Attempt to retrieve or insert user data.
 2. If access is denied, prompt the user for consent using:
@@ -102,7 +102,7 @@ POST /validatetoken?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-### 0.7 Data Retrieval & Insertion
+### Data Retrieval & Insertion
 
 - Use endpoints such as:
   - `POST /api/v1/get-receipt-data`
@@ -112,7 +112,7 @@ POST /validatetoken?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-### 0.8 Best Practices
+### Best Practices
 
 - **Secure Keys:** Keep API keys and tokens safe.
 - **Minimize Requests:** Respect user privacy by requesting only necessary data.
@@ -121,7 +121,7 @@ POST /validatetoken?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ---
 
-### 0.9 Going Live
+### Going Live
 
 1. **Test Mode vs. Live Mode:** Switch to live API key for production usage.
 2. **Monitor:** Track logs and metrics for optimization.
