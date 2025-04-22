@@ -12,6 +12,30 @@ body, input, button, textarea, select {
   font-family: 'Figtree', sans-serif;
 }
 
+/* Code block styling for syntax highlighting */
+pre {
+  background-color: #0d1117 !important;
+  color: #c9d1d9 !important;
+  border-radius: 12px;
+  overflow: auto;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+code {
+  font-family: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
+}
+
+pre code {
+  display: block;
+}
+
+.apple-code-block {
+  background-color: #0d1117;
+  border-radius: 12px;
+  margin: 2rem 0;
+  position: relative;
+}
 
 .mobile-header {
   display: flex;
@@ -222,11 +246,6 @@ body {
   }
 }
 
-pre {
-  overflow-x: auto; /* Allows horizontal scrolling within the code block */
-  white-space: pre-wrap; /* Wraps long lines */
-  word-wrap: break-word; /* Breaks long words */
-}
 /* Responsiveness */
 @media screen and (max-width: 768px) {
     .slideText {
