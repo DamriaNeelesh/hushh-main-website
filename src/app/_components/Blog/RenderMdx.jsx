@@ -87,7 +87,7 @@ const CustomCode = (props) => {
       <code
         {...props}
         style={{
-          backgroundColor: colorMode === 'light' ? '#f5f5f7' : '#1A1A1A',
+          backgroundColor: 'black',
           padding: '0.2rem 0.4rem',
           borderRadius: '4px',
           fontSize: '0.9em',

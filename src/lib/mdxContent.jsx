@@ -127,7 +127,7 @@ const MDXContent = ({ source }) => {
           }
           
           .mdx-content .prose pre {
-            background: ${codeBgColor};
+            background: black;
             padding: 1rem;
             border-radius: 0.5rem;
             overflow-x: auto;
@@ -138,7 +138,7 @@ const MDXContent = ({ source }) => {
           }
           
           .mdx-content .prose code {
-            background: ${codeBgColor};
+            background: black;
             padding: 0.2rem 0.4rem;
             border-radius: 0.25rem;
             font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
@@ -160,7 +160,7 @@ const MDXContent = ({ source }) => {
           }
           
           .mdx-content .prose th {
-            background: ${codeBgColor};
+            background: black;
             font-weight: 600;
           }
           
