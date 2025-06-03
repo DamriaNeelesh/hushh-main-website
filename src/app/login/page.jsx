@@ -65,6 +65,10 @@ const MobileLoginView = () => {
   const handlePhoneLogin = () => {
     router.push('/login/phone-verification');
   };
+
+  const handleSignIn = () => {
+    router.push('/login/signIn');
+  };
   
   return (
     <Box position="relative" minH="100vh" width="100%">
@@ -152,6 +156,24 @@ const MobileLoginView = () => {
         
         {/* Bottom buttons & legal */}
         <Box px={4}>
+          {/* Sign In Button */}
+          <Button
+            bg="transparent" 
+            color="white"
+            borderRadius="full"
+            size="lg"
+            width="100%"
+            height="60px"
+            border="2px solid white"
+            _hover={{ bg: "rgba(255,255,255,0.1)" }}
+            fontSize="lg"
+            mb={4}
+            onClick={handleSignIn}
+          >
+            Sign In
+          </Button>
+          
+          {/* Join Experience Button */}
           <Link href="/signup">
             <Button 
               rightIcon={<FaArrowRight />}
@@ -187,6 +209,10 @@ const MobileConnectView = () => {
   
   const handlePhoneLogin = () => {
     router.push('/login/phone-verification');
+  };
+
+  const handleSignIn = () => {
+    router.push('/login/signIn');
   };
   
   return (
@@ -295,6 +321,39 @@ const MobileConnectView = () => {
               </Button>
             </VStack>
           </motion.div>
+
+          {/* Actions */}
+          <VStack spacing={4} mt={8}>
+            {/* Sign In Button */}
+            <Button
+              bg="transparent" 
+              color="black"
+              borderRadius="full"
+              size="lg"
+              width="100%"
+              height="60px"
+              border="2px solid black"
+              _hover={{ bg: "rgba(0,0,0,0.05)" }}
+              fontSize="lg"
+              onClick={handleSignIn}
+            >
+              Sign In
+            </Button>
+            
+            <Button
+              colorScheme="black"
+              bg="black"
+              color="white"
+              size="lg"
+              width="100%"
+              height="60px"
+              borderRadius="full"
+              _hover={{ bg: "gray.800" }}
+              onClick={handlePhoneLogin}
+            >
+              Join Now
+            </Button>
+          </VStack>
         </Box>
         
         {/* Legal text */}
@@ -316,6 +375,10 @@ const DesktopLoginView = ({ isTablet }) => {
   
   const handlePhoneLogin = () => {
     router.push('/login/phone-verification');
+  };
+  
+  const handleSignIn = () => {
+    router.push('/login/signIn');
   };
   
   return (
@@ -451,25 +514,32 @@ const DesktopLoginView = ({ isTablet }) => {
                 justifyContent="flex-start"
                 px={6}
               >
-                Continue with Apple ID
+                Continue with Apple
               </Button>
 
-              <Box mt={12} textAlign="center">
-                <Link href="/signup">
-                  <Button 
-                    rightIcon={<FaArrowRight />}
-                    bg="black" 
-                    color="white"
-                    borderRadius="15px"
-                    size="lg"
-                    width="240px"
-                    height="60px"
-                    _hover={{ bg: "gray.800" }}
-                    fontSize="lg"
-                  >
-                    Join the Experience
-                  </Button>
-                </Link>
+              <Button
+                rightIcon={<FaArrowRight />}
+                width="auto"
+                height="50px"
+                bg="transparent"
+                color="black"
+                border="2px solid black"
+                _hover={{ bg: "gray.50" }}
+                borderRadius="full"
+                fontSize="md"
+                fontWeight="500"
+                px={8}
+                mt={4}
+                mx="auto"
+                onClick={handleSignIn}
+              >
+                Sign In
+              </Button>
+              
+              <Box textAlign="center" fontSize="xs" color="gray.500" mt={8}>
+                <Text>
+                  By entering information, I agree to Hushh's <Text as="span" color="red.500">Terms of Service</Text>, <Text as="span" color="red.500">Non-discrimination Policy</Text> and <Text as="span" color="red.500">Payments Terms of Service</Text> and acknowledge the <Text as="span" color="red.500">Privacy Policy</Text>.
+                </Text>
               </Box>
             </Flex>
           </motion.div>
