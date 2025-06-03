@@ -48,7 +48,7 @@ export default function Header({backgroundColor}) {
   const overlayRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentQRLink, setCurrentQRLink] = useState("");
-  const noHeaderPaths = ['/vivaConnect', '/viva-connect', '/viva-connect/qrPage', '/qrCodePage'];
+  const noHeaderPaths = ['/vivaConnect', '/viva-connect','/login','/signup', '/viva-connect/qrPage', '/qrCodePage'];
   const isCareerPage = pathname === '/career';
   const shouldShowHeader = !noHeaderPaths.includes(pathname);
   const notify = () => toast("This Product is Coming Soon!");
