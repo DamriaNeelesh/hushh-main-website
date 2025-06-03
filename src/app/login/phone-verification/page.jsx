@@ -95,7 +95,7 @@ const PhoneVerificationPage = () => {
               lineHeight="1.2"
               mb={1}
             >
-              Phone Verification
+              Log in to your Account
             </Text>
             <Text fontSize="sm" color="gray.600">
               Please verify yourself
