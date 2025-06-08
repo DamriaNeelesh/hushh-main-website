@@ -180,6 +180,28 @@ export default function RootLayout({ children }) {
             <Providers>{children}</Providers>
           </div>
         </ResponsiveSizeProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Hushh",
+              "url": "https://www.hushh.ai",
+              "logo": "https://www.hushh.ai/Images/Logo/Logo.png",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+1-425-296-9050",
+                "contactType": "Customer Service",
+                "areaServed": "US",
+                "email": "info@hush1one.com"
+              },
+              "sameAs": [
+                "https://www.linkedin.com/company/hushh-ai/"
+              ]
+            })
+          }}
+        />
       </body>
     </html>
   );

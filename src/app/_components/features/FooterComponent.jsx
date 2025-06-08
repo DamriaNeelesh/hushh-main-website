@@ -77,16 +77,17 @@ const FooterComponent = () => {
                   Our Products
                 </p>
                 <div className="flex flex-col text-lg gap-5 leading-5">
-                  <Link href="/products/hushhWalletApp">Hushh Wallet App</Link>
-                  <Link href="/products/hushhButton">Hushh Button</Link>
-                  <Link href="/products/vibeSearch">Vibe Search</Link>
-                  <Link href="/products/browserCompanion">
-                    Browser Companion
-                  </Link>
-                  <Link href="/developerApi">Developer API</Link>
+                  {/* <Link href="/products/hushhWalletApp">Hushh Wallet App</Link> */}
+                  {/* <Link href="/products/hushhButton">Hushh Button</Link> */}
+                  {/* <Link href="/products/vibeSearch">Vibe Search</Link> */}
+                  {/* <Link href="/products/browserCompanion">Browser Companion</Link> */}
+                  {/* <Link href="/developerApi">Developer API</Link> */}
                   {/* <Link href="/products/conciergeApp">Concierge App​</Link> */}
                   {/* <Link href="/products/hushhValetChat">Valet Chat</Link> */}
-                  <Link href="/products/hushhForStudents">HFS App</Link>
+                  {/* <Link href="/products/hushhForStudents">HFS App</Link> */}
+                  <Text color="gray.500">Hushh Wallet App (Coming Soon)</Text>
+                  <Text color="gray.500">Hushh Button (Coming Soon)</Text>
+                  <Text color="gray.500">More products launching soon...</Text>
                 </div>
               </div>
               <div className="flex flex-col gap-4">
@@ -173,18 +174,17 @@ const FooterComponent = () => {
                     Our Products
                   </p>
                   <div className="flex flex-col text-base gap-2 leading-5">
-                    <Link href="/products/hushhWalletApp">
-                      Hushh Wallet App
-                    </Link>
-                    <Link href="/products/hushhButton">Hushh Button</Link>
-                    <Link href="/products/vibeSearch">Vibe Search</Link>
-                    <Link href="/products/browserCompanion">
-                      Browser Companion
-                    </Link>
-                    <Link href="/developerApi">Developer API</Link>
+                    {/* <Link href="/products/hushhWalletApp">Hushh Wallet App</Link> */}
+                    {/* <Link href="/products/hushhButton">Hushh Button</Link> */}
+                    {/* <Link href="/products/vibeSearch">Vibe Search</Link> */}
+                    {/* <Link href="/products/browserCompanion">Browser Companion</Link> */}
+                    {/* <Link href="/developerApi">Developer API</Link> */}
                     {/* <Link href="/products/conciergeApp">Concierge App​</Link> */}
                     {/* <Link href="/products/hushhValetChat">Valet Chat</Link> */}
-                    <Link href="/products/hushhForStudents">HFS App</Link>
+                    {/* <Link href="/products/hushhForStudents">HFS App</Link> */}
+                    <Text color="gray.500">Hushh Wallet App (Coming Soon)</Text>
+                    <Text color="gray.500">Hushh Button (Coming Soon)</Text>
+                    <Text color="gray.500">More products launching soon...</Text>
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col gap-3">
@@ -244,7 +244,7 @@ const FooterComponent = () => {
               {/* <Link href='#'>Cookies</Link> */}
             </div>
             <div className=" w-full">
-              <p>© 2023 Hush1One Inc. All rights reserved.</p>
+              <p>© 2024 HushOne Inc. All rights reserved.</p>
               <p>Duns # 119019629</p>
             </div>
           </div>  
