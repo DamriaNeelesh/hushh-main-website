@@ -30,9 +30,9 @@ const theme = {
     },
   },
   fonts: {
-    body: "Figtree",
-    heading: "Figtree", // Heading font
-    text: "Figtree",
+    body: "var(--font-figtree), sans-serif",
+    heading: "var(--font-figtree), sans-serif", // Heading font
+    text: "var(--font-figtree), sans-serif",
   },
   styles: {
     global: {

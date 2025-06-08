@@ -97,7 +97,7 @@ const FooterComponent = () => {
                 <div className="flex flex-col text-lg gap-5 leading-5">
                   <Link href="/demoBookingPage">Free Demo</Link>
                   {/* <Link href="/pricingPlans">Pricing</Link> */}
-                  <Link href="https://hushh-labs.github.io/hushh-labs-blog/">
+                  <Link href="/hushhBlogs"> {/* Updated Blog Link */}
                     Blog
                   </Link>
                   <Link href="https://www.linkedin.com/company/hushh-ai/jobs/">
@@ -194,7 +194,7 @@ const FooterComponent = () => {
                   <div className="flex flex-col text-base gap-2 leading-5">
                     <Link href="/demoBookingPage">Free Demo</Link>
 
-                    <Link href="https://hushh-labs.github.io/hushh-labs-blog/">
+                    <Link href="/hushhBlogs"> {/* Updated Blog Link */}
                       Blog
                     </Link>
                     <Link href="https://www.linkedin.com/company/hushh-ai/jobs/">

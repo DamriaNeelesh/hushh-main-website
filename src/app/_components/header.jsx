@@ -305,38 +305,38 @@ export default function Header({backgroundColor}) {
                     <div className="flex gap-2 z-1000">
                       <div className="flex-1 flex flex-col gap-2">
                         <Link
-                          href={"/products/hushh-wallet-app"}
-                          onClick={() => setProductsSubmenu(false)}
+                          href={"#"} // Updated href
+                          onClick={(e) => { e.preventDefault(); setProductsSubmenu(false); notify(); }}
                           className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
                         >
                           <div className="">
                             <HushhWalletIcon className="w-6 h-6" />
                           </div>
                           <div className="">
-                            <h1 className="font-semibold">Hushh Wallet App</h1>
+                            <h1 className="font-semibold">Hushh Wallet App (Coming Soon)</h1> {/* Updated text */}
                             <p className="text-sm font-medium text-fontColor3">
                               Your personal data vault. Organize, control,<br/> and monetize your information
                             </p>
                           </div>
                         </Link>
                         <Link
-                          href={"/products/hushh-button"}
-                          onClick={() => setProductsSubmenu(false)}
+                          href={"#"} // Updated href
+                          onClick={(e) => { e.preventDefault(); setProductsSubmenu(false); notify(); }}
                           className="flex gap-4 items-start hover:text-white hover:bg-black  px-5 py-2.5 rounded-xl"
                         >
                           <div className="">
                             <HushhButtonIcon size={24} />
                           </div>
                           <div className="">
-                            <h1 className="font-semibold">Hushh Button</h1>
+                            <h1 className="font-semibold">Hushh Button (Coming Soon)</h1> {/* Updated text */}
                             <p className="text-sm font-medium text-fontColor3">
                               Seamlessly share your preferences with  <br /> brands for personalized experiences
                             </p>
                           </div>
                         </Link>
                         <Link
-                          href={"/products/browser-companion"}
-                          onClick={() => setProductsSubmenu(false)}
+                          href={"#"} // Updated href
+                          onClick={(e) => { e.preventDefault(); setProductsSubmenu(false); notify(); }}
                           className="flex gap-4 hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
                         >
                           <div className="">
@@ -344,7 +344,7 @@ export default function Header({backgroundColor}) {
                           </div>
                           <div className="">
                             <h1 className="font-semibold">
-                              Hushh Browser Companion
+                              Hushh Browser Companion (Coming Soon) {/* Updated text */}
                             </h1>
                             <p className="text-sm font-medium text-fontColor3">
                               Track and manage your online browsing data <br/>, building a complete digital profile
@@ -355,30 +355,30 @@ export default function Header({backgroundColor}) {
 
                       <div className="flex-1 flex flex-col gap-2 w-full">
                         <Link
-                          href={"/products/hushh-vibe-search"}
-                          onClick={() => setProductsSubmenu(false)}
+                          href={"#"} // Updated href
+                          onClick={(e) => { e.preventDefault(); setProductsSubmenu(false); notify(); }}
                           className="flex gap-4 hover:text-white hover:bg-black px-0 py-2.5 rounded-xl"
                         >
                           <div className="">
                             <VibeSearchIcon className="w-6 h-6" />
                           </div>
                           <div className="">
-                            <h1 className="font-semibold">VIBE Search App</h1>
+                            <h1 className="font-semibold">VIBE Search App (Coming Soon)</h1> {/* Updated text */}
                             <p className="text-sm font-medium text-fontColor3">
                               Discover products you love with image-based search and AI recommendations
                             </p>
                           </div>
                         </Link>
                         <Link
-                          href={"/developerApi"}
-                          onClick={() => setProductsSubmenu(false)}
+                          href={"#"} // Updated href
+                          onClick={(e) => { e.preventDefault(); setProductsSubmenu(false); notify(); }}
                           className="flex gap-4 hover:text-white hover:bg-black px-0 py-2.5 rounded-xl"
                         >
                           <div className="">
                             <VibeSearchApi className="w-6 h-6" />
                           </div>
                           <div className="">
-                            <h1 className="font-semibold">Developer API</h1>
+                            <h1 className="font-semibold">Developer API (Coming Soon)</h1> {/* Updated text */}
                             <p className="text-sm font-medium text-fontColor3">
                               Tools for businesses to integrate <br/> Hushh data into their applications
                             </p>
@@ -386,15 +386,15 @@ export default function Header({backgroundColor}) {
                         </Link>
                     
                         <Link
-                          href={"/products/hushh-for-students"}
-                          onClick={() => setProductsSubmenu(false)}
+                          href={"#"} // Updated href
+                          onClick={(e) => { e.preventDefault(); setProductsSubmenu(false); notify(); }}
                           className="flex gap-4 hover:text-white hover:bg-black px-0 py-2.5 rounded-xl"
                         >
                           <div className="">
                             <ValetChat className="w-6 h-6" />
                           </div>
                           <div className="">
-                            <h1 className="font-semibold">Hushh For Students</h1>
+                            <h1 className="font-semibold">Hushh For Students (Coming Soon)</h1> {/* Updated text */}
                             <p className="text-sm font-medium text-fontColor3">
                               Rewards & empowers students with data  <br /> control (safe & secure) 
                             </p>
@@ -460,50 +460,50 @@ export default function Header({backgroundColor}) {
                     {productsSubmenuMobile && (
                       <ul style={{listStyle:'none'}} className="mt-2 space-y-3 bg-black pl-6 text-base text-white">
                         <li>
-                          <Link style={{fontWeight:'500'}} onClick={() => setIsMenuOpen(false)} href="/products/hushh-wallet-app" className="block">
+                          <Link style={{fontWeight:'500'}} onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); notify(); }} href="#" className="block"> {/* Updated href & onClick */}
                             <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                               <HushhWalletIcon className="w-6 h-6" />
-                              Hushh Wallet App
+                              Hushh Wallet App (Coming Soon) {/* Updated text */}
                             </span>
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/browser-companion" className="block text-white ">
+                          <Link style={{fontWeight:'500'}}  onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); notify(); }} href="#" className="block text-white "> {/* Updated href & onClick */}
                             <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                               <ChromeExtentionLogo className="w-6 h-6"/>
-                              Browser Companion
+                              Browser Companion (Coming Soon) {/* Updated text */}
                             </span>
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/vibe-search" className="block text-white">
+                          <Link style={{fontWeight:'500'}}  onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); notify(); }} href="#" className="block text-white"> {/* Updated href & onClick */}
                             <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                               <VibeSearchIcon className="w-6 h-6"/>
-                              Vibe Search
+                              Vibe Search (Coming Soon) {/* Updated text */}
                             </span>
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/hushh-button" className="block text-white">
+                          <Link style={{fontWeight:'500'}}  onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); notify(); }} href="#" className="block text-white"> {/* Updated href & onClick */}
                             <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                               <HushhButtonIcon size={24} />
-                              Hushh Button
+                              Hushh Button (Coming Soon) {/* Updated text */}
                             </span> 
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/developerApi" className="block text-white">
+                          <Link style={{fontWeight:'500'}}  onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); notify(); }} href="#" className="block text-white"> {/* Updated href & onClick */}
                             <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                               <VibeSearchApi className="w-6 h-6" />
-                              Developer API
+                              Developer API (Coming Soon) {/* Updated text */}
                             </span>
                           </Link>
                         </li>
                         <li>
-                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/hushh-for-students" className="block text-white">
+                          <Link style={{fontWeight:'500'}}  onClick={(e) => { e.preventDefault(); setIsMenuOpen(false); notify(); }} href="#" className="block text-white"> {/* Updated href & onClick */}
                             <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                               <headerAssets.VibeSearchMarketplace className="w-6 h-6" />
-                              Hushh For Students
+                              Hushh For Students (Coming Soon) {/* Updated text */}
                             </span>
                           </Link>
                         </li>
