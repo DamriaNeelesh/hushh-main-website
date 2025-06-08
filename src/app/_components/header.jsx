@@ -189,7 +189,8 @@ export default function Header({backgroundColor}) {
         <div
           className="w-full z-1000 transition-all duration-300"
           style={{
-            background: isJobDetailPage ? "black" : headerBackground,
+            background: isJobDetailPage ? "black" : 
+                       (!isDesktop || isTabletOrMobile || isMobile || isMobileScreen) ? "transparent" : headerBackground,
             position: "fixed",
             top: 0,
             width: "100%",
@@ -221,7 +222,8 @@ export default function Header({backgroundColor}) {
                   }}
                 >
                   {isMenuOpen ? (
-                    <CloseMenuIcon color="white" />
+                    // <CloseMenuIcon color="white" />
+                    <></>
                   ) : (
                     <svg
                       fill="none"
