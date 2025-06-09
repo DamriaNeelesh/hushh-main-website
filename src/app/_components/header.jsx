@@ -205,24 +205,22 @@ export default function Header({backgroundColor}) {
             
             {(!isDesktop || isTabletOrMobile || isMobile || isMobileScreen) ? (
               <div className="flex items-center justify-end w-full mobile-header py-2">
-                <div
-                  className="text-white hamburger-icon-container cursor-pointer"
-                  onClick={handleMenuIconToggle}
-                  style={{
-                    marginLeft: "auto",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-end",
-                    zIndex: 2000,
-                    padding: "8px",
-                    background: "rgba(0, 0, 0, 0.6)",
-                    borderRadius: "6px",
-                    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
-                  }}
-                >
-                  {isMenuOpen ? (
-                    <CloseMenuIcon color="white" />
-                  ) : (
+                {!isMenuOpen && (
+                  <div
+                    className="text-white hamburger-icon-container cursor-pointer"
+                    onClick={handleMenuIconToggle}
+                    style={{
+                      marginLeft: "auto",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "flex-end",
+                      zIndex: 2000,
+                      padding: "8px",
+                      background: "rgba(0, 0, 0, 0.6)",
+                      borderRadius: "6px",
+                      boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
+                    }}
+                  >
                     <svg
                       fill="none"
                       strokeWidth={2.5}
@@ -242,8 +240,8 @@ export default function Header({backgroundColor}) {
                         d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                       />
                     </svg>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             ) : (
               // This is for desktop screens
