@@ -285,6 +285,13 @@ export default function Header({backgroundColor}) {
                     CONTACT US
                   </Link>
                   <Link
+                    href="/solutions"
+                    onMouseEnter={() => setProductsSubmenu(false)}
+                    className={`link ${pathname === '/solutions' ? 'gradient-text' : ''}`}
+                  >
+                    SOLUTIONS
+                  </Link>
+                  <Link
                     href="/hushh-press"
                     onMouseEnter={() => setProductsSubmenu(false)}
                     className={`link ${pathname === '/hushh-press' ? 'gradient-text' : ''}`}
@@ -413,14 +420,18 @@ export default function Header({backgroundColor}) {
             <div 
               style={{
                 zIndex: 1000,
-                position: 'absolute',
-                width: '100%'
+                position: 'fixed',
+                width: '100%',
+                height: '100vh',
+                top: 0,
+                left: 0,
+                overflowY: 'auto'
               }} 
-              className="top-0 bg-black overflow-hidden flex flex-col justify-between min-h-screen min-w-screen" 
+              className="bg-black flex flex-col justify-between" 
               ref={menuRef}
             >
               {/* Header */}
-              <div className="px-6 mt-4 flex items-center justify-between">
+              <div className="px-6 pt-4 pb-2 flex items-center justify-between sticky top-0 bg-black z-10">
                 <div className="flex-1">
                   <HushhHeaderLogo />
                 </div>
@@ -436,8 +447,8 @@ export default function Header({backgroundColor}) {
               </div>
 
               {/* Menu Items */}
-              <div className="flex-1 bg-black mt-4 overflow-y-auto">
-                <ul style={{listStyle:'none'}} className="flex mt-6 flex-col px-6 space-y-4 bg-black">
+              <div className="flex-1 bg-black overflow-visible">
+                <ul style={{listStyle:'none'}} className="flex flex-col px-6 space-y-4 bg-black py-4">
                   <li>
                     <Link href="/about" onClick={() => setIsMenuOpen(false)} style={{fontWeight:'700'}} className="text-lg text-white">
                       About Us
@@ -511,7 +522,12 @@ export default function Header({backgroundColor}) {
                     )}
                   </li>
                   <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
-
+                  <li>
+                    <Link style={{fontWeight:'700'}}  onClick={() => setIsMenuOpen(false)} href="/solutions" className="text-lg text-white">
+                      Solutions
+                    </Link>
+                  </li>
+                  <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
                   <li>
                     <Link style={{fontWeight:'700'}}  onClick={() => setIsMenuOpen(false)} href="/contact-us" className="text-lg text-white">
                       Contact Us
@@ -540,7 +556,7 @@ export default function Header({backgroundColor}) {
               </div>
           
               {/* Download Button */}
-              <div className="px-6 pb-6 border-t border-gray-800 pt-4">
+              <div className="px-6 pb-6 border-t border-gray-800 pt-4 sticky bottom-0 bg-black">
                 <button 
                   onClick={handleDownloadClick} 
                   style={{background:'linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)'}} 
