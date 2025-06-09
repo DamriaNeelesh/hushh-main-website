@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: "Figtree" !important;
+  /* font-family: "Figtree" !important; */ /* Removed !important rule, relying on the more specific rule below and CSS variable from layout */
   padding: 0 !important;
   width: 100% !important;
 }
@@ -482,7 +482,7 @@ body {
 }
 /* Develoepr API dovumentation CSS */
 .onBoarding {
-  font-family: "Inter" !important;
+  font-family: var(--font-figtree), sans-serif !important; /* Changed to Figtree, kept !important if specific override needed */
 }
 
 .documentTab {

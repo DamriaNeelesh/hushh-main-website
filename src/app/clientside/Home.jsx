@@ -49,7 +49,6 @@ import ReviewSlider from "../_components/features/reviewSlider";
 import HfsLogo from "../_components/svg/hfsLogo";
 import HomeBg from "../_components/svg/homeBG.svg";
 import Image from "next/image";
-import Head from "next/head";
 import HomeBanner from "../_components/svg/homepageBanner.svg";
 import PinkShadow from "../_components/svg/pinkShadow1.svg";
 import CircleHomeBg from "../_components/svg/circleHomeBg.svg";
@@ -135,25 +134,7 @@ const ClientHome = () => {
 
   return (
     <>
-      <Head>
-        <title>Hushh - Home</title>
-        <meta name="title" content="HUSHH - Home" />
-        <meta
-          name="description"
-          content="Intelligence as a service powered by your Data"
-        />
-        <meta
-          name="keywords"
-          content="Data API Business, Data Autonomy, Data Equity, Consent-Driven Excellence, Technology For Everyone, Hushh Wallet App, Hushh Button, Vibe Search, Browser Companion, Concierge App, Valet Chat, Vibe Search API, Hushh For Students, Brand Wallet, Receipt Radar, Future of Digital Identity & Personalised Experiences, Gen AI, GenAI "
-        />
-         <meta property="og:title" content="Hushh - user data API businesses" />
-        <meta
-          property="og:description"
-          content="Integrated Wallet & Data Control"
-        />
-        <meta property="og:url" content="https://hushh.ai" />
-        <link rel="canonical" href="https://hushh.ai" key="canonical"/>
-      </Head>
+      {/* <Head> tag removed to consolidate metadata in src/app/page.jsx </Head> */}
       <DownloadModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -190,32 +171,11 @@ const ClientHome = () => {
                     className="text-headText"
                     as={'h1'}
                   >
-                    <div
-                      className="wrapper"
-                      style={{ background: "transparent !important" }}
-                    >
-                      <div className="words">
-                        <span className="slideText bg-gradient-to-r from-purple-600 to-red-600 text-transparent bg-clip-text">
-                          Enable Customers
-                        </span>
-                        <span className="slideText bg-gradient-to-r from-purple-600 to-red-600 text-transparent bg-clip-text">
-                          Enrich Data
-                        </span>
-                        <span className="slideText bg-gradient-to-r from-purple-600 to-red-600 text-transparent bg-clip-text">
-                          Enhance Business
-                        </span>
-                        <span className="slideText bg-gradient-to-r from-purple-600 to-red-600 text-transparent bg-clip-text">
-                          Enable Customers
-                        </span>
-                        <span className="slideText bg-gradient-to-r from-purple-600 to-red-600 text-transparent bg-clip-text">
-                          Enrich Data
-                        </span>
-                        <span className="slideText bg-gradient-to-r from-purple-600 to-red-600 text-transparent bg-clip-text">
-                          Enhance Business
-                        </span>
-                      </div>
-                    </div>
+                    User-Controlled Data, AI Personalization & True Data Privacy
                   </Heading>
+                  <Text as="h2" fontSize={{ md: "2xl", base: "xl" }} fontWeight="normal" className="mt-2 bg-gradient-to-r from-purple-600 to-red-600 text-transparent bg-clip-text">
+                    Enable Customers. Enrich Data. Enhance Business.
+                  </Text>
                 </HStack>
 
                 <Text
@@ -224,8 +184,8 @@ const ClientHome = () => {
   fontSize={{ md: "1.15rem", base: "1rem" }}
   style={{ fontDisplay: 'swap' }} // Ensure text is displayed quickly
                 >
-                  Revolutionize customer insights, Personalize commerce, Build
-                  deeper connections with your customers consent and control.
+                  Revolutionize customer insights and <strong>AI-powered personalization</strong> in commerce. Build
+                  deeper connections by giving your customers <strong>granular user consent</strong> and <strong>user-controlled data</strong>.
                 </Text>
                 <Box
                   mt={{ md: "2rem", base: "1rem" }}
@@ -327,11 +287,11 @@ const ClientHome = () => {
                 letterSpacing={"0.25rem"}
                 fontSize={{md:"1rem",base:'0.75rem'}}
                 mb={{ md: "1.25rem",base:'0' }}
-                // as={"h1"}
               >
                 BRANDS WE WANT TO WORK WITH
               </Text>
-              <Text
+              <Heading
+                as="h2" // Changed from Text to Heading
                 align={"center"}
                 lineHeight={{ md: "63.3px", base: "2rem" }}
                 pl={{ md: "12rem", base: "2rem" }}
@@ -373,7 +333,7 @@ const ClientHome = () => {
               >
                 <Image
                   src={LouisVuitton}
-                  alt="Louis Vuitton"
+                  alt="Luxury brand Louis Vuitton - showcasing Hushh integration for enhanced customer data privacy."
                   width={350.62}
                   height={363.19}
                   style={{
@@ -391,7 +351,7 @@ const ClientHome = () => {
                     // zIndex: "2",
                   }}
                   src={SephoraCard}
-                  alt="Sephora Card"
+                  alt="Sephora loyalty card, illustrating data control features with Hushh for beauty consumers."
                   width={420.62}
                   height={363.19}
                 />
@@ -404,7 +364,7 @@ const ClientHome = () => {
                     rotate: "10.02",
                   }}
                   src={FendiCard}
-                  alt="Fendi Card"
+                  alt="Fendi card, highlighting AI-powered personalization and ethical data use for luxury fashion brands via Hushh."
                   width={570.62}
                   height={363.19}
                 />
@@ -416,16 +376,18 @@ const ClientHome = () => {
                 textAlign={{ md: "left", base: "center" }}
                 flex="1"
               >
-                <Text
+                <Heading // Changed from Text to Heading
+                  as="h2"
                   className="color-gradient"
                   fontWeight={600}
                   letterSpacing={"0.25rem"}
                   fontSize={{md:"1rem",base:'0.75rem'}}
                 >
                   OUR ADVANTAGES
-                </Text>
+                </Heading>
 
-                <Text
+                <Heading // Changed from Text to Heading
+                  as="h2"
                   className="gradient"
                   lineHeight={"63px"}
                   fontWeight={"400"}
@@ -434,7 +396,7 @@ const ClientHome = () => {
                   fontSize={{ md: "3.75rem", base: "2rem" }}
                 >
                   Why Us?
-                </Text>
+                </Heading>
                 <Text
                   px={{ base: "1rem", md: "0" }}
                   alignItems={{ base: "center" }}
@@ -443,9 +405,8 @@ const ClientHome = () => {
                   fontSize={{md:'',base:'1rem'}}
                   color={extendedTheme.colors.secondary}
                 >
-                  Empower individuals with data control. Today, we're a
-                  cutting-edge platform fostering trust, transparency, and
-                  personalized experiences.
+                  Empower individuals with <strong>user-controlled data</strong>. Today, we're a
+                  cutting-edge platform fostering trust, transparency, and <strong>AI-powered personalization</strong> experiences.
               </Text>
 
                 <Box
@@ -464,14 +425,15 @@ const ClientHome = () => {
                   >
                     <HStack gap={{ md: "2rem" }}>
                       <ShieldIcon />
-                      <Text
+                      <Heading // Changed from Text to Heading
+                        as="h3"
                         fontWeight={"500"}
                         fontSize={{ base: "1rem", md: "1.25rem" }}
                         ml={{ base: "0.5rem" }}
                         color={extendedTheme.colors.secondary}
                       >
                         Data <br></br> Autonomy
-                      </Text>
+                      </Heading>
                     </HStack>
                     <Divider
                       mt={"1rem"}
@@ -485,8 +447,8 @@ const ClientHome = () => {
                       mt={{ md: "1.25rem", base: "0.75rem" }}
                       color={extendedTheme.colors.secondary}
                     >
-                      Empower your customers with full control over their
-                      personal data
+                      Empower your customers with full <strong>data autonomy</strong> and control over their
+                      personal data, a cornerstone of <strong>data privacy</strong> and <strong>privacy-preserving technology</strong>.
                     </Text>
                   </VStack>
 
@@ -498,14 +460,15 @@ const ClientHome = () => {
                   >
                     <HStack gap={{ md: "2rem" }}>
                       <KeyIcon />
-                      <Text
+                      <Heading // Changed from Text to Heading
+                        as="h3"
                         fontWeight={"500"}
                         fontSize={{ base: "1rem", md: "1.25rem" }}
                         ml={{ base: "0.5rem" }}
                         color={extendedTheme.colors.secondary}
                       >
                         Data <br></br> Equity
-                      </Text>
+                      </Heading>
                     </HStack>
                     <Divider
                       mt={"1rem"}
@@ -519,8 +482,7 @@ const ClientHome = () => {
                       mt={{ md: "1.25rem", base: "0.75rem" }}
                       color={extendedTheme.colors.secondary}
                     >
-                      Creating a fair and equitable environment for data
-                      sharing.
+                      Creating a fair and equitable environment for <strong>ethical data sharing</strong> and potential <strong>data monetization</strong>.
                     </Text>
                   </VStack>
                 </Box>
@@ -534,13 +496,14 @@ const ClientHome = () => {
                 >
                   <HStack gap={"1rem"}>
                     <LockIcon />
-                    <Text
+                    <Heading // Changed from Text to Heading
+                      as="h3"
                       fontWeight={"500"}
                       fontSize={{ base: "1rem", md: "1.25rem" }}
                       color={extendedTheme.colors.secondary}
                     >
                       Consent-Driven <br></br> Excellence
-                    </Text>
+                    </Heading>
                   </HStack>
                   <Divider
                     mt={"1rem"}
@@ -554,7 +517,7 @@ const ClientHome = () => {
                     fontSize={{ base: "0.75rem", md: "1rem" }}
                     color={extendedTheme.colors.secondary}
                   >
-                    Creating a fair and equitable environment for data sharing.
+                    Prioritizing <strong>granular user consent</strong> to create a fair and equitable environment for data sharing.
                   </Text>
                 </VStack>
               </VStack>

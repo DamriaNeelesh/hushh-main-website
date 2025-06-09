@@ -4,32 +4,30 @@ import { siteMetadata } from '../sitemetadata'
 
 // This is a server component that can export metadata
 export const metadata = {
-  title: "Contact Hushh | Connect with Our Data Privacy Experts",
-  description:
-    "Reach out to Hushh for inquiries about our data privacy and monetization solutions. Connect with our team to learn how we can help you take control of your data.",
-  keywords: [
-    "contact Hushh", "Hushh support", "data privacy inquiries", "data monetization questions", "user-controlled data help", "privacy-preserving technology support", "ethical data practices contact", "Hushh AI contact", "data marketplace inquiries", "human-AI interaction support", "Kirkland WA tech company"
+  title: "Contact Hushh.ai | Get in Touch About Data Privacy Solutions", // Updated
+  description: "Reach out to Hushh.ai for inquiries about our user-controlled data platforms, AI-powered personalization tools, or data privacy initiatives.", // Updated
+  keywords: [ // Optional: Refined keywords
+    "contact Hushh.ai", "Hushh support", "data privacy solutions", "user data platforms", "AI personalization tools", "user-controlled data", "ethical AI"
   ],
-  canonical: "https://hushh.ai/contact-us",
+  canonical: "https://www.hushh.ai/contact-us", // Ensured www
   alternates: {
-    canonical: "https://hushh.ai/contact-us",
+    canonical: "https://www.hushh.ai/contact-us", // Ensured www
     languages: {
-      'en-US': 'https://hushh.ai/contact-us',
+      'en-US': 'https://www.hushh.ai/contact-us', // Ensured www
     },
   },
   openGraph: {
-    title: "Contact Hushh | Connect with Our Data Privacy Experts",
-    description:
-      "Reach out to Hushh for inquiries about our data privacy and monetization solutions. Connect with our team to learn how we can help you take control of your data.",
-    url: "https://hushh.ai/contact-us",
+    title: "Contact Hushh.ai | Get in Touch About Data Privacy Solutions", // Updated
+    description: "Reach out to Hushh.ai for inquiries about our user-controlled data platforms, AI-powered personalization tools, or data privacy initiatives.", // Updated
+    url: "https://www.hushh.ai/contact-us", // Ensured www
     type: "website",
-    siteName: "Hushh AI",
+    siteName: "Hushh.ai", // Consistent site name
     images: [
       {
-        url: siteMetadata.socialBanner,
+        url: siteMetadata.socialBanner, // Assuming this is appropriate
         width: 1200,
         height: 630,
-        alt: "Contact Hushh - Connect with Our Team",
+        alt: "Contact Hushh.ai", // Updated alt
       },
     ],
     locale: "en_US",

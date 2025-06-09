@@ -3,20 +3,20 @@ import React from "react";
 import ClientHome from "./clientside/Home";
 
 export const metadata = {
-  title: "Hushh | 🤫 'Your' data, make it 'Your' business",
+  title: "Hushh: User-Controlled Data, AI Personalization & Privacy",
   description:
-    "Intelligence as a service powered by your Data, extract value from your own data",
+    "Regain control of your data with Hushh.ai. We enable ethical data monetization & AI-powered personalization, prioritizing your privacy. For users & brands.",
   keywords:
-    "Data API Business, Data Autonomy, Data Equity, Consent-Driven Excellence, Technology For Everyone, Hushh Wallet App, Hushh Button, Vibe Search, Browser Companion, Concierge App, Valet Chat, Vibe Search API, Hushh For Students, Brand Wallet, Receipt Radar, Future of Digital Identity & Personalised Experiences, Gen AI, GenAI ",
+    "user-controlled data, data privacy, AI personalization, ethical data monetization, data control, privacy-preserving technology, luxury consumers, data autonomy, granular user consent",
   canonical: "https://hushh.ai",
   alternates: {
     canonical: "https://hushh.ai",
   },
   openGraph: {
-  title: "Hushh | 🤫 'Your' data, make it 'Your' business",
-  description: "Intelligence as a service powered by your Data, extract value from your own data",
+  title: "Hushh: User-Controlled Data, AI Personalization & Privacy",
+  description: "Regain control of your data with Hushh.ai. We enable ethical data monetization & AI-powered personalization, prioritizing your privacy.",
   url: "https://hushh.ai",
-
+  // Assuming socialBanner metadata is handled in RootLayout, otherwise add relevant image here
     }, 
 };
 

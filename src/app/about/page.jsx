@@ -15,42 +15,40 @@ import ImageGrid from "../_components/features/dynamicImageGrid";
 import { siteMetadata } from "../sitemetadata";
 
 export const metadata = {
-  title: "About Hushh | Pioneering Data Empowerment & Privacy",
-  description:
-    "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
-  keywords:
-    "data privacy, data monetization, user-controlled data, privacy-preserving technology, decentralized data, ethical data practices, data sovereignty, Manish Sainani, Justin Donaldson, data empowerment, privacy-conscious consumers, luxury brands, AI-powered personalization, human-AI interaction, granular user consent",
-  canonical: "https://hushh.ai/about",
+  title: "About Hushh.ai | Our Mission for Data Privacy & User Empowerment", // Updated
+  description: "Learn about Hushh.ai's mission to revolutionize data privacy through user-controlled data, ethical AI, and innovative privacy-preserving technology.", // Updated
+  keywords: // Optional: Refined keywords
+    "about Hushh.ai, data privacy mission, user empowerment, user-controlled data, ethical AI, privacy-preserving technology, digital identity, Hushh vision",
+  canonical: "https://www.hushh.ai/about", // Ensured www
   alternates: {
-    canonical: "https://hushh.ai/about",
+    canonical: "https://www.hushh.ai/about", // Ensured www
     languages: {
-      'en-US': 'https://hushh.ai/about',
+      'en-US': 'https://www.hushh.ai/about', // Ensured www
     },
   },
   openGraph: {
-    title: "About Hushh | Pioneering Data Empowerment & Privacy",
-    description:
-      "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
-    url: "https://hushh.ai/about",
+    title: "About Hushh.ai | Our Mission for Data Privacy & User Empowerment", // Updated
+    description: "Learn about Hushh.ai's mission to revolutionize data privacy through user-controlled data, ethical AI, and innovative privacy-preserving technology.", // Updated
+    url: "https://www.hushh.ai/about", // Ensured www
     type: "website",
-    siteName: "Hushh AI",
+    siteName: "Hushh.ai", // Consistent site name
     images: [
       {
-        url: siteMetadata.socialBanner,
+        url: siteMetadata.socialBanner, // Assuming this is appropriate
         width: 1200,
         height: 630,
-        alt: "About Hushh - Data Empowerment & Privacy",
+        alt: "About Hushh.ai - Our Mission", // Updated alt
       },
     ],
     locale: "en_US",
   },
-  twitter: {
+  twitter: { // Kept twitter card, updated content
     card: "summary_large_image",
-    title: "About Hushh | Pioneering Data Empowerment & Privacy",
-    description: "Discover Hushh's mission to empower individuals through data control and privacy.",
-    images: [siteMetadata.socialBanner],
-    creator: "@hushh_ai",
-    site: "@hushh_ai",
+    title: "About Hushh.ai | Our Mission for Data Privacy & User Empowerment",
+    description: "Learn about Hushh.ai's mission for user-controlled data and ethical AI.",
+    images: [siteMetadata.socialBanner], // Assuming this is appropriate
+    creator: "@hushh_ai", // Ensure this is the correct Twitter handle
+    site: "@hushh_ai",   // Ensure this is the correct Twitter handle
   },
 };
 
@@ -58,9 +56,9 @@ export const metadata = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Hushh AI",
+  "name": "Hushh.ai", // Updated for consistency
   "url": "https://www.hushh.ai",
-  "logo": "https://www.hushh.ai/logo.png",
+  "logo": "https://www.hushh.ai/Images/Logo/Logo.png", // Corrected path based on previous findings
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "1021 5th St W.",
@@ -120,12 +118,10 @@ export default function About() {
                 <Text color={"#ADA785"}>About</Text>
                 <Text color={extendedTheme.colors.white}>hushh</Text>
               </Heading>
-              <div className="pt-24 text-fontColor4 pb-8 leading-9">
-                At Hushh, we believe your data is your most valuable asset.
-                That's why we're building the tools to put you back in the
-                driver's seat. We envision a world where you have complete
-                control over your digital identity, choosing how your data is
-                used and deriving true benefit from it.
+              <div className="pt-24 text-fontColor4 pb-8 leading-9 text-lg"> {/* Increased font size slightly for readability */}
+                At Hushh.ai, we are dedicated to reshaping the digital landscape by placing individuals at the center of their data universe.
+                Our mission is to empower you with genuine **user-controlled data**, fostering a new era of **data privacy** through **ethical AI** and innovative **privacy-preserving technology**.
+                We envision a world where you have complete control over your digital identity, choosing how your data is used and deriving true benefit from it, securely and transparently.
               </div>
               <div className="flex flex-col gap-16">
                 <div className="">
