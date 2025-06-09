@@ -87,18 +87,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${figtree.variable} `}>
+    <html lang="en" className={`${figtree.variable}`}>
       <Script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-1PDGMHH7CL"
-        strategy={'afterInteractive' }
+        strategy={'afterInteractive'}
       />
-      <Script src="https://analytics.ahrefs.com/analytics.js" strategy={'lazyOnload' } data-key="yInBsXwcX1jmHJpmJk0QSQ" async />
+      <Script src="https://analytics.ahrefs.com/analytics.js" strategy={'lazyOnload'} data-key="yInBsXwcX1jmHJpmJk0QSQ" async />
       <Script
-          type="text/javascript"
-          strategy={'lazyOnload' }
-          src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-        />
+        type="text/javascript"
+        strategy={'lazyOnload'}
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+      />
       <GoogleTagManager gtmId="G-1PDGMHH7CL" />
       <meta
         name="google-site-verification"
@@ -106,21 +106,7 @@ export default function RootLayout({ children }) {
       />
       <head>
         {/* Preconnect to essential domains */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-          rel="stylesheet"
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Figtree:ital,wght@0,300..900;1,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="icon" href="./favicon.ico" />
       </head>
 
       <body
@@ -132,40 +118,27 @@ export default function RootLayout({ children }) {
         }}
       >
         <NextTopLoader
-            color="red"
-            initialPosition={0.08}
-            crawlSpeed={200}
-            height={3}
-            crawl={true}
-            showSpinner={true}
-            easing="ease"
-            speed={200}
-            shadow="0 0 10px #2299DD,0 0 5px #2299DD"
-            template='
-                      <div class="bar" role="bar">
-                        <div class="peg">
-                        </div>
+          color="red"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={true}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+          template='
+                    <div class="bar" role="bar">
+                      <div class="peg">
                       </div>
-                      <div class="spinner" role="spinner">
-                        <div class="spinner-icon">
-                        </div>
+                    </div>
+                    <div class="spinner" role="spinner">
+                      <div class="spinner-icon">
                       </div>
-                      '
-            zIndex={1600}
-            showAtBottom={false}
-          />
-        <link rel="icon" href="./favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
-          rel="stylesheet"
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
-          rel="stylesheet"
+                    </div>
+                    '
+          zIndex={1600}
+          showAtBottom={false}
         />
         
         {/* <div className="relative z-50">
@@ -176,7 +149,7 @@ export default function RootLayout({ children }) {
             <HeaderComponent />
           </header>
           {" "}
-          <div className={`${figtree.variable}  w-full`}>
+          <div className={`${figtree.variable} w-full`}>
             <Providers>{children}</Providers>
           </div>
         </ResponsiveSizeProvider>
