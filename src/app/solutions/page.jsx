@@ -83,7 +83,7 @@ const SolutionsPage = () => {
                   letterSpacing={"-0.06em"}
                   mb={10}
                 >
-                  <Text color={"#ADA785"}>Enterprise-Grade</Text>
+                  <Text color={"#ADA785"}>Enterprise Grade</Text>
                   <Text color={extendedTheme.colors._white}>Solutions</Text>
                   <Text color={extendedTheme.colors._white} mt={2}>
                     for a <Text as="span" className="hushh-gradient">Connected Future</Text>
