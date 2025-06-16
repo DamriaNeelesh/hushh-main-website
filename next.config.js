@@ -1,89 +1,46 @@
 /** @type {import('next').NextConfig} */
 
-const {withContentlayer} = require("next-contentlayer")
-
-const nextConfig = {
-    compiler:{
-        removeConsole: true,
-    },
-    pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-    experimental: {
-      appDir: true,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  },
-  markdown: {
-      remarkPlugins: 'remark-gfm',
-    },
-};
-const withMDX = require('@next/mdx')({
-    extension: /\.mdx?$/,
-  });
-
-module.exports = withMDX({
-    pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+const { withContentlayer } = require("next-contentlayer");
+const withMDX = require("@next/mdx")({
+  extension: /\.mdx?$/,
+});
+const withNextra = require("nextra")({
+  theme: "nextra-theme-docs",
+  themeConfig: "./theme.config.jsx",
+  standalone: true,
 });
 
-module.exports = withContentlayer({ ...nextConfig });
+const nextConfig = {
+  compiler: {
+    removeConsole: true,
+  },
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "assets.example.com",
+        port: "",
+        pathname: "/account123/**",
+      },
+    ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.hush1one.com",
+          },
+        ],
+        destination: "https://hushh.ai*",
+        permanent: true,
+      },
+    ];
+  },
+};
 
-module.exports = {
-    images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: 'assets.example.com',
-          port: '',
-          pathname: '/account123/**',
-        },
-      ],
-    },
-    async redirects() {
-      return [
-        {
-          source: "/:path*", // Match all paths
-          has: [
-            {
-              type: "host",
-              value: "www.hush1one.com", // Old domain
-            },
-          ],
-          destination: "https://hushh.ai*", // Redirect to the new domain
-          permanent: true, // 301 redirect
-        },
-      ];
-    },
-  }
-const withNextra = require('nextra')({
-    theme: 'nextra-theme-docs',
-    themeConfig: './theme.config.jsx',
-    standalone: true,
-  })
-
-module.exports = withNextra(nextConfig)
+// Apply all configurations in the correct order
+module.exports = withNextra(withContentlayer(withMDX(nextConfig)));

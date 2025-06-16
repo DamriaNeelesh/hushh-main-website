@@ -230,7 +230,7 @@ export default function About() {
                 disrupting established industries, and making a real-world
                 impact, then Hushh might be the perfect place for you. Explore
                 our current openings {" "}
-                <Link href="/career" passHref>
+                <Link href="/career" passhref>
                   <a className="text-fontColor5 font-bold underline">here</a>
                 </Link>{" "}
                  and
@@ -278,7 +278,7 @@ export default function About() {
               and showcased innovations shaping the future of technology
             </Text>
           </VStack>
-          {/* <ImageGrid /> */}
+          {<ImageGrid /> }
 
           <div className="text-center md:mt-0 mt-24">
             <VStack>
