@@ -37,7 +37,7 @@ const DownloadModal = ({ isOpen, onClose }) => {
           ) : isIOS ? (
             <>
               <Button
-                onClick={() => window.location.href = "https://bit.ly/hushh-wallet-ios-dev"}
+                onClick={() => window.location.href = "https://testflight.apple.com/join/u6FFaw2B"}
                 colorScheme="blue" width="100%">
                 Hushh Wallet (iOS) - Test Build
               </Button>

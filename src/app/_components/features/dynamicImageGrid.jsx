@@ -47,18 +47,28 @@ export default function ImageGrid() {
   }, []);
 
   return (
-    <Box>
-      <Grid display={'flex'} templateColumns="1fr 1fr">
-        <Grid flex={1} templateRows={"2fr"}>
+    <Box width="100%" height="auto" minHeight={{ base: "400px", md: "500px" }}>
+     <Grid
+       templateColumns={{ base: '1fr', md: '1fr 1fr' }}
+        gap="8px"
+        height="100%"
+        minHeight="inherit" 
+      >
+        <Box
+          position="relative" 
+          height="100%"
+          minHeight={{ base: "200px", md: "250px" }}
+          overflow="hidden"
+        >
           {images.left.map((image, index) => (
-            <div 
+             <Box 
               key={`left-${index}`} 
-              style={{ 
-                display: currentLeftImage === index ? 'block' : 'none',
-                width: '100%',
-                height: '100%',
-                position: 'relative'
-              }}
+              position="absolute" 
+                            top="0" 
+                            left="0" 
+                            width="100%" 
+                            height="100%" 
+                            display={currentLeftImage === index ? 'block' : 'none'}
             >
               <Image
                 src={image}
@@ -72,21 +82,24 @@ export default function ImageGrid() {
                   opacity: isLoaded ? 1 : 0,
                   transition: 'opacity 0.3s ease-in-out'
                 }}
-                onLoad={() => index === currentLeftImage && setIsLoaded(true)}
               />
-            </div>
+            </Box>
           ))}
-        </Grid>
-        <Grid flex={1} flexDirection={'column'} gap={'0'} h={'100%'}>
+         </Box> 
+         <Box
+          display="flex" 
+          flexDirection="column" 
+          gap="8px" 
+          height="100%" 
+          minHeight={{ base: "200px", md: "250px" }}
+        >
           {images.right[currentRightImages].map((image, index) => (
-            <div 
+            <Box 
               key={`right-${index}`} 
-              style={{ 
-                width: '100%', 
-                height: index === 0 ? '100%' : '77.75%',
-                position: 'relative',
-                marginBottom: index === 0 ? '8px' : 0
-              }}
+              flex={index === 0 ? 2 : 1}
+                          position="relative" 
+                          width="100%"
+                          overflow="hidden" 
             >
               <Image
                 src={image}
@@ -101,9 +114,9 @@ export default function ImageGrid() {
                   transition: 'opacity 0.3s ease-in-out'
                 }}
               />
-            </div>
+             </Box> 
           ))}
-        </Grid>
+         </Box> 
       </Grid>
     </Box>
   );
