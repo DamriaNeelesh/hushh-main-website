@@ -14,8 +14,9 @@ body, input, button, textarea, select {
 
 /* Code block styling for syntax highlighting */
 pre {
-  background-color: #0d1117 !important;
-  color: #c9d1d9 !important;
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid #e0e0e0 !important;
   border-radius: 12px;
   overflow: auto;
   padding: 1.5rem;
