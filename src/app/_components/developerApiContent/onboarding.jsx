@@ -8,8 +8,9 @@ import { Box, Button, Image, Text, useToast, VStack } from "@chakra-ui/react";
 import '../../../../pages/fonts.css'
 import authentication from "../authentication/authentication";
 import config from "../config/config";
-import AppleIcon from '../../_components/svg/icons/appleIconLogo.svg'
-
+import AppleIcon from '../../_components/svg/icons/appleIcon.jsx'
+import NextImage from 'next/image';
+import GoogleIcon from '../../_components/svg/icons/googleIcon.jsx'
 const Onboarding = () => {
   // const { apiKey } = useApiKey();
   const [apiKey, setApiKey] = useState('');
@@ -260,11 +261,12 @@ useEffect(() => {
     </div>
   ) : (
     <Box marginTop={{md:'1rem',base:'0.5rem'}} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-      <Button onClick={handleGoogleSignIn} colorScheme="blue" size="sm">
+      <Button onClick={handleGoogleSignIn} colorScheme="blackAlpha" size="sm" display="flex" alignItems="center" gap={2}>
+        <GoogleIcon />
         Sign in with Google
       </Button>
-      <Button onClick={handleAppleSignIn} colorScheme="blackAlpha" size="sm">
-        <Image src={AppleIcon} alt="Apple sign in"/>
+      <Button onClick={handleAppleSignIn} colorScheme="blackAlpha" size="sm" display="flex" alignItems="center" gap={2}>
+        <AppleIcon />
         Sign in with Apple
       </Button>
     </Box>
