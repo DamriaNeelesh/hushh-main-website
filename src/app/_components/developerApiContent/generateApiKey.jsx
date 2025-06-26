@@ -49,7 +49,7 @@ const GenerateApiKey = () => {
       console.log("Access token:", session.access_token);
 
       const response = await fetch(
-        `https://hushh-api-53407187172.us-central1.run.app/generateapikey?mail=${encodeURIComponent(userMail)}`,
+        `https://hushh-api-53407187172.us-central1.run.app/generateapikey?mail=${userMail}`,
         {
           method: "POST",
           headers: {
