@@ -121,7 +121,7 @@ const ClientHome = () => {
     if (platform === "android") {
       window.location.href = "https://bit.ly/hushh-wallet-android-dev"; // Test build for Android
     } else {
-      window.location.href = "https://bit.ly/hushh-wallet-ios-dev"; // Test build for iOS
+      window.location.href = "https://testflight.apple.com/join/u6FFaw2B"; // Test build for iOS
     }
   };
 
@@ -329,7 +329,7 @@ const ClientHome = () => {
                 mb={{ md: "1.25rem",base:'0' }}
                 // as={"h1"}
               >
-                BRANDS WE WANT TO WORK WITH
+                BRANDS WE WORK WITH
               </Text>
               <Text
                 align={"center"}
