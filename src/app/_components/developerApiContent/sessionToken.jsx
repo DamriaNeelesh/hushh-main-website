@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react';
 import config from '../config/config';
 import { httpRequest } from '../requestHandler/requestHandler';
 import { useToast } from '@chakra-ui/react';
+import { useApiKey } from '../../context/apiKeyContext';
 
 const SessionToken = () => {
   const [session, setSession] = useState(null);
-  const [apiKey, setApiKey] = useState('');
+  const { apiKey, hasApiKey } = useApiKey();
   const [sessionToken, setSessionToken] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -28,35 +29,18 @@ const SessionToken = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Fetch user's API key from Supabase
-  const fetchApiKey = async () => {
-    if (!session?.user?.email) {
-      setError('User email is not available');
-      return;
+  // Check if we have the required data
+  useEffect(() => {
+    if (session && !hasApiKey()) {
+      setError('No API key found. Please generate an API key first.');
+    } else if (session && hasApiKey()) {
+      setError(''); // Clear any previous errors
     }
-
-    try {
-      const { data, error } = await config.supabaseClient
-        .from('dev_api_userprofile')
-        .select('api_key')
-        .eq('mail', session.user.email)
-        .single();
-
-      if (error) {
-        console.error('Error fetching API key:', error);
-        setError('Failed to fetch API key');
-      } else {
-        setApiKey(data.api_key);
-      }
-    } catch (err) {
-      console.error('Error fetching API key:', err);
-      setError('Failed to fetch API key');
-    }
-  };
+  }, [session, apiKey, hasApiKey]);
 
   // Call the session token API
   const fetchSessionToken = async () => {
-    if (!session?.user?.email || !apiKey) {
+    if (!session?.user?.email || !hasApiKey()) {
       setError('User email or API key is missing');
       toast({
         title: 'Missing Information',
@@ -82,6 +66,7 @@ const SessionToken = () => {
 
       if (response.status_code === 200) {
         setSessionToken(response.token);
+        setError(''); // Clear any errors
         toast({
           title: 'Session Token Retrieved',
           description: 'Your session token has been successfully retrieved.',
@@ -91,27 +76,35 @@ const SessionToken = () => {
         });
       } else {
         setError('Failed to fetch session token');
+        toast({
+          title: 'Error',
+          description: 'Failed to fetch session token. Please try again.',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
       }
     } catch (error) {
       console.error('Error fetching session token:', error);
       setError('Failed to fetch session token');
+      toast({
+        title: 'Error',
+        description: 'Failed to fetch session token. Please try again.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
     } finally {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (session) {
-      fetchApiKey(); // Fetch the API key when the session is available
-    }
-  }, [session]);
 
   return (
     <div className="shadow-sm text-white mt-8 onBoarding">
       <button
         onClick={fetchSessionToken}
         className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground h-10 px-4 py-2 bg-[#bd1e59] hover:bg-[#a11648] mt-4"
-        disabled={isLoading || !apiKey}
+        disabled={isLoading || !hasApiKey()}
       >
         {isLoading ? 'Processing...' : 'Get Session Token'}
       </button>

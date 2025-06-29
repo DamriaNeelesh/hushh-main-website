@@ -1,5 +1,6 @@
 'use client'
 import { SessionProvider } from "next-auth/react"
+import { ApiKeyProvider } from "../context/apiKeyContext"
 
 export default function ClientSideLayout({
   children,
@@ -7,7 +8,9 @@ export default function ClientSideLayout({
 }) {
   return (
     <SessionProvider session={session}>
-      {children}
+      <ApiKeyProvider>
+        {children}
+      </ApiKeyProvider>
     </SessionProvider>
   )
 }

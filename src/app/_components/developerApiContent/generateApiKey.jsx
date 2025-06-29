@@ -10,10 +10,10 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import config from "../config/config"; // Make sure this contains supabaseClient
+import { useApiKey } from "../../context/apiKeyContext";
 
 const GenerateApiKey = () => {
-  const [apiKey, setApiKey] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const { apiKey, saveApiKey, isLoading, setIsLoading, hasApiKey } = useApiKey();
   const [session, setSession] = useState(null);
   const toast = useToast();
 
@@ -54,7 +54,7 @@ const GenerateApiKey = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${session.access_token}`, // Ensure token is valid
+            Authorization: `Bearer ${session.access_token}`,
           },
         }
       );
@@ -71,7 +71,37 @@ const GenerateApiKey = () => {
         throw new Error("API key missing in response");
       }
 
-      setApiKey(result.api_key);
+      // Save the API key to context (which also saves to localStorage)
+      saveApiKey(result.api_key);
+
+      // Save the API key to Supabase database
+      try {
+        const { error: updateError } = await config.supabaseClient
+          .from('dev_api_userprofile')
+          .upsert([
+            {
+              mail: userMail,
+              api_key: result.api_key,
+            }
+          ], { 
+            onConflict: 'mail' 
+          });
+
+        if (updateError) {
+          console.error('Error saving API key to database:', updateError);
+          toast({
+            title: "Warning",
+            description: "API key generated but failed to save to database.",
+            status: "warning",
+            duration: 3000,
+            isClosable: true,
+          });
+        } else {
+          console.log('API key saved to database successfully');
+        }
+      } catch (dbError) {
+        console.error('Database error:', dbError);
+      }
 
       toast({
         title: "API Key Generated",
@@ -122,7 +152,7 @@ const GenerateApiKey = () => {
           {isLoading ? "Generating..." : "Generate New API Key"}
         </button>
 
-        {apiKey && (
+        {hasApiKey() && (
           <FormControl>
             <FormLabel>API Key</FormLabel>
             <Box display="flex">
