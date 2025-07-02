@@ -240,6 +240,70 @@ export default function About() {
             </div>
           </div>
 
+          <div className="text-center md:mt-0 mt-24">
+            <VStack>
+              <Text
+                as={"h2"}
+                className="color-gradient"
+                fontWeight={600}
+                letterSpacing={"0.25rem"}
+                fontSize={"1rem"}
+              >
+                CORE VALUE COMPANY
+              </Text>
+              <Text
+                className="gradient"
+                fontWeight={"400"}
+                fontSize={{ base: "2.5rem", md: "3.75rem" }}
+                lineHeight={"63.3px"}
+              >
+                Our Mission and Vision
+              </Text>
+              <Text
+                mt={"2rem"}
+                textAlign={"center"}
+                color={extendedTheme.colors.secondary}
+              >
+                Building a world where data works for you, not against you.
+              </Text>
+            </VStack>
+            <div className="flex flex-col md:flex-row gap-12 md:gap-36 mt-20 md:mt-40 mb-24 md:mb-36">
+              <div className="w-[50%] flex flex-col gap-10">
+                <Image src={AboutMission} alt="aboutMission" />
+                <div className="md:w-[25rem] text-left">
+                  <p className=" text-fontColor5 font-bold text-[22px]">
+                    Our Mission
+                  </p>
+                  <p className=" text-fontColor4 font-medium leading-9">
+                    Hushh's mission is to empower individuals to reclaim,
+                    understand, and harness the full potential of their personal
+                    data within a secure and privacy-centric ecosystem. We
+                    provide tools that centralize data, offer insights into its
+                    use, and create avenues for individuals to benefit from
+                    their own information while maintaining complete control
+                    over their privacy. Hushh aims to shift the balance of
+                    power, transforming data from a corporate tool into a
+                    catalyst for individual empowerment.
+                  </p>
+                </div>
+              </div>
+              <div className=" w-[50%]  flex flex-col gap-10">
+                <Image src={AboutVision} alt="aboutVision"/>
+                <div className="text-left">
+                  <p className=" text-fontColor5 font-bold text-[22px]">
+                    Our Vision
+                  </p>
+                  <p className=" text-fontColor4 font-medium leading-9">
+                    We envision a future where the responsible and ethical use
+                    of personal data leads to unprecedented levels of
+                    personalization, convenience, and self-driven opportunity,
+                    all while prioritizing individual privacy.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <VStack
             mt={{ md: "10rem", base: "6rem" }}
             display={"flex"}
@@ -279,70 +343,8 @@ export default function About() {
             </Text>
           </VStack>
           {/* <ImageGrid /> */}
-
-          <div className="text-center md:mt-0 mt-24">
-            <VStack>
-              <Text
-                as={"h2"}
-                className="color-gradient"
-                fontWeight={600}
-                letterSpacing={"0.25rem"}
-                fontSize={"1rem"}
-              >
-                CORE VALUE COMPANY
-              </Text>
-              <Text
-                className="gradient"
-                fontWeight={"400"}
-                fontSize={{ base: "2.5rem", md: "3.75rem" }}
-                lineHeight={"63.3px"}
-              >
-                Our Mission and Vision
-              </Text>
-              <Text
-                mt={"2rem"}
-                textAlign={"center"}
-                color={extendedTheme.colors.secondary}
-              >
-                Building a world where data works for you, not against you.
-              </Text>
-            </VStack>
-            <div className="flex flex-col md:flex-row gap-12 md:gap-36 mt-20 md:mt-40 mb-24 md:mb-36">
-              <div className="flex flex-col gap-10">
-                <Image src={AboutMission} alt="aboutMission" />
-                <div className="md:w-[25rem] text-left">
-                  <p className=" text-fontColor5 font-bold text-[22px]">
-                    Our Mission
-                  </p>
-                  <p className=" text-fontColor4 font-medium leading-9">
-                    Hushh's mission is to empower individuals to reclaim,
-                    understand, and harness the full potential of their personal
-                    data within a secure and privacy-centric ecosystem. We
-                    provide tools that centralize data, offer insights into its
-                    use, and create avenues for individuals to benefit from
-                    their own information while maintaining complete control
-                    over their privacy. Hushh aims to shift the balance of
-                    power, transforming data from a corporate tool into a
-                    catalyst for individual empowerment.
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-col gap-10">
-                <Image src={AboutVision} alt="aboutVision" />
-                <div className="text-left">
-                  <p className=" text-fontColor5 font-bold text-[22px]">
-                    Our Vision
-                  </p>
-                  <p className=" text-fontColor4 font-medium leading-9">
-                    We envision a future where the responsible and ethical use
-                    of personal data leads to unprecedented levels of
-                    personalization, convenience, and self-driven opportunity,
-                    all while prioritizing individual privacy.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <br></br><br></br>
+        
           <TeamSection />
         </Box>
         <AboutFaq />
