@@ -267,14 +267,12 @@ export default function About() {
                 Building a world where data works for you, not against you.
               </Text>
             </VStack>
-            <div className="flex flex-col md:flex-row gap-12 md:gap-36 mt-20 md:mt-40 mb-24 md:mb-36">
-              <div className="w-[50%] flex flex-col gap-10">
-                <Image src={AboutMission} alt="aboutMission" />
-                <div className="md:w-[25rem] text-left">
-                  <p className=" text-fontColor5 font-bold text-[22px]">
-                    Our Mission
-                  </p>
-                  <p className=" text-fontColor4 font-medium leading-9">
+            <div className="flex flex-col md:flex-row gap-16 md:gap-36 mt-20 md:mt-40 mb-24 md:mb-36 px-6 md:px-20">
+              <div className="md:w-1/2 flex flex-col gap-6">
+                <Image src={AboutMission} alt="aboutMission" className="w-full object-cover" />
+                <div className="text-left">
+                  <p className="text-fontColor5 font-bold text-[22px] mb-4">Our Mission</p>
+                  <p className="text-fontColor4 font-medium leading-9">
                     Hushh's mission is to empower individuals to reclaim,
                     understand, and harness the full potential of their personal
                     data within a secure and privacy-centric ecosystem. We
@@ -287,13 +285,12 @@ export default function About() {
                   </p>
                 </div>
               </div>
-              <div className=" w-[50%]  flex flex-col gap-10">
-                <Image src={AboutVision} alt="aboutVision"/>
+
+              <div className="md:w-1/2 flex flex-col gap-6">
+                <Image src={AboutVision} alt="aboutVision" className="w-full object-cover" />
                 <div className="text-left">
-                  <p className=" text-fontColor5 font-bold text-[22px]">
-                    Our Vision
-                  </p>
-                  <p className=" text-fontColor4 font-medium leading-9">
+                  <p className="text-fontColor5 font-bold text-[22px] mb-4">Our Vision</p>
+                  <p className="text-fontColor4 font-medium leading-9">
                     We envision a future where the responsible and ethical use
                     of personal data leads to unprecedented levels of
                     personalization, convenience, and self-driven opportunity,
@@ -302,6 +299,7 @@ export default function About() {
                 </div>
               </div>
             </div>
+
           </div>
 
           <VStack
