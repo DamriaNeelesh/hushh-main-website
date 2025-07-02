@@ -278,7 +278,7 @@ export default function About() {
               and showcased innovations shaping the future of technology
             </Text>
           </VStack>
-          {<ImageGrid /> }
+          {/* <ImageGrid /> */}
 
           <div className="text-center md:mt-0 mt-24">
             <VStack>
