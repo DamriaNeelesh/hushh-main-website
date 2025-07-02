@@ -57,6 +57,20 @@ const devloperApi = () => {
   const scrollInMobile = () => {
     scroll.scrollTo(450);
   };
+  
+    const handleClick = () => {
+    const toastId = 'coming-soon';
+    if (!toast.isActive(toastId)) {
+      toast({
+        id: toastId,
+        title: 'Coming Soon',
+        status: 'info',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <>
     <Head>
@@ -769,12 +783,7 @@ const devloperApi = () => {
                     alignItems={"center"}
                     textAlign={"center"}
                     description="Travel APIs act like travel agents for your app or website."
-                    onClick={() => toast({
-                        title: "Coming Soon",
-                        status: "info",
-                        duration: 3000,
-                        isClosable: true,
-                      })}
+                    onClick= {handleClick}
                   />
                    <ServiceCard
                     icon={<SocialApi/>}
@@ -782,12 +791,7 @@ const devloperApi = () => {
                     alignItems={"center"}
                     textAlign={"center"}
                     description="Chat with social media platforms.  Lets your app post, get feeds, and more."
-                    onClick={() => toast({
-                        title: "Coming Soon",
-                        status: "info",
-                        duration: 3000,
-                        isClosable: true,
-                      })}                  
+                    onClick= {handleClick}                 
                     />
                   <ServiceCard
                     icon={<FitnessApi/>}
@@ -795,12 +799,7 @@ const devloperApi = () => {
                     alignItems={"center"}
                     textAlign={"center"}
                     description="Wearable device apps use APIs to collect user health data from phones and wearables."
-                    onClick={() => toast({
-                        title: "Coming Soon",
-                        status: "info",
-                        duration: 3000,
-                        isClosable: true,
-                      })}
+                    onClick= {handleClick}
                   />
                 </Grid>
               </Container>
