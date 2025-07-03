@@ -1,5 +1,5 @@
 import React from 'react'
-import HushhHackhathon from '../clientside/HushhHackhathon'
+import HushhHackhathon from '../../clientside/HushhHackhathon'
 import Image from 'next/image';
 import Head from 'next/head';
 // import OGImage from '../../../public/OG/daraNexusOG.png';
