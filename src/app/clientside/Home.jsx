@@ -19,6 +19,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
+  AspectRatio,
 } from "@chakra-ui/react";
 import { BrandSlider } from "../_components/features/brandSlider";
 import BrandWalletSection from "../_components/features/brandWalletSection";
@@ -64,7 +65,7 @@ import { QRCode } from "react-qrcode-logo";
 import { isMobile, isAndroid, isIOS } from "react-device-detect";
 import UnicodeQR from "../_components/svg/onelinkQrdownload.svg";
 import DownloadModal from "../_components/primitives/downloadModal";
-
+import HushhVideoModal from '../_components/features/hushhAdModal';
 const ClientHome = () => {
   const router = useRouter();
   const [showPopup, setShowPopup] = useState(false);
@@ -75,6 +76,19 @@ const ClientHome = () => {
   const [hasHovered, setHasHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentQRLink, setCurrentQRLink] = useState("");
+
+
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  // const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setShowPopup(true);
+      onOpen();
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [onOpen]);
 
   const handleMouseEnter = () => {
     if (!hasHovered) {
@@ -96,23 +110,6 @@ const ClientHome = () => {
     return () => clearTimeout(timeout);
   }, []);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setShowPopup(true);
-    }, 3000);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
-
-  // const handleDownloadClick = () => {
-  //   if (isAndroid) {
-  //     window.location.href = "https://bit.ly/hushh-wallet-play-store";
-  //   } else if (isIOS) {
-  //     window.location.href = "https://bit.ly/hushh-app-ios";
-  //   } else {
-  //     handleOpenModal();
-  //   }
-  // };
   const handleDownloadClick = () => {
     setIsModalOpen(true); // Open the modal instead of navigating
   };
@@ -154,6 +151,9 @@ const ClientHome = () => {
         <meta property="og:url" content="https://hushh.ai" />
         <link rel="canonical" href="https://hushh.ai" key="canonical"/>
       </Head>
+
+      <HushhVideoModal isOpen={isOpen} onClose={onClose} />
+
       <DownloadModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
