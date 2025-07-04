@@ -101,7 +101,7 @@ const HushhPDA = () => {
               fontFamily="Figtree"
               fontWeight={600}
               letterSpacing="0.96px"
-              w={{md:'100%',base:170}}
+              w={{md:'50%',base:170}}
               px={{md:10,base:4}}
               py={{md:4,base:2}}
               h="auto"
@@ -636,7 +636,7 @@ const HushhPDA = () => {
                 fontSize={{ base: "lg", md: "xl" }}
                 fontFamily="Figtree"
                 fontWeight={600}
-                w={{md:'100%',base:170}}
+                w={{md:'50%',base:170}}
                 letterSpacing="0.96px"
                 px={{md:12,base:4}}
                 py={{md:6,base:2}}
