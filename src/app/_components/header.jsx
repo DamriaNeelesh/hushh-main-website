@@ -310,6 +310,27 @@ export default function Header({backgroundColor}) {
                     <div className="flex gap-2 z-1000">
                       <div className="flex-1 flex flex-col gap-2">
                         <Link
+                          href={"/products/personal-data-agent"}
+                          onClick={() => setProductsSubmenu(false)}
+                          className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
+                        >
+                          <div className="">
+                            <Image 
+                              src="/svgs/pdaLogo.svg" 
+                              alt="PDA Logo" 
+                              width={24} 
+                              height={24} 
+                              className="w-6 h-6"
+                              style={{borderRadius:'30%'}}
+                            />
+                          </div>
+                          <div className="">
+                            <h1 className="font-semibold">Hushh PDA</h1>
+                            <p className="text-sm font-medium text-fontColor3">
+                            Your Personal Data Agent, <br/> Under Your Control</p>
+                          </div>
+                        </Link>
+                        <Link
                           href={"/products/hushh-wallet-app"}
                           onClick={() => setProductsSubmenu(false)}
                           className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
@@ -338,6 +359,39 @@ export default function Header({backgroundColor}) {
                               Seamlessly share your preferences with  <br /> brands for personalized experiences
                             </p>
                           </div>
+                        </Link>    
+                      </div>
+                      
+                      <div className="flex-1 flex flex-col gap-2">
+                        <Link
+                          href={"/products/hushh-vibe-search"}
+                          onClick={() => setProductsSubmenu(false)}
+                          className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
+                        >
+                          <div className="">
+                            <VibeSearchIcon className="w-6 h-6" />
+                          </div>
+                          <div className="">
+                            <h1 className="font-semibold">VIBE Search App</h1>
+                            <p className="text-sm font-medium text-fontColor3">
+                              Discover products you love with image-based search and AI recommendations
+                            </p>
+                          </div>
+                        </Link>
+                        <Link
+                          href={"/developerApi"}
+                          onClick={() => setProductsSubmenu(false)}
+                          className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
+                        >
+                          <div className="">
+                            <VibeSearchApi className="w-6 h-6" />
+                          </div>
+                          <div className="">
+                            <h1 className="font-semibold">Developer API</h1>
+                            <p className="text-sm font-medium text-fontColor3">
+                              Tools for businesses to integrate <br/> Hushh data into their applications
+                            </p>
+                          </div>
                         </Link>
                         <Link
                           href={"/products/browser-companion"}
@@ -356,41 +410,7 @@ export default function Header({backgroundColor}) {
                             </p>
                           </div>
                         </Link>
-                      </div>
-
-                      <div className="flex-1 flex flex-col gap-2 w-full">
-                        <Link
-                          href={"/products/hushh-vibe-search"}
-                          onClick={() => setProductsSubmenu(false)}
-                          className="flex gap-4 hover:text-white hover:bg-black px-0 py-2.5 rounded-xl"
-                        >
-                          <div className="">
-                            <VibeSearchIcon className="w-6 h-6" />
-                          </div>
-                          <div className="">
-                            <h1 className="font-semibold">VIBE Search App</h1>
-                            <p className="text-sm font-medium text-fontColor3">
-                              Discover products you love with image-based search and AI recommendations
-                            </p>
-                          </div>
-                        </Link>
-                        <Link
-                          href={"/developerApi"}
-                          onClick={() => setProductsSubmenu(false)}
-                          className="flex gap-4 hover:text-white hover:bg-black px-0 py-2.5 rounded-xl"
-                        >
-                          <div className="">
-                            <VibeSearchApi className="w-6 h-6" />
-                          </div>
-                          <div className="">
-                            <h1 className="font-semibold">Developer API</h1>
-                            <p className="text-sm font-medium text-fontColor3">
-                              Tools for businesses to integrate <br/> Hushh data into their applications
-                            </p>
-                          </div>
-                        </Link>
-                    
-                        <Link
+                        {/* <Link
                           href={"/products/hushh-for-students"}
                           onClick={() => setProductsSubmenu(false)}
                           className="flex gap-4 hover:text-white hover:bg-black px-0 py-2.5 rounded-xl"
@@ -404,7 +424,7 @@ export default function Header({backgroundColor}) {
                               Rewards & empowers students with data  <br /> control (safe & secure) 
                             </p>
                           </div>
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
                   </div>
@@ -469,6 +489,21 @@ export default function Header({backgroundColor}) {
                     {productsSubmenuMobile && (
                       <ul style={{listStyle:'none'}} className="mt-2 space-y-3 bg-black pl-6 text-base text-white">
                         <li>
+                          <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/personal-data-agent" className="block text-white">
+                            <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
+                              <Image 
+                                src="/svgs/pdaLogo.svg" 
+                                alt="PDA Logo" 
+                                width={24} 
+                                height={24} 
+                                style={{borderRadius:'30%'}}
+                                className="w-6 h-6"
+                              />
+                              Hushh PDA
+                            </span>
+                          </Link>
+                        </li>
+                        <li>
                           <Link style={{fontWeight:'500'}} onClick={() => setIsMenuOpen(false)} href="/products/hushh-wallet-app" className="block">
                             <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                               <HushhWalletIcon className="w-6 h-6" />
@@ -500,6 +535,7 @@ export default function Header({backgroundColor}) {
                             </span> 
                           </Link>
                         </li>
+                        
                         <li>
                           <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/developerApi" className="block text-white">
                             <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
@@ -508,14 +544,14 @@ export default function Header({backgroundColor}) {
                             </span>
                           </Link>
                         </li>
-                        <li>
+                        {/* <li>
                           <Link style={{fontWeight:'500'}}  onClick={() => setIsMenuOpen(false)} href="/products/hushh-for-students" className="block text-white">
                             <span style={{display:'flex',flexDirection:'row', gap:'1rem'}}>
                               <headerAssets.VibeSearchMarketplace className="w-6 h-6" />
                               Hushh For Students
                             </span>
                           </Link>
-                        </li>
+                        </li> */}
                       </ul>
                     )}
                   </li>
