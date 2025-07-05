@@ -272,6 +272,7 @@ const HushhPDA = () => {
         minH="100vh"
         h="100vh"
         bg="#000000"
+        mx={{md:'5vh',base:'0'}}
         color="white"
         overflow="hidden"
         position="relative"
@@ -494,7 +495,7 @@ const HushhPDA = () => {
                             style={{ 
                               fontSize: 'clamp(1rem, 2.5vw, 2rem)',
                               color: 'white',
-                              transition: 'all 0.3s ease',
+                              transition: 'all 1s ease',
                               lineHeight: '1.2'
                             }}
                           >
@@ -525,23 +526,38 @@ const HushhPDA = () => {
                 </Heading>
 
                 <Text
-                  fontSize={{ base: "20px", md: "24px", lg: "28px" }}
+                  fontSize={{ base: "18px", sm: "20px", md: "24px", lg: "28px" }}
                   fontFamily="Figtree"
                   fontWeight={400}
                   letterSpacing="0px"
-                  lineHeight={{ base: "28px", md: "32px", lg: "36px" }}
-                  color="#ffffff"
+                  lineHeight="normal"
+                  color="#FFF"
                   maxW={{ base: "100%", lg: "500px" }}
                 >
                   Meet Your Personal Data Agent called 🤫 until you give it your personal hushhname like mani$h for our founder and ceo, Manish Sainani
-                  {"\n\n"}
-                  AI that organizes your life, protects your privacy, and helps your data work for you — not the other way around.
+                  
+                </Text>
+                <Text
+                  fontSize={{ base: "18px", sm: "20px", md: "24px", lg: "28px" }}
+                  fontFamily="Figtree"
+                  fontWeight={400}
+                  letterSpacing="0px"
+                  lineHeight="normal"
+                  color="#FFF"
+                  maxW={{ base: "100%", lg: "500px" }}
+                >                
+                AI that organizes your life, protects your privacy, and helps your data work for you — not the other way around.
                 </Text>
 
                 {/* Feature Tags */}
                 <VStack spacing={6} align={{ base: "center", lg: "flex-start" }} w="full">
                   <HStack spacing={4}>
-                    <Box w="40px" h="40px" bg="linear-gradient(135deg, #0071E3, #BB62FC)" borderRadius="50%" />
+                    <Image
+                      src="/svgs/privay-first.svg"
+                      alt="Privacy-first"
+                      w="40px"
+                      h="40px"
+                    />
                     <Text
                       fontSize={{ base: "20px", md: "24px", lg: "28px" }}
                       fontFamily="Figtree"
@@ -555,7 +571,12 @@ const HushhPDA = () => {
                   </HStack>
 
                   <HStack spacing={4}>
-                    <Box w="40px" h="40px" bg="linear-gradient(135deg, #BB62FC, #F34556)" borderRadius="50%" />
+                    <Image
+                      src="/svgs/ai-driven.svg"
+                      alt="AI-Driven"
+                      w="40px"
+                      h="40px"
+                    />
                     <Text
                       fontSize={{ base: "20px", md: "24px", lg: "28px" }}
                       fontFamily="Figtree"
@@ -569,7 +590,12 @@ const HushhPDA = () => {
                   </HStack>
 
                   <HStack spacing={4}>
-                    <Box w="40px" h="40px" bg="linear-gradient(135deg, #F34556, #F44F22)" borderRadius="50%" />
+                    <Image
+                      src="/svgs/monetize.svg"
+                      alt="Monetized by You"
+                      w="40px"
+                      h="40px"
+                    />
                     <Text
                       fontSize={{ base: "20px", md: "24px", lg: "28px" }}
                       fontFamily="Figtree"
@@ -590,202 +616,559 @@ const HushhPDA = () => {
 
       {/* Product Page 3 - Problem/Solution Section */}
       <Box
-        minH={{ base: "100vh", md: "976px" }}
+        minH={'100vh'}
         bg="#000000"
         color="white"
         py={{ base: 16, md: 24 }}
+        display="flex"
+        mx={{md:'4rem',base:'0'}}
+        alignItems="center"
       >
-        <Container maxW="1723px">
-          <VStack spacing={12} align="flex-start" h="full">
+        <Container maxW="1400px" px={{ base: 4, md: 8 }}>
+          {/* Mobile Layout - Vertical Stack */}
+          <VStack spacing={12} align="flex-start" display={{ base: "flex", lg: "none" }}>
             {/* Problem Section */}
-            <VStack spacing={6} align="flex-start" w="full">
+            <Box w="full">
               <Heading
                 as="h2"
-                fontSize={{ base: "48px", md: "64px" }}
+                fontSize={{ base: "4xl", sm: "5xl", md: "6xl" }}
                 fontFamily="Inter"
                 fontWeight={600}
                 letterSpacing="0px"
-                lineHeight={{ base: "58px", md: "77.45px" }}
+                lineHeight="normal"
                 color="#d6d6d6"
-                stroke="1px solid"
-                strokeColor="linear-gradient(-40.92deg, #ffffff 8.92%, #ffffff 24.19%, #ffffff 100%)"
+                mb={6}
               >
                 Problem
               </Heading>
-
               <Text
-                fontSize={{ base: "24px", md: "28px" }}
+                fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
                 fontFamily="Figtree"
                 fontWeight={400}
                 letterSpacing="0px"
-                lineHeight="27px"
+                lineHeight="normal"
                 color="#ffffff"
-                maxW="866px"
               >
-                The most powerful companies in the world are built on your data.
-                {"\n"}But you don't control it. You don't profit from it. You can't even see it.
-                {"\n"}We built hushh to change that — forever.
+                The most powerful companies in the world are built on your data. But you don't control it. You don't profit from it. You can't even see it. We built hushh to change that — forever.
               </Text>
-            </VStack>
+            </Box>
 
             {/* Solution Section */}
-            <VStack spacing={8} align="flex-start" w="full">
+            <Box w="full">
               <Heading
                 as="h2"
-                fontSize={{ base: "48px", md: "64px" }}
+                fontSize={{ base: "4xl", sm: "5xl", md: "6xl" }}
                 fontFamily="Inter"
                 fontWeight={700}
                 letterSpacing="0px"
-                lineHeight={{ base: "58px", md: "77.45px" }}
-                bgGradient="linear(-52.44deg, #0071e3 0%, #bb62fc 34.54%, #f34556 71.3%, #f44f22 100%)"
+                lineHeight="normal"
+                bgGradient="linear(135deg, #BB62FC 0%, #F34556 100%)"
                 bgClip="text"
+                _webkitTextFillColor="transparent"
+                mb={6}
               >
                 Solution
               </Heading>
 
               <Text
-                fontSize={{ base: "24px", md: "28px" }}
+                fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
                 fontFamily="Figtree"
                 fontWeight={400}
                 letterSpacing="0px"
-                lineHeight="27px"
+                lineHeight="normal"
                 color="#ffffff"
-                maxW="866px"
+                mb={6}
               >
                 A smart AI that lives on your device, learns your preferences, and acts on your behalf
-                {"\n\n"}Collects and organizes your data (email, docs, receipts, habits)
-                {"\n"}Answers your questions before you ask
-                {"\n"}Buys things for you. Sells things you permit.
-                {"\n"}Tracks your spend, tasks, and life — across services
-                {"\n"}Finds offers you'll love and pays you when you share your data with consent
               </Text>
 
+              {/* Solution Bullet Points */}
+              <VStack spacing={4} align="flex-start">
+                <HStack align="flex-start" spacing={3}>
+                  <Box
+                    w="1"
+                    h="1"
+                    bg="#ffffff"
+                    borderRadius="50%"
+                    mt="2"
+                    flexShrink={0}
+                  />
               <Text
-                fontSize={{ base: "32px", md: "40px" }}
+                    fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
+                    fontFamily="Figtree"
+                    fontWeight={400}
+                    letterSpacing="0px"
+                    lineHeight="normal"
+                    color="#ffffff"
+                  >
+                    Collects and organizes your data (email, docs, receipts, habits)
+                  </Text>
+                </HStack>
+
+                <HStack align="flex-start" spacing={3}>
+                  <Box
+                    w="1"
+                    h="1"
+                    bg="#ffffff"
+                    borderRadius="50%"
+                    mt="2"
+                    flexShrink={0}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
+                    fontFamily="Figtree"
+                    fontWeight={400}
+                    letterSpacing="0px"
+                    lineHeight="normal"
+                    color="#ffffff"
+                  >
+                    Answers your questions before you ask
+                  </Text>
+                </HStack>
+
+                <HStack align="flex-start" spacing={3}>
+                  <Box
+                    w="1"
+                    h="1"
+                    bg="#ffffff"
+                    borderRadius="50%"
+                    mt="2"
+                    flexShrink={0}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
+                    fontFamily="Figtree"
+                    fontWeight={400}
+                    letterSpacing="0px"
+                    lineHeight="normal"
+                    color="#ffffff"
+                  >
+                    Buys things for you. Sells things you permit.
+                  </Text>
+                </HStack>
+
+                <HStack align="flex-start" spacing={3}>
+                  <Box
+                    w="1"
+                    h="1"
+                    bg="#ffffff"
+                    borderRadius="50%"
+                    mt="2"
+                    flexShrink={0}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
+                    fontFamily="Figtree"
+                    fontWeight={400}
+                    letterSpacing="0px"
+                    lineHeight="normal"
+                    color="#ffffff"
+                  >
+                    Tracks your spend, tasks, and life — across services
+                  </Text>
+                </HStack>
+
+                <HStack align="flex-start" spacing={3}>
+                  <Box
+                    w="1"
+                    h="1"
+                    bg="#ffffff"
+                    borderRadius="50%"
+                    mt="2"
+                    flexShrink={0}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
+                    fontFamily="Figtree"
+                    fontWeight={400}
+                    letterSpacing="0px"
+                    lineHeight="normal"
+                    color="#ffffff"
+                  >
+                    Finds offers you'll love and pays you when you share your data with consent
+                  </Text>
+                </HStack>
+              </VStack>
+            </Box>
+          </VStack>
+
+          {/* Desktop Layout - Two Column Grid */}
+          <Grid
+            templateColumns="1fr 2fr"
+            gap={20}
+            alignItems="start"
+            w="full"
+            display={{ base: "none", lg: "grid" }}
+          >
+            {/* Left Column - Headings */}
+            <GridItem>
+              <VStack spacing={24} align="flex-start">
+                {/* Problem Heading */}
+                <Heading
+                  as="h2"
+                  fontSize={{ lg: "7xl", xl: "8xl" }}
                 fontFamily="Inter"
                 fontWeight={600}
                 letterSpacing="0px"
-                lineHeight="36px"
+                  lineHeight="normal"
+                  color="#d6d6d6"
+                >
+                  Problem
+                </Heading>
+
+                {/* Solution Heading */}
+                <Heading
+                  as="h2"
+                  fontSize={{ lg: "7xl", xl: "8xl" }}
+                  fontFamily="Inter"
+                  fontWeight={700}
+                  letterSpacing="0px"
+                  lineHeight="normal"
+                  bgGradient="linear(135deg, #BB62FC 0%, #F34556 100%)"
+                  bgClip="text"
+                  _webkitTextFillColor="transparent"
+                >
+                  Solution
+                </Heading>
+              </VStack>
+            </GridItem>
+
+            {/* Right Column - Content */}
+            <GridItem>
+              <VStack spacing={24} align="flex-start">
+                {/* Problem Content */}
+                <Box>
+                  <Text
+                    fontSize={{ lg: "3xl" }}
+                    fontFamily="Figtree"
+                    fontWeight={400}
+                    letterSpacing="0px"
+                    lineHeight="normal"
                 color="#ffffff"
-                maxW="749px"
-                mt={8}
+                    maxW="600px"
               >
-                All with radical transparency and Apple-level privacy.
+                    The most powerful companies in the world are built on your data. But you don't control it. You don't profit from it. You can't even see it. We built hushh to change that — forever.
               </Text>
+                </Box>
+
+                {/* Solution Content */}
+                <Box>
+                  <Text
+                    fontSize={{ lg: "3xl" }}
+                    fontFamily="Figtree"
+                    fontWeight={400}
+                    letterSpacing="0px"
+                    lineHeight="normal"
+                    color="#ffffff"
+                    maxW="600px"
+                    mb={6}
+                  >
+                    A smart AI that lives on your device, learns your preferences, and acts on your behalf
+                  </Text>
+
+                  {/* Solution Bullet Points */}
+                  <VStack spacing={4} align="flex-start" maxW="600px">
+                    <HStack align="flex-start" spacing={3}>
+                      <Box
+                        w="1"
+                        h="1"
+                        bg="#ffffff"
+                        borderRadius="50%"
+                        mt="3"
+                        flexShrink={0}
+                      />
+                      <Text
+                        fontSize={{ lg: "3xl" }}
+                        fontFamily="Figtree"
+                        fontWeight={400}
+                        letterSpacing="0px"
+                        lineHeight="normal"
+                        color="#ffffff"
+                      >
+                        Collects and organizes your data (email, docs, receipts, habits)
+                      </Text>
+                    </HStack>
+
+                    <HStack align="flex-start" spacing={3}>
+                      <Box
+                        w="1"
+                        h="1"
+                        bg="#ffffff"
+                        borderRadius="50%"
+                        mt="3"
+                        flexShrink={0}
+                      />
+                      <Text
+                        fontSize={{ lg: "3xl" }}
+                        fontFamily="Figtree"
+                        fontWeight={400}
+                        letterSpacing="0px"
+                        lineHeight="normal"
+                        color="#ffffff"
+                      >
+                        Answers your questions before you ask
+                      </Text>
+                    </HStack>
+
+                    <HStack align="flex-start" spacing={3}>
+                      <Box
+                        w="1"
+                        h="1"
+                        bg="#ffffff"
+                        borderRadius="50%"
+                        mt="3"
+                        flexShrink={0}
+                      />
+                      <Text
+                        fontSize={{ lg: "3xl" }}
+                        fontFamily="Figtree"
+                        fontWeight={400}
+                        letterSpacing="0px"
+                        lineHeight="normal"
+                        color="#ffffff"
+                      >
+                        Buys things for you. Sells things you permit.
+                      </Text>
+                    </HStack>
+
+                    <HStack align="flex-start" spacing={3}>
+                      <Box
+                        w="1"
+                        h="1"
+                        bg="#ffffff"
+                        borderRadius="50%"
+                        mt="3"
+                        flexShrink={0}
+                      />
+                      <Text
+                        fontSize={{ lg: "3xl" }}
+                        fontFamily="Figtree"
+                        fontWeight={400}
+                        letterSpacing="0px"
+                        lineHeight="normal"
+                        color="#ffffff"
+                      >
+                        Tracks your spend, tasks, and life — across services
+                      </Text>
+                    </HStack>
+
+                    <HStack align="flex-start" spacing={3}>
+                      <Box
+                        w="1"
+                        h="1"
+                        bg="#ffffff"
+                        borderRadius="50%"
+                        mt="3"
+                        flexShrink={0}
+                      />
+                      <Text
+                        fontSize={{ lg: "3xl" }}
+                        fontFamily="Figtree"
+                        fontWeight={400}
+                        letterSpacing="0px"
+                        lineHeight="normal"
+                        color="#ffffff"
+                      >
+                        Finds offers you'll love and pays you when you share your data with consent
+                      </Text>
+                    </HStack>
             </VStack>
+                </Box>
           </VStack>
+            </GridItem>
+          </Grid>
         </Container>
       </Box>
 
       {/* Product Page 4 - Use Cases Section */}
       <Box
-        minH={{ base: "100vh", md: "976px" }}
+        minH={{ base: "100vh", md: "100vh" }}
         bg="#000000"
         color="white"
         py={{ base: 16, md: 24 }}
+        display="flex"
+        alignItems="center"
       >
         <Container maxW="1723px">
-          <VStack spacing={16} align="center" h="full">
+          <VStack spacing={{ base: 12, md: 16 }} align="center" w="full">
             {/* Section Header */}
-            <VStack spacing={8} align="flex-start" w="full">
+            <HStack spacing={{ base: 4, md: 8 }} align="baseline" justify="center" w="full">
               <Heading
                 as="h2"
-                fontSize={{ base: "72px", md: "96px" }}
+                fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
                 fontFamily="Inter"
                 fontWeight={600}
                 letterSpacing="0px"
-                lineHeight={{ base: "87px", md: "116.18px" }}
+                lineHeight="normal"
                 color="#d6d6d6"
-                stroke="1px solid"
-                strokeColor="linear-gradient(-40.92deg, #ffffff 8.92%, #ffffff 24.19%, #ffffff 100%)"
+                textShadow="0 0 1px rgba(255,255,255,0.2)"
               >
-                Usecase
+                Old vs.
               </Heading>
-
               <Heading
-                as="h3"
-                fontSize={{ base: "72px", md: "96px" }}
+                as="h2"
+                fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
                 fontFamily="Inter"
                 fontWeight={700}
                 letterSpacing="0px"
-                lineHeight={{ base: "87px", md: "116.18px" }}
-                bgGradient="linear(-52.44deg, #0071e3 0%, #bb62fc 34.54%, #f34556 71.3%, #f44f22 100%)"
+                lineHeight="normal"
+                bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) -3.01%, hsla(275, 96%, 69%, 1) 28.55%, hsla(354, 88%, 61%, 1) 62.13%, hsla(13, 91%, 55%, 1) 88.35%)"
                 bgClip="text"
+                _webkitBackgroundClip="text"  
+                _webkitTextFillColor="transparent"
               >
-                Agentic Action
+                New
               </Heading>
-            </VStack>
+            </HStack>
 
             {/* Use Cases Grid */}
             <Grid
               templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
-              gap={16}
+              gap={{ base: 8, md: 12 }}
               w="full"
-              maxW="6xl"
+              // mx={{ base: 0, md: "4rem" }}
+              maxW="1300px"
             >
-              {/* Left Column - User Actions */}
+              {/* Left Card - Usecase */}
               <GridItem>
-                <VStack spacing={8} align="flex-start">
-                  {[
-                    { text: "Track my monthly subscriptions", opacity: 1 },
-                    { text: "Book my next massage when I have time & credits", opacity: 0.73 },
-                    { text: "Share my coffee preferences with Blue Bottle", opacity: 0.55 },
-                    { text: "Sell my fitness data to a verified wellness brand", opacity: 0.2 },
-                  ].map((item, index) => (
-                    <HStack key={index} spacing={4} align="flex-start">
-                      <Box
-                        w="28px"
-                        h="28px"
-                        borderRadius="50%"
-                        bg="#ffffff"
-                        opacity={item.opacity}
-                      />
-                      <Text
-                        fontSize={{ base: "20px", md: "24px" }}
-                        fontFamily="Figtree"
-                        fontWeight={500}
-                        letterSpacing="0px"
-                        lineHeight="36px"
-                        color="#ffffff"
-                      >
-                        {item.text}
-                      </Text>
-                    </HStack>
-                  ))}
-                </VStack>
+                <Box
+                  background={'linear-gradient(180deg, #252525 0%, #505050 52.88%, #8F8E8E 100%)'}
+                  borderRadius="50px"
+                  p={{ base: 6, md: 8 }}
+                  w="full"
+                  minH={{ base: "350px", md: "510px" }}
+                  border="3px solid #FFFFFF"
+                  boxShadow=" 0px 21px 24.2px 10px rgba(0, 0, 0, 0.30)"
+                  position="relative"
+                >
+                  {/* Card Header */}
+                  <Heading
+                    as="h3"
+                    fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }}
+                    fontFamily="Inter"
+                    fontWeight={600}
+                    letterSpacing="0px"
+                    lineHeight="normal"
+                    color="#ffffff"
+                    mb={6}
+                    textAlign="center"
+                  >
+                    Usecase
+                  </Heading>
+
+                  {/* Card Content */}
+                  <VStack spacing={{base: 4, md: 8}} align="flex-start">
+                    {[
+                      { text: "Track my monthly subscriptions", opacity: 1 },
+                      { text: "Book my next massage when I have time & credits", opacity: 0.8 },
+                      { text: "Share my coffee preferences with Blue Bottle", opacity: 0.6 },
+                      { text: "Sell my fitness data to a verified wellness brand", opacity: 0.4 },
+                    ].map((item, index) => (
+                      <HStack key={index} spacing={6} align="flex-start" w="full">
+                        <Box
+                          w={{ base: "3", md: "8" }}
+                          h={{ base: "3", md: "8" }}
+                          borderRadius="50%"
+                          bg="#ffffff"
+                          opacity={item.opacity}
+                          flexShrink={0}
+                          mt={1}
+                        />
+                        <Text
+                          fontSize={{ base: "16px", md: "24px", lg: "32px" }}
+                          fontFamily="Figtree"
+                          fontWeight={500}
+                          letterSpacing="0px"
+                          lineHeight={{base: "24px", md: "36px"}}
+                          color="#ffffff"
+                        >
+                          {item.text}
+                        </Text>
+                      </HStack>
+                    ))}
+                  </VStack>
+                </Box>
               </GridItem>
 
-              {/* Right Column - Agentic Actions */}
+              {/* Right Card - Agentic Action */}
               <GridItem>
-                <VStack spacing={8} align="flex-start">
-                  {[
-                    "Finds all recurring charges & alerts you",
-                    "Schedules, confirms, and logs it for you",
-                    "Sends only what's necessary—with your consent",
-                    "You choose who sees it. You earn.",
-                  ].map((text, index) => (
-                    <Text
-                      key={index}
-                      fontSize={{ base: "20px", md: "24px" }}
-                      fontFamily="Inter"
-                      fontWeight={500}
-                      letterSpacing="0px"
-                      lineHeight="36px"
-                      color="#ffffff"
-                    >
-                      {text}
-                    </Text>
-                  ))}
-                </VStack>
+                <Box
+                  background="linear-gradient(178deg, #F1F1F1 24.36%, #FCF6E0 91.73%, #0071E3 194.98%, #474747 266.6%)"
+                  borderRadius="50px"
+                  p={{ base: 6, md: 8 }}
+                  w="full"
+                  minH={{ base: "350px", md: "510px" }}
+                  border="3px solid #DA4B7A"
+                  borderImage="linear-gradient(135deg, #0071e3, #bb62fc, #f34556, #f44f22) 1"
+                  position="relative"
+                  boxShadow=" 0px 21px 24.2px 10px rgba(0, 0, 0, 0.30)"
+                >
+                  {/* Card Header */}
+                  <Heading
+                    as="h3"
+                    fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }}
+                    fontFamily="Inter"
+                    fontWeight={700}
+                    letterSpacing="0px"
+                    lineHeight="normal"
+                    bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) -3.01%, hsla(275, 96%, 69%, 1) 28.55%, hsla(354, 88%, 61%, 1) 62.13%, hsla(13, 91%, 55%, 1) 88.35%)"
+                    bgClip="text"
+                    _webkitBackgroundClip="text"  
+                    _webkitTextFillColor="transparent"
+                    mb={6}
+                    textAlign="center"
+                  >
+                    Agentic Action
+                  </Heading>
+
+                  {/* Card Content */}
+                  <VStack spacing={{base: 4, md: 8}} align="flex-start">
+                    {[
+                      "Finds all recurring charges & alerts you",
+                      "Schedules, confirms, and logs it for you",
+                      "Sends only what's necessary—with your consent",
+                      "You choose who sees it. You earn.",
+                    ].map((text, index) => (
+                      <Text
+                        key={index}
+                        fontSize={{ base: "16px", md: "24px", lg: "32px" }}
+                        fontFamily="Inter"
+                        fontWeight={500}
+                        letterSpacing="0px"
+                        lineHeight={{base: "24px", md: "36px"}}
+                        color="#000000"
+                      >
+                        {text}
+                      </Text>
+                    ))}
+                  </VStack>
+                </Box>
               </GridItem>
             </Grid>
+
+            {/* Arrow Flow */}
+            <Box w="full" maxW="900px" position="relative">
+              <HStack spacing={0} justify="center" align="center">
+                {/* Arrow sequence */}
+                {[1, 2, 3, 4, 5].map((_, index) => (
+                  <Box
+                    key={index}
+                    w={{ base: "8", md: "12" }}
+                    h={{ base: "4", md: "6" }}
+                    bg={index < 2 ? "#ffffff" : index < 4 ? "#888888" : "#444444"}
+                    clipPath="polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%, 8px 50%)"
+                    opacity={index < 2 ? 1 : index < 4 ? 0.7 : 0.4}
+                  />
+                ))}
+              </HStack>
+            </Box>
           </VStack>
         </Container>
       </Box>
 
       {/* Product Page 5 - Why Different Section with iPhone Mockups */}
       <Box
-        minH={{ base: "100vh", md: "976px" }}
+        minH={{ base: "100vh", md: "100vh" }}
         bg="#000000"
         color="white"
         py={{ base: 16, md: 24 }}
@@ -799,223 +1182,294 @@ const HushhPDA = () => {
           >
             {/* Left Column - iPhone Mockups */}
             <GridItem>
-              <Grid
-                templateColumns="repeat(3, 1fr)"
-                gap={8}
-                justify="center"
-                align="center"
+              <Box
+                position="relative"
+                w="full"
+                h={{ base: "500px", md: "700px", lg: "800px" }}
+                display="flex"
+                alignItems="flex-start"
+                justifyContent="flex-start"
               >
-                {/* iPhone 1 */}
+                {/* Main Mobile Screen (Left) - mobilescreen1.svg */}
                 <Box
-                  w={{ base: "150px", md: "200px" }}
-                  h={{ base: "300px", md: "400px" }}
-                  bg="linear-gradient(to-b, #ffffff, #bcb5b1)"
-                  borderRadius="25px"
-                  border="2px solid #333"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  transform="rotate(-5deg)"
-                  boxShadow="0 20px 40px rgba(0,0,0,0.3)"
-                />
-                
-                {/* iPhone 2 */}
+                  position="absolute"
+                  left={{ base: "5%", md: "-10%", lg: "-5%" }}
+                  top="50%"
+                  transform="translateY(-50%)"
+                  zIndex={3}
+                >
+                  <Image
+                    src="/svgs/mobilescreen1.svg"
+                    alt="Mobile Screen 1"
+                    w={{ base: "220px", md: "440px", lg: "480px" }}
+                    h="auto"
+                    filter="drop-shadow(0 25px 50px rgba(0,0,0,0.5))"
+                  />
+                </Box>
+
+                {/* Upper Mobile Screen (Right Top) - mobilescreenbottom.svg */}
                 <Box
-                  w={{ base: "150px", md: "200px" }}
-                  h={{ base: "300px", md: "400px" }}
-                  bg="linear-gradient(to-b, #ffffff, #bcb5b1)"
-                  borderRadius="25px"
-                  border="2px solid #333"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  transform="translateY(-20px)"
-                  boxShadow="0 20px 40px rgba(0,0,0,0.3)"
-                />
-                
-                {/* iPhone 3 */}
+                  position="absolute"
+                  right={{ base: "0%", md: "10%", lg: "-10%" }}
+                  top={{ base: "5%", md: "0%", lg: "-5%" }}
+                  zIndex={3}
+                >
+                  <Image
+                    src="/svgs/mobilescreenbottom.svg"
+                    alt="Mobile Screen Bottom"
+                    w={{ base: "180px", md: "500px", lg: "560px" }}
+                    h="auto"
+                    filter="drop-shadow(0 20px 40px rgba(0,0,0,0.4))"
+                  />
+                </Box>
+
+                {/* Lower Mobile Screen (Right Bottom) - mobilescreenupper.svg */}
                 <Box
-                  w={{ base: "150px", md: "200px" }}
-                  h={{ base: "300px", md: "400px" }}
-                  bg="linear-gradient(to-b, #ffffff, #bcb5b1)"
-                  borderRadius="25px"
-                  border="2px solid #333"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  transform="rotate(5deg) translateY(20px)"
-                  boxShadow="0 20px 40px rgba(0,0,0,0.3)"
+                  position="absolute"
+                  right={{ base: "10%", md: "2%", lg: "2%" }}
+                  bottom={{ base: "5%", md: "-2%", lg: "-5%" }}
+                  zIndex={3}
+                >
+                  <Image
+                    src="/svgs/mobilescreenupper.svg"
+                    alt="Mobile Screen Upper"
+                    w={{ base: "160px", md: "500px", lg: "560px" }}
+                    h="auto"
+                    filter="drop-shadow(0 15px 35px rgba(0,0,0,0.3))"
+                  />
+                </Box>
+
+                {/* Background Gradient Effect */}
+                <Box
+                  position="absolute"
+                  top="50%"
+                  left="50%"
+                  transform="translate(-50%, -50%)"
+                  w={{ base: "400px", md: "600px", lg: "800px" }}
+                  h={{ base: "400px", md: "600px", lg: "800px" }}
+                  bgGradient="radial(circle, rgba(187, 98, 252, 0.4) 0%, rgba(218, 75, 122, 0.3) 40%, transparent 70%)"
+                  borderRadius="50%"
+                  filter="blur(60px)"
+                  zIndex={0}
                 />
-              </Grid>
+              </Box>
             </GridItem>
 
             {/* Right Column - Why Different Content */}
             <GridItem>
-              <VStack spacing={8} align="flex-start">
+              <VStack spacing={4} align="flex-start">
                 <Heading
                   as="h2"
                   fontSize={{ base: "64px", md: "96px" }}
                   fontFamily="Inter"
                   fontWeight={600}
                   letterSpacing="0px"
-                  lineHeight={{ base: "77px", md: "116.18px" }}
-                  bgGradient="linear(to-r, #ffffff 27.1%, #999999 100%)"
-                  bgClip="text"
-                  stroke="1px solid"
-                  strokeColor="linear-gradient(-40.92deg, #ffffff 8.92%, #ffffff 24.19%, #ffffff 100%)"
+                  lineHeight={{ base: "55px", md: "90px" }}
+                 className="gradient"
                 >
-                  Why is hushh Different
+                  Why is hushh
+                   
                 </Heading>
+                <Text fontSize={{ base: "64px", md: "96px" }}
+                  fontFamily="Inter"
+                  fontWeight={600}
+                  letterSpacing="0px"
+                  lineHeight={{ base: "55px", md: "90px" }}
+                 className="gradient">
+                  Different</Text>
 
                 <Text
                   fontSize={{ base: "28px", md: "36px" }}
                   fontFamily="Figtree"
                   fontWeight={600}
                   letterSpacing="0px"
-                  lineHeight={{ base: "33.6px", md: "43.2px" }}
+                  lineHeight={'normal'}
                   color="#ffffff"
                   maxW="893px"
                 >
                   We're not just another AI app.
-                  {"\n"}We're a movement for data sovereignty.
-                  {"\n\n"}Built by former Google AI & Cloud leaders
-                  {"\n"}Runs on consent-first infrastructure
-                  {"\n"}Designed with human psychology, not just tech
-                  {"\n"}Monetization powered by you, not advertisers
-                  {"\n"}Powered by open protocols like A2A, MCP, and ADK
+                  
                 </Text>
+                <Text fontSize={{ base: "28px", md: "36px" }}
+                  fontFamily="Figtree"
+                  fontWeight={600}
+                  letterSpacing="0px"
+                  lineHeight={'normal'}
+                  background="linear-gradient(267deg, #DA4B7A 41.68%, #B345D9 65.02%)"
+                  bgClip="text"
+                  _webkitBackgroundClip="text"
+                  _webkitTextFillColor="transparent"
+                  maxW="893px"
+                  >
+                We're a movement for data sovereignty.
+                </Text>
+                <List spacing={2} mt={4} fontSize={{base:"16px",md:"24px",lg:"32px"}}>
+                    <ListItem display="flex" alignItems="center">
+                      <Text color="white" mr={3} fontSize={{base:"20px",md:"2rem",lg:"2.5rem"}}>✓</Text>
+                      <Text>Built by former Google AI & Cloud leaders</Text>
+                    </ListItem>
+                    <ListItem display="flex" alignItems="center">
+                      <Text color="white" mr={3} fontSize={{base:"20px",md:"2rem",lg:"2.5rem"}}>✓</Text>
+                      <Text>Runs on consent-first infrastructure</Text>
+                    </ListItem>
+                    <ListItem display="flex" alignItems="center">
+                      <Text color="white" mr={3} fontSize={{base:"20px",md:"2rem",lg:"2.5rem"}}>✓</Text>
+                      <Text>Designed with human psychology, not just tech</Text>
+                    </ListItem>
+                    <ListItem display="flex" alignItems="center">
+                      <Text color="white" mr={3} fontSize={{base:"20px",md:"2rem",lg:"2.5rem"}}>✓</Text>
+                      <Text>Monetization powered by you, not advertisers</Text>
+                    </ListItem>
+                    <ListItem display="flex" alignItems="center">
+                      <Text color="white" mr={3} fontSize={{base:"20px",md:"2rem",lg:"2.5rem"}}>✓</Text>
+                      <Text>Powered by open protocols like A2A, MCP, and ADK</Text>
+                    </ListItem>
+                  </List>
               </VStack>
             </GridItem>
           </Grid>
         </Container>
       </Box>
 
-      {/* Product Page 6 - Trust & Privacy + Join First Wave */}
+      {/* Product Page 6 - Trust & Privacy First */}
       <Box
-        minH={{ base: "100vh", md: "976px" }}
-        bg="#000000"
-        color="white"
-        position="relative"
-        overflow="hidden"
+        minH={{ base: "100vh", md: "100vh" }}
+        bg="#000"
+        color="black"
+        // py={{ base: 16, md: 24 }}
       >
-        <Container maxW="1723px" position="relative" zIndex={2} py={{ base: 16, md: 24 }}>
+        <Container maxW="1723px" py={{ base: 16, md: 24 }}>
           <Grid
             templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
-            gap={16}
+            gap={{ base: 12, lg: 16 }}
             align="center"
             h="full"
           >
-            {/* Left Column - Trust and Privacy */}
+            {/* Left Column - Trust and Privacy Content */}
             <GridItem>
-              <VStack spacing={8} align="flex-start">
+              <VStack spacing={{ base: 8, md: 12 }} align="flex-start">
+                {/* Main Heading */}
                 <Heading
                   as="h2"
-                  fontSize={{ base: "40px", md: "48px" }}
+                  fontSize={{ base: "48px", md: "64px", lg: "80px" }}
                   fontFamily="Inter"
-                  fontWeight={600}
+                  fontWeight={700}
                   letterSpacing="0px"
-                  lineHeight={{ base: "48px", md: "58.09px" }}
-                  bgGradient="linear(to-r, #d6d6d6 0%, #707070 100%)"
-                  bgClip="text"
-                  stroke="1px solid"
-                  strokeColor="linear-gradient(-40.92deg, #ffffff 8.92%, #ffffff 24.19%, #ffffff 100%)"
+                  lineHeight={{ base: "48px", md: "64px", lg: "80px" }}
+                  className="gradient"
+                  textAlign={{ base: "center", lg: "left" }}
+                  w="full"
                 >
                   Trust and Privacy First
                 </Heading>
 
-                <VStack spacing={4} align="flex-start">
-                  <Text
-                    fontSize={{ base: "28px", md: "32px" }}
-                    fontFamily="Figtree"
-                    fontWeight={600}
-                    letterSpacing="0px"
-                    lineHeight="24px"
-                    color="#ffffff"
-                  >
-                    End-to-end encrypted personal data vault
-                    {"\n"}On-device preference learning
-                    {"\n"}No data is shared without your opt-in
-                    {"\n"}Clear audit logs for every action
-                    {"\n"}You decide what gets shared, when, and why
-                  </Text>
-                </VStack>
+                {/* Features Grid */}
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{base:8,md:12}} w="full" p={{md:8,base:2}}>
+                  {/* Feature 1 */}
+                  <VStack spacing={4} align="center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="45" viewBox="0 0 40 45" fill="none">
+  <path d="M16.25 29.25H23.75L22.3125 21.9937C23.1458 21.6187 23.8021 21.075 24.2812 20.3625C24.7604 19.65 25 18.8625 25 18C25 16.7625 24.5104 15.7031 23.5312 14.8219C22.5521 13.9406 21.375 13.5 20 13.5C18.625 13.5 17.4479 13.9406 16.4688 14.8219C15.4896 15.7031 15 16.7625 15 18C15 18.8625 15.2396 19.65 15.7188 20.3625C16.1979 21.075 16.8542 21.6187 17.6875 21.9937L16.25 29.25ZM20 45C14.2083 43.6875 9.42708 40.6969 5.65625 36.0281C1.88542 31.3594 0 26.175 0 20.475V6.75L20 0L40 6.75V20.475C40 26.175 38.1146 31.3594 34.3438 36.0281C30.5729 40.6969 25.7917 43.6875 20 45ZM20 40.275C24.3333 39.0375 27.9167 36.5625 30.75 32.85C33.5833 29.1375 35 25.0125 35 20.475V9.84375L20 4.78125L5 9.84375V20.475C5 25.0125 6.41667 29.1375 9.25 32.85C12.0833 36.5625 15.6667 39.0375 20 40.275Z" fill="white"/>
+</svg>
+                    <Text
+                      fontSize={{ base: "20px", md: "22px", lg: "24px" }}
+                      fontFamily="Figtree"
+                      fontWeight={400}
+                      letterSpacing="0px"
+                      lineHeight={{ base: "22px", md: "24px", lg: "26px" }}
+                      color="#FFF"
+                      textAlign="center"
+                    >
+                      End-to-end encrypted personal data vault
+                    </Text>
+                  </VStack>
+
+                  {/* Feature 2 */}
+                  <VStack spacing={4} align="center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45" fill="none">
+  <path d="M3.75 16.875V9.375C3.75 8.34375 4.11719 7.46094 4.85156 6.72656C5.58594 5.99219 6.46875 5.625 7.5 5.625H37.5C38.5312 5.625 39.4141 5.99219 40.1484 6.72656C40.8828 7.46094 41.25 8.34375 41.25 9.375V16.875H37.5V9.375H7.5V16.875H3.75ZM7.5 33.75C6.46875 33.75 5.58594 33.3828 4.85156 32.6484C4.11719 31.9141 3.75 31.0312 3.75 30V20.625H7.5V30H37.5V20.625H41.25V30C41.25 31.0312 40.8828 31.9141 40.1484 32.6484C39.4141 33.3828 38.5312 33.75 37.5 33.75H7.5ZM1.875 39.375V35.625H43.125V39.375H1.875ZM3.75 20.625V16.875H15C15.3437 16.875 15.6719 16.9688 15.9844 17.1562C16.2969 17.3438 16.5312 17.5938 16.6875 17.9062L18.8906 22.2656L24.6562 12.1875C24.8125 11.9062 25.0312 11.6797 25.3125 11.5078C25.5937 11.3359 25.9062 11.25 26.25 11.25C26.5937 11.25 26.9219 11.3359 27.2344 11.5078C27.5469 11.6797 27.7812 11.9375 27.9375 12.2812L30.2344 16.875H41.25V20.625H29.0625C28.7187 20.625 28.3906 20.5391 28.0781 20.3672C27.7656 20.1953 27.5312 19.9375 27.375 19.5938L26.1562 17.1094L20.3906 27.1875C20.2344 27.5 20 27.7344 19.6875 27.8906C19.375 28.0469 19.0469 28.125 18.7031 28.125C18.3594 28.125 18.0391 28.0312 17.7422 27.8438C17.4453 27.6562 17.2187 27.4062 17.0625 27.0938L13.8281 20.625H3.75Z" fill="white"/>
+</svg>
+                    <Text
+                      fontSize={{ base: "20px", md: "22px", lg: "24px" }}
+                      fontFamily="Figtree"
+                      fontWeight={400}
+                      letterSpacing="0px"
+                      lineHeight={{ base: "22px", md: "24px", lg: "26px" }}
+                      color="white"
+                      textAlign="center"
+                    >
+                      On-device preference learning
+                    </Text>
+                  </VStack>
+
+                  {/* Feature 3 */}
+                  <VStack spacing={4} align="center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45" fill="none">
+  <path d="M7.5 37.5V16.875H15V37.5H7.5ZM18.75 37.5V18.75L26.25 26.25V37.5H18.75ZM26.25 20.9063L18.75 13.4063V7.5H26.25V20.9063ZM37.5 32.1563L30 24.6563V24.375H37.5V32.1563ZM37.0781 42.4219L2.57812 7.92188L5.25 5.25L39.75 39.75L37.0781 42.4219Z" fill="white"/>
+</svg>
+                    <Text
+                      fontSize={{ base: "20px", md: "22px", lg: "24px" }}
+                      fontFamily="Figtree"
+                      fontWeight={400}
+                      letterSpacing="0px"
+                      lineHeight={{ base: "22px", md: "24px", lg: "26px" }}
+                      color="white"
+                      textAlign="center"
+                    >
+                      No data is shared without your opt-in
+                    </Text>
+                  </VStack>
+
+                  {/* Feature 4 */}
+                  <VStack spacing={4} align="center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45" fill="none">
+  <path d="M22.5 41.25C17.6562 41.25 13.4531 39.6406 9.89062 36.4219C6.32812 33.2031 4.3125 29.1875 3.84375 24.375H7.64062C8.10938 28.1562 9.75781 31.2891 12.5859 33.7734C15.4141 36.2578 18.7188 37.5 22.5 37.5C26.6875 37.5 30.2344 36.0469 33.1406 33.1406C36.0469 30.2344 37.5 26.6875 37.5 22.5C37.5 18.3125 36.0469 14.7656 33.1406 11.8594C30.2344 8.95312 26.6875 7.5 22.5 7.5C19.8125 7.5 17.3203 8.16406 15.0234 9.49219C12.7266 10.8203 10.9062 12.6562 9.5625 15H15V18.75H4.125C5.03125 14.375 7.20312 10.7812 10.6406 7.96875C14.0781 5.15625 18.0312 3.75 22.5 3.75C25.0938 3.75 27.5312 4.24219 29.8125 5.22656C32.0938 6.21094 34.0781 7.54688 35.7656 9.23438C37.4531 10.9219 38.7891 12.9062 39.7734 15.1875C40.7578 17.4688 41.25 19.9062 41.25 22.5C41.25 25.0938 40.7578 27.5312 39.7734 29.8125C38.7891 32.0938 37.4531 34.0781 35.7656 35.7656C34.0781 37.4531 32.0938 38.7891 29.8125 39.7734C27.5312 40.7578 25.0938 41.25 22.5 41.25ZM27.75 30.375L20.625 23.25V13.125H24.375V21.75L30.375 27.75L27.75 30.375Z" fill="white"/>
+</svg>
+                    <Text
+                      fontSize={{ base: "20px", md: "22px", lg: "24px" }}
+                      fontFamily="Figtree"
+                      fontWeight={400}
+                      letterSpacing="0px"
+                      lineHeight={{ base: "22px", md: "24px", lg: "26px" }}
+                      color="white"
+                      textAlign="center"
+                    >
+                      Clear audit logs for every action
+                    </Text>
+                  </VStack>
+                </SimpleGrid>
+
+                {/* Bottom Message */}
+                <Text
+                  fontSize={{ base: "20px", md: "24px" }}
+                  fontFamily="Inter"
+                  fontWeight={400}
+                  letterSpacing="0px"
+                  lineHeight={{ base: "22px", md: "24px", lg: "26px" }}
+                  color="white" 
+                  textAlign="center"
+                  w="full"
+                  mt={6}
+                >
+                  You decide what gets shared, when, and why
+                </Text>
               </VStack>
             </GridItem>
 
-            {/* Right Column - Join First Wave */}
-            <GridItem position="relative">
-              {/* Gradient Background */}
+            {/* Right Column - Mobile Phone Mockup */}
+            <GridItem>
               <Box
-                position="absolute"
-                top={0}
-                right={0}
-                w="120%"
-                h="120%"
-                bgGradient="linear(135deg, #0071e3 0%, #b345d9 27.4%, #da4b7a 69.23%, #f44f22 100%)"
-                transform="translateX(20%)"
-                zIndex={-1}
-              />
-
-              <VStack spacing={8} align="center" textAlign="center" py={16} px={8}>
-                <HStack spacing={3}>
-                  <Image
-                    src="/Icons/shield-check.svg"
-                    alt="Hushh Icon"
-                    width="46px"
-                    height="46px"
-                  />
-                  <Heading
-                    as="h2"
-                    fontSize={{ base: "40px", md: "48px" }}
-                    fontFamily="Inter"
-                    fontWeight={600}
-                    letterSpacing="0px"
-                    lineHeight={{ base: "48px", md: "58.09px" }}
-                    bgGradient="linear(to-r, #ffffff 27.1%, #999999 100%)"
-                    bgClip="text"
-                    stroke="1px solid"
-                    strokeColor="linear-gradient(-40.92deg, #ffffff 8.92%, #ffffff 24.19%, #ffffff 100%)"
-                  >
-                    Join the First Wave
-                  </Heading>
-                </HStack>
-
-                <Text
-                  fontSize={{ base: "28px", md: "32px" }}
-                  fontFamily="Figtree"
-                  fontWeight={600}
-                  letterSpacing="0px"
-                  lineHeight={{ base: "32px", md: "38.4px" }}
-                  color="#ffffff"
-                  maxW="639px"
-                >
-                  We're onboarding our first 1,024 humans into the hushh network.
-                  {"\n\n\n"}You'll be among the first to use, test, and co-design the future of intelligent agents
-                </Text>
-
-                <Button
-                  bg="#ffffff"
-                  border="2px solid transparent"
-                  borderRadius="20px"
-                  w={{ base: "280px", md: "341px" }}
-                  h="74px"
-                  fontSize="24px"
-                  fontFamily="Figtree"
-                  fontWeight={600}
-                  letterSpacing="0.96px"
-                  lineHeight="28.8px"
-                  color="#bb62fc"
-                  _hover={{
-                    bg: "linear-gradient(to-r, #b345d9, #da4b7a)",
-                    color: "white",
-                    transform: "translateY(-2px)",
-                  }}
-                  transition="all 0.3s ease"
-                  onClick={() => router.push("/contact-us")}
-                >
-                  Join the waitlist
-                </Button>
-              </VStack>
+                position="relative"
+                w="full"
+                h={{ base: "500px", md: "600px", lg: "700px" }}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                bg="linear-gradient(135deg, #8B7355 0%, #A0926B 50%, #B8A882 100%)"
+                borderRadius="20px"
+                overflow="hidden"
+              >
+                <Image src="/svgs/pdagoldmobile.svg" alt="Hushh Personal Data Agent Mobile" w="full" h="full" />
+              </Box>
             </GridItem>
           </Grid>
         </Container>
