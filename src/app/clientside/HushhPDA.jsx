@@ -1495,7 +1495,7 @@ const HushhPDA = () => {
       >
         <Container maxW="1723px" px={{ base: 4, md: 0 }}>
           {/* Mobile Layout - Vertical Stack */}
-          <VStack spacing={8} display={{ base: "flex", lg: "none" }} w="full" align="center">
+          <VStack spacing={2} display={{ base: "flex", lg: "none" }} w="full" align="center">
             {/* Why Different Content - Mobile */}
             <VStack spacing={4} align="center" textAlign="center" w="full">
               <Heading
@@ -1561,16 +1561,16 @@ const HushhPDA = () => {
               </List>
             </VStack>
 
-            {/* iPhone Mockups - Mobile */}
+            {/* iPhone Mockups - Mobile Optimized */}
             <Box
               position="relative"
               w="100%"
-              h={{ base: "300px", sm: "400px" }}
+              h={{ base: "650px", sm: "750px" }}
               display="flex"
               alignItems="center"
               justifyContent="center"
             >
-              {/* Main Mobile Screen (Center) */}
+              {/* Main Mobile Screen (Center) - Much Bigger */}
               <Box
                 position="absolute"
                 left="50%"
@@ -1581,57 +1581,57 @@ const HushhPDA = () => {
                 <Image
                   src="/svgs/mobilescreen1.svg"
                   alt="Mobile Screen 1"
-                  w={{ base: "120px", sm: "150px" }}
+                  w={{ base: "300px", sm: "320px" }}
                   h="auto"
-                  filter="drop-shadow(0 15px 30px rgba(0,0,0,0.5))"
+                  filter="drop-shadow(0 25px 50px rgba(0,0,0,0.7))"
                 />
               </Box>
 
-              {/* Upper Mobile Screen (Right) */}
+              {/* Upper Mobile Screen (Left Top) - Much Bigger */}
               <Box
                 position="absolute"
-                right="10%"
-                top="20%"
+                left="-16%"
+                top="12%"
                 zIndex={2}
               >
                 <Image
                   src="/svgs/mobilescreenbottom.svg"
                   alt="Mobile Screen Bottom"
-                  w={{ base: "80px", sm: "100px" }}
-                  h="auto"
-                  filter="drop-shadow(0 10px 20px rgba(0,0,0,0.4))"
-                  opacity={0.8}
+                  w={{ base: "280px", sm: "280px" }}
+                  h="400px"
+                  filter="drop-shadow(0 20px 40px rgba(0,0,0,0.6))"
+                  opacity={0.95}
                 />
               </Box>
 
-              {/* Lower Mobile Screen (Left) */}
+              {/* Lower Mobile Screen (Right Bottom) - Much Bigger */}
               <Box
                 position="absolute"
-                left="10%"
-                bottom="20%"
+                right="2%"
+                bottom="0"
                 zIndex={2}
               >
                 <Image
                   src="/svgs/mobilescreenupper.svg"
                   alt="Mobile Screen Upper"
-                  w={{ base: "80px", sm: "100px" }}
-                  h="auto"
-                  filter="drop-shadow(0 10px 20px rgba(0,0,0,0.3))"
-                  opacity={0.8}
+                  w={{ base: "280px", sm: "280px" }}
+                  h="320px"
+                  filter="drop-shadow(0 20px 40px rgba(0,0,0,0.5))"
+                  opacity={0.95}
                 />
               </Box>
 
-              {/* Background Gradient Effect */}
+              {/* Enhanced Background Gradient Effect */}
               <Box
                 position="absolute"
                 top="50%"
                 left="50%"
                 transform="translate(-50%, -50%)"
-                w={{ base: "250px", sm: "300px" }}
-                h={{ base: "250px", sm: "300px" }}
-                bgGradient="radial(circle, rgba(187, 98, 252, 0.4) 0%, rgba(218, 75, 122, 0.3) 40%, transparent 70%)"
+                w={{ base: "450px", sm: "500px" }}
+                h={{ base: "450px", sm: "500px" }}
+                bgGradient="radial(circle, rgba(187, 98, 252, 0.6) 0%, rgba(218, 75, 122, 0.5) 40%, transparent 70%)"
                 borderRadius="50%"
-                filter="blur(40px)"
+                filter="blur(60px)"
                 zIndex={0}
               />
             </Box>
