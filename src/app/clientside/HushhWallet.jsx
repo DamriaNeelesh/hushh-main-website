@@ -519,7 +519,7 @@ const ClientHushhWallet = () => {
         </Box>
       </HStack>
 
-      <Stack
+      {/* <Stack
         py={{ base: "2rem", md: "5rem" }}
         display={"flex"}
         gap={{ md: "1rem", base: "0.5rem" }}
@@ -569,12 +569,12 @@ const ClientHushhWallet = () => {
         <Box>
           <Image src={HushhWalletBg} alt="HushhWalletBg" />
         </Box>
-      </Stack>
+      </Stack> */}
 
       <VStack
         mb={{ md: "15rem", base: "5rem" }}
         gap={{ md: "1.25rem", base: "0.75rem" }}
-        mt={{ md: "-18rem", base: "1.5ren" }}
+        mt={{ md: "6rem", base: "1.5ren" }}
         textAlign={{ md: "left", base: "center" }}
       >
         <Text
@@ -700,9 +700,9 @@ const ClientHushhWallet = () => {
                 Download Our Hushh Wallet App
               </Button>
             </HStack>
-            <Box pos={"absolute"} right={"7%"} bottom={0}>
+            {/* <Box pos={"absolute"} right={"7%"} bottom={0}>
               <Image src={BrandWalletMobile} alt="BrandWalletMobile" />
-            </Box>
+            </Box> */}
           </Box>
         </Box>
       </VStack>

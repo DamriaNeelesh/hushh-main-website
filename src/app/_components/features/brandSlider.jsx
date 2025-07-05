@@ -49,9 +49,10 @@ export function BrandSlider() {
           <Google key={9} width={50} height={50} />
           <Gucci key={10} width={50} height={50} />
           <Laredoute key={11} width={50} height={50} />
-          <Lvtetia key={12} width={50} height={50} />
+          {/* <Lvtetia key={12} width={50} height={50} /> */}
           <Microsoft key={13} width={50} height={50} />
-          <Brand1 key={14} width={50} height={50} />
+          {/* <Reliance key={12} width={50} height={50} /> */}
+          {/* <Brand1 key={14} width={50} height={50} /> */}
         </BrandContainer>
       </Marquee>
     </div>

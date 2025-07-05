@@ -70,24 +70,31 @@ const BrandWalletSection = () => {
         </Text>
         <Grid
           templateColumns={{ md: "1fr 2fr 1fr", base: "repeat(1, 1fr)" }}
-          gap={{ md: "4rem", base: "1rem" }}
+          gap={{ md: "2rem", base: "1rem" }}
           mt={{ md: "2rem", base: "1rem" }}
-          px={{ md: "10rem", base: "1rem" }}
+          px={{ md: "8rem", base: "1rem" }}
+          alignItems="start"
+          w="full"
+          maxW="1400px"
+          mx="auto"
         >
           {/* Left column */}
           <VStack
-            w={{ md: "20rem", base: "10rem" }}
+            w="full"
             display={{ md: "flex", base: "none" }}
             gap="2rem"
+            alignItems="stretch"
           >
-            <HStack
-              align={"left"}
-              flexDirection={"column"}
+            <VStack
+              align={"flex-start"}
               bg="#1C1C1C"
-              px={{ md: "2rem", base: "1rem" }}
-              py={{ md: "3rem", base: "1rem" }}
+              px={{ md: "1.5rem", base: "1rem" }}
+              py={{ md: "2rem", base: "1rem" }}
               gap={"1rem"}
-              borderRadius={"2.5rem"}
+              borderRadius={"2rem"}
+              flex="1"
+              minH="200px"
+              justifyContent="flex-start"
             >
               <SendReceiveIcon />
               <Text
@@ -100,15 +107,17 @@ const BrandWalletSection = () => {
                 Your personal AI, learning from you. Get things done, find
                 answers, and live smarter
               </Text>
-            </HStack>
-            <HStack
-              align={"left"}
-              flexDirection="column"
+            </VStack>
+            <VStack
+              align={"flex-start"}
               bg="#1C1C1C"
-              px="2rem"
-              py="3rem"
+              px={{ md: "1.5rem", base: "1rem" }}
+              py={{ md: "2rem", base: "1rem" }}
               gap={"1rem"}
-              borderRadius={"2.5rem"}
+              borderRadius={"2rem"}
+              flex="1"
+              minH="200px"
+              justifyContent="flex-start"
             >
               <ChartIcon />
               <Text
@@ -121,91 +130,155 @@ const BrandWalletSection = () => {
                 We offer robust APIs and developer tools for effortless
                 integration with trusted brands.
               </Text>
-            </HStack>
+            </VStack>
           </VStack>
 
           {/* Center column */}
           <Box
-            borderRadius={"2.5rem"}
+            borderRadius={"2rem"}
             w={"full"}
             gridColumnStart={{ base: 1, md: 2 }}
             gridRowStart={{ base: 2, md: 1 }}
             className="gradient-bg"
+            position="relative"
+            overflow="hidden"
+            minH={{ md: "550px", base: "450px" }}
           >
+            {/* Content Container */}
             <VStack
-              align={"left"}
-              px={"2rem"}
-              pt={"2rem"}
-              gap={"1.6rem"}
-              position={"relative"}
+              spacing={{ md: 6, base: 4 }}
+              align="center"
+              justify="flex-start"
+              h="full"
+              p={{ md: "2rem", base: "1.5rem" }}
+              position="relative"
+              zIndex={2}
             >
-              <Text fontSize={"20px"} color={extendedTheme.colors._white}>
-                iOS & ANDROID APP
-              </Text>
-              <Text color={extendedTheme.colors._white}>
-                Experience the convenience of managing your digital life with
-                Hushh, available on both iOS and Android.
-              </Text>
+              {/* Header Section */}
+              <VStack spacing={{ md: 3, base: 2 }} align="center" textAlign="center">
+                <Text 
+                  fontSize={{ md: "20px", base: "16px" }} 
+                  color={extendedTheme.colors._white}
+                  fontWeight="700"
+                  letterSpacing="1px"
+                  textTransform="uppercase"
+                >
+                  iOS & ANDROID APP
+                </Text>
+                <Text 
+                  color={extendedTheme.colors._white}
+                  fontSize={{ md: "16px", base: "14px" }}
+                  lineHeight={{ md: "1.6", base: "1.5" }}
+                  maxW={{ md: "320px", base: "280px" }}
+                  opacity={0.9}
+                >
+                  Experience the convenience of managing your digital life with
+                  Hushh, available on both iOS and Android.
+                </Text>
+              </VStack>
+
+              {/* Mobile Image Container */}
               <Box
-                display={{ md: "block", base: "none" }}
-                align={"center"}
-                mt={"1.40rem"}
                 position="relative"
-                width="100%"
-                height="auto"
-                overflow="hidden"
+                w="full"
+                flex="1"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                mt={{ md: 1, base: 2 }}
               >
-                <NextImage
-                  src={BrandWalletMobile}
-                  alt="brandWalletdesktop"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    maxHeight: "600px",
-                    objectFit: "contain",
-                    margin: "0 auto"
-                  }}
-                  priority
-                />
-              </Box>
-              <Box
-                align={"center"}
-                display={{ md: "none", base: "block" }}
-                mt={"1.40rem"}
-                position="relative"
-                width="100%"
-                height="auto"
-                overflow="hidden"
-              >
-                <NextImage
-                  src={BrandWalletMobile}
-                  alt="brandWalletmobile"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "contain",
-                    margin: "0 auto"
-                  }}
-                  priority
+                {/* Desktop Mobile Image */}
+                <Box
+                  display={{ md: "block", base: "none" }}
+                  position="relative"
+                  w="full"
+                  // maxW="280px"
+                  // h="auto"
+                >
+                  <NextImage
+                    src='/svgs/mobilescreen1.svg'
+                    alt="Hushh Mobile App"
+                    width={480}
+                    height={250}
+                    style={{
+                      width: "100%",
+                      height: "420px",
+
+                    }}
+                    priority
+                  />
+                </Box>
+
+                {/* Mobile Image */}
+                <Box
+                  display={{ md: "none", base: "block" }}
+                  position="relative"
+                  w="full"
+                  maxW="200px"
+                  // h="auto"
+                >
+                  <NextImage
+                    src='/svgs/mobilescreen1.svg'
+                    alt="Hushh Mobile App"
+                    width={200}
+                    height={100}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      objectFit: "contain",
+                      filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.4))",
+                      transform: "scale(1.02)"
+                    }}
+                    priority
+                  />
+                </Box>
+
+                {/* Background Glow Effect */}
+                <Box
+                  position="absolute"
+                  top="50%"
+                  left="50%"
+                  transform="translate(-50%, -50%)"
+                  w={{ md: "300px", base: "220px" }}
+                  h={{ md: "300px", base: "220px" }}
+                  bgGradient="radial(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 30%, transparent 70%)"
+                  borderRadius="50%"
+                  filter="blur(20px)"
+                  zIndex={1}
                 />
               </Box>
             </VStack>
+
+            {/* Enhanced Background Gradient Overlay */}
+            <Box
+              position="absolute"
+              top={0}
+              left={0}
+              right={0}
+              bottom={0}
+              bgGradient="linear(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.1) 100%)"
+              borderRadius={"2rem"}
+              zIndex={1}
+            />
           </Box>
 
           {/* Right column */}
           <VStack
-            w={{ md: "20rem", base: "10rem" }}
+            w="full"
             display={{ md: "flex", base: "none" }}
             gap="2rem"
+            alignItems="stretch"
           >
-            <HStack
-              align={"left"}
-              flexDirection="column"
+            <VStack
+              align={"flex-start"}
               bg="#1C1C1C"
-              px="2rem"
-              py="3rem"
+              px={{ md: "1.5rem", base: "1rem" }}
+              py={{ md: "2rem", base: "1rem" }}
               gap={"1rem"}
-              borderRadius={"2.5rem"}
+              borderRadius={"2rem"}
+              flex="1"
+              minH="200px"
+              justifyContent="flex-start"
             >
               <WalletIcon />
               <Text
@@ -218,15 +291,17 @@ const BrandWalletSection = () => {
                 Effortlessly share and manage your data with our solutions to
                 control and monitor data access
               </Text>
-            </HStack>
-            <HStack
-              align={"left"}
-              flexDirection="column"
+            </VStack>
+            <VStack
+              align={"flex-start"}
               bg="#1C1C1C"
-              px="2rem"
-              py="3rem"
+              px={{ md: "1.5rem", base: "1rem" }}
+              py={{ md: "2rem", base: "1rem" }}
               gap={"1rem"}
-              borderRadius={"2.5rem"}
+              borderRadius={"2rem"}
+              flex="1"
+              minH="200px"
+              justifyContent="flex-start"
             >
               <RefreshIcon />
               <Text
@@ -239,7 +314,7 @@ const BrandWalletSection = () => {
                 With automatic scanning, smart categorization, and customizable
                 options, managing expenses becomes a breeze.
               </Text>
-            </HStack>
+            </VStack>
           </VStack>
 
           <HStack

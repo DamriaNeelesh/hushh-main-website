@@ -19,7 +19,9 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-} from "@chakra-ui/react";
+  List,
+  ListItem,
+  } from "@chakra-ui/react";
 import { BrandSlider } from "../_components/features/brandSlider";
 import BrandWalletSection from "../_components/features/brandWalletSection";
 // import ConceirgeApp from "../_components/svg/conciergeApp";
@@ -356,71 +358,77 @@ const ClientHome = () => {
             <Box
               display="flex"
               h={"full"}
-              flexDirection={{ base: "column", md: "row" }}
-              alignItems={{ base: "center", md: "flex-start" }}
+              flexDirection={{md:'row-reverse',base:'column-reverse'}}
+              alignItems="center"
+              justifyContent="center"
               pt={{ md: "10rem", base: "6rem" }}
-              justifyContent="space-between"
-              gap="8rem"
-              px={{ md: "3rem" }}
+              px={{ md: "0rem", base: "1rem" }}
               minH={'100vh'}
             >
-              {/* Left side box */}
-              <Box
-                position={"relative"}
-                flex="1"
-                bg={extendedTheme.colors._black}
-                display={{ base: "none", md: "block" }}
+              <VStack alignItems={'flex-start'}>
+              <Text
+                fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
+                fontFamily="Figtree"
+                fontWeight={600}
+                letterSpacing="0px"
+                lineHeight="1.4"
+                color="#ffffff"
+                maxW="100%"
               >
-                <Image
-                  src={LouisVuitton}
-                  alt="Louis Vuitton"
-                  width={350.62}
-                  height={363.19}
-                  style={{
-                    // zIndex: "1",
-                    position: "relative",
-                    top: "25px",
-                    left: "100px",
-                  }}
-                />
-                <Image
-                  style={{
-                    position: "relative",
-                    top: "-90.67px",
-                    left: "319px",
-                    // zIndex: "2",
-                  }}
-                  src={SephoraCard}
-                  alt="Sephora Card"
-                  width={420.62}
-                  height={363.19}
-                />
-                <Image
-                  style={{
-                    position: "absolute",
-                    top: "200.67px",
-                    left: "100px",
-                    // zIndex: "1",
-                    rotate: "10.02",
-                  }}
-                  src={FendiCard}
-                  alt="Fendi Card"
-                  width={570.62}
-                  height={363.19}
-                />
-              </Box>
-              {/* Right side box */}
+                We're not just another AI app.
+              </Text>
+              
+              <Text 
+                fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
+                fontFamily="Figtree"
+                fontWeight={600}
+                letterSpacing="0px"
+                lineHeight="1.4"
+                background="linear-gradient(267deg, #DA4B7A 41.68%, #B345D9 65.02%)"
+                bgClip="text"
+                _webkitBackgroundClip="text"
+                _webkitTextFillColor="transparent"
+                maxW="100%"
+              >
+                We're a movement for data sovereignty.
+              </Text>
+
+              <List spacing={3} mt={6} fontSize={{ base: "sm", md: "md" }} w="full" maxW="400px">
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Built by former Google AI & Cloud leaders</Text>
+                </ListItem>
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Runs on consent-first infrastructure</Text>
+                </ListItem>
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Designed with human psychology, not just tech</Text>
+                </ListItem>
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Monetization powered by you, not advertisers</Text>
+                </ListItem>
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Powered by open protocols like A2A, MCP, and ADK</Text>
+                </ListItem>
+              </List>
+              </VStack>
+              {/* Centered content */}
               <VStack
-                alignItems={{ md: "left", base: "" }}
-                mr={{ md: "2rem", base: "0" }}
-                textAlign={{ md: "left", base: "center" }}
-                flex="1"
+                alignItems={{ md: "center", base: "flex-start" }}
+                textAlign={{ md: "center", base: "left" }}
+                maxW={{ md: "800px", base: "100%" }}
+                w="full"
               >
                 <Text
                   className="color-gradient"
                   fontWeight={600}
                   letterSpacing={"0.25rem"}
                   fontSize={{md:"1rem",base:'0.75rem'}}
+                  textAlign={{ md: "center", base: "left" }}
                 >
                   OUR ADVANTAGES
                 </Text>
@@ -429,134 +437,136 @@ const ClientHome = () => {
                   className="gradient"
                   lineHeight={"63px"}
                   fontWeight={"400"}
-                  alignItems={{ md: "left", base: "center" }}
-                  textAlign={{ md: "left", base: "center" }}
+                  textAlign={{ md: "center", base: "left" }}
                   fontSize={{ md: "3.75rem", base: "2rem" }}
                 >
                   Why Us?
                 </Text>
                 <Text
-                  px={{ base: "1rem", md: "0" }}
-                  alignItems={{ base: "center" }}
                   pt={{ md: "1rem" }}
                   fontWeight={"500"}
-                  fontSize={{md:'',base:'1rem'}}
+                  fontSize={{md:'1.25rem',base:'1rem'}}
                   color={extendedTheme.colors.secondary}
+                  textAlign={{ md: "center", base: "left" }}
+                  maxW={{ md: "600px", base: "100%" }}
                 >
                   Empower individuals with data control. Today, we're a
                   cutting-edge platform fostering trust, transparency, and
                   personalized experiences.
               </Text>
 
+                {/* Features Grid */}
                 <Box
                   pt={{ md: "40px", base: "20px" }}
                   width={"100%"}
-                  pr={{ base: "1.25rem" }}
-                  justifyContent={{ base: "space-between" }}
-                  display={"flex"}
-                  gap={{ md: "4rem" }}
+                  display="flex"
+                  flexDirection={{ base: "column", md: "row" }}
+                  justifyContent={{ md: "center", base: "flex-start" }}
+                  alignItems={{ md: "flex-start", base: "flex-start" }}
+                  gap={{ md: "3rem", base: "2rem" }}
+                  flexWrap="wrap"
                 >
+                  {/* Feature 1 - Data Autonomy */}
                   <VStack
-                    mx={{ base: "2rem", md: "0" }}
-                    maxW={{ md: "290px" }}
-                    textAlign={"left"}
-                    alignItems={"left"}
+                    maxW={{ md: "250px", base: "100%" }}
+                    textAlign={{ md: "center", base: "left" }}
+                    alignItems={{ md: "center", base: "flex-start" }}
+                    spacing={4}
                   >
-                    <HStack gap={{ md: "2rem" }}>
+                    <HStack gap={{ md: "1rem", base: "1rem" }} alignItems="center">
                       <ShieldIcon />
                       <Text
                         fontWeight={"500"}
                         fontSize={{ base: "1rem", md: "1.25rem" }}
-                        ml={{ base: "0.5rem" }}
                         color={extendedTheme.colors.secondary}
+                        textAlign={{ md: "center", base: "left" }}
                       >
-                        Data <br></br> Autonomy
+                        Data Autonomy
                       </Text>
                     </HStack>
                     <Divider
-                      mt={"1rem"}
                       className="divider"
-                      width={{ md: "12rem", base: "8rem" }}
+                      width={{ md: "12rem", base: "100%" }}
                     />
                     <Text
                       fontWeight={"500"}
                       fontSize={{ base: "0.75rem", md: "1rem" }}
                       lineHeight={{ md: "22px", base: "18px" }}
-                      mt={{ md: "1.25rem", base: "0.75rem" }}
                       color={extendedTheme.colors.secondary}
+                      textAlign={{ md: "center", base: "left" }}
                     >
                       Empower your customers with full control over their
                       personal data
                     </Text>
                   </VStack>
 
+                  {/* Feature 2 - Data Equity */}
                   <VStack
-                    maxW={{ md: "290px" }}
-                    mt={"-0.68rem"}
-                    textAlign={"left"}
-                    alignItems={"left"}
+                    maxW={{ md: "250px", base: "100%" }}
+                    textAlign={{ md: "center", base: "left" }}
+                    alignItems={{ md: "center", base: "flex-start" }}
+                    spacing={4}
                   >
-                    <HStack gap={{ md: "2rem" }}>
+                    <HStack gap={{ md: "1rem", base: "1rem" }} alignItems="center">
                       <KeyIcon />
                       <Text
                         fontWeight={"500"}
                         fontSize={{ base: "1rem", md: "1.25rem" }}
-                        ml={{ base: "0.5rem" }}
                         color={extendedTheme.colors.secondary}
+                        textAlign={{ md: "center", base: "left" }}
                       >
-                        Data <br></br> Equity
+                        Data Equity
                       </Text>
                     </HStack>
                     <Divider
-                      mt={"1rem"}
                       className="divider"
-                      width={{ md: "12rem", base: "8rem" }}
+                      width={{ md: "12rem", base: "100%" }}
                     />
                     <Text
                       fontWeight={"500"}
                       lineHeight={{ md: "22px", base: "18px" }}
                       fontSize={{ base: "0.75rem", md: "1rem" }}
-                      mt={{ md: "1.25rem", base: "0.75rem" }}
                       color={extendedTheme.colors.secondary}
+                      textAlign={{ md: "center", base: "left" }}
                     >
                       Creating a fair and equitable environment for data
                       sharing.
                     </Text>
                   </VStack>
-                </Box>
-                <VStack
-                  mx={{ base: "1rem" }}
-                  pr={"1.25rem"}
-                  alignContent={"left"}
-                  mt={"1.5rem"}
-                  textAlign={"left"}
-                  alignItems={"left"}
-                >
-                  <HStack gap={"1rem"}>
-                    <LockIcon />
+
+                  {/* Feature 3 - Consent-Driven Excellence */}
+                  <VStack
+                    maxW={{ md: "250px", base: "100%" }}
+                    textAlign={{ md: "center", base: "left" }}
+                    alignItems={{ md: "center", base: "flex-start" }}
+                    spacing={4}
+                  >
+                    <HStack gap={{ md: "1rem", base: "1rem" }} alignItems="center">
+                      <LockIcon />
+                      <Text
+                        fontWeight={"500"}
+                        fontSize={{ base: "1rem", md: "1.25rem" }}
+                        color={extendedTheme.colors.secondary}
+                        textAlign={{ md: "center", base: "left" }}
+                      >
+                        Consent-Driven Excellence
+                      </Text>
+                    </HStack>
+                    <Divider
+                      className="divider"
+                      width={{ md: "12rem", base: "100%" }}
+                    />
                     <Text
                       fontWeight={"500"}
-                      fontSize={{ base: "1rem", md: "1.25rem" }}
+                      lineHeight={{ md: "22px", base: "18px" }}
+                      fontSize={{ base: "0.75rem", md: "1rem" }}
                       color={extendedTheme.colors.secondary}
+                      textAlign={{ md: "center", base: "left" }}
                     >
-                      Consent-Driven <br></br> Excellence
+                      Creating a fair and equitable environment for data sharing.
                     </Text>
-                  </HStack>
-                  <Divider
-                    mt={"1rem"}
-                    className="divider"
-                    width={{ md: "22rem", base: "14rem" }}
-                  />
-                  <Text
-                    fontWeight={"500"}
-                    lineHeight={{ md: "22px", base: "18px" }}
-                    mt={{ md: "1.25rem", base: "0.75rem" }}
-                    fontSize={{ base: "0.75rem", md: "1rem" }}
-                    color={extendedTheme.colors.secondary}
-                  >
-                    Creating a fair and equitable environment for data sharing.
-                  </Text>
-                </VStack>
+                  </VStack>
+                </Box>
               </VStack>
             </Box>
 
