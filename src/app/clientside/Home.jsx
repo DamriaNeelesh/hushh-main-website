@@ -19,7 +19,9 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-} from "@chakra-ui/react";
+  List,
+  ListItem,
+  } from "@chakra-ui/react";
 import { BrandSlider } from "../_components/features/brandSlider";
 import BrandWalletSection from "../_components/features/brandWalletSection";
 // import ConceirgeApp from "../_components/svg/conciergeApp";
@@ -356,13 +358,64 @@ const ClientHome = () => {
             <Box
               display="flex"
               h={"full"}
-              flexDirection="column"
+              flexDirection={{md:'row-reverse',base:'column-reverse'}}
               alignItems="center"
               justifyContent="center"
               pt={{ md: "10rem", base: "6rem" }}
               px={{ md: "0rem", base: "1rem" }}
               minH={'100vh'}
             >
+              <VStack alignItems={'flex-start'}>
+              <Text
+                fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
+                fontFamily="Figtree"
+                fontWeight={600}
+                letterSpacing="0px"
+                lineHeight="1.4"
+                color="#ffffff"
+                maxW="100%"
+              >
+                We're not just another AI app.
+              </Text>
+              
+              <Text 
+                fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
+                fontFamily="Figtree"
+                fontWeight={600}
+                letterSpacing="0px"
+                lineHeight="1.4"
+                background="linear-gradient(267deg, #DA4B7A 41.68%, #B345D9 65.02%)"
+                bgClip="text"
+                _webkitBackgroundClip="text"
+                _webkitTextFillColor="transparent"
+                maxW="100%"
+              >
+                We're a movement for data sovereignty.
+              </Text>
+
+              <List spacing={3} mt={6} fontSize={{ base: "sm", md: "md" }} w="full" maxW="400px">
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Built by former Google AI & Cloud leaders</Text>
+                </ListItem>
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Runs on consent-first infrastructure</Text>
+                </ListItem>
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Designed with human psychology, not just tech</Text>
+                </ListItem>
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Monetization powered by you, not advertisers</Text>
+                </ListItem>
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="white" mr={3} fontSize={{ base: "md", md: "lg" }}>✓</Text>
+                  <Text textAlign="left" color={'white'}>Powered by open protocols like A2A, MCP, and ADK</Text>
+                </ListItem>
+              </List>
+              </VStack>
               {/* Centered content */}
               <VStack
                 alignItems={{ md: "center", base: "flex-start" }}
