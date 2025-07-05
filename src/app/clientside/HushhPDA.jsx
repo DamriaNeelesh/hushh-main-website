@@ -20,12 +20,15 @@ import {
 import extendedTheme from "../theme";
 import { useRouter } from "next/navigation";
 import ContactForm from "../_components/features/contactForm";
+import Marquee from "react-fast-marquee";
 
 const HushhPDA = () => {
   const router = useRouter();
   
-  // Center detection for gradient effect - always running
+  // Center detection for gradient effect - independent of scrolling
   useEffect(() => {
+    let animationFrame;
+    
     const handleMarqueeCenter = () => {
       const nameElements = document.querySelectorAll('.marquee-name');
       const centerY = window.innerHeight / 2;
@@ -57,29 +60,23 @@ const HushhPDA = () => {
           element.style.transition = 'all 0.3s ease';
         }
       });
+      
+      // Continue the animation loop independently
+      animationFrame = requestAnimationFrame(handleMarqueeCenter);
     };
 
-         // Start animation after 0.001 seconds
-     let animationFrame;
+    // Start the animation loop
+    const timeout = setTimeout(() => {
+      handleMarqueeCenter();
+    }, 100); // Small delay to ensure elements are rendered
      
-     const startAnimation = () => {
-       const smoothDetection = () => {
-         handleMarqueeCenter();
-         animationFrame = requestAnimationFrame(smoothDetection);
-       };
-       
-       smoothDetection();
-     };
-     
-     const timeout = setTimeout(startAnimation, 1); // 0.001 seconds = 1ms
-     
-     return () => {
-       clearTimeout(timeout);
-       if (animationFrame) {
-         cancelAnimationFrame(animationFrame);
-       }
-     };
-  }, []); // Empty dependency array - runs once and never stops
+    return () => {
+      clearTimeout(timeout);
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, []); // Empty dependency array - runs once and continues independently
 
   return (
     <>
@@ -107,7 +104,7 @@ const HushhPDA = () => {
             {/* Powered by Hushh.ai */}
             <Box textAlign="center" w="full" mt={{ base: 4, md: 10 }}>
               <Text
-                fontSize={{ base: "md", sm: "lg", md: "xl", lg: "2xl" }}
+                fontSize={{ base: "lg", sm: "lg", md: "xl", lg: "2xl" }}
                 fontFamily="Inter"
                 fontWeight={700}
                 letterSpacing="0"
@@ -133,7 +130,7 @@ const HushhPDA = () => {
             <Box textAlign="center" maxW={{ base: "95%", md: "90%", lg: "80%" }}>
               <Heading
                 as="h1"
-                fontSize={{ base: "2xl", sm: "3xl", md: "5xl", lg: "6xl" }}
+                fontSize={{ base: "3xl", sm: "3xl", md: "5xl", lg: "6xl" }}
                 fontFamily="Poppins"
                 fontWeight={700}
                 letterSpacing="0"
@@ -209,7 +206,7 @@ const HushhPDA = () => {
               {/* CTA Buttons - Mobile optimized positioning */}
               <VStack
                 position="absolute"
-                bottom={{ base: "-8vh", sm: "-6vh", md: "-2vh" }}
+                bottom={{ base: "-10vh", sm: "-10vh", md: "-2vh" }}
                 left="50%"
                 transform="translateX(-50%)"
                 spacing={{ base: 3, md: 4 }}
@@ -250,7 +247,7 @@ const HushhPDA = () => {
                     bg="rgba(255, 255, 255, 0.95)"
                     backdropFilter="blur(0.625rem)"
                     borderRadius="20px"
-                    w={{ base: "full", sm: "12rem", md: "18rem" }}
+                    w={{ base: "13rem", sm: "13rem", md: "18rem" }}
                     h={{ base: "3rem", md: "3.5rem" }}
                     fontSize={{ base: "0.875rem", md: "1rem" }}
                     fontFamily="Figtree"
@@ -326,36 +323,36 @@ const HushhPDA = () => {
               </Heading>
             </Box>
 
-            {/* Mobile Carousel - Reduced height */}
+            {/* Mobile Carousel - Optimized height */}
             <Box
               w="100%"
-              h="40vh"
+              h="60vh"
               overflow="hidden"
               position="relative"
               display="flex"
               alignItems="center"
               justifyContent="center"
             >
-              {/* Top Gradient Mask */}
+              {/* Minimal Top Gradient Mask */}
               <Box
                 position="absolute"
                 top={0}
                 left={0}
                 right={0}
-                h="8vh"
-                bgGradient="linear(to-b, #000000 0%, rgba(0,0,0,0.8) 50%, transparent 100%)"
+                h="3vh"
+                bgGradient="linear(to-b, #000000 0%, rgba(0,0,0,0.6) 80%, transparent 100%)"
                 zIndex={2}
                 pointerEvents="none"
               />
 
-              {/* Bottom Gradient Mask */}
+              {/* Minimal Bottom Gradient Mask */}
               <Box
                 position="absolute"
                 bottom={0}
                 left={0}
                 right={0}
-                h="8vh"
-                bgGradient="linear(to-t, #000000 0%, rgba(0,0,0,0.8) 50%, transparent 100%)"
+                h="3vh"
+                bgGradient="linear(to-t, #000000 0%, rgba(0,0,0,0.6) 80%, transparent 100%)"
                 zIndex={2}
                 pointerEvents="none"
               />
@@ -364,7 +361,7 @@ const HushhPDA = () => {
               <Box
                 position="relative"
                 w="100%"
-                h="40vh"
+                h="60vh"
                 overflow="hidden"
               >
                 <Box
@@ -373,7 +370,7 @@ const HushhPDA = () => {
                   left="0"
                   right="0"
                   bottom="0"
-                  background="linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 25%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0.9) 100%)"
+                  background="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 15%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.2) 85%, rgba(0,0,0,0.7) 100%)"
                   pointerEvents="none"
                   zIndex="2"
                 />
@@ -381,7 +378,7 @@ const HushhPDA = () => {
                 <Box
                   position="relative"
                   w="100%"
-                  h="40vh"
+                  h="60vh"
                   css={{
                     '@keyframes scrollUp': {
                       '0%': {
@@ -832,8 +829,8 @@ const HushhPDA = () => {
             </GridItem>
 
             {/* Right Side - About Content */}
-            <GridItem>
-              <VStack spacing={8} align={{ base: "center", lg: "flex-start" }} textAlign={{ base: "center", lg: "left" }}>
+            <GridItem >
+              <VStack  spacing={8} align={{ base: "center", lg: "flex-start" }} textAlign={{ base: "center", lg: "left" }}>
                 <Heading
                   as="h2"
                   fontSize={{ base: "48px", md: "56px", lg: "64px" }}
@@ -946,7 +943,7 @@ const HushhPDA = () => {
         mx={{ md: '4rem', base: '0' }}
         alignItems="center"
       >
-        <Container maxW="1400px" px={{ base: 4, md: 8 }}>
+        <Container maxW="1400px" my={'4rem'}  px={{ base: 4, md: 8 }}>
           {/* Mobile Layout - Vertical Stack */}
           <VStack spacing={10} align="flex-start" display={{ base: "flex", lg: "none" }}>
             {/* Problem Section */}
@@ -1167,7 +1164,7 @@ const HushhPDA = () => {
                     letterSpacing="0px"
                     lineHeight="normal"
                 color="#ffffff"
-                    maxW="600px"
+                    // maxW="600px"
               >
                     The most powerful companies in the world are built on your data. But you don't control it. You don't profit from it. You can't even see it. We built hushh to change that — forever.
               </Text>
@@ -1182,7 +1179,7 @@ const HushhPDA = () => {
                     letterSpacing="0px"
                     lineHeight="normal"
                     color="#ffffff"
-                    maxW="600px"
+                    // maxW="600px"
                     mb={6}
                   >
                     A smart AI that lives on your device, learns your preferences, and acts on your behalf
@@ -2133,54 +2130,83 @@ const HushhPDA = () => {
               </Text>
             </VStack>
 
-            <VStack spacing={3} maxW="100%">
-              <Text
-                fontSize={{ base: "sm", sm: "md", md: "lg", lg: "xl" }}
-                fontFamily="Figtree"
-                fontWeight={300}
-                letterSpacing="0px"
-                lineHeight="1.4"
-                bgGradient="linear(to-r, #da4b7a 0%, #bb62fc 100%)"
-                bgClip="text"
-                textAlign="center"
+            {/* Horizontal Sliding Text Marquee */}
+            <Box w="100%" maxW="100%" overflow="hidden">
+              <Marquee 
+                pauseOnHover={false}
+                speed={40}
+                gradient={false}
+                style={{ 
+                  position: "relative", 
+                  overflow: "hidden",
+                  height: "auto"
+                }}
               >
-                Agents that work with people, not against them
-              </Text>
-              
-              <Text
-                fontSize={{ base: "sm", sm: "md", md: "lg", lg: "xl" }}
-                fontFamily="Figtree"
-                fontWeight={300}
-                letterSpacing="0px"
-                lineHeight="1.4"
-                bgGradient="linear(to-r, #da4b7a 0%, #bb62fc 100%)"
-                bgClip="text"
-                textAlign="center"
-              >
-                HushhLink trust tokens for identity
-              </Text>
-              
-              <Text
-                fontSize={{ base: "sm", sm: "md", md: "lg", lg: "xl" }}
-                fontFamily="Figtree"
-                fontWeight={300}
-                letterSpacing="0px"
-                lineHeight="1.4"
-                bgGradient="linear(to-r, #da4b7a 0%, #bb62fc 100%)"
-                bgClip="text"
-                textAlign="center"
-              >
-                HushhFlow for monetization
-              </Text>
-            </VStack>
+                {/* Multiple repetitions for smoother continuous flow */}
+                {[...Array(4)].map((_, index) => (
+                  <Box 
+                    key={index}
+                    display="flex" 
+                    alignItems="center" 
+                    gap={{ base: "3rem", md: "4rem", lg: "5rem" }}
+                    mr={{ base: "3rem", md: "4rem", lg: "5rem" }}
+                  >
+                    <Text
+                    fontSize={{ base: "lg", sm: "lg", md: "2xl", lg: "2xl" }}
+                    fontFamily="Figtree"
+                      fontWeight={300}
+                      letterSpacing="0px"
+                      lineHeight="1.4"
+                      bgGradient="linear(to-r, #da4b7a 0%, #bb62fc 100%)"
+                      bgClip="text"
+                      _webkitBackgroundClip="text"
+                      _webkitTextFillColor="transparent"
+                      whiteSpace="nowrap"
+                    >
+                      Agents that work with people, not against them
+                    </Text>
+                    
+                    <Text
+                      fontSize={{ base: "lg", sm: "lg", md: "2xl", lg: "2xl" }}
+                      fontFamily="Figtree"
+                      fontWeight={300}
+                      letterSpacing="0px"
+                      lineHeight="1.4"
+                      bgGradient="linear(to-r, #da4b7a 0%, #bb62fc 100%)"
+                      bgClip="text"
+                      _webkitBackgroundClip="text"
+                      _webkitTextFillColor="transparent"
+                      whiteSpace="nowrap"
+                    >
+                      HushhLink trust tokens for identity
+                    </Text>
+                    
+                    <Text
+                      fontSize={{ base: "lg", sm: "lg", md: "2xl", lg: "2xl" }}
+                      fontFamily="Figtree"
+                      fontWeight={300}
+                      letterSpacing="0px"
+                      lineHeight="1.4"
+                      bgGradient="linear(to-r, #da4b7a 0%, #bb62fc 100%)"
+                      bgClip="text"
+                      _webkitBackgroundClip="text"
+                      _webkitTextFillColor="transparent"
+                      whiteSpace="nowrap"
+                    >
+                      HushhFlow for monetization
+                    </Text>
+                  </Box>
+                ))}
+              </Marquee>
+            </Box>
 
             <Button
               bg="linear-gradient(to-r, #da4b7a 0%, #b345d9 100%)"
               border="1px solid #ffffff"
               borderRadius="20px"
               w={{ base: "280px", sm: "320px", md: "341px" }}
-              h={{ base: "56px", md: "74px" }}
-              fontSize={{ base: "lg", md: "24px" }}
+              h={{ base: "35px", md: "55px" }}
+              fontSize={{ base: "md", sm: "lg", md: "2xl", lg: "2xl" }}
               fontFamily="Figtree"
               fontWeight={600}
               letterSpacing="0.96px"
