@@ -2220,7 +2220,7 @@ const HushhPDA = () => {
                 border: "1px solid #ffffff"
               }}
               transition="all 0.3s ease"
-              onClick={() => router.push("/developer-Api")}
+              onClick={() => router.push("/contact-us")}
               mt={4}
             >
               Launch Your Agent
