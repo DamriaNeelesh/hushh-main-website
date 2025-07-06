@@ -1800,7 +1800,7 @@ const HushhPDA = () => {
       <Box minH="100vh" bg="#000" color="black" py={0}>
         <Container maxW="1723px" px={0}>
           <Grid
-            templateColumns={{ base: "1fr", lg: "2fr 1.5fr" }}
+            templateColumns={{ base: "1fr", lg: "2fr 1.5fr",md:"2fr 1.7fr" }}
             minH="100vh"
             w="full"
           >
@@ -1811,13 +1811,12 @@ const HushhPDA = () => {
               flexDirection="column"
               alignItems="center"
               justifyContent="center"
-              px={{ base: 4, md: 8, lg: 0 }}
-              py={{ base: 8, md: 0 }}
+              p={8}
             >
               <VStack spacing={{ base: 8, md: 12 }} w="full" maxW="500px" align="center">
                 <Heading
                   as="h2"
-                  fontSize={{ base: "2xl", sm: "3xl", md: "4xl", lg: "56px" }}
+                  fontSize={{ base: "2xl", sm: "3xl", md: "6xl", lg: "7xl" }}
                   fontWeight={700}
                   color="#E0E0E0"
                   textAlign="center"
@@ -1879,11 +1878,11 @@ const HushhPDA = () => {
               bg="linear-gradient(135deg, #8B7355 0%, #A0926B 50%, #B8A882 100%)"
               p={8}
             >
-              <VStack spacing={6} align="center" w="full" maxW="400px">
+              <VStack spacing={6} align="center" w="full" maxW="500px">
                 {/* Heading at top */}
                 <Heading
                   as="h2"
-                  fontSize={{ base: "2xl", sm: "3xl", md: "4xl", lg: "48px" }}
+                  fontSize={{ base: "2xl", sm: "3xl", md: "6xl", lg: "7xl" }}
                   fontWeight={500}
                   color="white"
                   textAlign="center"
