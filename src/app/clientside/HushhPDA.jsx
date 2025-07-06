@@ -52,8 +52,8 @@ const HushhPDA = () => {
           element.style.background = 'none';
           element.style.webkitBackgroundClip = 'initial';
           element.style.backgroundClip = 'initial';
-          element.style.webkitTextFillColor = 'white';
-          element.style.color = 'white';
+          element.style.webkitTextFillColor = 'initial';
+          element.style.color = '#000000';
           element.style.fontSize = 'clamp(1rem, 2.5vw, 2rem)';
           element.style.fontWeight = 'normal';
           element.style.transform = 'scale(1)';
@@ -84,8 +84,8 @@ const HushhPDA = () => {
       {/* Product Page 1 - Hero Section */}
       <Box
         minH="100vh"
-        bg="#000000"
-        color="white"
+        bg="linear-gradient(179.987deg, #F5F5F7 72.701%, #E0E0E2 107.7%, #BFBFC0 135%, #909091 229.08%)"
+        color="#000000"
         position="relative"
         overflow="hidden"
         display="flex"
@@ -109,7 +109,7 @@ const HushhPDA = () => {
                 fontWeight={700}
                 letterSpacing="0"
                 lineHeight="shorter"
-                bgGradient="linear(to-r, #0071E3, #BB62FC, #F34556, #F44F22)"
+                bgGradient="linear(90deg, #0071E3 35.39%, #BB62FC 8.0679%, #F34556 54.309%, #F44F22 90.422%)"
                 bgClip="text"
                 textAlign="center"
               >
@@ -131,11 +131,11 @@ const HushhPDA = () => {
               <Heading
                 as="h1"
                 fontSize={{ base: "3xl", sm: "3xl", md: "5xl", lg: "6xl" }}
-                fontFamily="Poppins"
-                fontWeight={700}
+                fontFamily="Inter"
+                fontWeight={600}
                 letterSpacing="0"
                 lineHeight={{ base: "1.2", md: "shorter" }}
-                className="gradient"
+                color="#222224"
                 textAlign="center"
               >
                 Personal Data Agent
@@ -143,17 +143,28 @@ const HushhPDA = () => {
             </Box>
 
             {/* Tagline */}
-            <Box textAlign="center" maxW={{ base: "90%", md: "full" }}>
+            <Box textAlign="center" maxW={{ base: "90%", md: "full" }} position="relative">
               <Text
                 fontSize={{ base: "lg", sm: "xl", md: "3xl", lg: "4xl" }}
-                fontFamily="Figtree"
+                fontFamily="Inter"
                 fontWeight={400}
                 letterSpacing="0"
                 lineHeight={{ base: "1.3", md: "base" }}
-                color="white"
+                color="#000000"
                 textAlign="center"
               >
                 Your Agent. Your data. Your business. Your vibe
+              </Text>
+              <Text
+                fontSize={{ base: "sm", md: "lg" }}
+                fontFamily="Inter"
+                fontWeight={400}
+                color="#919191"
+                position="absolute"
+                top={{ base: "0", md: "1" }}
+                right={{ base: "-6", md: "-8" }}
+              >
+                TM
               </Text>
             </Box>
 
@@ -221,45 +232,44 @@ const HushhPDA = () => {
                   align="center"
                 >
                   {/* Learn More Button */}
-                  {/* <Button
-                    bg="linear-gradient(135deg, #da4b7a 0%, #b345d9 100%)"
-                    borderRadius="20px"
+                  <Button
+                    bg="#0071E3"
+                    borderRadius="100px"
                     w={{ base: "full", sm: "12rem", md: "18rem" }}
                     h={{ base: "3rem", md: "3.5rem" }}
                     fontSize={{ base: "0.875rem", md: "1rem" }}
-                    fontFamily="Figtree"
-                    fontWeight={600}
+                    fontFamily="Inter"
+                    fontWeight={400}
                     color="white"
                     border="none"
-                    boxShadow="0 0.25rem 1.25rem rgba(218, 75, 122, 0.3)"
+                    boxShadow="0 0.25rem 1.25rem rgba(0, 113, 227, 0.3)"
                     _hover={{
                       transform: "translateY(-0.125rem)",
-                      boxShadow: "0 0.375rem 1.5rem rgba(218, 75, 122, 0.5)",
+                      boxShadow: "0 0.375rem 1.5rem rgba(0, 113, 227, 0.5)",
+                      bg: "#005bb5",
                     }}
                     transition="all 0.3s ease"
                     onClick={() => router.push("/about")}
                   >
                     Learn More
-                  </Button> */}
+                  </Button>
 
                   {/* Get Early Access Button */}
                   <Button
-                    bg="rgba(255, 255, 255, 0.95)"
-                    backdropFilter="blur(0.625rem)"
-                    borderRadius="20px"
+                    bg="#ffffff"
+                    borderRadius="100px"
                     w={{ base: "13rem", sm: "13rem", md: "18rem" }}
                     h={{ base: "3rem", md: "3.5rem" }}
                     fontSize={{ base: "0.875rem", md: "1rem" }}
-                    fontFamily="Figtree"
-                    fontWeight={600}
-                    color="#8B5CF6"
-                    border="1px solid rgba(255, 255, 255, 0.3)"
-                    boxShadow="0 0.25rem 1.25rem rgba(139, 92, 246, 0.2)"
+                    fontFamily="Inter"
+                    fontWeight={400}
+                    color="#0071E3"
+                    border="2px solid #0071E3"
+                    boxShadow="0 0.25rem 1.25rem rgba(0, 113, 227, 0.2)"
                     _hover={{
-                      bg: "linear-gradient(135deg, #b345d9, #da4b7a)",
-                      color: "white",
                       transform: "translateY(-0.125rem)",
-                      boxShadow: "0 0.375rem 1.5rem rgba(139, 92, 246, 0.4)",
+                      boxShadow: "0 0.375rem 1.5rem rgba(0, 113, 227, 0.4)",
+                      bg: "#f0f8ff",
                     }}
                     transition="all 0.3s ease"
                     onClick={() => router.push("/contact-us")}
@@ -276,9 +286,9 @@ const HushhPDA = () => {
       {/* Product Page 2 - Full Height Carousel Section */}
       <Box
         minH="100vh"
-        bg="#000000"
-        mx={{ md: '5vh', base: '0' }}
-        color="white"
+        bg="#F5F5F7"
+        // mx={{ md: '5vh', base: '0' }}
+        color="#000000"
         overflow="hidden"
         position="relative"
         py={{ base: 8, md: 0 }}
@@ -305,15 +315,15 @@ const HushhPDA = () => {
             display={{ base: "flex", lg: "none" }}
           >
             {/* Target Audience - Mobile */}
-            <Box textAlign="center" w="full">
+            <Box textAlign="center" w="full" px={{ base: 1, md: 4 }}>
               <Heading
                 as="h2"
                 fontSize={{ base: "24px", sm: "28px", md: "32px" }}
-                fontFamily="Poppins"
-                fontWeight={700}
+                fontFamily="Inter"
+                fontWeight={500}
                 letterSpacing="0px"
                 lineHeight={{ base: "30px", sm: "34px", md: "40px" }}
-                bgGradient="linear(to-b, #ffffff 0%, #999999 70%)"
+                bgGradient="linear(179.961deg, rgba(34, 34, 36, 0.61) 0.027175%, rgba(130, 130, 138, 0.61) 137.26%, rgba(147, 147, 147, 0.61) 228.9%)"
                 bgClip="text"
                 opacity={0.97}
                 maxW="100%"
@@ -340,7 +350,7 @@ const HushhPDA = () => {
                 left={0}
                 right={0}
                 h="3vh"
-                bgGradient="linear(to-b, #000000 0%, rgba(0,0,0,0.6) 80%, transparent 100%)"
+                bgGradient="linear(to-b, #F5F5F7 0%, rgba(245,245,247,0.6) 80%, transparent 100%)"
                 zIndex={2}
                 pointerEvents="none"
               />
@@ -352,7 +362,7 @@ const HushhPDA = () => {
                 left={0}
                 right={0}
                 h="3vh"
-                bgGradient="linear(to-t, #000000 0%, rgba(0,0,0,0.6) 80%, transparent 100%)"
+                bgGradient="linear(to-t, #F5F5F7 0%, rgba(245,245,247,0.6) 80%, transparent 100%)"
                 zIndex={2}
                 pointerEvents="none"
               />
@@ -370,7 +380,7 @@ const HushhPDA = () => {
                   left="0"
                   right="0"
                   bottom="0"
-                  background="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 15%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.2) 85%, rgba(0,0,0,0.7) 100%)"
+                  background="linear-gradient(to bottom, rgba(245,245,247,0.9) 0%, rgba(245,245,247,0.4) 15%, rgba(245,245,247,0.1) 30%, rgba(245,245,247,0.1) 70%, rgba(245,245,247,0.4) 85%, rgba(245,245,247,0.9) 100%)"
                   pointerEvents="none"
                   zIndex="2"
                 />
@@ -438,11 +448,11 @@ const HushhPDA = () => {
                           className="marquee-name"
                           textAlign="center"
                           fontFamily="Figtree"
-                          fontWeight="normal"
+                          fontWeight={name === "Manish Sainani" ? "800" : "normal"}
                           py="3px"
                           style={{
                             fontSize: 'clamp(0.9rem, 4vw, 1.2rem)',
-                            color: 'white',
+                            color: '#000000',
                             transition: 'all 0.3s ease',
                             lineHeight: '1.2'
                           }}
@@ -490,11 +500,11 @@ const HushhPDA = () => {
                           className="marquee-name"
                           textAlign="center"
                           fontFamily="Figtree"
-                          fontWeight="normal"
+                          fontWeight={name === "Manish Sainani" ? "800" : "normal"}
                           py="3px"
                           style={{
                             fontSize: 'clamp(0.9rem, 4vw, 1.2rem)',
-                            color: 'white',
+                            color: '#000000',
                             transition: 'all 0.3s ease',
                             lineHeight: '1.2'
                           }}
@@ -513,23 +523,22 @@ const HushhPDA = () => {
               <Heading
                 as="h2"
                 fontSize={{ base: "36px", sm: "42px", md: "48px" }}
-                fontFamily="Poppins"
-                fontWeight={700}
+                fontFamily="Inter"
+                fontWeight={600}
                 letterSpacing="0px"
                 lineHeight={{ base: "42px", sm: "48px", md: "56px" }}
-                bgGradient="linear(145deg, #ffffff 0%, #dddde0 58.33%, #7a7a7e 100%)"
-                bgClip="text"
+                color="#222224"
               >
                 About
               </Heading>
 
               <Text
                 fontSize={{ base: "16px", sm: "18px", md: "20px" }}
-                fontFamily="Figtree"
+                fontFamily="Inter"
                 fontWeight={400}
                 letterSpacing="0px"
                 lineHeight="1.5"
-                color="#FFF"
+                color="#000000"
                 maxW="100%"
               >
                 Meet Your Personal Data Agent called 🤫 until you give it your personal hushhname like mani$h for our founder and ceo, Manish Sainani
@@ -537,11 +546,11 @@ const HushhPDA = () => {
 
               <Text
                 fontSize={{ base: "16px", sm: "18px", md: "20px" }}
-                fontFamily="Figtree"
+                fontFamily="Inter"
                 fontWeight={400}
                 letterSpacing="0px"
                 lineHeight="1.5"
-                color="#FFF"
+                color="#000000"
                 maxW="100%"
               >
                 AI that organizes your life, protects your privacy, and helps your data work for you — not the other way around.
@@ -558,11 +567,11 @@ const HushhPDA = () => {
                   />
                   <Text
                     fontSize={{ base: "16px", sm: "18px", md: "20px" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={500}
                     letterSpacing="0px"
                     lineHeight="1.4"
-                    color="#ffffff"
+                    color="#000000"
                   >
                     Privacy-first
                   </Text>
@@ -577,11 +586,11 @@ const HushhPDA = () => {
                   />
                   <Text
                     fontSize={{ base: "16px", sm: "18px", md: "20px" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={500}
                     letterSpacing="0px"
                     lineHeight="1.4"
-                    color="#ffffff"
+                    color="#000000"
                   >
                     AI-Driven
                   </Text>
@@ -596,11 +605,11 @@ const HushhPDA = () => {
                   />
                   <Text
                     fontSize={{ base: "16px", sm: "18px", md: "20px" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={500}
                     letterSpacing="0px"
                     lineHeight="1.4"
-                    color="#ffffff"
+                    color="#000000"
                   >
                     Monetized by You
                   </Text>
@@ -620,15 +629,15 @@ const HushhPDA = () => {
           >
             {/* Left Side - Target Audience */}
             <GridItem>
-              <VStack spacing={8} align={{ base: "center", lg: "flex-start" }} textAlign={{ base: "center", lg: "left" }}>
+              <VStack p={4} spacing={8} align={{ base: "center", lg: "flex-start" }} textAlign={{ base: "center", lg: "left" }}>
                 <Heading
                   as="h2"
                   fontSize={{ base: "32px", md: "40px", lg: "48px" }}
-                  fontFamily="Poppins"
-                  fontWeight={700}
+                  fontFamily="Inter"
+                  fontWeight={500}
                   letterSpacing="0px"
                   lineHeight={{ base: "40px", md: "48px", lg: "56px" }}
-                  bgGradient="linear(to-b, #ffffff 0%, #999999 70%)"
+                  bgGradient="linear(179.961deg, rgba(34, 34, 36, 0.61) 0.027175%, rgba(130, 130, 138, 0.61) 137.26%, rgba(147, 147, 147, 0.61) 228.9%)"
                   bgClip="text"
                   opacity={0.97}
                   maxW={{ base: "100%", lg: "400px" }}
@@ -657,7 +666,7 @@ const HushhPDA = () => {
                   left={0}
                   right={0}
                   h="25vh"
-                  bgGradient="linear(to-b, #000000 0%, rgba(0,0,0,0.8) 50%, transparent 100%)"
+                  bgGradient="linear(to-b, #F5F5F7 0%, rgba(245,245,247,0.8) 50%, transparent 100%)"
                   zIndex={2}
                   pointerEvents="none"
                 />
@@ -669,7 +678,7 @@ const HushhPDA = () => {
                   left={0}
                   right={0}
                   h="25vh"
-                  bgGradient="linear(to-t, #000000 0%, rgba(0,0,0,0.8) 50%, transparent 100%)"
+                  bgGradient="linear(to-t, #F5F5F7 0%, rgba(245,245,247,0.8) 50%, transparent 100%)"
                   zIndex={2}
                   pointerEvents="none"
                 />
@@ -688,7 +697,7 @@ const HushhPDA = () => {
                     left="0"
                     right="0"
                     bottom="0"
-                    background="linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 25%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0.9) 100%)"
+                    background="linear-gradient(to bottom, rgba(245,245,247,0.9) 0%, rgba(245,245,247,0.4) 25%, rgba(245,245,247,0.1) 40%, rgba(245,245,247,0) 50%, rgba(245,245,247,0.1) 60%, rgba(245,245,247,0.4) 75%, rgba(245,245,247,0.9) 100%)"
                     pointerEvents="none"
                     zIndex="2"
                   />
@@ -757,11 +766,11 @@ const HushhPDA = () => {
                             className="marquee-name"
                             textAlign="center"
                             fontFamily="Figtree"
-                            fontWeight="normal"
+                            fontWeight={name === "Manish Sainani" ? "800" : "normal"}
                             py="6px"
                             style={{ 
                               fontSize: 'clamp(1rem, 2.5vw, 2rem)',
-                              color: 'white',
+                              color: '#000000',
                               transition: 'all 0.3s ease',
                               lineHeight: '1.2'
                             }}
@@ -809,11 +818,11 @@ const HushhPDA = () => {
                             className="marquee-name"
                             textAlign="center"
                             fontFamily="Figtree"
-                            fontWeight="normal"
+                            fontWeight={name === "Manish Sainani" ? "800" : "normal"}
                             py="6px"
                             style={{ 
                               fontSize: 'clamp(1rem, 2.5vw, 2rem)',
-                              color: 'white',
+                              color: '#000000',
                               transition: 'all 1s ease',
                               lineHeight: '1.2'
                             }}
@@ -834,23 +843,22 @@ const HushhPDA = () => {
                 <Heading
                   as="h2"
                   fontSize={{ base: "48px", md: "56px", lg: "64px" }}
-                  fontFamily="Poppins"
-                  fontWeight={700}
+                  fontFamily="Inter"
+                  fontWeight={600}
                   letterSpacing="0px"
                   lineHeight={{ base: "56px", md: "64px", lg: "72px" }}
-                  bgGradient="linear(145deg, #ffffff 0%, #dddde0 58.33%, #7a7a7e 100%)"
-                  bgClip="text"
+                  color="#222224"
                 >
                   About
                 </Heading>
 
                 <Text
                   fontSize={{ base: "18px", sm: "20px", md: "24px", lg: "28px" }}
-                  fontFamily="Figtree"
+                  fontFamily="Inter"
                   fontWeight={400}
                   letterSpacing="0px"
                   lineHeight="normal"
-                  color="#FFF"
+                  color="#000000"
                   maxW={{ base: "100%", lg: "500px" }}
                 >
                   Meet Your Personal Data Agent called 🤫 until you give it your personal hushhname like mani$h for our founder and ceo, Manish Sainani
@@ -858,11 +866,11 @@ const HushhPDA = () => {
                 </Text>
                 <Text
                   fontSize={{ base: "18px", sm: "20px", md: "24px", lg: "28px" }}
-                  fontFamily="Figtree"
+                  fontFamily="Inter"
                   fontWeight={400}
                   letterSpacing="0px"
                   lineHeight="normal"
-                  color="#FFF"
+                  color="#000000"
                   maxW={{ base: "100%", lg: "500px" }}
                 >                
                 AI that organizes your life, protects your privacy, and helps your data work for you — not the other way around.
@@ -879,11 +887,11 @@ const HushhPDA = () => {
                     />
                     <Text
                       fontSize={{ base: "20px", md: "24px", lg: "28px" }}
-                      fontFamily="Figtree"
+                      fontFamily="Inter"
                       fontWeight={500}
                       letterSpacing="0px"
                       lineHeight={{ base: "28px", md: "32px", lg: "36px" }}
-                      color="#ffffff"
+                      color="#000000"
                     >
                       Privacy-first
                     </Text>
@@ -898,11 +906,11 @@ const HushhPDA = () => {
                     />
                     <Text
                       fontSize={{ base: "20px", md: "24px", lg: "28px" }}
-                      fontFamily="Figtree"
+                      fontFamily="Inter"
                       fontWeight={500}
                       letterSpacing="0px"
                       lineHeight={{ base: "28px", md: "32px", lg: "36px" }}
-                      color="#ffffff"
+                      color="#000000"
                     >
                       AI-Driven
                     </Text>
@@ -917,11 +925,11 @@ const HushhPDA = () => {
                     />
                     <Text
                       fontSize={{ base: "20px", md: "24px", lg: "28px" }}
-                      fontFamily="Figtree"
+                      fontFamily="Inter"
                       fontWeight={500}
                       letterSpacing="0px"
                       lineHeight={{ base: "28px", md: "32px", lg: "36px" }}
-                      color="#ffffff"
+                      color="#000000"
                     >
                       Monetized by You
                     </Text>
