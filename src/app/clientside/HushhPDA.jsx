@@ -944,18 +944,17 @@ const HushhPDA = () => {
       {/* Product Page 3 - Problem/Solution Section */}
       <Box
         minH={'100vh'}
-        bg="#000000"
-        color="white"
+        bg="linear-gradient(193.44deg, #F5F5F7 13.779%, #D3D3D4 263.35%)"
+        color="#000000"
         py={{ base: 12, md: 24 }}
         display="flex"
-        mx={{ md: '4rem', base: '0' }}
         alignItems="center"
       >
-        <Container maxW="1400px" my={'4rem'}  px={{ base: 4, md: 8 }}>
+        <Container maxW="1723px" px={{ base: 4, md: 8 }}>
           {/* Mobile Layout - Vertical Stack */}
           <VStack spacing={10} align="flex-start" display={{ base: "flex", lg: "none" }}>
             {/* Problem Section */}
-            <Box w="full" textAlign={{ base: "center", sm: "left" }}>
+            <Box w="full" textAlign="left">
               <Heading
                 as="h2"
                 fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
@@ -963,25 +962,25 @@ const HushhPDA = () => {
                 fontWeight={600}
                 letterSpacing="0px"
                 lineHeight="1.2"
-                color="#d6d6d6"
+                color="#222224"
                 mb={4}
               >
                 Problem
               </Heading>
               <Text
                 fontSize={{ base: "md", sm: "lg", md: "xl" }}
-                fontFamily="Figtree"
+                fontFamily="Inter"
                 fontWeight={400}
                 letterSpacing="0px"
                 lineHeight="1.6"
-                color="#ffffff"
+                color="#000000"
               >
                 The most powerful companies in the world are built on your data. But you don't control it. You don't profit from it. You can't even see it. We built hushh to change that — forever.
               </Text>
             </Box>
 
             {/* Solution Section */}
-            <Box w="full" textAlign={{ base: "center", sm: "left" }}>
+            <Box w="full" textAlign="left">
               <Heading
                 as="h2"
                 fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
@@ -989,7 +988,7 @@ const HushhPDA = () => {
                 fontWeight={700}
                 letterSpacing="0px"
                 lineHeight="1.2"
-                bgGradient="linear(135deg, #BB62FC 0%, #F34556 100%)"
+                bgGradient="linear(90deg, #0071E3 13.171%, #BB62FC 35.103%, #F34556 86.47%, #F44F22 126.59%)"
                 bgClip="text"
                 _webkitTextFillColor="transparent"
                 mb={4}
@@ -999,123 +998,88 @@ const HushhPDA = () => {
 
               <Text
                 fontSize={{ base: "md", sm: "lg", md: "xl" }}
-                fontFamily="Figtree"
+                fontFamily="Inter"
                 fontWeight={400}
                 letterSpacing="0px"
                 lineHeight="1.6"
-                color="#ffffff"
+                color="#000000"
                 mb={6}
               >
                 A smart AI that lives on your device, learns your preferences, and acts on your behalf
               </Text>
 
               {/* Solution Bullet Points */}
-              <VStack spacing={4} textAlign="left" align="flex-start">
-                <HStack align="flex-start" spacing={3}>
-                  <Box
-                    w="2"
-                    h="2"
-                    bg="#ffffff"
-                    borderRadius="50%"
-                    mt="1"
-                    flexShrink={0}
-                  />
+              <List spacing={4} pl={0}>
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="#000000" mr={3} fontSize="lg">•</Text>
                   <Text
                     fontSize={{ base: "sm", sm: "md", md: "lg" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={400}
                     letterSpacing="0px"
-                    lineHeight="1.5"
-                    color="#ffffff"
+                    lineHeight="1.6"
+                    color="#000000"
                   >
                     Collects and organizes your data (email, docs, receipts, habits)
                   </Text>
-                </HStack>
+                </ListItem>
 
-                <HStack align="flex-start" spacing={3}>
-                  <Box
-                    w="2"
-                    h="2"
-                    bg="#ffffff"
-                    borderRadius="50%"
-                    mt="1"
-                    flexShrink={0}
-                  />
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="#000000" mr={3} fontSize="lg">•</Text>
                   <Text
                     fontSize={{ base: "sm", sm: "md", md: "lg" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={400}
                     letterSpacing="0px"
-                    lineHeight="1.5"
-                    color="#ffffff"
+                    lineHeight="1.6"
+                    color="#000000"
                   >
                     Answers your questions before you ask
                   </Text>
-                </HStack>
+                </ListItem>
 
-                <HStack align="flex-start" spacing={3}>
-                  <Box
-                    w="2"
-                    h="2"
-                    bg="#ffffff"
-                    borderRadius="50%"
-                    mt="1"
-                    flexShrink={0}
-                  />
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="#000000" mr={3} fontSize="lg">•</Text>
                   <Text
                     fontSize={{ base: "sm", sm: "md", md: "lg" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={400}
                     letterSpacing="0px"
-                    lineHeight="1.5"
-                    color="#ffffff"
+                    lineHeight="1.6"
+                    color="#000000"
                   >
                     Buys things for you. Sells things you permit.
                   </Text>
-                </HStack>
+                </ListItem>
 
-                <HStack align="flex-start" spacing={3}>
-                  <Box
-                    w="2"
-                    h="2"
-                    bg="#ffffff"
-                    borderRadius="50%"
-                    mt="1"
-                    flexShrink={0}
-                  />
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="#000000" mr={3} fontSize="lg">•</Text>
                   <Text
                     fontSize={{ base: "sm", sm: "md", md: "lg" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={400}
                     letterSpacing="0px"
-                    lineHeight="1.5"
-                    color="#ffffff"
+                    lineHeight="1.6"
+                    color="#000000"
                   >
                     Tracks your spend, tasks, and life — across services
                   </Text>
-                </HStack>
+                </ListItem>
 
-                <HStack align="flex-start" spacing={3}>
-                  <Box
-                    w="2"
-                    h="2"
-                    bg="#ffffff"
-                    borderRadius="50%"
-                    mt="1"
-                    flexShrink={0}
-                  />
+                <ListItem display="flex" alignItems="flex-start">
+                  <Text color="#000000" mr={3} fontSize="lg">•</Text>
                   <Text
                     fontSize={{ base: "sm", sm: "md", md: "lg" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={400}
                     letterSpacing="0px"
-                    lineHeight="1.5"
-                    color="#ffffff"
+                    lineHeight="1.6"
+                    color="#000000"
                   >
                     Finds offers you'll love and pays you when you share your data with consent
                   </Text>
-                </HStack>
-              </VStack>
+                </ListItem>
+              </List>
             </Box>
           </VStack>
 
@@ -1134,11 +1098,11 @@ const HushhPDA = () => {
                 <Heading
                   as="h2"
                   fontSize={{ lg: "7xl", xl: "8xl" }}
-                fontFamily="Inter"
-                fontWeight={600}
-                letterSpacing="0px"
+                  fontFamily="Inter"
+                  fontWeight={600}
+                  letterSpacing="0px"
                   lineHeight="normal"
-                  color="#d6d6d6"
+                  color="#222224"
                 >
                   Problem
                 </Heading>
@@ -1151,7 +1115,7 @@ const HushhPDA = () => {
                   fontWeight={700}
                   letterSpacing="0px"
                   lineHeight="normal"
-                  bgGradient="linear(135deg, #BB62FC 0%, #F34556 100%)"
+                  bgGradient="linear(90deg, #0071E3 13.171%, #BB62FC 35.103%, #F34556 86.47%, #F44F22 126.59%)"
                   bgClip="text"
                   _webkitTextFillColor="transparent"
                 >
@@ -1167,141 +1131,106 @@ const HushhPDA = () => {
                 <Box>
                   <Text
                     fontSize={{ lg: "3xl" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={400}
                     letterSpacing="0px"
-                    lineHeight="normal"
-                color="#ffffff"
-                    // maxW="600px"
-              >
+                    lineHeight="1.6"
+                    color="#000000"
+                    maxW="full"
+                  >
                     The most powerful companies in the world are built on your data. But you don't control it. You don't profit from it. You can't even see it. We built hushh to change that — forever.
-              </Text>
+                  </Text>
                 </Box>
 
                 {/* Solution Content */}
                 <Box>
                   <Text
                     fontSize={{ lg: "3xl" }}
-                    fontFamily="Figtree"
+                    fontFamily="Inter"
                     fontWeight={400}
                     letterSpacing="0px"
-                    lineHeight="normal"
-                    color="#ffffff"
-                    // maxW="600px"
+                    lineHeight="1.6"
+                    color="#000000"
+                    maxW="full"
                     mb={6}
                   >
                     A smart AI that lives on your device, learns your preferences, and acts on your behalf
                   </Text>
 
                   {/* Solution Bullet Points */}
-                  <VStack spacing={4} align="flex-start" maxW="600px">
-                    <HStack align="flex-start" spacing={3}>
-                      <Box
-                        w="1"
-                        h="1"
-                        bg="#ffffff"
-                        borderRadius="50%"
-                        mt="3"
-                        flexShrink={0}
-                      />
+                  <List spacing={6} pl={0}>
+                    <ListItem display="flex" alignItems="flex-start">
+                      <Text color="#000000" mr={4} fontSize="2xl" mt={1}>•</Text>
                       <Text
                         fontSize={{ lg: "3xl" }}
-                        fontFamily="Figtree"
+                        fontFamily="Inter"
                         fontWeight={400}
                         letterSpacing="0px"
-                        lineHeight="normal"
-                        color="#ffffff"
+                        lineHeight="1.6"
+                        color="#000000"
                       >
                         Collects and organizes your data (email, docs, receipts, habits)
                       </Text>
-                    </HStack>
+                    </ListItem>
 
-                    <HStack align="flex-start" spacing={3}>
-                      <Box
-                        w="1"
-                        h="1"
-                        bg="#ffffff"
-                        borderRadius="50%"
-                        mt="3"
-                        flexShrink={0}
-                      />
+                    <ListItem display="flex" alignItems="flex-start">
+                      <Text color="#000000" mr={4} fontSize="2xl" mt={1}>•</Text>
                       <Text
                         fontSize={{ lg: "3xl" }}
-                        fontFamily="Figtree"
+                        fontFamily="Inter"
                         fontWeight={400}
                         letterSpacing="0px"
-                        lineHeight="normal"
-                        color="#ffffff"
+                        lineHeight="1.6"
+                        color="#000000"
                       >
                         Answers your questions before you ask
                       </Text>
-                    </HStack>
+                    </ListItem>
 
-                    <HStack align="flex-start" spacing={3}>
-                      <Box
-                        w="1"
-                        h="1"
-                        bg="#ffffff"
-                        borderRadius="50%"
-                        mt="3"
-                        flexShrink={0}
-                      />
+                    <ListItem display="flex" alignItems="flex-start">
+                      <Text color="#000000" mr={4} fontSize="2xl" mt={1}>•</Text>
                       <Text
                         fontSize={{ lg: "3xl" }}
-                        fontFamily="Figtree"
+                        fontFamily="Inter"
                         fontWeight={400}
                         letterSpacing="0px"
-                        lineHeight="normal"
-                        color="#ffffff"
+                        lineHeight="1.6"
+                        color="#000000"
                       >
                         Buys things for you. Sells things you permit.
                       </Text>
-                    </HStack>
+                    </ListItem>
 
-                    <HStack align="flex-start" spacing={3}>
-                      <Box
-                        w="1"
-                        h="1"
-                        bg="#ffffff"
-                        borderRadius="50%"
-                        mt="3"
-                        flexShrink={0}
-                      />
+                    <ListItem display="flex" alignItems="flex-start">
+                      <Text color="#000000" mr={4} fontSize="2xl" mt={1}>•</Text>
                       <Text
                         fontSize={{ lg: "3xl" }}
-                        fontFamily="Figtree"
+                        fontFamily="Inter"
                         fontWeight={400}
                         letterSpacing="0px"
-                        lineHeight="normal"
-                        color="#ffffff"
+                        lineHeight="1.6"
+                        color="#000000"
                       >
                         Tracks your spend, tasks, and life — across services
                       </Text>
-                    </HStack>
+                    </ListItem>
 
-                    <HStack align="flex-start" spacing={3}>
-                      <Box
-                        w="1"
-                        h="1"
-                        bg="#ffffff"
-                        borderRadius="50%"
-                        mt="3"
-                        flexShrink={0}
-                      />
+                    <ListItem display="flex" alignItems="flex-start">
+                      <Text color="#000000" mr={4} fontSize="2xl" mt={1}>•</Text>
                       <Text
                         fontSize={{ lg: "3xl" }}
-                        fontFamily="Figtree"
+                        fontFamily="Inter"
                         fontWeight={400}
                         letterSpacing="0px"
-                        lineHeight="normal"
-                        color="#ffffff"
+                        lineHeight="1.6"
+                        color="#000000"
                       >
                         Finds offers you'll love and pays you when you share your data with consent
                       </Text>
-                    </HStack>
-            </VStack>
+                    </ListItem>
+                  </List>
                 </Box>
-          </VStack>
+              </VStack>
             </GridItem>
           </Grid>
         </Container>
@@ -1310,8 +1239,8 @@ const HushhPDA = () => {
       {/* Product Page 4 - Use Cases Section */}
       <Box
         minH={{ base: "100vh", md: "100vh" }}
-        bg="#000000"
-        color="white"
+        bg="linear-gradient(193.44deg, #F5F5F7 13.779%, #D3D3D4 263.35%)"
+        color="#000000"
         py={{ base: 12, md: 24 }}
         display="flex"
         alignItems="center"
@@ -1328,8 +1257,7 @@ const HushhPDA = () => {
                   fontWeight={600}
                   letterSpacing="0px"
                   lineHeight="1.2"
-                  color="#d6d6d6"
-                  textShadow="0 0 1px rgba(255,255,255,0.2)"
+                  color="#222224"
                 >
                   Old vs.
                 </Heading>
@@ -1340,7 +1268,7 @@ const HushhPDA = () => {
                   fontWeight={700}
                   letterSpacing="0px"
                   lineHeight="1.2"
-                  bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) -3.01%, hsla(275, 96%, 69%, 1) 28.55%, hsla(354, 88%, 61%, 1) 62.13%, hsla(13, 91%, 55%, 1) 88.35%)"
+                  bgGradient="linear(90deg, #0071E3 3.0105%, #BB62FC 28.547%, #F34556 62.127%, #F44F22 88.351%)"
                   bgClip="text"
                   _webkitBackgroundClip="text"  
                   _webkitTextFillColor="transparent"
@@ -1360,24 +1288,24 @@ const HushhPDA = () => {
               {/* Left Card - Usecase */}
               <GridItem>
                 <Box
-                  background={'linear-gradient(180deg, #252525 0%, #505050 52.88%, #8F8E8E 100%)'}
+                  bg="#F5F3F3"
                   borderRadius={{ base: "25px", md: "50px" }}
                   p={{ base: 4, sm: 6, md: 8 }}
                   w="full"
                   minH={{ base: "300px", sm: "350px", md: "510px" }}
-                  border={{ base: "2px solid #FFFFFF", md: "3px solid #FFFFFF" }}
+                  border={{ base: "2px solid #B5B5B5", md: "4px solid #B5B5B5" }}
                   boxShadow="0px 21px 24.2px 10px rgba(0, 0, 0, 0.30)"
                   position="relative"
                 >
                   {/* Card Header */}
                   <Heading
                     as="h3"
-                    fontSize={{ base: "xl", sm: "2xl", md: "4xl", lg: "5xl" }}
+                    fontSize={{ base: "xl", sm: "2xl", md: "3xl", lg: "4xl" }}
                     fontFamily="Inter"
                     fontWeight={600}
                     letterSpacing="0px"
                     lineHeight="1.2"
-                    color="#ffffff"
+                    color="#222224"
                     mb={{ base: 4, md: 6 }}
                     textAlign="center"
                   >
@@ -1385,32 +1313,31 @@ const HushhPDA = () => {
                   </Heading>
 
                   {/* Card Content */}
-                  <VStack spacing={{ base: 3, md: 8 }} align="flex-start">
+                  <VStack spacing={{ base: 3, md: 6 }} align="flex-start">
                     {[
-                      { text: "Track my monthly subscriptions", opacity: 1 },
-                      { text: "Book my next massage when I have time & credits", opacity: 0.8 },
-                      { text: "Share my coffee preferences with Blue Bottle", opacity: 0.6 },
-                      { text: "Sell my fitness data to a verified wellness brand", opacity: 0.4 },
-                    ].map((item, index) => (
-                      <HStack key={index} spacing={{ base: 3, md: 6 }} align="flex-start" w="full">
+                      "Track my monthly subscriptions",
+                      "Book my next massage when I have time & credits", 
+                      "Share my coffee preferences with Blue Bottle",
+                      "Sell my fitness data to a verified wellness brand",
+                    ].map((text, index) => (
+                      <HStack key={index} spacing={{ base: 3, md: 4 }} align="flex-start" w="full">
                         <Box
-                          w={{ base: "2", sm: "3", md: "8" }}
-                          h={{ base: "2", sm: "3", md: "8" }}
+                          w={{ base: "8px", md: "12px" }}
+                          h={{ base: "8px", md: "12px" }}
                           borderRadius="50%"
-                          bg="#ffffff"
-                          opacity={item.opacity}
+                          bg="#777777"
                           flexShrink={0}
-                          mt={1}
+                          mt={2}
                         />
                         <Text
-                          fontSize={{ base: "sm", sm: "md", md: "24px", lg: "32px" }}
-                          fontFamily="Figtree"
+                          fontSize={{ base: "sm", sm: "md", md: "lg", lg: "xl" }}
+                          fontFamily="Inter"
                           fontWeight={500}
                           letterSpacing="0px"
-                          lineHeight={{ base: "1.4", md: "36px" }}
-                          color="#ffffff"
+                          lineHeight={{ base: "1.4", md: "1.5" }}
+                          color="#000000"
                         >
-                          {item.text}
+                          {text}
                         </Text>
                       </HStack>
                     ))}
@@ -1421,25 +1348,24 @@ const HushhPDA = () => {
               {/* Right Card - Agentic Action */}
               <GridItem>
                 <Box
-                  background="linear-gradient(178deg, #F1F1F1 24.36%, #FCF6E0 91.73%, #0071E3 194.98%, #474747 266.6%)"
+                  background="linear-gradient(178.182deg, #F1F1F1 24.364%, #FCF6E0 91.73%, #0071E3 194.98%, #474747 266.6%)"
                   borderRadius={{ base: "25px", md: "50px" }}
                   p={{ base: 4, sm: 6, md: 8 }}
                   w="full"
                   minH={{ base: "300px", sm: "350px", md: "510px" }}
-                  border={{ base: "2px solid #DA4B7A", md: "3px solid #DA4B7A" }}
-                  borderImage="linear-gradient(135deg, #0071e3, #bb62fc, #f34556, #f44f22) 1"
+                  border={{ base: "3px solid #DA4B7A", md: "5px solid #DA4B7A" }}
                   position="relative"
                   boxShadow="0px 21px 24.2px 10px rgba(0, 0, 0, 0.30)"
                 >
                   {/* Card Header */}
                   <Heading
                     as="h3"
-                    fontSize={{ base: "xl", sm: "2xl", md: "4xl", lg: "5xl" }}
+                    fontSize={{ base: "xl", sm: "2xl", md: "3xl", lg: "4xl" }}
                     fontFamily="Inter"
                     fontWeight={700}
                     letterSpacing="0px"
                     lineHeight="1.2"
-                    bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) -3.01%, hsla(275, 96%, 69%, 1) 28.55%, hsla(354, 88%, 61%, 1) 62.13%, hsla(13, 91%, 55%, 1) 88.35%)"
+                    bgGradient="linear(90deg, #0071E3 3.0105%, #BB62FC 28.547%, #F34556 62.127%, #F44F22 88.351%)"
                     bgClip="text"
                     _webkitBackgroundClip="text"  
                     _webkitTextFillColor="transparent"
@@ -1450,7 +1376,7 @@ const HushhPDA = () => {
                   </Heading>
 
                   {/* Card Content */}
-                  <VStack spacing={{ base: 3, md: 8 }} align="flex-start">
+                  <VStack spacing={{ base: 4, md: 6 }} align="flex-start">
                     {[
                       "Finds all recurring charges & alerts you",
                       "Schedules, confirms, and logs it for you",
@@ -1459,11 +1385,11 @@ const HushhPDA = () => {
                     ].map((text, index) => (
                       <Text
                         key={index}
-                        fontSize={{ base: "sm", sm: "md", md: "24px", lg: "32px" }}
+                        fontSize={{ base: "sm", sm: "md", md: "lg", lg: "xl" }}
                         fontFamily="Inter"
                         fontWeight={500}
                         letterSpacing="0px"
-                        lineHeight={{ base: "1.4", md: "36px" }}
+                        lineHeight={{ base: "1.4", md: "1.5" }}
                         color="#000000"
                       >
                         {text}
@@ -1483,9 +1409,9 @@ const HushhPDA = () => {
                     key={index}
                     w={{ base: "6", sm: "8", md: "12" }}
                     h={{ base: "3", sm: "4", md: "6" }}
-                    bg={index < 2 ? "#ffffff" : index < 4 ? "#888888" : "#444444"}
+                    bg={index < 2 ? "#B5B5B5" : index < 4 ? "#D0D0D0" : "#E5E5E5"}
                     clipPath="polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%, 6px 50%)"
-                    opacity={index < 2 ? 1 : index < 4 ? 0.7 : 0.4}
+                    opacity={index < 2 ? 1 : index < 4 ? 0.8 : 0.6}
                   />
                 ))}
               </HStack>
