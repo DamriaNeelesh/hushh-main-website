@@ -60,7 +60,7 @@ const HushhHackhathon = () => {
             <Text fontWeight="600" fontSize={{ md: '1.25rem', base: '0.75rem' }} letterSpacing="0.1rem" lineHeight={{ md: '32px', base: '20px' }} color="#E4E4E4">
               HUSHH AI
             </Text>
-            <Text fontWeight="400" fontSize={{ md: '1rem', base: '0.5rem' }} letterSpacing="0.1rem" lineHeight={{ md: '25.6px', base: '15px' }} color="#E4E4E4">
+            <Text fontWeight="400" fontSize={{ md: '1rem', base: '0.75rem' }} letterSpacing="0.1rem" lineHeight={{ md: '25.6px', base: '15px' }} color="#E4E4E4">
               PRESENTS
             </Text>
             <Text as="h1" fontWeight="700" fontSize={{ md: '4rem', base: '2rem' }} lineHeight={{ md: '76.8px', base: '40px' }} className="hushh-gradient" my={{ md: '1rem', base: '0.5rem' }}>
@@ -69,20 +69,21 @@ const HushhHackhathon = () => {
             <Text fontWeight="400" fontSize={{ md: '1.25rem', base: '0.75rem' }} lineHeight={{ md: '32px', base: '20px' }} color="#E4E4E4">
               Build AI agents that work for you — while you sleep.
             </Text>
-            <Button borderRadius="2px" fontSize={{ md: '1rem', base: '0.5rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color:'white', background:'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', border:'none' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
+            <Button borderRadius="2px" fontSize={{ md: '1rem', base: '1rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color:'white', background:'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', border:'none' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
               Apply with Devfolio
             </Button>
           </VStack>
 
-          <HStack
+                    <VStack
             w={"100%"}
-            gap={{md:'4rem',base:'4rem'}}
             flex={1}
             color={"#FFFFFF"}
             justifyContent={"center"}
+            flexDirection={{md:"row",base:"column"}}
             alignItems={"center"}
-            textAlign={"right"}
+            spacing={{ md: '2rem', base: '2rem' }}
           >
+            {/* Countdown Timer */}
             <Flex>
               <VStack>
                 <Text
@@ -165,20 +166,30 @@ const HushhHackhathon = () => {
                   Seconds
                 </Text>
               </VStack>
-            </Flex>{" "}
-            <Flex>
-            <Box display="flex" justifyContent="center" mt={{ md: '3rem', base: '2rem' }}>
-          <Image 
-            src={DevfolioLogo}
-            alt="Devfolio Logo" 
-            width={{ md: 150, base: 120 }} 
-            height={{ md: 50, base: 40 }}
-            style={{ cursor: 'pointer' }}
-            onClick={() => window.open('https://devfolio.co', '_blank')}
-          />
-        </Box>
             </Flex>
-          </HStack>
+
+            {/* Devfolio Logo */}
+            <Box display={{md:"flex",base:"none"}} justifyContent="center" alignItems="center">
+              <Image 
+                src={DevfolioLogo}
+                alt="Devfolio Logo" 
+                width={{ md: 150, base: 40 }} 
+                height={{ md: 50, base: 18 }}
+                style={{ cursor: 'pointer' }}
+                onClick={() => window.open('https://devfolio.co', '_blank')}
+              />
+            </Box>
+            <Box display={{md:"none",base:"flex"}} justifyContent="center" alignItems="center">
+              <Image 
+                src={DevfolioLogo}
+                alt="Devfolio Logo" 
+                width={80} 
+                height={80}
+                style={{ cursor: 'pointer' }}
+                onClick={() => window.open('https://devfolio.co', '_blank')}
+              />
+            </Box>
+          </VStack>
           
         </Stack>
 
@@ -327,7 +338,7 @@ const HushhHackhathon = () => {
 
         {/* Submission & Contact */}
         <VStack my={{ md: '4rem', base: '2rem' }} alignItems="center" spacing={4} mb={{ base: '4rem' }}>
-          <Button borderRadius="2px" fontWeight="400" bg="transparent" color="white" border="1px solid white" _hover={{ background: 'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', color: 'white' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
+          <Button borderRadius="2px" fontWeight="500" bg="transparent" color="white" border="1px solid white" _hover={{ background: 'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', color: 'white' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
             APPLY WITH DEVFOLIO
           </Button>
           <Text color="#E4E4E4" textAlign="center">
