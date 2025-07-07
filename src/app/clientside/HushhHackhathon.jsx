@@ -81,7 +81,7 @@ const HushhHackhathon = () => {
             justifyContent={"center"}
             flexDirection={{md:"row",base:"column"}}
             alignItems={"center"}
-            spacing={{ md: '2rem', base: '2rem' }}
+            spacing={{ md: '3.5rem', base: '2rem' }}
           >
             {/* Countdown Timer */}
             <Flex>
