@@ -20,7 +20,7 @@ import YoutubeIcon from "../_components/svg/hackathon/youtubeIcon.svg";
 import WhatsappIcon from "../_components/svg/hackathon/whatsappIcon.svg";
 import DiscordIcon from "../_components/svg/hackathon/discordIcon.svg";
 import HushhLogoS from "../_components/svg/hackathon/hushhLogo.svg";
-
+import DevfolioLogo from "../../../public/svgs/hackhathonLogo.jpg";
 const items = [
   { title: "AUGMENTED REALITY (AR)", icon: ARIcon },
   { title: "ARTIFICIAL INTELLIGENCE", icon: EdgeIcon },
@@ -69,13 +69,14 @@ const HushhHackhathon = () => {
             <Text fontWeight="400" fontSize={{ md: '1.25rem', base: '0.75rem' }} lineHeight={{ md: '32px', base: '20px' }} color="#E4E4E4">
               Build AI agents that work for you — while you sleep.
             </Text>
-            <Button borderRadius="2px" fontSize={{ md: '1rem', base: '0.5rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color:'white', background:'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', border:'none' }} onClick={() => window.open('https://forms.gle/AcJUMmhZXXCFytus9','_blank')}>
-              Apply Now
+            <Button borderRadius="2px" fontSize={{ md: '1rem', base: '0.5rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color:'white', background:'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', border:'none' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
+              Apply with Devfolio
             </Button>
           </VStack>
 
           <HStack
             w={"100%"}
+            gap={{md:'4rem',base:'4rem'}}
             flex={1}
             color={"#FFFFFF"}
             justifyContent={"center"}
@@ -165,8 +166,24 @@ const HushhHackhathon = () => {
                 </Text>
               </VStack>
             </Flex>{" "}
+            <Flex>
+            <Box display="flex" justifyContent="center" mt={{ md: '3rem', base: '2rem' }}>
+          <Image 
+            src={DevfolioLogo}
+            alt="Devfolio Logo" 
+            width={{ md: 150, base: 120 }} 
+            height={{ md: 50, base: 40 }}
+            style={{ cursor: 'pointer' }}
+            onClick={() => window.open('https://devfolio.co', '_blank')}
+          />
+        </Box>
+            </Flex>
           </HStack>
+          
         </Stack>
+
+        {/* Devfolio Logo below countdown */}
+       
 
         {/* About */}
         <VStack my={{ md: '6rem', base: '3rem' }} textAlign="left" alignItems="flex-start">
@@ -310,8 +327,8 @@ const HushhHackhathon = () => {
 
         {/* Submission & Contact */}
         <VStack my={{ md: '4rem', base: '2rem' }} alignItems="center" spacing={4} mb={{ base: '4rem' }}>
-          <Button borderRadius="2px" fontWeight="400" bg="transparent" color="white" border="1px solid white" _hover={{ background: 'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', color: 'white' }} onClick={() => window.open('https://forms.gle/AcJUMmhZXXCFytus9','_blank')}>
-            PARTICIPATION FORM
+          <Button borderRadius="2px" fontWeight="400" bg="transparent" color="white" border="1px solid white" _hover={{ background: 'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', color: 'white' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
+            APPLY WITH DEVFOLIO
           </Button>
           <Text color="#E4E4E4" textAlign="center">
             Submission Format: Push your code to GitHub: Create a new repository named Hushh_Hackathon_Team_Name and ensure README.md explains setup steps clearly.
