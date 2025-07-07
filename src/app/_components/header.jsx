@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import HushhHeaderLogo from "./svg/hushhHeaderLogo";
 import Link from "next/link";
 import { Link as ScrollLink } from "react-scroll";
-import { Box, Button, Container, Flex, Text, Badge, Divider } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Text, Badge, Divider, HStack } from "@chakra-ui/react";
 import { useResponsiveSizes } from "../context/responsive";
 import { Bars3Icon } from "./svg/icons/hamburgerMenuIcon";
 import { CloseMenuIcon } from "./svg/icons/closeMenuIcon";
@@ -28,6 +28,8 @@ import Image from "next/image";
 import { ChevronRightIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import UnicodeQR from "./svg/onelinkQrdownload.svg"
 import { isMobile, isAndroid, isIOS } from 'react-device-detect';
+import { useAuth } from "../context/AuthContext";
+import UserAvatar from "./auth/UserAvatar";
 
 
 export default function Header({backgroundColor}) {
@@ -39,21 +41,23 @@ export default function Header({backgroundColor}) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [headerBackground, setHeaderBackground] = useState("transparent");
   const pathname = usePathname()
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // For the dropdown
-  const [userEmail, setUserEmail] = useState('');
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const overlayRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentQRLink, setCurrentQRLink] = useState("");
+
   const noHeaderPaths = ['/vivaConnect', '/viva-connect', '/viva-connect/qrPage', '/qrCodePage'];
   const isCareerPage = pathname === '/career';
   const shouldShowHeader = !noHeaderPaths.includes(pathname);
   const notify = () => toast("This Product is Coming Soon!");
   const isJobDetailPage = pathname ===  "/job/";
   const isMobileScreen = useMediaQuery({ maxWidth: 768 });
+  
+  // Auth context
+  const { isAuthenticated, user, loading } = useAuth();
 
   // useEffect(() => {
   //   const checkLoginStatus = async () => {
@@ -245,11 +249,12 @@ export default function Header({backgroundColor}) {
               </div>
             ) : (
               // This is for desktop screens
-              <div className="w-full px-0 desktop-header">
+              <div className="w-full px-0 desktop-header flex items-center justify-between">
+                {/* Navigation Links */}
                 <div className="text-white ml-12 flex gap-12 px-7 md:gap-10 text-md">
                   <Link
                     href="/about"
-                    className={`link ${pathname === '/about' ? 'gradient-text' : ''}`}
+                    className={`flex items-center gap-2 group link ${pathname === '/about' ? 'gradient-text' : ''}`}
                     onMouseEnter={() => setProductsSubmenu(false)}
                   >
                     ABOUT US
@@ -264,13 +269,14 @@ export default function Header({backgroundColor}) {
                   </Link>
                   <Link
                     href="/career"
-                    className={`link ${pathname === '/career' ? 'gradient-text' : ''}`}
+                    className={`flex items-center gap-2 group link ${pathname === '/career' ? 'gradient-text' : ''}`}
                     onMouseEnter={() => setProductsSubmenu(false)}
                   >
                     CAREERS
                   </Link>
                   <Link
                     href="/hushhBlogs"
+                    className={`flex items-center gap-2 group link ${pathname === '/hushhBlogs' ? 'gradient-text' : ''}`}
                     onMouseEnter={() => setProductsSubmenu(false)}
                   >
                     BLOGS
@@ -278,25 +284,57 @@ export default function Header({backgroundColor}) {
                   <Link
                     href="/contact-us"
                     onMouseEnter={() => setProductsSubmenu(false)}
-                    className={`link ${pathname === '/contact-us' ? 'gradient-text' : ''}`}
+                    className={`flex items-center gap-2 group link ${pathname === '/contact-us' ? 'gradient-text' : ''}`}
                   >
                     CONTACT US
                   </Link>
                   <Link
                     href="/solutions"
                     onMouseEnter={() => setProductsSubmenu(false)}
-                    className={`link ${pathname === '/solutions' ? 'gradient-text' : ''}`}
+                    className={`flex items-center gap-2 group link ${pathname === '/solutions' ? 'gradient-text' : ''}`}
                   >
                     SOLUTIONS
                   </Link>
                   <Link
                     href="/hushh-press"
                     onMouseEnter={() => setProductsSubmenu(false)}
-                    className={`link ${pathname === '/hushh-press' ? 'gradient-text' : ''}`}
+                    className={`flex items-center gap-2 group link ${pathname === '/hushh-press' ? 'gradient-text' : ''}`}
                   >
                     HUSHH PUBLISH
                   </Link>
+                   {/* Auth Section - Rightmost Desktop */}
+                <div className="flex items-center ml-10">
+                  {loading ? (
+                    <div className="w-8 h-8 animate-pulse bg-gray-600 rounded-full"></div>
+                  ) : isAuthenticated ? (
+                    <UserAvatar />
+                  ) : (
+                    <Button
+                      onClick={() => router.push('/login')}
+                      bg="rgba(255, 255, 255, 0.1)"
+                      color="white"
+                      border="1px solid rgba(255, 255, 255, 0.2)"
+                      borderRadius="8px"
+                      px={6}
+                      py={2}
+                      fontSize="sm"
+                      fontWeight={600}
+                      _hover={{
+                        bg: "rgba(255, 255, 255, 0.2)",
+                        transform: "translateY(-1px)",
+                      }}
+                      _active={{
+                        transform: "translateY(0)",
+                      }}
+                      transition="all 0.2s"
+                    >
+                      Sign In
+                    </Button>
+                  )}
                 </div>
+                </div>
+
+               
                 
                 {productsSubmenu && (
                   <div
@@ -586,6 +624,53 @@ export default function Header({backgroundColor}) {
                     </Link>
                   </li>
                   <Divider borderStyle={'solid'} borderWidth={"1px"} borderColor={"#5A5A5A"} />  
+                  
+                  {/* Auth Section - Mobile */}
+                  <li className="mt-4">
+                    {loading ? (
+                      <div className="flex items-center justify-center py-4">
+                        <div className="w-8 h-8 animate-pulse bg-gray-600 rounded-full"></div>
+                      </div>
+                    ) : isAuthenticated ? (
+                      <div className="flex items-center py-3 px-3 bg-gray-900 rounded-lg">
+                        <HStack spacing={3} w="full">
+                          <UserAvatar />
+                          <VStack align="start" spacing={0} flex={1}>
+                            <Text className="text-white text-md font-semibold">
+                              {user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User'}
+                            </Text>
+                            <Text className="text-gray-400 text-sm">
+                              {user?.email}
+                            </Text>
+                          </VStack>
+                        </HStack>
+                      </div>
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          router.push('/login');
+                        }}
+                        bg="rgba(255, 255, 255, 0.1)"
+                        color="white"
+                        border="1px solid rgba(255, 255, 255, 0.2)"
+                        borderRadius="8px"
+                        w="full"
+                        py={3}
+                        fontSize="lg"
+                        fontWeight={600}
+                        _hover={{
+                          bg: "rgba(255, 255, 255, 0.2)",
+                        }}
+                        _active={{
+                          transform: "translateY(0)",
+                        }}
+                        transition="all 0.2s"
+                      >
+                        Sign In
+                      </Button>
+                    )}
+                  </li>
                 </ul>
               </div>
           

@@ -109,8 +109,13 @@ const HushhPDA = () => {
                 fontWeight={700}
                 letterSpacing="0"
                 lineHeight="shorter"
-                bgGradient="linear(to-r, #0071E3, #BB62FC, #F34556, #F44F22)"
-                bgClip="text"
+                sx={{
+                  background: "linear-gradient(to right, #0071E3, #BB62FC, #F34556, #F44F22)",
+                  webkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  webkitTextFillColor: "transparent",
+                  color: "transparent",
+                }}
                 textAlign="center"
               >
                 Powered by{" "}
