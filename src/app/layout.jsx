@@ -10,6 +10,7 @@ import { Providers } from "./provider";
 import ResponsiveSizeProvider from "./context/responsive";
 import HeaderComponent from "./_components/features/HeaderComponent";
 import { siteMetadata } from "./sitemetadata";
+import { AuthProvider } from "./context/AuthContext";
 
 export const metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -172,13 +173,15 @@ export default function RootLayout({ children }) {
           <HushhButtonFromLib />
         </div> */}
         <ResponsiveSizeProvider>
-          <header className="h-[90px] w-full absolute z-50">
-            <HeaderComponent />
-          </header>
-          {" "}
-          <div className={`${figtree.variable}  w-full`}>
-            <Providers>{children}</Providers>
-          </div>
+          <AuthProvider>
+            <header className="h-[90px] w-full absolute z-50">
+              <HeaderComponent />
+            </header>
+            {" "}
+            <div className={`${figtree.variable}  w-full`}>
+              <Providers>{children}</Providers>
+            </div>
+          </AuthProvider>
         </ResponsiveSizeProvider>
       </body>
     </html>

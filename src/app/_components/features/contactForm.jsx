@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   Box,
@@ -14,6 +14,10 @@ import {
   Text,
   Textarea,
   VStack,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import FooterComponent from "./FooterComponent";
 import CircelFormShadow from "../../_components/svg/circleFormShadow.svg";
@@ -21,6 +25,8 @@ import Image from "next/image";
 import BigCircleFormShadow from "../../_components/svg/BigCircleFormShadow.svg";
 import emailjs from "@emailjs/browser";
 import { useToast } from "@chakra-ui/react";
+import { useAuth } from "../../context/AuthContext";
+import { useRouter } from 'next/navigation';
 
 emailjs.init("_TMzDc8Bfy6riSfzq");
 
@@ -39,9 +45,22 @@ export default function ContactForm() {
   const [number, setNumber] = useState("");
   const [subject, setSubject] = useState(null);
   const [message, setMessage] = useState("");
+  const [showAuthAlert, setShowAuthAlert] = useState(false);
   const form = useRef();
   const toast = useToast();
   const businessEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const router = useRouter();
+  
+  // Auth context
+  const { isAuthenticated, user, loading } = useAuth();
+  
+  // Auto-populate email if user is authenticated
+  useEffect(() => {
+    if (isAuthenticated && user?.email && !email) {
+      setEmail(user.email);
+    }
+  }, [isAuthenticated, user, email]);
+
   const freeEmailProviders = [
     "gmail.com",
     "yahoo.com",
@@ -116,11 +135,23 @@ export default function ContactForm() {
 
   const sendEmail = async (e) => {
     e.preventDefault();
+    
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      setShowAuthAlert(true);
+      // Redirect to login page with current page as redirect parameter
+      router.push('/login?redirect=' + encodeURIComponent(window.location.pathname));
+      return;
+    }
+    
+    // Use authenticated user's email instead of form email
+    const emailToUse = user?.email || email;
+    
     if (!validateForm()) {
       return;
     }
     const previousSubmissionTime = localStorage.getItem(
-      `${email}_${firstName}`
+      `${emailToUse}_${firstName}`
     );
 
     if (previousSubmissionTime) {
@@ -141,7 +172,7 @@ export default function ContactForm() {
         return;
       }
     }
-    localStorage.setItem(`${email}_${fullName}`, new Date().toISOString());
+    localStorage.setItem(`${emailToUse}_${fullName}`, new Date().toISOString());
     console.log("local Storage", localStorage);
     const serviceId = "service_kwvlp08";
     const templateId = "template_nc0x47v";
@@ -151,7 +182,7 @@ export default function ContactForm() {
       from_name: firstName,
       from_lname: lastName,
       from_fullName: fullName,
-      from_email: email,
+      from_email: emailToUse, // Use authenticated user's email
       to_name: "Manish Sainani",
       message: message,
       subject: subject,
@@ -321,8 +352,28 @@ export default function ContactForm() {
               px={{ md: "4rem", base: "1rem" }}
               flex={{ md: 1.75 }}
               display={"flex"}
+              flexDirection="column"
               // minW={{ base: "100%" }}
             >
+              {/* Authentication Alert */}
+              {showAuthAlert && !isAuthenticated && (
+                <Alert 
+                  status="info" 
+                  bg="rgba(59, 130, 246, 0.1)" 
+                  border="1px solid rgba(59, 130, 246, 0.3)"
+                  borderRadius="lg"
+                  mb={4}
+                >
+                  <AlertIcon color="blue.400" />
+                  <Box>
+                    <AlertTitle color="blue.400" fontSize="sm">Sign in required!</AlertTitle>
+                    <AlertDescription color="white" fontSize="xs">
+                      Please sign in to submit the contact form. Your email will be automatically filled.
+                    </AlertDescription>
+                  </Box>
+                </Alert>
+              )}
+              
               <form
                 id="form"
                 ref={form}
@@ -377,13 +428,15 @@ export default function ContactForm() {
                       p={{ md: 2, base: 0 }}
                       borderBottom="1px solid white"
                       placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={isAuthenticated && user?.email ? user.email : email}
+                      onChange={(e) => !isAuthenticated && setEmail(e.target.value)}
+                      readOnly={isAuthenticated}
                       sx={{
                         _focus: {
                           borderBottom: "1px solid white",
                           boxShadow: "none",
                         },
+                        opacity: isAuthenticated ? 0.8 : 1,
                       }}
                     />
                     {formErrors.email && (
