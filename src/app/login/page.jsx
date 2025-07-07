@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import {
   Box,
   VStack,
@@ -13,14 +13,13 @@ import {
   Grid,
   Flex,
   keyframes,
-  useBreakpointValue,
 } from '@chakra-ui/react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowBackIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
-// Advanced Keyframe Animations
+// Advanced Keyframe Animations 
 const float = keyframes`
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   25% { transform: translateY(-20px) rotate(5deg); }
@@ -53,7 +52,7 @@ const gradientShift = keyframes`
   50% { background-position: 100% 50%; }
 `;
 
-const LoginPage = () => {
+const LoginPageContent = () => {
   const { signIn, isAuthenticated, loading } = useAuth();
   const toast = useToast();
   const router = useRouter();
@@ -62,22 +61,41 @@ const LoginPage = () => {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const isMobile = useBreakpointValue({ base: true, lg: false });
+  const [windowSize, setWindowSize] = useState({ width: 1920, height: 1080 });
 
   useEffect(() => {
     setMounted(true);
+    
+    // Set initial window size
+    if (typeof window !== 'undefined') {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    }
+    
     if (isAuthenticated) {
       router.push(redirectTo);
     }
 
     // Mouse tracking for interactive effects
     const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (typeof window !== 'undefined') {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+      }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    const handleResize = () => {
+      if (typeof window !== 'undefined') {
+        setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, [isAuthenticated, router, redirectTo]);
 
   const handleGoogleSignIn = async () => {
@@ -257,7 +275,7 @@ const LoginPage = () => {
             left={`${Math.random() * 100}%`}
             animation={`${float} ${15 + Math.random() * 10}s ease-in-out infinite, ${gradientShift} ${5 + Math.random() * 5}s ease infinite`}
             opacity="0.7"
-            transform={`translate(${(mousePosition.x - window.innerWidth / 2) * 0.01}px, ${(mousePosition.y - window.innerHeight / 2) * 0.01}px)`}
+            transform={mounted ? `translate(${(mousePosition.x - windowSize.width / 2) * 0.01}px, ${(mousePosition.y - windowSize.height / 2) * 0.01}px)` : 'translate(0px, 0px)'}
             transition="transform 0.3s ease"
           />
         ))}
@@ -779,4 +797,27 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage; 
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <Box
+          minH="100vh"
+          bg="radial-gradient(ellipse at top, #0f0f23 0%, #000000 100%)"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <VStack spacing={6}>
+            <Spinner size="xl" color="white" />
+            <Text color="white" fontSize="lg" fontWeight={500}>
+              Loading...
+            </Text>
+          </VStack>
+        </Box>
+      }
+    >
+      <LoginPageContent />
+    </Suspense>
+  );
+} 
