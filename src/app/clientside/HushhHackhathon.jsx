@@ -334,10 +334,10 @@ const HushhHackhathon = () => {
             Submission Format: Push your code to GitHub: Create a new repository named Hushh_Hackathon_Team_Name and ensure README.md explains setup steps clearly.
           </Text>
           <HStack spacing={4}>
-            <Image src={WhatsappIcon} alt="WhatsappIcon" width={32} height={32} onClick={() => window.open('https://chat.whatsapp.com/CTa7ULornjfHEzVyvNN9gB','_blank')} style={{cursor:'pointer'}} />
+            {/* <Image src={WhatsappIcon} alt="WhatsappIcon" width={32} height={32} onClick={() => window.open('https://chat.whatsapp.com/CTa7ULornjfHEzVyvNN9gB','_blank')} style={{cursor:'pointer'}} /> */}
             <Image src={DiscordIcon} alt="DiscordIcon" width={32} height={32} onClick={() => window.open('https://discord.gg/Vznzv5k7','_blank')} style={{cursor:'pointer'}} />
             <Image src={LinkedInIcon} alt="LinkedInIcon" width={32} height={32} onClick={() => window.open('https://www.linkedin.com/company/hushh-ai/','_blank')} style={{cursor:'pointer'}} />
-            <Image src={YoutubeIcon} alt="YoutubeIcon" width={32} height={32} onClick={() => window.open('https://www.youtube.com/@hushhai','_blank')} style={{cursor:'pointer'}} />
+            {/* <Image src={YoutubeIcon} alt="YoutubeIcon" width={32} height={32} onClick={() => window.open('https://www.youtube.com/@hushhai','_blank')} style={{cursor:'pointer'}} /> */}
           </HStack>
           <Text color="#E4E4E4" textAlign="center">
             Got questions? Ping us at: hackathon@hushh.ai | i-akshat@hush1one.com | ankit@hushh.ai
