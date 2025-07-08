@@ -1493,7 +1493,7 @@ const NewLandingPage = () => {
           </Flex>
 
           {/* CTA Button */}
-          <Button
+          {/* <Button
             size="lg"
             bg="black"
             color="white"
@@ -1509,7 +1509,7 @@ const NewLandingPage = () => {
             onClick={handleComingSoonToast}
           >
             Launch on hushh.ai
-          </Button>
+          </Button> */}
         </VStack>
       </Container>
 
