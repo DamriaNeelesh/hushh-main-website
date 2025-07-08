@@ -43,10 +43,12 @@ import GoogleCloudIcon from '../_components/svg/newLandingsvg/icons/googleCloudI
 import GptStoreIcon from '../_components/svg/newLandingsvg/icons/gptStore.svg';
 import HuggingFaceIcon from '../_components/svg/newLandingsvg/icons/huggingfaceIcon.svg';
 import SalesforceIcon from '../_components/svg/newLandingsvg/icons/salesforceIcon.svg';
+import { useRouter } from 'next/navigation';
 
 
 const NewLandingPage = () => {
   const toast = useToast()
+  const router = useRouter()
 
   const handleComingSoonToast = () => {
     toast({
