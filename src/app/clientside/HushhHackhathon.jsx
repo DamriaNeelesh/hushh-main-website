@@ -21,6 +21,8 @@ import WhatsappIcon from "../_components/svg/hackathon/whatsappIcon.svg";
 import DiscordIcon from "../_components/svg/hackathon/discordIcon.svg";
 import HushhLogoS from "../_components/svg/hackathon/hushhLogo.svg";
 import DevfolioLogo from "../../../public/svgs/hackhathonLogo.jpg";
+import EthindiaLogo from "../../../public/svgs/ethindia.png";
+
 const items = [
   { title: "AUGMENTED REALITY (AR)", icon: ARIcon },
   { title: "ARTIFICIAL INTELLIGENCE", icon: EdgeIcon },
@@ -50,6 +52,18 @@ const HushhHackhathon = () => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://apply.devfolio.co/v2/sdk.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+  
+
   const pad = (num) => String(num).padStart(2, '0');
 
   return (
@@ -69,9 +83,16 @@ const HushhHackhathon = () => {
             <Text fontWeight="400" fontSize={{ md: '1.25rem', base: '0.75rem' }} lineHeight={{ md: '32px', base: '20px' }} color="#E4E4E4">
               Build AI agents that work for you — while you sleep.
             </Text>
-            <Button borderRadius="2px" fontSize={{ md: '1rem', base: '1rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color:'white', background:'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', border:'none' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
+            {/* <Button borderRadius="2px" fontSize={{ md: '1rem', base: '1rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color:'white', background:'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', border:'none' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
               Apply with Devfolio
-            </Button>
+            </Button> */}
+            <div
+              className="apply-button"
+              data-hackathon-slug="hushh-x-dav-club-personal-data-agent-hackathon"
+              data-button-theme="light"
+              style={{ height: "44px", width: "312px" }}
+            ></div>
+
           </VStack>
 
                     <VStack
@@ -168,27 +189,56 @@ const HushhHackhathon = () => {
               </VStack>
             </Flex>
 
-            {/* Devfolio Logo */}
-            <Box display={{md:"flex",base:"none"}} justifyContent="center" alignItems="center">
-              <Image 
-                src={DevfolioLogo}
-                alt="Devfolio Logo" 
-                width={{ md: 150, base: 40 }} 
-                height={{ md: 50, base: 18 }}
-                style={{ cursor: 'pointer' }}
-                onClick={() => window.open('https://devfolio.co', '_blank')}
-              />
-            </Box>
-            <Box display={{md:"none",base:"flex"}} justifyContent="center" alignItems="center">
-              <Image 
-                src={DevfolioLogo}
-                alt="Devfolio Logo" 
-                width={80} 
-                height={80}
-                style={{ cursor: 'pointer' }}
-                onClick={() => window.open('https://devfolio.co', '_blank')}
-              />
-            </Box>
+            {/* DEVFOLIO Logo (Responsive) */}
+            {/* Stacked Devfolio + ETHIndia Logos */}
+<VStack spacing={4} align="center" justify="center">
+  {/* DEVFOLIO Logo */}
+  <Box display={{ md: "flex", base: "none" }} justifyContent="center" alignItems="center">
+    <Image 
+      src={DevfolioLogo}
+      alt="DEVFOLIO LOGO" 
+      width={150} 
+      height={50}
+      style={{ cursor: 'pointer' }}
+      onClick={() => window.open('https://devfolio.co', '_blank')}
+    />
+  </Box>
+  <Box display={{ md: "none", base: "flex" }} justifyContent="center" alignItems="center">
+    <Image 
+      src={DevfolioLogo}
+      alt="DEVFOLIO LOGO" 
+      width={80} 
+      height={80}
+      style={{ cursor: 'pointer' }}
+      onClick={() => window.open('https://devfolio.co', '_blank')}
+    />
+  </Box>
+
+  {/* ETHINDIA Logo */}
+  <Box display={{ md: "flex", base: "none" }} justifyContent="center" alignItems="center">
+    <Image
+      src={EthindiaLogo}
+      alt="ETHINDIA LOGO"
+      width={150}
+      height={50}
+      style={{ cursor: 'pointer' }}
+      onClick={() => window.open('https://ethindia.co', '_blank')}
+    />
+  </Box>
+  <Box display={{ md: "none", base: "flex" }} justifyContent="center" alignItems="center">
+    <Image
+      src={EthindiaLogo}
+      alt="ETHINDIA LOGO"
+      width={80}
+      height={80}
+      style={{ cursor: 'pointer' }}
+      onClick={() => window.open('https://ethindia.co', '_blank')}
+    />
+  </Box>
+</VStack>
+
+
+
           </VStack>
           
         </Stack>
@@ -338,9 +388,9 @@ const HushhHackhathon = () => {
 
         {/* Submission & Contact */}
         <VStack my={{ md: '4rem', base: '2rem' }} alignItems="center" spacing={4} mb={{ base: '4rem' }}>
-          <Button borderRadius="2px" fontWeight="500" bg="transparent" color="white" border="1px solid white" _hover={{ background: 'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', color: 'white' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
+          {/* <Button borderRadius="2px" fontWeight="500" bg="transparent" color="white" border="1px solid white" _hover={{ background: 'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', color: 'white' }} onClick={() => window.open('https://guide.devfolio.co/organizers/apply-with-devfolio-integration','_blank')}>
             APPLY WITH DEVFOLIO
-          </Button>
+          </Button> */}
           <Text color="#E4E4E4" textAlign="center">
             Submission Format: Push your code to GitHub: Create a new repository named Hushh_Hackathon_Team_Name and ensure README.md explains setup steps clearly.
           </Text>
