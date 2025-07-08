@@ -71,7 +71,7 @@ const VerifiediOSUserSection = () => {
         </VStack>
       ),
       background: (
-        <HStack h="full" w="full" border={'4px solid #B4A4A4'} borderRadius={'30px'} spacing={0} align="stretch" position={'relative'}>
+        <HStack h="full" w="full" borderRadius={'30px'} spacing={0} align="stretch" position={'relative'}>
           <VStack
             w="60%"
             p={{ base: 6, md: 14 }}
@@ -88,7 +88,7 @@ const VerifiediOSUserSection = () => {
         </HStack>
       ),
       horizontal: (
-         <HStack w="full" spacing={4} border={'4px solid #B4A4A4'} borderRadius={'30px'} align="center" h="full" p={{ base: 6, md: 8 }}>
+         <HStack w="full" spacing={4} borderRadius={'30px'} align="center" h="full" p={{ base: 6, md: 8 }}>
             <Box w="40%" h="100px" position="relative">
                 <Image src={image}  alt={title} layout="fill" objectFit="contain" objectPosition="left" />
             </Box>
@@ -100,6 +100,19 @@ const VerifiediOSUserSection = () => {
       )
     };
 
+    // Mobile-specific layout
+    const mobileLayout = (
+      <HStack w="full" spacing={4} align="center" h="full" p={6} borderRadius="30px">
+        <Box w="30%" h="80px" position="relative">
+          <Image src={image} alt={title} layout="fill" objectFit="contain" objectPosition="left" />
+        </Box>
+        <VStack align="flex-start" w="70%" spacing={1}>
+          <Heading as="h4" fontSize={'1.5rem'} fontWeight="bold" color='hsla(0, 0%, 0%, 1)'>{title}</Heading>
+          <Text color={'hsla(0, 0%, 35%, 1)'} fontSize={'1rem'} fontWeight="medium">{description}</Text>
+        </VStack>
+      </HStack>
+    );
+
     return (
       <Box
         bg="white"
@@ -109,7 +122,13 @@ const VerifiediOSUserSection = () => {
         boxShadow="0px 10px 4px 0px rgba(0, 0, 0, 0.25)"
         overflow="hidden"
       >
-        {cardContent[variant]}
+        {/* Show mobile layout on small screens, regular layout on larger screens */}
+        <Box display={{ base: 'block', md: 'none' }}>
+          {mobileLayout}
+        </Box>
+        <Box display={{ base: 'none', md: 'block' }}>
+          {cardContent[variant]}
+        </Box>
       </Box>
     );
   };
@@ -159,7 +178,7 @@ const VerifiediOSUserSection = () => {
             mt={{base: 0, md: -12}}
             alignItems="stretch"
           >
-            <GridItem border={'4px solid #B4A4A4'} borderRadius={'30px'}>
+            <GridItem borderRadius={'30px'}>
                  <FeatureCard
                     title="Vault"
                     description="Secure data schema, encryption utils"
@@ -168,7 +187,7 @@ const VerifiediOSUserSection = () => {
                  />
             </GridItem>
             <GridItem>
-                <VStack spacing={6} h="full">
+                <VStack spacing={6} h="full" display={{ base: "none", md: "flex" }}>
                     <FeatureCard
                         title="Link"
                         description="Identity + permission contracts"
@@ -182,8 +201,45 @@ const VerifiediOSUserSection = () => {
                         variant="horizontal"
                     />
                 </VStack>
+                {/* Mobile-only versions of Link and Flow cards */}
+                <VStack spacing={6} h="full" display={{ base: "flex", md: "none" }}>
+                    <Box
+                      bg="white"
+                      borderRadius="30px"
+                      h="full"
+                      boxShadow="0px 10px 4px 0px rgba(0, 0, 0, 0.25)"
+                      overflow="hidden"
+                    >
+                      <HStack w="full" spacing={4} align="center" h="full" p={6} borderRadius="30px">
+                        <Box w="30%" h="80px" position="relative">
+                          <Image src={linkImage} alt="Link" layout="fill" objectFit="contain" objectPosition="left" />
+                        </Box>
+                        <VStack align="flex-start" w="70%" spacing={1}>
+                          <Heading as="h4" fontSize={'1.5rem'} fontWeight="bold" color='hsla(0, 0%, 0%, 1)'>Link</Heading>
+                          <Text color={'hsla(0, 0%, 35%, 1)'} fontSize={'1rem'} fontWeight="medium">Identity + permission contracts</Text>
+                        </VStack>
+                      </HStack>
+                    </Box>
+                    <Box
+                      bg="white"
+                      borderRadius="30px"
+                      h="full"
+                      boxShadow="0px 10px 4px 0px rgba(0, 0, 0, 0.25)"
+                      overflow="hidden"
+                    >
+                      <HStack w="full" spacing={4} align="center" h="full" p={6} borderRadius="30px">
+                        <Box w="35%" h="100px" position="relative">
+                          <Image src={flowImage} alt="Flow" layout="fill" objectFit="contain" objectPosition="left" />
+                        </Box>
+                        <VStack align="flex-start" w="65%" spacing={1}>
+                          <Heading as="h4" fontSize={'1.5rem'} fontWeight="bold" color='hsla(0, 0%, 0%, 1)'>Flow</Heading>
+                          <Text color={'hsla(0, 0%, 35%, 1)'} fontSize={'1rem'} fontWeight="medium">Monetization & marketplace functions</Text>
+                        </VStack>
+                      </HStack>
+                    </Box>
+                </VStack>
             </GridItem>
-            <GridItem border={'4px solid #B4A4A4'} borderRadius={'30px'}>
+            <GridItem borderRadius={'30px'}>
                  <FeatureCard
                     title="Agent Kit"
                     description="Scaffolded dev templates"
