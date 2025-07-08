@@ -34,14 +34,9 @@ import HushhGridBgSvg from '../_components/svg/newLandingsvg/hushh_grid_bg.svg'
 import OpenSourceRightImageSvg from '../_components/svg/newLandingsvg/open_source_right_image.svg'
 // Icons from react-icons for checkmarks and basic elements
 import { HiCheck, HiLightningBolt } from 'react-icons/hi'
-import AgenticEmoji2 from '../_components/svg/newLandingsvg/agenticEmoji2.svg'
-import AgenticMobile3 from '../_components/svg/newLandingsvg/agenticMobile3.svg'
-import AgenticMobile1 from '../_components/svg/newLandingsvg/agenticMobile1.svg'
-import AgenticMobile2 from '../_components/svg/newLandingsvg/agentic2Mobile.svg'
 import AgenticImageLayout from '../_components/svg/newLandingsvg/agenticImage.png'
 import consentCookieImage from "../_components/svg/consent_is_the_new_cookie.png";
 import BlackLockIcon from "../_components/svg/newLandingsvg/blackLockIcon.svg";
-import analyticsIcon from "../_components/svg/newLandingsvg/analyticsIcon.svg";
 import FooterComponent from '../_components/features/FooterComponent';
 import AppleStoreIcon from '../_components/svg/newLandingsvg/icons/appStoreIcon.svg';
 import GoogleCloudIcon from '../_components/svg/newLandingsvg/icons/googleCloudIcon.svg';
