@@ -41,7 +41,7 @@ import FooterComponent from '../_components/features/FooterComponent';
 import AppleStoreIcon from '../_components/svg/newLandingsvg/icons/appStoreIcon.svg';
 import GoogleCloudIcon from '../_components/svg/newLandingsvg/icons/googleCloudIcon.svg';
 import GptStoreIcon from '../_components/svg/newLandingsvg/icons/gptStore.svg';
-import HuggingFaceIcon from '../_components/svg/newLandingsvg/icons/huggingFaceIcon.svg';
+import HuggingFaceIcon from '../_components/svg/newLandingsvg/icons/huggingfaceIcon.svg';
 import SalesforceIcon from '../_components/svg/newLandingsvg/icons/salesforceIcon.svg';
 
 
