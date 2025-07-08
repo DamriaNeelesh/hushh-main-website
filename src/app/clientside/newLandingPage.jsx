@@ -118,6 +118,7 @@ const NewLandingPage = () => {
               display="flex"
               h="72px"
               px="28px"
+              onClick={() => router.push("/consent-ai-protocol")}
               py="15px"
               justifyContent="center"
               alignItems="center"
@@ -1010,7 +1011,7 @@ const NewLandingPage = () => {
                 <Button
                   size="lg"
                   bg="black"
-                  onClick={() => router.push("/products/personal-data-agent")}
+                  onClick={() => router.push("/consent-ai-protocol")}
                   color="white"
                   borderRadius="full"
                   px={{md:'15px',base:'10px'}}
