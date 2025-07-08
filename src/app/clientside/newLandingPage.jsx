@@ -622,7 +622,7 @@ const NewLandingPage = () => {
             <GridItem>
               <Box
                 borderRadius="xl"
-                h={{ base: "500px", md: "600px", lg: "872px" }}
+                h={{ base: "500px", md: "600px", lg: "830px" }}
                 w={{ base: "full", md: "400px" }}
                 maxW="400px"
                 position="relative"
@@ -697,7 +697,7 @@ const NewLandingPage = () => {
                 {/* Hushh Vault */}
                 <Box
                   borderRadius="xl"
-                  h={{ base: "300px", md: "415px" }}
+                  h={{ base: "250px", md: "300px", lg: "415px" }}
                   position="relative"
                   border="1px solid"
                   borderColor="#eaecf0"
@@ -761,7 +761,7 @@ const NewLandingPage = () => {
                 {/* Hushh Link */}
                 <Box
                   borderRadius="xl"
-                  h={{ base: "300px", md: "415px" }}
+                  h={{ base: "250px", md: "300px", lg: "415px" }}
                   position="relative"
                   border="1px solid"
                   borderColor="#eaecf0"
@@ -825,7 +825,7 @@ const NewLandingPage = () => {
                 {/* Hushh Flow */}
                 <Box
                   borderRadius="xl"
-                  h={{ base: "300px", md: "414px" }}
+                  h={{ base: "250px", md: "300px", lg: "415px" }}
                   position="relative"
                   border="1px solid"
                   borderColor="#eaecf0"
@@ -889,7 +889,7 @@ const NewLandingPage = () => {
                 {/* Hushh Grid */}
                 <Box
                   borderRadius="xl"
-                  h={{ base: "300px", md: "414px" }}
+                  h={{ base: "250px", md: "300px", lg: "415px" }}
                   position="relative"
                   border="1px solid"
                   borderColor="#eaecf0"
@@ -1493,7 +1493,7 @@ const NewLandingPage = () => {
           </Flex>
 
           {/* CTA Button */}
-          {/* <Button
+          <Button
             size="lg"
             bg="black"
             color="white"
@@ -1509,7 +1509,7 @@ const NewLandingPage = () => {
             onClick={handleComingSoonToast}
           >
             Launch on hushh.ai
-          </Button> */}
+          </Button>
         </VStack>
       </Container>
 
