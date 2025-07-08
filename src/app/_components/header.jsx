@@ -30,9 +30,10 @@ import UnicodeQR from "./svg/onelinkQrdownload.svg"
 import { isMobile, isAndroid, isIOS } from 'react-device-detect';
 import { useAuth } from "../context/AuthContext";
 import UserAvatar from "./auth/UserAvatar";
+import HushhNewLogo from "../../../public/svgs/hushh_new_logo.svg"
 
 
-export default function Header({backgroundColor}) {
+export default function Header({backgroundColor, textColor, borderBottom}) {
 
   const { isTablet, isDesktop } = useResponsiveSizes();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -110,11 +111,9 @@ export default function Header({backgroundColor}) {
   };
 
   useEffect(() => {
-    // Set header background to black at all times
-    setHeaderBackground("black");
-
-    // No need for scroll event listener since header is always black
-  }, []);
+    // Set header background based on props or default to black
+    setHeaderBackground(backgroundColor || "black");
+  }, [backgroundColor]);
 
   const scrollTo = () => {
     scroll.scrollTo(7500);
@@ -198,60 +197,29 @@ export default function Header({backgroundColor}) {
             top: 0,
             width: "100%",
             zIndex: 1000,
+            borderBottom: borderBottom || "none",
+            backdropFilter: backgroundColor && backgroundColor.includes("rgba") ? "blur(10px)" : "none",
           }}
         >
           <div className="flex items-center justify-between w-full px-3 py-2 z-1000 md:px-16 md:py-5">
-            <div className="flex-1">
-              <Link href="/">
-                <HushhHeaderLogo />
-              </Link>
-            </div>
-            
-            {(!isDesktop || isTabletOrMobile || isMobile || isMobileScreen) ? (
-              <div className="flex items-center justify-end w-full mobile-header py-2">
-                {!isMenuOpen && (
-                  <div
-                    className="text-white hamburger-icon-container cursor-pointer"
-                    onClick={handleMenuIconToggle}
-                    style={{
-                      marginLeft: "auto",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-end",
-                      zIndex: 2000,
-                      padding: "8px",
-                      background: "rgba(0, 0, 0, 0.6)",
-                      borderRadius: "6px",
-                      boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
-                    }}
-                  >
-                    <svg
-                      fill="none"
-                      strokeWidth={2.5}
-                      stroke="#FFFFFF"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      width="32"
-                      height="32"
-                      style={{
-                        filter: "drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.5))"
-                      }}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                      />
-                    </svg>
-                  </div>
-                )}
+            <div className="flex items-center justify-between w-full">
+              {/* Logo */}
+              <div className="flex-shrink-0">
+                <Link href="/">
+                  {pathname === '/' ? (
+                    <Image src={HushhNewLogo} alt="Hushh Logo" width={120} height={40} priority />
+                  ) : (
+                    <HushhHeaderLogo />
+                  )}
+                </Link>
               </div>
-            ) : (
-              // This is for desktop screens
-              <div className="w-full px-0 desktop-header flex items-center justify-between">
-                {/* Navigation Links */}
-                <div className="text-white ml-12 flex gap-12 px-7 md:gap-10 text-md">
+
+              {/* Desktop Menu & Auth */}
+              <div className="hidden md:flex items-center justify-end flex-1">
+                <div 
+                  className="flex gap-12 px-7 md:gap-10 text-md"
+                  style={{ color: textColor || "white" }}
+                >
                   <Link
                     href="/about"
                     className={`flex items-center gap-2 group link ${pathname === '/about' ? 'gradient-text' : ''}`}
@@ -302,7 +270,9 @@ export default function Header({backgroundColor}) {
                   >
                     HUSHH PUBLISH
                   </Link>
-                   {/* Auth Section - Rightmost Desktop */}
+                </div>
+
+                {/* Auth Section - Rightmost Desktop */}
                 <div className="flex items-center ml-10">
                   {loading ? (
                     <div className="w-8 h-8 animate-pulse bg-gray-600 rounded-full"></div>
@@ -311,16 +281,16 @@ export default function Header({backgroundColor}) {
                   ) : (
                     <Button
                       onClick={() => router.push('/login')}
-                      bg="rgba(255, 255, 255, 0.1)"
-                      color="white"
-                      border="1px solid rgba(255, 255, 255, 0.2)"
+                      bg={textColor ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)"}
+                      color={textColor || "white"}
+                      border={`1px solid ${textColor ? "rgba(0, 0, 0, 0.2)" : "rgba(255, 255, 255, 0.2)"}`}
                       borderRadius="8px"
                       px={6}
                       py={2}
                       fontSize="sm"
                       fontWeight={600}
                       _hover={{
-                        bg: "rgba(255, 255, 255, 0.2)",
+                        bg: textColor ? "rgba(0, 0, 0, 0.2)" : "rgba(255, 255, 255, 0.2)",
                         transform: "translateY(-1px)",
                       }}
                       _active={{
@@ -332,147 +302,167 @@ export default function Header({backgroundColor}) {
                     </Button>
                   )}
                 </div>
-                </div>
+              </div>
 
-               
-                
-                {productsSubmenu && (
+              {/* Mobile Menu Trigger */}
+              <div className="md:hidden flex items-center">
+                {!isMenuOpen && (
                   <div
-                    className="bg-white z-100 flex flex-col gap-4 absolute pl-8 pr-8 mt-4 pt-5 pb-7 rounded-2xl shadow-lg shadow-[#A7AEBA1F]"
-                    onMouseEnter={() => setProductsSubmenu(true)}
-                    onMouseLeave={() => setProductsSubmenu(false)}
+                    className="text-white hamburger-icon-container cursor-pointer"
+                    onClick={handleMenuIconToggle}
+                    style={{
+                      padding: "8px",
+                      // background: "rgba(0, 0, 0, 0.6)",
+                      // borderRadius: "6px",
+                      // boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
+                    }}
                   >
-                    <p className="text-xs text-fontColor2 font-semibold">
-                      HUSHH PRODUCTS
-                    </p>
-                    <div className="flex gap-2 z-1000">
-                      <div className="flex-1 flex flex-col gap-2">
-                        <Link
-                          href={"/products/personal-data-agent"}
-                          onClick={() => setProductsSubmenu(false)}
-                          className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
-                        >
-                          <div className="">
-                            <Image 
-                              src="/svgs/pdaLogo.svg" 
-                              alt="PDA Logo" 
-                              width={24} 
-                              height={24} 
-                              className="w-6 h-6"
-                              style={{borderRadius:'30%'}}
-                            />
-                          </div>
-                          <div className="">
-                            <h1 className="font-semibold">Hushh PDA</h1>
-                            <p className="text-sm font-medium text-fontColor3">
-                            Your Personal Data Agent, <br/> Under Your Control</p>
-                          </div>
-                        </Link>
-                        <Link
-                          href={"/products/hushh-wallet-app"}
-                          onClick={() => setProductsSubmenu(false)}
-                          className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
-                        >
-                          <div className="">
-                            <HushhWalletIcon className="w-6 h-6" />
-                          </div>
-                          <div className="">
-                            <h1 className="font-semibold">Hushh Wallet App</h1>
-                            <p className="text-sm font-medium text-fontColor3">
-                              Your personal data vault. Organize, control,<br/> and monetize your information
-                            </p>
-                          </div>
-                        </Link>
-                        <Link
-                          href={"/products/hushh-button"}
-                          onClick={() => setProductsSubmenu(false)}
-                          className="flex gap-4 items-start hover:text-white hover:bg-black  px-5 py-2.5 rounded-xl"
-                        >
-                          <div className="">
-                            <HushhButtonIcon size={24} />
-                          </div>
-                          <div className="">
-                            <h1 className="font-semibold">Hushh Button</h1>
-                            <p className="text-sm font-medium text-fontColor3">
-                              Seamlessly share your preferences with  <br /> brands for personalized experiences
-                            </p>
-                          </div>
-                        </Link>    
-                      </div>
-                      
-                      <div className="flex-1 flex flex-col gap-2">
-                        <Link
-                          href={"/products/hushh-vibe-search"}
-                          onClick={() => setProductsSubmenu(false)}
-                          className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
-                        >
-                          <div className="">
-                            <VibeSearchIcon className="w-6 h-6" />
-                          </div>
-                          <div className="">
-                            <h1 className="font-semibold">VIBE Search App</h1>
-                            <p className="text-sm font-medium text-fontColor3">
-                              Discover products you love with image-based search and AI recommendations
-                            </p>
-                          </div>
-                        </Link>
-                        <Link
-                          href={"/developerApi"}
-                          onClick={() => setProductsSubmenu(false)}
-                          className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
-                        >
-                          <div className="">
-                            <VibeSearchApi className="w-6 h-6" />
-                          </div>
-                          <div className="">
-                            <h1 className="font-semibold">Developer API</h1>
-                            <p className="text-sm font-medium text-fontColor3">
-                              Tools for businesses to integrate <br/> Hushh data into their applications
-                            </p>
-                          </div>
-                        </Link>
-                        <Link
-                          href={"/products/browser-companion"}
-                          onClick={() => setProductsSubmenu(false)}
-                          className="flex gap-4 hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
-                        >
-                          <div className="">
-                            <ChromeExtentionLogo className="w-6 h-6" />
-                          </div>
-                          <div className="">
-                            <h1 className="font-semibold">
-                              Hushh Browser Companion
-                            </h1>
-                            <p className="text-sm font-medium text-fontColor3">
-                              Track and manage your online browsing data <br/>, building a complete digital profile
-                            </p>
-                          </div>
-                        </Link>
-                        {/* <Link
-                          href={"/products/hushh-for-students"}
-                          onClick={() => setProductsSubmenu(false)}
-                          className="flex gap-4 hover:text-white hover:bg-black px-0 py-2.5 rounded-xl"
-                        >
-                          <div className="">
-                            <ValetChat className="w-6 h-6" />
-                          </div>
-                          <div className="">
-                            <h1 className="font-semibold">Hushh For Students</h1>
-                            <p className="text-sm font-medium text-fontColor3">
-                              Rewards & empowers students with data  <br /> control (safe & secure) 
-                            </p>
-                          </div>
-                        </Link> */}
-                      </div>
-                    </div>
+                    <svg
+                      fill="none"
+                      strokeWidth={2.5}
+                      stroke={textColor || "#FFFFFF"}
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      width="32"
+                      height="32"
+                      style={{
+                        filter: `drop-shadow(0px 0px 1px ${textColor ? "rgba(0, 0, 0, 0.3)" : "rgba(255, 255, 255, 0.5)"})`
+                      }}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                      />
+                    </svg>
                   </div>
                 )}
+              </div>
+            </div>
+
+            {productsSubmenu && (
+              <div
+                className="bg-white z-100 flex flex-col gap-4 absolute pl-8 pr-8 mt-4 pt-5 pb-7 rounded-2xl shadow-lg shadow-[#A7AEBA1F]"
+                onMouseEnter={() => setProductsSubmenu(true)}
+                onMouseLeave={() => setProductsSubmenu(false)}
+                // Position adjustment might be needed
+                style={{top: '60px', right: '150px'}}
+              >
+                <p className="text-xs text-fontColor2 font-semibold">
+                  HUSHH PRODUCTS
+                </p>
+                <div className="flex gap-2 z-1000">
+                  <div className="flex-1 flex flex-col gap-2">
+                    <Link
+                      href={"/products/personal-data-agent"}
+                      onClick={() => setProductsSubmenu(false)}
+                      className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
+                    >
+                      <div className="">
+                        <Image 
+                          src="/svgs/pdaLogo.svg" 
+                          alt="PDA Logo" 
+                          width={24} 
+                          height={24} 
+                          className="w-6 h-6"
+                          style={{borderRadius:'30%'}}
+                        />
+                      </div>
+                      <div className="">
+                        <h1 className="font-semibold">Hushh PDA</h1>
+                        <p className="text-sm font-medium text-fontColor3">
+                        Your Personal Data Agent, <br/> Under Your Control</p>
+                      </div>
+                    </Link>
+                    <Link
+                      href={"/products/hushh-wallet-app"}
+                      onClick={() => setProductsSubmenu(false)}
+                      className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
+                    >
+                      <div className="">
+                        <HushhWalletIcon className="w-6 h-6" />
+                      </div>
+                      <div className="">
+                        <h1 className="font-semibold">Hushh Wallet App</h1>
+                        <p className="text-sm font-medium text-fontColor3">
+                          Your personal data vault. Organize, control,<br/> and monetize your information
+                        </p>
+                      </div>
+                    </Link>
+                    <Link
+                      href={"/products/hushh-button"}
+                      onClick={() => setProductsSubmenu(false)}
+                      className="flex gap-4 items-start hover:text-white hover:bg-black  px-5 py-2.5 rounded-xl"
+                    >
+                      <div className="">
+                        <HushhButtonIcon size={24} />
+                      </div>
+                      <div className="">
+                        <h1 className="font-semibold">Hushh Button</h1>
+                        <p className="text-sm font-medium text-fontColor3">
+                          Seamlessly share your preferences with  <br /> brands for personalized experiences
+                        </p>
+                      </div>
+                    </Link>    
+                  </div>
+                  
+                  <div className="flex-1 flex flex-col gap-2">
+                    <Link
+                      href={"/products/hushh-vibe-search"}
+                      onClick={() => setProductsSubmenu(false)}
+                      className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
+                    >
+                      <div className="">
+                        <VibeSearchIcon className="w-6 h-6" />
+                      </div>
+                      <div className="">
+                        <h1 className="font-semibold">VIBE Search App</h1>
+                        <p className="text-sm font-medium text-fontColor3">
+                          Discover products you love with image-based search and AI recommendations
+                        </p>
+                      </div>
+                    </Link>
+                    <Link
+                      href={"/developerApi"}
+                      onClick={() => setProductsSubmenu(false)}
+                      className="flex gap-4 items-start hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
+                    >
+                      <div className="">
+                        <VibeSearchApi className="w-6 h-6" />
+                      </div>
+                      <div className="">
+                        <h1 className="font-semibold">Developer API</h1>
+                        <p className="text-sm font-medium text-fontColor3">
+                          Tools for businesses to integrate <br/> Hushh data into their applications
+                        </p>
+                      </div>
+                    </Link>
+                    <Link
+                      href={"/products/browser-companion"}
+                      onClick={() => setProductsSubmenu(false)}
+                      className="flex gap-4 hover:text-white hover:bg-black px-5 py-2.5 rounded-xl"
+                    >
+                      <div className="">
+                        <ChromeExtentionLogo className="w-6 h-6" />
+                      </div>
+                      <div className="">
+                        <h1 className="font-semibold">
+                          Hushh Browser Companion
+                        </h1>
+                        <p className="text-sm font-medium text-fontColor3">
+                          Track and manage your online browsing data <br/>, building a complete digital profile
+                        </p>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
               </div>
             )}
           </div>
 
           {/* Mobile Menu Overlay */}
-          {isMenuOpen && (!isDesktop || isTablet || isMobile || isTabletOrMobile || isMobileScreen) && (
+          {isMenuOpen && (
             <div 
               style={{
                 zIndex: 1000,
@@ -488,9 +478,9 @@ export default function Header({backgroundColor}) {
             >
               {/* Header */}
               <div className="px-6 pt-4 pb-2 flex items-center justify-between sticky top-0 bg-black z-10">
-                <div className="flex-1">
-                  <HushhHeaderLogo />
-                </div>
+                    <div className="flex-1">
+                      <HushhHeaderLogo />
+                    </div>
                 <div className="flex items-center">
                   <button
                     onClick={() => setIsMenuOpen(false)}
