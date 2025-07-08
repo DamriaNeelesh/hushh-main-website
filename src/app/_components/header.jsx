@@ -206,7 +206,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
               {/* Logo */}
               <div className="flex-shrink-0">
                 <Link href="/">
-                  {pathname === '/' ? (
+                  {pathname === '/' || pathname === '/consent-ai-protocol' ? (
                     <Image src={HushhNewLogo} alt="Hushh Logo" width={120} height={40} priority />
                   ) : (
                     <HushhHeaderLogo />
