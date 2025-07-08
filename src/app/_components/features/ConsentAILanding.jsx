@@ -36,8 +36,8 @@ const ConsentAILanding = () => {
         >
           {/* Left: Text & CTA */}
           <VStack
-            spacing={{ base: 8, md: 12, lg: 16 }}
-            align="flex-start"
+            spacing={{ base: 6, md: 8 }}
+            align={{ base: "center", lg: "flex-start" }}
             textAlign={{ base: "center", lg: "left" }}
             w={{ base: "full", lg: "55%" }}
             maxW="none"
@@ -46,7 +46,7 @@ const ConsentAILanding = () => {
             {/* Beta Badge */}
             <Box>
               <Text
-                fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
+                fontSize={{ base: "lg", md: "xl" }}
                 fontFamily="Inter"
                 fontWeight={400}
                 letterSpacing="wider"
@@ -61,11 +61,16 @@ const ConsentAILanding = () => {
                 Now in Open Beta
               </Text>
             </Box>
+
             {/* Main Heading */}
-            <VStack spacing={{ base: 4, md: 6 }} w="full" align="flex-start">
+            <VStack
+              spacing={{ base: 4, md: 6 }}
+              w="full"
+              align={{ base: "center", lg: "flex-start" }}
+            >
               <Heading
                 as="h1"
-                fontSize={{ base: "4xl", sm: "5xl", md: "6xl", lg: "7xl", xl: "8xl" }}
+                fontSize={{ base: "4xl", sm: "5xl", md: "6xl" }}
                 fontFamily="Inter"
                 fontWeight={700}
                 letterSpacing="-0.02em"
@@ -79,13 +84,13 @@ const ConsentAILanding = () => {
             {/* Subtitle */}
             <Box maxW={{ base: "full", md: "4xl", lg: "5xl" }}>
               <Text
-                fontSize={{ base: "lg", sm: "xl", md: "2xl", lg: "3xl" }}
+                fontSize={{ base: "lg", sm: "xl", md: "2xl" }}
                 fontFamily="Inter"
                 fontWeight={400}
                 letterSpacing="-0.01em"
                 lineHeight={{ base: "1.4", md: "1.3" }}
                 color="#4A5568"
-                px={{ base: 2, md: 4 }}
+                px={{ base: 2, lg: 0 }}
               >
                 Empowering every verified iOS human with modular, trusted, consent-native 
                 personal data agents that scale like bacteria but coordinate like complex life.
@@ -151,6 +156,20 @@ const ConsentAILanding = () => {
             </HStack>
           </VStack>
           {/* Right: Mobile SVG */}
+          <Box
+            display={{ base: "flex", lg: "none" }}
+            w="full"
+            justifyContent="center"
+            mt={{ base: 8, md: 12 }}
+          >
+            <Image
+              src={section1Phone}
+              alt="Consent API Mobile Preview"
+              style={{ maxWidth: "350px", height: "auto" }}
+              sizes="(max-width: 767px) 80vw, 350px"
+              priority
+            />
+          </Box>
           <Box
             display={{ base: "none", lg: "flex" }}
             alignItems="center"

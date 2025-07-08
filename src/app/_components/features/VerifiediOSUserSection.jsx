@@ -117,7 +117,7 @@ const VerifiediOSUserSection = () => {
   return (
     <Box bg="#F8F9FA" py={{ base: 12, md: 24 }}>
       <Container maxW="container.xl" px={{ base: 4, md: 8 }}>
-        <VStack spacing={{ base: 16, md: 28 }}>
+        <VStack spacing={{ base: 16, md: 10 }}>
 
           {/* Section 1: Join the Ecosystem */}
           <VStack w="full" spacing={8}>
@@ -128,7 +128,7 @@ const VerifiediOSUserSection = () => {
                  <Heading as="h2" fontSize="5xl" fontWeight="bold">Join the Ecosystem Today</Heading>
                  <Button bg="black" color="white" borderRadius="full" px={8} h="60px" fontSize="xl" _hover={{ bg: "#333" }} onClick={() => router.push("/login")}>Get Your Hushh Id</Button>
               </VStack>
-              <Box position="relative" w="320px" transform="rotate(-8deg)" boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.25)" borderRadius="40px">
+              <Box position="relative" w="320px" transform="rotate(-8deg)"  borderRadius="40px">
                  <Image src={ecosystemPhone} alt="Ecosystem Phone" borderRadius="40px" />
               </Box>
               <VStack w="30%" align="flex-end" spacing={4} textAlign="right">
@@ -156,6 +156,7 @@ const VerifiediOSUserSection = () => {
             templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(3, 1fr)"}}
             gap={6}
             w="full"
+            mt={{base: 0, md: -12}}
             alignItems="stretch"
           >
             <GridItem border={'4px solid #B4A4A4'} borderRadius={'30px'}>
@@ -196,8 +197,7 @@ const VerifiediOSUserSection = () => {
           <Box bg="#F5F5F7" borderRadius="45px" p={{ base: 6, md: 12 }} w="full">
             <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={{ base: 10, lg: 16 }} alignItems="center">
                <Flex direction={{ base: "column", md: "row" }} align="center" gap={8}>
-                 <Image src={verifiedUserImage} alt="Verified iOS User" borderRadius="30px" w={{ base: "100%", md: "50%" }} maxW="300px"/>
-                 <VStack spacing={10} align={{ base: "center", md: "flex-start" }}>
+               <VStack spacing={10} align={{ base: "center", md: "flex-start" }}>
                   {verifiedFeatures.map((item, index) => (
                     <HStack key={index} spacing={4}>
                       <Image src={item.icon} alt="" width={40} height={40} />
@@ -208,6 +208,8 @@ const VerifiediOSUserSection = () => {
                     </HStack>
                   ))}
                  </VStack>
+                 <Image src={verifiedUserImage} alt="Verified iOS User" borderRadius="30px" w={{ base: "100%", md: "50%" }} maxW="300px"/>
+                
                </Flex>
               <VStack spacing={6} align={{ base: "center", lg: "flex-start" }} textAlign={{ base: "center", lg: "left" }}>
                 <Heading as="h2" fontSize={{ base: "4xl", sm: "5xl" }} fontWeight="bold" color="black">For the Verified iOS User</Heading>
