@@ -1,6 +1,7 @@
 import "./globals.css"
 import React from "react";
 import ClientHome from "./clientside/Home";
+import NewLandingPage from "./clientside/newLandingPage";
 
 export const metadata = {
   title: "Hushh | 🤫 'Your' data, make it 'Your' business",
@@ -21,5 +22,7 @@ export const metadata = {
 };
 
 export default function Home() {
-  return <ClientHome />;
+  return (
+    <NewLandingPage />
+  )
 }
