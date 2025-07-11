@@ -270,7 +270,7 @@ const HushhHackhathon = () => {
             'Total Prize Pool: ₹1,70,000+',
             '1st Prize: ₹1,00,000 + Full-time offer @ Hushh.ai and/or HushhTech.com as L1-L3 Full Stack Engineer',
             '2nd Prize: ₹50,000 + Job/internship offer',
-            '3rd Prize: ₹20,000 + Collaboration with Hushh Labs (newly established Lab in collaboration with IIT Mumbai starting Fall 2025)',
+            '3rd Prize: ₹20,000 + Collaboration with Hushh Labs (newly established Lab starting Fall 2025)',
             'All finalists: Paid internship / Hushh Engineering Co-op Program from Fall 2025 through Spring 2026',
             'Top teams: Demo at global Hushh investor/founder event',
             'Other standout teams may receive internship offers too'
