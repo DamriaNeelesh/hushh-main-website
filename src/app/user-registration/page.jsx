@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Box,
   Container,
@@ -41,27 +41,35 @@ import { IoLocationOutline } from "react-icons/io5";
 import { MdWork, MdOutlineWorkOutline } from "react-icons/md";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import config from "../../lib/config/config";
 
 const MotionBox = motion(Box);
 const MotionCard = motion(Card);
 
-// API configuration - Using the same API configuration as UserRegistration
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwbXp5a294cW5ib3pnZG9xYnBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Mjc5NzEsImV4cCI6MjAxNzUwMzk3MX0.3GwG8YQKwZSWfGgTBEEA47YZAZ-Nr4HiirYPWiZtpZ0";
-const API_BASE_URL = "https://rpmzykoxqnbozgdoqbpc.supabase.co/rest/v1";
+// Force this page to be dynamic to handle OAuth parameters
+export const dynamic = 'force-dynamic';
+
+// API configuration - Move these to environment variables
+const API_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwbXp5a294cW5ib3pnZG9xYnBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Mjc5NzEsImV4cCI6MjAxNzUwMzk3MX0.3GwG8YQKwZSWfGgTBEEA47YZAZ-Nr4HiirYPWiZtpZ0";
+const API_BASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://rpmzykoxqnbozgdoqbpc.supabase.co/rest/v1";
 const API_HEADERS = {
   'apikey': API_KEY,
   'Authorization': `Bearer ${API_KEY}`,
   'Content-Type': 'application/json'
 };
-const UserRegistration = () => {
+
+const UserRegistrationContent = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, session, loading: authLoading } = useAuth();
   const toast = useToast();
   
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckingUser, setIsCheckingUser] = useState(false);
+  const [isProcessingAuth, setIsProcessingAuth] = useState(false);
   const [error, setError] = useState(null);
   const [userEmail, setUserEmail] = useState("");
+  const [mounted, setMounted] = useState(false);
   
   // Form fields - Only the ones that can be updated
   const [firstName, setFirstName] = useState("");
@@ -100,8 +108,91 @@ const UserRegistration = () => {
     animate: { opacity: 1, y: 0 }
   };
 
+  // Set mounted state to avoid hydration issues
   useEffect(() => {
-    if (authLoading) return;
+    setMounted(true);
+  }, []);
+
+  // Handle OAuth authentication tokens on page load
+  useEffect(() => {
+    if (!mounted) return;
+
+    const handleOAuthCallback = async () => {
+      const accessToken = searchParams.get('access_token');
+      const refreshToken = searchParams.get('refresh_token');
+      const type = searchParams.get('type');
+      const error = searchParams.get('error');
+      
+      if (error) {
+        console.error('OAuth error:', error);
+        toast({
+          title: "Authentication Error",
+          description: "There was an error during authentication. Please try again.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+        return;
+      }
+      
+      if (accessToken && refreshToken) {
+        setIsProcessingAuth(true);
+        try {
+          console.log('Processing OAuth tokens...');
+          
+          // Set the session with Supabase
+          const { error: sessionError } = await config.supabaseClient.auth.setSession({
+            access_token: accessToken,
+            refresh_token: refreshToken
+          });
+          
+          if (sessionError) {
+            console.error('Session error:', sessionError);
+            toast({
+              title: "Authentication Error",
+              description: "Failed to establish session. Please try again.",
+              status: "error",
+              duration: 4000,
+              isClosable: true,
+            });
+            return;
+          }
+          
+          console.log('OAuth authentication successful');
+          toast({
+            title: "🎉 Welcome to Hushh!",
+            description: "Successfully signed in! Please complete your profile.",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+          
+          // Clean up the URL by removing the auth parameters
+          if (typeof window !== 'undefined') {
+            const cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+          }
+          
+        } catch (error) {
+          console.error('OAuth processing error:', error);
+          toast({
+            title: "Authentication Error",
+            description: "An unexpected error occurred. Please try again.",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
+        } finally {
+          setIsProcessingAuth(false);
+        }
+      }
+    };
+    
+    handleOAuthCallback();
+  }, [searchParams, toast, mounted]);
+
+  useEffect(() => {
+    if (authLoading || isProcessingAuth || !mounted) return;
     
     if (!user) {
       router.push('/login');
@@ -112,7 +203,7 @@ const UserRegistration = () => {
       setUserEmail(user.email);
       checkExistingUser(user.email);
     }
-  }, [user, authLoading, router]);
+  }, [user, authLoading, isProcessingAuth, router, mounted]);
 
   const checkExistingUser = async (email) => {
     try {
@@ -152,13 +243,13 @@ const UserRegistration = () => {
     } catch (error) {
       console.error("Error checking existing user:", error);
       // Show a toast notification for debugging
-      toast({
-        title: "API Check Error",
-        description: `Failed to check user existence: ${error.message}`,
-        status: "warning",
-        duration: 3000,
-        isClosable: true,
-      });
+      // toast({
+      //   title: "API Check Error",
+      //   description: `Failed to check user existence: ${error.message}`,
+      //   status: "warning",
+      //   duration: 3000,
+      //   isClosable: true,
+      // });
     } finally {
       setIsCheckingUser(false);
     }
@@ -255,7 +346,7 @@ const UserRegistration = () => {
     }
   };
 
-  if (authLoading) {
+  if (!mounted || authLoading || isProcessingAuth) {
     return (
       <Box
         minH="100vh"
@@ -267,7 +358,7 @@ const UserRegistration = () => {
         <VStack spacing={4}>
           <Spinner size="xl" color="blue.500" />
           <Text fontSize="lg" color="gray.600">
-            Loading your account...
+            {isProcessingAuth ? "Processing authentication..." : "Loading your account..."}
           </Text>
         </VStack>
       </Box>
@@ -471,110 +562,110 @@ const UserRegistration = () => {
                     Additional Information
                   </Text>
 
-                      {/* Gender and Location */}
-                      <Grid templateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }} gap={4} w="full">
-                        <GridItem>
-                          <FormControl isInvalid={errors.gender}>
-                            <FormLabel color="gray.700" fontWeight="600">
-                              <Icon as={BiUser} mr={2} />
-                              Gender
-                            </FormLabel>
-                            <Select
-                              value={gender}
-                              onChange={(e) => setGender(e.target.value)}
-                              placeholder="Select gender"
-                              bg="gray.50"
-                              border="1px"
-                              borderColor="gray.200"
-                              _hover={{ borderColor: "gray.300" }}
-                              _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}
-                            >
-                              <option value="male">Male</option>
-                              <option value="female">Female</option>
-                              <option value="other">Other</option>
-                              <option value="prefer-not-to-say">Prefer not to say</option>
-                            </Select>
-                            <FormErrorMessage>{errors.gender}</FormErrorMessage>
-                          </FormControl>
-                        </GridItem>
-                        <GridItem>
-                          <FormControl isInvalid={errors.country}>
-                            <FormLabel color="gray.700" fontWeight="600">
-                              <Icon as={IoLocationOutline} mr={2} />
-                              Country
-                            </FormLabel>
-                            <Input
-                              value={country}
-                              onChange={(e) => setCountry(e.target.value)}
-                              placeholder="Enter your country"
-                              bg="gray.50"
-                              border="1px"
-                              borderColor="gray.200"
-                              _hover={{ borderColor: "gray.300" }}
-                              _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}
-                            />
-                            <FormErrorMessage>{errors.country}</FormErrorMessage>
-                          </FormControl>
-                        </GridItem>
-                        <GridItem>
-                          <FormControl isInvalid={errors.city}>
-                            <FormLabel color="gray.700" fontWeight="600">
-                              <Icon as={FiMapPin} mr={2} />
-                              City
-                            </FormLabel>
-                            <Input
-                              value={city}
-                              onChange={(e) => setCity(e.target.value)}
-                              placeholder="Enter your city"
-                              bg="gray.50"
-                              border="1px"
-                              borderColor="gray.200"
-                              _hover={{ borderColor: "gray.300" }}
-                              _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}
-                            />
-                            <FormErrorMessage>{errors.city}</FormErrorMessage>
-                          </FormControl>
-                        </GridItem>
-                      </Grid>
-
-                      {/* Date of Birth */}
-                      <FormControl isInvalid={errors.dateOfBirth}>
+                  {/* Gender and Location */}
+                  <Grid templateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }} gap={4} w="full">
+                    <GridItem>
+                      <FormControl isInvalid={errors.gender}>
                         <FormLabel color="gray.700" fontWeight="600">
-                          <Icon as={FiCalendar} mr={2} />
-                          Date of Birth
+                          <Icon as={BiUser} mr={2} />
+                          Gender
+                        </FormLabel>
+                        <Select
+                          value={gender}
+                          onChange={(e) => setGender(e.target.value)}
+                          placeholder="Select gender"
+                          bg="gray.50"
+                          border="1px"
+                          borderColor="gray.200"
+                          _hover={{ borderColor: "gray.300" }}
+                          _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}
+                        >
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                          <option value="prefer-not-to-say">Prefer not to say</option>
+                        </Select>
+                        <FormErrorMessage>{errors.gender}</FormErrorMessage>
+                      </FormControl>
+                    </GridItem>
+                    <GridItem>
+                      <FormControl isInvalid={errors.country}>
+                        <FormLabel color="gray.700" fontWeight="600">
+                          <Icon as={IoLocationOutline} mr={2} />
+                          Country
                         </FormLabel>
                         <Input
-                          type="date"
-                          value={dateOfBirth}
-                          onChange={(e) => setDateOfBirth(e.target.value)}
+                          value={country}
+                          onChange={(e) => setCountry(e.target.value)}
+                          placeholder="Enter your country"
                           bg="gray.50"
                           border="1px"
                           borderColor="gray.200"
                           _hover={{ borderColor: "gray.300" }}
                           _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}
                         />
-                        <FormErrorMessage>{errors.dateOfBirth}</FormErrorMessage>
+                        <FormErrorMessage>{errors.country}</FormErrorMessage>
                       </FormControl>
-
-                      {/* Reason for using Hushh */}
-                      <FormControl isInvalid={errors.reasonForUsingHushh}>
+                    </GridItem>
+                    <GridItem>
+                      <FormControl isInvalid={errors.city}>
                         <FormLabel color="gray.700" fontWeight="600">
-                          <Icon as={FiEdit3} mr={2} />
-                          Reason for using Hushh
+                          <Icon as={FiMapPin} mr={2} />
+                          City
                         </FormLabel>
-                        <Textarea
-                          value={reasonForUsingHushh}
-                          onChange={(e) => setReasonForUsingHushh(e.target.value)}
-                          placeholder="Tell us why you're interested in using Hushh"
+                        <Input
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                          placeholder="Enter your city"
                           bg="gray.50"
                           border="1px"
                           borderColor="gray.200"
                           _hover={{ borderColor: "gray.300" }}
                           _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}
-                          rows={4}
                         />
-                        <FormErrorMessage>{errors.reasonForUsingHushh}</FormErrorMessage>
+                        <FormErrorMessage>{errors.city}</FormErrorMessage>
                       </FormControl>
+                    </GridItem>
+                  </Grid>
+
+                  {/* Date of Birth */}
+                  <FormControl isInvalid={errors.dateOfBirth}>
+                    <FormLabel color="gray.700" fontWeight="600">
+                      <Icon as={FiCalendar} mr={2} />
+                      Date of Birth
+                    </FormLabel>
+                    <Input
+                      type="date"
+                      value={dateOfBirth}
+                      onChange={(e) => setDateOfBirth(e.target.value)}
+                      bg="gray.50"
+                      border="1px"
+                      borderColor="gray.200"
+                      _hover={{ borderColor: "gray.300" }}
+                      _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}
+                    />
+                    <FormErrorMessage>{errors.dateOfBirth}</FormErrorMessage>
+                  </FormControl>
+
+                  {/* Reason for using Hushh */}
+                  <FormControl isInvalid={errors.reasonForUsingHushh}>
+                    <FormLabel color="gray.700" fontWeight="600">
+                      <Icon as={FiEdit3} mr={2} />
+                      Reason for using Hushh
+                    </FormLabel>
+                    <Textarea
+                      value={reasonForUsingHushh}
+                      onChange={(e) => setReasonForUsingHushh(e.target.value)}
+                      placeholder="Tell us why you're interested in using Hushh"
+                      bg="gray.50"
+                      border="1px"
+                      borderColor="gray.200"
+                      _hover={{ borderColor: "gray.300" }}
+                      _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}
+                      rows={4}
+                    />
+                    <FormErrorMessage>{errors.reasonForUsingHushh}</FormErrorMessage>
+                  </FormControl>
 
                   {/* Submit Button */}
                   <Button
@@ -633,6 +724,30 @@ const UserRegistration = () => {
         </MotionBox>
       </Container>
     </Box>
+  );
+};
+
+// Main component with Suspense boundary
+const UserRegistration = () => {
+  return (
+    <Suspense fallback={
+      <Box
+        minH="100vh"
+        bg="gray.50"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <VStack spacing={4}>
+          <Spinner size="xl" color="blue.500" />
+          <Text fontSize="lg" color="gray.600">
+            Loading registration form...
+          </Text>
+        </VStack>
+      </Box>
+    }>
+      <UserRegistrationContent />
+    </Suspense>
   );
 };
 

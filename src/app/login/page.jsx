@@ -103,17 +103,8 @@ const LoginPageContent = () => {
     
     setIsSigningIn(true);
     try {
-      await signIn(() => {
-        toast({
-          title: "🤫 Welcome to Hushh!",
-          description: "You have successfully signed in. Redirecting to complete your profile...",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "top",
-        });
-        // The googleSignIn function will handle the redirect to /user-registration
-      });
+      await signIn();
+      // The OAuth process will redirect to Google, and success will be handled when user returns
     } catch (error) {
       console.error('Error signing in:', error);
       toast({
@@ -124,7 +115,6 @@ const LoginPageContent = () => {
         isClosable: true,
         position: "top",
       });
-    } finally {
       setIsSigningIn(false);
     }
   };

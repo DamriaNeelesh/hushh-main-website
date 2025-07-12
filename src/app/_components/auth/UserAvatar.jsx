@@ -36,6 +36,7 @@ const UserAvatar = () => {
   const handleSignOut = async () => {
     try {
       await signOut();
+      router.push('/');
       toast({
         title: "✅ Signed out successfully",
         description: "You have been signed out of your account.",
@@ -44,7 +45,7 @@ const UserAvatar = () => {
         isClosable: true,
         position: "top",
       });
-      router.push('/');
+      
     } catch (error) {
       console.error('Error signing out:', error);
       toast({

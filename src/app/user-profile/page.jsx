@@ -279,6 +279,7 @@ const UserProfile = () => {
   const handleSignOut = async () => {
     try {
       await signOut();
+      router.push('/');
       toast({
         title: "✅ Signed out successfully",
         description: "You have been signed out of your account.",
@@ -286,7 +287,6 @@ const UserProfile = () => {
         duration: 3000,
         isClosable: true,
       });
-      router.push('/');
     } catch (error) {
       console.error('Error signing out:', error);
       toast({
@@ -865,7 +865,7 @@ const UserProfile = () => {
                         colorScheme="red"
                         size="sm"
                         w="full"
-                        onClick={onOpen}
+                        onClick={handleSignOut}
                       >
                         Sign Out
                       </Button>
