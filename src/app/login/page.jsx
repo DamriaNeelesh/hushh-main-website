@@ -105,16 +105,14 @@ const LoginPageContent = () => {
     try {
       await signIn(() => {
         toast({
-          title: "🎉 Welcome to Hushh!",
-          description: "You have successfully signed in. Redirecting...",
+          title: "🤫 Welcome to Hushh!",
+          description: "You have successfully signed in. Redirecting to complete your profile...",
           status: "success",
           duration: 3000,
           isClosable: true,
           position: "top",
         });
-        setTimeout(() => {
-          router.push(redirectTo);
-        }, 1500);
+        // The googleSignIn function will handle the redirect to /user-registration
       });
     } catch (error) {
       console.error('Error signing in:', error);

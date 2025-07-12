@@ -3,7 +3,7 @@ import config from '../config/config';
 export default async function googleSignIn(callback) {
   try {
     console.log('Starting Google Sign-In process...');
-    const redirectTo = window.location.origin;
+    const redirectTo = window.location.origin + '/user-registration';
     
     if (!config.supabaseClient) {
       console.error('Supabase client is not initialized');
