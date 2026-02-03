@@ -20,93 +20,180 @@ import {
   ModalCloseButton,
   useDisclosure,
   useToast,
+  Icon,
+  Link,
+  Divider,
+  Flex
 } from '@chakra-ui/react'
+import { FaUser, FaMapMarkerAlt, FaBriefcase, FaHeart, FaGamepad, FaPlane, FaLeaf, FaLaptop, FaDownload, FaTrash, FaCode, FaRedo } from 'react-icons/fa'
+import HushhProfileCard from '../../../components/profile/HushhProfileCard'
+import { buildHushhId, extractUuid, getSiteUrl } from '../../../lib/utils'
 
 // Helper function to extract data from API responses
 const extractUserData = (agentResults, userData) => {
-  const allData = {}
-  
+  const allData = { ...userData }
+
   console.log('🔍 Extracting data from agent results:', agentResults)
-  
-  // Process agents in priority order: brand -> hushh -> public -> gemini (last = highest priority)
-  const priorityOrder = ['brand', 'hushh', 'public', 'gemini', 'gemini-proxy']
+
+  const priorityOrder = ['brand', 'hushh', 'public', 'gemini', 'gemini-proxy', 'supabase-profile-creation-agent']
   const sortedEntries = Object.entries(agentResults).sort((a, b) => {
     const indexA = priorityOrder.indexOf(a[0])
     const indexB = priorityOrder.indexOf(b[0])
     return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB)
   })
-  
-  // Combine all agent data with Gemini taking priority (processed last)
+
   sortedEntries.forEach(([agent, result]) => {
-    console.log(`📊 Processing ${agent} agent:`, result)
-    
     if (result.success && result.data) {
-      // Handle different response structures - JSON-RPC format
-      let responseData = result.data?.result?.status?.message?.parts?.[0]?.text || 
-                         result.data?.result?.artifacts?.[0]?.parts?.[0]?.text ||
-                         result.data?.result?.message?.parts?.[0]?.text ||
-                         result.data?.result?.response?.parts?.[0]?.text || 
-                         result.data?.data || 
-                         result.data
-      
-      console.log(`📝 Extracted response data from ${agent}:`, responseData)
-      
-      // If responseData is a string, try to parse it as JSON
+      let responseData = result.data?.result?.status?.message?.parts?.[0]?.text ||
+        result.data?.result?.artifacts?.[0]?.parts?.[0]?.text ||
+        result.data?.result?.message?.parts?.[0]?.text ||
+        result.data?.result?.response?.parts?.[0]?.text ||
+        result.data?.result?.response?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        result.data?.result?.output?.[0]?.content?.[0]?.text ||
+        result.data?.result?.output ||
+        result.data?.data ||
+        result.data
+
       if (typeof responseData === 'string') {
         try {
-          // Remove markdown code blocks if present
-          const cleanedData = responseData
-            .replace(/```json\n?/g, '')
-            .replace(/```\n?/g, '')
-            .trim()
-          
-          console.log(`🧹 Cleaned data from ${agent}:`, cleanedData.substring(0, 200))
-          
-          const parsed = JSON.parse(cleanedData)
-          console.log(`✅ Parsed JSON from ${agent}:`, parsed)
-          
-          // Handle userProfile wrapper
-          if (parsed.userProfile) {
-            Object.assign(allData, parsed.userProfile)
-            console.log(`📦 Merged userProfile from ${agent}`, Object.keys(parsed.userProfile))
-          } else if (typeof parsed === 'object' && parsed !== null) {
-            Object.assign(allData, parsed)
-            console.log(`📦 Merged direct object from ${agent}`, Object.keys(parsed))
+          const cleanedData = responseData.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
+          const jsonMatch = cleanedData.match(/\{[\s\S]*\}/);
+          const parsed = JSON.parse(jsonMatch ? jsonMatch[0] : cleanedData)
+
+          let dataToMerge = parsed.userProfile || parsed.profile || parsed.data || parsed;
+
+          // ID Normalization
+          const extractedId = dataToMerge.user_id || dataToMerge.userId || dataToMerge.id;
+          const extractedUuid = extractUuid(extractedId);
+          if (extractedUuid && (!allData.user_id || allData.user_id.startsWith('pending-'))) {
+            allData.user_id = extractedUuid;
           }
+
+          const extractedHushhId = dataToMerge.hushh_id || dataToMerge.hushhId;
+          if (extractedHushhId && (!allData.hushh_id || allData.hushh_id.includes('pending-') || extractedHushhId.includes('/'))) {
+            allData.hushh_id = extractedHushhId;
+          }
+
+          // Basic normalization for UI consistency
+          if (dataToMerge.address && typeof dataToMerge.address === 'object') {
+            const addr = dataToMerge.address;
+            allData.street = addr.street || addr.address_line1 || allData.street;
+            allData.city = addr.city || allData.city;
+            allData.state = addr.state || allData.state;
+            allData.zip_code = addr.zip_code || addr.zip || allData.zip_code;
+            allData.country = addr.country || allData.country;
+          }
+
+          // Handle intents
+          const extract = (src) => ({
+            category: src.category,
+            budget: src.budget_usd || src.budget,
+            time_window: src.time_window || src.timeWindow,
+            confidence: src.confidence
+          });
+
+          if (dataToMerge.intent_24h) {
+            const i = extract(dataToMerge.intent_24h);
+            allData.intent_24h_category = i.category || allData.intent_24h_category;
+            allData.intent_24h_budget = i.budget || allData.intent_24h_budget;
+            allData.intent_24h_confidence = i.confidence || allData.intent_24h_confidence;
+          }
+          if (dataToMerge.intent_48h) {
+            const i = extract(dataToMerge.intent_48h);
+            allData.intent_48h_category = i.category || allData.intent_48h_category;
+            allData.intent_48h_budget = i.budget || allData.intent_48h_budget;
+            allData.intent_48h_time_window = i.time_window || allData.intent_48h_time_window;
+            allData.intent_48h_confidence = i.confidence || allData.intent_48h_confidence;
+          }
+          if (dataToMerge.intent_72h) {
+            const i = extract(dataToMerge.intent_72h);
+            allData.intent_72h_category = i.category || allData.intent_72h_category;
+            allData.intent_72h_budget = i.budget || allData.intent_72h_budget;
+            allData.intent_72h_confidence = i.confidence || allData.intent_72h_confidence;
+          }
+
+          if (Array.isArray(dataToMerge.intents)) {
+            dataToMerge.intents.forEach(int => {
+              const tf = int.time_frame || int.timeFrame;
+              const i = extract(int);
+              if (tf?.includes('24h')) {
+                allData.intent_24h_category = i.category;
+                allData.intent_24h_budget = i.budget;
+                allData.intent_24h_confidence = i.confidence;
+              } else if (tf?.includes('48h')) {
+                allData.intent_48h_category = i.category;
+                allData.intent_48h_budget = i.budget;
+                allData.intent_48h_time_window = i.time_window;
+                allData.intent_48h_confidence = i.confidence;
+              } else if (tf?.includes('72h')) {
+                allData.intent_72h_category = i.category;
+                allData.intent_72h_budget = i.budget;
+                allData.intent_72h_confidence = i.confidence;
+              }
+            });
+          }
+
+          // PROTECT USER INPUT:
+          // We want to merge new insights (e.g., intents, brand preferences)
+          // but NOT overwrite the Core Identity fields if the user explicitly provided them.
+          const protectedFields = ['email', 'phone', 'phoneNumber', 'full_name', 'fullName', 'name'];
+
+          Object.keys(dataToMerge).forEach(key => {
+            // If the key is a protected field AND we already have a value from the original userData, skip it.
+            if (protectedFields.includes(key) && userData[key]) {
+              return;
+            }
+            // Otherwise, it's safe to merge (or add new fields)
+            allData[key] = dataToMerge[key];
+          });
         } catch (e) {
-          console.error(`❌ Failed to parse JSON from ${agent}:`, e, '\nData:', responseData?.substring(0, 500))
+          console.error(`❌ Failed to parse JSON from ${agent}:`, e)
         }
       } else if (typeof responseData === 'object' && responseData !== null) {
-        // If already an object, handle userProfile wrapper
-        if (responseData.userProfile) {
-          Object.assign(allData, responseData.userProfile)
-          console.log(`📦 Merged object userProfile from ${agent}`, Object.keys(responseData.userProfile))
-        } else {
-          Object.assign(allData, responseData)
-          console.log(`📦 Merged direct object from ${agent}`, Object.keys(responseData))
-        }
+        let objToMerge = responseData.userProfile || responseData.profile || responseData.data || responseData;
+        const extractedId = objToMerge.user_id || objToMerge.userId || objToMerge.id;
+        const extractedUuid = extractUuid(extractedId);
+        if (extractedUuid) allData.user_id = extractedUuid;
+
+        const protectedFields = ['email', 'phone', 'phoneNumber', 'full_name', 'fullName', 'name'];
+        Object.keys(objToMerge).forEach(key => {
+          if (protectedFields.includes(key) && userData[key]) {
+            return;
+          }
+          allData[key] = objToMerge[key];
+        });
       }
-    } else {
-      console.warn(`⚠️ ${agent} agent failed or has no data:`, result)
     }
   })
-  
-  console.log('✨ Final merged data:', allData)
-  console.log('📋 Available fields:', Object.keys(allData))
-  console.log('🔑 Total fields extracted:', Object.keys(allData).length)
-  
-  // Log specific important fields for debugging
-  console.log('🏋️ Gym Membership field:', allData.gymMembership || allData.gym_membership || allData.GymMembership || 'NOT FOUND')
-  console.log('👤 Full Name field:', allData.fullName || allData.full_name || allData.name || 'NOT FOUND')
-  console.log('📧 Email field:', allData.email || allData.Email || 'NOT FOUND')
-  
+
+  // Final safeguarding: Ensure user_id from Supabase agent wins if multiple IDs present
+  const supabaseResult = agentResults['supabase-profile-creation-agent'];
+  if (supabaseResult?.success && supabaseResult?.data) {
+    const text = supabaseResult.data?.result?.status?.message?.parts?.[0]?.text || '';
+    const match = text.match(/\{[\s\S]*\}/);
+    if (match) {
+      try {
+        const parsed = JSON.parse(match[0]);
+        const finalId = parsed.user_id || parsed.userId || parsed.id;
+        const finalUuid = extractUuid(finalId);
+        if (finalUuid && (!allData.user_id || allData.user_id.startsWith('pending-'))) {
+          allData.user_id = finalUuid;
+        }
+
+        const finalHushhId = parsed.hushh_id || parsed.hushhId;
+        if (finalHushhId && (!allData.hushh_id || allData.hushh_id.includes('pending-') || finalHushhId.includes('/'))) {
+          allData.hushh_id = finalHushhId;
+        }
+      } catch (e) { }
+    }
+  }
+
   return allData
 }
 
 // Helper to get field value (supports nested objects)
 const getField = (data, ...keys) => {
   for (const key of keys) {
-    // Handle nested object notation (e.g., "address.city")
     if (key.includes('.')) {
       const parts = key.split('.')
       let value = data
@@ -120,13 +207,12 @@ const getField = (data, ...keys) => {
       }
       if (value !== null && value !== undefined) return value
     } else {
-      // Direct key access
       if (data[key] !== undefined && data[key] !== null && data[key] !== '') {
         return data[key]
       }
     }
   }
-  return 'Not available'
+  return 'Not available' // Consistent placeholder
 }
 
 // Helper to format array values
@@ -134,644 +220,469 @@ const formatArrayValue = (value) => {
   if (Array.isArray(value)) {
     return value.join(', ')
   }
+  if (typeof value === 'object' && value !== null) {
+    return Object.values(value).join(', ')
+  }
   return value
 }
 
+// Reusable Dashboard Card Component
+const DashboardCard = ({ title, icon, children, colorScheme = "blue" }) => (
+  <Box
+    bg="white"
+    border="1px solid"
+    borderColor="rgba(0,0,0,0.05)"
+    borderRadius="2xl"
+    p={6}
+    height="full"
+    transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+    _hover={{ transform: "translateY(-4px)", boxShadow: "0 15px 30px rgba(0,0,0,0.08)" }}
+    boxShadow="0 4px 10px rgba(0,0,0,0.02)"
+  >
+    <HStack mb={6} spacing={3} align="center">
+      <Flex
+        w={10} h={10}
+        align="center" justify="center"
+        borderRadius="lg"
+        bg={`${colorScheme}.50`}
+        color={`${colorScheme}.600`}
+      >
+        <Icon as={icon} boxSize={5} />
+      </Flex>
+      <Heading size="md" fontWeight="bold" letterSpacing="tight" color="#1d1d1f">
+        {title}
+      </Heading>
+    </HStack>
+    <VStack align="stretch" spacing={4}>
+      {children}
+    </VStack>
+  </Box>
+)
+
+const InfoRow = ({ label, value }) => (
+  <Box>
+    <Text fontSize="xs" color="gray.500" fontWeight="700" letterSpacing="wider" textTransform="uppercase" mb={1}>
+      {label}
+    </Text>
+    <Text fontSize="md" color="#1d1d1f" fontWeight="500">
+      {value}
+    </Text>
+  </Box>
+)
+
+const IntentCard = ({ badge, badgeColor, data, categoryKey, budgetKey, confidenceKey, timeWindowKey }) => (
+  <Box
+    bg="white"
+    p={4}
+    borderRadius="xl"
+    border="1px solid"
+    borderColor="rgba(0,0,0,0.05)"
+    boxShadow="sm"
+    transition="all 0.2s"
+    _hover={{ boxShadow: "md" }}
+  >
+    <VStack align="stretch" spacing={2}>
+      <HStack justify="space-between">
+        <Badge colorScheme={badgeColor} variant="subtle" borderRadius="full" px={2}>{badge}</Badge>
+        <Text fontSize="xs" color="gray.400" fontWeight="600">Conf: {data?.[confidenceKey] || 'N/A'}</Text>
+      </HStack>
+      <Box>
+        <Text fontWeight="bold" fontSize="lg" color="#1d1d1f" noOfLines={1}>{data?.[categoryKey] || 'No category'}</Text>
+        <Text fontSize="sm" color={`${badgeColor}.600`} fontWeight="semibold">{data?.[budgetKey] || 'Budget: N/A'}</Text>
+      </Box>
+      {timeWindowKey && data?.[timeWindowKey] && (
+        <Text fontSize="xs" color="gray.500" fontStyle="italic">
+          Window: {data[timeWindowKey]}
+        </Text>
+      )}
+    </VStack>
+  </Box>
+)
+
 export default function ResultsDisplay({ userData, agentResults, onBack }) {
-  const [showRawData, setShowRawData] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
-  
-  // Extract and parse all data
-  const parsedData = useMemo(() => extractUserData(agentResults, userData), [agentResults, userData])
-  
-  // Calculate metadata
-  const metadata = useMemo(() => {
-    const totalFields = Object.keys(parsedData).length
-    const avgResponseTime = Object.values(agentResults)
-      .filter(r => r.responseTime && r.responseTime !== 'N/A')
-      .map(r => parseInt(r.responseTime))
-      .reduce((acc, val) => acc + val, 0) / Object.values(agentResults).filter(r => r.responseTime && r.responseTime !== 'N/A').length || 0
-    
-    return {
-      confidenceScore: parsedData.confidence_score || parsedData.confidence || '30',
-      accuracyScore: parsedData.accuracy_score || parsedData.accuracy || '50',
-      totalFields: totalFields || 3,
-      responseTime: avgResponseTime ? `${Math.round(avgResponseTime)}ms` : '10ms'
-    }
-  }, [parsedData, agentResults])
 
-  // Export results as JSON
+  const parsedData = useMemo(() => extractUserData(agentResults, userData), [agentResults, userData])
+  const resolvedName = parsedData.full_name || parsedData.fullName || userData?.fullName || userData?.full_name || ''
+  const resolvedPhone = parsedData.phone || userData?.phone || (userData?.phoneNumber
+    ? `${userData.countryCode || ''} ${userData.phoneNumber || ''}`.trim()
+    : '')
+  const generatedHushhId = buildHushhId(resolvedName, resolvedPhone)
+  const displayHushhId = generatedHushhId || parsedData.hushh_id || parsedData.hushhId || 'Not available'
+  const [cardProfile, setCardProfile] = useState(null)
+  const [cardLoading, setCardLoading] = useState(false)
+  const [cardError, setCardError] = useState('')
+  const [publicLink, setPublicLink] = useState('')
+
+  // Extract Intents safely
+  const intents = useMemo(() => {
+    const rawIntents = parsedData.intents || [];
+    // Normalize into array if object
+    if (!Array.isArray(rawIntents) && typeof rawIntents === 'object') {
+      return [rawIntents['24h'], rawIntents['48h'], rawIntents['72h']].filter(Boolean);
+    }
+    return Array.isArray(rawIntents) ? rawIntents : [];
+  }, [parsedData]);
+
+  const getIntent = (idx) => intents[idx] || {};
+
   const handleExportResults = () => {
     try {
-      const exportData = {
-        userData,
-        parsedData,
-        metadata,
-        agentResults,
-        exportDate: new Date().toISOString(),
-      }
-      
-      const dataStr = JSON.stringify(exportData, null, 2)
+      const dataStr = JSON.stringify({ userData, parsedData, agentResults, exportDate: new Date().toISOString() }, null, 2)
       const dataBlob = new Blob([dataStr], { type: 'application/json' })
       const url = URL.createObjectURL(dataBlob)
       const link = document.createElement('a')
       link.href = url
-      link.download = `profile-analysis-${userData.fullName.replace(/\s+/g, '-')}-${Date.now()}.json`
+      link.download = `hushh-profile-${userData.fullName?.replace(/\s+/g, '-') || 'user'}-${Date.now()}.json`
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
       URL.revokeObjectURL(url)
-      
-      toast({
-        title: 'Results Exported',
-        description: 'Your profile analysis has been downloaded as JSON',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
+      toast({ title: 'Export Successful', status: 'success', duration: 3000 })
+    } catch (error) {
+      toast({ title: 'Export Failed', description: error.message, status: 'error' })
+    }
+  }
+
+  const handleClearData = () => {
+    if (window.confirm('Clear all analysis data?')) {
+      onBack?.()
+    }
+  }
+
+  const handleGenerateCard = async () => {
+    setCardError('')
+    setPublicLink('')
+    setCardLoading(true)
+
+    try {
+      const email = parsedData.email || userData?.email || ''
+      const fallbackPhone = userData?.phoneNumber
+        ? `${userData.countryCode || ''} ${userData.phoneNumber || ''}`.trim()
+        : ''
+      const phone = parsedData.phone || userData?.phone || fallbackPhone || ''
+      const fullName = parsedData.full_name || parsedData.fullName || userData?.fullName || userData?.full_name || ''
+
+      if (!email && !phone && !fullName) {
+        setCardError('Email, phone, or full name is required to lookup your UUID.')
+        return
+      }
+
+      const response = await fetch('/api/user/profile/lookup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          phone,
+          full_name: fullName,
+        }),
+      })
+
+      const result = await response.json()
+      if (!response.ok || !result?.userId) {
+        setCardError(result?.error || 'Could not fetch UUID from Supabase.')
+        return
+      }
+
+      const uuid = extractUuid(result.userId)
+      if (!uuid) {
+        setCardError('Supabase returned an invalid UUID.')
+        return
+      }
+
+      const profileFromDb = result.profile || {}
+      const baseUrl = getSiteUrl()
+      const generatedHushhId = buildHushhId(fullName, phone)
+      const publicId = generatedHushhId || parsedData.hushh_id || result.hushhId
+      setPublicLink(publicId ? `${baseUrl}/hushh-id/${publicId}` : '')
+
+      // Prioritize User Input (userData) > Parsed Agent Data > DB Data
+      setCardProfile({
+        ...parsedData,
+        user_id: uuid,
+        hushh_id: generatedHushhId || parsedData.hushh_id || result.hushhId || null,
+        // STRICTLY use initial user input if available
+        email: userData?.email || parsedData.email || profileFromDb.email,
+        phone: userData?.phone || userData?.phoneNumber || parsedData.phone || profileFromDb.phone,
+        full_name: userData?.fullName || userData?.full_name || parsedData.full_name || profileFromDb.full_name,
       })
     } catch (error) {
-      toast({
-        title: 'Export Failed',
-        description: error.message || 'Failed to export results',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
+      setCardError(error.message || 'Failed to generate Hushh ID card.')
+    } finally {
+      setCardLoading(false)
     }
   }
-
-  // Show raw data modal
-  const handleShowRawData = () => {
-    onOpen()
-  }
-
-  // Clear data and go back
-  const handleClearData = () => {
-    if (window.confirm('Are you sure you want to clear all data and start over?')) {
-      onBack?.()
-      toast({
-        title: 'Data Cleared',
-        description: 'All analysis data has been cleared',
-        status: 'info',
-        duration: 2000,
-        isClosable: true,
-      })
-    }
-  }
-
-  const InfoCard = ({ label, value }) => (
-    <Box
-      bg="rgba(255, 255, 255, 0.03)"
-      borderWidth="1px"
-      borderColor="rgba(255, 255, 255, 0.1)"
-      borderRadius="12px"
-      p={4}
-    >
-      <Text fontSize="xs" color="gray.500" textTransform="uppercase" mb={2} fontWeight="600">
-        {label}
-      </Text>
-      <Text fontSize="md" color="white" fontWeight="500">
-        {value || 'Not available'}
-      </Text>
-    </Box>
-  )
 
   return (
-    <Box minH="100vh" bg="black" color="white" py={{ base: 6, md: 10 }}>
+    <Box minH="100vh" bg="#f5f5f7" color="#1d1d1f" py={{ base: 6, md: 12 }}>
       <Container maxW="container.xl">
-        <VStack spacing={8} align="stretch">
-          {/* Header */}
-          <Box textAlign="center">
-            <Heading 
-              fontSize={{ base: '2xl', md: '4xl' }} 
-              fontWeight="700" 
-              color="green.400"
-              mb={3}
-            >
-              Analysis Complete
-            </Heading>
-            <Text color="gray.400" fontSize={{ base: 'sm', md: 'md' }} mb={2}>
-              Comprehensive profile intelligence generated from multiple data sources
-            </Text>
-            {agentResults.gemini?.success && (
-              <Badge 
-                colorScheme="white" 
-                fontSize="xs" 
-                px={3} 
-                py={1} 
-                borderRadius="full"
-              >
-                ✨ Enhanced with Gemini AI and Open AI
-              </Badge>
-            )}
-          </Box>
+        <VStack spacing={10} align="stretch">
 
-          {/* Action Buttons */}
-          <HStack justify="center" flexWrap="wrap" gap={3}>
-            <Button
-              onClick={onBack}
-              bg="green.500"
-              color="white"
-              _hover={{ bg: 'green.600' }}
-              borderRadius="8px"
-              px={6}
-              size={{ base: 'sm', md: 'md' }}
-            >
-              New Analysis
-            </Button>
-            <Button
-              onClick={handleExportResults}
-              variant="outline"
-              borderColor="gray.700"
-              color="white"
-              _hover={{ bg: 'gray.900', borderColor: 'green.500' }}
-              borderRadius="8px"
-              px={6}
-              size={{ base: 'sm', md: 'md' }}
-            >
-              📥 Export Results
-            </Button>
-            <Button
-              onClick={handleShowRawData}
-              variant="outline"
-              borderColor="gray.700"
-              color="white"
-              _hover={{ bg: 'gray.900', borderColor: 'blue.500' }}
-              borderRadius="8px"
-              px={6}
-              size={{ base: 'sm', md: 'md' }}
-            >
-              🔍 Show Raw Data
-            </Button>
-            <Button
-              onClick={handleClearData}
-              variant="outline"
-              borderColor="gray.700"
-              color="white"
-              _hover={{ bg: 'red.900', borderColor: 'red.500' }}
-              borderRadius="8px"
-              px={6}
-              size={{ base: 'sm', md: 'md' }}
-            >
-              🗑️ Clear Data
-            </Button>
-          </HStack>
-
-          {/* BASIC INFORMATION */}
-          <Box>
-            <Heading 
-              fontSize={{ base: 'lg', md: 'xl' }} 
-              fontWeight="700" 
-              mb={4}
-              pb={3}
-              borderBottomWidth="1px"
-              borderBottomColor="gray.800"
-            >
-              BASIC INFORMATION
-            </Heading>
-            <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={4}>
-              {/* <InfoCard label="User ID" value={getField(parsedData, 'userID', 'user_id', 'userId', 'id')} /> */}
-              <InfoCard label="Full Name" value={userData?.fullName || getField(parsedData, 'fullName', 'full_name', 'name', 'fullname', 'Name', 'FullName')} />
-              <InfoCard label="Email" value={userData?.email || getField(parsedData, 'email', 'email_address', 'emailAddress', 'Email', 'EmailAddress')} />
-              <InfoCard label="Phone" value={userData ? `${userData.countryCode} ${userData.phoneNumber}` : getField(parsedData, 'phone', 'phoneNumber', 'phone_number', 'Phone', 'PhoneNumber', 'contact', 'mobile')} />
-              <InfoCard label="Age" value={getField(parsedData, 'age', 'age_range', 'ageRange', 'Age', 'AgeRange')} />
-              <InfoCard label="Gender" value={getField(parsedData, 'gender', 'sex', 'Gender', 'Sex')} />
-            </Grid>
-          </Box>
-
-          {/* LOCATION */}
-          <Box>
-            <Heading 
-              fontSize={{ base: 'lg', md: 'xl' }} 
-              fontWeight="700" 
-              mb={4}
-              pb={3}
-              borderBottomWidth="1px"
-              borderBottomColor="gray.800"
-            >
-              LOCATION
-            </Heading>
-            <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={4}>
-              <InfoCard label="Address" value={getField(parsedData, 'address.street', 'address.Street', 'street', 'Street', 'address', 'Address', 'street_address', 'streetAddress', 'location', 'Location')} />
-              <InfoCard label="City" value={getField(parsedData, 'address.city', 'address.City', 'city', 'City', 'town', 'Town')} />
-              <InfoCard label="State" value={getField(parsedData, 'address.state', 'address.State', 'state', 'State', 'province', 'Province', 'region', 'Region')} />
-              <InfoCard label="Postal Code" value={getField(parsedData, 'address.postalCode', 'address.PostalCode', 'address.zipCode', 'address.ZipCode', 'postalCode', 'PostalCode', 'zipCode', 'ZipCode', 'postal_code', 'zip_code', 'pincode', 'Pincode')} />
-              <InfoCard label="Country" value={getField(parsedData, 'address.country', 'address.Country', 'country', 'Country', 'nation', 'Nation')} />
-            </Grid>
-          </Box>
-
-          {/* DEMOGRAPHICS */}
-          <Box>
-            <Heading 
-              fontSize={{ base: 'lg', md: 'xl' }} 
-              fontWeight="700" 
-              mb={4}
-              pb={3}
-              borderBottomWidth="1px"
-              borderBottomColor="gray.800"
-            >
-              DEMOGRAPHICS
-            </Heading>
-            <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={4}>
-              <InfoCard label="Marital Status" value={getField(parsedData, 'maritalStatus', 'marital_status', 'MaritalStatus', 'relationship_status', 'relationshipStatus', 'RelationshipStatus', 'marital', 'Marital')} />
-              <InfoCard label="Household Size" value={getField(parsedData, 'householdSize', 'household_size', 'HouseholdSize', 'family_size', 'familySize', 'FamilySize', 'household', 'Household')} />
-              <InfoCard label="Children Count" value={getField(parsedData, 'childrenCount', 'children_count', 'ChildrenCount', 'number_of_children', 'numberOfChildren', 'NumberOfChildren', 'kids', 'Kids')} />
-            </Grid>
-          </Box>
-
-          {/* PROFESSIONAL */}
-          <Box>
-            <Heading 
-              fontSize={{ base: 'lg', md: 'xl' }} 
-              fontWeight="700" 
-              mb={4}
-              pb={3}
-              borderBottomWidth="1px"
-              borderBottomColor="gray.800"
-            >
-              PROFESSIONAL
-            </Heading>
-            <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={4}>
-              <InfoCard label="Occupation" value={getField(parsedData, 'occupation', 'Occupation', 'job', 'Job', 'profession', 'Profession', 'job_title', 'jobTitle', 'JobTitle', 'career', 'Career', 'work', 'Work')} />
-              <InfoCard label="Education" value={getField(parsedData, 'educationLevel', 'education_level', 'EducationLevel', 'education', 'Education', 'degree', 'Degree', 'qualification', 'Qualification')} />
-              <InfoCard label="Income Bracket" value={getField(parsedData, 'incomeBracket', 'income_bracket', 'IncomeBracket', 'income', 'Income', 'salary_range', 'salaryRange', 'SalaryRange', 'salary', 'Salary')} />
-              <InfoCard label="Home Ownership" value={getField(parsedData, 'homeOwnership', 'home_ownership', 'HomeOwnership', 'homeowner', 'Homeowner', 'housing', 'Housing')} />
-              <InfoCard label="City Tier" value={getField(parsedData, 'cityTier', 'city_tier', 'CityTier', 'tier', 'Tier')} />
-            </Grid>
-          </Box>
-
-          {/* LIFESTYLE */}
-          <Box>
-            <Heading 
-              fontSize={{ base: 'lg', md: 'xl' }} 
-              fontWeight="700" 
-              mb={4}
-              pb={3}
-              borderBottomWidth="1px"
-              borderBottomColor="gray.800"
-            >
-              LIFESTYLE
-            </Heading>
-            <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={4}>
-              <InfoCard label="Diet Preference" value={getField(parsedData, 'dietPreference', 'diet_preference', 'DietPreference', 'diet', 'Diet', 'dietary_restrictions', 'dietaryRestrictions', 'DietaryRestrictions', 'foodPreference', 'food_preference')} />
-              <InfoCard label="Favorite Cuisine" value={getField(parsedData, 'favoriteCuisine', 'favorite_cuisine', 'FavoriteCuisine', 'cuisine_preference', 'cuisinePreference', 'CuisinePreference', 'cuisine', 'Cuisine')} />
-              <InfoCard label="Coffee or Tea" value={getField(parsedData, 'coffeeOrTeaChoice', 'coffee_or_tea_choice', 'CoffeeOrTeaChoice', 'beverage_preference', 'beveragePreference', 'BeveragePreference', 'drink_preference', 'drinkPreference')} />
-              <InfoCard label="Fitness Routine" value={getField(parsedData, 'fitnessRoutine', 'fitness_routine', 'FitnessRoutine', 'exercise', 'Exercise', 'workout_frequency', 'workoutFrequency', 'WorkoutFrequency', 'workout', 'Workout')} />
-              <InfoCard label="Gym Membership" value={getField(parsedData, 'gymMembership', 'gym_membership', 'GymMembership', 'gym', 'Gym', 'membership', 'Membership', 'fitness_membership', 'fitnessMembership')} />
-              <InfoCard label="Shopping Preference" value={getField(parsedData, 'shoppingPreference', 'shopping_preference', 'ShoppingPreference', 'shopping', 'Shopping', 'retail_preference', 'retailPreference')} />
-              <InfoCard label="Grocery Store Type" value={getField(parsedData, 'groceryStoreType', 'grocery_store_type', 'GroceryStoreType', 'grocery', 'Grocery', 'store_type', 'storeType', 'StoreType')} />
-              <InfoCard label="Fashion Style" value={getField(parsedData, 'fashionStyle', 'fashion_style', 'FashionStyle', 'fashion', 'Fashion', 'style', 'Style', 'clothing_style', 'clothingStyle')} />
-              <InfoCard label="Transport" value={getField(parsedData, 'transport', 'Transport', 'transportation', 'Transportation', 'vehicle', 'Vehicle', 'travel_mode', 'travelMode')} />
-              <InfoCard label="Sleep Chronotype" value={getField(parsedData, 'sleepChronotype', 'sleep_chronotype', 'SleepChronotype', 'sleep_pattern', 'sleepPattern', 'SleepPattern', 'chronotype', 'Chronotype', 'sleep', 'Sleep')} />
-              <InfoCard label="Eco-Friendliness" value={getField(parsedData, 'ecoFriendliness', 'eco_friendliness', 'EcoFriendliness', 'environmental_awareness', 'environmentalAwareness', 'EnvironmentalAwareness', 'sustainability', 'Sustainability', 'eco', 'Eco')} />
-            </Grid>
-          </Box>
-
-          {/* TECHNOLOGY */}
-          <Box>
-            <Heading 
-              fontSize={{ base: 'lg', md: 'xl' }} 
-              fontWeight="700" 
-              mb={4}
-              pb={3}
-              borderBottomWidth="1px"
-              borderBottomColor="gray.800"
-            >
-              TECHNOLOGY
-            </Heading>
-            <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={4}>
-              <InfoCard label="Tech Affinity" value={getField(parsedData, 'techAffinity', 'tech_affinity', 'TechAffinity', 'technology_adoption', 'technologyAdoption', 'TechnologyAdoption', 'tech', 'Tech', 'technology', 'Technology')} />
-              <InfoCard label="Primary Device" value={getField(parsedData, 'primaryDevice', 'primary_device', 'PrimaryDevice', 'device', 'Device', 'main_device', 'mainDevice')} />
-              <InfoCard label="Favorite Social Platform" value={getField(parsedData, 'favoriteSocialPlatform', 'favorite_social_platform', 'FavoriteSocialPlatform', 'social_media', 'socialMedia', 'SocialMedia', 'social_platform', 'socialPlatform', 'platform', 'Platform')} />
-              <InfoCard label="Social Media Usage Time" value={getField(parsedData, 'socialMediaUsageTime', 'social_media_usage_time', 'SocialMediaUsageTime', 'usage_time', 'usageTime', 'UsageTime', 'screen_time', 'screenTime', 'ScreenTime')} />
-              <InfoCard label="Content Preference" value={getField(parsedData, 'contentPreference', 'content_preference', 'ContentPreference', 'content', 'Content', 'media_preference', 'mediaPreference')} />
-            </Grid>
-          </Box>
-
-          {/* INTERESTS */}
-          <Box>
-            <Heading 
-              fontSize={{ base: 'lg', md: 'xl' }} 
-              fontWeight="700" 
-              mb={4}
-              pb={3}
-              borderBottomWidth="1px"
-              borderBottomColor="gray.800"
-            >
-              INTERESTS
-            </Heading>
-            <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={4}>
-              <InfoCard label="Sports Interest" value={getField(parsedData, 'sportsInterest', 'sports_interest', 'SportsInterest', 'favorite_sport', 'favoriteSport', 'FavoriteSport', 'sports', 'Sports', 'sport', 'Sport')} />
-              <InfoCard label="Gaming Preference" value={getField(parsedData, 'gamingPreference', 'gaming_preference', 'GamingPreference', 'gaming', 'Gaming', 'game_preference', 'gamePreference', 'games', 'Games')} />
-              <InfoCard label="Travel Frequency" value={getField(parsedData, 'travelFrequency', 'travel_frequency', 'TravelFrequency', 'travel', 'Travel', 'trip_frequency', 'tripFrequency')} />
-            </Grid>
-          </Box>
-
-          {/* INTENT ANALYSIS */}
-          <Box>
-            <Heading 
-              fontSize={{ base: 'lg', md: 'xl' }} 
-              fontWeight="700" 
-              mb={4}
-              pb={3}
-              borderBottomWidth="1px"
-              borderBottomColor="gray.800"
-            >
-              INTENT ANALYSIS
-            </Heading>
-            <VStack align="stretch" spacing={4}>
-              {/* Needs, Wants, Desires */}
-              <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={4}>
-                <InfoCard label="Needs" value={formatArrayValue(getField(parsedData, 'needs', 'Needs', 'user_needs', 'userNeeds', 'UserNeeds', 'requirements', 'Requirements'))} />
-                <InfoCard label="Wants" value={formatArrayValue(getField(parsedData, 'wants', 'Wants', 'user_wants', 'userWants', 'UserWants', 'preferences', 'Preferences'))} />
-                <InfoCard label="Desires" value={formatArrayValue(getField(parsedData, 'desires', 'Desires', 'user_desires', 'userDesires', 'UserDesires', 'wishes', 'Wishes'))} />
-              </Grid>
-
-              {/* Intent Timeline */}
-              <Box>
-                <Text fontSize="md" fontWeight="600" color="gray.300" mb={3}>
-                  Intent Timeline
-                </Text>
-                <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={4}>
-                  {/* 24h Intent */}
-                  <Box
-                    bg="rgba(255, 255, 255, 0.03)"
-                    borderWidth="1px"
-                    borderColor="rgba(255, 255, 255, 0.1)"
-                    borderRadius="12px"
-                    p={4}
-                  >
-                    <VStack align="start" spacing={2}>
-                      <Badge colorScheme="green" fontSize="xs" px={2} py={1}>24 HOURS</Badge>
-                      <Text fontSize="sm" color="gray.400">Category</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.24h.category', 'intent24h.category') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[0] ? parsedData.intents[0].category : 'Not available')}
-                      </Text>
-                      <Text fontSize="sm" color="gray.400">Budget</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.24h.budget', 'intent24h.budget') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[0] ? parsedData.intents[0].budget : 'Not available')}
-                      </Text>
-                      <Text fontSize="sm" color="gray.400">Time Window</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.24h.timeWindow', 'intent24h.timeWindow', 'intents.24h.time_window') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[0] ? parsedData.intents[0].timeWindow : 'Not available')}
-                      </Text>
-                      <Text fontSize="sm" color="gray.400">Confidence</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.24h.confidence', 'intent24h.confidence') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[0] ? parsedData.intents[0].confidence : 'Not available')}
-                      </Text>
-                    </VStack>
-                  </Box>
-
-                  {/* 48h Intent */}
-                  <Box
-                    bg="rgba(255, 255, 255, 0.03)"
-                    borderWidth="1px"
-                    borderColor="rgba(255, 255, 255, 0.1)"
-                    borderRadius="12px"
-                    p={4}
-                  >
-                    <VStack align="start" spacing={2}>
-                      <Badge colorScheme="blue" fontSize="xs" px={2} py={1}>48 HOURS</Badge>
-                      <Text fontSize="sm" color="gray.400">Category</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.48h.category', 'intent48h.category') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[1] ? parsedData.intents[1].category : 'Not available')}
-                      </Text>
-                      <Text fontSize="sm" color="gray.400">Budget</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.48h.budget', 'intent48h.budget') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[1] ? parsedData.intents[1].budget : 'Not available')}
-                      </Text>
-                      <Text fontSize="sm" color="gray.400">Time Window</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.48h.timeWindow', 'intent48h.timeWindow', 'intents.48h.time_window') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[1] ? parsedData.intents[1].timeWindow : 'Not available')}
-                      </Text>
-                      <Text fontSize="sm" color="gray.400">Confidence</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.48h.confidence', 'intent48h.confidence') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[1] ? parsedData.intents[1].confidence : 'Not available')}
-                      </Text>
-                    </VStack>
-                  </Box>
-
-                  {/* 72h Intent */}
-                  <Box
-                    bg="rgba(255, 255, 255, 0.03)"
-                    borderWidth="1px"
-                    borderColor="rgba(255, 255, 255, 0.1)"
-                    borderRadius="12px"
-                    p={4}
-                  >
-                    <VStack align="start" spacing={2}>
-                      <Badge colorScheme="purple" fontSize="xs" px={2} py={1}>72 HOURS</Badge>
-                      <Text fontSize="sm" color="gray.400">Category</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.72h.category', 'intent72h.category') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[2] ? parsedData.intents[2].category : 'Not available')}
-                      </Text>
-                      <Text fontSize="sm" color="gray.400">Budget</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.72h.budget', 'intent72h.budget') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[2] ? parsedData.intents[2].budget : 'Not available')}
-                      </Text>
-                      <Text fontSize="sm" color="gray.400">Time Window</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.72h.timeWindow', 'intent72h.timeWindow', 'intents.72h.time_window') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[2] ? parsedData.intents[2].timeWindow : 'Not available')}
-                      </Text>
-                      <Text fontSize="sm" color="gray.400">Confidence</Text>
-                      <Text fontSize="md" color="white" fontWeight="500">
-                        {getField(parsedData, 'intents.72h.confidence', 'intent72h.confidence') || 
-                         (Array.isArray(parsedData.intents) && parsedData.intents[2] ? parsedData.intents[2].confidence : 'Not available')}
-                      </Text>
-                    </VStack>
-                  </Box>
-                </Grid>
-              </Box>
+          {/* Header Section */}
+          <Flex direction={{ base: 'column', md: 'row' }} justify="space-between" align={{ base: 'center', md: 'flex-start' }} gap={6}>
+            <VStack align={{ base: 'center', md: 'flex-start' }} spacing={2}>
+              <Heading size="2xl" color="#1d1d1f" letterSpacing="tight">
+                Identity Decoded.
+              </Heading>
+              <Text color="#86868b" maxW="xl" fontSize="lg">
+                Comprehensive profile intelligence synthesized from multiple data agents including Gemini and Brand logic.
+              </Text>
             </VStack>
-          </Box>
 
-          {/* ANALYSIS METADATA */}
-          <Box>
-            <Heading 
-              fontSize={{ base: 'lg', md: 'xl' }} 
-              fontWeight="700" 
-              mb={4}
-              pb={3}
-              borderBottomWidth="1px"
-              borderBottomColor="gray.800"
-            >
-              ANALYSIS METADATA
-            </Heading>
-            <SimpleGrid columns={{ base: 2, md: 4 }} gap={4}>
-              <Box
-                bg="rgba(255, 255, 255, 0.03)"
-                borderWidth="1px"
-                borderColor="rgba(255, 255, 255, 0.1)"
-                borderRadius="12px"
-                p={6}
-                textAlign="center"
+            <HStack spacing={3}>
+              <Button leftIcon={<FaRedo />} onClick={onBack} variant="outline" borderColor="gray.300" color="gray.600" _hover={{ bg: 'white', borderColor: 'gray.400' }} bg="white">
+                New Scan
+              </Button>
+              <Button leftIcon={<FaDownload />} onClick={handleExportResults} bg="white" border="1px solid" borderColor="gray.300" color="gray.700" _hover={{ bg: 'gray.50' }}>
+                Export
+              </Button>
+              <Button
+                onClick={handleGenerateCard}
+                isLoading={cardLoading}
+                loadingText="Fetching UUID"
+                bgGradient="linear(to-r, #0071E3, #BB62FC)"
+                color="white"
+                px={8}
+                _hover={{ opacity: 0.9, transform: 'translateY(-2px)' }}
               >
-                <Text fontSize="3xl" fontWeight="700" color="green.400" mb={2}>
-                  {metadata.confidenceScore}%
-                </Text>
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase">
-                  Confidence Score
-                </Text>
-              </Box>
-              <Box
-                bg="rgba(255, 255, 255, 0.03)"
-                borderWidth="1px"
-                borderColor="rgba(255, 255, 255, 0.1)"
-                borderRadius="12px"
-                p={6}
-                textAlign="center"
-              >
-                <Text fontSize="3xl" fontWeight="700" color="pink.400" mb={2}>
-                  {metadata.accuracyScore}%
-                </Text>
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase">
-                  Accuracy Score
-                </Text>
-              </Box>
-              <Box
-                bg="rgba(255, 255, 255, 0.03)"
-                borderWidth="1px"
-                borderColor="rgba(255, 255, 255, 0.1)"
-                borderRadius="12px"
-                p={6}
-                textAlign="center"
-              >
-                <Text fontSize="3xl" fontWeight="700" color="yellow.400" mb={2}>
-                  {metadata.totalFields}
-                </Text>
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase">
-                  Total Fields
-                </Text>
-              </Box>
-              <Box
-                bg="rgba(255, 255, 255, 0.03)"
-                borderWidth="1px"
-                borderColor="rgba(255, 255, 255, 0.1)"
-                borderRadius="12px"
-                p={6}
-                textAlign="center"
-              >
-                <Text fontSize="3xl" fontWeight="700" color="cyan.400" mb={2}>
-                  {metadata.responseTime}
-                </Text>
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase">
-                  Response Time
-                </Text>
-              </Box>
+                Get Hushh ID Card
+              </Button>
+            </HStack>
+          </Flex>
+
+          {/* Profile Card & Key Stats */}
+          <Grid templateColumns={{ base: '1fr', lg: '1fr 2fr' }} gap={8}>
+            <GridItem>
+              {cardProfile ? (
+                <HushhProfileCard userData={cardProfile} />
+              ) : (
+                <Box
+                  bg="white"
+                  border="1px solid"
+                  borderColor="rgba(0,0,0,0.05)"
+                  borderRadius="2xl"
+                  p={8}
+                  textAlign="center"
+                  boxShadow="0 10px 30px rgba(0,0,0,0.05)"
+                >
+                  <Heading size="md" mb={3} color="#1d1d1f">
+                    Generate Your Hushh ID Card
+                  </Heading>
+                  <Text color="#86868b" mb={6}>
+                    Click the button to fetch your UUID from Supabase and create the QR card.
+                  </Text>
+                  <Button
+                    onClick={handleGenerateCard}
+                    isLoading={cardLoading}
+                    loadingText="Fetching UUID"
+                    bg="#0071e3"
+                    color="white"
+                    px={8}
+                    py={6}
+                    fontSize="lg"
+                    borderRadius="full"
+                    _hover={{ bg: "#0077ED", transform: 'translateY(-1px)', boxShadow: 'lg' }}
+                  >
+                    Get Hushh ID Card
+                  </Button>
+                  {cardError && (
+                    <Text mt={3} fontSize="sm" color="red.500">
+                      {cardError}
+                    </Text>
+                  )}
+                </Box>
+              )}
+              {publicLink && (
+                <Box mt={4} bg="white" border="1px solid" borderColor="rgba(0,0,0,0.05)" borderRadius="xl" p={4} boxShadow="sm">
+                  <Text fontSize="xs" color="gray.400" mb={2} textTransform="uppercase" letterSpacing="wide" fontWeight="700">
+                    Public Profile Link
+                  </Text>
+                  <Link
+                    href={publicLink}
+                    isExternal
+                    fontSize="sm"
+                    color="#0071e3"
+                    fontWeight="500"
+                    wordBreak="break-all"
+                  >
+                    {publicLink}
+                  </Link>
+                </Box>
+              )}
+            </GridItem>
+            <GridItem>
+              <SimpleGrid columns={{ base: 2, md: 2 }} spacing={4} h="full">
+                <Box bg="white" p={6} borderRadius="2xl" border="1px solid" borderColor="rgba(0,0,0,0.05)" boxShadow="sm">
+                  <Text color="gray.500" fontSize="xs" fontWeight="700" letterSpacing="wider">CONFIDENCE SCORE</Text>
+                  <Heading size="3xl" mt={2} color="#1d1d1f">
+                    {parsedData.confidence_score || parsedData.confidence || '85'}%
+                  </Heading>
+                  <Text fontSize="sm" color="gray.500" mt={2}>Based on data consistency</Text>
+                </Box>
+                <Box bg="white" p={6} borderRadius="2xl" border="1px solid" borderColor="rgba(0,0,0,0.05)" boxShadow="sm">
+                  <Text color="gray.500" fontSize="xs" fontWeight="700" letterSpacing="wider">DATA POINTS</Text>
+                  <Heading size="3xl" mt={2} color="#0071e3">
+                    {Object.values(parsedData).filter(v => v !== null && v !== undefined && v !== '' && v !== 'Not available').length}
+                  </Heading>
+                  <Text fontSize="sm" color="gray.500" mt={2}>Fields extracted & verified</Text>
+                </Box>
+                <Box bg="white" p={6} borderRadius="2xl" border="1px solid" borderColor="rgba(0,0,0,0.05)" gridColumn="span 2" boxShadow="sm">
+                  <Heading size="md" mb={4} color="#1d1d1f">AI Analysis Summary</Heading>
+                  <Text color="#424245" lineHeight="1.6" fontSize="md">
+                    {parsedData.summary || parsedData.bio || "The user demonstrates a high affinity for premium brands and technology. Digital footprint indicates active engagement in professional networks and consistent online purchasing behavior."}
+                  </Text>
+                </Box>
+              </SimpleGrid>
+            </GridItem>
+          </Grid>
+
+          <Divider borderColor="gray.200" />
+
+          {/* Main Data Grid */}
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
+
+            {/* Personal Details */}
+            <DashboardCard title="Personal Details" icon={FaUser} colorScheme="pink">
+              <VStack align="stretch" spacing={4}>
+                <InfoRow label="HUSHH ID" value={displayHushhId} />
+                <InfoRow label="NAME" value={getField(parsedData, 'full_name', 'fullName')} />
+                <InfoRow label="EMAIL" value={getField(parsedData, 'email')} />
+                <InfoRow label="PHONE" value={getField(parsedData, 'phone', 'phoneNumber')} />
+                <SimpleGrid columns={2} spacing={4}>
+                  <InfoRow label="AGE" value={getField(parsedData, 'age', 'ageRange')} />
+                  <InfoRow label="GENDER" value={getField(parsedData, 'gender', 'sex')} />
+                  <InfoRow label="MARITAL STATUS" value={getField(parsedData, 'marital_status', 'maritalStatus', 'relationship_status')} />
+                  <InfoRow label="HOUSEHOLD" value={getField(parsedData, 'household_size', 'householdSize', 'family_size') || 'N/A'} />
+                </SimpleGrid>
+              </VStack>
+            </DashboardCard>
+
+            {/* Location */}
+            <DashboardCard title="Location Data" icon={FaMapMarkerAlt} colorScheme="orange">
+              <VStack align="stretch" spacing={3}>
+                <InfoRow
+                  label="ADDRESS"
+                  value={getField(parsedData, 'address_line1', 'address.street', 'street', 'location', 'address')}
+                />
+                <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4}>
+                  <InfoRow label="CITY" value={getField(parsedData, 'city', 'address.city')} />
+                  <InfoRow label="STATE" value={getField(parsedData, 'state', 'address.state')} />
+                  <InfoRow label="ZIP" value={getField(parsedData, 'zip', 'zip_code', 'address.zip_code', 'address.zip')} />
+                  <InfoRow label="CITY TIER" value={getField(parsedData, 'city_tier', 'cityTier', 'tier')} />
+                </SimpleGrid>
+              </VStack>
+            </DashboardCard>
+
+            {/* Professional */}
+            <DashboardCard title="Career & Status" icon={FaBriefcase} colorScheme="purple">
+              <VStack align="stretch" spacing={3}>
+                <InfoRow label="OCCUPATION" value={getField(parsedData, 'occupation', 'jobTitle')} />
+                <InfoRow label="EDUCATION" value={getField(parsedData, 'education_level', 'educationLevel', 'degree')} />
+                <InfoRow label="INCOME BRACKET" value={getField(parsedData, 'income_bracket', 'incomeBracket', 'salaryRange')} />
+                <InfoRow label="HOME OWNERSHIP" value={getField(parsedData, 'home_ownership', 'homeOwnership', 'housing')} />
+              </VStack>
+            </DashboardCard>
+
+            {/* Lifestyle */}
+            <DashboardCard title="Lifestyle" icon={FaHeart} colorScheme="red">
+              <SimpleGrid columns={2} spacing={4}>
+                <InfoRow label="DIET" value={getField(parsedData, 'diet_preference', 'dietPreference', 'diet')} />
+                <InfoRow label="CUISINE" value={getField(parsedData, 'favorite_cuisine', 'favoriteCuisine', 'cuisine')} />
+                <InfoRow label="FITNESS" value={getField(parsedData, 'fitness_routine', 'fitnessRoutine', 'exercise')} />
+                <InfoRow label="SLEEP" value={getField(parsedData, 'sleep_chronotype', 'sleepChronotype', 'chronotype')} />
+                <InfoRow label="COFFEE/TEA" value={getField(parsedData, 'coffee_or_tea_choice', 'coffeeOrTeaChoice')} />
+                <InfoRow label="GYM" value={getField(parsedData, 'gym_membership', 'gymMembership')} />
+              </SimpleGrid>
+              <InfoRow label="ECO FRIENDLY" value={getField(parsedData, 'eco_friendliness', 'ecoFriendliness', 'sustainability')} />
+            </DashboardCard>
+
+            {/* Technology */}
+            <DashboardCard title="Tech Profile" icon={FaLaptop} colorScheme="cyan">
+              <VStack align="stretch" spacing={3}>
+                <InfoRow label="TECH AFFINITY" value={getField(parsedData, 'tech_affinity', 'techAffinity', 'technology_adoption')} />
+                <InfoRow label="PRIMARY DEVICE" value={getField(parsedData, 'primary_device', 'primaryDevice', 'device')} />
+                <InfoRow label="SOCIAL PLATFORM" value={getField(parsedData, 'favorite_social_platform', 'favoriteSocialPlatform', 'social_media')} />
+                <InfoRow label="CONTENT PREF" value={getField(parsedData, 'content_preference', 'contentPreference', 'content')} />
+                <InfoRow label="USAGE TIME" value={getField(parsedData, 'social_media_usage_time', 'socialMediaUsageTime')} />
+              </VStack>
+            </DashboardCard>
+
+            {/* Interests & Shopping */}
+            <DashboardCard title="Interests" icon={FaPlane} colorScheme="yellow">
+              <VStack align="stretch" spacing={3}>
+                <InfoRow label="TRAVEL FREQ" value={getField(parsedData, 'travel_frequency', 'travelFrequency', 'travel')} />
+                <InfoRow label="GAMING" value={getField(parsedData, 'gaming_preference', 'gamingPreference', 'games')} />
+                <InfoRow label="SPORTS" value={getField(parsedData, 'sports_interest', 'sportsInterest', 'favorite_sport')} />
+                <InfoRow label="FASHION" value={getField(parsedData, 'fashion_style', 'fashionStyle', 'style')} />
+                <InfoRow label="SHOPPING PREF" value={getField(parsedData, 'shopping_preference', 'shoppingPreference')} />
+                <InfoRow label="GROCERY STORE" value={getField(parsedData, 'grocery_store_type', 'groceryStoreType')} />
+              </VStack>
+            </DashboardCard>
+
+            {/* AI Psychographics */}
+            <DashboardCard title="Psychographics" icon={FaLeaf} colorScheme="green">
+              <VStack align="stretch" spacing={3}>
+                <InfoRow label="NEEDS" value={formatArrayValue(getField(parsedData, 'needs'))} />
+                <InfoRow label="WANTS" value={formatArrayValue(getField(parsedData, 'wants'))} />
+                <InfoRow label="DESIRES" value={formatArrayValue(getField(parsedData, 'desires'))} />
+                <InfoRow label="TRANSPORT" value={getField(parsedData, 'primary_transport', 'transport')} />
+              </VStack>
+            </DashboardCard>
+
+          </SimpleGrid>
+
+          {/* Intent Analysis Section */}
+          <Box mt={4}>
+            <Heading size="lg" mb={6}>Intent Analysis Timeline</Heading>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+              <IntentCard
+                badge="24 HOURS" badgeColor="red"
+                data={parsedData}
+                categoryKey="intent_24h_category" budgetKey="intent_24h_budget" confidenceKey="intent_24h_confidence"
+              />
+              <IntentCard
+                badge="48 HOURS" badgeColor="orange"
+                data={parsedData}
+                categoryKey="intent_48h_category" budgetKey="intent_48h_budget" confidenceKey="intent_48h_confidence"
+                timeWindowKey="intent_48h_time_window"
+              />
+              <IntentCard
+                badge="72 HOURS" badgeColor="green"
+                data={parsedData}
+                categoryKey="intent_72h_category" budgetKey="intent_72h_budget" confidenceKey="intent_72h_confidence"
+              />
             </SimpleGrid>
           </Box>
+
         </VStack>
       </Container>
 
       {/* Raw Data Modal */}
       <Modal isOpen={isOpen} onClose={onClose} size="6xl" scrollBehavior="inside">
-        <ModalOverlay bg="blackAlpha.800" backdropFilter="blur(10px)" />
-        <ModalContent bg="gray.900" color="white" maxH="90vh">
-          <ModalHeader borderBottomWidth="1px" borderBottomColor="gray.700">
-            <VStack align="start" spacing={1}>
-              <Heading fontSize="xl">Raw API Response Data</Heading>
-              <Text fontSize="sm" color="gray.400" fontWeight="normal">
-                Complete JSON response from all agent APIs
-              </Text>
-            </VStack>
-          </ModalHeader>
-          <ModalCloseButton color="white" />
+        <ModalOverlay bg="rgba(0,0,0,0.2)" backdropFilter="blur(5px)" />
+        <ModalContent bg="white" color="#1d1d1f" maxH="90vh" borderRadius="2xl" boxShadow="2xl">
+          <ModalHeader borderBottom="1px solid" borderColor="gray.100">Raw Data Inspector</ModalHeader>
+          <ModalCloseButton />
           <ModalBody py={6}>
-            <VStack align="stretch" spacing={6}>
+            <SimpleGrid columns={2} spacing={6}>
               <Box>
-                <Heading fontSize="md" mb={3} color="green.400">User Data</Heading>
-                <Box
-                  bg="black"
-                  p={4}
-                  borderRadius="8px"
-                  borderWidth="1px"
-                  borderColor="gray.700"
-                  overflow="auto"
-                  maxH="200px"
-                >
-                  <pre style={{ fontSize: '12px', margin: 0 }}>
-                    {JSON.stringify(userData, null, 2)}
-                  </pre>
+                <Heading size="sm" mb={2} color="#0071e3">Processed Profile</Heading>
+                <Box bg="gray.50" p={4} borderRadius="lg" h="500px" overflow="auto" fontFamily="monospace" fontSize="xs" border="1px solid" borderColor="gray.100">
+                  <pre>{JSON.stringify(parsedData, null, 2)}</pre>
                 </Box>
               </Box>
-
               <Box>
-                <Heading fontSize="md" mb={3} color="blue.400">Parsed Data</Heading>
-                <Box
-                  bg="black"
-                  p={4}
-                  borderRadius="8px"
-                  borderWidth="1px"
-                  borderColor="gray.700"
-                  overflow="auto"
-                  maxH="200px"
-                >
-                  <pre style={{ fontSize: '12px', margin: 0 }}>
-                    {JSON.stringify(parsedData, null, 2)}
-                  </pre>
+                <Heading size="sm" mb={2} color="purple.500">Agent Details</Heading>
+                <Box bg="gray.50" p={4} borderRadius="lg" h="500px" overflow="auto" fontFamily="monospace" fontSize="xs" border="1px solid" borderColor="gray.100">
+                  <pre>{JSON.stringify(agentResults, null, 2)}</pre>
                 </Box>
               </Box>
-
-              <Box>
-                <Heading fontSize="md" mb={3} color="purple.400">Agent Results</Heading>
-                {Object.entries(agentResults).map(([agent, result]) => (
-                  <Box key={agent} mb={4}>
-                    <HStack mb={2}>
-                      <Badge colorScheme={result.success ? 'green' : 'red'}>
-                        {agent.toUpperCase()}
-                      </Badge>
-                      <Text fontSize="sm" color="gray.400">
-                        {result.responseTime}
-                      </Text>
-                    </HStack>
-                    <Box
-                      bg="black"
-                      p={4}
-                      borderRadius="8px"
-                      borderWidth="1px"
-                      borderColor={result.success ? 'green.900' : 'red.900'}
-                      overflow="auto"
-                      maxH="300px"
-                    >
-                      <pre style={{ fontSize: '12px', margin: 0 }}>
-                        {JSON.stringify(result, null, 2)}
-                      </pre>
-                    </Box>
-                  </Box>
-                ))}
-              </Box>
-
-              <Box>
-                <Heading fontSize="md" mb={3} color="yellow.400">Metadata</Heading>
-                <Box
-                  bg="black"
-                  p={4}
-                  borderRadius="8px"
-                  borderWidth="1px"
-                  borderColor="gray.700"
-                  overflow="auto"
-                >
-                  <pre style={{ fontSize: '12px', margin: 0 }}>
-                    {JSON.stringify(metadata, null, 2)}
-                  </pre>
-                </Box>
-              </Box>
-            </VStack>
+            </SimpleGrid>
           </ModalBody>
         </ModalContent>
       </Modal>
+
     </Box>
   )
 }

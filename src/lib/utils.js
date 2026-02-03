@@ -70,3 +70,60 @@ export function getImagePath(imagePath) {
   // Otherwise, clean up the path
   return imagePath.replace('../public', '');
 } 
+
+/**
+ * Extract a UUID from a string value.
+ * @param {string} value - The value that may contain a UUID
+ * @returns {string|null} The UUID or null if not found
+ */
+export function extractUuid(value) {
+  if (!value) return null;
+  const text = String(value).trim();
+  const match = text.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i);
+  return match ? match[0] : null;
+}
+
+/**
+ * Build a short Hushh public ID using name and phone digits.
+ * @param {string} fullName
+ * @param {string} phone
+ * @param {string} fallbackSuffix
+ * @returns {string}
+ */
+export function buildHushhId(fullName, phone, fallbackSuffix = '') {
+  const nameInput = typeof fullName === 'string' ? fullName : '';
+  const phoneInput = typeof phone === 'string' ? phone : '';
+  const suffixInput = typeof fallbackSuffix === 'string' ? fallbackSuffix : '';
+
+  const normalizedName = nameInput
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '');
+
+  const phoneDigits = phoneInput.replace(/\D/g, '');
+  const localDigits = phoneDigits.length > 10 ? phoneDigits.slice(-10) : phoneDigits;
+  const suffix = suffixInput.replace(/[^a-z0-9]/gi, '');
+
+  if (normalizedName && localDigits) return `${normalizedName}/${localDigits}`;
+  if (normalizedName && suffix) return `${normalizedName}/${suffix}`;
+  if (normalizedName) return normalizedName;
+  if (localDigits) return localDigits;
+  return suffix || '';
+}
+
+/**
+ * Resolve the site base URL, preferring the current origin in the browser.
+ * @returns {string} The base URL without a trailing slash
+ */
+export function getSiteUrl() {
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (envUrl) {
+    const normalizedEnv = /^https?:\/\//i.test(envUrl) ? envUrl : `https://${envUrl}`;
+    return normalizedEnv.replace(/\/$/, '');
+  }
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    return window.location.origin.replace(/\/$/, '');
+  }
+  return 'https://www.hushh.ai';
+}

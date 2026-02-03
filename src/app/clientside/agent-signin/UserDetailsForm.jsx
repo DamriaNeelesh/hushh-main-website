@@ -13,7 +13,18 @@ import {
   Button,
   FormErrorMessage,
   useToast,
+  Icon,
+  InputGroup,
+  InputLeftElement,
+  Flex
 } from '@chakra-ui/react'
+import { EmailIcon, PhoneIcon } from '@chakra-ui/icons'
+import { FaUser, FaGlobe } from 'react-icons/fa'
+import { motion } from 'framer-motion';
+
+const MotionBox = motion(Box);
+// Font stack similar to Apple's San Francisco
+const fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 
 export default function UserDetailsForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -27,252 +38,206 @@ export default function UserDetailsForm({ onSubmit }) {
   const toast = useToast()
 
   // Validation functions
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(email)
-  }
-
-  const validatePhone = (phone) => {
-    // E.164 format without + (10-15 digits)
-    const phoneRegex = /^[0-9]{10,15}$/
-    return phoneRegex.test(phone)
-  }
-
-  const validateFullName = (name) => {
-    return name.trim().length >= 2
-  }
-
-  const validateCountryCode = (code) => {
-    const codeRegex = /^\+[0-9]{1,4}$/
-    return codeRegex.test(code)
-  }
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  const validatePhone = (phone) => /^[0-9]{10,15}$/.test(phone)
+  const validateFullName = (name) => name.trim().length >= 2
+  const validateCountryCode = (code) => /^\+[0-9]{1,4}$/.test(code)
 
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }))
-    // Clear error when user starts typing
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }))
-    }
+    if (errors[field]) setErrors(prev => ({ ...prev, [field]: '' }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
-    // Validate all fields
     const newErrors = {}
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required'
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Please enter a valid email address'
-    }
-    
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = 'Full name is required'
-    } else if (!validateFullName(formData.fullName)) {
-      newErrors.fullName = 'Name must be at least 2 characters'
-    }
+    if (!validateEmail(formData.email)) newErrors.email = 'Valid email required'
+    if (!validateFullName(formData.fullName)) newErrors.fullName = 'Valid name required'
+    if (!validateCountryCode(formData.countryCode)) newErrors.countryCode = 'Valid code required (+XX)'
+    if (!validatePhone(formData.phoneNumber)) newErrors.phoneNumber = 'Valid phone required'
 
-    if (!formData.countryCode.trim()) {
-      newErrors.countryCode = 'Country code is required'
-    } else if (!validateCountryCode(formData.countryCode)) {
-      newErrors.countryCode = 'Please enter a valid country code (e.g., +91)'
-    }
-    
-    if (!formData.phoneNumber.trim()) {
-      newErrors.phoneNumber = 'Phone number is required'
-    } else if (!validatePhone(formData.phoneNumber)) {
-      newErrors.phoneNumber = 'Please enter a valid phone number (10-15 digits, no spaces or symbols)'
-    }
-    
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors)
-      toast({
-        title: 'Validation Error',
-        description: 'Please fix the errors before continuing',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
       return
     }
-    
+
     setIsSubmitting(true)
     try {
       await onSubmit?.(formData)
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: error.message || 'Failed to analyze profile',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
+      toast({ status: 'error', title: 'Error', description: error.message })
     } finally {
       setIsSubmitting(false)
     }
   }
 
+  // Apple Light Theme Input Styles
+  const inputBg = '#f5f5f7' // Light gray for inputs
+  const inputBorder = 'transparent'
+  const inputHover = '#e8e8ed'
+  const inputFocus = '#0071e3' // Apple Blue
+
   return (
-    <Container maxW="container.md" py={{ base: 8, md: 12 }}>
-      <Box
-        bg="rgba(255, 255, 255, 0.03)"
-        borderRadius="24px"
-        borderWidth="1px"
-        borderColor="rgba(255, 255, 255, 0.1)"
-        p={{ base: 6, md: 10 }}
-        shadow="xl"
-      >
-        <VStack spacing={6} align="stretch">
-          <VStack spacing={3} align="center" textAlign="center">
+    <Box minH="100vh" bg="#f5f5f7"> {/* Global Light Background */}
+      <Container maxW="container.xl" h="100vh" display="flex" alignItems="center" justifyContent="center">
+        <Flex
+          w="full"
+          direction={{ base: 'column', md: 'row' }}
+          gap={{ base: 12, md: 24 }}
+          align="center"
+          justify="center"
+        >
+          {/* Left Side: Hero Text - Dark text for Light Mode */}
+          <VStack flex={1} align={{ base: 'center', md: 'flex-start' }} spacing={4} textAlign={{ base: 'center', md: 'left' }} mb={{ base: 10, md: 0 }}>
             <Heading
-              as="h1"
-              className="form-header"
-              sx={{
-                fontSize: '2.5rem',
-                fontWeight: 800,
-                margin: '0 0 15px 0',
-                background: 'linear-gradient(90deg, #06C270, #FF0080, #FFD700)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                textTransform: 'uppercase',
-                letterSpacing: '2px',
-              }}
+              size="3xl"
+              fontWeight="700"
+              letterSpacing="tight"
+              lineHeight="1.1"
+              color="#1d1d1f" // Apple Black
+              fontFamily={fontFamily}
             >
-              INTELLIGENCE PORTAL
+              Intelligence. <br />
+              <span style={{ color: "#86868b" }}>Refined.</span>
             </Heading>
-            <Text color="gray.400" fontSize={{ base: 'sm', md: 'md' }}>
-            Unlock comprehensive user insights with advanced AI-powered data analysis
+            <Text fontSize="2xl" color="#86868b" maxW="md" fontWeight="400" lineHeight="1.4" fontFamily={fontFamily}>
+              Unlock your complete digital identity through our secure, agent-driven analysis.
             </Text>
-            
-            {/* Step indicator for mobile */}
-            <HStack spacing={2} pt={2} display={{ base: 'flex', md: 'none' }}>
-              <Box w={8} h={1} bg="green.400" borderRadius="full" />
-              <Box w={8} h={1} bg="gray.700" borderRadius="full" />
-              <Box w={8} h={1} bg="gray.700" borderRadius="full" />
-            </HStack>
           </VStack>
 
-          <Box as="form" onSubmit={handleSubmit}>
-            <VStack spacing={5}>
-              <FormControl isInvalid={!!errors.email}>
-                <FormLabel fontWeight="600" color="gray.300">
-                  Email Address
-                </FormLabel>
-                <Input
-                  type="email"
-                  placeholder="your.email@example.com"
-                  value={formData.email}
-                  onChange={(e) => handleChange('email', e.target.value)}
-                  size="lg"
-                  borderRadius="12px"
-                  bg="rgba(255, 255, 255, 0.05)"
-                  borderColor="rgba(255, 255, 255, 0.1)"
-                  color="white"
-                  _placeholder={{ color: 'gray.500' }}
-                  _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
-                  _focus={{ bg: 'rgba(255, 255, 255, 0.08)', borderColor: 'green.400' }}
-                />
-                <FormErrorMessage>{errors.email}</FormErrorMessage>
-              </FormControl>
+          {/* Right Side: White Card Form */}
+          <MotionBox
+            flex={1}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            maxW="480px"
+            w="full"
+          >
+            <Box
+              as="form"
+              onSubmit={handleSubmit}
+              bg="white" // White Card
+              borderRadius="3xl"
+              border="1px solid rgba(0,0,0,0.05)"
+              p={{ base: 8, md: 10 }}
+              boxShadow="0 20px 40px rgba(0,0,0,0.08)" // Soft shadow
+            >
+              <VStack spacing={5}>
+                <FormControl isInvalid={!!errors.fullName}>
+                  <FormLabel color="#86868b" fontSize="xs" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={1} fontFamily={fontFamily}>Full Name</FormLabel>
+                  <InputGroup>
+                    <InputLeftElement pointerEvents="none" children={<Icon as={FaUser} color="gray.400" />} />
+                    <Input
+                      placeholder="John Doe"
+                      value={formData.fullName}
+                      onChange={(e) => handleChange('fullName', e.target.value)}
+                      bg={inputBg} borderColor={inputBorder} color="#1d1d1f"
+                      _hover={{ bg: inputHover }}
+                      _focus={{
+                        bg: "white",
+                        borderColor: inputFocus,
+                        boxShadow: `0 0 0 1px #0071e3`
+                      }}
+                      borderRadius="xl" height="48px"
+                      fontSize="lg"
+                    />
+                  </InputGroup>
+                  <FormErrorMessage>{errors.fullName}</FormErrorMessage>
+                </FormControl>
 
-              <FormControl isInvalid={!!errors.fullName}>
-                <FormLabel fontWeight="600" color="gray.300">
-                  Full Name
-                </FormLabel>
-                <Input
-                  type="text"
-                  placeholder="John Doe"
-                  value={formData.fullName}
-                  onChange={(e) => handleChange('fullName', e.target.value)}
-                  size="lg"
-                  borderRadius="12px"
-                  bg="rgba(255, 255, 255, 0.05)"
-                  borderColor="rgba(255, 255, 255, 0.1)"
-                  color="white"
-                  _placeholder={{ color: 'gray.500' }}
-                  _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
-                  _focus={{ bg: 'rgba(255, 255, 255, 0.08)', borderColor: 'green.400' }}
-                />
-                <FormErrorMessage>{errors.fullName}</FormErrorMessage>
-              </FormControl>
+                <FormControl isInvalid={!!errors.email}>
+                  <FormLabel color="#86868b" fontSize="xs" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={1} fontFamily={fontFamily}>Email Address</FormLabel>
+                  <InputGroup>
+                    <InputLeftElement pointerEvents="none" children={<Icon as={EmailIcon} color="gray.400" />} />
+                    <Input
+                      type="email"
+                      placeholder="name@example.com"
+                      value={formData.email}
+                      onChange={(e) => handleChange('email', e.target.value)}
+                      bg={inputBg} borderColor={inputBorder} color="#1d1d1f"
+                      _hover={{ bg: inputHover }}
+                      _focus={{
+                        bg: "white",
+                        borderColor: inputFocus,
+                        boxShadow: `0 0 0 1px #0071e3`
+                      }}
+                      borderRadius="xl" height="48px"
+                      fontSize="lg"
+                    />
+                  </InputGroup>
+                  <FormErrorMessage>{errors.email}</FormErrorMessage>
+                </FormControl>
 
-              <FormControl isInvalid={!!errors.countryCode}>
-                <FormLabel fontWeight="600" color="gray.300">
-                  Country Code
-                </FormLabel>
-                <Input
-                  type="text"
-                  placeholder="+91"
-                  value={formData.countryCode}
-                  onChange={(e) => {
-                    const value = e.target.value
-                    if (value === '' || value === '+' || /^\+[0-9]{0,4}$/.test(value)) {
-                      handleChange('countryCode', value)
-                    }
-                  }}
-                  size="lg"
-                  borderRadius="12px"
-                  bg="rgba(255, 255, 255, 0.05)"
-                  borderColor="rgba(255, 255, 255, 0.1)"
-                  color="white"
-                  _placeholder={{ color: 'gray.500' }}
-                  _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
-                  _focus={{ bg: 'rgba(255, 255, 255, 0.08)', borderColor: 'green.400' }}
-                  maxLength={5}
-                />
-                <FormErrorMessage>{errors.countryCode}</FormErrorMessage>
-                <Text fontSize="xs" color="gray.500" mt={1}>
-                  Country calling code (e.g., +91 for India, +1 for USA)
-                </Text>
-              </FormControl>
+                <HStack w="full" spacing={3} align="flex-start">
+                  <FormControl isInvalid={!!errors.countryCode} w="90px">
+                    <FormLabel color="#86868b" fontSize="xs" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={1} fontFamily={fontFamily}>Code</FormLabel>
+                    <InputGroup>
+                      <Input
+                        placeholder="+91"
+                        value={formData.countryCode}
+                        onChange={(e) => handleChange('countryCode', e.target.value)}
+                        bg={inputBg} borderColor={inputBorder} color="#1d1d1f"
+                        _hover={{ bg: inputHover }}
+                        _focus={{
+                          bg: "white",
+                          borderColor: inputFocus,
+                          boxShadow: `0 0 0 1px #0071e3`
+                        }}
+                        borderRadius="xl" height="48px" px={2} textAlign="center"
+                        fontSize="lg"
+                      />
+                    </InputGroup>
+                  </FormControl>
 
-              <FormControl isInvalid={!!errors.phoneNumber}>
-                <FormLabel fontWeight="600" color="gray.300">
-                  Phone Number
-                </FormLabel>
-                <Input
-                  type="tel"
-                  placeholder="9876543210"
-                  value={formData.phoneNumber}
-                  onChange={(e) => handleChange('phoneNumber', e.target.value.replace(/\D/g, ''))}
-                  size="lg"
-                  borderRadius="12px"
-                  bg="rgba(255, 255, 255, 0.05)"
-                  borderColor="rgba(255, 255, 255, 0.1)"
-                  color="white"
-                  _placeholder={{ color: 'gray.500' }}
-                  _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
-                  _focus={{ bg: 'rgba(255, 255, 255, 0.08)', borderColor: 'green.400' }}
-                />
-                <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage>
-                <Text fontSize="xs" color="gray.500" mt={1}>
-                  Enter phone number without country code (e.g., 9876543210)
-                </Text>
-              </FormControl>
+                  <FormControl isInvalid={!!errors.phoneNumber} flex={1}>
+                    <FormLabel color="#86868b" fontSize="xs" fontWeight="600" textTransform="uppercase" letterSpacing="wider" mb={1} fontFamily={fontFamily}>Phone Number</FormLabel>
+                    <InputGroup>
+                      <InputLeftElement pointerEvents="none" children={<Icon as={PhoneIcon} color="gray.400" />} />
+                      <Input
+                        type="tel"
+                        placeholder="9876543210"
+                        value={formData.phoneNumber}
+                        onChange={(e) => handleChange('phoneNumber', e.target.value.replace(/\D/g, ''))}
+                        bg={inputBg} borderColor={inputBorder} color="#1d1d1f"
+                        _hover={{ bg: inputHover }}
+                        _focus={{
+                          bg: "white",
+                          borderColor: inputFocus,
+                          boxShadow: `0 0 0 1px #0071e3`
+                        }}
+                        borderRadius="xl" height="48px"
+                        fontSize="lg"
+                      />
+                    </InputGroup>
+                    <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage>
+                  </FormControl>
+                </HStack>
 
-              <Button
-                type="submit"
-                width="100%"
-                size="lg"
-                bg="green.500"
-                color="white"
-                _hover={{ bg: 'green.600' }}
-                _active={{ bg: 'green.700' }}
-                borderRadius="12px"
-                fontWeight="600"
-                isLoading={isSubmitting}
-                loadingText="Analyzing Profile..."
-                mt={4}
-              >
-                🚀 Analyze Profile
-              </Button>
-            </VStack>
-          </Box>
-        </VStack>
-      </Box>
-    </Container>
+                <Button
+                  type="submit"
+                  w="full"
+                  h="52px"
+                  mt={4}
+                  borderRadius="full"
+                  bg="#0071e3" // Apple Link Blue
+                  color="white"
+                  _hover={{ bg: "#0077ED", transform: "scale(1.02)", boxShadow: "0 5px 15px rgba(0,113,227,0.3)" }}
+                  _active={{ transform: "scale(0.98)" }}
+                  isLoading={isSubmitting}
+                  loadingText="Connecting..."
+                  fontSize="lg"
+                  fontWeight="600"
+                  fontFamily={fontFamily}
+                  transition="all 0.2s"
+                >
+                  Start Analysis
+                </Button>
+              </VStack>
+            </Box>
+          </MotionBox>
+        </Flex>
+      </Container>
+    </Box>
   )
 }
-
