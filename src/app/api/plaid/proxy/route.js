@@ -7,10 +7,19 @@ const ALLOWED_HOSTS = new Set([
 ]);
 
 const ALLOWED_METHODS = new Set(["GET", "POST"]);
+const CREDENTIAL_HOSTS = new Set([
+  "hushh-plaid-api-app-bubqpu.5sc6y6-1.usa-e2.cloudhub.io",
+]);
 
 export async function POST(request) {
   try {
-    const { endpoint, method = "POST", payload, overrideMethod } = await request.json();
+    const {
+      endpoint,
+      method = "POST",
+      payload,
+      overrideMethod,
+      injectCredentials,
+    } = await request.json();
 
     if (!endpoint) {
       return NextResponse.json({ error: "Endpoint is required" }, { status: 400 });
@@ -34,21 +43,27 @@ export async function POST(request) {
     }
 
     const env = request.headers.get("x-plaid-env") || "sandbox";
+    const shouldInjectCredentials =
+      typeof injectCredentials === "boolean" ? injectCredentials : CREDENTIAL_HOSTS.has(url.host);
 
     let clientId, secret;
-    if (env === "production") {
-      clientId = process.env.PLAID_CLIENT_ID_PRODUCTION;
-      secret = process.env.PLAID_SECRET_PRODUCTION;
-    } else {
-      clientId = process.env.PLAID_CLIENT_ID_SANDBOX;
-      secret = process.env.PLAID_SECRET_SANDBOX;
+    if (shouldInjectCredentials) {
+      if (env === "production") {
+        clientId = process.env.PLAID_CLIENT_ID_PRODUCTION;
+        secret = process.env.PLAID_SECRET_PRODUCTION;
+      } else {
+        clientId = process.env.PLAID_CLIENT_ID_SANDBOX;
+        secret = process.env.PLAID_SECRET_SANDBOX;
+      }
     }
 
-    const finalPayload = {
-      ...(payload || {}),
-      client_id: clientId,
-      secret: secret,
-    };
+    const finalPayload = shouldInjectCredentials
+      ? {
+          ...(payload || {}),
+          client_id: clientId,
+          secret: secret,
+        }
+      : { ...(payload || {}) };
 
     console.log(`[Proxy] Environment: ${env}`);
     console.log("[Proxy] Sending to:", url.toString());
