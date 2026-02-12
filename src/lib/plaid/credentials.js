@@ -10,14 +10,38 @@ const firstNonEmptyEnv = (keys) => {
   return "";
 };
 
-const PRODUCTION_ENV = "production";
+const ALLOWED_ENVS = new Set(["production", "sandbox"]);
 
-export const resolvePlaidCredentials = () => {
-  const clientId = firstNonEmptyEnv(["PLAID_CLIENT_ID_PRODUCTION", "PLAID_CLIENT_ID", "CLIENT_ID"]);
-  const secret = firstNonEmptyEnv(["PLAID_SECRET_PRODUCTION", "PLAID_SECRET", "SECRET"]);
+const normalizeEnv = (env) => {
+  const requested = cleanValue(env).toLowerCase();
+  if (ALLOWED_ENVS.has(requested)) {
+    return requested;
+  }
+  return "production";
+};
+
+export const resolvePlaidCredentials = (env = "production") => {
+  const normalizedEnv = normalizeEnv(env);
+  const isProduction = normalizedEnv === "production";
+
+  const clientId = isProduction
+    ? firstNonEmptyEnv([
+        "PLAID_CLIENT_ID_PRODUCTION",
+        "PLAID_CLIENT_ID",
+        "CLIENT_ID",
+      ])
+    : firstNonEmptyEnv([
+        "PLAID_CLIENT_ID_SANDBOX",
+        "PLAID_CLIENT_ID",
+        "CLIENT_ID",
+      ]);
+
+  const secret = isProduction
+    ? firstNonEmptyEnv(["PLAID_SECRET_PRODUCTION", "PLAID_SECRET", "SECRET"])
+    : firstNonEmptyEnv(["PLAID_SECRET_SANDBOX", "PLAID_SECRET", "SECRET"]);
 
   return {
-    env: PRODUCTION_ENV,
+    env: normalizedEnv,
     clientId,
     secret,
   };

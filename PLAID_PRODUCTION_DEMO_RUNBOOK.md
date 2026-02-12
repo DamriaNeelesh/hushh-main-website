@@ -11,6 +11,7 @@ powershell -ExecutionPolicy Bypass -File scripts/plaid/verify-dashboard-mcp.ps1 
 ```
 
 Expected:
+
 - `"oauth_ok": true`
 - `"mcp_status_line": "HTTP/1.1 200 OK"`
 - `"verified": true`
@@ -22,6 +23,7 @@ powershell -ExecutionPolicy Bypass -File scripts/plaid/production-demo-smoke.ps1
 ```
 
 This verifies:
+
 - Dashboard OAuth token creation
 - Dashboard MCP SSE handshake
 - Link token creation directly on Plaid production API
@@ -35,6 +37,7 @@ npm run dev
 ```
 
 Open:
+
 - `http://localhost:3000/plaid-integration`
 
 ## 3) Record video flow (screen)
@@ -60,4 +63,16 @@ Open:
 ## 5) Demo close statement
 
 Use this line at the end:
+
 - "This run is production-only: server-side production credentials, production Plaid endpoints, live Link flow, accounts retrieval, and Supabase push completed."
+
+## 6) Sandbox fallback (no US bank account)
+
+If you cannot connect a real US bank in production, use this sandbox flow in the same UI:
+
+1. Switch environment to `Sandbox`.
+2. Click `Generate sandbox public token`.
+3. Click `Exchange Public Token for Access Token`.
+4. Click `Fetch Account Details`.
+
+This validates your Plaid flow end-to-end without a real bank login.
