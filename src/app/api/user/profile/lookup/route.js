@@ -2,9 +2,11 @@ import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 import { SUPABASE_URL } from '../../../../../lib/config/supabaseEnv';
 
-const supabaseUrl = SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+function getSupabase() {
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseKey) throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_ANON_KEY');
+  return createClient(SUPABASE_URL, supabaseKey);
+}
 
 export async function POST(request) {
   try {
@@ -25,6 +27,7 @@ export async function POST(request) {
     if (phone) filters.push(`phone.eq.${phone}`);
     if (fullName) filters.push(`full_name.eq.${fullName}`);
 
+    const supabase = getSupabase();
     let query = supabase
       .from('user_profiles')
       .select('user_id, hushh_id, full_name, email, phone, profile_created_utc')

@@ -11,11 +11,23 @@ const supabaseAnonKey =
  * Hushh Vani Supabase Client
  * Independent client — does NOT depend on any other hushh.ai module.
  * Uses the same Supabase instance but operates on vani_* tables only.
+ * Lazy-initialized to prevent build-time crashes when env vars are missing.
  */
-export const vaniSupabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
+let _vaniSupabase = null;
+export function getVaniSupabase() {
+  if (!_vaniSupabase) {
+    const key = supabaseAnonKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!key) throw new Error("Missing NEXT_PUBLIC_SUPABASE_AUTH_ANON_KEY");
+    _vaniSupabase = createClient(supabaseUrl, key, {
+      auth: { persistSession: true, autoRefreshToken: true },
+    });
+  }
+  return _vaniSupabase;
+}
+// Keep backward-compat export (lazy getter)
+export const vaniSupabase = new Proxy({}, {
+  get(_, prop) {
+    return getVaniSupabase()[prop];
   },
 });
 
