@@ -10,6 +10,6 @@ module.exports = {
   },
   testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/.next/"],
   transformIgnorePatterns: [
-    "/node_modules/(?!(lucide-react|@supabase)/)",
+    "/node_modules/(?!(lucide-react|@supabase|@google-cloud|@google)/)",
   ],
 };
