@@ -7,7 +7,7 @@ Use this as your exact video script for a production-only demo.
 Run from project root:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/plaid/verify-dashboard-mcp.ps1 -ClientId "6934322f139fbf00216faf36" -ClientSecret "3800cc352586fd410bb82f63ab020f"
+powershell -ExecutionPolicy Bypass -File scripts/plaid/verify-dashboard-mcp.ps1 -ClientId "<PLAID_CLIENT_ID>" -ClientSecret "<PLAID_PRODUCTION_SECRET>"
 ```
 
 Expected:
@@ -69,6 +69,16 @@ Use this line at the end:
 ## 6) Sandbox fallback (no US bank account)
 
 If you cannot connect a real US bank in production, use this sandbox flow in the same UI:
+
+Option A: full Sandbox Link UI flow (recommended for demo)
+
+1. Switch environment to `Sandbox`.
+2. Click `Connect bank account`.
+3. Complete the Plaid sandbox Link login with test institution credentials shown in the Link UI.
+4. The app auto-runs token exchange after Link success.
+5. Click `Fetch Account Details`.
+
+Option B: quick API-only sandbox flow
 
 1. Switch environment to `Sandbox`.
 2. Click `Generate sandbox public token`.
