@@ -68,6 +68,223 @@ const defaultPayload = {
   user_id: "test_user_001",
 };
 
+const toNumberOrNull = (value) => {
+  if (value === undefined || value === null || value === "") return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
+const pickFirst = (...values) =>
+  values.find((value) => value !== undefined && value !== null && value !== "");
+
+const asArray = (value) => (Array.isArray(value) ? value : []);
+
+const formatAddress = (address) => {
+  if (!address) return null;
+  if (typeof address === "string") return address;
+  return [
+    pickFirst(address.street, address.street_1, address.address),
+    address.city,
+    pickFirst(address.region, address.state),
+    pickFirst(address.postal_code, address.zip, address.zip_code),
+    address.country,
+  ]
+    .filter(Boolean)
+    .join(", ");
+};
+
+const buildAgentProfilePayloads = (plaidData, userId) => {
+  const accounts = Array.isArray(plaidData?.accounts) ? plaidData.accounts : [];
+  const item = plaidData?.item || {};
+  const totalUserAssets = accounts.reduce((sum, account) => {
+    const current = toNumberOrNull(account?.balances?.current);
+    return sum + (current || 0);
+  }, 0);
+
+  const identityByAccount = new Map();
+  const identityAccounts = asArray(plaidData?.identity?.accounts);
+  identityAccounts.forEach((identityAccount) => {
+    const owner = asArray(identityAccount?.owners)[0];
+    if (!owner || !identityAccount?.account_id) return;
+    identityByAccount.set(identityAccount.account_id, {
+      name: pickFirst(owner?.names?.[0], owner?.name),
+      email: pickFirst(owner?.emails?.[0]?.data, owner?.email),
+      phone: pickFirst(owner?.phone_numbers?.[0]?.data, owner?.phone),
+      address: formatAddress(
+        pickFirst(owner?.addresses?.[0]?.data, owner?.address),
+      ),
+    });
+  });
+
+  const fallbackOwner =
+    asArray(plaidData?.identity?.accounts)?.[0]?.owners?.[0] || null;
+
+  const accountNumbersByAccount = new Map();
+  const authNumbers = plaidData?.auth?.numbers || {};
+  [authNumbers.ach, authNumbers.eft, authNumbers.international, authNumbers.bacs]
+    .filter(Array.isArray)
+    .forEach((numberList) => {
+      numberList.forEach((entry) => {
+        if (!entry?.account_id || !entry?.account) return;
+        if (!accountNumbersByAccount.has(entry.account_id)) {
+          accountNumbersByAccount.set(entry.account_id, entry.account);
+        }
+      });
+    });
+
+  const rawTransactions = Array.isArray(plaidData?.transactions)
+    ? plaidData.transactions
+    : Array.isArray(plaidData?.transactions?.transactions)
+      ? plaidData.transactions.transactions
+      : [];
+  const transactionsByAccount = new Map();
+  rawTransactions.forEach((transaction) => {
+    if (!transaction?.account_id) return;
+    const current = transactionsByAccount.get(transaction.account_id) || [];
+    if (current.length < 25) {
+      current.push(transaction);
+      transactionsByAccount.set(transaction.account_id, current);
+    }
+  });
+
+  const liabilitiesRoot =
+    plaidData?.liabilities?.liabilities ||
+    plaidData?.liabilities?.data?.liabilities ||
+    plaidData?.liabilities ||
+    {};
+  const liabilityBuckets = {
+    student: asArray(liabilitiesRoot?.student),
+    mortgage: asArray(liabilitiesRoot?.mortgage),
+    credit: asArray(liabilitiesRoot?.credit),
+  };
+  const liabilityAmount = (entry) =>
+    toNumberOrNull(
+      pickFirst(
+        entry?.current_balance,
+        entry?.outstanding_principal_balance,
+        entry?.last_statement_balance,
+        entry?.origination_principal_amount,
+      ),
+    );
+
+  const accountLiabilities = new Map();
+  const accountLiabilityTypes = new Map();
+  const liabilityTotals = { student: 0, mortgage: 0, credit: 0 };
+
+  Object.entries(liabilityBuckets).forEach(([type, entries]) => {
+    entries.forEach((entry) => {
+      const amount = liabilityAmount(entry);
+      if (amount !== null) {
+        liabilityTotals[type] += amount;
+      }
+
+      if (!entry?.account_id) return;
+
+      const existing = accountLiabilities.get(entry.account_id) || 0;
+      accountLiabilities.set(entry.account_id, existing + (amount || 0));
+
+      const typeSet = accountLiabilityTypes.get(entry.account_id) || new Set();
+      typeSet.add(type);
+      accountLiabilityTypes.set(entry.account_id, typeSet);
+    });
+  });
+
+  const totalUserLiabilities = Object.values(liabilityTotals).reduce(
+    (sum, amount) => sum + amount,
+    0,
+  );
+
+  const statementId = pickFirst(
+    plaidData?.statement_id,
+    asArray(plaidData?.statements)?.[0]?.statement_id,
+    asArray(plaidData?.statements?.data)?.[0]?.statement_id,
+  );
+
+  const assetReportId = pickFirst(
+    plaidData?.asset_report_id,
+    plaidData?.assets?.asset_report_id,
+    plaidData?.assets?.data?.asset_report_id,
+  );
+
+  const investments =
+    plaidData?.investments ??
+    plaidData?.holdings ??
+    asArray(plaidData?.investments?.holdings) ??
+    [];
+
+  return accounts
+    .filter((account) => Boolean(account?.account_id))
+    .map((account) => {
+      const accountId = account?.account_id;
+      const accountAssets = toNumberOrNull(account?.balances?.current);
+      const accountLiability = toNumberOrNull(accountLiabilities.get(accountId));
+      const netWorth =
+        accountAssets !== null || accountLiability !== null
+          ? (accountAssets || 0) - (accountLiability || 0)
+          : null;
+      const identity =
+        identityByAccount.get(accountId) ||
+        (fallbackOwner
+          ? {
+              name: pickFirst(fallbackOwner?.names?.[0], fallbackOwner?.name),
+              email: pickFirst(
+                fallbackOwner?.emails?.[0]?.data,
+                fallbackOwner?.email,
+              ),
+              phone: pickFirst(
+                fallbackOwner?.phone_numbers?.[0]?.data,
+                fallbackOwner?.phone,
+              ),
+              address: formatAddress(
+                pickFirst(
+                  fallbackOwner?.addresses?.[0]?.data,
+                  fallbackOwner?.address,
+                ),
+              ),
+            }
+          : {});
+      const liabilityTypeSet = accountLiabilityTypes.get(accountId);
+
+      return {
+        plaid_item_id: item?.item_id || null,
+        user_id: userId,
+        account_id: accountId,
+        account_name: account?.name || null,
+        account_subtype: account?.subtype || null,
+        official_name: account?.official_name || null,
+        institution_id: item?.institution_id || null,
+        institution_name: item?.institution_name || null,
+        balance_available: toNumberOrNull(account?.balances?.available),
+        balance_current: accountAssets,
+        iso_currency_code: account?.balances?.iso_currency_code || null,
+        identity_name: identity?.name || null,
+        identity_email: identity?.email || null,
+        identity_phone: identity?.phone || null,
+        identity_address: identity?.address || null,
+        account_number: accountNumbersByAccount.get(accountId) || null,
+        statement_id: statementId || null,
+        asset_report_id: assetReportId || null,
+        total_user_assets: totalUserAssets,
+        net_worth: netWorth,
+        investments,
+        liability_type: liabilityTypeSet ? [...liabilityTypeSet] : [],
+        total_user_liabilities: String(totalUserLiabilities || 0),
+        transactions: transactionsByAccount.get(accountId) || [],
+        student_liabilities_total: String(liabilityTotals.student || 0),
+        mortgage_liabilities_total: String(liabilityTotals.mortgage || 0),
+        credit_liabilities_total: String(liabilityTotals.credit || 0),
+        student_liabilities: liabilityBuckets.student,
+        mortgage_liabilities: liabilityBuckets.mortgage,
+        credit_liabilities: liabilityBuckets.credit,
+        holder_category: account?.holder_category || null,
+        net_worth_score:
+          netWorth === null ? null : netWorth >= 0 ? "positive" : "negative",
+        account_assets: accountAssets,
+        account_liabilities: accountLiability || 0,
+      };
+    });
+};
+
 export default function PlaidIntegrationPage() {
   const [environment, setEnvironment] = useState("production");
   const [credentials, setCredentials] = useState(defaultPayload);
@@ -442,32 +659,112 @@ export default function PlaidIntegrationPage() {
       return;
     }
 
-    // Include the User ID in the prompt so the Agent can link the data
-    const promptText = `Create a user financial profile for user_id "${credentials.user_id}" with the details below: ${JSON.stringify(fetchedData)}`;
+    if (!credentials.user_id?.trim()) {
+      toast({
+        title: "Missing user_id",
+        description: "Enter User ID before pushing data to Supabase.",
+        status: "warning",
+        duration: 3000,
+      });
+      return;
+    }
 
-    const agentPayload = {
-      jsonrpc: "2.0",
-      id: `task-${Date.now()}`,
-      method: "tasks/send",
-      params: {
-        sessionId: `session-${Date.now()}`,
-        message: {
-          role: "user",
-          parts: [
-            {
-              type: "text",
-              text: promptText,
-            },
-          ],
+    const payloads = buildAgentProfilePayloads(
+      fetchedData,
+      credentials.user_id.trim(),
+    );
+    if (!payloads.length) {
+      toast({
+        title: "No accounts to push",
+        description: "Fetch account details first, then push to Supabase.",
+        status: "warning",
+        duration: 3000,
+      });
+      return;
+    }
+
+    const runId = Date.now();
+    let successCount = 0;
+
+    for (let i = 0; i < payloads.length; i += 1) {
+      const profilePayload = payloads[i];
+      const buildAgentRequest = (payload, variant = "a") => ({
+        jsonrpc: "2.0",
+        id: `task-${runId}-${i + 1}-${variant}`,
+        method: "tasks/send",
+        params: {
+          sessionId: `session-${runId}`,
+          message: {
+            role: "user",
+            parts: [
+              {
+                type: "text",
+                text: `Create a user financial profile with the details below.\n${JSON.stringify(payload)}`,
+              },
+            ],
+          },
         },
-      },
-    };
+      });
 
-    await callPlaidApi({
-      title: "Push Data to Supabase (Creation Agent)",
-      endpoint: ENDPOINTS.createProfileAgent,
-      method: "POST",
-      body: agentPayload,
+      const result = await callPlaidApi({
+        title: `Push Data to Supabase (Creation Agent) [${i + 1}/${payloads.length}]`,
+        endpoint: ENDPOINTS.createProfileAgent,
+        method: "POST",
+        body: buildAgentRequest(profilePayload, "a"),
+      });
+
+      const accepted = result?.status && result.status >= 200 && result.status < 300;
+      if (accepted) {
+        successCount += 1;
+        continue;
+      }
+
+      const fallbackPayload = {
+        plaid_item_id: profilePayload?.plaid_item_id || null,
+        user_id: profilePayload?.user_id || null,
+        account_id: profilePayload?.account_id || null,
+        account_name: profilePayload?.account_name || null,
+        account_subtype: profilePayload?.account_subtype || null,
+        official_name: profilePayload?.official_name || null,
+        institution_id: profilePayload?.institution_id || null,
+        institution_name: profilePayload?.institution_name || null,
+        balance_available: profilePayload?.balance_available || null,
+        balance_current: profilePayload?.balance_current || null,
+        iso_currency_code: profilePayload?.iso_currency_code || null,
+        total_user_assets: profilePayload?.total_user_assets || null,
+        net_worth: profilePayload?.net_worth || null,
+        total_user_liabilities: profilePayload?.total_user_liabilities || "0",
+        net_worth_score: profilePayload?.net_worth_score || null,
+        account_assets: profilePayload?.account_assets || null,
+        account_liabilities: profilePayload?.account_liabilities || 0,
+      };
+
+      const retryResult = await callPlaidApi({
+        title: `Push Data to Supabase Retry (Creation Agent) [${i + 1}/${payloads.length}]`,
+        endpoint: ENDPOINTS.createProfileAgent,
+        method: "POST",
+        body: buildAgentRequest(fallbackPayload, "b"),
+      });
+
+      if (
+        retryResult?.status &&
+        retryResult.status >= 200 &&
+        retryResult.status < 300
+      ) {
+        successCount += 1;
+      }
+    }
+
+    toast({
+      title: "Push workflow completed",
+      description: `${successCount}/${payloads.length} account payload(s) accepted by profile creation API.`,
+      status:
+        successCount === payloads.length
+          ? "success"
+          : successCount > 0
+            ? "warning"
+            : "error",
+      duration: 4000,
     });
   };
 
@@ -865,8 +1162,9 @@ export default function PlaidIntegrationPage() {
               </Stack>
               <Text mt={4} color="gray.500" fontSize="sm">
                 Follow the buttons in order (1 to 5). Step 2.4 is optional if
-                you want the MuleSoft consolidated flow. You can repeat steps
-                with fresh tokens at any time.
+                you want richer identity/transactions/liabilities fields before
+                pushing to Supabase. You can repeat steps with fresh tokens at
+                any time.
               </Text>
             </Box>
 
