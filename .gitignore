@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.env
 .yarn/install-state.gz
 yarn.lock
 # testing
@@ -33,10 +34,12 @@ yarn-error.log*
 .vercel
 
 .env.local
-
+.env
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 .contentLayer
 .contentlayer
 
+
+.env
