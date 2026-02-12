@@ -1,27 +1,17 @@
 import { NextResponse } from "next/server";
+import { resolvePlaidCredentials } from "../../../../lib/plaid/credentials";
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const env = searchParams.get("env") || "sandbox"; // Default to sandbox if not specified
+export async function GET() {
+  const { env, clientId, secret } = resolvePlaidCredentials();
 
-  let clientId, secret;
-
-  if (env === "production") {
-    // MuleSoft / Plaid Production Credentials
-    clientId = process.env.PLAID_CLIENT_ID_PRODUCTION;
-    secret = process.env.PLAID_SECRET_PRODUCTION;
-  } else {
-    // MuleSoft / Plaid Sandbox Credentials
-    clientId = process.env.PLAID_CLIENT_ID_SANDBOX;
-    secret = process.env.PLAID_SECRET_SANDBOX;
-  }
-
-  if (!clientId || !secret) {
-    return NextResponse.json({ error: "Missing Plaid credentials" }, { status: 500 });
-  }
+  const configured = Boolean(clientId && secret);
 
   return NextResponse.json(
-    { client_id: clientId, secret, environment: env },
+    {
+      environment: env,
+      configured,
+      client_id_last4: clientId ? clientId.slice(-4) : null,
+    },
     {
       headers: {
         "Cache-Control": "no-store",

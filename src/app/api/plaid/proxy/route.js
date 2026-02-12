@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { resolvePlaidCredentials } from "../../../../lib/plaid/credentials";
 
 const ALLOWED_HOSTS = new Set([
+  "production.plaid.com",
   "hushh-plaid-api-app-bubqpu.5sc6y6-1.usa-e2.cloudhub.io",
   "hushh-plaid-agent-app-bubqpu.5sc6y6-4.usa-e2.cloudhub.io",
   "hushh-plaid-mcp-server-app-bubqpu.5sc6y6-4.usa-e2.cloudhub.io",
@@ -8,6 +10,7 @@ const ALLOWED_HOSTS = new Set([
 
 const ALLOWED_METHODS = new Set(["GET", "POST"]);
 const CREDENTIAL_HOSTS = new Set([
+  "production.plaid.com",
   "hushh-plaid-api-app-bubqpu.5sc6y6-1.usa-e2.cloudhub.io",
 ]);
 
@@ -42,19 +45,18 @@ export async function POST(request) {
       });
     }
 
-    const env = request.headers.get("x-plaid-env") || "sandbox";
+    const { clientId, secret } = resolvePlaidCredentials();
     const shouldInjectCredentials =
       typeof injectCredentials === "boolean" ? injectCredentials : CREDENTIAL_HOSTS.has(url.host);
 
-    let clientId, secret;
-    if (shouldInjectCredentials) {
-      if (env === "production") {
-        clientId = process.env.PLAID_CLIENT_ID_PRODUCTION;
-        secret = process.env.PLAID_SECRET_PRODUCTION;
-      } else {
-        clientId = process.env.PLAID_CLIENT_ID_SANDBOX;
-        secret = process.env.PLAID_SECRET_SANDBOX;
-      }
+    if (shouldInjectCredentials && (!clientId || !secret)) {
+      return NextResponse.json(
+        {
+          error:
+            "Missing Plaid production credentials. Set PLAID_CLIENT_ID_PRODUCTION and PLAID_SECRET_PRODUCTION (or PLAID_CLIENT_ID/PLAID_SECRET).",
+        },
+        { status: 500 }
+      );
     }
 
     const finalPayload = shouldInjectCredentials
@@ -65,10 +67,6 @@ export async function POST(request) {
         }
       : { ...(payload || {}) };
 
-    console.log(`[Proxy] Environment: ${env}`);
-    console.log("[Proxy] Sending to:", url.toString());
-    console.log("[Proxy] Payload:", JSON.stringify(finalPayload, null, 2));
-
     const response = await fetch(url.toString(), {
       method: normalizedMethod,
       headers: {
@@ -76,12 +74,10 @@ export async function POST(request) {
         Accept: "application/json, text/event-stream",
         ...(overrideMethod ? { "X-HTTP-Method-Override": overrideMethod } : {}),
       },
-      body: JSON.stringify(finalPayload),
+      ...(normalizedMethod === "GET" ? {} : { body: JSON.stringify(finalPayload) }),
     });
 
     const text = await response.text();
-    console.log("[Proxy] Response Status:", response.status);
-    console.log("[Proxy] Response Body:", text);
 
     let data;
     try {

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { resolvePlaidCredentials } from "../../../../lib/plaid/credentials";
 
 const PLAID_ACCOUNTS_URL = "https://production.plaid.com/accounts/get";
 
@@ -10,26 +11,19 @@ export async function POST(request) {
       return NextResponse.json({ error: "access_token is required" }, { status: 400 });
     }
 
-    const env = request.headers.get("x-plaid-env") || "sandbox";
-    const PLAID_URL =
-      env === "production"
-        ? "https://production.plaid.com/accounts/get"
-        : "https://sandbox.plaid.com/accounts/get";
-
-    let clientId, secret;
-    if (env === "production") {
-      clientId = process.env.PLAID_CLIENT_ID_PRODUCTION;
-      secret = process.env.PLAID_SECRET_PRODUCTION;
-    } else {
-      clientId = process.env.PLAID_CLIENT_ID_SANDBOX;
-      secret = process.env.PLAID_SECRET_SANDBOX;
-    }
+    const { clientId, secret } = resolvePlaidCredentials();
 
     if (!clientId || !secret) {
-      return NextResponse.json({ error: "Missing Plaid credentials" }, { status: 500 });
+      return NextResponse.json(
+        {
+          error:
+            "Missing Plaid production credentials. Set PLAID_CLIENT_ID_PRODUCTION and PLAID_SECRET_PRODUCTION (or PLAID_CLIENT_ID/PLAID_SECRET).",
+        },
+        { status: 500 }
+      );
     }
 
-    const response = await fetch(PLAID_URL, {
+    const response = await fetch(PLAID_ACCOUNTS_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

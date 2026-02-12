@@ -26,11 +26,8 @@ import Script from "next/script";
 import ContentWrapper from "../_components/layout/ContentWrapper";
 
 const ENDPOINTS = {
-  // createPublicToken: -- REMOVED FOR PRODUCTION (Sandbox Only) --
-  exchangePublicToken:
-    "https://hushh-plaid-api-app-bubqpu.5sc6y6-1.usa-e2.cloudhub.io/item/public_token/exchange",
-  createLinkToken:
-    "https://hushh-plaid-api-app-bubqpu.5sc6y6-1.usa-e2.cloudhub.io/link/create/token",
+  exchangePublicToken: "https://production.plaid.com/item/public_token/exchange",
+  createLinkToken: "https://production.plaid.com/link/token/create",
   getUserFinancialData:
     "https://hushh-plaid-api-app-bubqpu.5sc6y6-1.usa-e2.cloudhub.io/userFinancialData",
   pushUserFinancialData:
@@ -40,11 +37,9 @@ const ENDPOINTS = {
 };
 
 const PLAID_ACCOUNTS_PATH = "/api/plaid/accounts";
-const DEFAULT_LINK_PRODUCTS = ["transactions", "investments", "liabilities", "assets"];
+const DEFAULT_LINK_PRODUCTS = ["auth", "identity", "signal"];
 
 const defaultPayload = {
-  client_id: "",
-  secret: "",
   access_token: "",
   public_token: "",
   user_id: "test_user_001",
@@ -52,7 +47,10 @@ const defaultPayload = {
 
 export default function PlaidIntegrationPage() {
   const [credentials, setCredentials] = useState(defaultPayload);
-  const [environment, setEnvironment] = useState("sandbox"); // "sandbox" | "production"
+  const [credentialsStatus, setCredentialsStatus] = useState({
+    configured: null,
+    clientIdLast4: null,
+  });
   const [linkToken, setLinkToken] = useState("");
   const [linkProducts, setLinkProducts] = useState(DEFAULT_LINK_PRODUCTS);
   const [responseLog, setResponseLog] = useState([]);
@@ -64,30 +62,30 @@ export default function PlaidIntegrationPage() {
   useEffect(() => {
     let isMounted = true;
 
-    const loadCredentials = async () => {
+    const loadCredentialStatus = async () => {
       try {
-        // Fetch credentials based on selected environment
-        const res = await fetch(`/api/plaid/credentials?env=${environment}`, { cache: "no-store" });
+        const res = await fetch("/api/plaid/credentials", { cache: "no-store" });
         if (!res.ok) {
-          throw new Error("Unable to load Plaid credentials");
+          throw new Error("Unable to load Plaid credential status");
         }
         const data = await res.json();
         if (isMounted) {
-          setCredentials((prev) => ({
-            ...prev,
-            client_id: data?.client_id || prev.client_id,
-            secret: data?.secret || prev.secret,
-          }));
-          // Log environment switch for clarity
-          pushLog(`Switched to ${environment.toUpperCase()}`, {
-            client_id: data?.client_id ? "***" + data.client_id.slice(-4) : "missing"
+          setCredentialsStatus({
+            configured: Boolean(data?.configured),
+            clientIdLast4: data?.client_id_last4 || null,
+          });
+          pushLog("Production credentials status", {
+            environment: data?.environment || "production",
+            configured: Boolean(data?.configured),
+            client_id_last4: data?.client_id_last4 || null,
           });
         }
       } catch (error) {
         if (isMounted) {
           toast({
             title: "Credentials unavailable",
-            description: "Check the Plaid values in .env.",
+            description:
+              "Set PLAID_CLIENT_ID_PRODUCTION and PLAID_SECRET_PRODUCTION (or PLAID_CLIENT_ID/PLAID_SECRET) in .env.local and restart Next.js.",
             status: "warning",
             duration: 3000,
           });
@@ -95,11 +93,11 @@ export default function PlaidIntegrationPage() {
       }
     };
 
-    loadCredentials();
+    loadCredentialStatus();
     return () => {
       isMounted = false;
     };
-  }, [environment, toast]); // Re-run when environment changes
+  }, [toast]);
 
   const updateField = (key, value) => {
     setCredentials((prev) => ({ ...prev, [key]: value }));
@@ -132,24 +130,8 @@ export default function PlaidIntegrationPage() {
     method = "POST",
     body,
     overrideMethod,
-    includeCredentials = true,
   }) => {
-    if (includeCredentials && (!credentials.client_id || !credentials.secret)) {
-      toast({
-        title: "Credentials required",
-        description: "Please enter client_id and secret before calling the API.",
-        status: "warning",
-        duration: 3000,
-      });
-      return;
-    }
-    const payload = includeCredentials
-      ? {
-        client_id: credentials.client_id,
-        secret: credentials.secret,
-        ...body,
-      }
-      : body || {};
+    const payload = body || {};
     const normalizedMethod = method?.toUpperCase() || "POST";
 
     try {
@@ -157,7 +139,6 @@ export default function PlaidIntegrationPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-plaid-env": environment, // Pass selected environment to proxy
         },
         body: JSON.stringify({ endpoint, method: normalizedMethod, payload, overrideMethod }),
       });
@@ -172,18 +153,6 @@ export default function PlaidIntegrationPage() {
         duration: 3000,
       });
       return null;
-    }
-  };
-
-  const handleCreatePublicToken = async () => {
-    // Only available in Sandbox
-    const result = await callPlaidApi({
-      title: "Create Public Token (Sandbox)",
-      endpoint: "https://hushh-plaid-api-app-bubqpu.5sc6y6-1.usa-e2.cloudhub.io/sandbox/public_token/create",
-    });
-    const data = unwrapPlaidResponse(result);
-    if (data?.public_token) {
-      updateField("public_token", data.public_token);
     }
   };
 
@@ -318,7 +287,6 @@ export default function PlaidIntegrationPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-plaid-env": environment
         },
         body: JSON.stringify({ access_token: credentials.access_token }),
       });
@@ -403,7 +371,6 @@ export default function PlaidIntegrationPage() {
       endpoint: ENDPOINTS.createProfileAgent,
       method: "POST",
       body: agentPayload,
-      includeCredentials: false,
     });
   };
 
@@ -424,29 +391,22 @@ export default function PlaidIntegrationPage() {
               Execute the Full Plaid Workflow
             </Heading>
             <Text color="gray.600" maxW="3xl">
-              Use this sandbox console to create tokens, retrieve aggregated financial data, and synchronize it with
+              Use this production console to create tokens, retrieve aggregated financial data, and synchronize it with
               Supabase—exactly how the production MuleSoft integration operates.
             </Text>
             <Flex gap={3} flexWrap="wrap" justify="center">
               <VStack spacing={4}>
                 <Box bg="white" p={4} borderRadius="lg" shadow="sm" borderWidth={1}>
-                  <Text mb={2} fontWeight="bold" fontSize="sm">Active Environment</Text>
-                  <Flex gap={4}>
-                    <Button
-                      size="sm"
-                      colorScheme={environment === "sandbox" ? "orange" : "gray"}
-                      onClick={() => setEnvironment("sandbox")}
-                    >
-                      Sandbox (Test)
-                    </Button>
-                    <Button
-                      size="sm"
-                      colorScheme={environment === "production" ? "green" : "gray"}
-                      onClick={() => setEnvironment("production")}
-                    >
-                      Production (Live)
-                    </Button>
-                  </Flex>
+                  <Text mb={2} fontWeight="bold" fontSize="sm">
+                    Active Environment
+                  </Text>
+                  <Tag colorScheme="green">Production (Live)</Tag>
+                  <Text mt={2} fontSize="xs" color={credentialsStatus.configured ? "green.600" : "red.600"}>
+                    Credentials:{" "}
+                    {credentialsStatus.configured
+                      ? `Configured${credentialsStatus.clientIdLast4 ? ` (ID ****${credentialsStatus.clientIdLast4})` : ""}`
+                      : "Missing"}
+                  </Text>
                 </Box>
                 <Flex gap={3}>
                   <Button as={Link} href="/plaid-financial-profile-agent" colorScheme="blue" variant="solid">
@@ -475,10 +435,9 @@ export default function PlaidIntegrationPage() {
                 </Text>
                 <CheckboxGroup value={linkProducts} onChange={setLinkProducts} colorScheme="blue">
                   <Stack direction={{ base: "column", md: "row" }} spacing={4}>
-                    <Checkbox value="transactions">Transactions</Checkbox>
-                    <Checkbox value="investments">Investments</Checkbox>
-                    <Checkbox value="liabilities">Liabilities</Checkbox>
-                    <Checkbox value="assets">Assets</Checkbox>
+                    <Checkbox value="auth">Auth</Checkbox>
+                    <Checkbox value="identity">Identity</Checkbox>
+                    <Checkbox value="signal">Signal</Checkbox>
                   </Stack>
                 </CheckboxGroup>
                 <Text fontSize="xs" color="gray.500" mt={2}>
@@ -574,7 +533,7 @@ export default function PlaidIntegrationPage() {
 
             <Box bg="white" borderRadius="2xl" p={{ base: 6, md: 8 }} shadow="xl">
               <Heading size="md" mb={4}>
-                Step 1 — Configure Credentials
+                Step 1 — Enter Runtime Inputs
               </Heading>
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
                 <FormControl>
@@ -583,24 +542,6 @@ export default function PlaidIntegrationPage() {
                     value={credentials.user_id}
                     onChange={(e) => updateField("user_id", e.target.value)}
                     placeholder="e.g. 935789999"
-                  />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Client ID</FormLabel>
-                  <Input
-                    type="password"
-                    value={credentials.client_id}
-                    isReadOnly
-                    placeholder="Loaded from .env"
-                  />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Secret</FormLabel>
-                  <Input
-                    type="password"
-                    value={credentials.secret}
-                    isReadOnly
-                    placeholder="Loaded from .env"
                   />
                 </FormControl>
                 <FormControl>
@@ -635,25 +576,9 @@ export default function PlaidIntegrationPage() {
                 Step 2 — Run the Workflow
               </Heading>
               <Stack spacing={5}>
-                {environment === "sandbox" && (
-                  <VStack align="stretch" spacing={2}>
-                    <Text fontSize="sm" fontWeight="600" color="gray.700" textTransform="uppercase">
-                      2.1 Generate a Plaid public token (Sandbox Only)
-                    </Text>
-                    <Button
-                      bgGradient="linear(135deg, #ECC94B 0%, #D69E2E 100%)"
-                      color="white"
-                      _hover={{ opacity: 0.9 }}
-                      onClick={handleCreatePublicToken}
-                    >
-                      Create Public Token
-                    </Button>
-                  </VStack>
-                )}
-
                 <VStack align="stretch" spacing={2}>
                   <Text fontSize="sm" fontWeight="600" color="gray.700" textTransform="uppercase">
-                    2.2 Exchange the public token for a secure access token
+                    2.1 Exchange the public token for a secure access token
                   </Text>
                   <Button
                     variant="outline"
@@ -668,7 +593,7 @@ export default function PlaidIntegrationPage() {
 
                 <VStack align="stretch" spacing={2}>
                   <Text fontSize="sm" fontWeight="600" color="gray.700" textTransform="uppercase">
-                    2.3 Create the link token for Plaid Link onboarding
+                    2.2 Create the link token for Plaid Link onboarding
                   </Text>
                   <Button
                     bg="#0C8CE9"
@@ -682,7 +607,7 @@ export default function PlaidIntegrationPage() {
 
                 <VStack align="stretch" spacing={2}>
                   <Text fontSize="sm" fontWeight="600" color="gray.700" textTransform="uppercase">
-                    2.4 Fetch account details via Plaid /accounts/get
+                    2.3 Fetch account details via Plaid /accounts/get
                   </Text>
                   <Button
                     bg="#1CB5A3"
@@ -696,7 +621,7 @@ export default function PlaidIntegrationPage() {
 
                 <VStack align="stretch" spacing={2}>
                   <Text fontSize="sm" fontWeight="600" color="gray.700" textTransform="uppercase">
-                    2.5 Optional: fetch consolidated financial data via MuleSoft
+                    2.4 Optional: fetch consolidated financial data via MuleSoft
                   </Text>
                   <Button
                     bg="#0C8CE9"
@@ -710,7 +635,7 @@ export default function PlaidIntegrationPage() {
 
                 <VStack align="stretch" spacing={2}>
                   <Text fontSize="sm" fontWeight="600" color="gray.700" textTransform="uppercase">
-                    2.6 Push the unified payload to Supabase for storage
+                    2.5 Push the unified payload to Supabase for storage
                   </Text>
                   <Button
                     bg="#111827"
@@ -723,7 +648,7 @@ export default function PlaidIntegrationPage() {
                 </VStack>
               </Stack>
               <Text mt={4} color="gray.500" fontSize="sm">
-                Follow the buttons in order (1 to 6). Step 2.5 is optional if you want the MuleSoft consolidated flow. You can repeat steps with
+                Follow the buttons in order (1 to 5). Step 2.4 is optional if you want the MuleSoft consolidated flow. You can repeat steps with
                 fresh tokens at any time.
               </Text>
             </Box>
