@@ -17,7 +17,10 @@ export async function POST(request) {
           { status: 400 }
         );
       }
-      const result = await generateHinglishContent(params);
+      const result = await generateHinglishContent({
+        ...params,
+        hushhModel: params.hushhModel || "hushh.Kavi",
+      });
       return NextResponse.json({ success: true, data: result });
     }
 

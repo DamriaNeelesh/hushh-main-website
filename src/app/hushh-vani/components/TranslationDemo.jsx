@@ -55,7 +55,7 @@ export default function TranslationDemo() {
           <div className="inline-flex items-center gap-2 rounded-full border border-[#7C3AED]/20 bg-[#7C3AED]/5 px-4 py-1.5 mb-4">
             <Globe size={14} className="text-[#7C3AED]" />
             <span className="text-xs font-semibold tracking-wide text-[#7C3AED] uppercase">
-              Live Demo — Cloud Translation V3
+              🌐 hushh.Bhasha — भाषा (Language)
             </span>
           </div>
           <h2 className="font-extrabold text-[#1A1A2E] mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}>
