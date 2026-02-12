@@ -1,0 +1,136 @@
+/**
+ * Hushh Vani — Gemini 2.5 Pro via Google GenAI SDK
+ * Premium content generation for Hinglish/vernacular marketing.
+ */
+import { GoogleGenAI } from "@google/genai";
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+const MODEL = "gemini-2.5-pro";
+
+let genAI = null;
+
+function getClient() {
+  if (!genAI) {
+    genAI = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+  }
+  return genAI;
+}
+
+/**
+ * Generate Hinglish marketing content.
+ */
+export async function generateHinglishContent({
+  brandName,
+  topic,
+  targetAudience = "Indian millennials and Gen-Z",
+  tone = "friendly, relatable, culturally aware",
+  format = "social media post",
+}) {
+  const ai = getClient();
+
+  const prompt = `You are India's top vernacular marketing copywriter. Create ${format} content for the brand "${brandName}" about "${topic}".
+
+Requirements:
+- Write in Hinglish (natural mix of Hindi + English as spoken in urban India)
+- Target audience: ${targetAudience}
+- Tone: ${tone}
+- Include relevant Indian cultural references, festivals, or idioms where appropriate
+- Make it shareable and engaging for social media
+- Add relevant hashtags in both Hindi and English
+- Keep it authentic — not forced or cringe
+
+Output format:
+1. Main copy (Hinglish)
+2. English translation
+3. Suggested hashtags
+4. Best platform for this content (Instagram/WhatsApp/Twitter/YouTube)
+5. Cultural notes (why this resonates with Indian audience)`;
+
+  const response = await ai.models.generateContent({
+    model: MODEL,
+    contents: prompt,
+  });
+
+  return {
+    content: response.text,
+    model: MODEL,
+    brandName,
+    topic,
+  };
+}
+
+/**
+ * Culturally adapt existing English content for India.
+ */
+export async function culturallyAdapt({
+  originalText,
+  targetRegion = "Pan-India",
+  targetLanguage = "Hinglish",
+}) {
+  const ai = getClient();
+
+  const prompt = `You are a cultural localization expert for India. Adapt the following English marketing text for ${targetRegion} audience in ${targetLanguage}.
+
+Original text:
+"${originalText}"
+
+Requirements:
+- Preserve the core message but make it culturally resonant
+- Use local idioms, references, or humor where appropriate
+- Consider regional sensitivities and cultural nuances
+- If Hinglish: naturally mix Hindi and English as spoken in everyday Indian conversations
+- Make it feel like it was originally written for an Indian audience, not translated
+
+Output:
+1. Adapted text
+2. Key cultural adaptations made (explain each change)
+3. Regional relevance score (1-10)
+4. Suggested visual elements that would resonate with this audience`;
+
+  const response = await ai.models.generateContent({
+    model: MODEL,
+    contents: prompt,
+  });
+
+  return {
+    adaptedContent: response.text,
+    model: MODEL,
+    targetRegion,
+    targetLanguage,
+  };
+}
+
+/**
+ * Generate festival-specific campaign content.
+ */
+export async function generateFestivalCampaign({
+  brandName,
+  festival,
+  productCategory = "general",
+}) {
+  const ai = getClient();
+
+  const prompt = `Create a complete marketing campaign for "${brandName}" (${productCategory}) for the Indian festival "${festival}".
+
+Include:
+1. Campaign tagline (Hinglish + English)
+2. 3 social media posts (Hinglish, platform-optimized)
+3. WhatsApp broadcast message
+4. SMS text (under 160 chars, Hinglish)
+5. Email subject line options (3)
+6. Cultural do's and don'ts for this festival
+7. Recommended timing for campaign launch
+8. Color palette suggestions that align with the festival`;
+
+  const response = await ai.models.generateContent({
+    model: MODEL,
+    contents: prompt,
+  });
+
+  return {
+    campaign: response.text,
+    model: MODEL,
+    brandName,
+    festival,
+  };
+}
