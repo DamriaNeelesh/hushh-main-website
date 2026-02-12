@@ -1,11 +1,15 @@
 /**
- * Hushh Vani — Gemini 2.5 Pro via Google GenAI SDK
- * Premium content generation for Hinglish/vernacular marketing.
+ * Hushh Vani — Content Generation via hushh AI Models
+ *
+ *  hushh.Kavi  (कवि = The Poet)    → Gemini 2.5 Pro
+ *  hushh.Rasa  (रस = The Essence)  → Gemini 3 Pro
+ *
+ * Users can switch between models for different tiers of creative intelligence.
  */
 import { GoogleGenAI } from "@google/genai";
+import { HUSHH_MODELS, DEFAULT_CONTENT_MODEL } from "./gcp-client";
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-const MODEL = "gemini-2.5-pro";
 
 let genAI = null;
 
@@ -17,7 +21,16 @@ function getClient() {
 }
 
 /**
+ * Resolve hushh model ID → Gemini model string.
+ */
+function resolveModel(hushhModelId) {
+  const model = HUSHH_MODELS[hushhModelId] || HUSHH_MODELS[DEFAULT_CONTENT_MODEL];
+  return model;
+}
+
+/**
  * Generate Hinglish marketing content.
+ * @param {string} hushhModel - "hushh.Kavi" or "hushh.Rasa"
  */
 export async function generateHinglishContent({
   brandName,
@@ -25,8 +38,10 @@ export async function generateHinglishContent({
   targetAudience = "Indian millennials and Gen-Z",
   tone = "friendly, relatable, culturally aware",
   format = "social media post",
+  hushhModel = DEFAULT_CONTENT_MODEL,
 }) {
   const ai = getClient();
+  const modelInfo = resolveModel(hushhModel);
 
   const prompt = `You are India's top vernacular marketing copywriter. Create ${format} content for the brand "${brandName}" about "${topic}".
 
@@ -47,13 +62,16 @@ Output format:
 5. Cultural notes (why this resonates with Indian audience)`;
 
   const response = await ai.models.generateContent({
-    model: MODEL,
+    model: modelInfo.geminiModel,
     contents: prompt,
   });
 
   return {
     content: response.text,
-    model: MODEL,
+    model: modelInfo.displayName,
+    geminiModel: modelInfo.geminiModel,
+    tier: modelInfo.tier,
+    badge: modelInfo.badge,
     brandName,
     topic,
   };
@@ -66,8 +84,10 @@ export async function culturallyAdapt({
   originalText,
   targetRegion = "Pan-India",
   targetLanguage = "Hinglish",
+  hushhModel = DEFAULT_CONTENT_MODEL,
 }) {
   const ai = getClient();
+  const modelInfo = resolveModel(hushhModel);
 
   const prompt = `You are a cultural localization expert for India. Adapt the following English marketing text for ${targetRegion} audience in ${targetLanguage}.
 
@@ -88,13 +108,14 @@ Output:
 4. Suggested visual elements that would resonate with this audience`;
 
   const response = await ai.models.generateContent({
-    model: MODEL,
+    model: modelInfo.geminiModel,
     contents: prompt,
   });
 
   return {
     adaptedContent: response.text,
-    model: MODEL,
+    model: modelInfo.displayName,
+    geminiModel: modelInfo.geminiModel,
     targetRegion,
     targetLanguage,
   };
@@ -107,8 +128,10 @@ export async function generateFestivalCampaign({
   brandName,
   festival,
   productCategory = "general",
+  hushhModel = DEFAULT_CONTENT_MODEL,
 }) {
   const ai = getClient();
+  const modelInfo = resolveModel(hushhModel);
 
   const prompt = `Create a complete marketing campaign for "${brandName}" (${productCategory}) for the Indian festival "${festival}".
 
@@ -123,13 +146,14 @@ Include:
 8. Color palette suggestions that align with the festival`;
 
   const response = await ai.models.generateContent({
-    model: MODEL,
+    model: modelInfo.geminiModel,
     contents: prompt,
   });
 
   return {
     campaign: response.text,
-    model: MODEL,
+    model: modelInfo.displayName,
+    geminiModel: modelInfo.geminiModel,
     brandName,
     festival,
   };

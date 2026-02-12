@@ -1,7 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import { Sparkles, Loader2, Copy, Check } from "lucide-react";
+import { Sparkles, Loader2, Copy, Check, Zap } from "lucide-react";
+
+const HUSHH_CONTENT_MODELS = [
+  {
+    id: "hushh.Kavi",
+    displayName: "hushh.Kavi",
+    hindi: "कवि",
+    meaning: "The Poet",
+    badge: "🖋️",
+    tier: "pro",
+    engine: "Gemini 2.5 Pro",
+    color: "#7C3AED",
+  },
+  {
+    id: "hushh.Rasa",
+    displayName: "hushh.Rasa",
+    hindi: "रस",
+    meaning: "The Essence",
+    badge: "✨",
+    tier: "premium",
+    engine: "Gemini 3 Pro",
+    color: "#F59E0B",
+  },
+];
 
 const TONE_OPTIONS = [
   "friendly, relatable, culturally aware",
@@ -23,6 +46,7 @@ export default function ContentGeneratorDemo() {
   const [topic, setTopic] = useState("");
   const [tone, setTone] = useState(TONE_OPTIONS[0]);
   const [format, setFormat] = useState(FORMAT_OPTIONS[0]);
+  const [selectedModel, setSelectedModel] = useState(HUSHH_CONTENT_MODELS[0]);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -44,6 +68,7 @@ export default function ContentGeneratorDemo() {
           topic,
           tone,
           format,
+          hushhModel: selectedModel.id,
         }),
       });
 
@@ -76,15 +101,54 @@ export default function ContentGeneratorDemo() {
           <div className="inline-flex items-center gap-2 rounded-full border border-[#F59E0B]/20 bg-[#F59E0B]/5 px-4 py-1.5 mb-4">
             <Sparkles size={14} className="text-[#F59E0B]" />
             <span className="text-xs font-semibold tracking-wide text-[#F59E0B] uppercase">
-              Live Demo — Gemini 2.5 Pro
+              Powered by hushh AI
             </span>
           </div>
           <h2 className="font-extrabold text-[#1A1A2E] mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}>
             AI Hinglish Content Generator
           </h2>
           <p className="mx-auto max-w-2xl text-[#4A4A68] text-lg">
-            Enter your brand and topic — Gemini 2.5 Pro creates culturally resonant Hinglish marketing copy in seconds.
+            Choose your AI model — enter your brand and topic — get culturally resonant Hinglish marketing copy in seconds.
           </p>
+        </div>
+
+        {/* Model Switcher */}
+        <div className="max-w-3xl mx-auto mb-8">
+          <div className="flex items-center justify-center gap-3">
+            {HUSHH_CONTENT_MODELS.map((model) => {
+              const isSelected = selectedModel.id === model.id;
+              return (
+                <button
+                  key={model.id}
+                  onClick={() => setSelectedModel(model)}
+                  className={`relative flex items-center gap-3 rounded-2xl border-2 px-5 py-4 transition-all duration-300 cursor-pointer ${
+                    isSelected
+                      ? "border-[var(--model-color)] bg-[var(--model-color)]/5 shadow-lg"
+                      : "border-gray-200 bg-white hover:border-gray-300"
+                  }`}
+                  style={{ "--model-color": model.color }}
+                >
+                  {model.tier === "premium" && (
+                    <span className="absolute -top-2 -right-2 rounded-full bg-gradient-to-r from-[#F59E0B] to-[#EF4444] px-2 py-0.5 text-[10px] font-bold text-white">
+                      PREMIUM
+                    </span>
+                  )}
+                  <span className="text-2xl">{model.badge}</span>
+                  <div className="text-left">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-sm font-bold ${isSelected ? "text-[#1A1A2E]" : "text-[#4A4A68]"}`}>
+                        {model.displayName}
+                      </span>
+                      <span className="text-xs text-[#9CA3AF]">{model.hindi}</span>
+                    </div>
+                    <p className="text-xs text-[#9CA3AF]">
+                      {model.meaning} • {model.engine}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Form */}
@@ -159,17 +223,21 @@ export default function ContentGeneratorDemo() {
             <button
               onClick={handleGenerate}
               disabled={loading || !brandName.trim() || !topic.trim()}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#F59E0B] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#F59E0B]/25 transition-all duration-200 hover:bg-[#D97706] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              style={{
+                backgroundColor: selectedModel.color,
+                boxShadow: `0 10px 25px -5px ${selectedModel.color}40`,
+              }}
             >
               {loading ? (
                 <>
                   <Loader2 size={16} className="animate-spin" />
-                  Generating with Gemini 2.5 Pro…
+                  Generating with {selectedModel.displayName}…
                 </>
               ) : (
                 <>
-                  <Sparkles size={16} />
-                  Generate Hinglish Content
+                  <Zap size={16} />
+                  Generate with {selectedModel.displayName}
                 </>
               )}
             </button>
@@ -185,10 +253,15 @@ export default function ContentGeneratorDemo() {
             <div className="mt-6 rounded-2xl border border-[#7C3AED]/10 bg-white p-6 sm:p-8 relative">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <Sparkles size={16} className="text-[#F59E0B]" />
-                  <span className="text-sm font-semibold text-[#7C3AED]">
+                  <span className="text-lg">{result.badge || selectedModel.badge}</span>
+                  <span className="text-sm font-semibold" style={{ color: selectedModel.color }}>
                     Generated by {result.model}
                   </span>
+                  {result.tier === "premium" && (
+                    <span className="rounded-full bg-gradient-to-r from-[#F59E0B] to-[#EF4444] px-2 py-0.5 text-[10px] font-bold text-white">
+                      PREMIUM
+                    </span>
+                  )}
                 </div>
                 <button
                   onClick={handleCopy}

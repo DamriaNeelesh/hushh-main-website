@@ -91,7 +91,7 @@ export default function VoiceSearchDemo() {
           <div className="inline-flex items-center gap-2 rounded-full border border-[#06B6D4]/20 bg-[#06B6D4]/5 px-4 py-1.5 mb-4">
             <Volume2 size={14} className="text-[#06B6D4]" />
             <span className="text-xs font-semibold tracking-wide text-[#06B6D4] uppercase">
-              Live Demo — Chirp 2 (Speech-to-Text V2)
+              🎙️ hushh.Shruti — श्रुति (Hearing)
             </span>
           </div>
           <h2 className="font-extrabold text-[#1A1A2E] mb-3" style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}>

@@ -152,7 +152,7 @@ jest.mock("@google-cloud/language", () => {
 });
 
 // ── Import services AFTER mocks ─────────────────────────────
-const { GCP_CONFIG, SUPPORTED_LANGUAGES, INDIAN_LANGUAGE_CODES } = require("../lib/gcp-client");
+const { GCP_CONFIG, SUPPORTED_LANGUAGES, INDIAN_LANGUAGE_CODES, HUSHH_MODELS, CONTENT_MODELS, DEFAULT_CONTENT_MODEL } = require("../lib/gcp-client");
 const { translateText, translateToMultiple, detectLanguage } = require("../lib/translate-service");
 const { generateHinglishContent, culturallyAdapt, generateFestivalCampaign } = require("../lib/gemini-service");
 const { transcribeAudio, SPEECH_LANGUAGES } = require("../lib/speech-service");
@@ -182,6 +182,31 @@ describe("GCP Client Config", () => {
     expect(INDIAN_LANGUAGE_CODES.length).toBe(12);
     expect(INDIAN_LANGUAGE_CODES).toContain("hi");
     expect(INDIAN_LANGUAGE_CODES).toContain("ta");
+  });
+
+  it("exports HUSHH_MODELS registry with 6 models", () => {
+    expect(Object.keys(HUSHH_MODELS).length).toBe(6);
+    expect(HUSHH_MODELS["hushh.Kavi"]).toBeDefined();
+    expect(HUSHH_MODELS["hushh.Rasa"]).toBeDefined();
+    expect(HUSHH_MODELS["hushh.Bhasha"]).toBeDefined();
+    expect(HUSHH_MODELS["hushh.Shruti"]).toBeDefined();
+    expect(HUSHH_MODELS["hushh.Drishti"]).toBeDefined();
+    expect(HUSHH_MODELS["hushh.Bodh"]).toBeDefined();
+  });
+
+  it("HUSHH_MODELS content models have geminiModel strings", () => {
+    expect(HUSHH_MODELS["hushh.Kavi"].geminiModel).toBe("gemini-2.5-pro");
+    expect(HUSHH_MODELS["hushh.Rasa"].geminiModel).toBe("gemini-3-pro");
+  });
+
+  it("exports CONTENT_MODELS with 2 switchable models", () => {
+    expect(CONTENT_MODELS).toHaveLength(2);
+    expect(CONTENT_MODELS[0].id).toBe("hushh.Kavi");
+    expect(CONTENT_MODELS[1].id).toBe("hushh.Rasa");
+  });
+
+  it("exports DEFAULT_CONTENT_MODEL as hushh.Kavi", () => {
+    expect(DEFAULT_CONTENT_MODEL).toBe("hushh.Kavi");
   });
 });
 
@@ -223,7 +248,7 @@ describe("Translate Service", () => {
 // Gemini Service
 // ═══════════════════════════════════════════════════════════════
 describe("Gemini Service", () => {
-  it("generateHinglishContent returns content with model info", async () => {
+  it("generateHinglishContent returns content with hushh model info", async () => {
     const result = await generateHinglishContent({
       brandName: "Zomato",
       topic: "Diwali sale",
@@ -232,31 +257,36 @@ describe("Gemini Service", () => {
     });
     expect(result).toHaveProperty("content");
     expect(result.content).toContain("deal");
-    expect(result.model).toBe("gemini-2.5-pro");
+    expect(result.model).toBe("hushh.Kavi");
+    expect(result.geminiModel).toBe("gemini-2.5-pro");
+    expect(result.tier).toBe("pro");
+    expect(result.badge).toBe("🖋️");
     expect(result.brandName).toBe("Zomato");
     expect(result.topic).toBe("Diwali sale");
   });
 
-  it("culturallyAdapt returns adapted content with region", async () => {
+  it("culturallyAdapt returns adapted content with hushh model", async () => {
     const result = await culturallyAdapt({
       originalText: "Big holiday sale starting now!",
       targetRegion: "North India",
       targetLanguage: "Hinglish",
     });
     expect(result).toHaveProperty("adaptedContent");
-    expect(result.model).toBe("gemini-2.5-pro");
+    expect(result.model).toBe("hushh.Kavi");
+    expect(result.geminiModel).toBe("gemini-2.5-pro");
     expect(result.targetRegion).toBe("North India");
     expect(result.targetLanguage).toBe("Hinglish");
   });
 
-  it("generateFestivalCampaign returns campaign with metadata", async () => {
+  it("generateFestivalCampaign returns campaign with hushh model", async () => {
     const result = await generateFestivalCampaign({
       brandName: "Flipkart",
       festival: "Diwali",
       productCategory: "electronics",
     });
     expect(result).toHaveProperty("campaign");
-    expect(result.model).toBe("gemini-2.5-pro");
+    expect(result.model).toBe("hushh.Kavi");
+    expect(result.geminiModel).toBe("gemini-2.5-pro");
     expect(result.brandName).toBe("Flipkart");
     expect(result.festival).toBe("Diwali");
   });
