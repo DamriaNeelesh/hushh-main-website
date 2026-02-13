@@ -48,9 +48,13 @@ export default function PlaidBalancePage() {
       "[class*='Header']", "[class*='header']",
       "[class*='Footer']", "[class*='footer']",
       "[class*='Banner']", "[class*='banner']",
+      "[class*='Funding']", "[class*='funding']",
       "[class*='FundingBanner']",
       "[class*='HushhBot']", "[class*='hushhBot']",
       "[class*='TopLoader']", "[class*='toploader']",
+      "[class*='announcement']", "[class*='Announcement']",
+      "[style*='position: fixed']",
+      "[style*='position: sticky']",
     ];
     const hidden = [];
     hideSelectors.forEach((sel) => {
@@ -259,7 +263,7 @@ export default function PlaidBalancePage() {
               </div>
               {TABS.map((tab) => (
                 <button key={tab.id} style={s.navItem(activeTab === tab.id)} onClick={() => { setActiveTab(tab.id); if (isMobile) setSidebarOpen(false); }}>
-                  <span>{tab.icon}</span>
+                  <img src={tab.icon} alt="" width={16} height={16} style={{ opacity: activeTab === tab.id ? 1 : 0.6 }} />
                   <span>{tab.label}</span>
                 </button>
               ))}
