@@ -67,6 +67,7 @@
     "next-cloudinary": "^6.6.2",
     "next-contentlayer": "^0.3.4",
     "next-images": "^1.8.5",
+    "next-mdx-remote": "6.0.0",
     "next-sitemap": "^4.2.3",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^1.6.11",
