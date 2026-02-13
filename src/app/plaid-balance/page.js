@@ -105,6 +105,7 @@ export default function PlaidBalancePage() {
       "[class*='HushhBot']", "[class*='hushhBot']",
     ];
     const hideAll = () => {
+      // 1. Hide by CSS selector
       hideSelectors.forEach((sel) => {
         document.querySelectorAll(sel).forEach((el) => {
           if (el && !el.closest("[data-plaid-portal]")) {
@@ -112,6 +113,20 @@ export default function PlaidBalancePage() {
             hidden.push(el);
           }
         });
+      });
+      // 2. Hide any fixed/sticky elements at top (catches Chakra UI FundingBanner with hashed classes)
+      document.querySelectorAll("*").forEach((el) => {
+        if (el.closest("[data-plaid-portal]")) return;
+        const cs = window.getComputedStyle(el);
+        if ((cs.position === "fixed" || cs.position === "sticky") && !el.closest("[data-plaid-portal]")) {
+          const top = parseFloat(cs.top);
+          const zIndex = parseInt(cs.zIndex, 10);
+          // FundingBanner: position fixed, top 0, zIndex 10000
+          if ((top <= 5 || isNaN(top)) && zIndex >= 100) {
+            el.style.setProperty("display", "none", "important");
+            hidden.push(el);
+          }
+        }
       });
     };
     hideAll();
