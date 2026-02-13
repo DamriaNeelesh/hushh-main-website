@@ -769,7 +769,7 @@ export default function PlaidIntegrationPage() {
   };
 
   return (
-    <ContentWrapper>
+    <ContentWrapper bg="#F5F7FE">
       <Script
         src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"
         strategy="afterInteractive"

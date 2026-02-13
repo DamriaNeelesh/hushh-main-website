@@ -483,7 +483,16 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
             }}
           >
             <div className="w-full mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 2xl:px-12">
-              <div className="flex items-center justify-between" style={{ height: "70px" }}>
+              <div
+                className="flex items-center justify-between"
+                style={{
+                  height: "70px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
                 {/* Logo */}
                 <div className="flex-shrink-0 mr-4">
                   <Link href="/" className="flex items-center">
@@ -499,7 +508,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                 </div>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden lg:flex items-center space-x-3 xl:space-x-5 2xl:space-x-6 flex-1 justify-center max-w-5xl mx-auto">
+                <nav className="desktop-nav hidden lg:flex items-center space-x-3 xl:space-x-5 2xl:space-x-6 flex-1 justify-center max-w-5xl mx-auto">
                   {/* Products Dropdown */}
                   <div 
                     className="relative group"
@@ -623,7 +632,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                   </button>
 
                   {/* Desktop Auth */}
-                  <div className="hidden lg:flex items-center space-x-2 xl:space-x-3">
+                  <div className="desktop-auth hidden lg:flex items-center space-x-2 xl:space-x-3">
                     {loading ? (
                       <div className="w-6 h-6 animate-pulse bg-gray-300 rounded-full"></div>
                     ) : isAuthenticated ? (
@@ -691,7 +700,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                       }
                     }}
                     transition="all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-                    className="hidden lg:block group"
+                    className="desktop-only hidden lg:block group"
                     display={{ base: "none", lg: "flex" }}
                     whiteSpace="nowrap"
                   >
@@ -704,7 +713,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                   <button
                     ref={hamburgerRef}
                     onClick={handleMenuIconToggle}
-                    className="lg:hidden relative p-3 rounded-xl border hover:border-gray-300 transition-all duration-200 hover:shadow-lg active:scale-95"
+                    className="mobile-menu-trigger lg:hidden relative p-3 rounded-xl border hover:border-gray-300 transition-all duration-200 hover:shadow-lg active:scale-95"
                     style={{
                       backdropFilter: "blur(10px)",
                     }}
@@ -1283,14 +1292,45 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
          }
          
          /* Header layout optimizations */
-         @media (min-width: 1024px) and (max-width: 1279px) {
-           nav {
-             max-width: 60rem;
-           }
-         }
-        
-        /* Mobile touch feedback */
-        @media (max-width: 1024px) {
+          @media (min-width: 1024px) and (max-width: 1279px) {
+            nav {
+              max-width: 60rem;
+            }
+          }
+
+          /* Fallback visibility rules if utility classes fail to load in local dev */
+          .desktop-nav,
+          .desktop-auth,
+          .desktop-only {
+            display: none;
+          }
+
+          .mobile-menu-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          @media (min-width: 1024px) {
+            .desktop-nav {
+              display: flex !important;
+            }
+
+            .desktop-auth {
+              display: flex !important;
+            }
+
+            .desktop-only {
+              display: inline-flex !important;
+            }
+
+            .mobile-menu-trigger {
+              display: none !important;
+            }
+          }
+         
+         /* Mobile touch feedback */
+         @media (max-width: 1024px) {
           .touch-feedback {
             transition: all 0.2s ease;
           }
