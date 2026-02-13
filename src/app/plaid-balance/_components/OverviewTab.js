@@ -34,7 +34,7 @@ export default function OverviewTab({ jwt, endpointStatus = {} }) {
         <div style={s.card}>
           <div style={s.label}>Edge Functions</div>
           <div style={{ ...s.value, fontSize: 15 }}>{FUNCTIONS_BASE.replace("https://", "").split("/")[0].substring(0, 20)}...</div>
-          <p style={{ fontSize: 13, color: colors.grayText, marginTop: 4 }}>3 functions deployed</p>
+          <p style={{ fontSize: 13, color: colors.grayText, marginTop: 4 }}>11 functions deployed</p>
         </div>
       </div>
 
@@ -49,6 +49,14 @@ export default function OverviewTab({ jwt, endpointStatus = {} }) {
             { key: "credentials", label: "Credentials", type: "API Route", color: colors.orange },
             { key: "proxy", label: "Proxy", type: "API Route", color: colors.teal },
             { key: "accounts", label: "Accounts", type: "API Route", color: colors.pink },
+            { key: "signal-evaluate", label: "Signal Evaluate", type: "Signal", color: "#f59e0b" },
+            { key: "signal-decision-report", label: "Decision Report", type: "Signal", color: "#f59e0b" },
+            { key: "signal-return-report", label: "Return Report", type: "Signal", color: "#f59e0b" },
+            { key: "signal-prepare", label: "Signal Prepare", type: "Signal", color: "#f59e0b" },
+            { key: "asset-report-create", label: "Assets Create", type: "Assets", color: "#8b5cf6" },
+            { key: "asset-report-get", label: "Assets Get", type: "Assets", color: "#8b5cf6" },
+            { key: "investments-holdings", label: "Holdings", type: "Investments", color: "#10b981" },
+            { key: "investments-transactions", label: "Transactions", type: "Investments", color: "#10b981" },
           ].map((ep) => {
             const isUp = endpointStatus[ep.key] !== false;
             return (
@@ -98,16 +106,52 @@ export default function OverviewTab({ jwt, endpointStatus = {} }) {
         <h2 style={s.h2}>Quick Reference</h2>
         <div style={s.grid2Responsive}>
           <div>
-            <div style={s.sectionTitle}>Supabase Edge Functions</div>
+            <div style={s.sectionTitle}>Supabase Edge Functions (11)</div>
             <pre style={s.code}>{`POST /create-link-token
 POST /exchange-public-token
-POST /get-balance`}</pre>
+POST /get-balance
+POST /signal-evaluate
+POST /signal-decision-report
+POST /signal-return-report
+POST /signal-prepare
+POST /asset-report-create
+POST /asset-report-get
+POST /investments-holdings
+POST /investments-transactions`}</pre>
           </div>
           <div>
             <div style={s.sectionTitle}>Next.js API Routes</div>
             <pre style={s.code}>{`GET  /api/plaid/credentials
 POST /api/plaid/proxy
 POST /api/plaid/accounts`}</pre>
+          </div>
+          <div>
+            <div style={s.sectionTitle}>Signal API Routes</div>
+            <pre style={s.code}>{`POST /api/plaid/signal/evaluate
+POST /api/plaid/signal/decision-report
+POST /api/plaid/signal/return-report
+POST /api/plaid/signal/prepare`}</pre>
+          </div>
+          <div>
+            <div style={s.sectionTitle}>Assets API Routes</div>
+            <pre style={s.code}>{`POST /api/plaid/assets/create
+POST /api/plaid/assets/get
+POST /api/plaid/assets/pdf
+POST /api/plaid/assets/refresh
+POST /api/plaid/assets/filter
+POST /api/plaid/assets/remove
+POST /api/plaid/assets/audit-copy-create
+POST /api/plaid/assets/audit-copy-remove
+POST /api/plaid/assets/relay-create
+POST /api/plaid/assets/relay-get
+POST /api/plaid/assets/relay-refresh
+POST /api/plaid/assets/relay-remove`}</pre>
+          </div>
+          <div>
+            <div style={s.sectionTitle}>Investments API Routes</div>
+            <pre style={s.code}>{`POST /api/plaid/investments/holdings
+POST /api/plaid/investments/transactions
+POST /api/plaid/investments/refresh`}</pre>
           </div>
           <div>
             <div style={s.sectionTitle}>Database Schema</div>
