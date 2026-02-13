@@ -47,27 +47,28 @@ export default function PlaidBalancePage() {
     const style = document.createElement("style");
     style.id = "plaid-portal-overrides";
     style.textContent = `
-      /* Hide ALL elements that are NOT our portal */
-      body > *:not([data-plaid-portal]):not(script):not(link):not(style):not(#__next):not(#__next-build-watcher) {
-        display: none !important;
-      }
-      /* Inside #__next, hide everything except our portal wrapper */
-      #__next > *:not(:has([data-plaid-portal])) {
-        display: none !important;
-      }
-      /* Kill any fixed/sticky banners, marquees, tickers */
-      header, nav, footer,
-      [class*='Banner'], [class*='banner'],
-      [class*='Funding'], [class*='funding'],
-      [class*='marquee'], [class*='Marquee'],
-      [class*='ticker'], [class*='Ticker'],
-      [class*='announcement'], [class*='Announcement'],
-      [class*='Header'], [class*='header'],
-      [class*='Footer'], [class*='footer'],
-      [class*='HushhBot'], [class*='hushhBot'],
-      [class*='TopLoader'], [class*='toploader'] {
-        display: none !important;
-      }
+      /* Hide specific site chrome — NOT layout wrappers */
+      header:not([data-plaid-portal] *),
+      footer:not([data-plaid-portal] *) { display: none !important; }
+      nav:not([data-plaid-portal] *) { display: none !important; }
+      [class*='Banner']:not([data-plaid-portal] *),
+      [class*='banner']:not([data-plaid-portal] *),
+      [class*='Funding']:not([data-plaid-portal] *),
+      [class*='funding']:not([data-plaid-portal] *),
+      [class*='marquee']:not([data-plaid-portal] *),
+      [class*='Marquee']:not([data-plaid-portal] *),
+      [class*='ticker']:not([data-plaid-portal] *),
+      [class*='Ticker']:not([data-plaid-portal] *),
+      [class*='announcement']:not([data-plaid-portal] *),
+      [class*='Announcement']:not([data-plaid-portal] *),
+      [class*='Header']:not([data-plaid-portal] *),
+      [class*='header']:not([data-plaid-portal] *),
+      [class*='Footer']:not([data-plaid-portal] *),
+      [class*='footer']:not([data-plaid-portal] *),
+      [class*='HushhBot']:not([data-plaid-portal] *),
+      [class*='hushhBot']:not([data-plaid-portal] *),
+      [class*='TopLoader']:not([data-plaid-portal] *),
+      [class*='toploader']:not([data-plaid-portal] *) { display: none !important; }
       /* Reset body */
       body {
         background-color: #fff !important;
@@ -77,7 +78,7 @@ export default function PlaidBalancePage() {
       }
       /* Mobile viewport fix */
       html { overflow-x: hidden !important; }
-      /* Mobile-first responsive grids - expand on wider screens */
+      /* Mobile-first responsive */
       @media (min-width: 768px) {
         [data-plaid-portal] table { font-size: 14px; }
       }
