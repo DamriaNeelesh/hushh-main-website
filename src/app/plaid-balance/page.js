@@ -7,7 +7,7 @@ import OverviewTab from "./_components/OverviewTab";
 import LiveTestTab from "./_components/LiveTestTab";
 import ApiDocsTab from "./_components/ApiDocsTab";
 import ApiTesterTab from "./_components/ApiTesterTab";
-import ArchitectureTab from "./_components/ArchitectureTab";
+import DeveloperTab from "./_components/DeveloperTab";
 import UseCasesTab from "./_components/UseCasesTab";
 import ActivityLog from "./_components/ActivityLog";
 
@@ -304,7 +304,7 @@ export default function PlaidBalancePage() {
           )}
           {activeTab === "api-docs" && <ApiDocsTab />}
           {activeTab === "api-tester" && <ApiTesterTab jwt={jwt} addLog={addLog} />}
-          {activeTab === "architecture" && <ArchitectureTab />}
+          {activeTab === "developer" && <DeveloperTab />}
           {activeTab === "use-cases" && <UseCasesTab />}
 
           <ActivityLog logs={logs} onClear={() => setLogs([])} />
