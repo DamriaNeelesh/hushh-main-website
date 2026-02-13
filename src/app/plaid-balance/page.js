@@ -184,7 +184,7 @@ export default function PlaidBalancePage() {
     const checkEndpoints = async () => {
       const status = {};
       // Check Supabase edge functions
-      const edgeFns = ["create-link-token", "exchange-public-token", "get-balance"];
+      const edgeFns = ["create-link-token", "exchange-public-token", "get-balance", "signal-evaluate", "signal-decision-report", "signal-return-report", "signal-prepare", "asset-report-create", "asset-report-get", "investments-holdings", "investments-transactions"];
       for (const fn of edgeFns) {
         try {
           const res = await fetch(`${FUNCTIONS_BASE}/${fn}`, {
@@ -350,7 +350,39 @@ export default function PlaidBalancePage() {
                   { name: "proxy", label: "Proxy" },
                   { name: "accounts", label: "Accounts" },
                 ].map((ep) => (
-                  <div key={ep.name} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 0", fontSize: 13 }}>
+                  <div key={ep.name} style={{ display: "flex", alignItems: "center", gap: 8, padding: "5px 0", fontSize: 12 }}>
+                    <span style={s.dot(endpointStatus[ep.name] !== false)}></span>
+                    <span style={{ color: colors.grayText }}>{ep.label}</span>
+                  </div>
+                ))}
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#f59e0b", textTransform: "uppercase", letterSpacing: 1, marginTop: 12, marginBottom: 4 }}>Signal</div>
+                {[
+                  { name: "signal-evaluate", label: "Evaluate" },
+                  { name: "signal-decision-report", label: "Decision Report" },
+                  { name: "signal-return-report", label: "Return Report" },
+                  { name: "signal-prepare", label: "Prepare" },
+                ].map((ep) => (
+                  <div key={ep.name} style={{ display: "flex", alignItems: "center", gap: 8, padding: "5px 0", fontSize: 12 }}>
+                    <span style={s.dot(endpointStatus[ep.name] !== false)}></span>
+                    <span style={{ color: colors.grayText }}>{ep.label}</span>
+                  </div>
+                ))}
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#8b5cf6", textTransform: "uppercase", letterSpacing: 1, marginTop: 12, marginBottom: 4 }}>Assets</div>
+                {[
+                  { name: "asset-report-create", label: "Create Report" },
+                  { name: "asset-report-get", label: "Get Report" },
+                ].map((ep) => (
+                  <div key={ep.name} style={{ display: "flex", alignItems: "center", gap: 8, padding: "5px 0", fontSize: 12 }}>
+                    <span style={s.dot(endpointStatus[ep.name] !== false)}></span>
+                    <span style={{ color: colors.grayText }}>{ep.label}</span>
+                  </div>
+                ))}
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#10b981", textTransform: "uppercase", letterSpacing: 1, marginTop: 12, marginBottom: 4 }}>Investments</div>
+                {[
+                  { name: "investments-holdings", label: "Holdings" },
+                  { name: "investments-transactions", label: "Transactions" },
+                ].map((ep) => (
+                  <div key={ep.name} style={{ display: "flex", alignItems: "center", gap: 8, padding: "5px 0", fontSize: 12 }}>
                     <span style={s.dot(endpointStatus[ep.name] !== false)}></span>
                     <span style={{ color: colors.grayText }}>{ep.label}</span>
                   </div>
