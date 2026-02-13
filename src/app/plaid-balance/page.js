@@ -41,35 +41,88 @@ export default function PlaidBalancePage() {
     setLogs((prev) => [{ timestamp, type, message, data }, ...prev.slice(0, 199)]);
   }, []);
 
-  // ─── HIDE MAIN SITE HEADER/FOOTER/BANNER ───
+  // ─── HIDE MAIN SITE HEADER/FOOTER/BANNER via CSS injection ───
   useEffect(() => {
+    // Inject a <style> to nuke everything outside our portal
+    const style = document.createElement("style");
+    style.id = "plaid-portal-overrides";
+    style.textContent = `
+      /* Hide ALL elements that are NOT our portal */
+      body > *:not([data-plaid-portal]):not(script):not(link):not(style):not(#__next):not(#__next-build-watcher) {
+        display: none !important;
+      }
+      /* Inside #__next, hide everything except our portal wrapper */
+      #__next > *:not(:has([data-plaid-portal])) {
+        display: none !important;
+      }
+      /* Kill any fixed/sticky banners, marquees, tickers */
+      header, nav, footer,
+      [class*='Banner'], [class*='banner'],
+      [class*='Funding'], [class*='funding'],
+      [class*='marquee'], [class*='Marquee'],
+      [class*='ticker'], [class*='Ticker'],
+      [class*='announcement'], [class*='Announcement'],
+      [class*='Header'], [class*='header'],
+      [class*='Footer'], [class*='footer'],
+      [class*='HushhBot'], [class*='hushhBot'],
+      [class*='TopLoader'], [class*='toploader'] {
+        display: none !important;
+      }
+      /* Reset body */
+      body {
+        background-color: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+      }
+      /* Mobile viewport fix */
+      html { overflow-x: hidden !important; }
+      /* Mobile-first responsive grids - expand on wider screens */
+      @media (min-width: 768px) {
+        [data-plaid-portal] table { font-size: 14px; }
+      }
+      @media (max-width: 767px) {
+        [data-plaid-portal] table { font-size: 12px; }
+        [data-plaid-portal] table th,
+        [data-plaid-portal] table td { padding: 8px 10px !important; }
+        [data-plaid-portal] pre { font-size: 11px !important; }
+        [data-plaid-portal] h1 { font-size: 24px !important; }
+        [data-plaid-portal] h2 { font-size: 18px !important; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Also do JS-based hiding as fallback
+    const hidden = [];
     const hideSelectors = [
       "header", "nav", "footer",
       "[class*='Header']", "[class*='header']",
       "[class*='Footer']", "[class*='footer']",
       "[class*='Banner']", "[class*='banner']",
       "[class*='Funding']", "[class*='funding']",
-      "[class*='FundingBanner']",
+      "[class*='marquee']", "[class*='Marquee']",
       "[class*='HushhBot']", "[class*='hushhBot']",
-      "[class*='TopLoader']", "[class*='toploader']",
-      "[class*='announcement']", "[class*='Announcement']",
-      "[style*='position: fixed']",
-      "[style*='position: sticky']",
     ];
-    const hidden = [];
-    hideSelectors.forEach((sel) => {
-      document.querySelectorAll(sel).forEach((el) => {
-        if (el && !el.closest("[data-plaid-portal]")) {
-          el.style.setProperty("display", "none", "important");
-          hidden.push(el);
-        }
+    const hideAll = () => {
+      hideSelectors.forEach((sel) => {
+        document.querySelectorAll(sel).forEach((el) => {
+          if (el && !el.closest("[data-plaid-portal]")) {
+            el.style.setProperty("display", "none", "important");
+            hidden.push(el);
+          }
+        });
       });
-    });
-    // Reset body styles
-    document.body.style.backgroundColor = "#fff";
-    document.body.style.padding = "0";
+    };
+    hideAll();
+    // Re-run after a short delay to catch late-rendered elements
+    const timer = setTimeout(hideAll, 500);
+    const timer2 = setTimeout(hideAll, 1500);
 
     return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+      const s = document.getElementById("plaid-portal-overrides");
+      if (s) s.remove();
       hidden.forEach((el) => { el.style.removeProperty("display"); });
     };
   }, []);
