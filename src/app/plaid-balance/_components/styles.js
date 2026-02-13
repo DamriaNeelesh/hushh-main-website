@@ -96,16 +96,19 @@ export const s = {
   },
   mainMobile: {
     marginLeft: 0,
-    padding: "20px 16px",
+    padding: "16px 12px",
+    maxWidth: "100vw",
+    overflowX: "hidden",
   },
   // Cards
   card: {
     border: `1px solid ${colors.grayBorder}`,
     borderRadius: 12,
-    padding: 24,
-    marginBottom: 20,
+    padding: "16px",
+    marginBottom: 16,
     backgroundColor: colors.white,
     boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+    overflowX: "auto",
   },
   cardActive: {
     border: `1px solid ${colors.green}40`,
@@ -122,16 +125,18 @@ export const s = {
   desc: { fontSize: 15, color: colors.grayText, marginBottom: 16, lineHeight: 1.6 },
   // Buttons
   btn: (disabled) => ({
-    padding: "10px 20px",
+    padding: "10px 16px",
     backgroundColor: disabled ? colors.grayBorder : colors.blue,
     color: colors.white,
     border: "none",
     borderRadius: 8,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 600,
     cursor: disabled ? "default" : "pointer",
     opacity: disabled ? 0.5 : 1,
     transition: "all 0.15s",
+    whiteSpace: "nowrap",
+    flexShrink: 0,
   }),
   btnGreen: {
     padding: "10px 20px",
@@ -157,21 +162,22 @@ export const s = {
     backgroundColor: colors.grayLight,
     border: `1px solid ${colors.grayBorder}`,
     borderRadius: 8,
-    padding: 16,
-    fontSize: 13,
-    lineHeight: 1.6,
+    padding: "12px",
+    fontSize: 12,
+    lineHeight: 1.5,
     overflowX: "auto",
     color: colors.black,
     fontFamily: '"SF Mono", "Fira Code", Menlo, Monaco, monospace',
     whiteSpace: "pre-wrap",
     wordBreak: "break-all",
+    maxWidth: "100%",
   },
   // Labels
   label: { fontSize: 11, color: colors.gray, textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4, fontWeight: 600 },
   value: { fontSize: 18, fontWeight: 700, color: colors.black },
-  // Grid
-  grid2: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 },
-  grid2Responsive: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 },
+  // Grid — mobile-first (single col, expand on wider screens)
+  grid2: { display: "grid", gridTemplateColumns: "1fr", gap: 12 },
+  grid2Responsive: { display: "grid", gridTemplateColumns: "1fr", gap: 12 },
   // Inputs
   input: {
     width: "100%",
