@@ -1,4 +1,4 @@
-import { s, colors } from "./styles";
+import { s } from "./styles";
 
 const USE_CASES = [
   {
@@ -48,7 +48,7 @@ const USE_CASES = [
 export default function UseCasesTab() {
   return (
     <>
-      <h2 style={{ ...s.h1, fontSize: 28 }}>
+      <h2 style={{ fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 8 }}>
         Use Cases
       </h2>
       <p style={{ ...s.desc, marginBottom: 24 }}>

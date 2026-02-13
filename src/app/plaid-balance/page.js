@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Script from "next/script";
-import { s, TABS, SUPABASE_URL, SUPABASE_ANON_KEY, FUNCTIONS_BASE, TEST_EMAIL, TEST_PASSWORD } from "./_components/styles";
+import { s, TABS, colors, SUPABASE_URL, SUPABASE_ANON_KEY, FUNCTIONS_BASE, TEST_EMAIL, TEST_PASSWORD } from "./_components/styles";
 import OverviewTab from "./_components/OverviewTab";
 import LiveTestTab from "./_components/LiveTestTab";
 import ApiDocsTab from "./_components/ApiDocsTab";
@@ -15,6 +15,11 @@ export default function PlaidBalancePage() {
   const [activeTab, setActiveTab] = useState("overview");
   const [jwt, setJwt] = useState(null);
   const [authReady, setAuthReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Endpoint status
+  const [endpointStatus, setEndpointStatus] = useState({});
 
   // Plaid state
   const [linkToken, setLinkToken] = useState(null);
@@ -34,6 +39,43 @@ export default function PlaidBalancePage() {
   const addLog = useCallback((type, message, data = null) => {
     const timestamp = new Date().toLocaleTimeString();
     setLogs((prev) => [{ timestamp, type, message, data }, ...prev.slice(0, 199)]);
+  }, []);
+
+  // ─── HIDE MAIN SITE HEADER/FOOTER/BANNER ───
+  useEffect(() => {
+    const hideSelectors = [
+      "header", "nav", "footer",
+      "[class*='Header']", "[class*='header']",
+      "[class*='Footer']", "[class*='footer']",
+      "[class*='Banner']", "[class*='banner']",
+      "[class*='FundingBanner']",
+      "[class*='HushhBot']", "[class*='hushhBot']",
+      "[class*='TopLoader']", "[class*='toploader']",
+    ];
+    const hidden = [];
+    hideSelectors.forEach((sel) => {
+      document.querySelectorAll(sel).forEach((el) => {
+        if (el && !el.closest("[data-plaid-portal]")) {
+          el.style.setProperty("display", "none", "important");
+          hidden.push(el);
+        }
+      });
+    });
+    // Reset body styles
+    document.body.style.backgroundColor = "#fff";
+    document.body.style.padding = "0";
+
+    return () => {
+      hidden.forEach((el) => { el.style.removeProperty("display"); });
+    };
+  }, []);
+
+  // ─── RESPONSIVE ───
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   // ─── AUTO AUTH ON MOUNT ───
@@ -63,7 +105,39 @@ export default function PlaidBalancePage() {
     autoLogin();
   }, [addLog]);
 
-  // ─── STEP 1: Create Link Token ───
+  // ─── CHECK ENDPOINT STATUS ───
+  useEffect(() => {
+    if (!jwt) return;
+    const checkEndpoints = async () => {
+      const status = {};
+      // Check Supabase edge functions
+      const edgeFns = ["create-link-token", "exchange-public-token", "get-balance"];
+      for (const fn of edgeFns) {
+        try {
+          const res = await fetch(`${FUNCTIONS_BASE}/${fn}`, {
+            method: "OPTIONS",
+            headers: { Authorization: `Bearer ${jwt}` },
+          });
+          status[fn] = res.ok || res.status === 204 || res.status === 200;
+        } catch {
+          status[fn] = false;
+        }
+      }
+      // Check Next.js API routes
+      try {
+        const res = await fetch("/api/plaid/credentials?env=production");
+        status["credentials"] = res.ok;
+      } catch {
+        status["credentials"] = false;
+      }
+      status["proxy"] = true; // Proxy is available if app runs
+      status["accounts"] = true;
+      setEndpointStatus(status);
+    };
+    checkEndpoints();
+  }, [jwt]);
+
+  // ─── HANDLERS ───
   const handleCreateLinkToken = async () => {
     setPlaidLoading(true);
     setPlaidError("");
@@ -75,56 +149,33 @@ export default function PlaidBalancePage() {
         body: JSON.stringify({ products: ["auth"], country_codes: ["US"] }),
       });
       const data = await res.json();
-      if (data.error) {
-        setPlaidError(data.error);
-        addLog("error", "Create link token failed", data);
-      } else {
+      if (data.error) { setPlaidError(data.error); addLog("error", "Create link token failed", data); }
+      else {
         setLinkToken(data.link_token);
-        addLog("success", "Link token created", {
-          link_token: data.link_token?.substring(0, 40) + "...",
-          expiration: data.expiration,
-          request_id: data.request_id,
-        });
+        addLog("success", "Link token created", { link_token: data.link_token?.substring(0, 40) + "...", expiration: data.expiration });
       }
-    } catch (err) {
-      setPlaidError(err.message);
-      addLog("error", "Error", err.message);
-    }
+    } catch (err) { setPlaidError(err.message); addLog("error", "Error", err.message); }
     setPlaidLoading(false);
   };
 
-  // ─── STEP 2: Open Plaid Link ───
   const handleOpenPlaidLink = useCallback(() => {
-    if (!linkToken || !window.Plaid) {
-      addLog("error", "Plaid Link SDK not loaded or no link token");
-      return;
-    }
+    if (!linkToken || !window.Plaid) { addLog("error", "Plaid Link SDK not loaded"); return; }
     addLog("info", "Opening Plaid Link UI...");
     const handler = window.Plaid.create({
       token: linkToken,
       onSuccess: async (public_token, metadata) => {
-        addLog("success", "Plaid Link success", {
-          institution: metadata.institution?.name,
-          accounts: metadata.accounts?.length,
-        });
+        addLog("success", "Plaid Link success", { institution: metadata.institution?.name });
         await handleExchangeToken(public_token, metadata.institution?.name);
       },
       onExit: (err) => {
-        if (err) {
-          addLog("error", "Plaid Link exit error", err);
-          setPlaidError(err.display_message || err.error_message);
-        } else {
-          addLog("info", "Plaid Link closed by user");
-        }
+        if (err) { addLog("error", "Plaid Link exit error", err); setPlaidError(err.display_message || err.error_message); }
+        else addLog("info", "Plaid Link closed");
       },
-      onEvent: (eventName) => {
-        addLog("info", `Plaid event: ${eventName}`);
-      },
+      onEvent: (eventName) => addLog("info", `Plaid event: ${eventName}`),
     });
     handler.open();
   }, [linkToken, addLog]);
 
-  // ─── STEP 3: Exchange Token ───
   const handleExchangeToken = async (publicToken, institutionName) => {
     setPlaidLoading(true);
     addLog("info", "POST /exchange-public-token");
@@ -135,22 +186,12 @@ export default function PlaidBalancePage() {
         body: JSON.stringify({ public_token: publicToken, institution_name: institutionName || "Unknown" }),
       });
       const data = await res.json();
-      if (data.error) {
-        setPlaidError(data.error);
-        addLog("error", "Exchange failed", data);
-      } else {
-        setLinkSuccess(true);
-        setLinkedItemId(data.item_id);
-        addLog("success", "Account linked!", { item_id: data.item_id });
-      }
-    } catch (err) {
-      setPlaidError(err.message);
-      addLog("error", "Error", err.message);
-    }
+      if (data.error) { setPlaidError(data.error); addLog("error", "Exchange failed", data); }
+      else { setLinkSuccess(true); setLinkedItemId(data.item_id); addLog("success", "Account linked!", { item_id: data.item_id }); }
+    } catch (err) { setPlaidError(err.message); addLog("error", "Error", err.message); }
     setPlaidLoading(false);
   };
 
-  // ─── STEP 4: Get Balance ───
   const handleGetBalance = async () => {
     setBalanceLoading(true);
     setBalanceError("");
@@ -162,24 +203,19 @@ export default function PlaidBalancePage() {
         body: JSON.stringify({}),
       });
       const data = await res.json();
-      if (data.error) {
-        setBalanceError(data.error);
-        addLog("error", "Get balance failed", data);
-      } else {
-        setBalanceData(data);
-        addLog("success", "Balance retrieved", data);
-      }
-    } catch (err) {
-      setBalanceError(err.message);
-      addLog("error", "Error", err.message);
-    }
+      if (data.error) { setBalanceError(data.error); addLog("error", "Get balance failed", data); }
+      else { setBalanceData(data); addLog("success", "Balance retrieved", data); }
+    } catch (err) { setBalanceError(err.message); addLog("error", "Error", err.message); }
     setBalanceLoading(false);
   };
 
   if (!authReady) {
     return (
-      <div style={{ ...s.page, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ color: "#60a5fa", fontSize: 16 }}>Initializing session...</p>
+      <div data-plaid-portal style={{ ...s.page, display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
+        <div style={{ textAlign: "center" }}>
+          <div style={{ fontSize: 24, fontWeight: 700, color: colors.blue, marginBottom: 8 }}>Hushh Plaid Balance</div>
+          <p style={{ color: colors.grayText }}>Initializing session...</p>
+        </div>
       </div>
     );
   }
@@ -187,49 +223,79 @@ export default function PlaidBalancePage() {
   return (
     <>
       <Script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js" strategy="afterInteractive" />
-      <div style={s.page}>
-        {/* ─── TOP BAR ─── */}
+      <div data-plaid-portal style={s.page}>
+        {/* ─── TOP BAR (Black) ─── */}
         <div style={s.topBar}>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <span style={{ fontSize: 20, fontWeight: 800, color: "#fff", letterSpacing: 1 }}>HUSHH</span>
-            <span style={{ color: "#60a5fa", fontSize: 14, fontWeight: 500 }}>Plaid Balance Developer Portal</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            {isMobile && (
+              <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ background: "none", border: "none", color: "#fff", fontSize: 20, cursor: "pointer", padding: 0 }}>
+                ☰
+              </button>
+            )}
+            <span style={{ fontSize: 18, fontWeight: 700, color: "#fff", letterSpacing: 0.5 }}>Hushh</span>
+            <span style={{ color: colors.blue, fontSize: 14, fontWeight: 500 }}>Plaid Balance</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={s.badge("#22c55e")}>Production</span>
-            <span style={s.badge("#f59e0b")}>Internal</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={s.badgeSolid(colors.green)}>Production</span>
+            <span style={s.badgeSolid(colors.orange)}>Internal</span>
             <span style={s.dot(!!jwt)}></span>
-            <span style={{ fontSize: 12, color: jwt ? "#22c55e" : "#ef4444" }}>
-              {jwt ? "Authenticated" : "No Auth"}
+            <span style={{ fontSize: 12, color: jwt ? colors.green : colors.red }}>
+              {jwt ? "Connected" : "Disconnected"}
             </span>
           </div>
         </div>
 
-        {/* ─── TAB BAR ─── */}
-        <div style={s.tabBar}>
-          {TABS.map((tab) => (
-            <button key={tab.id} style={s.tab(activeTab === tab.id)} onClick={() => setActiveTab(tab.id)}>
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        {/* ─── SIDEBAR NAVIGATION ─── */}
+        {(!isMobile || sidebarOpen) && (
+          <div style={isMobile ? {
+            ...s.sidebar, position: "fixed", top: 56, left: 0, right: 0, bottom: 0, width: "100%",
+            backgroundColor: "rgba(0,0,0,0.5)", zIndex: 999,
+          } : s.sidebar}>
+            <div style={isMobile ? { width: 260, height: "100%", backgroundColor: colors.grayLight, overflowY: "auto" } : {}}>
+              <div style={{ padding: "8px 20px 16px", borderBottom: `1px solid ${colors.grayBorder}` }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: colors.gray, textTransform: "uppercase", letterSpacing: 1.5 }}>
+                  Navigation
+                </div>
+              </div>
+              {TABS.map((tab) => (
+                <button key={tab.id} style={s.navItem(activeTab === tab.id)} onClick={() => { setActiveTab(tab.id); if (isMobile) setSidebarOpen(false); }}>
+                  <span>{tab.icon}</span>
+                  <span>{tab.label}</span>
+                </button>
+              ))}
 
-        {/* ─── TAB CONTENT ─── */}
-        <div style={s.container}>
-          {activeTab === "overview" && <OverviewTab jwt={jwt} />}
+              {/* Endpoint Status Section */}
+              <div style={{ padding: "20px 20px 8px", borderTop: `1px solid ${colors.grayBorder}`, marginTop: 16 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: colors.gray, textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 12 }}>
+                  Endpoints
+                </div>
+                {[
+                  { name: "create-link-token", label: "Link Token" },
+                  { name: "exchange-public-token", label: "Exchange" },
+                  { name: "get-balance", label: "Balance" },
+                  { name: "credentials", label: "Credentials" },
+                  { name: "proxy", label: "Proxy" },
+                  { name: "accounts", label: "Accounts" },
+                ].map((ep) => (
+                  <div key={ep.name} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 0", fontSize: 13 }}>
+                    <span style={s.dot(endpointStatus[ep.name] !== false)}></span>
+                    <span style={{ color: colors.grayText }}>{ep.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ─── MAIN CONTENT ─── */}
+        <div style={isMobile ? s.mainMobile : s.main}>
+          {activeTab === "overview" && <OverviewTab jwt={jwt} endpointStatus={endpointStatus} />}
           {activeTab === "live-test" && (
             <LiveTestTab
-              jwt={jwt}
-              linkToken={linkToken}
-              plaidLoading={plaidLoading}
-              plaidError={plaidError}
-              linkSuccess={linkSuccess}
-              linkedItemId={linkedItemId}
-              balanceData={balanceData}
-              balanceLoading={balanceLoading}
-              balanceError={balanceError}
-              onCreateLinkToken={handleCreateLinkToken}
-              onOpenPlaidLink={handleOpenPlaidLink}
-              onGetBalance={handleGetBalance}
+              jwt={jwt} linkToken={linkToken} plaidLoading={plaidLoading} plaidError={plaidError}
+              linkSuccess={linkSuccess} linkedItemId={linkedItemId} balanceData={balanceData}
+              balanceLoading={balanceLoading} balanceError={balanceError}
+              onCreateLinkToken={handleCreateLinkToken} onOpenPlaidLink={handleOpenPlaidLink} onGetBalance={handleGetBalance}
             />
           )}
           {activeTab === "api-docs" && <ApiDocsTab />}
@@ -237,15 +303,10 @@ export default function PlaidBalancePage() {
           {activeTab === "architecture" && <ArchitectureTab />}
           {activeTab === "use-cases" && <UseCasesTab />}
 
-          {/* Activity Log — always visible */}
           <ActivityLog logs={logs} onClear={() => setLogs([])} />
 
-          {/* Footer */}
-          <div style={{
-            marginTop: 40, paddingTop: 20, borderTop: "1px solid #1a1a1a",
-            textAlign: "center", fontSize: 11, color: "#555",
-          }}>
-            Hushh Plaid Balance Integration • Production Environment • Internal Use Only
+          <div style={{ marginTop: 40, paddingTop: 20, borderTop: `1px solid ${colors.grayBorder}`, textAlign: "center", fontSize: 12, color: colors.gray }}>
+            Hushh Plaid Balance Integration • Production • Internal Use Only
           </div>
         </div>
       </div>

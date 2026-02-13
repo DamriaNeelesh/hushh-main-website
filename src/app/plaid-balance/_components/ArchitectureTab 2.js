@@ -1,9 +1,9 @@
-import { s, colors } from "./styles";
+import { s } from "./styles";
 
 export default function ArchitectureTab() {
   return (
     <>
-      <h2 style={{ ...s.h1, fontSize: 28 }}>
+      <h2 style={{ fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 8 }}>
         Architecture
       </h2>
       <p style={{ ...s.desc, marginBottom: 24 }}>

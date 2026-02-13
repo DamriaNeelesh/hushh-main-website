@@ -1,4 +1,4 @@
-import { s, colors } from "./styles";
+import { s } from "./styles";
 
 export default function LiveTestTab({
   jwt, linkToken, plaidLoading, plaidError, linkSuccess, linkedItemId,
@@ -7,7 +7,7 @@ export default function LiveTestTab({
 }) {
   return (
     <>
-      <h2 style={{ ...s.h1, fontSize: 28 }}>
+      <h2 style={{ fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 8 }}>
         Live Production Test
       </h2>
       <p style={{ ...s.desc, marginBottom: 24 }}>
@@ -20,7 +20,7 @@ export default function LiveTestTab({
           <div>
             <h3 style={s.h2}>Step 1: Create Plaid Link Token</h3>
             <p style={s.desc}>
-              Calls <code style={{ color: colors.blue }}>POST /create-link-token</code> on Supabase Edge Functions.
+              Calls <code style={{ color: "#60a5fa" }}>POST /create-link-token</code> on Supabase Edge Functions.
               Generates a link_token from Plaid Production API to initialize the bank linking UI.
             </p>
           </div>
@@ -43,7 +43,7 @@ export default function LiveTestTab({
             <h3 style={s.h2}>Step 2: Link Bank Account</h3>
             <p style={s.desc}>
               Opens Plaid Link UI. User authenticates with their bank. On success, the public_token
-              is auto-exchanged for an access_token via <code style={{ color: colors.blue }}>POST /exchange-public-token</code>.
+              is auto-exchanged for an access_token via <code style={{ color: "#60a5fa" }}>POST /exchange-public-token</code>.
               The access_token is stored server-side only — never exposed to the client.
             </p>
           </div>
@@ -65,7 +65,7 @@ export default function LiveTestTab({
           <div>
             <h3 style={s.h2}>Step 3: Get Real-Time Balance</h3>
             <p style={s.desc}>
-              Calls <code style={{ color: colors.blue }}>POST /get-balance</code>. Fetches real-time balance
+              Calls <code style={{ color: "#60a5fa" }}>POST /get-balance</code>. Fetches real-time balance
               from Plaid Production API via /accounts/balance/get. Latency: p50 ~3s, p95 ~11s.
             </p>
           </div>
@@ -79,7 +79,7 @@ export default function LiveTestTab({
           <div style={{ marginTop: 20 }}>
             {balanceData.balances.map((item, idx) => (
               <div key={idx} style={{ ...s.card, backgroundColor: "#0a0a0a" }}>
-                <h4 style={{ fontSize: 15, fontWeight: 700, color: colors.black, marginBottom: 12 }}>
+                <h4 style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 12 }}>
                   🏦 {item.institution_name || "Bank Account"}
                 </h4>
                 {item.accounts?.map((account, aIdx) => (
@@ -89,24 +89,24 @@ export default function LiveTestTab({
                   }}>
                     <div>
                       <div style={s.label}>Account</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: colors.black }}>{account.name}</div>
-                      <div style={{ fontSize: 12, color: colors.grayText }}>{account.type} • ****{account.mask}</div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{account.name}</div>
+                      <div style={{ fontSize: 12, color: "#666" }}>{account.type} • ****{account.mask}</div>
                     </div>
                     <div>
                       <div style={s.label}>Available</div>
-                      <div style={{ fontSize: 20, fontWeight: 700, color: colors.green }}>
+                      <div style={{ fontSize: 20, fontWeight: 700, color: "#22c55e" }}>
                         ${account.balances?.available?.toLocaleString() ?? "N/A"}
                       </div>
                     </div>
                     <div>
                       <div style={s.label}>Current</div>
-                      <div style={{ fontSize: 20, fontWeight: 700, color: colors.black }}>
+                      <div style={{ fontSize: 20, fontWeight: 700, color: "#fff" }}>
                         ${account.balances?.current?.toLocaleString() ?? "N/A"}
                       </div>
                     </div>
                     <div>
                       <div style={s.label}>Currency</div>
-                      <div style={{ fontSize: 14, fontWeight: 500, color: colors.grayText }}>
+                      <div style={{ fontSize: 14, fontWeight: 500, color: "#888" }}>
                         {account.balances?.currency || "USD"}
                       </div>
                     </div>
@@ -114,17 +114,17 @@ export default function LiveTestTab({
                 ))}
               </div>
             ))}
-            <p style={{ fontSize: 11, color: colors.grayText, marginTop: 8 }}>
+            <p style={{ fontSize: 11, color: "#666", marginTop: 8 }}>
               Retrieved at: {balanceData.retrieved_at}
             </p>
           </div>
         )}
-        {balanceError && <p style={{ color: colors.red, fontSize: 13, marginTop: 8 }}>⚠️ {balanceError}</p>}
+        {balanceError && <p style={{ color: "#ef4444", fontSize: 13, marginTop: 8 }}>⚠️ {balanceError}</p>}
       </div>
 
       {plaidError && (
-        <div style={{ padding: 16, backgroundColor: "#FFF5F5", border: `1px solid ${colors.red}30`, borderRadius: 8 }}>
-          <p style={{ color: colors.red, fontSize: 13, margin: 0 }}>⚠️ {plaidError}</p>
+        <div style={{ padding: 16, backgroundColor: "#1a0505", border: "1px solid #3a0505", borderRadius: 8 }}>
+          <p style={{ color: "#ef4444", fontSize: 13, margin: 0 }}>⚠️ {plaidError}</p>
         </div>
       )}
     </>

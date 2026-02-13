@@ -1,4 +1,4 @@
-import { s, colors, FUNCTIONS_BASE } from "./styles";
+import { s, FUNCTIONS_BASE } from "./styles";
 
 const API_ENDPOINTS = [
   {
@@ -151,7 +151,7 @@ const API_ENDPOINTS = [
 export default function ApiDocsTab() {
   return (
     <>
-      <h2 style={{ ...s.h1, fontSize: 28 }}>
+      <h2 style={{ fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 8 }}>
         API Documentation
       </h2>
       <p style={{ ...s.desc, marginBottom: 8 }}>
