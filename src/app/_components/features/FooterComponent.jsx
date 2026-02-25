@@ -914,7 +914,7 @@ const FooterComponent = () => {
             >
               <VStack spacing={1} align={{ base: "start", md: "flex-start" }}>
                 <Text fontSize={{ base: "sm", md: "xs" }} color="gray.500" fontWeight="400">
-                  © 2025 HushOne Inc. All rights reserved.
+                  © 2026 HushOne Inc. All rights reserved.
                 </Text>
               </VStack>
               

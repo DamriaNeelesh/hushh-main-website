@@ -13,7 +13,6 @@ import {
   MdLock,
   MdManageSearch,
   MdMemory,
-  MdMic,
   MdMonetizationOn,
   MdPayments,
   MdPsychology,
@@ -21,12 +20,10 @@ import {
   MdRule,
   MdSmartToy,
   MdTimeline,
-  MdUploadFile,
   MdVerifiedUser,
-  MdVideocam,
   MdWarning,
 } from "react-icons/md";
-import { FaWhatsapp } from "react-icons/fa";
+import ContactForm from "../_components/features/contactForm";
 
 const leadersTop = [
   "Albert Bourla",
@@ -678,73 +675,10 @@ const HushhPDA = () => {
         </div>
       </section>
 
-      <section id="get-in-touch" className="bg-white">
-        <div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:px-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <h2 className="text-4xl font-bold tracking-tight text-slate-900">
-              Get in <span className="brand-gradient">Touch</span>
-            </h2>
-
-            <p className="mt-5 text-base font-medium leading-relaxed text-slate-600">
-              Ready to take control of your data? Let&apos;s start a conversation about how Hushh can empower your digital
-              journey.
-            </p>
-
-            <div className="mt-8 space-y-3">
-              <a
-                href="https://wa.me/14256441447?text=Hi%20Hushh"
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-14 w-full items-center justify-center gap-3 rounded-full bg-[#25D366] px-6 text-base font-semibold text-white shadow-lg shadow-emerald-500/30 transition hover:-translate-y-0.5"
-              >
-                <FaWhatsapp className="text-2xl" /> WhatsApp Chat
-              </a>
-
-              <a
-                href="https://calendly.com/hushh/office-hours-1-hour-focused-deep-dives"
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-14 w-full items-center justify-center gap-3 rounded-full border border-[#0071E3] bg-white px-6 text-base font-semibold text-[#0071E3] transition hover:bg-blue-50"
-              >
-                <MdCalendarToday className="text-xl" /> Schedule Meeting
-              </a>
-            </div>
-          </div>
-
-          <div className="glass-card rounded-3xl p-6 md:p-8">
-            <div className="mb-6 border-b border-slate-200 pb-6">
-              <h3 className="text-2xl font-bold tracking-tight text-slate-900">Express Yourself Your Way</h3>
-              <p className="mt-3 text-base font-medium leading-relaxed text-slate-600">
-                Skip the typing. Record a quick voice note, send a video message, or upload files directly.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <button className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#0071E3] px-4 text-sm font-semibold text-white transition hover:bg-[#005BB5]">
-                <MdMic className="text-lg" /> Record Voice Note
-              </button>
-
-              <button className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-indigo-200 bg-white px-4 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50">
-                <MdVideocam className="text-lg" /> Record Video Message
-              </button>
-
-              <button className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-emerald-200 bg-white px-4 text-sm font-semibold text-emerald-600 transition hover:bg-emerald-50">
-                <MdUploadFile className="text-lg" /> Upload Files
-              </button>
-            </div>
-
-            <div className="mt-6 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500">
-              <span className="rounded-full bg-slate-100 px-3 py-1">HD Audio</span>
-              <span className="rounded-full bg-slate-100 px-3 py-1">4K Video</span>
-              <span className="rounded-full bg-slate-100 px-3 py-1">Secure Upload</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContactForm />
     </div>
   );
 };
 
 export default HushhPDA;
-
 
