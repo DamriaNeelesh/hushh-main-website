@@ -1,973 +1,221 @@
-'use client'
-import React, { useState } from "react";
-import HushhFooterLogo from "../svg/hushhFooterLogo";
+"use client";
+
+import React from "react";
 import Link from "next/link";
-import { AndroidIcon } from "../svg/icons/androidIcon";
-import { IosIcon } from "../svg/icons/iosIcon";
-import { useResponsiveSizes } from "../../context/responsive";
-import "../../globals.css";
-import HushhMobileFooterLogo from "../svg/hushhMobileFooterLogo";
-import { animateScroll as scroll } from "react-scroll";
-import { isMobile, isAndroid, isIOS } from "react-device-detect";
-import UnicodeQR from "../../_components/svg/onelinkQrdownload.svg";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-} from "@chakra-ui/react";
-import Image from "next/image";
-import DownloadModal from "../primitives/downloadModal";
-import { useRouter } from 'next/navigation';
-import {
-  Box,
-  Container,
-  Grid,
-  GridItem,
-  VStack,
-  Heading,
-  Text,
-  Button,
-  Flex,
-  HStack,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
+import { MdCall, MdMail } from "react-icons/md";
+
+const footerSections = [
+  {
+    title: "Products",
+    links: [
+      { label: "Personal Data Agent (PDA)", href: "/products/personal-data-agent" },
+      { label: "Hushh Vault", href: "/hushh-vault" },
+      { label: "Hushh Link", href: "/hushh-link" },
+      { label: "Hushh Flow", href: "/products/hushh-flow" },
+      { label: "Hushh Grid", href: "/products/hushh-grid" },
+    ],
+  },
+  {
+    title: "Solutions",
+    links: [
+      { label: "Hushh Wallet App", href: "/products/hushh-wallet-app" },
+      { label: "Hushh Button", href: "/products/hushh-button" },
+      { label: "Hushh Browser Companion", href: "/products/browser-companion" },
+      { label: "VIBE Search App", href: "/products/hushh-vibe-search" },
+      { label: "Hushh For Students", href: "/products/hushh-for-students" },
+    ],
+  },
+  {
+    title: "Developers",
+    links: [
+      { label: "Getting Started", href: "/getting-started" },
+      { label: "API Reference", href: "/developerApi" },
+      { label: "GitHub Protocol", href: "/agent-kit-cli#github-protocol" },
+      { label: "Agentkit CLI", href: "/agent-kit-cli#agentkit-cli" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact-us" },
+      { label: "Careers", href: "/career" },
+      { label: "Blogs", href: "/hushhBlogs" },
+      {
+        label: "FAQ",
+        href: "https://github.com/hushh-labs/consent-protocol/blob/main/docs/faq.md",
+        external: true,
+      },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      { label: "Agent Builders Club", href: "/hushh-community" },
+      { label: "Hushh Labs", href: "/labs" },
+      { label: "Solutions", href: "/solutions" },
+      { label: "Hackathons", href: "/pda/iithackathon" },
+      { label: "Our Philosophy", href: "/why-hushh" },
+      { label: "Consent Protocol", href: "/consent-ai-protocol" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { label: "Live Demo", href: "/demoBookingPage" },
+      { label: "Linkedin", href: "https://www.linkedin.com/company/hushh-ai/", external: true },
+      { label: "X (Twitter)", href: "https://x.com/hushh_ai", external: true },
+      { label: "Github", href: "https://github.com/hushh-labs", external: true },
+    ],
+  },
+];
 
 const FooterComponent = () => {
-  // const isMobile = useResponsiveSizes();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentQRLink, setCurrentQRLink] = useState("");
-  const router = useRouter();
-  const scrollTo = () => {
-    scroll.scrollTo(4250);
-  };
-
-  const handleOpenModal = (link) => {
-    setCurrentQRLink(link);
-    setIsModalOpen(true);
-  };
-
   const handleDownloadClick = () => {
-    window.location.href = "https://apps.apple.com/in/app/hushh-app/id6498471189";
-  };
-
-  const scrollInMobile = () => {
-    scroll.scrollTo(3350);
+    window.open("https://apps.apple.com/in/app/hushh-app/id6498471189", "_blank", "noopener,noreferrer");
   };
 
   return (
-    <>
-      {/* Main Footer */}
-      <Box bg="white" w="100%" m={0} p={0}>
-        <Box py={{ base: 16, md: 16 }} px={{ base: 8, md: 8 }}>
-          <Box maxW="1200px" mx="auto">
-            {/* Footer Logo Section */}
-            <Box mb={{ base: 16, md: 16 }} textAlign={{ base: "left", md: "left" }}>
-              <Box display={{ base: "none", md: "block" }}>
-                <HushhFooterLogo />
-              </Box>
-              <Box display={{ base: "block", md: "none" }}>
-                <HushhMobileFooterLogo />
-              </Box>
-            </Box>
+    <div className="relative w-full overflow-x-hidden bg-white text-[#111827] transition-colors duration-300 dark:bg-[#0f172a] dark:text-[#f3f4f6]">
+      <style jsx>{`
+        .gradient-text {
+          background: linear-gradient(90deg, #a855f7 0%, #ec4899 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
 
-            {/* Main Footer Content */}
-            <Grid
-              templateColumns={{ 
-                base: "1fr", 
-                sm: "repeat(2, 1fr)",
-                md: "repeat(3, 1fr)",
-                lg: "2fr repeat(6, 1fr)" 
-              }}
-              gap={{ base: 8, sm: 6, md: 8, lg: 6 }}
-              alignItems="start"
-              fontFamily={'Inter'}
+        .gradient-underline {
+          height: 2px;
+          width: 40px;
+          margin-top: 4px;
+          border-radius: 2px;
+          background: linear-gradient(90deg, #3b82f6 0%, #ec4899 100%);
+        }
+
+        .black-underline {
+          height: 2px;
+          width: 40px;
+          margin-top: 4px;
+          background: #000;
+        }
+
+        :global(.dark) .black-underline {
+          background: #fff;
+        }
+      `}</style>
+
+      <main className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 pt-12 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-[390px] sm:max-w-3xl lg:max-w-6xl">
+          <header className="mb-10 flex items-center justify-start">
+            <h2 className="text-4xl font-bold tracking-tight">
+              <span className="text-[#A855F7]">hu</span>
+              <span className="gradient-text">shh</span>
+            </h2>
+          </header>
+
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
+            {footerSections.map((section) => (
+              <section key={section.title} className="group text-left">
+                <div className="rounded-xl border border-[rgba(0,0,0,0.05)] bg-[rgba(255,255,255,0.7)] p-5 text-left shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-1px_rgba(0,0,0,0.03)] backdrop-blur-md transition-all duration-300 hover:shadow-lg dark:border-[rgba(255,255,255,0.1)] dark:bg-[rgba(30,41,59,0.7)]">
+                  <h3 className="mb-4 text-left text-sm font-bold uppercase tracking-widest text-[#111827] dark:text-[#f3f4f6]">
+                    {section.title}
+                    <div className="gradient-underline ml-0 mr-auto" />
+                  </h3>
+
+                  <ul className="space-y-3 text-left">
+                    {section.links.map((item) => (
+                      <li key={`${section.title}-${item.label}`}>
+                        {item.external ? (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="block text-left text-[15px] text-[#4b5563] transition-colors hover:text-[#3b82f6] dark:text-[#9ca3af] dark:hover:text-white"
+                          >
+                            {item.label}
+                          </a>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            className="block text-left text-[15px] text-[#4b5563] transition-colors hover:text-[#3b82f6] dark:text-[#9ca3af] dark:hover:text-white"
+                          >
+                            {item.label}
+                          </Link>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <div className="mb-8 mt-8 flex w-full justify-start">
+            <button
+              onClick={handleDownloadClick}
+              className="group flex w-[180px] items-center justify-center gap-2 rounded-full bg-black px-6 py-3 shadow-sm transition-all hover:bg-gray-900 active:scale-95"
             >
-              {/* Company Info Section - Desktop Only */}
-              <GridItem display={{ base: "none", lg: "block" }}>
-                <VStack align="start" spacing={6} pr={4}>
-                  <Box textAlign={'left'}>
-                    <Heading
-                      as="h3"
-                      fontSize="xl"
-                      fontWeight="600"
-                      color="black"
-                      lineHeight={1.4}
-                      mb={3}
-                    >
-                      Future of Digital Identity & Personalised Experiences
-                    </Heading>
-                    <Text fontSize="md" color="gray.500" fontWeight="400" mb={4}>
-                      Manish Sainani, 2025
-                    </Text>
-                  </Box>
-                  
-                  <VStack align="start" spacing={3}>
-                    <Text fontSize="sm" color="black" fontWeight="500" textTransform="uppercase" letterSpacing="0.5px">
-                      Contact
-                    </Text>
-                    <ChakraLink 
-                      href="tel:(888) 462-1726" 
-                      fontSize="md"
-                      fontWeight="400"
-                      color="gray.700"
-                      _hover={{ color: "black" }}
-                      transition="color 0.2s ease"
-                    >
-                      (888) 462-1726
-                    </ChakraLink>
-                    <ChakraLink 
-                      href="mailto:sales@hushh.ai" 
-                      fontSize="md"
-                      fontWeight="400"
-                      color="gray.700"
-                      _hover={{ color: "black" }}
-                      transition="color 0.2s ease"
-                    >
-                      sales@hushh.ai
-                    </ChakraLink>
-                  </VStack>
+              <span className="text-[15px] font-medium text-white">Download App</span>
+            </button>
+          </div>
 
-                  <VStack align="start" spacing={3}>
-                    <Text fontSize="sm" color="black" fontWeight="500" textTransform="uppercase" letterSpacing="0.5px">
-                      Address 
-                    </Text>
-                    
-                   <VStack spacing={1} textAlign={'left'} alignItems={'flex-start'}>
-                   <Text fontSize="sm" color="gray.500" fontWeight="400">
-                      Hushh.ai
-                    </Text>
-                    <Text fontSize="sm" color="gray.500" fontWeight="400" >
-                      1021 5th St W
-                    </Text>
-                    <Text fontSize="sm" color="gray.500" fontWeight="400" >
-                      Kirkland, WA 98033
-                    </Text>
-                   </VStack>
-                  </VStack>
-                </VStack>
-              </GridItem>
+          <hr className="my-8 w-full border-t border-gray-100 dark:border-gray-800" />
 
-              {/* Products Section */}
-              <GridItem>
-                <VStack align={{ base: "start", md: "start" }} spacing={{ base: 5, md: 4 }}>
-                  <Box w="full" pb={{ base: 2, md: 0 }}>
-                    <Text 
-                      fontSize={{ base: "md", md: "sm" }}
-                      fontWeight="600" 
-                      color="black"
-                      textTransform="uppercase" 
-                      letterSpacing="0.5px"
-                      textAlign="left"
-                      mb={{ base: 1, md: 0 }}
-                    >
-                      Products
-                    </Text>
-                    <Box 
-                      w="40px" 
-                      h="2px" 
-                      bg="black" 
-                      display={{ base: "block", md: "none" }}
-                      mt={2}
-                    />
-                  </Box>
-                  <VStack 
-                    align="start"
-                    spacing={{ base: 1, md: 3 }}
-                    w="full"
-                  >
-                    <Link href="/products/personal-data-agent">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Personal Data Agent (PDA)
-                      </Text>
-                    </Link>
+          <footer className="mb-4 mt-8 w-full text-left">
+            <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:justify-between">
+              <div className="flex w-full flex-col items-start text-left lg:max-w-[420px]">
+                <h3 className="relative mb-6 text-left text-sm font-bold uppercase tracking-widest text-black dark:text-white">
+                  Contact
+                  <div className="black-underline absolute -bottom-2 left-0" />
+                </h3>
 
-                    <Link href="/hushh-vault">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Hushh Vault
-                      </Text>
-                    </Link>
+                <p className="mb-3 max-w-[320px] text-left text-lg font-bold leading-snug text-black dark:text-white">
+                  Future of Digital Identity &amp; Personalised Experiences
+                </p>
+                <p className="text-left text-sm font-normal text-[#86868B]">Manish Sainani, 2025</p>
+              </div>
 
-                    <Link href="/hushh-link">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                       Hushh Link
-                      </Text>
-                    </Link>
+              <div className="flex w-full flex-col items-start gap-5 text-left lg:max-w-[320px]">
+                <a href="tel:+18884621726" className="group flex w-full items-center justify-start gap-4 transition-all">
+                  <span className="flex-shrink-0 text-[20px] text-[#333333] dark:text-white">
+                    <MdCall />
+                  </span>
+                  <span className="text-[15px] font-normal text-black transition-colors group-hover:text-[#3b82f6] dark:text-white">
+                    (888) 462-1726
+                  </span>
+                </a>
 
-                    <Link href="/products/hushh-flow">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Hushh Flow
-                      </Text>
-                    </Link>
+                <a href="mailto:sales@hushh.ai" className="group flex w-full items-center justify-start gap-4 transition-all">
+                  <span className="flex-shrink-0 text-[20px] text-[#333333] dark:text-white">
+                    <MdMail />
+                  </span>
+                  <span className="text-[15px] font-normal text-black transition-colors group-hover:text-[#3b82f6] dark:text-white">
+                    sales@hushh.ai
+                  </span>
+                </a>
+              </div>
+            </div>
 
-                    <Link href="/products/hushh-grid">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Hushh Grid
-                      </Text>
-                    </Link>
-                    
-                  </VStack>
-                </VStack>
-              </GridItem>
+            <div className="pt-8 text-left text-xs">
+              <p className="text-gray-500">© 2025 HushOne Inc. All rights reserved.</p>
 
-              {/* Solutions Section */}
-              <GridItem>
-                <VStack align="start" spacing={{ base: 5, md: 4 }}>
-                  <Box w="full" pb={{ base: 2, md: 0 }}>
-                    <Text 
-                      fontSize={{ base: "md", md: "sm" }}
-                      fontWeight="600" 
-                      color="black"
-                      textTransform="uppercase" 
-                      letterSpacing="0.5px"
-                      textAlign="left"
-                      mb={{ base: 1, md: 0 }}
-                    >
-                      Solutions
-                    </Text>
-                    <Box 
-                      w="40px" 
-                      h="2px" 
-                      bg="black" 
-                      display={{ base: "block", md: "none" }}
-                      mt={2}
-                    />
-                  </Box>
-                  <VStack 
-                    align="start"
-                    spacing={{ base: 1, md: 3 }}
-                    w="full"
-                  >
-                    <Link href="/products/hushh-wallet-app">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Hushh Wallet App
-                      </Text>
-                    </Link>
-
-                    <Link href="/products/hushh-button">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Hushh Button
-                      </Text>
-                    </Link>
-
-                    <Link href="/products/browser-companion">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Hushh Browser Companion
-                      </Text>
-                    </Link>
-
-                    <Link href="/products/hushh-vibe-search">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        VIBE Search App
-                      </Text>
-                    </Link>
-
-                    <Link href="/products/hushh-for-students">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Hushh For Students
-                      </Text>
-                    </Link>
-                    
-                  </VStack>
-                </VStack>
-              </GridItem>
-
-              {/* Developers Section */}
-              <GridItem>
-                <VStack align="start" spacing={{ base: 5, md: 4 }}>
-                  <Box w="full" pb={{ base: 2, md: 0 }}>
-                    <Text 
-                      fontSize={{ base: "md", md: "sm" }}
-                      fontWeight="600" 
-                      color="black"
-                      textTransform="uppercase" 
-                      letterSpacing="0.5px"
-                      textAlign="left"
-                      mb={{ base: 1, md: 0 }}
-                    >
-                      Developers
-                    </Text>
-                    <Box 
-                      w="40px" 
-                      h="2px" 
-                      bg="black" 
-                      display={{ base: "block", md: "none" }}
-                      mt={2}
-                    />
-                  </Box>
-                  <VStack 
-                    align="start"
-                    spacing={{ base: 1, md: 3 }}
-                    w="full"
-                  >
-                    <Link href="/getting-started">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Getting Started
-                      </Text>
-                    </Link>
-
-                    <Link href="/developerApi">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        API Reference
-                      </Text>
-                    </Link>
-
-                    <Link href="/agent-kit-cli#github-protocol">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        GitHub Protocol
-                      </Text>
-                    </Link>
-
-                    <Link href="/agent-kit-cli#agentkit-cli">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Agentkit CLI
-                      </Text>
-                    </Link>
-                    
-                  </VStack>
-                </VStack>
-              </GridItem>
-
-              {/* Company Section */}
-              <GridItem>
-                <VStack align="start" spacing={{ base: 5, md: 4 }}>
-                  <Box w="full" pb={{ base: 2, md: 0 }}>
-                    <Text 
-                      fontSize={{ base: "md", md: "sm" }}
-                      fontWeight="600" 
-                      color="black"
-                      textTransform="uppercase" 
-                      letterSpacing="0.5px"
-                      textAlign="left"
-                      mb={{ base: 1, md: 0 }}
-                    >
-                      Company
-                    </Text>
-                    <Box 
-                      w="40px" 
-                      h="2px" 
-                      bg="black" 
-                      display={{ base: "block", md: "none" }}
-                      mt={2}
-                    />
-                  </Box>
-                  <VStack 
-                    align="start"
-                    spacing={{ base: 1, md: 3 }}
-                    w="full"
-                  >
-                    <Link href="/about">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        About
-                      </Text>
-                    </Link>
-
-                    <Text
-                      fontSize={{ base: "sm", md: "sm" }}
-                      fontWeight="400"
-                      color="gray.600"
-                      _hover={{ color: "black", transform: "translateX(4px)" }}
-                      transition="all 0.2s ease"
-                      cursor="pointer"
-                      onClick={()=>{
-                        router.push('/contact-us')
-                      }}
-                      textAlign="left"
-                      py={{ base: 1, md: 0 }}
-                      display="block"
-                      w="full"
-                    >
-                      Contact
-                    </Text>
-
-                    <Link href="/career">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Careers
-                      </Text>
-                    </Link>
-
-                    <Link href="/hushhBlogs">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Blogs
-                      </Text>
-                    </Link>
-
-                    <ChakraLink 
-                      href="https://github.com/hushh-labs/consent-protocol/blob/main/docs/faq.md"
-                      fontSize={{ base: "sm", md: "sm" }}
-                      fontWeight="400"
-                      color="gray.600"
-                      _hover={{ color: "black", transform: "translateX(4px)" }}
-                      transition="all 0.2s ease"
-                      isExternal
-                      textAlign="left"
-                      py={{ base: 1, md: 0 }}
-                      display="block"
-                      w="full"
-                    >
-                      FAQ
-                    </ChakraLink>
-                    
-                  </VStack>
-                </VStack>
-              </GridItem>
-
-               {/* Community Section */}
-               <GridItem>
-                <VStack align="start" spacing={{ base: 5, md: 4 }}>
-                  <Box w="full" pb={{ base: 2, md: 0 }}>
-                    <Text 
-                      fontSize={{ base: "md", md: "sm" }}
-                      fontWeight="600" 
-                      color="black"
-                      textTransform="uppercase" 
-                      letterSpacing="0.5px"
-                      textAlign="left"
-                      mb={{ base: 1, md: 0 }}
-                    >
-                      Community
-                    </Text>
-                    <Box 
-                      w="40px" 
-                      h="2px" 
-                      bg="black" 
-                      display={{ base: "block", md: "none" }}
-                      mt={2}
-                    />
-                  </Box>
-                  <VStack 
-                    align="start"
-                    spacing={{ base: 1, md: 3 }}
-                    w="full"
-                  >
-                    <Link href="/hushh-community">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Agent Builders Club
-                      </Text>
-                    </Link>
-
-                    <Link href="/labs">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Hushh Labs
-                      </Text>
-                    </Link>
-
-                    <Link href="/solutions">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                       Solutions
-                      </Text>
-                    </Link>
-
-                    <Link href="/pda/iithackathon">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Hackathons
-                      </Text>
-                    </Link>
-
-                    <Link href="/why-hushh">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                       Our Philosophy
-                      </Text>
-                    </Link>
-
-                    <Link href="/consent-ai-protocol">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Consent Protocol
-                      </Text>
-                    </Link>
-                    
-                  </VStack>
-                </VStack>
-              </GridItem>
-
-              {/* Support & Download Section */}
-              <GridItem>
-                <VStack align="start" spacing={{ base: 5, md: 4 }}>
-                  <Box w="full" pb={{ base: 2, md: 0 }}>
-                    <Text 
-                      fontSize={{ base: "md", md: "sm" }}
-                      fontWeight="600" 
-                      color="black"
-                      textTransform="uppercase" 
-                      letterSpacing="0.5px"
-                      textAlign="left"
-                      mb={{ base: 1, md: 0 }}
-                    >
-                      Support
-                    </Text>
-                    <Box 
-                      w="40px" 
-                      h="2px" 
-                      bg="black" 
-                      display={{ base: "block", md: "none" }}
-                      mt={2}
-                    />
-                  </Box>
-                  <VStack 
-                    align="start"
-                    spacing={{ base: 1, md: 3 }}
-                    w="full"
-                  >
-                    <Link href="/demoBookingPage">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Live Demo
-                      </Text>
-                    </Link>
-
-                    <Link href="https://www.linkedin.com/company/hushh-ai/" target="_blank">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                        Linkedin
-                      </Text>
-                    </Link>
-
-                    <Link href="https://x.com/hushh_ai" target="_blank">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                       X (Twitter)
-                      </Text>
-                    </Link>
-
-                    <Link href="https://github.com/hushh-labs" target="_blank">
-                      <Text 
-                        fontSize={{ base: "sm", md: "sm" }}
-                        fontWeight="400" 
-                        color="gray.600" 
-                        _hover={{ color: "black", transform: "translateX(4px)" }} 
-                        transition="all 0.2s ease"
-                        textAlign="left"
-                        py={{ base: 1, md: 0 }}
-                        display="block"
-                        w="full"
-                      >
-                       Github
-                      </Text>
-                    </Link>
-
-                    <Button
-                      onClick={() => window.open("https://apps.apple.com/in/app/hushh-app/id6498471189", '_blank')}
-                      size={{ base: "md", md: "sm" }}
-                      bg="black"
-                      color="white"
-                      borderRadius="lg"
-                      px={{ base: 6, md: 4 }}
-                      py={{ base: 3, md: 2 }}
-                      fontSize={{ base: "sm", md: "xs" }}
-                      fontWeight="500"
-                      _hover={{
-                        bg: "gray.800",
-                        transform: "translateY(-1px)",
-                        shadow: "md"
-                      }}
-                      _active={{
-                        bg: "gray.900",
-                        transform: "translateY(0)"
-                      }}
-                      transition="all 0.2s ease"
-                      minW={{ base: "160px", md: "120px" }}
-                      w={{ base: "100%", sm: "auto", md: "auto" }}
-                      maxW={{ base: "200px", md: "none" }}
-                      mt={2}
-                    >
-                      Download App
-                    </Button>
-                    
-                  </VStack>
-                </VStack>
-              </GridItem>
-            </Grid>
-
-            {/* Mobile Company Info */}
-            <Box display={{ base: "block", lg: "none" }} mt={{ base: 16, md: 12 }} pt={{ base: 10, md: 8 }} borderTop="2px solid" borderColor="gray.100">
-              <VStack spacing={{ base: 8, md: 6 }} textAlign="left" align="start">
-                <VStack spacing={4} align="start" w="full">
-                  <Box>
-                    <Text
-                      fontSize="md"
-                      fontWeight="600"
-                      color="black"
-                      textTransform="uppercase"
-                      letterSpacing="0.5px"
-                      mb={2}
-                    >
-                      Contact
-                    </Text>
-                    <Box w="40px" h="2px" bg="black" />
-                  </Box>
-                  
-                  <Heading
-                    as="h3"
-                    fontSize={{ base: "lg", md: "xl" }}
-                    fontWeight="600"
-                    color="black"
-                    lineHeight={1.4}
-                    textAlign="left"
-                  >
-                    Future of Digital Identity & Personalised Experiences
-                  </Heading>
-                  <Text fontSize="sm" color="gray.500" fontWeight="400" textAlign="left">
-                    Manish Sainani, 2025
-                  </Text>
-                </VStack>
-                
-                <VStack spacing={4} align="start" w="full">
-                  <ChakraLink 
-                    href="tel:(888) 462-1726" 
-                    fontSize="sm"
-                    fontWeight="400"
-                    color="gray.600"
-                    _hover={{ color: "black", transform: "translateX(4px)" }}
-                    transition="all 0.2s ease"
-                    py={1}
-                    display="block"
-                  >
-                    📞 (888) 462-1726
-                  </ChakraLink>
-                  <ChakraLink 
-                    href="mailto:sales@hushh.ai" 
-                    fontSize="sm"
-                    fontWeight="400"
-                    color="gray.600"
-                    _hover={{ color: "black", transform: "translateX(4px)" }}
-                    transition="all 0.2s ease"
-                    py={1}
-                    display="block"
-                  >
-                    ✉️ sales@hushh.ai
-                  </ChakraLink>
-                </VStack>
-              </VStack>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-
-      {/* Footer Bottom */}
-      <Box bg="gray.50" w="100%" m={0} p={0}>
-        <Box py={{ base: 8, md: 6 }} px={{ base: 8, md: 8 }}>
-          <Box maxW="1200px" mx="auto">
-            <Flex
-              direction={{ base: "column", md: "row" }}
-              justify="space-between"
-              align={{ base: "start", md: "center" }}
-              gap={{ base: 6, md: 4 }}
-            >
-              <VStack spacing={1} align={{ base: "start", md: "flex-start" }}>
-                <Text fontSize={{ base: "sm", md: "xs" }} color="gray.500" fontWeight="400">
-                  © 2026 HushOne Inc. All rights reserved.
-                </Text>
-              </VStack>
-              
-              <Flex
-                direction={{ base: "column", md: "row" }}
-                align={{ base: "start", md: "center" }}
-                gap={{ base: 3, md: 4 }}
-                w={{ base: "full", md: "auto" }}
-                flexWrap="nowrap"
-              >
-                <Link href="/legal/termsofuse">
-                  <Text 
-                    fontSize={{ base: "sm", md: "xs" }}
-                    color="gray.500" 
-                    _hover={{ color: "black", transform: "translateX(2px)" }} 
-                    transition="all 0.2s ease"
-                    fontWeight="400"
-                    py={{ base: 1, md: 0 }}
-                    whiteSpace="nowrap"
-                  >
-                    Terms of Service
-                  </Text>
+              <div className="mt-4 flex flex-wrap items-center gap-x-1 gap-y-2 text-left text-[11px] leading-relaxed text-[#86868B]">
+                <Link href="/legal/termsofuse" className="transition-colors hover:text-[#3b82f6]">
+                  Terms of Service
                 </Link>
-                <Text fontSize={{ base: "sm", md: "xs" }} color="gray.400" fontWeight="400" display={{ base: "none", md: "block" }}>
-                  |
-                </Text>
-                <Link href="/legal/privacypolicy">
-                  <Text 
-                    fontSize={{ base: "sm", md: "xs" }}
-                    color="gray.500" 
-                    _hover={{ color: "black", transform: "translateX(2px)" }} 
-                    transition="all 0.2s ease"
-                    fontWeight="400"
-                    py={{ base: 1, md: 0 }}
-                    whiteSpace="nowrap"
-                  >
-                    Privacy Policy
-                  </Text>
+                <span className="px-2 text-gray-300">|</span>
+                <Link href="/legal/privacypolicy" className="transition-colors hover:text-[#3b82f6]">
+                  Privacy Policy
                 </Link>
-                <Text fontSize={{ base: "sm", md: "xs" }} color="gray.400" fontWeight="400" display={{ base: "none", md: "block" }}>
-                  |
-                </Text>
-                <Text fontSize={{ base: "sm", md: "xs" }} color="gray.400" fontWeight="400" whiteSpace="nowrap">
-                  Duns # 119019629
-                </Text>
-              </Flex>
-            </Flex>
-          </Box>
-        </Box>
-      </Box>
-
-      <DownloadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-    </>
+                <span className="px-2 text-gray-300">|</span>
+                <span>Duns # 119019629</span>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </main>
+    </div>
   );
 };
 

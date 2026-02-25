@@ -123,13 +123,14 @@ const ContactForm = () => {
 
       <section id="get-in-touch" className="border-b border-slate-200 bg-white">
         <div className="mx-auto w-full max-w-6xl px-4">
-          <div className="relative mx-auto flex w-full max-w-[390px] min-h-[844px] flex-col overflow-hidden bg-white">
+          <div className="relative mx-auto flex w-full max-w-[390px] min-h-[844px] flex-col overflow-hidden bg-white md:max-w-3xl md:min-h-0 lg:max-w-5xl lg:rounded-[28px] lg:border lg:border-slate-100 lg:shadow-[0_16px_50px_-34px_rgba(15,23,42,0.35)]">
             <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/2 rounded-full bg-[#0056D2]/5 blur-[100px]" />
             <div className="pointer-events-none absolute left-0 top-[30%] h-72 w-72 -translate-x-1/3 rounded-full bg-[#D42880]/5 blur-[80px]" />
             <div className="pointer-events-none absolute bottom-0 right-0 h-80 w-80 translate-x-1/4 translate-y-1/4 rounded-full bg-emerald-100/30 blur-[90px]" />
 
-            <main className="z-10 flex h-full flex-1 flex-col px-[20px] pb-[34px] pt-[48px]">
-              <header className="mb-8 text-center">
+            <main className="z-10 flex h-full flex-1 flex-col px-[20px] pb-[34px] pt-[48px] md:px-10 md:pb-12 md:pt-14 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:gap-8">
+              <div>
+              <header className="mb-8 text-center lg:text-left">
                 <h2 className="mb-4 text-[32px] font-bold tracking-tight text-black">
                   Get in{" "}
                   <span className="gradient-text relative inline-block">
@@ -143,7 +144,7 @@ const ContactForm = () => {
                 </p>
               </header>
 
-              <div className="mb-8 space-y-4">
+              <div className="mb-8 space-y-4 lg:mb-0">
                 <a
                   href="https://wa.me/14256441447?text=Hi%20Hushh"
                   target="_blank"
@@ -164,8 +165,9 @@ const ContactForm = () => {
                   Schedule Meeting
                 </a>
               </div>
+              </div>
 
-              <div className="liquid-pane relative mb-6 flex flex-1 flex-col items-center p-6 text-center">
+              <div className="liquid-pane relative mb-6 flex flex-1 flex-col items-center p-6 text-center lg:mb-0 lg:h-full">
                 <div className="absolute left-0 top-0 h-1 w-full rounded-t-[24px] bg-gradient-to-r from-[#0056D2] via-[#25D366] to-[#D42880] opacity-80" />
 
                 <div className="mb-3 mt-2 flex items-center gap-2">
@@ -225,8 +227,8 @@ const ContactForm = () => {
 
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto w-full max-w-6xl px-4">
-          <div className="mx-auto w-full max-w-[390px] min-h-[844px] bg-white">
-            <main className="flex h-full flex-1 flex-col overflow-y-auto px-[20px] pb-[34px] pt-[48px]">
+          <div className="mx-auto w-full max-w-[390px] min-h-[844px] bg-white md:max-w-3xl md:min-h-0 lg:max-w-5xl lg:rounded-[28px] lg:border lg:border-slate-100 lg:shadow-[0_16px_50px_-34px_rgba(15,23,42,0.35)]">
+            <main className="flex h-full flex-1 flex-col overflow-y-auto px-[20px] pb-[34px] pt-[48px] md:px-10 md:pb-12 md:pt-14">
               <header className="mb-8 text-center">
                 <h2 className="mb-4 text-[32px] font-bold tracking-tight text-black">Contact Form</h2>
                 <p className="mx-auto max-w-[330px] text-[16.3px] font-medium leading-[1.4] text-[#86868B]">
@@ -234,8 +236,8 @@ const ContactForm = () => {
                 </p>
               </header>
 
-              <form className="flex flex-1 flex-col space-y-5 pb-8" onSubmit={(event) => event.preventDefault()}>
-                <div className="space-y-2">
+              <form className="grid flex-1 grid-cols-1 gap-5 pb-8 md:grid-cols-2" onSubmit={(event) => event.preventDefault()}>
+                <div className="space-y-2 md:col-span-1">
                   <label htmlFor="fullName" className="block text-sm font-bold text-black">
                     Full Name <span className="text-red-500">*</span>
                   </label>
@@ -247,7 +249,7 @@ const ContactForm = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 md:col-span-1">
                   <label htmlFor="emailAddress" className="block text-sm font-bold text-black">
                     Email Address <span className="text-red-500">*</span>
                   </label>
@@ -259,7 +261,7 @@ const ContactForm = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 md:col-span-1">
                   <label htmlFor="company" className="block text-sm font-bold text-black">
                     Company / Organization
                   </label>
@@ -271,7 +273,7 @@ const ContactForm = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 md:col-span-1">
                   <label htmlFor="phone" className="block text-sm font-bold text-black">
                     Phone Number
                   </label>
@@ -283,7 +285,7 @@ const ContactForm = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 md:col-span-1">
                   <label htmlFor="department" className="block text-sm font-bold text-black">
                     Department
                   </label>
@@ -304,7 +306,7 @@ const ContactForm = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 md:col-span-1">
                   <label htmlFor="preferredContact" className="block text-sm font-bold text-black">
                     Preferred Contact
                   </label>
@@ -324,7 +326,7 @@ const ContactForm = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 md:col-span-2">
                   <label htmlFor="subject" className="block text-sm font-bold text-black">
                     Subject
                   </label>
@@ -336,7 +338,7 @@ const ContactForm = () => {
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 md:col-span-2">
                   <label htmlFor="message" className="block text-sm font-bold text-black">
                     Message <span className="text-red-500">*</span>
                   </label>
@@ -347,7 +349,7 @@ const ContactForm = () => {
                   />
                 </div>
 
-                <div className="pt-6">
+                <div className="pt-6 md:col-span-2">
                   <button
                     type="submit"
                     className="flex h-[56px] w-full items-center justify-center gap-2.5 rounded-full bg-[#0071E3] text-[17px] font-semibold text-white shadow-lg shadow-blue-500/25 transition-all active:scale-[0.98] hover:bg-blue-600"
@@ -364,14 +366,14 @@ const ContactForm = () => {
 
       <section className="bg-white">
         <div className="mx-auto w-full max-w-6xl px-4">
-          <div className="mx-auto w-full max-w-[390px] min-h-[844px] bg-white px-6">
-            <header className="mb-10 pt-[48px]">
+          <div className="mx-auto w-full max-w-[390px] min-h-[844px] bg-white px-6 md:max-w-3xl md:min-h-0 md:px-10 lg:max-w-5xl lg:rounded-[28px] lg:border lg:border-slate-100 lg:shadow-[0_16px_50px_-34px_rgba(15,23,42,0.35)]">
+            <header className="mb-10 pt-[48px] md:pt-[56px]">
               <h2 className="text-center text-3xl font-extrabold leading-tight tracking-tight text-black">
                 Contact Information
               </h2>
             </header>
 
-            <main className="space-y-6 pb-12">
+            <main className="grid grid-cols-1 gap-6 pb-12 lg:grid-cols-2">
               <div className="liquid-glass p-6 transition-transform duration-300 hover:scale-[1.01]">
                 <h3 className="mb-4 text-lg font-bold text-gray-900">Global Headquarters</h3>
                 <div className="space-y-4">
@@ -465,7 +467,7 @@ const ContactForm = () => {
                 </div>
               </div>
 
-              <div className="pb-10 pt-8">
+              <div className="pb-10 pt-8 lg:pt-0">
                 <h3 className="mb-6 pl-1 text-xl font-bold text-gray-900">Connect With Us</h3>
                 <div className="space-y-6 px-1">
                   {socialLinks.map((item) => {
@@ -487,7 +489,7 @@ const ContactForm = () => {
                 </div>
               </div>
 
-              <div className="liquid-glass mt-16 p-6">
+              <div className="liquid-glass mt-16 p-6 lg:col-span-2 lg:mt-2">
                 <h3 className="mb-2 text-xl font-bold text-black">Schedule a Meeting</h3>
                 <p className="mb-6 text-[16.3px] font-medium leading-snug text-gray-500">
                   Book a one-on-one consultation with our team to discuss your specific needs and explore how Hushh can
