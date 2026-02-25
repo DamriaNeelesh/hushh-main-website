@@ -397,8 +397,8 @@ const ContactForm = () => {
                     <div className="rounded-lg bg-blue-50 p-2 text-[#2563eb]">
                       <MdEmail className="text-xl" />
                     </div>
-                    <a href="mailto:hello@hushh.ai" className="text-[15px] font-semibold text-[#2563eb] hover:underline">
-                      hello@hushh.ai
+                    <a href="mailto:eng@hush1one.com" className="text-[15px] font-semibold text-[#2563eb] hover:underline">
+                      eng@hush1one.com
                     </a>
                   </div>
                 </div>
