@@ -1,1619 +1,517 @@
-'use client'
-import React, { useState, useRef, useEffect } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  VStack,
-  HStack,
-  Heading,
-  Text,
-  Grid,
-  GridItem,
-  useToast,
-  Select,
-  Link as ChakraLink,
-  Container,
-  Icon,
-  Flex,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  IconButton,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  Divider,
-  Badge,
-  SimpleGrid,
-  Tooltip,
-  Progress,
-  useColorModeValue,
-  Center,
-  Image,
-} from "@chakra-ui/react";
-import { 
-  FiMail, 
-  FiPhone, 
-  FiMapPin, 
-  FiClock, 
-  FiMic, 
-  FiMicOff, 
-  FiUpload, 
-  FiCalendar, 
-  FiMessageCircle,
-  FiInstagram,
-  FiLinkedin,
-  FiTwitter,
-  FiYoutube,
-  FiGithub,
-  FiVideo,
-  FiPlayCircle,
-  FiStopCircle,
-  FiTrash2,
-  FiDownload,
-  FiExternalLink,
-  FiGlobe,
-  FiBuilding,
-  FiUsers,
-  FiSend,
-  FiFile,
-  FiX
-} from "react-icons/fi";
-import { FaWhatsapp, FaLinkedin, FaTwitter, FaInstagram, FaYoutube, FaGithub } from "react-icons/fa";
-import { motion } from "framer-motion";
-import FooterComponent from "./FooterComponent";
+"use client";
 
-const MotionBox = motion(Box);
+import React from "react";
+import { FaGithub, FaInstagram, FaLinkedinIn, FaTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa";
+import {
+  MdBusiness,
+  MdCalendarToday,
+  MdEmail,
+  MdExpandMore,
+  MdLocationOn,
+  MdLock,
+  MdMic,
+  MdOpenInNew,
+  MdPhone,
+  MdPhoneInTalk,
+  MdSchedule,
+  MdSend,
+  MdUploadFile,
+  MdVideocam,
+} from "react-icons/md";
+
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    description: "Follow us on LinkedIn",
+    href: "https://www.linkedin.com/company/hushh-ai/",
+    bg: "bg-[#0077b5]/10",
+    color: "text-[#0077b5]",
+    icon: FaLinkedinIn,
+  },
+  {
+    label: "Twitter",
+    description: "Follow us on Twitter",
+    href: "https://twitter.com/hushh_ai",
+    bg: "bg-[#1DA1F2]/10",
+    color: "text-[#1DA1F2]",
+    icon: FaTwitter,
+  },
+  {
+    label: "Instagram",
+    description: "Follow us on Instagram",
+    href: "https://instagram.com/hushh.ai",
+    bg: "bg-[#E1306C]/10",
+    color: "text-[#E1306C]",
+    icon: FaInstagram,
+  },
+  {
+    label: "YouTube",
+    description: "Follow us on YouTube",
+    href: "https://youtube.com/@hushhAI",
+    bg: "bg-[#FF0000]/10",
+    color: "text-[#FF0000]",
+    icon: FaYoutube,
+  },
+  {
+    label: "GitHub",
+    description: "Follow us on GitHub",
+    href: "https://github.com/hushh-labs",
+    bg: "bg-[#181717]/10",
+    color: "text-[#181717]",
+    icon: FaGithub,
+  },
+];
 
 const ContactForm = () => {
-  const toast = useToast();
-  const fileInputRef = useRef(null);
-  const mediaRecorderRef = useRef(null);
-  const videoRef = useRef(null);
-  const audioChunksRef = useRef([]);
-  const { isOpen: isVoiceModalOpen, onOpen: onVoiceModalOpen, onClose: onVoiceModalClose } = useDisclosure();
-  const { isOpen: isVideoModalOpen, onOpen: onVideoModalOpen, onClose: onVideoModalClose } = useDisclosure();
-
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    subject: '',
-    message: '',
-    preferredContact: 'email',
-    department: 'Sales'
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [isRecording, setIsRecording] = useState(false);
-  const [recordedAudio, setRecordedAudio] = useState(null);
-  const [recordedVideo, setRecordedVideo] = useState(null);
-  const [recordingDuration, setRecordingDuration] = useState(0);
-  const [isVideoRecording, setIsVideoRecording] = useState(false);
-  const [showCalendly, setShowCalendly] = useState(false);
-
-  // Company contact information
-  const companyInfo = {
-    headquarters: {
-      title: "Global Headquarters",
-      address: "1021 5th St W, Kirkland, WA 98033, United States",
-      phone: "+1 (888) 462-1726",
-      email: "hello@hushh.ai"
-    },
-    corporate: {
-      title: "Corporate Office",
-      address: "Innovation District, San Francisco, CA 94105, United States",
-      phone: "+1 (555) 123-4567",
-      email: "corporate@hushh.ai"
-    },
-    support: {
-      title: "Customer Support",
-      phone: "+1 (765) 532-4284",
-      email: "support@hushh.ai",
-      whatsapp: "+1 (765) 532-4284",
-      hours: "24/7 Support Available"
-    }
-  };
-
-  const socialLinks = [
-    { icon: FaLinkedin, url: "https://www.linkedin.com/company/hushh-ai/", label: "LinkedIn", color: "#0077B5" },
-    { icon: FaTwitter, url: "https://twitter.com/hushh_ai", label: "Twitter", color: "#1DA1F2" },
-    { icon: FaInstagram, url: "https://instagram.com/hushh.ai", label: "Instagram", color: "#E4405F" },
-    { icon: FaYoutube, url: "https://youtube.com/@hushhAI", label: "YouTube", color: "#FF0000" },
-    { icon: FaGithub, url: "https://github.com/hushh-labs", label: "GitHub", color: "#333333" }
-  ];
-
-  useEffect(() => {
-    let interval;
-    if (isRecording || isVideoRecording) {
-      interval = setInterval(() => {
-        setRecordingDuration(prev => prev + 1);
-      }, 1000);
-    } else {
-      setRecordingDuration(0);
-    }
-    return () => clearInterval(interval);
-  }, [isRecording, isVideoRecording]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleFileUpload = (event) => {
-    const files = Array.from(event.target.files);
-    const validFiles = files.filter(file => {
-      const isValidType = file.type.startsWith('audio/') || 
-                         file.type.startsWith('video/') || 
-                         file.type.startsWith('image/') ||
-                         file.type === 'application/pdf';
-      const isValidSize = file.size <= 50 * 1024 * 1024; // 50MB limit
-      return isValidType && isValidSize;
-    });
-
-    if (validFiles.length !== files.length) {
-      toast({
-        title: "Invalid files detected",
-        description: "Please upload only audio, video, image, or PDF files under 50MB.",
-        status: "warning",
-        duration: 4000,
-        isClosable: true,
-      });
-    }
-
-    setUploadedFiles(prev => [...prev, ...validFiles]);
-  };
-
-  const removeFile = (index) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
-  };
-
-  const startVoiceRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream);
-      audioChunksRef.current = [];
-
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        audioChunksRef.current.push(event.data);
-      };
-
-      mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-        const audioFile = new File([audioBlob], `voice-note-${Date.now()}.wav`, { type: 'audio/wav' });
-        setRecordedAudio(audioFile);
-        setUploadedFiles(prev => [...prev, audioFile]);
-        stream.getTracks().forEach(track => track.stop());
-      };
-
-      mediaRecorderRef.current.start();
-      setIsRecording(true);
-    } catch (error) {
-      toast({
-        title: "Microphone access denied",
-        description: "Please allow microphone access to record voice notes.",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
-    }
-  };
-
-  const stopVoiceRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-      onVoiceModalClose();
-    }
-  };
-
-  const startVideoRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ 
-        video: { width: 1280, height: 720 }, 
-        audio: true 
-      });
-      
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-
-      mediaRecorderRef.current = new MediaRecorder(stream);
-      audioChunksRef.current = [];
-
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        audioChunksRef.current.push(event.data);
-      };
-
-      mediaRecorderRef.current.onstop = () => {
-        const videoBlob = new Blob(audioChunksRef.current, { type: 'video/webm' });
-        const videoFile = new File([videoBlob], `video-message-${Date.now()}.webm`, { type: 'video/webm' });
-        setRecordedVideo(videoFile);
-        setUploadedFiles(prev => [...prev, videoFile]);
-        stream.getTracks().forEach(track => track.stop());
-        if (videoRef.current) {
-          videoRef.current.srcObject = null;
-        }
-      };
-
-      mediaRecorderRef.current.start();
-      setIsVideoRecording(true);
-    } catch (error) {
-      toast({
-        title: "Camera access denied",
-        description: "Please allow camera and microphone access to record video messages.",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
-    }
-  };
-
-  const stopVideoRecording = () => {
-    if (mediaRecorderRef.current && isVideoRecording) {
-      mediaRecorderRef.current.stop();
-      setIsVideoRecording(false);
-      onVideoModalClose();
-    }
-  };
-
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const openWhatsApp = () => {
-    const phone = companyInfo.support.whatsapp.replace(/\D/g, '');
-    const message = encodeURIComponent(`Hi! I'm interested in learning more about Hushh. Can you help me?`);
-    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-  };
-
-  const openCalendly = () => {
-    // Replace with your actual Calendly link
-    window.open('https://calendly.com/hushh/30min', '_blank');
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      toast({
-        title: "Please fix the errors",
-        description: "Please fill in all required fields correctly.",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      // Create FormData matching backend API exactly
-      const submitData = new FormData();
-      
-      // Add text fields that match backend API
-      submitData.append('full_name', formData.name);
-      submitData.append('email', formData.email);
-      submitData.append('company', formData.company || '');
-      submitData.append('phone', formData.phone || '');
-      submitData.append('department', formData.department);
-      submitData.append('preferred_contact', formData.preferredContact);
-      submitData.append('subject', formData.subject || 'General Inquiry');
-      submitData.append('message', formData.message);
-      
-      // Categorize and add files based on type
-      uploadedFiles.forEach((file) => {
-        const fileType = file.type.toLowerCase();
-        const fileName = file.name.toLowerCase();
-        
-        if (fileType.startsWith('audio/') || fileName.includes('voice') || fileName.includes('audio')) {
-          // Voice recordings go to voice_note field
-          submitData.append('voice_note', file);
-        } else if (fileType.startsWith('video/') || fileName.includes('video')) {
-          // Video recordings go to video_message field
-          submitData.append('video_message', file);
-        } else {
-          // All other files (documents, images, etc.) go to file_upload
-          submitData.append('file_upload', file);
-        }
-      });
-
-      // Debug: Log FormData contents (you can remove this in production)
-      console.log('📤 Sending FormData to API:');
-      for (let [key, value] of submitData.entries()) {
-        if (value instanceof File) {
-          console.log(`${key}:`, `File(${value.name}, ${value.type}, ${(value.size/1024/1024).toFixed(2)}MB)`);
-        } else {
-          console.log(`${key}:`, value);
-        }
-      }
-
-      // Send FormData (not JSON) to backend
-      const response = await fetch('https://hushh-api-53407187172.us-central1.run.app/send-email', {
-        method: 'POST',
-        headers: {
-          // Don't set Content-Type - let browser set it with boundary for multipart/form-data
-          'accept': 'application/json',
-        },
-        body: submitData // Send FormData directly
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-      }
-
-      const result = await response.json();
-      
-      toast({
-        title: "Message sent successfully! 🎉",
-        description: `We'll get back to you as soon as possible. ${uploadedFiles.length > 0 ? `${uploadedFiles.length} file(s) attached.` : ''} Check your email for confirmation.`,
-        status: "success",
-        duration: 6000,
-        isClosable: true,
-      });
-
-      // Reset form and clear all files
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        subject: '',
-        message: '',
-        preferredContact: 'email',
-        department: 'Sales'
-      });
-      setUploadedFiles([]);
-      setRecordedAudio(null);
-      setRecordedVideo(null);
-
-    } catch (error) {
-      console.error('Error sending email:', error);
-      toast({
-        title: "Failed to send message",
-        description: error.message.includes('413') ? 
-          "Files too large. Please reduce file size and try again." :
-          "Please try again later or contact us directly via WhatsApp.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const bgGradient = useColorModeValue(
-    "white",
-    "gray.900"
-  );
-
   return (
-    <>
-    <Box bg={bgGradient} w="100%" py={{ base: 16, md: 24 }} minH="100vh">
-      <Container maxW="7xl" px={{ base: 4, md: 8 }}>
-        {/* Header Section */}
-        <MotionBox
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          textAlign="center"
-          mb={{ base: 12, md: 16 }}
-        >
-          <Heading
-            as="h1"
-            size={{ base: "xl", md: "2xl" }}
-            fontWeight="600"
-            color="#1d1d1f"
-            letterSpacing="-0.015em"
-            fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif"
-            mb={4}
-          >
-            Get in Touch
-          </Heading>
-          <Text
-            fontSize={{ base: "lg", md: "xl" }}
-            color="#86868b"
-            maxW="2xl"
-            mx="auto"
-            lineHeight={1.4}
-            fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif"
-          >
-            Ready to take control of your data? Let's start a conversation about how Hushh can empower your digital journey.
-          </Text>
+    <div className="bg-white">
+      <style jsx>{`
+        .gradient-text {
+          background: linear-gradient(90deg, #0056d2 0%, #d42880 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: transparent;
+        }
 
-          {/* Quick Action Buttons */}
-          <HStack 
-            spacing={4} 
-            justify="center" 
-            mt={8}
-            flexWrap="wrap"
-            gap={4}
-          >
-            <Button
-              leftIcon={<FaWhatsapp />}
-              bg="#25D366"
-              color="white"
-              onClick={openWhatsApp}
-              borderRadius="12px"
-              size="lg"
-              fontWeight="500"
-              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-              px={8}
-              _hover={{ 
-                bg: "#128C7E",
-                transform: "translateY(-1px)",
-                boxShadow: "0 10px 25px rgba(37, 211, 102, 0.3)"
-              }}
-              transition="all 0.2s ease"
-              border="none"
-            >
-              WhatsApp Chat
-            </Button>
-            <Button
-              leftIcon={<FiCalendar />}
-              bg="white"
-              color="#007AFF"
-              border="1px solid"
-              borderColor="#007AFF"
-              onClick={openCalendly}
-              borderRadius="12px"
-              size="lg"
-              fontWeight="500"
-              fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-              px={8}
-              _hover={{ 
-                bg: "#007AFF",
-                color: "white",
-                transform: "translateY(-1px)",
-                boxShadow: "0 10px 25px rgba(0, 122, 255, 0.3)"
-              }}
-              transition="all 0.2s ease"
-            >
-              Schedule Meeting
-            </Button>
-          </HStack>
-        </MotionBox>
+        .glass-shine {
+          position: relative;
+          overflow: hidden;
+        }
 
-        {/* 🎯 TOP PRIORITY: Voice & Video Messaging Section */}
-        <MotionBox
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          mb={{ base: 12, md: 16 }}
-        >
-          <Box
-            bg="white"
-            p={{ base: 8, md: 12 }}
-            borderRadius="24px"
-            boxShadow="0 20px 60px rgba(0, 0, 0, 0.08)"
-            border="1px solid"
-            borderColor="#f5f5f7"
-            position="relative"
-            overflow="hidden"
-          >
-            {/* Gradient accent */}
-            <Box
-              position="absolute"
-              top={0}
-              left={0}
-              right={0}
-              h="4px"
-              bgGradient="linear(to-r, #007AFF, #34C759, #5856D6)"
-            />
-            
-            <VStack spacing={8} textAlign="center">
-              <Box>
-                <Heading 
-                  as="h2"
-                  size={{ base: "lg", md: "xl" }}
-                  color="#1d1d1f"
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
-                  fontWeight="600"
-                  letterSpacing="-0.015em"
-                  mb={4}
-                >
-                  🎙️ Express Yourself Your Way
-                </Heading>
-                <Text 
-                  fontSize={{ base: "md", md: "lg" }}
-                  color="#86868b"
-                  maxW="4xl"
-                  mx="auto"
-                  lineHeight={1.5}
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                >
-                  Skip the typing. Record a quick voice note, send a video message, or upload files directly. 
-                  Choose the most natural way to communicate with our team.
-                </Text>
-              </Box>
-              
-              {/* Featured Action Buttons */}
-              <HStack 
-                spacing={{ base: 4, md: 6 }} 
-                justify="center" 
-                flexWrap="wrap"
-                gap={4}
-              >
-                <Button
-                  leftIcon={<FiMic />}
-                  onClick={onVoiceModalOpen}
-                  bg="#007AFF"
-                  color="white"
-                  borderRadius="16px"
-                  size="lg"
-                  fontWeight="500"
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                  px={8}
-                  h="56px"
-                  fontSize="md"
-                  _hover={{ 
-                    bg: "#0051D5",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 15px 35px rgba(0, 122, 255, 0.4)"
-                  }}
-                  transition="all 0.3s ease"
-                  border="none"
-                >
-                  🎤 Record Voice Note
-                </Button>
-                
-                <Button
-                  leftIcon={<FiVideo />}
-                  onClick={onVideoModalOpen}
-                  bg="white"
-                  color="#5856D6"
-                  border="2px solid"
-                  borderColor="#5856D6"
-                  borderRadius="16px"
-                  size="lg"
-                  fontWeight="500"
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                  px={8}
-                  h="56px"
-                  fontSize="md"
-                  _hover={{ 
-                    bg: "#5856D6",
-                    color: "white",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 15px 35px rgba(88, 86, 214, 0.4)"
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  📹 Record Video Message
-                </Button>
-                
-                <Button
-                  leftIcon={<FiUpload />}
-                  onClick={() => fileInputRef.current?.click()}
-                  bg="white"
-                  color="#34C759"
-                  border="2px solid"
-                  borderColor="#34C759"
-                  borderRadius="16px"
-                  size="lg"
-                  fontWeight="500"
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                  px={8}
-                  h="56px"
-                  fontSize="md"
-                  _hover={{ 
-                    bg: "#34C759",
-                    color: "white",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 15px 35px rgba(52, 199, 89, 0.4)"
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  📎 Upload Files
-                </Button>
-              </HStack>
+        .glass-shine::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: 0.5s;
+        }
 
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileUpload}
-                multiple
-                accept="audio/*,video/*,image/*,.pdf"
-                style={{ display: 'none' }}
-              />
-              
-              {/* Feature highlights */}
-              <HStack 
-                spacing={8} 
-                justify="center" 
-                flexWrap="wrap"
-                fontSize="sm"
-                color="#86868b"
-                fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-              >
-                <HStack spacing={2}>
-                  <Icon as={FiMic} color="#007AFF" />
-                  <Text>HD Audio Recording</Text>
-                </HStack>
-                <HStack spacing={2}>
-                  <Icon as={FiVideo} color="#5856D6" />
-                  <Text>4K Video Messages</Text>
-                </HStack>
-                <HStack spacing={2}>
-                  <Icon as={FiUpload} color="#34C759" />
-                  <Text>Secure File Upload</Text>
-                </HStack>
-              </HStack>
-            </VStack>
-          </Box>
-        </MotionBox>
+        .glass-shine:hover::after {
+          left: 100%;
+        }
 
-        {/* Uploaded Files Display - Visible immediately after voice/video section */}
-        {uploadedFiles.length > 0 && (
-          <MotionBox
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            mb={{ base: 8, md: 12 }}
-          >
-            <Box
-              bg="white"
-              p={6}
-              borderRadius="16px"
-              boxShadow="0 8px 25px rgba(0, 0, 0, 0.05)"
-              border="1px solid"
-              borderColor="#f5f5f7"
-            >
-              <HStack mb={4} spacing={3}>
-                <Icon as={FiUpload} color="#34C759" boxSize={5} />
-                <Heading 
-                  size="sm" 
-                  color="#1d1d1f"
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
-                  fontWeight="600"
+        .liquid-pane {
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(40px);
+          -webkit-backdrop-filter: blur(40px);
+          border: 1px solid rgba(0, 0, 0, 0.04);
+          box-shadow:
+            0 20px 40px -4px rgba(0, 0, 0, 0.08),
+            0 8px 16px -4px rgba(0, 0, 0, 0.04),
+            inset 0 1px 1px rgba(255, 255, 255, 0.9);
+          border-radius: 24px;
+        }
+
+        .liquid-input {
+          background: rgba(255, 255, 255, 0.8);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid #e5e7eb;
+        }
+
+        .liquid-glass {
+          background: #ffffff;
+          border: 1px solid #e5e7eb;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+          border-radius: 1rem;
+        }
+      `}</style>
+
+      <section id="get-in-touch" className="border-b border-slate-200 bg-white">
+        <div className="mx-auto w-full max-w-6xl px-4">
+          <div className="relative mx-auto flex w-full max-w-[390px] min-h-[844px] flex-col overflow-hidden bg-white md:max-w-3xl md:min-h-0 lg:max-w-5xl lg:rounded-[28px] lg:border lg:border-slate-100 lg:shadow-[0_16px_50px_-34px_rgba(15,23,42,0.35)]">
+            <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/2 rounded-full bg-[#0056D2]/5 blur-[100px]" />
+            <div className="pointer-events-none absolute left-0 top-[30%] h-72 w-72 -translate-x-1/3 rounded-full bg-[#D42880]/5 blur-[80px]" />
+            <div className="pointer-events-none absolute bottom-0 right-0 h-80 w-80 translate-x-1/4 translate-y-1/4 rounded-full bg-emerald-100/30 blur-[90px]" />
+
+            <main className="z-10 flex h-full flex-1 flex-col px-[20px] pb-[34px] pt-[48px] md:px-10 md:pb-12 md:pt-14 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:gap-8">
+              <div>
+              <header className="mb-8 text-center lg:text-left">
+                <h2 className="mb-4 text-[32px] font-bold tracking-tight text-black">
+                  Get in{" "}
+                  <span className="gradient-text relative inline-block">
+                    Touch
+                    <span className="absolute bottom-1 left-0 h-[6px] w-full rounded-full bg-gradient-to-r from-[#0056D2] to-[#D42880] opacity-20 blur-[1px]" />
+                  </span>
+                </h2>
+                <p className="mx-auto max-w-[330px] text-[16.3px] font-medium leading-[1.4] text-[#86868B]">
+                  Ready to take control of your data? Let&apos;s start a conversation about how Hushh can empower your
+                  digital journey.
+                </p>
+              </header>
+
+              <div className="mb-8 space-y-4 lg:mb-0">
+                <a
+                  href="https://wa.me/14256441447?text=Hi%20Hushh"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="glass-shine flex h-[56px] w-full items-center justify-center gap-3 rounded-full bg-[#25D366] text-[17px] font-semibold text-white shadow-[0_8px_20px_-4px_rgba(37,211,102,0.4)] transition-all active:scale-[0.98] hover:shadow-[0_12px_24px_-4px_rgba(37,211,102,0.5)]"
                 >
-                  Uploaded Files ({uploadedFiles.length})
-                </Heading>
-              </HStack>
-              <VStack spacing={3} align="stretch">
-                {uploadedFiles.map((file, index) => (
-                  <HStack 
-                    key={index} 
-                    p={3} 
-                    bg="#f9f9f9" 
-                    borderRadius="8px"
-                    justify="space-between"
+                  <FaWhatsapp className="text-[24px]" />
+                  WhatsApp Chat
+                </a>
+
+                <a
+                  href="https://calendly.com/hushh/office-hours-1-hour-focused-deep-dives"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex h-[56px] w-full items-center justify-center gap-3 rounded-full border border-[#0071E3] bg-white text-[17px] font-semibold text-[#0071E3] shadow-sm transition-all active:scale-[0.98] hover:bg-blue-50"
+                >
+                  <MdCalendarToday className="text-[22px]" />
+                  Schedule Meeting
+                </a>
+              </div>
+              </div>
+
+              <div className="liquid-pane relative mb-6 flex flex-1 flex-col items-center p-6 text-center lg:mb-0 lg:h-full">
+                <div className="absolute left-0 top-0 h-1 w-full rounded-t-[24px] bg-gradient-to-r from-[#0056D2] via-[#25D366] to-[#D42880] opacity-80" />
+
+                <div className="mb-3 mt-2 flex items-center gap-2">
+                  <MdMic className="text-[24px] text-[#0071E3]" />
+                  <h3 className="text-[20px] font-bold text-black">Express Yourself Your Way</h3>
+                </div>
+
+                <p className="mb-8 max-w-[290px] text-[16.3px] font-medium leading-[1.5] text-[#86868B]">
+                  Skip the typing. Record a quick voice note, send a video message, or upload files directly.
+                </p>
+
+                <div className="mb-auto w-full space-y-4">
+                  <button
+                    type="button"
+                    className="flex h-[54px] w-full items-center justify-center gap-3 rounded-full bg-[#0071E3] font-semibold text-white shadow-lg shadow-blue-500/20 transition-transform active:scale-[0.98]"
                   >
-                    <HStack spacing={3}>
-                      <Icon as={FiFile} color="#86868b" />
-                      <Text 
-                        fontSize="sm" 
-                        color="#1d1d1f"
-                        fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                        fontWeight="500"
-                      >
-                        {file.name}
-                      </Text>
-                      <Text 
-                        fontSize="xs" 
-                        color="#86868b"
-                        fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                      >
-                        ({(file.size / 1024 / 1024).toFixed(2)} MB)
-                      </Text>
-                    </HStack>
-                    <Button
-                      size="xs"
-                      variant="ghost"
-                      color="#FF3B30"
-                      onClick={() => setUploadedFiles(files => files.filter((_, i) => i !== index))}
-                      _hover={{ bg: "#fff5f5" }}
+                    <MdMic className="text-[22px]" />
+                    Record Voice Note
+                  </button>
+                  <button
+                    type="button"
+                    className="flex h-[54px] w-full items-center justify-center gap-3 rounded-full border border-indigo-200 bg-white font-semibold text-indigo-600 shadow-sm transition-transform active:scale-[0.98]"
+                  >
+                    <MdVideocam className="text-[22px]" />
+                    Record Video Message
+                  </button>
+                  <button
+                    type="button"
+                    className="flex h-[54px] w-full items-center justify-center gap-3 rounded-full border border-emerald-200 bg-white font-semibold text-emerald-600 shadow-sm transition-transform active:scale-[0.98]"
+                  >
+                    <MdUploadFile className="text-[22px]" />
+                    Upload Files
+                  </button>
+                </div>
+
+                <div className="mt-8 flex w-full flex-col items-center gap-2 opacity-80">
+                  <div className="flex w-full items-center justify-center gap-6">
+                    <div className="flex items-center gap-1.5 text-[12px] font-medium text-[#86868B]">
+                      <MdMic className="text-[16px] text-[#0071E3]" />
+                      HD Audio
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[12px] font-medium text-[#86868B]">
+                      <MdVideocam className="text-[16px] text-indigo-500" />
+                      4K Video
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center gap-1.5 text-[12px] font-medium text-[#86868B]">
+                    <MdLock className="text-[16px] text-emerald-500" />
+                    Secure Upload
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto w-full max-w-6xl px-4">
+          <div className="mx-auto w-full max-w-[390px] min-h-[844px] bg-white md:max-w-3xl md:min-h-0 lg:max-w-5xl lg:rounded-[28px] lg:border lg:border-slate-100 lg:shadow-[0_16px_50px_-34px_rgba(15,23,42,0.35)]">
+            <main className="flex h-full flex-1 flex-col overflow-y-auto px-[20px] pb-[34px] pt-[48px] md:px-10 md:pb-12 md:pt-14">
+              <header className="mb-8 text-center">
+                <h2 className="mb-4 text-[32px] font-bold tracking-tight text-black">Contact Form</h2>
+                <p className="mx-auto max-w-[330px] text-[16.3px] font-medium leading-[1.4] text-[#86868B]">
+                  Prefer typing? Fill out the details below and we&apos;ll get back to you soon
+                </p>
+              </header>
+
+              <form className="grid flex-1 grid-cols-1 gap-5 pb-8 md:grid-cols-2" onSubmit={(event) => event.preventDefault()}>
+                <div className="space-y-2 md:col-span-1">
+                  <label htmlFor="fullName" className="block text-sm font-bold text-black">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="fullName"
+                    type="text"
+                    placeholder="Enter your full name"
+                    className="h-[48px] w-full rounded-[8px] border border-[#E5E7EB] bg-gray-50/50 px-4 text-gray-900 placeholder-gray-400 transition-colors focus:border-[#0071E3] focus:outline-none focus:ring-1 focus:ring-[#0071E3]"
+                  />
+                </div>
+
+                <div className="space-y-2 md:col-span-1">
+                  <label htmlFor="emailAddress" className="block text-sm font-bold text-black">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="emailAddress"
+                    type="email"
+                    placeholder="your.email@company.com"
+                    className="h-[48px] w-full rounded-[8px] border border-[#E5E7EB] bg-gray-50/50 px-4 text-gray-900 placeholder-gray-400 transition-colors focus:border-[#0071E3] focus:outline-none focus:ring-1 focus:ring-[#0071E3]"
+                  />
+                </div>
+
+                <div className="space-y-2 md:col-span-1">
+                  <label htmlFor="company" className="block text-sm font-bold text-black">
+                    Company / Organization
+                  </label>
+                  <input
+                    id="company"
+                    type="text"
+                    placeholder="Your company name"
+                    className="h-[48px] w-full rounded-[8px] border border-[#E5E7EB] bg-gray-50/50 px-4 text-gray-900 placeholder-gray-400 transition-colors focus:border-[#0071E3] focus:outline-none focus:ring-1 focus:ring-[#0071E3]"
+                  />
+                </div>
+
+                <div className="space-y-2 md:col-span-1">
+                  <label htmlFor="phone" className="block text-sm font-bold text-black">
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    placeholder="+1 (555) 123-4567"
+                    className="h-[48px] w-full rounded-[8px] border border-[#E5E7EB] bg-gray-50/50 px-4 text-gray-900 placeholder-gray-400 transition-colors focus:border-[#0071E3] focus:outline-none focus:ring-1 focus:ring-[#0071E3]"
+                  />
+                </div>
+
+                <div className="space-y-2 md:col-span-1">
+                  <label htmlFor="department" className="block text-sm font-bold text-black">
+                    Department
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="department"
+                      defaultValue="Sales"
+                      className="liquid-input h-[48px] w-full appearance-none rounded-[8px] px-4 pr-10 text-gray-900 transition-colors focus:border-[#0071E3] focus:outline-none focus:ring-1 focus:ring-[#0071E3]"
                     >
-                      <Icon as={FiX} />
-                    </Button>
-                  </HStack>
-                ))}
-              </VStack>
-            </Box>
-          </MotionBox>
-        )}
+                      <option>Sales</option>
+                      <option>Support</option>
+                      <option>Partnerships</option>
+                      <option>General Inquiry</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                      <MdExpandMore className="text-[20px]" />
+                    </div>
+                  </div>
+                </div>
 
-        <Grid
-          templateColumns={{ base: "1fr", xl: "2fr 1fr" }}
-          gap={{ base: 12, lg: 16 }}
-          alignItems="start"
-        >
-          {/* Enhanced Contact Form */}
-          <MotionBox
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <Box
-              bg="white"
-              p={{ base: 8, md: 10 }}
-              borderRadius="20px"
-              boxShadow="0 8px 30px rgba(0, 0, 0, 0.04)"
-              border="1px solid"
-              borderColor="#f5f5f7"
-              position="relative"
-              overflow="hidden"
-            >
-
-              <VStack spacing={8} align="stretch">
-                <Box textAlign="center">
-                  <Heading 
-                    size="md" 
-                    mb={2} 
-                    color="#1d1d1f" 
-                    fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
-                    fontWeight="600"
-                    letterSpacing="-0.01em"
-                  >
-                    Contact Form
-                  </Heading>
-                  <Text 
-                    color="#86868b"
-                    fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                    fontSize="sm"
-                  >
-                    Prefer typing? Fill out the details below and we'll get back to you soon
-                  </Text>
-                </Box>
-
-                <form onSubmit={handleSubmit}>
-                  <VStack spacing={6} align="stretch">
-                    {/* Personal Information */}
-                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-                      <FormControl isRequired isInvalid={errors.name}>
-                        <FormLabel 
-                          fontWeight="500" 
-                          color="#1d1d1f"
-                          fontSize="md"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          mb={2}
-                        >
-                          Full Name
-                        </FormLabel>
-                        <Input
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          placeholder="Enter your full name"
-                          size="lg"
-                          borderRadius="12px"
-                          borderColor="#d2d2d7"
-                          _focus={{ 
-                            borderColor: "#007AFF", 
-                            boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.1)",
-                            bg: "white"
-                          }}
-                          bg="#f5f5f7"
-                          _hover={{ bg: "white", borderColor: "#a1a1a6" }}
-                          transition="all 0.2s ease"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          h="48px"
-                          fontSize="md"
-                        />
-                        {errors.name && (
-                          <Text 
-                            color="#FF3B30" 
-                            fontSize="sm" 
-                            mt={1}
-                            fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          >
-                            {errors.name}
-                          </Text>
-                        )}
-                      </FormControl>
-
-                      <FormControl isRequired isInvalid={errors.email}>
-                        <FormLabel 
-                          fontWeight="500" 
-                          color="#1d1d1f"
-                          fontSize="md"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          mb={2}
-                        >
-                          Email Address
-                        </FormLabel>
-                        <Input
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          placeholder="your.email@company.com"
-                          size="lg"
-                          borderRadius="12px"
-                          borderColor="#d2d2d7"
-                          _focus={{ 
-                            borderColor: "#007AFF", 
-                            boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.1)",
-                            bg: "white"
-                          }}
-                          bg="#f5f5f7"
-                          _hover={{ bg: "white", borderColor: "#a1a1a6" }}
-                          transition="all 0.2s ease"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          h="48px"
-                          fontSize="md"
-                        />
-                        {errors.email && (
-                          <Text 
-                            color="#FF3B30" 
-                            fontSize="sm" 
-                            mt={1}
-                            fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          >
-                            {errors.email}
-                          </Text>
-                        )}
-                      </FormControl>
-                    </SimpleGrid>
-
-                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-                      <FormControl>
-                        <FormLabel 
-                          fontWeight="500" 
-                          color="#1d1d1f"
-                          fontSize="md"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          mb={2}
-                        >
-                          Company / Organization
-                        </FormLabel>
-                        <Input
-                          name="company"
-                          value={formData.company}
-                          onChange={handleChange}
-                          placeholder="Your company name"
-                          size="lg"
-                          borderRadius="12px"
-                          borderColor="#d2d2d7"
-                          _focus={{ 
-                            borderColor: "#007AFF", 
-                            boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.1)",
-                            bg: "white"
-                          }}
-                          bg="#f5f5f7"
-                          _hover={{ bg: "white", borderColor: "#a1a1a6" }}
-                          transition="all 0.2s ease"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          h="48px"
-                          fontSize="md"
-                        />
-                      </FormControl>
-
-                      <FormControl>
-                        <FormLabel 
-                          fontWeight="500" 
-                          color="#1d1d1f"
-                          fontSize="md"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          mb={2}
-                        >
-                          Phone Number
-                        </FormLabel>
-                        <Input
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="+1 (555) 123-4567"
-                          size="lg"
-                          borderRadius="12px"
-                          borderColor="#d2d2d7"
-                          _focus={{ 
-                            borderColor: "#007AFF", 
-                            boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.1)",
-                            bg: "white"
-                          }}
-                          bg="#f5f5f7"
-                          _hover={{ bg: "white", borderColor: "#a1a1a6" }}
-                          transition="all 0.2s ease"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          h="48px"
-                          fontSize="md"
-                        />
-                      </FormControl>
-                    </SimpleGrid>
-
-                    {/* Additional Options */}
-                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-                      <FormControl>
-                        <FormLabel 
-                          fontWeight="500" 
-                          color="#1d1d1f"
-                          fontSize="md"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          mb={2}
-                        >
-                          Department
-                        </FormLabel>
-                        <Select
-                          name="department"
-                          value={formData.department}
-                          onChange={handleChange}
-                          size="lg"
-                          borderRadius="12px"
-                          borderColor="#d2d2d7"
-                          _focus={{ 
-                            borderColor: "#007AFF", 
-                            boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.1)",
-                            bg: "white"
-                          }}
-                          bg="#f5f5f7"
-                          _hover={{ bg: "white", borderColor: "#a1a1a6" }}
-                          transition="all 0.2s ease"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          h="48px"
-                          fontSize="md"
-                        >
-                          <option value="Sales">Sales</option>
-                          <option value="Support">Technical Support</option>
-                          <option value="Partnership">Partnership</option>
-                          <option value="Media">Media & Press</option>
-                          <option value="General">General Inquiry</option>
-                        </Select>
-                      </FormControl>
-
-                      <FormControl>
-                        <FormLabel 
-                          fontWeight="500" 
-                          color="#1d1d1f"
-                          fontSize="md"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          mb={2}
-                        >
-                          Preferred Contact
-                        </FormLabel>
-                        <Select
-                          name="preferredContact"
-                          value={formData.preferredContact}
-                          onChange={handleChange}
-                          size="lg"
-                          borderRadius="12px"
-                          borderColor="#d2d2d7"
-                          _focus={{ 
-                            borderColor: "#007AFF", 
-                            boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.1)",
-                            bg: "white"
-                          }}
-                          bg="#f5f5f7"
-                          _hover={{ bg: "white", borderColor: "#a1a1a6" }}
-                          transition="all 0.2s ease"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          h="48px"
-                          fontSize="md"
-                        >
-                          <option value="email">Email</option>
-                          <option value="phone">Phone Call</option>
-                          <option value="whatsapp">WhatsApp</option>
-                          <option value="video">Video Call</option>
-                        </Select>
-                      </FormControl>
-                    </SimpleGrid>
-
-                    <FormControl>
-                      <FormLabel 
-                        fontWeight="500" 
-                        color="#1d1d1f"
-                        fontSize="md"
-                        fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                        mb={2}
-                      >
-                        Subject
-                      </FormLabel>
-                      <Input
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        placeholder="Brief subject of your message"
-                        size="lg"
-                        borderRadius="12px"
-                        borderColor="#d2d2d7"
-                        _focus={{ 
-                          borderColor: "#007AFF", 
-                          boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.1)",
-                          bg: "white"
-                        }}
-                        bg="#f5f5f7"
-                        _hover={{ bg: "white", borderColor: "#a1a1a6" }}
-                        transition="all 0.2s ease"
-                        fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                        h="48px"
-                        fontSize="md"
-                      />
-                    </FormControl>
-
-                    <FormControl isRequired isInvalid={errors.message}>
-                      <FormLabel 
-                        fontWeight="500" 
-                        color="#1d1d1f"
-                        fontSize="md"
-                        fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                        mb={2}
-                      >
-                        Message *
-                      </FormLabel>
-                      <Textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        placeholder="Tell us how we can help you..."
-                        rows={6}
-                        resize="vertical"
-                        borderRadius="12px"
-                        borderColor="#d2d2d7"
-                        _focus={{ 
-                          borderColor: "#007AFF", 
-                          boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.1)",
-                          bg: "white"
-                        }}
-                        bg="#f5f5f7"
-                        _hover={{ bg: "white", borderColor: "#a1a1a6" }}
-                        transition="all 0.2s ease"
-                        fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                        fontSize="md"
-                      />
-                      {errors.message && (
-                        <Text 
-                          color="#FF3B30" 
-                          fontSize="sm" 
-                          mt={1}
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                        >
-                          {errors.message}
-                        </Text>
-                      )}
-                    </FormControl>
-
-
-
-
-
-                    <Button
-                      type="submit"
-                      size="lg"
-                      bg="#007AFF"
-                      color="white"
-                      borderRadius="12px"
-                      isLoading={isSubmitting}
-                      loadingText="Sending..."
-                      leftIcon={<FiSend />}
-                      _hover={{
-                        bg: "#0051D5",
-                        transform: "translateY(-1px)",
-                        boxShadow: "0 10px 25px rgba(0, 122, 255, 0.3)"
-                      }}
-                      transition="all 0.2s ease"
-                      fontWeight="500"
-                      fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                      h="56px"
-                      fontSize="md"
-                      border="none"
-                      _focus={{
-                        boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.3)"
-                      }}
+                <div className="space-y-2 md:col-span-1">
+                  <label htmlFor="preferredContact" className="block text-sm font-bold text-black">
+                    Preferred Contact
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="preferredContact"
+                      defaultValue="Email"
+                      className="liquid-input h-[48px] w-full appearance-none rounded-[8px] px-4 pr-10 text-gray-900 transition-colors focus:border-[#0071E3] focus:outline-none focus:ring-1 focus:ring-[#0071E3]"
                     >
-                      Send Message
-                    </Button>
-                  </VStack>
-                </form>
-              </VStack>
-            </Box>
-          </MotionBox>
+                      <option>Email</option>
+                      <option>Phone</option>
+                      <option>WhatsApp</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                      <MdExpandMore className="text-[20px]" />
+                    </div>
+                  </div>
+                </div>
 
-          {/* Contact Information & Quick Actions */}
-          <MotionBox
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <VStack spacing={8} align="stretch">
-              {/* Company Information */}
-              <Box
-                bg="white"
-                p={8}
-                borderRadius="20px"
-                boxShadow="0 8px 30px rgba(0, 0, 0, 0.04)"
-                border="1px solid"
-                borderColor="#f5f5f7"
-              >
-                <Heading 
-                  size="lg" 
-                  mb={6} 
-                  color="#1d1d1f" 
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
-                  fontWeight="600"
-                  letterSpacing="-0.01em"
+                <div className="space-y-2 md:col-span-2">
+                  <label htmlFor="subject" className="block text-sm font-bold text-black">
+                    Subject
+                  </label>
+                  <input
+                    id="subject"
+                    type="text"
+                    placeholder="Brief subject of your message"
+                    className="h-[48px] w-full rounded-[8px] border border-[#E5E7EB] bg-gray-50/50 px-4 text-gray-900 placeholder-gray-400 transition-colors focus:border-[#0071E3] focus:outline-none focus:ring-1 focus:ring-[#0071E3]"
+                  />
+                </div>
+
+                <div className="space-y-2 md:col-span-2">
+                  <label htmlFor="message" className="block text-sm font-bold text-black">
+                    Message <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    placeholder="Tell us how we can help you..."
+                    className="h-[140px] w-full resize-none rounded-[8px] border border-[#E5E7EB] bg-gray-50/50 p-4 text-gray-900 placeholder-gray-400 transition-colors focus:border-[#0071E3] focus:outline-none focus:ring-1 focus:ring-[#0071E3]"
+                  />
+                </div>
+
+                <div className="pt-6 md:col-span-2">
+                  <button
+                    type="submit"
+                    className="flex h-[56px] w-full items-center justify-center gap-2.5 rounded-full bg-[#0071E3] text-[17px] font-semibold text-white shadow-lg shadow-blue-500/25 transition-all active:scale-[0.98] hover:bg-blue-600"
+                  >
+                    <MdSend className="relative left-[-2px] top-[-1px] -rotate-45 text-[20px]" />
+                    Send Message
+                  </button>
+                </div>
+              </form>
+            </main>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto w-full max-w-6xl px-4">
+          <div className="mx-auto w-full max-w-[390px] min-h-[844px] bg-white px-6 md:max-w-3xl md:min-h-0 md:px-10 lg:max-w-5xl lg:rounded-[28px] lg:border lg:border-slate-100 lg:shadow-[0_16px_50px_-34px_rgba(15,23,42,0.35)]">
+            <header className="mb-10 pt-[48px] md:pt-[56px]">
+              <h2 className="text-center text-3xl font-extrabold leading-tight tracking-tight text-black">
+                Contact Information
+              </h2>
+            </header>
+
+            <main className="grid grid-cols-1 gap-6 pb-12 lg:grid-cols-2">
+              <div className="liquid-glass p-6 transition-transform duration-300 hover:scale-[1.01]">
+                <h3 className="mb-4 text-lg font-bold text-gray-900">Global Headquarters</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 rounded-lg bg-blue-50 p-2 text-[#2563eb]">
+                      <MdLocationOn className="text-xl" />
+                    </div>
+                    <p className="text-[15px] font-medium leading-snug text-gray-600">
+                      1021 5th St W, Kirkland, WA 98033, United States
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-blue-50 p-2 text-[#2563eb]">
+                      <MdPhone className="text-xl" />
+                    </div>
+                    <a href="tel:+18884621726" className="text-[15px] font-semibold text-[#2563eb] hover:underline">
+                      +1 (888) 462-1726
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-blue-50 p-2 text-[#2563eb]">
+                      <MdEmail className="text-xl" />
+                    </div>
+                    <a href="mailto:eng@hush1one.com" className="text-[15px] font-semibold text-[#2563eb] hover:underline">
+                      eng@hush1one.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="liquid-glass p-6 transition-transform duration-300 hover:scale-[1.01]">
+                <h3 className="mb-4 text-lg font-bold text-gray-900">Corporate Office</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 rounded-lg bg-purple-50 p-2 text-[#9333ea]">
+                      <MdBusiness className="text-xl" />
+                    </div>
+                    <p className="text-[15px] font-medium leading-snug text-gray-600">
+                      Innovation District, San Francisco, CA 94105, United States
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-purple-50 p-2 text-[#9333ea]">
+                      <MdPhone className="text-xl" />
+                    </div>
+                    <a href="tel:+15551234567" className="text-[15px] font-semibold text-[#9333ea] hover:underline">
+                      +1 (555) 123-4567
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-purple-50 p-2 text-[#9333ea]">
+                      <MdEmail className="text-xl" />
+                    </div>
+                    <a href="mailto:corporate@hushh.ai" className="text-[15px] font-semibold text-[#9333ea] hover:underline">
+                      corporate@hushh.ai
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="liquid-glass p-6 transition-transform duration-300 hover:scale-[1.01]">
+                <h3 className="mb-4 text-lg font-bold text-gray-900">Customer Support</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-green-50 p-2 text-[#22c55e]">
+                      <MdSchedule className="text-xl" />
+                    </div>
+                    <p className="text-[15px] font-medium text-gray-600">24/7 Support Available</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-green-50 p-2 text-[#22c55e]">
+                      <MdPhoneInTalk className="text-xl" />
+                    </div>
+                    <a href="tel:+17655324284" className="text-[15px] font-semibold text-[#22c55e] hover:underline">
+                      +1 (765) 532-4284
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-green-50 p-2 text-[#22c55e]">
+                      <FaWhatsapp className="text-[20px]" />
+                    </div>
+                    <a
+                      href="https://wa.me/17655324284?text=Hi%20Hushh%20Support"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-left text-[15px] font-semibold text-[#22c55e] hover:underline"
+                    >
+                      Chat on WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pb-10 pt-8 lg:pt-0">
+                <h3 className="mb-6 pl-1 text-xl font-bold text-gray-900">Connect With Us</h3>
+                <div className="space-y-6 px-1">
+                  {socialLinks.map((item) => {
+                    const Icon = item.icon;
+
+                    return (
+                      <a key={item.label} href={item.href} target="_blank" rel="noreferrer" className="group flex items-center gap-4">
+                        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-transform group-hover:scale-110 ${item.bg}`}>
+                          <Icon className={item.color} />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-[16px] font-bold leading-tight text-gray-900">{item.label}</h4>
+                          <p className="text-[14px] font-medium text-gray-500">{item.description}</p>
+                        </div>
+                        <MdOpenInNew className="text-xl text-gray-400 transition-colors group-hover:text-[#2563eb]" />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="liquid-glass mt-16 p-6 lg:col-span-2 lg:mt-2">
+                <h3 className="mb-2 text-xl font-bold text-black">Schedule a Meeting</h3>
+                <p className="mb-6 text-[16.3px] font-medium leading-snug text-gray-500">
+                  Book a one-on-one consultation with our team to discuss your specific needs and explore how Hushh can
+                  help.
+                </p>
+                <a
+                  href="https://calendly.com/hushh/office-hours-1-hour-focused-deep-dives"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0071E3] py-4 font-semibold text-white shadow-lg transition-colors active:scale-[0.98] hover:bg-blue-600"
                 >
-                  Contact Information
-                </Heading>
-                
-                <VStack spacing={6} align="stretch">
-                  {/* Headquarters */}
-                  <Box 
-                    p={5} 
-                    bg="#f9f9f9" 
-                    borderRadius="12px" 
-                    border="1px solid" 
-                    borderColor="#e5e5e7"
-                  >
-                    <Text 
-                      fontWeight="600" 
-                      color="#1d1d1f" 
-                      mb={3}
-                      fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                      fontSize="md"
-                    >
-                      {companyInfo.headquarters.title}
-                    </Text>
-                    <VStack align="start" spacing={2}>
-                      <HStack spacing={3}>
-                        <Icon as={FiMapPin} color="#007AFF" boxSize={4} />
-                        <Text 
-                          fontSize="sm" 
-                          color="#86868b"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                        >
-                          {companyInfo.headquarters.address}
-                        </Text>
-                      </HStack>
-                      <HStack spacing={3}>
-                        <Icon as={FiPhone} color="#007AFF" boxSize={4} />
-                        <ChakraLink 
-                          href={`tel:${companyInfo.headquarters.phone}`} 
-                          color="#007AFF"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          fontSize="sm"
-                          _hover={{ textDecoration: "none", opacity: 0.8 }}
-                        >
-                          {companyInfo.headquarters.phone}
-                        </ChakraLink>
-                      </HStack>
-                      <HStack spacing={3}>
-                        <Icon as={FiMail} color="#007AFF" boxSize={4} />
-                        <ChakraLink 
-                          href={`mailto:${companyInfo.headquarters.email}`} 
-                          color="#007AFF"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          fontSize="sm"
-                          _hover={{ textDecoration: "none", opacity: 0.8 }}
-                        >
-                          {companyInfo.headquarters.email}
-                        </ChakraLink>
-                      </HStack>
-                    </VStack>
-                  </Box>
-
-                  {/* Corporate Office */}
-                  <Box 
-                    p={5} 
-                    bg="#f9f9f9" 
-                    borderRadius="12px" 
-                    border="1px solid" 
-                    borderColor="#e5e5e7"
-                  >
-                    <Text 
-                      fontWeight="600" 
-                      color="#1d1d1f" 
-                      mb={3}
-                      fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                      fontSize="md"
-                    >
-                      {companyInfo.corporate.title}
-                    </Text>
-                    <VStack align="start" spacing={2}>
-                      <HStack spacing={3}>
-                        <Icon as={FiMapPin} color="#5856D6" boxSize={4} />
-                        <Text 
-                          fontSize="sm" 
-                          color="#86868b"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                        >
-                          {companyInfo.corporate.address}
-                        </Text>
-                      </HStack>
-                      <HStack spacing={3}>
-                        <Icon as={FiPhone} color="#5856D6" boxSize={4} />
-                        <ChakraLink 
-                          href={`tel:${companyInfo.corporate.phone}`} 
-                          color="#5856D6"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          fontSize="sm"
-                          _hover={{ textDecoration: "none", opacity: 0.8 }}
-                        >
-                          {companyInfo.corporate.phone}
-                        </ChakraLink>
-                      </HStack>
-                      <HStack spacing={3}>
-                        <Icon as={FiMail} color="#5856D6" boxSize={4} />
-                        <ChakraLink 
-                          href={`mailto:${companyInfo.corporate.email}`} 
-                          color="#5856D6"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          fontSize="sm"
-                          _hover={{ textDecoration: "none", opacity: 0.8 }}
-                        >
-                          {companyInfo.corporate.email}
-                        </ChakraLink>
-                      </HStack>
-                    </VStack>
-                  </Box>
-
-                  {/* Support */}
-                  <Box 
-                    p={5} 
-                    bg="#f9f9f9" 
-                    borderRadius="12px" 
-                    border="1px solid" 
-                    borderColor="#e5e5e7"
-                  >
-                    <Text 
-                      fontWeight="600" 
-                      color="#1d1d1f" 
-                      mb={3}
-                      fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                      fontSize="md"
-                    >
-                      {companyInfo.support.title}
-                    </Text>
-                    <VStack align="start" spacing={2}>
-                      <HStack spacing={3}>
-                        <Icon as={FiClock} color="#34C759" boxSize={4} />
-                        <Text 
-                          fontSize="sm" 
-                          color="#86868b"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                        >
-                          {companyInfo.support.hours}
-                        </Text>
-                      </HStack>
-                      <HStack spacing={3}>
-                        <Icon as={FiPhone} color="#34C759" boxSize={4} />
-                        <ChakraLink 
-                          href={`tel:${companyInfo.support.phone}`} 
-                          color="#34C759"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          fontSize="sm"
-                          _hover={{ textDecoration: "none", opacity: 0.8 }}
-                        >
-                          {companyInfo.support.phone}
-                        </ChakraLink>
-                      </HStack>
-                      <HStack spacing={3}>
-                        <Icon as={FaWhatsapp} color="#25D366" boxSize={4} />
-                        <Button
-                          size="sm"
-                          bg="transparent"
-                          color="#25D366"
-                          variant="link"
-                          onClick={openWhatsApp}
-                          p={0}
-                          h="auto"
-                          fontWeight="500"
-                          fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                          fontSize="sm"
-                          _hover={{ opacity: 0.8, textDecoration: "none" }}
-                        >
-                          Chat on WhatsApp
-                        </Button>
-                      </HStack>
-                    </VStack>
-                  </Box>
-                </VStack>
-              </Box>
-
-              {/* Social Media Links */}
-              <Box
-                bg="white"
-                p={8}
-                borderRadius="20px"
-                boxShadow="0 8px 30px rgba(0, 0, 0, 0.04)"
-                border="1px solid"
-                borderColor="#f5f5f7"
-              >
-                <Heading 
-                  size="md" 
-                  mb={6} 
-                  color="#1d1d1f" 
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
-                  fontWeight="600"
-                  letterSpacing="-0.01em"
-                >
-                  Connect With Us
-                </Heading>
-                <VStack spacing={4}>
-                  {socialLinks.map((social, index) => (
-                    <ChakraLink
-                      key={index}
-                      href={social.url}
-                      isExternal
-                      w="full"
-                      _hover={{ textDecoration: 'none' }}
-                    >
-                      <HStack
-                        p={4}
-                        bg="gray.50"
-                        borderRadius="xl"
-                        _hover={{ 
-                          bg: "gray.100", 
-                          transform: "translateY(-2px)",
-                          boxShadow: "md"
-                        }}
-                        transition="all 0.2s"
-                        spacing={4}
-                      >
-                        <Icon as={social.icon} boxSize={6} color={social.color} />
-                        <VStack align="start" spacing={0} flex={1}>
-                          <Text fontWeight="600" color="gray.800">
-                            {social.label}
-                          </Text>
-                          <Text fontSize="sm" color="gray.500">
-                            Follow us on {social.label}
-                          </Text>
-                        </VStack>
-                        <Icon as={FiExternalLink} color="gray.400" />
-                      </HStack>
-                    </ChakraLink>
-                  ))}
-                </VStack>
-              </Box>
-
-              {/* Calendly Integration */}
-              <Box
-                bg="white"
-                p={8}
-                borderRadius="20px"
-                boxShadow="0 8px 30px rgba(0, 0, 0, 0.04)"
-                border="1px solid"
-                borderColor="#f5f5f7"
-              >
-                <Heading 
-                  size="md" 
-                  mb={4} 
-                  color="#1d1d1f" 
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif"
-                  fontWeight="600"
-                  letterSpacing="-0.01em"
-                >
-                  Schedule a Meeting
-                </Heading>
-                <Text 
-                  color="#86868b" 
-                  mb={6} 
-                  lineHeight={1.5}
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                  fontSize="md"
-                >
-                  Book a one-on-one consultation with our team to discuss your specific needs and explore how Hushh can help.
-                </Text>
-                <Button
-                  onClick={openCalendly}
-                  size="lg"
-                  bg="#007AFF"
-                  color="white"
-                  leftIcon={<FiCalendar />}
-                  rightIcon={<FiExternalLink />}
-                  borderRadius="12px"
-                  w="full"
-                  fontWeight="500"
-                  fontFamily="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-                  h="52px"
-                  _hover={{
-                    bg: "#0051D5",
-                    transform: "translateY(-1px)",
-                    boxShadow: "0 10px 25px rgba(0, 122, 255, 0.3)"
-                  }}
-                  transition="all 0.2s ease"
-                  border="none"
-                  _focus={{
-                    boxShadow: "0 0 0 3px rgba(0, 122, 255, 0.3)"
-                  }}
-                >
-                  Book Meeting Now
-                </Button>
-              </Box>
-
-              
-            </VStack>
-          </MotionBox>
-        </Grid>
-      </Container>
-
-      {/* Voice Recording Modal */}
-      <Modal isOpen={isVoiceModalOpen} onClose={onVoiceModalClose} size="md" isCentered>
-        <ModalOverlay backdropFilter="blur(10px)" />
-        <ModalContent>
-          <ModalHeader>🎙️ Record Voice Note</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <VStack spacing={6}>
-              <Box textAlign="center">
-                {isRecording ? (
-                  <>
-                    <Box
-                      w={20}
-                      h={20}
-                      bg="red.500"
-                      borderRadius="full"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      mx="auto"
-                      mb={4}
-                      animation="pulse 1.5s infinite"
-                    >
-                      <Icon as={FiMic} boxSize={10} color="white" />
-                    </Box>
-                    <Text fontWeight="bold" color="red.500" fontSize="lg">
-                      Recording... {formatTime(recordingDuration)}
-                    </Text>
-                    <Progress value={(recordingDuration % 60) * (100/60)} colorScheme="red" mt={2} />
-                  </>
-                ) : (
-                  <>
-                    <Box
-                      w={20}
-                      h={20}
-                      bg="blue.500"
-                      borderRadius="full"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      mx="auto"
-                      mb={4}
-                    >
-                      <Icon as={FiMic} boxSize={10} color="white" />
-                    </Box>
-                    <Text fontWeight="medium" color="gray.600">
-                      Click to start recording your voice note
-                    </Text>
-                  </>
-                )}
-              </Box>
-
-              <HStack spacing={4}>
-                {!isRecording ? (
-                  <Button
-                    onClick={startVoiceRecording}
-                    colorScheme="blue"
-                    leftIcon={<FiPlayCircle />}
-                    size="lg"
-                  >
-                    Start Recording
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={stopVoiceRecording}
-                    colorScheme="red"
-                    leftIcon={<FiStopCircle />}
-                    size="lg"
-                  >
-                    Stop Recording
-                  </Button>
-                )}
-              </HStack>
-            </VStack>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-
-      {/* Video Recording Modal */}
-      <Modal isOpen={isVideoModalOpen} onClose={onVideoModalClose} size="xl" isCentered>
-        <ModalOverlay backdropFilter="blur(10px)" />
-        <ModalContent>
-          <ModalHeader>📹 Record Video Message</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <VStack spacing={6}>
-              <Box
-                w="full"
-                h="300px"
-                bg="gray.100"
-                borderRadius="xl"
-                overflow="hidden"
-                position="relative"
-              >
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  muted
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
-                {isVideoRecording && (
-                  <Box
-                    position="absolute"
-                    top={4}
-                    right={4}
-                    bg="red.500"
-                    color="white"
-                    px={3}
-                    py={1}
-                    borderRadius="full"
-                    fontSize="sm"
-                    fontWeight="bold"
-                  >
-                    REC {formatTime(recordingDuration)}
-                  </Box>
-                )}
-              </Box>
-
-              <HStack spacing={4}>
-                {!isVideoRecording ? (
-                  <Button
-                    onClick={startVideoRecording}
-                    colorScheme="blue"
-                    leftIcon={<FiPlayCircle />}
-                    size="lg"
-                  >
-                    Start Recording
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={stopVideoRecording}
-                    colorScheme="red"
-                    leftIcon={<FiStopCircle />}
-                    size="lg"
-                  >
-                    Stop Recording
-                  </Button>
-                )}
-              </HStack>
-            </VStack>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </Box>
-    <FooterComponent />
-    </>
+                  <MdCalendarToday className="text-[20px]" />
+                  <span>Book Meeting Now</span>
+                </a>
+              </div>
+            </main>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
 export default ContactForm;
+
