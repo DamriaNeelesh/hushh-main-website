@@ -7,7 +7,7 @@ import RecentPosts from "../blogHome/RecentPosts";
 
 const HushhBlogsContent = ({ blogs }) => {
   return (
-    <main className="blog-theme blog-page-shell">
+    <section className="blog-theme blog-page-shell">
       <section className="blog-container pt-10 md:pt-14 pb-6 md:pb-10">
         <div className="max-w-4xl">
           <p className="blog-kicker blog-gradient-text">Hushh Newsroom</p>
@@ -21,7 +21,7 @@ const HushhBlogsContent = ({ blogs }) => {
       <HomeCoverSection blogs={blogs} />
       <FeaturedPosts blogs={blogs} />
       <RecentPosts blogs={blogs} />
-    </main>
+    </section>
   );
 };
 

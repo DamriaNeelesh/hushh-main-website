@@ -5,7 +5,7 @@ import { slug } from "github-slugger";
 import Category from "./Category";
 
 const Categories = ({ categories = [], currentSlug }) => {
-  const normalizedCategories = categories.filter((cat) => cat !== "all");
+  const normalizedCategories = [...new Set(categories.map((cat) => String(cat).trim().toLowerCase()).filter((cat) => cat && cat !== "all"))];
 
   return (
     <div className="blog-card p-4 md:p-5">

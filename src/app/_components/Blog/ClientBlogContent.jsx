@@ -46,6 +46,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
       : typeof readingTime === "string" && readingTime.toLowerCase().includes("read")
       ? readingTime
       : `${readingTime} read`;
+  const derivedImageSrc = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : "/blogs/blog2o.png";
 
   const copyArticleLink = async () => {
     if (!url) return;
@@ -137,20 +138,18 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
             </button>
           </div>
 
-          {blog.image?.filePath && (
-            <div className="blog-card mt-7 md:mt-9">
-              <div className="blog-card-image">
-                <Image
-                  src={blog.image.filePath}
-                  alt={blog.title}
-                  width={1400}
-                  height={787}
-                  className="w-full h-full object-cover"
-                  priority
-                />
-              </div>
+          <div className="blog-card mt-7 md:mt-9">
+            <div className="blog-card-image">
+              <Image
+                src={derivedImageSrc}
+                alt={blog.title}
+                width={1400}
+                height={787}
+                className="w-full h-full object-cover"
+                priority
+              />
             </div>
-          )}
+          </div>
         </div>
 
         <div className="blog-container pb-14 md:pb-20">

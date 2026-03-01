@@ -15,6 +15,7 @@ const Category = ({ link = "#", name, active }) => {
   return (
     <Link
       href={link}
+      aria-current={active ? "page" : undefined}
       className={[
         "inline-flex items-center px-4 py-2 rounded-full border text-sm font-semibold transition-colors duration-200",
         active

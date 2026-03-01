@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { ServiceCard } from "../primitives/serviceCard";
 import HushhWalletIcon from "../svg/hushhWalletIcon";
+import { FALLBACK_IMAGE } from "./constants";
 
 const Mermaid = dynamic(() => import("../hooks/useMermaid"), { ssr: false });
 
@@ -28,11 +29,25 @@ const CustomLink = ({ href, children }) => {
   );
 };
 
-const CustomImage = ({ src, alt = "Blog image" }) => (
-  <span className="block blog-card my-6">
-    <Image src={src} alt={alt} width={1200} height={675} className="w-full h-auto object-cover" />
-  </span>
-);
+const CustomImage = ({ src, alt = "Blog image", width, height, className, priority, ...props }) => {
+  const parsedWidth = Number(width);
+  const parsedHeight = Number(height);
+  const resolvedSrc = typeof src === "string" && src ? src.replace("../public", "") : FALLBACK_IMAGE;
+
+  return (
+    <span className="block blog-card my-6">
+      <Image
+        src={resolvedSrc}
+        alt={alt}
+        width={Number.isFinite(parsedWidth) && parsedWidth > 0 ? parsedWidth : 1200}
+        height={Number.isFinite(parsedHeight) && parsedHeight > 0 ? parsedHeight : 675}
+        className={className || "w-full h-auto object-cover"}
+        priority={Boolean(priority)}
+        {...props}
+      />
+    </span>
+  );
+};
 
 const CustomPre = ({ children }) => {
   const language = children?.props?.className?.replace("language-", "") || "";
@@ -45,17 +60,12 @@ const CustomPre = ({ children }) => {
   );
 };
 
-const CustomCode = (props) => {
-  if (!props.className) {
-    return <code {...props} />;
-  }
-
-  return <code {...props} />;
-};
+const CustomCode = (props) => <code {...props} />;
 
 const components = {
   a: CustomLink,
   img: CustomImage,
+  Image: CustomImage,
   pre: CustomPre,
   code: CustomCode,
   ServiceCard,
@@ -64,11 +74,12 @@ const components = {
 };
 
 const RenderMdx = ({ blog }) => {
+  const code = blog?.body?.code ?? "";
+  const MDXContent = useMDXComponent(code);
+
   if (!blog?.body?.code) {
     return <p className="text-[#b91c1c]">This article content is not available right now.</p>;
   }
-
-  const MDXContent = useMDXComponent(blog.body.code);
 
   return (
     <div className="blog-article">

@@ -5,8 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
 import { sortBlogs } from "../../utils";
-
-const FALLBACK_IMAGE = "/blogs/blog2o.png";
+import { FALLBACK_IMAGE } from "../Blog/constants";
 
 const FeaturedPosts = ({ blogs }) => {
   const sortedBlogs = sortBlogs([...(blogs || [])]);

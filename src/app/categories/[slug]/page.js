@@ -12,9 +12,9 @@ export async function generateStaticParams() {
   const categories = [];
   const paths = [{ slug: "all" }];
 
-  allBlogs.map((blog) => {
+  allBlogs.forEach((blog) => {
     if (blog.isPublished) {
-      blog.tags.map((tag) => {
+      blog.tags.forEach((tag) => {
         let slugified = slugger.slug(tag);
         if (!categories.includes(slugified)) {
           categories.push(slugified);
