@@ -1,73 +1,57 @@
-'use client';
-import { sortBlogs } from "../../utils";
+"use client";
+
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { format } from "date-fns";
+import { sortBlogs } from "../../utils";
+
+const FALLBACK_IMAGE = "/blogs/blog2o.png";
 
 const FeaturedPosts = ({ blogs }) => {
-  const sortedBlogs = sortBlogs(blogs);
-  // Get posts 1-4 for the featured grid (first post is in hero section)
-  const featuredBlogs = sortedBlogs.slice(1, 15);
+  const sortedBlogs = sortBlogs([...(blogs || [])]);
+  const featuredBlogs = sortedBlogs.slice(1, 7);
+
+  if (!featuredBlogs.length) return null;
 
   return (
-    <section className="w-full max-w-[1180px] mx-auto px-5 sm:px-6 mb-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {featuredBlogs.map((blog, index) => {
-          // Format date to match Apple's style: "16 April 2025"
-          const formattedDate = format(new Date(blog.publishedAt), "d MMMM yyyy");
-          
-          // Determine if the tag is an update type
-          const isUpdate = blog.tags[0].toLowerCase().includes('update') || 
-            blog.tags[0].toLowerCase() === 'press release' || 
-            blog.tags[0].toLowerCase() === 'quick read';
-          
+    <section className="blog-container pb-10 md:pb-12">
+      <div className="flex items-center justify-between mb-4 md:mb-6">
+        <h2 className="blog-section-title">Featured Insights</h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
+        {featuredBlogs.map((blog) => {
+          const publishedAt = blog.publishedAt ? format(new Date(blog.publishedAt), "d MMM yyyy") : "Recent post";
+          const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
+
           return (
-            <article 
-              key={index} 
-              className="overflow-hidden rounded-2xl bg-white dark:bg-[#1d1d1f] shadow-sm"
-            >
-              <div className="flex flex-col h-full">
-                {/* Image container */}
-                <div className="aspect-[16/9] overflow-hidden">
-                  <Link href={blog.url}>
-                    <Image
-                      src={blog.image.filePath.replace("../public", "")}
-                      placeholder="blur"
-                      blurDataURL={blog.image.blurhashDataUrl}
-                      alt={blog.title}
-                      width={600}
-                      height={338}
-                      className="w-full h-full object-cover object-center"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                    />
-                  </Link>
-                </div>
-                
-                {/* Content container */}
-                <div className="p-6 flex flex-col flex-grow">
-                  {isUpdate && (
-                    <div className="mb-3">
-                      <span className="text-xs uppercase font-semibold tracking-wider text-[#6e6e73] dark:text-[#86868b]">
-                        {blog.tags[0]}
-                      </span>
-                    </div>
-                  )}
-                  
-                  <Link href={blog.url}>
-                    <h3 className="text-xl font-semibold text-[#1d1d1f] dark:text-white leading-tight mb-3 hover:text-[#0066CC] transition-colors duration-300">
-                      {blog.title}
-                    </h3>
-                  </Link>
-                  
-                  <p className="text-sm text-[#424245] dark:text-[#86868b] mb-4 line-clamp-2">
-                    {blog.description}
-                  </p>
-                  
-                  <span className="mt-auto text-[#6e6e73] dark:text-[#86868b] text-sm">
-                    {formattedDate}
-                  </span>
-                </div>
+            <article key={blog._id} className="blog-card h-full flex flex-col">
+              <Link href={blog.url} className="blog-card-image block">
+                <Image
+                  src={imagePath}
+                  alt={blog.title}
+                  width={800}
+                  height={450}
+                  className="w-full h-full object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                />
+              </Link>
+
+              <div className="p-5 md:p-6 flex flex-col flex-1">
+                {blog.tags?.[0] && <span className="blog-chip mb-3 w-fit">{blog.tags[0]}</span>}
+
+                <Link href={blog.url} className="group">
+                  <h3 className="text-[1.1rem] md:text-[1.25rem] font-semibold leading-6 md:leading-7 tracking-[-0.01em] text-[#111827] group-hover:text-[#0056b3] transition-colors blog-clamp-2">
+                    {blog.title}
+                  </h3>
+                </Link>
+
+                {blog.description && (
+                  <p className="mt-3 text-[0.95rem] leading-6 text-[#4b5563] blog-clamp-3">{blog.description}</p>
+                )}
+
+                <span className="mt-auto pt-4 blog-meta">{publishedAt}</span>
               </div>
             </article>
           );

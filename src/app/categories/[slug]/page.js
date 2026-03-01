@@ -1,9 +1,7 @@
+/* eslint-disable react/prop-types */
+import React from "react";
 import { allBlogs } from "contentlayer/generated";
-import Categories from "../../_components/Blog/Categories";
 import GithubSlugger, { slug } from "github-slugger";
-import Image from "next/image";
-import Link from "next/link";
-import { format } from "date-fns";
 import ContactForm from "src/app/_components/features/contactForm";
 import CategoryPageContent from "../../_components/Blog/CategoryPageContent";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
@@ -75,7 +73,7 @@ const CategoryPage = ({ params }) => {
 
   return (
     <>
-    <ContentWrapper includeHeaderSpacing={true}>
+    <ContentWrapper>
       <CategoryPageContent 
         blogs={blogs}
         allCategories={allCategories}

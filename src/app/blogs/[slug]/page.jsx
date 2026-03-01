@@ -1,11 +1,9 @@
 import { siteMetadata } from "../../sitemetadata";
 import { allBlogs } from "contentlayer/generated";
-import { slug } from "github-slugger";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Container, Heading, Text } from "@chakra-ui/react";
 import ContactForm from "src/app/_components/features/contactForm";
-import RecentPosts from "src/app/_components/blogHome/RecentPosts";
 import Script from "next/script";
 import { format } from "date-fns";
 import ClientBlogContent from "../../_components/Blog/ClientBlogContent";
