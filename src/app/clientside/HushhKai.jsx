@@ -81,7 +81,7 @@ const HushhKai = () => {
 
             <p className={styles.subtitle}>Decide like a committee, carry it in your pocket.</p>
 
-            <Link href="#kai-analysis" className={styles.cta}>
+            <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.cta}>
               Start with Kai
             </Link>
           </section>
@@ -234,7 +234,7 @@ const HushhKai = () => {
           <section className={styles.finalSection}>
             <h2 className={styles.finalTitle}>Ready for Clarity?</h2>
             <p className={styles.finalText}>Join investors who have replaced noise with structure.</p>
-            <Link href="#kai-analysis" className={styles.finalButton}>
+            <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.finalButton}>
               Get Started
             </Link>
             <p className={styles.footer}>
