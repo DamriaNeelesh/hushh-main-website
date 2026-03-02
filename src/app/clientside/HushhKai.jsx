@@ -157,8 +157,10 @@ const HushhKai = () => {
           </section>
 
           <div className={styles.connector}>
-            <span className={styles.connectorLine} />
-            <span className={styles.connectorArrow}>?</span>
+            <span className={styles.connectorLine} aria-hidden="true" />
+            <span className={styles.connectorArrow} aria-hidden="true">
+              ?
+            </span>
           </div>
 
           <section className={styles.appSection}>
@@ -238,9 +240,20 @@ const HushhKai = () => {
               Get Started
             </Link>
             <p className={styles.footer}>
-              Privacy · Terms · Security · Support
+              <Link href="/legal/privacypolicy" aria-label="Read privacy policy">
+                Privacy
+              </Link>{" \u00B7 "}
+              <Link href="/legal/termsofuse" aria-label="Read terms of use">
+                Terms
+              </Link>{" \u00B7 "}
+              <Link href="/consent-ai-protocol" aria-label="Read security and consent protocol">
+                Security
+              </Link>{" \u00B7 "}
+              <Link href="/contact-us" aria-label="Get support">
+                Support
+              </Link>
               <br />
-              © 2026 Kai
+              {"\u00A9 2026 Kai"}
             </p>
           </section>
         </div>
