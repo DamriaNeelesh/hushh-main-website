@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaApple, FaChartLine, FaLock, FaShieldAlt, FaSun } from "react-icons/fa";
+import { FaApple, FaBell, FaChartLine, FaLock, FaShieldAlt, FaSun } from "react-icons/fa";
 import styles from "./KaiPage.module.css";
 
 const signals = [
@@ -48,7 +48,7 @@ const transparencyCards = [
   },
 ];
 
-const digestItems = [
+const preMarketDigestItems = [
   {
     title: "NVDA Report",
     body: "Earnings beat estimates by 12%.",
@@ -63,7 +63,38 @@ const digestItems = [
   },
 ];
 
+const notificationItems = [
+  {
+    title: "AAPL Sentiment Shift",
+    body: "Macro pressure eased pre-open. Committee confidence rose from 82% to 86%.",
+    tag: "Recheck",
+    tagClass: styles.digestReview,
+    time: "5m ago",
+    dotClass: styles.noticeBlue,
+  },
+  {
+    title: "TSLA Volatility Alert",
+    body: "Risk agent flagged unusually wide swings. Kai suggests tighter position sizing.",
+    tag: "Risk",
+    tagClass: styles.digestRisk,
+    time: "17m ago",
+    dotClass: styles.noticeAmber,
+  },
+  {
+    title: "MSFT Order Follow-up",
+    body: "Limit buy is still in range before open. Kai recommends keeping the order active.",
+    tag: "Keep",
+    tagClass: styles.digestKeep,
+    time: "29m ago",
+    dotClass: styles.noticeGreen,
+  },
+];
+
 const HushhKai = () => {
+  const [alphaView, setAlphaView] = useState("preMarket");
+  const isPreMarketView = alphaView === "preMarket";
+  const alphaItems = isPreMarketView ? preMarketDigestItems : notificationItems;
+
   return (
     <main className={styles.page}>
       <div className={styles.shell}>
@@ -206,25 +237,45 @@ const HushhKai = () => {
             <p className={styles.sectionSub}>A clean, curated digest of opportunities every morning.</p>
 
             <div className={styles.alphaPanel}>
-              <div className={styles.toggle}>
-                <span className={`${styles.toggleItem} ${styles.toggleActive}`}>Pre-market</span>
-                <span className={styles.toggleItem}>Notifications</span>
+              <div className={styles.toggle} role="tablist" aria-label="Alpha views">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={isPreMarketView}
+                  className={`${styles.toggleItem} ${isPreMarketView ? styles.toggleActive : ""}`}
+                  onClick={() => setAlphaView("preMarket")}
+                >
+                  Pre-market
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={!isPreMarketView}
+                  className={`${styles.toggleItem} ${!isPreMarketView ? styles.toggleActive : ""}`}
+                  onClick={() => setAlphaView("notifications")}
+                >
+                  Notifications
+                </button>
               </div>
 
               <div className={styles.digestHead}>
                 <div className={styles.digestHeadLeft}>
-                  <FaSun className={styles.iconOrange} aria-hidden />
-                  <span>Morning Digest</span>
+                  {isPreMarketView ? <FaSun className={styles.iconOrange} aria-hidden /> : <FaBell className={styles.iconBlue} aria-hidden />}
+                  <span>{isPreMarketView ? "Morning Digest" : "Kai Notifications"}</span>
                 </div>
-                <span className={styles.digestTime}>08:00 AM</span>
+                <span className={styles.digestTime}>{isPreMarketView ? "08:00 AM" : "Live feed"}</span>
               </div>
 
               <div className={styles.digestRows}>
-                {digestItems.map((item) => (
+                {alphaItems.map((item) => (
                   <div key={item.title} className={styles.digestRow}>
-                    <div>
-                      <h3 className={styles.digestTitle}>{item.title}</h3>
+                    <div className={styles.digestMain}>
+                      <div className={styles.digestTitleRow}>
+                        {!isPreMarketView ? <span className={`${styles.noticeDot} ${item.dotClass}`} aria-hidden /> : null}
+                        <h3 className={styles.digestTitle}>{item.title}</h3>
+                      </div>
                       <p className={styles.digestBody}>{item.body}</p>
+                      {!isPreMarketView ? <p className={styles.notificationTime}>{item.time}</p> : null}
                     </div>
                     <span className={`${styles.digestTag} ${item.tagClass}`}>{item.tag}</span>
                   </div>

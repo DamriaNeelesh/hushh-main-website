@@ -425,16 +425,26 @@
   background: #f5f5f7;
   border-radius: 999px;
   padding: 2px;
-  display: inline-flex;
+  display: flex;
   margin: 0 auto 1.12rem;
+  width: fit-content;
 }
 
 .toggleItem {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
   border-radius: 999px;
   padding: 0.3rem 0.74rem;
   font-size: 0.72rem;
   font-weight: 700;
   color: #86868b;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.toggleItem:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 
 .toggleActive {
@@ -487,6 +497,36 @@
   border-bottom: 0;
 }
 
+.digestMain {
+  min-width: 0;
+  flex: 1;
+}
+
+.digestTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.noticeDot {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.noticeBlue {
+  background: #1477da;
+}
+
+.noticeAmber {
+  background: #f59e0b;
+}
+
+.noticeGreen {
+  background: #15803d;
+}
+
 .digestTitle {
   font-size: 0.9rem;
   font-weight: 700;
@@ -498,6 +538,14 @@
   color: #6b7280;
   font-size: 0.75rem;
   line-height: 1.35;
+}
+
+.notificationTime {
+  margin-top: 0.28rem;
+  color: #9ca3af;
+  font-size: 0.68rem;
+  line-height: 1;
+  font-weight: 600;
 }
 
 .digestTag {
@@ -518,6 +566,24 @@
   color: #92400e;
   background: #ffedd5;
   border: 1px solid #fdba74;
+}
+
+.digestReview {
+  color: #1d4ed8;
+  background: #dbeafe;
+  border: 1px solid #bfdbfe;
+}
+
+.digestRisk {
+  color: #9a3412;
+  background: #ffedd5;
+  border: 1px solid #fdba74;
+}
+
+.digestKeep {
+  color: #065f46;
+  background: #d1fae5;
+  border: 1px solid #6ee7b7;
 }
 
 .finalSection {
