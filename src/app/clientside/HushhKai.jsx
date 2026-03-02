@@ -108,7 +108,17 @@ const HushhKai = () => {
   }, []);
 
   useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+
+    return () => {
+      document.documentElement.classList.remove("dark");
+    };
   }, [theme]);
 
   const handleThemeToggle = () => {
