@@ -156,12 +156,12 @@ const HushhKai = () => {
             </div>
           </section>
 
-          <div className={styles.connector}>
+          {/* <div className={styles.connector}>
             <span className={styles.connectorLine} aria-hidden="true" />
             <span className={styles.connectorArrow} aria-hidden="true">
               ?
             </span>
-          </div>
+          </div> */}
 
           <section className={styles.appSection}>
             <h2 className={styles.sectionTitle}>
