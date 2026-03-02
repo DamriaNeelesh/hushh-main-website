@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaApple, FaBell, FaChartLine, FaLock, FaShieldAlt, FaSun } from "react-icons/fa";
+import { FaApple, FaBell, FaChartLine, FaLock, FaMoon, FaShieldAlt, FaSun } from "react-icons/fa";
 import styles from "./KaiPage.module.css";
 import FooterComponent from "../_components/features/FooterComponent";
 
@@ -91,33 +91,52 @@ const notificationItems = [
   },
 ];
 
+const THEME_STORAGE_KEY = "kai-theme";
+
 const HushhKai = () => {
   const [alphaView, setAlphaView] = useState("preMarket");
+  const [theme, setTheme] = useState("light");
   const isPreMarketView = alphaView === "preMarket";
   const alphaItems = isPreMarketView ? preMarketDigestItems : notificationItems;
+  const isDark = theme === "dark";
+
+  useEffect(() => {
+    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = storedTheme ?? (prefersDark ? "dark" : "light");
+    setTheme(initialTheme);
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
+
+  const handleThemeToggle = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   return (
-    <>
-    <main className={styles.page}>
-      <div className={styles.shell}>
-        <div className={styles.mobileFrame}>
-          <section className={styles.hero}>
-            <div className={styles.logoWrap}>
-              <span className={styles.logoText}>Kai</span>
-            </div>
+    <div className={`${styles.themeRoot} ${isDark ? styles.themeDark : ""} ${isDark ? "dark" : ""}`}>
+      <main className={styles.page}>
+        <div className={styles.shell}>
+          <div className={styles.mobileFrame}>
+            <section className={styles.hero}>
+              <div className={styles.logoWrap}>
+                <span className={styles.logoText}>Kai</span>
+              </div>
 
-            <h1 className={styles.heroTitle}>
-              Your Explainable
-              <br />
-              Investing Copilot
-            </h1>
+              <h1 className={styles.heroTitle}>
+                Your Explainable
+                <br />
+                Investing Copilot
+              </h1>
 
-            <p className={styles.subtitle}>Decide like a committee, carry it in your pocket.</p>
+              <p className={styles.subtitle}>Decide like a committee, carry it in your pocket.</p>
 
-            <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.cta}>
-              Start with Kai
-            </Link>
-          </section>
+              <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.cta}>
+                Start with Kai
+              </Link>
+            </section>
 
           <section id="kai-analysis" className={styles.section}>
             <h2 className={styles.sectionTitle}>
@@ -286,34 +305,51 @@ const HushhKai = () => {
             </div>
           </section>
 
-          <section className={styles.finalSection}>
-            <h2 className={styles.finalTitle}>Ready for Clarity?</h2>
-            <p className={styles.finalText}>Join investors who have replaced noise with structure.</p>
-            <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.finalButton}>
-              Get Started
-            </Link>
-            <p className={styles.footer}>
-              <Link href="/legal/privacypolicy" aria-label="Read privacy policy">
-                Privacy
-              </Link>{" \u00B7 "}
-              <Link href="/legal/termsofuse" aria-label="Read terms of use">
-                Terms
-              </Link>{" \u00B7 "}
-              <Link href="/consent-ai-protocol" aria-label="Read security and consent protocol">
-                Security
-              </Link>{" \u00B7 "}
-              <Link href="/contact-us" aria-label="Get support">
-                Support
+            <section className={styles.finalSection}>
+              <h2 className={styles.finalTitle}>Ready for Clarity?</h2>
+              <p className={styles.finalText}>Join investors who have replaced noise with structure.</p>
+              <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.finalButton}>
+                Get Started
               </Link>
-              <br />
-              {"\u00A9 2026 Kai"}
-            </p>
-          </section>
+              <p className={styles.footer}>
+                <Link href="/legal/privacypolicy" aria-label="Read privacy policy">
+                  Privacy
+                </Link>{" \u00B7 "}
+                <Link href="/legal/termsofuse" aria-label="Read terms of use">
+                  Terms
+                </Link>{" \u00B7 "}
+                <Link href="/consent-ai-protocol" aria-label="Read security and consent protocol">
+                  Security
+                </Link>{" \u00B7 "}
+                <Link href="/contact-us" aria-label="Get support">
+                  Support
+                </Link>
+                <br />
+                {"\u00A9 2026 Kai"}
+              </p>
+            </section>
+          </div>
         </div>
+      </main>
+      <FooterComponent />
+      <div className={styles.themeToggle}>
+        <button
+          type="button"
+          className={styles.themeToggleButton}
+          onClick={handleThemeToggle}
+          aria-pressed={isDark}
+          aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+        >
+          <span className={styles.themeToggleIcon} aria-hidden>
+            {isDark ? <FaSun /> : <FaMoon />}
+          </span>
+          <span className={styles.themeToggleLabel}>{isDark ? "Light mode" : "Dark mode"}</span>
+          <span className={styles.themeToggleTrack} aria-hidden>
+            <span className={`${styles.themeToggleThumb} ${isDark ? styles.themeToggleThumbDark : ""}`} />
+          </span>
+        </button>
       </div>
-    </main>
-    <FooterComponent />
-    </>
+    </div>
   );
 };
 
