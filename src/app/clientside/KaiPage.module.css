@@ -14,6 +14,9 @@
 .mobileFrame {
   width: min(100%, 390px);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5rem;
 }
 
 .hero {
@@ -88,9 +91,9 @@
 }
 
 .section {
-  margin-top: 3.8rem;
-  padding-top: 1.05rem;
-  padding-bottom: 1.3rem;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .sectionTitle {
@@ -314,9 +317,9 @@
 }
 
 .appSection {
-  margin-top: 4.25rem;
-  padding-top: 1.2rem;
-  padding-bottom: 1.55rem;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
   padding-inline: clamp(0.5rem, 2.4vw, 1.1rem);
 }
 
@@ -325,9 +328,9 @@
   width: min(100%, 352px);
   border-radius: 1.25rem;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
-  background: #ffffff;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .screenImage {
@@ -337,7 +340,7 @@
 }
 
 .connector {
-  margin-top: 1.5rem;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -509,9 +512,9 @@
 }
 
 .finalSection {
-  margin-top: 4.25rem;
-  padding-top: 1.3rem;
-  padding-bottom: 1.75rem;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
   text-align: center;
 }
 
@@ -560,6 +563,7 @@
 @media (min-width: 768px) {
   .mobileFrame {
     width: min(100%, 760px);
+    gap: clamp(2.8rem, 5vw, 4rem);
   }
 
   .appSection {
@@ -577,15 +581,15 @@
   }
 
   .section {
-    margin-top: 4.4rem;
-    padding-top: 1.45rem;
-    padding-bottom: 1.8rem;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .appSection {
-    margin-top: 4.9rem;
-    padding-top: 1.55rem;
-    padding-bottom: 2rem;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .card {
@@ -593,9 +597,9 @@
   }
 
   .finalSection {
-    margin-top: 5.1rem;
-    padding-top: 1.95rem;
-    padding-bottom: 2.5rem;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .transparencyList {
