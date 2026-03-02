@@ -158,9 +158,9 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
       title: "Products",
       items: [
         {
-          name: "Personal Data Agent (PDA)",
-          description: "Your AI-powered personal data assistant",
-          href: "/products/personal-data-agent",
+          name: "Agent Kai",
+          description: "Your Explainable Investing Copilot",
+          href: "/products/kai",
           icon:HushhPDA
         },
         {
