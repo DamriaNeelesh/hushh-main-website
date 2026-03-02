@@ -24,6 +24,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 6vh;
+  margin-bottom: 6vh;
   max-width: 31rem;
   margin-inline: auto;
 }
