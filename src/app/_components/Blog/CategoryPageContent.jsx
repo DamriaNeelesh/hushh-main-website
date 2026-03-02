@@ -1,124 +1,82 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Categories from "./Categories";
-import Image from "next/image";
+import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { format } from "date-fns";
-import { ChevronRightIcon } from '@chakra-ui/icons';
-import { useColorMode } from "@chakra-ui/react";
+import Categories from "./Categories";
 
-const CategoryPageContent = ({ blogs, allCategories, params, categoryName }) => {
-  const { colorMode } = useColorMode();
-  const bgColor = colorMode === 'light' ? "white" : "black";
-  const textColor = colorMode === 'light' ? "#1d1d1f" : "white";
-  const mutedTextColor = colorMode === 'light' ? "#6e6e73" : "#98989A";
-  const dividerColor = colorMode === 'light' ? "#d2d2d7" : "#262626";
-  const cardBgColor = colorMode === 'light' ? "#f5f5f7" : "#111";
-  const buttonBgColor = colorMode === 'light' ? "#e5e5e7" : "#262626";
-  const buttonHoverBgColor = colorMode === 'light' ? "#d5d5d7" : "#363636";
-  
+const FALLBACK_IMAGE = "/blogs/blog2o.png";
+
+const CategoryPageContent = ({ blogs = [], allCategories = [], params, categoryName }) => {
   return (
-    <main className={`${bgColor === "white" ? "bg-white" : "bg-black"} min-h-screen`}>
-      {/* Navigation breadcrumb */}
-      <div className="w-full max-w-[1200px] mx-auto pt-28 pb-0 px-5 sm:px-0">
-        <Link 
-          href="/hushhBlogs"
-          className={`${mutedTextColor === "#6e6e73" ? "text-[#6e6e73] hover:text-[#0066CC]" : "text-[#98989A] hover:text-white"} text-sm font-medium flex items-center transition-colors duration-300`}
-        >
-          <span className="mr-1">‹</span> Newsroom
+    <main className="blog-theme blog-page-shell">
+      <section className="blog-container pt-10 md:pt-14 pb-8">
+        <Link href="/hushhBlogs" className="blog-link text-sm font-semibold">
+          {"<"} Newsroom
         </Link>
-      </div>
-      
-      <div className="w-full max-w-[1200px] mx-auto pt-8 pb-20 px-5 sm:px-0">
-        <div className="flex flex-col mb-10">
-          <h1 className={`text-4xl md:text-5xl font-bold ${textColor === "#1d1d1f" ? "text-[#1d1d1f]" : "text-white"} mb-3`}>
-            {categoryName}
-          </h1>
-          <p className={`${mutedTextColor === "#6e6e73" ? "text-[#6e6e73]" : "text-[#98989A]"} text-lg max-w-3xl`}>
-            {params.slug === "all" 
-              ? "Browse all articles from the Hushh Newsroom" 
-              : `Articles related to ${categoryName}`
-            }
+
+        <div className="mt-5 md:mt-7 max-w-4xl">
+          <p className="blog-kicker blog-gradient-text">Category</p>
+          <h1 className="blog-title mt-3">{categoryName}</h1>
+          <p className="blog-subtitle mt-4">
+            {params.slug === "all"
+              ? "Browse all stories from the Hushh Newsroom."
+              : `Explore posts focused on ${categoryName}.`}
           </p>
         </div>
-        
-        <div className={`h-px w-full ${dividerColor === "#d2d2d7" ? "bg-[#d2d2d7]" : "bg-[#262626]"} mb-8`} />
-        
+      </section>
+
+      <section className="blog-container pb-6">
         <Categories categories={allCategories} currentSlug={params.slug} />
-        
+      </section>
+
+      <section className="blog-container pb-16 md:pb-20">
         {blogs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 animate-fadeIn">
-            {blogs.map((blog, index) => (
-              <article 
-                key={index} 
-                className="group transform transition duration-500 hover:translate-y-[-8px]"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <Link href={blog.url} className="flex flex-col h-full">
-                  <div className="overflow-hidden rounded-2xl mb-4 aspect-[16/10] relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
+            {blogs.map((blog) => {
+              const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
+              const publishedAt = blog.publishedAt ? format(new Date(blog.publishedAt), "d MMM yyyy") : "Recent post";
+
+              return (
+                <article key={blog._id} className="blog-card h-full flex flex-col">
+                  <Link href={blog.url} className="blog-card-image block">
                     <Image
-                      src={blog.image.filePath.replace("../public", "")}
-                      placeholder="blur"
-                      blurDataURL={blog.image.blurhashDataUrl}
+                      src={imagePath}
                       alt={blog.title}
-                      width={400}
-                      height={250}
-                      className="w-full h-full object-cover object-center transform transition-transform duration-700 ease-in-out group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
+                      width={900}
+                      height={506}
+                      className="w-full h-full object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     />
+                  </Link>
+
+                  <div className="p-5 flex flex-col flex-1">
+                    {blog.tags?.[0] && <span className="blog-chip mb-3 w-fit">{blog.tags[0]}</span>}
+                    <Link href={blog.url} className="group">
+                      <h3 className="text-[1.1rem] font-semibold leading-6 tracking-[-0.01em] text-[#111827] group-hover:text-[#0056b3] transition-colors blog-clamp-2">
+                        {blog.title}
+                      </h3>
+                    </Link>
+                    {blog.description && <p className="mt-3 text-sm leading-6 text-[#4b5563] blog-clamp-3">{blog.description}</p>}
+                    <span className="mt-auto pt-4 blog-meta">{publishedAt}</span>
                   </div>
-                  
-                  <div className="flex flex-col space-y-3 flex-grow">
-                    <span className={`text-xs uppercase tracking-wider font-semibold ${mutedTextColor === "#6e6e73" ? "text-[#6e6e73]" : "text-[#98989A]"}`}>
-                      {blog.tags[0]}
-                    </span>
-                    <h3 className={`text-lg md:text-xl font-semibold ${textColor === "#1d1d1f" ? "text-[#1d1d1f] group-hover:text-[#0066CC]" : "text-white group-hover:text-[#0066CC]"} transition-colors duration-300 leading-tight`}>
-                      {blog.title}
-                    </h3>
-                    <time className={`text-xs ${mutedTextColor === "#6e6e73" ? "text-[#6e6e73]" : "text-[#98989A]"}`} dateTime={blog.publishedAt}>
-                      {format(new Date(blog.publishedAt), "MMMM d, yyyy")}
-                    </time>
-                    <p className={`${colorMode === 'light' ? "text-[#424245]" : "text-gray-300"} text-sm line-clamp-2`}>
-                      {blog.description}
-                    </p>
-                  </div>
-                </Link>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         ) : (
-          <div className={`text-center py-24 ${cardBgColor} rounded-2xl mt-12`}>
-            <h3 className={`text-2xl font-semibold ${textColor === "#1d1d1f" ? "text-[#1d1d1f]" : "text-white"} mb-4`}>
-              No articles found
-            </h3>
-            <p className={`${mutedTextColor === "#6e6e73" ? "text-[#6e6e73]" : "text-[#98989A]"} mb-8 max-w-md mx-auto`}>
-              We're working on new content for this category. Check back soon for updates.
-            </p>
-            <Link 
-              href="/hushhBlogs" 
-              className={`inline-flex items-center ${textColor === "#1d1d1f" ? "text-[#1d1d1f]" : "text-white"} ${buttonBgColor} hover:${buttonHoverBgColor} px-6 py-3 rounded-full transition-colors duration-300`}
-            >
-              <span className="font-medium">Return to Newsroom</span>
-              <ChevronRightIcon w={5} h={5} ml={1} />
+          <div className="blog-card p-8 md:p-12 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] text-[#111827]">No articles yet</h2>
+            <p className="text-[#6b7280] mt-3">We are publishing new content for this category soon.</p>
+            <Link href="/hushhBlogs" className="blog-btn-primary inline-flex mt-6 px-5 py-3 text-sm">
+              Back to Newsroom
             </Link>
           </div>
         )}
-        
-        {blogs.length > 0 && blogs.length % 3 !== 0 && (
-          <div className="mt-16 text-center">
-            <Link 
-              href="/hushhBlogs" 
-              className={`inline-flex items-center ${textColor === "#1d1d1f" ? "text-[#1d1d1f]" : "text-white"} ${buttonBgColor} hover:${buttonHoverBgColor} px-6 py-3 rounded-full transition-colors duration-300`}
-            >
-              <span className="font-medium">Back to Newsroom</span>
-              <ChevronRightIcon w={5} h={5} ml={1} />
-            </Link>
-          </div>
-        )}
-      </div>
+      </section>
     </main>
   );
 };
 
-export default CategoryPageContent; 
+export default CategoryPageContent;

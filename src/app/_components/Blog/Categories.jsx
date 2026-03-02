@@ -1,27 +1,24 @@
-'use client';
-import { slug } from "github-slugger";
+"use client";
+
 import React from "react";
+import { slug } from "github-slugger";
 import Category from "./Category";
 
-const Categories = ({ categories, currentSlug }) => {
+const Categories = ({ categories = [], currentSlug }) => {
+  const normalizedCategories = [...new Set(categories.map((cat) => String(cat).trim().toLowerCase()).filter((cat) => cat && cat !== "all"))];
+
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-5 sm:px-0 py-6 flex flex-wrap items-center">
-      <span className="text-[#98989A] mr-4 font-medium text-sm">Filter by category:</span>
-      <div className="flex flex-wrap">
-        <Category
-          key="all"
-          link="/categories/all"
-          name="All"
-          active={currentSlug === "all"}
-        />
-        {categories.map((cat) => (
-          <Category
-            key={cat}
-            link={`/categories/${slug(cat)}`}
-            name={cat}
-            active={currentSlug === slug(cat)}
-          />
-        ))}
+    <div className="blog-card p-4 md:p-5">
+      <div className="flex flex-col gap-3">
+        <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[#6b7280]">Filter by category</span>
+
+        <div className="flex flex-wrap gap-2">
+          <Category link="/categories/all" name="All" active={currentSlug === "all"} />
+          {normalizedCategories.map((cat) => {
+            const slugged = slug(cat);
+            return <Category key={slugged} link={`/categories/${slugged}`} name={cat} active={currentSlug === slugged} />;
+          })}
+        </div>
       </div>
     </div>
   );

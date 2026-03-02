@@ -1,82 +1,62 @@
-'use client';
-import { sortBlogs } from "../../utils";
-import Image from "next/image";
-import Link from "next/link";
+"use client";
+
 import React from "react";
-import Tag from "../Elements/Tag";
-import { slug } from "github-slugger";
+import Link from "next/link";
+import Image from "next/image";
 import { format } from "date-fns";
+import { sortBlogs } from "../../utils";
+import { FALLBACK_IMAGE } from "../Blog/constants";
 
 const HomeCoverSection = ({ blogs }) => {
-  const sortedBlogs = sortBlogs(blogs);
+  const sortedBlogs = sortBlogs([...(blogs || [])]);
   const blog = sortedBlogs[0];
-  
-  // Format date to match Apple's style: "16 April 2025"
-  const formattedDate = format(new Date(blog.publishedAt), "d MMMM yyyy");
-  
-  // Determine if the first tag is an update type
-  const isUpdate = blog.tags[0].toLowerCase().includes('update') || 
-    blog.tags[0].toLowerCase() === 'press release' || 
-    blog.tags[0].toLowerCase() === 'quick read';
+
+  if (!blog) return null;
+
+  const publishedAt = blog.publishedAt ? format(new Date(blog.publishedAt), "d MMM yyyy") : "Recent post";
+  const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
 
   return (
-    <section className="w-full max-w-[1180px] mx-auto mt-8 mb-12">
-      <div className="px-5 sm:px-6">
-        <h1 className="text-2xl font-semibold text-[#1d1d1f] dark:text-white mb-4">
-          Latest Blogs
-        </h1>
+    <section className="blog-container pb-8 md:pb-12">
+      <div className="flex items-center justify-between mb-4 md:mb-6">
+        <h2 className="blog-section-title">Latest Story</h2>
       </div>
-      
-      {/* Main featured article */}
-      <div className="mx-5 sm:mx-6 mb-8 overflow-hidden rounded-2xl bg-white dark:bg-[#1d1d1f] shadow-sm">
-        <div className="flex flex-col lg:flex-row">
-          {/* Left side image */}
-          <div className="w-full lg:w-2/3">
-            <Link href={blog.url} className="block">
-              <Image
-                src={blog.image.filePath.replace("../public", "")}
-                placeholder="blur"
-                blurDataURL={blog.image.blurhashDataUrl}
-                alt={blog.title}
-                width={700}
-                height={500}
-                className="w-full h-full object-cover object-center aspect-[16/9]"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 700px"
-                priority
-              />
+
+      <article className="blog-card">
+        <div className="grid grid-cols-1 lg:grid-cols-5">
+          <Link href={blog.url} className="blog-card-image lg:col-span-3 block">
+            <Image
+              src={imagePath}
+              alt={blog.title}
+              width={1200}
+              height={675}
+              className="w-full h-full object-cover"
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              priority
+            />
+          </Link>
+
+          <div className="lg:col-span-2 p-5 md:p-7 flex flex-col">
+            {blog.tags?.[0] && <span className="blog-chip mb-3">{blog.tags[0]}</span>}
+
+            <Link href={blog.url} className="group">
+              <h3 className="text-[1.35rem] md:text-[1.85rem] font-bold leading-tight tracking-[-0.01em] text-[#111827] group-hover:text-[#0056b3] transition-colors">
+                {blog.title}
+              </h3>
             </Link>
-          </div>
-          
-          {/* Right side content */}
-          <div className="w-full lg:w-1/3 p-6 lg:p-8 flex flex-col justify-between">
-            {isUpdate && (
-              <div className="mb-3">
-                <span className="text-xs uppercase font-semibold tracking-wider text-[#6e6e73] dark:text-[#86868b]">
-                  {blog.tags[0]}
-                </span>
-              </div>
+
+            {blog.description && (
+              <p className="mt-3 text-[0.98rem] leading-7 text-[#4b5563] blog-clamp-3">{blog.description}</p>
             )}
-            
-            <div>
-              <Link href={blog.url}>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#1d1d1f] dark:text-white leading-tight mb-4 hover:text-[#0066CC] transition-colors duration-300">
-                  {blog.title}
-                </h2>
-              </Link>
-              
-              <p className="text-base text-[#424245] dark:text-[#86868b] mb-6 line-clamp-3">
-                {blog.description}
-              </p>
-            </div>
-            
-            <div className="mt-auto">
-              <span className="block text-[#6e6e73] dark:text-[#86868b] text-sm mb-4">
-                {formattedDate}
-              </span>
+
+            <div className="mt-auto pt-5 flex items-center gap-3 text-sm text-[#6b7280]">
+              <span>{publishedAt}</span>
+              <span className="w-1 h-1 rounded-full bg-[#9ca3af]" />
+              <span className="blog-link">Read article</span>
             </div>
           </div>
         </div>
-      </div>
+      </article>
     </section>
   );
 };
