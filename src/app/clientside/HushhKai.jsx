@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { FaApple, FaBell, FaChartLine, FaLock, FaShieldAlt, FaSun } from "react-icons/fa";
 import styles from "./KaiPage.module.css";
 import FooterComponent from "../_components/features/FooterComponent";
@@ -95,31 +96,199 @@ const HushhKai = () => {
   const [alphaView, setAlphaView] = useState("preMarket");
   const isPreMarketView = alphaView === "preMarket";
   const alphaItems = isPreMarketView ? preMarketDigestItems : notificationItems;
+  const revealProps = {
+    initial: { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.7, ease: "easeOut" },
+    viewport: { once: true, amount: 0.3 },
+  };
+  const phoneReveal = {
+    initial: { opacity: 0, rotate: -10, y: 28, scale: 0.96 },
+    whileInView: { opacity: 1, rotate: 0, y: 0, scale: 1 },
+    transition: { duration: 0.8, ease: "easeOut" },
+    viewport: { once: true, amount: 0.45 },
+  };
 
   return (
     <>
     <main className={styles.page}>
-      <div className={styles.shell}>
-        <div className={styles.mobileFrame}>
-          <section className={styles.hero}>
-            <div className={styles.logoWrap}>
-              <span className={styles.logoText}>Kai</span>
+      <section className={styles.heroStage}>
+        <div className={styles.heroBackdrop} aria-hidden="true">
+          <span className={styles.backdropGlow} />
+          <span className={styles.backdropGlowSecondary} />
+          <span className={styles.backdropGrid} />
+          <span className={styles.backdropOrbit} />
+        </div>
+
+        <div className={styles.heroGrid}>
+          <div className={styles.heroCopy}>
+            <div className={styles.heroBadge}>
+              <span className={styles.heroBadgeLogo} aria-hidden="true">
+                Kai
+              </span>
+              Introducing your new financial copilot
             </div>
 
-            <h1 className={styles.heroTitle}>
-              Your Explainable
+            <motion.h1
+              className={styles.heroTitle}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              Your Personal Agent
               <br />
-              Investing Copilot
-            </h1>
+              for Market Confidence
+            </motion.h1>
 
-            <p className={styles.subtitle}>Decide like a committee, carry it in your pocket.</p>
+            <motion.p
+              className={styles.heroSubtitle}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+            >
+              Personal Agent Kai helps you cut through noise and make clear, confident decisions with calm, private guidance.
+            </motion.p>
 
-            <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.cta}>
-              Start with Kai
-            </Link>
-          </section>
+            <motion.div
+              className={styles.heroHighlights}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+            >
+              <span>Calm confidence</span>
+              <span>Private advantage</span>
+              <span>Everyday edge</span>
+            </motion.div>
 
-          <section id="kai-analysis" className={styles.section}>
+            <motion.div
+              className={styles.heroActions}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
+            >
+              <Link
+                href="https://hushh-webapp-1006304528804.us-central1.run.app/"
+                className={styles.ctaPrimary}
+              >
+                Start with Kai
+              </Link>
+              <Link href="#kai-analysis" className={styles.ctaSecondary}>
+                See the analysis
+              </Link>
+            </motion.div>
+
+            <motion.div
+              className={styles.heroStats}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.4 }}
+            >
+              <div>
+                <p className={styles.heroStatValue}>3</p>
+                <p className={styles.heroStatLabel}>Specialist agents</p>
+              </div>
+              <div>
+                <p className={styles.heroStatValue}>87%</p>
+                <p className={styles.heroStatLabel}>Avg. confidence</p>
+              </div>
+              <div>
+                <p className={styles.heroStatValue}>24/7</p>
+                <p className={styles.heroStatLabel}>Live monitoring</p>
+              </div>
+            </motion.div>
+          </div>
+
+          <div className={styles.heroVisual}>
+            <div className={styles.heroProductStack}>
+              <motion.div
+                className={styles.desktopFrame}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              >
+                <div className={styles.desktopTopBar}>
+                  <span className={styles.desktopDot} />
+                  <span className={styles.desktopDot} />
+                  <span className={styles.desktopDot} />
+                </div>
+                <div className={styles.desktopBody}>
+                  <div className={styles.desktopHeader}>
+                    <div>
+                      <p className={styles.desktopTitle}>Kai Market Pulse</p>
+                      <p className={styles.desktopSubtitle}>Consensus dashboard</p>
+                    </div>
+                    <span className={styles.desktopChip}>Live</span>
+                  </div>
+                  <div className={styles.desktopCard}>
+                    <div className={styles.desktopCardHeader}>
+                      <span className={styles.desktopStock}>Apple · AAPL</span>
+                      <span className={styles.desktopScore}>87%</span>
+                    </div>
+                    <p className={styles.desktopCardText}>Confidence score based on 3-agent consensus.</p>
+                  </div>
+                  <div className={styles.desktopSignals}>
+                    <div>
+                      <p className={styles.signalLabel}>Trend</p>
+                      <p className={styles.signalValue}>Neutral</p>
+                    </div>
+                    <div>
+                      <p className={styles.signalLabel}>Risk</p>
+                      <p className={styles.signalValue}>Low</p>
+                    </div>
+                    <div>
+                      <p className={styles.signalLabel}>Entry</p>
+                      <p className={styles.signalValue}>Good</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                className={styles.heroInsightPanel}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.35 }}
+              >
+                <p className={styles.heroInsightTitle}>Calm Guidance</p>
+                <p className={styles.heroInsightBody}>
+                  Personal Agent Kai brings clarity to every market decision while keeping control in your hands.
+                </p>
+                <div className={styles.heroInsightTags}>
+                  <span>Clarity</span>
+                  <span>Private</span>
+                  <span>Everyday</span>
+                </div>
+              </motion.div>
+
+              <div className={styles.heroSignalGrid}>
+                {[
+                  { label: "Attention", value: "Aligned" },
+                  { label: "Tradeoffs", value: "Clear" },
+                  { label: "Next step", value: "Ready" },
+                ].map((item) => (
+                  <div key={item.label} className={styles.heroSignalCard}>
+                    <p className={styles.heroSignalLabel}>{item.label}</p>
+                    <p className={styles.heroSignalValue}>{item.value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <span className={styles.floatingOrb} aria-hidden="true" />
+              <span className={styles.floatingOrbAlt} aria-hidden="true" />
+              <span className={styles.marketPulse} aria-hidden="true" />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.scrollIndicator}>
+          <span className={styles.scrollDot} aria-hidden="true" />
+          Scroll to explore the committee view
+        </div>
+      </section>
+
+      <div className={styles.shell}>
+        <div className={styles.mobileFrame}>
+          <motion.section id="kai-analysis" className={styles.section} {...revealProps}>
             <h2 className={styles.sectionTitle}>
               A Committee Decision on
               <br />
@@ -173,21 +342,37 @@ const HushhKai = () => {
                 </div>
               </article>
             </div>
-          </section>
+          </motion.section>
 
-          <section className={styles.appSection}>
-            <h2 className={styles.sectionTitle}>The Process</h2>
-            <p className={styles.sectionSub}>Structured internal debate, zero bias.</p>
-            <div className={styles.screenFrame}>
-              <Image
-                src="/Images/kai/screen_1_high_level.png"
-                alt="Kai process high-level flow mobile screen"
-                width={1400}
-                height={2537}
-                className={styles.screenImage}
-              />
+          <motion.section className={styles.splitSection} {...revealProps}>
+            <div className={styles.splitCopy}>
+              <p className={styles.splitEyebrow}>The Process</p>
+              <h2 className={styles.splitTitle}>Markets move fast. Personal Agent Kai keeps you grounded.</h2>
+              <p className={styles.splitBody}>
+                Too much information creates hesitation. Kai simplifies what to focus on so you can stay aligned with
+                your goals and move with confidence.
+              </p>
+              <ul className={styles.splitList}>
+                <li>Spot what deserves your attention today.</li>
+                <li>Understand the tradeoffs before you act.</li>
+                <li>Choose your next step with greater confidence.</li>
+              </ul>
             </div>
-          </section>
+            <div className={styles.splitVisual}>
+              <motion.div
+                className={styles.splitPhoneFrame}
+                {...phoneReveal}
+              >
+                <Image
+                  src="/Images/kai/screen_1_high_level.png"
+                  alt="Kai process high-level flow mobile screen"
+                  width={1400}
+                  height={2537}
+                  className={styles.phoneImage}
+                />
+              </motion.div>
+            </div>
+          </motion.section>
 
           {/* <div className={styles.connector}>
             <span className={styles.connectorLine} aria-hidden="true" />
@@ -196,25 +381,37 @@ const HushhKai = () => {
             </span>
           </div> */}
 
-          <section className={styles.appSection}>
-            <h2 className={styles.sectionTitle}>
-              From Complexity to a
-              <br />
-              Clear Decision.
-            </h2>
-            <p className={styles.sectionSub}>Every recommendation is backed by raw data and verifiable citations.</p>
-            <div className={styles.screenFrame}>
-              <Image
-                src="/Images/kai/screen_2_stock_analysis.png"
-                alt="Kai detailed stock analysis mobile screen"
-                width={1536}
-                height={2752}
-                className={styles.screenImage}
-              />
+          <motion.section className={`${styles.splitSection} ${styles.splitReverse}`} {...revealProps}>
+            <div className={styles.splitCopy}>
+              <p className={styles.splitEyebrow}>Clear Decision</p>
+              <h2 className={styles.splitTitle}>Less noise. Better choices.</h2>
+              <p className={styles.splitBody}>
+                Unclear next steps slow decisions. Kai gives private guidance so you can act with calm confidence and
+                stay focused on what matters most.
+              </p>
+              <ul className={styles.splitList}>
+                <li>Guidance that feels personal, practical, and trustworthy.</li>
+                <li>Designed to empower your judgment, not replace it.</li>
+                <li>Focused on confidence and control in every decision.</li>
+              </ul>
             </div>
-          </section>
+            <div className={styles.splitVisual}>
+              <motion.div
+                className={styles.splitPhoneFrame}
+                {...phoneReveal}
+              >
+                <Image
+                  src="/Images/kai/screen_2_stock_analysis.png"
+                  alt="Kai detailed stock analysis mobile screen"
+                  width={1536}
+                  height={2752}
+                  className={styles.phoneImage}
+                />
+              </motion.div>
+            </div>
+          </motion.section>
 
-          <section className={styles.section}>
+          <motion.section className={styles.section} {...revealProps}>
             <h2 className={styles.sectionTitle}>
               Transparency built into
               <br />
@@ -232,9 +429,9 @@ const HushhKai = () => {
                 </article>
               ))}
             </div>
-          </section>
+          </motion.section>
 
-          <section className={styles.section}>
+          <motion.section className={styles.section} {...revealProps}>
             <h2 className={styles.sectionTitle}>Start your day with Alpha</h2>
             <p className={styles.sectionSub}>A clean, curated digest of opportunities every morning.</p>
 
@@ -284,9 +481,9 @@ const HushhKai = () => {
                 ))}
               </div>
             </div>
-          </section>
+          </motion.section>
 
-          <section className={styles.finalSection}>
+          <motion.section className={styles.finalSection} {...revealProps}>
             <h2 className={styles.finalTitle}>Ready for Clarity?</h2>
             <p className={styles.finalText}>Join investors who have replaced noise with structure.</p>
             <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.finalButton}>
@@ -308,7 +505,7 @@ const HushhKai = () => {
               <br />
               {"\u00A9 2026 Kai"}
             </p>
-          </section>
+          </motion.section>
         </div>
       </div>
     </main>
@@ -318,4 +515,3 @@ const HushhKai = () => {
 };
 
 export default HushhKai;
-
