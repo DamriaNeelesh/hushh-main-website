@@ -198,7 +198,7 @@ const FooterComponent = () => {
             </div>
 
             <div className="pt-8 text-left text-xs">
-              <p className="text-gray-500">© 2025 HushOne Inc. All rights reserved.</p>
+              <p className="text-gray-500">© 2026 HushOne Inc. All rights reserved.</p>
 
               <div className="mt-4 flex flex-wrap items-center gap-x-1 gap-y-2 text-left text-[11px] leading-relaxed text-[#86868B]">
                 <Link href="/legal/termsofuse" className="transition-colors hover:text-[#3b82f6]">
