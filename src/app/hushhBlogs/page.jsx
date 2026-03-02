@@ -33,11 +33,9 @@ export const metadata = {
 
 export default function HushhBlogs() {
   return (
-    <>
-      <ContentWrapper includeHeaderSpacing={true}>
-        <HushhBlogsContent blogs={allBlogs} />
-        <ContactForm />
-      </ContentWrapper>
-    </>
+    <ContentWrapper>
+      <HushhBlogsContent blogs={allBlogs} />
+      <ContactForm />
+    </ContentWrapper>
   );
 }
