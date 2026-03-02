@@ -426,17 +426,24 @@
   border-radius: 999px;
   padding: 2px;
   display: flex;
-  margin: 0 auto 1.12rem;
+  gap: 2px;
+  margin: 0 auto 0.78rem;
   width: fit-content;
+  align-items: center;
 }
 
 .toggleItem {
-  border: 0;
-  background: transparent;
+  all: unset;
+  box-sizing: border-box;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
-  padding: 0.3rem 0.74rem;
+  height: 1.95rem;
+  padding: 0 0.74rem;
   font-size: 0.72rem;
+  line-height: 1.1;
   font-weight: 700;
   color: #86868b;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -584,6 +591,26 @@
   color: #065f46;
   background: #d1fae5;
   border: 1px solid #6ee7b7;
+}
+
+@media (max-width: 480px) {
+  .alphaPanel {
+    padding: 0.92rem 0.82rem;
+  }
+
+  .toggle {
+    width: min(100%, 12.8rem);
+    margin-bottom: 0.64rem;
+    padding: 1px;
+    gap: 1px;
+  }
+
+  .toggleItem {
+    flex: 1;
+    height: 1.8rem;
+    padding: 0 0.5rem;
+    font-size: 0.69rem;
+  }
 }
 
 .finalSection {

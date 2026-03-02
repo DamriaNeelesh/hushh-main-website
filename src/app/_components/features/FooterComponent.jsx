@@ -8,7 +8,7 @@ const footerSections = [
   {
     title: "Products",
     links: [
-      { label: "Personal Data Agent (PDA)", href: "/products/personal-data-agent" },
+      { label: "Agent Kai", href: "/products/kai" },
       { label: "Hushh Vault", href: "/hushh-vault" },
       { label: "Hushh Link", href: "/hushh-link" },
       { label: "Hushh Flow", href: "/products/hushh-flow" },

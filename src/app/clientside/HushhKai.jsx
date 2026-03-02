@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaApple, FaBell, FaChartLine, FaLock, FaShieldAlt, FaSun } from "react-icons/fa";
 import styles from "./KaiPage.module.css";
+import FooterComponent from "../_components/features/FooterComponent";
 
 const signals = [
   {
@@ -96,6 +97,7 @@ const HushhKai = () => {
   const alphaItems = isPreMarketView ? preMarketDigestItems : notificationItems;
 
   return (
+    <>
     <main className={styles.page}>
       <div className={styles.shell}>
         <div className={styles.mobileFrame}>
@@ -310,6 +312,8 @@ const HushhKai = () => {
         </div>
       </div>
     </main>
+    <FooterComponent />
+    </>
   );
 };
 
