@@ -158,9 +158,9 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
       title: "Products",
       items: [
         {
-          name: "Personal Data Agent (PDA)",
-          description: "Your AI-powered personal data assistant",
-          href: "/products/personal-data-agent",
+          name: "Agent Kai",
+          description: "Your Explainable Investing Copilot",
+          href: "/products/kai",
           icon:HushhPDA
         },
         {
@@ -494,7 +494,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                 }}
               >
                 {/* Logo */}
-                <div className="flex-shrink-0 mr-4">
+                <div className="flex-shrink-0 mr-4 h-full flex items-center">
                   <Link href="/" className="flex items-center">
                     <Image 
                       src={HushhNewLogo} 
@@ -502,7 +502,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                       width={140} 
                       height={45} 
                       priority 
-                      className="h-8 w-auto sm:h-10 lg:h-11"
+                      className="block h-8 w-auto sm:h-10 lg:h-11"
                     />
                   </Link>
                 </div>
@@ -614,11 +614,11 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                 </nav>
 
                 {/* Right side - Auth & CTA */}
-                <div className="flex items-center space-x-2 lg:space-x-3 xl:space-x-4 ml-4">
+                <div className="flex h-full items-center space-x-2 lg:space-x-3 xl:space-x-4 ml-4">
                   {/* Search Icon */}
                   <button
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSearchOpen(); }}
-                    className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 group relative"
+                    className="group relative self-center flex h-10 w-10 items-center justify-center p-0 leading-none rounded-full hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                     aria-label="Search (⌘K)"
                     type="button"
                     title="Search (⌘K)"
@@ -713,10 +713,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                   <button
                     ref={hamburgerRef}
                     onClick={handleMenuIconToggle}
-                    className="mobile-menu-trigger lg:hidden relative p-3 rounded-xl border hover:border-gray-300 transition-all duration-200 hover:shadow-lg active:scale-95"
-                    style={{
-                      backdropFilter: "blur(10px)",
-                    }}
+                    className="mobile-menu-trigger lg:hidden relative self-center flex h-10 w-10 items-center justify-center p-0 leading-none bg-transparent border-0 shadow-none rounded-none transition-transform duration-200 hover:shadow-none active:scale-95"
                     type="button"
                     aria-label="Toggle mobile menu"
                   >
