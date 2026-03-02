@@ -713,10 +713,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                   <button
                     ref={hamburgerRef}
                     onClick={handleMenuIconToggle}
-                    className="mobile-menu-trigger lg:hidden relative p-3 rounded-xl border hover:border-gray-300 transition-all duration-200 hover:shadow-lg active:scale-95"
-                    style={{
-                      backdropFilter: "blur(10px)",
-                    }}
+                    className="mobile-menu-trigger lg:hidden relative p-3 bg-transparent border-0 shadow-none rounded-none transition-transform duration-200 hover:shadow-none active:scale-95"
                     type="button"
                     aria-label="Toggle mobile menu"
                   >
