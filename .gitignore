@@ -44,4 +44,3 @@ next-env.d.ts
 
 .env
 .env*.local
-dev-kai.log
