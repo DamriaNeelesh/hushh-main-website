@@ -14,6 +14,7 @@ import { siteMetadata } from "./sitemetadata";
 import { AuthProvider } from "./context/AuthContext";
 import { BannerHeightProvider } from "./context/BannerHeightContext";
 import HushhBot from "./_components/HushhBot";
+import FooterComponent from "./_components/features/FooterComponent";
 
 export const metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -171,6 +172,7 @@ export default function RootLayout({ children }) {
                   {children}
                   {/* Hushh Bot Chatbot */}
                   <HushhBot />
+                  <FooterComponent />
                 </Providers>
               </div>
             </BannerHeightProvider>
