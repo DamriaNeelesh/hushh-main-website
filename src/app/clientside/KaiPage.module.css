@@ -1,4 +1,4 @@
-.page {
+﻿.page {
   background: #ffffff;
   color: #000000;
   min-height: 100vh;
@@ -1990,8 +1990,8 @@
   width: min(100%, 1220px);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.2rem, 2.8vw, 2.6rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
   align-items: end;
 }
 
@@ -2098,7 +2098,9 @@
   }
 
   .triPhoneRow {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(100%, 1260px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2.2rem, 8vw, 7rem);
   }
 }
 
@@ -2213,13 +2215,14 @@
 
   .triPhoneRow {
     width: 100%;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.6rem;
+    max-width: 1360px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(3rem, 10vw, 9rem);
   }
 
   .triPhoneItem {
-    width: clamp(86px, 29vw, 148px);
-    height: clamp(190px, 54vw, 320px);
+    width: clamp(180px, 30vw, 360px);
+    height: clamp(360px, 58vw, 760px);
   }
 }
 

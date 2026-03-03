@@ -195,27 +195,28 @@ const investorJourneyStages = [
 ];
 
 const appShowcasePhones = [
- {
+ 
+  // {
+  //   key: "center",
+  //   src: "/Images/kai/center.png",
+  //   alt: "Kai mobile app center screen",
+  //   width: 342,
+  //   height: 734,
+  // },
+  {
+    key: "left",
+    src: "/Images/kai/facing_left.png",
+    alt: "Kai mobile app screen facing left",
+    width: 342,
+    height: 734,
+  },
+  {
     key: "right",
     src: "/Images/kai/facing_right.png",
     alt: "Kai mobile app screen facing right",
     width: 342,
-    height: 730,
-  },
-  {
-    key: "center",
-    src: "/Images/kai/center.png",
-    alt: "Kai mobile app center screen",
-    width: 340,
     height: 734,
   },
-    {
-    key: "left",
-    src: "/Images/kai/facing_left.png",
-    alt: "Kai mobile app screen facing left",
-    width: 320,
-    height: 780,
-  }
 ];
 
 const HushhKai = () => {
