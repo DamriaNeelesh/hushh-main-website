@@ -250,9 +250,9 @@ const HushhKai = () => {
           <div className={styles.heroCopy}>
             <div className={styles.heroBadge}>
               <span className={styles.heroBadgeLogo} aria-hidden="true">
-                Kai
+                KAI
               </span>
-              Introducing your new financial copilot
+              Introducing your new financial copilot powered by hushh.ai
             </div>
 
             <motion.h1
@@ -645,7 +645,7 @@ const HushhKai = () => {
 
           <section className={`${styles.section} ${styles.planSection}`}>
             <p className={styles.planEyebrow}>Personas and Scope</p>
-            <h2 className={styles.sectionTitle}>Who Kai serves and what Kai provides in V1 and V1.1.</h2>
+            <h2 className={styles.sectionTitle}>Who Kai serves and  what Kai provides in V1</h2>
 
             <div className={styles.planPersonaGrid}>
               {riskPersonaCards.map((item) => (

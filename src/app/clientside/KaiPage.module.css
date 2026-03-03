@@ -94,28 +94,28 @@
 .heroBadge {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
   width: fit-content;
-  padding: 0.35rem 0.85rem;
+  padding: 0.5rem 1.15rem;
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.06);
   color: #1f2937;
-  font-size: 0.78rem;
+  font-size: 0.92rem;
   font-weight: 650;
   letter-spacing: 0.01em;
   text-transform: none;
 }
 
 .heroBadgeLogo {
-  width: 1.35rem;
-  height: 1.35rem;
-  border-radius: 0.34rem;
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 0.5rem;
   background: #0f172a;
   color: #ffffff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.52rem;
+  font-size: 0.94rem;
   line-height: 1;
   font-weight: 800;
   letter-spacing: 0;
@@ -742,8 +742,16 @@
   }
 
   .heroBadge {
-    font-size: 0.72rem;
-    padding: 0.32rem 0.7rem;
+    font-size: 0.8rem;
+    padding: 0.38rem 0.82rem;
+    gap: 0.5rem;
+  }
+
+  .heroBadgeLogo {
+    width: 1.95rem;
+    height: 1.95rem;
+    border-radius: 0.42rem;
+    font-size: 0.74rem;
   }
 
   .heroTitle {
