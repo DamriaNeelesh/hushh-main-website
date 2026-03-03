@@ -270,84 +270,8 @@ const ClientHushhButton = () => {
             share your personal data with brands to enhance your browsing
             experience and receive tailored recommendations with Gen AI.
           </Text>
-          <Box
-            mt={"1.5rem"}
-            display={{ md: "none", base: "flex" }}
-            justifyContent={"center"}
-            w={"100%"}
-            h={"100%"}
-            mb={"2rem"}
-            p={{ md: "0rem", base: "2rem" }}
-          >
-            <Image
-              alt="directionLine"
-              className="hushhbuttonFrame3"
-              style={{
-                position: "absolute",
-                height: "4rem",
-                left: "-20%",
-                bottom: "0",
-              }}
-              src={DirectionLine}
-            />
-            <CldVideoPlayer
-              alt="Hushh Button Guide"
-              title="Hushh button developer walkthrough"
-              controls="true"
-              width="440"
-              height="250"
-              src="Hushh_button_-_developer_walkthrough_uwwiy0"
-            />
-          </Box>
-          <Box
-            mt={"3rem"}
-            display={{ md: "flex", base: "none" }}
-            justifyContent={"center"}
-            w={"100%"}
-            h={"100%"}
-            mb={"2rem"}
-          >
-            <Image
-              src={BarIcon}
-              alt="barIcon"
-              style={{
-                position: "absolute",
-                left: "2%",
-                top: "2%",
-                transform: "rotate(35deg)",
-              }}
-              className="hushhbuttonFrame1"
-            />
-            <Image
-              alt="hushhButtonCard2"
-              style={{ position: "absolute", left: "12%" }}
-              src={FrameCard2}
-              className="hushhbuttonFrame2"
-            />
-            <Image
-              alt="directionLine"
-              className="hushhbuttonFrame3"
-              style={{
-                position: "absolute",
-                left: "8%",
-                bottom: "0",
-              }}
-              src={DirectionLine}
-            />
-            <CldVideoPlayer
-              alt="Hushh Button Guide"
-              title="Hushh button developer walkthrough"
-              width="1620"
-              height="1080"
-              src="Hushh_button_-_developer_walkthrough_uwwiy0"
-            />
-            <Image
-              className="frameCard1"
-              alt="HushhButtonframeCard4"
-              src={FramCard1}
-              style={{ position: "absolute", right: "16rem", bottom: "0rem" }}
-            />
-          </Box>
+         
+          
         </HStack>
         <Stack
           fontWeight={"700"}

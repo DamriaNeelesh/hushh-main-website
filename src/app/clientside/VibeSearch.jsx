@@ -29,10 +29,10 @@ import VibeSearchGif from "../../../public/Gif/vibeSearchGIf.gif";
 import "next-cloudinary/dist/cld-video-player.css";
 import dynamic from "next/dynamic";
 
-const CldVideoPlayer = dynamic(
-  () => import("next-cloudinary").then((mod) => mod.CldVideoPlayer),
-  { ssr: false }
-);
+// const CldVideoPlayer = dynamic(
+//   () => import("next-cloudinary").then((mod) => mod.CldVideoPlayer),
+//   { ssr: false }
+// );
 
 const ClientVibeSearch = () => {
   const gradient = "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)";
@@ -238,83 +238,8 @@ const ClientVibeSearch = () => {
             is all you need . VIbe search is your fashion companion that helps
             you find your style{" "}
           </Text>
-          <Box
-            mt={"1.5rem"}
-            display={{ md: "none", base: "flex" }}
-            justifyContent={"center"}
-            w={"100%"}
-            h={"100%"}
-            mb={"2rem"}
-          >
-            <Image
-              alt="directionLine"
-              className="hushhbuttonFrame3"
-              style={{
-                position: "absolute",
-                height: "4rem",
-                left: "-20%",
-                bottom: "0",
-              }}
-              src={DirectionLine}
-            />
-            <CldVideoPlayer
-              alt="Vibe Search Guide"
-              title="Hushh Vibe Search walkthrough"
-              controls="true"
-              width="440"
-              height="250"
-              src="vibeSearchDemo_s1bdkh"
-            />
-          </Box>
-          <Box
-            mt={"3rem"}
-            display={{ md: "flex", base: "none" }}
-            justifyContent={"center"}
-            w={"100%"}
-            h={"100%"}
-            mb={"2rem"}
-          >
-            <Image
-              src={BarIcon}
-              alt="barIcon"
-              style={{
-                position: "absolute",
-                left: "2%",
-                top: "2%",
-                transform: "rotate(35deg)",
-              }}
-              className="hushhbuttonFrame1"
-            />
-            <Image
-              alt="hushhButtonCard2"
-              style={{ position: "absolute", left: "12%" }}
-              src={FrameCard2}
-              className="hushhbuttonFrame2"
-            />
-            <Image
-              alt="directionLine"
-              className="hushhbuttonFrame3"
-              style={{
-                position: "absolute",
-                left: "8%",
-                bottom: "0",
-              }}
-              src={DirectionLine}
-            />
-            <CldVideoPlayer
-              alt="Vibe Search Guide"
-              title="Hushh Vibe Search walkthrough"
-              width="1620"
-              height="1080"
-              src="vibeSearchDemo_s1bdkh"
-            />
-            <Image
-              className="frameCard1"
-              alt="HushhButtonframeCard4"
-              src={FramCard1}
-              style={{ position: "absolute", right: "16rem", bottom: "0rem" }}
-            />
-          </Box>
+        
+         
         </HStack>
 
         <HStack

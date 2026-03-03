@@ -1,0 +1,57 @@
+
+> cilent@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+   automatically enabled Fast Refresh for 3 custom loaders
+Warning: Contentlayer might not work as expected on Windows
+Contentlayer config change detected. Updating type definitions and data...
+Generated 65 documents in .contentlayer
+ ✓ Ready in 12.6s
+ ○ Compiling /products/kai ...
+(node:28316) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+[1m[33mwarn[39m[22m - The safelist pattern `/hljs(-.*)?/` doesn't match any Tailwind CSS classes.
+[1m[33mwarn[39m[22m - Fix this pattern or remove it from your `safelist` configuration.
+[1m[33mwarn[39m[22m - https://tailwindcss.com/docs/content-configuration#safelisting-classes
+
+[1m[33mwarn[39m[22m - The safelist pattern `/hljs(-.*)?/` doesn't match any Tailwind CSS classes.
+[1m[33mwarn[39m[22m - Fix this pattern or remove it from your `safelist` configuration.
+[1m[33mwarn[39m[22m - https://tailwindcss.com/docs/content-configuration#safelisting-classes
+ ✓ Compiled /products/kai in 52.1s (3572 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /products/kai. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /products/kai. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /products/kai 200 in 53992ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 4.4s (3523 modules)
+ GET /favicon.ico 200 in 2355ms
+ ✓ Compiled in 633ms (1473 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /products/kai. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /products/kai. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /products/kai 200 in 822ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2s (3512 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /.well-known/appspecific/com.chrome.devtools.json. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /.well-known/appspecific/com.chrome.devtools.json. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 2839ms
+ ⚠ Unsupported metadata viewport is configured in metadata export in /products/kai. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /products/kai. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /products/kai 200 in 165ms
+ ⚠ Unsupported metadata viewport is configured in metadata export in /.well-known/appspecific/com.chrome.devtools.json. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /.well-known/appspecific/com.chrome.devtools.json. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 62ms

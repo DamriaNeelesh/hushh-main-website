@@ -3,6 +3,12 @@
   color: #000000;
   min-height: 100vh;
   width: 100%;
+  overflow-x: hidden;
+}
+
+.page * {
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .heroStage {
@@ -1542,7 +1548,7 @@
 
 @media (min-width: 768px) {
   .mobileFrame {
-    width: min(100%, 1080px);
+    width: min(100%, 1320px);
     gap: clamp(3.2rem, 5vw, 4.8rem);
   }
 
@@ -1582,3 +1588,630 @@
     margin-top: 0;
   }
 }
+
+.planSection {
+  margin-top: 0;
+}
+
+.flowFullWidthSection {
+  position: relative;
+}
+
+.planEyebrow {
+  margin: 0 0 0.62rem;
+  color: #0071e3;
+  font-size: 0.74rem;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.planCards {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.78rem;
+}
+
+.planCard {
+  border-radius: 1rem;
+  border: 1px solid #dbe3f4;
+  background: #ffffff;
+  padding: 0.92rem 0.9rem;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+}
+
+.planCardTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.54rem;
+}
+
+.planCardTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 0.94rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.planCardBody {
+  margin-top: 0.56rem;
+  color: #4b5563;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.planFlowRail {
+  margin-top: 0.92rem;
+  border: 1px solid #d5e6ff;
+  background: #f3f9ff;
+  border-radius: 1rem;
+  padding: 0.74rem;
+  display: grid;
+  gap: 0.54rem;
+}
+
+.planFlowItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.planFlowItem span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.62rem;
+  border-radius: 999px;
+  border: 1px solid #cfdff7;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0 0.74rem;
+}
+
+.planFlowItem i {
+  width: 1rem;
+  height: 1px;
+  background: #94a3b8;
+  display: inline-block;
+}
+
+.planTrustBox {
+  margin-top: 0.92rem;
+  border-radius: 1rem;
+  border: 1px solid #dbe3f4;
+  background: #ffffff;
+  padding: 0.9rem;
+}
+
+.planTrustTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.planTrustList {
+  margin: 0.64rem 0 0;
+  padding-left: 1rem;
+  color: #4b5563;
+  font-size: 0.86rem;
+  line-height: 1.52;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.planPersonaGrid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.78rem;
+}
+
+.planPersonaCard {
+  border-radius: 1rem;
+  border: 1px solid #dbe3f4;
+  background: #ffffff;
+  padding: 0.9rem;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
+}
+
+.planPersonaHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.52rem;
+}
+
+.planPersonaHead h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 0.96rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.planPersonaHead span {
+  color: #0f4cc9;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.planPersonaCard p {
+  margin-top: 0.5rem;
+  color: #4b5563;
+  font-size: 0.86rem;
+  line-height: 1.52;
+}
+
+.planAudienceList {
+  margin-top: 0.92rem;
+  display: grid;
+  gap: 0.56rem;
+}
+
+.planAudienceItem {
+  display: flex;
+  gap: 0.52rem;
+  align-items: flex-start;
+  border: 1px solid #dbe3f4;
+  border-radius: 0.88rem;
+  background: #f8fbff;
+  padding: 0.7rem 0.72rem;
+}
+
+.planAudienceItem p {
+  margin: 0;
+  color: #334155;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.planScopeGrid {
+  margin-top: 0.92rem;
+  display: grid;
+  gap: 0.78rem;
+}
+
+.planScopeCard {
+  border-radius: 1rem;
+  border: 1px solid #dbe3f4;
+  background: #ffffff;
+  padding: 0.9rem;
+}
+
+.planScopeCard h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 0.94rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.planScopeCard ul {
+  margin: 0.62rem 0 0;
+  padding-left: 1rem;
+  color: #4b5563;
+  font-size: 0.84rem;
+  line-height: 1.52;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.planActions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.56rem;
+}
+
+.planLead {
+  margin: 0.7rem auto 0;
+  max-width: 62ch;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.journeyDiagram {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.58rem;
+}
+
+.journeyStageCard {
+  border-radius: 1rem;
+  border: 1px solid #dbe3f4;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+  padding: 0.92rem;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.journeyStageTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.42rem;
+  border-radius: 999px;
+  background: #e7f0ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  padding: 0 0.55rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.journeyStageCard h3 {
+  margin: 0.64rem 0 0;
+  color: #0f172a;
+  font-size: 0.96rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.journeyStageCard ul {
+  margin: 0.58rem 0 0;
+  padding-left: 1rem;
+  color: #4b5563;
+  font-size: 0.83rem;
+  line-height: 1.52;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.journeyConnector {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #3b82f6;
+  font-size: 0.9rem;
+}
+
+.appShowcaseGrid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.appShowcaseCard {
+  border-radius: 1rem;
+  border: 1px solid #dbe3f4;
+  background: #ffffff;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.07);
+  padding: 0.9rem;
+}
+
+.appShowcaseFrame {
+  margin: 0 auto;
+  width: min(100%, 290px);
+  border-radius: 1.2rem;
+  border: 1px solid #dbe3f4;
+  overflow: hidden;
+  background: #f8fbff;
+}
+
+.appShowcaseVideoFrame {
+  position: relative;
+  width: min(100%, 320px);
+  aspect-ratio: 9 / 19.5;
+  border-radius: 2rem;
+  border: 8px solid #0f172a;
+  background: #020617;
+  box-shadow:
+    0 24px 48px rgba(15, 23, 42, 0.28),
+    0 10px 22px rgba(15, 23, 42, 0.2);
+}
+
+.appShowcaseVideoFrame::before {
+  content: "";
+  position: absolute;
+  top: 0.35rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 1rem;
+  border-radius: 0 0 0.65rem 0.65rem;
+  background: #0f172a;
+  z-index: 2;
+}
+
+.appShowcaseVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 1.45rem;
+}
+
+.appShowcaseImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.appShowcaseCopy {
+  margin-top: 0.78rem;
+}
+
+.appShowcaseCopy h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 0.96rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.appShowcaseCopy p {
+  margin: 0.4rem 0 0;
+  color: #4b5563;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.appShowcaseCopy ul {
+  margin: 0.56rem 0 0;
+  padding-left: 1rem;
+  color: #334155;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  display: grid;
+  gap: 0.26rem;
+}
+
+.triPhoneShowcase {
+  margin-top: 1rem;
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  padding: clamp(0.4rem, 1.8vw, 1rem) 0;
+  box-shadow: none;
+}
+
+.triPhoneRow {
+  width: min(100%, 1220px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.8rem, 2vw, 1.8rem);
+  align-items: end;
+}
+
+.triPhoneItem {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: clamp(110px, 28vw, 320px);
+  height: clamp(250px, 64vw, 700px);
+}
+
+.triPhoneImage {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 18px 24px rgba(15, 23, 42, 0.18));
+}
+
+.triPhoneleft .triPhoneImage,
+.triPhoneright .triPhoneImage {
+  transform: scale(1.1);
+}
+
+@media (min-width: 768px) {
+  .flowFullWidthSection {
+    width: 100%;
+    max-width: none;
+    padding-inline: clamp(0.4rem, 1.4vw, 1rem);
+    margin-inline: auto;
+  }
+
+  .planCards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .planFlowRail {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+  }
+
+  .planFlowItem {
+    justify-content: center;
+  }
+
+  .planFlowItem i {
+    width: 0.82rem;
+  }
+
+  .planPersonaGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .planScopeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .planActions {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .planActions a {
+    width: auto;
+  }
+
+  .journeyDiagram {
+    grid-template-columns: repeat(15, minmax(0, 1fr));
+    align-items: stretch;
+    gap: clamp(0.4rem, 0.9vw, 0.78rem);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .journeyStageCard {
+    grid-column: span 3;
+    height: 100%;
+  }
+
+  .journeyConnector {
+    grid-column: span 1;
+    align-self: center;
+    justify-self: center;
+    font-size: 1rem;
+  }
+
+  .appShowcaseGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .appShowcaseCard {
+    padding: 1rem;
+  }
+
+  .appShowcaseFrame {
+    width: min(100%, 320px);
+  }
+
+  .appShowcaseVideoCard .appShowcaseFrame {
+    width: min(100%, 320px);
+  }
+
+  .triPhoneRow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .flowFullWidthSection {
+    width: 100%;
+    padding-inline: clamp(1.2rem, 3vw, 3rem);
+  }
+
+  .flowFullWidthSection .planEyebrow,
+  .flowFullWidthSection .sectionTitle,
+  .flowFullWidthSection .planLead {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .flowFullWidthSection .journeyDiagram {
+    width: 100%;
+    max-width: 1560px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: clamp(0.55rem, 1vw, 1.1rem);
+  }
+
+  .flowFullWidthSection .journeyStageCard {
+    padding: 1.05rem 1rem;
+  }
+
+  .flowFullWidthSection .journeyConnector {
+    font-size: 1.05rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .flowFullWidthSection {
+    padding-inline: 0;
+  }
+
+  .flowFullWidthSection .journeyDiagram {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.72rem;
+  }
+
+  .flowFullWidthSection .journeyStageCard {
+    grid-column: span 1;
+  }
+
+  .flowFullWidthSection .journeyConnector {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .flowFullWidthSection {
+    width: 100%;
+    padding-inline: 0;
+  }
+
+  .planActions a {
+    width: 100%;
+  }
+
+  .journeyConnector {
+    display: none;
+  }
+
+  .journeyDiagram {
+    gap: 0.72rem;
+  }
+
+  .journeyStageCard {
+    padding: 0.82rem;
+  }
+
+  .planLead {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .appShowcaseCard {
+    padding: 0.82rem;
+  }
+
+  .appShowcaseImageCard {
+    display: none;
+  }
+
+  .appShowcaseGrid {
+    justify-items: center;
+  }
+
+  .appShowcaseVideoCard {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .appShowcaseVideoCard .appShowcaseCopy {
+    display: none;
+  }
+
+  .appShowcaseVideoFrame {
+    width: min(100%, 330px);
+  }
+
+  .triPhoneShowcase {
+    padding: 0.5rem 0 0.8rem;
+  }
+
+  .triPhoneRow {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.25rem;
+  }
+
+  .triPhoneItem {
+    width: clamp(86px, 29vw, 148px);
+    height: clamp(190px, 54vw, 320px);
+  }
+}
+

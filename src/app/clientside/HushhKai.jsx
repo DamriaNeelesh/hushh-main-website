@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FaApple, FaBell, FaChartLine, FaLock, FaShieldAlt, FaSun } from "react-icons/fa";
+import { FaApple, FaArrowRight, FaBell, FaChartLine, FaLock, FaShieldAlt, FaSun } from "react-icons/fa";
 import styles from "./KaiPage.module.css";
 import FooterComponent from "../_components/features/FooterComponent";
 
@@ -90,6 +90,132 @@ const notificationItems = [
     time: "29m ago",
     dotClass: styles.noticeGreen,
   },
+];
+
+const KAI_APP_URL = "https://hushh-webapp-1006304528804.us-central1.run.app/";
+
+const committeeWorkflowCards = [
+  {
+    title: "Fundamental Agent",
+    body: "Analyzes filings and financial statements to validate business quality and long-term durability.",
+    iconClass: styles.iconGreen,
+  },
+  {
+    title: "Sentiment Agent",
+    body: "Tracks news flow and market narrative changes to identify momentum and short-term catalysts.",
+    iconClass: styles.iconOrange,
+  },
+  {
+    title: "Valuation Agent",
+    body: "Runs deterministic math on valuation and risk so recommendations stay grounded in quant evidence.",
+    iconClass: styles.iconBlue,
+  },
+];
+
+const committeeFlowSteps = ["Analyze", "Debate", "Reconcile", "Decide"];
+
+const trustArtifacts = [
+  "Sources and filing snippets",
+  "Math-backed evidence",
+  "Debate digest with dissent",
+  "Persona-fit reliability signal",
+];
+
+const riskPersonaCards = [
+  {
+    title: "Zen",
+    subtitle: "Risk-Averse",
+    body: "Prioritizes capital preservation, quality balance sheets, and lower volatility paths.",
+  },
+  {
+    title: "Balanced",
+    subtitle: "Moderate Risk",
+    body: "Targets measured growth with practical guardrails and controlled downside exposure.",
+  },
+  {
+    title: "Alpha",
+    subtitle: "Risk-Neutral",
+    body: "Pursues higher return potential while accepting wider drawdown and volatility ranges.",
+  },
+];
+
+const targetAudiences = [
+  "Everyday Investor: understandable why behind every recommendation.",
+  "Advisor / RIA: explainable artifacts for clients and compliance workflows.",
+  "Advanced Retail: deeper signal intelligence with explicit risk guardrails.",
+];
+
+const v1Scope = [
+  "Share-to-Kai from Safari or news to Decision Card",
+  "Buy/Hold/Reduce with confidence and specialist insights",
+  "Debate digest, source references, and evidence math",
+  "Alpha Digest for watchlist and holdings updates",
+  "Read-only portfolio integration with guardrails",
+];
+
+const v11Scope = [
+  "Model portfolio hooks for Black-Litterman and MVO workflows",
+  "Compliance notes with exportable artifacts",
+  "Scenario analysis for earnings shocks, rates, and volatility",
+];
+
+const investorJourneyStages = [
+  {
+    tag: "Input",
+    title: "Signal Intake",
+    bullets: [
+      "Capture ticker context from Safari, news, or watchlist.",
+      "Retrieve filings, market narrative, and valuation baselines.",
+    ],
+  },
+  {
+    tag: "Reasoning",
+    title: "Committee Debate",
+    bullets: [
+      "Fundamental, Sentiment, and Valuation agents challenge each other.",
+      "Conflicts are reconciled and residual dissent is retained.",
+    ],
+  },
+  {
+    tag: "Output",
+    title: "Decision Card",
+    bullets: [
+      "Buy, Hold, or Reduce with confidence and rationale.",
+      "Math traces, sources, and persona fit are attached by default.",
+    ],
+  },
+  {
+    tag: "Action",
+    title: "Investor Next Step",
+    bullets: [
+      "Take a clearer next action aligned with your risk profile.",
+      "Monitor changes through Alpha Digest and focused notifications.",
+    ],
+  },
+];
+
+const appShowcasePhones = [
+ {
+    key: "right",
+    src: "/Images/kai/facing_right.png",
+    alt: "Kai mobile app screen facing right",
+    width: 342,
+    height: 730,
+  },
+  {
+    key: "center",
+    src: "/Images/kai/center.png",
+    alt: "Kai mobile app center screen",
+    width: 340,
+    height: 734,
+  },
+    {
+    key: "left",
+    src: "/Images/kai/facing_left.png",
+    alt: "Kai mobile app screen facing left",
+    width: 320,
+    height: 780,
+  }
 ];
 
 const HushhKai = () => {
@@ -221,7 +347,7 @@ const HushhKai = () => {
                   </div>
                   <div className={styles.desktopCard}>
                     <div className={styles.desktopCardHeader}>
-                      <span className={styles.desktopStock}>Apple · AAPL</span>
+                      <span className={styles.desktopStock}>Apple - AAPL</span>
                       <span className={styles.desktopScore}>87%</span>
                     </div>
                     <p className={styles.desktopCardText}>Confidence score based on 3-agent consensus.</p>
@@ -483,6 +609,148 @@ const HushhKai = () => {
             </div>
           </motion.section>
 
+          <section className={`${styles.section} ${styles.planSection}`}>
+            <p className={styles.planEyebrow}>Committee Workflow</p>
+            <h2 className={styles.sectionTitle}>How Kai reaches a recommendation investors can audit.</h2>
+            <div className={styles.planCards}>
+              {committeeWorkflowCards.map((item) => (
+                <article key={item.title} className={styles.planCard}>
+                  <div className={styles.planCardTitleRow}>
+                    <FaChartLine className={item.iconClass} aria-hidden />
+                    <h3 className={styles.planCardTitle}>{item.title}</h3>
+                  </div>
+                  <p className={styles.planCardBody}>{item.body}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className={styles.planFlowRail}>
+              {committeeFlowSteps.map((step, index) => (
+                <div key={step} className={styles.planFlowItem}>
+                  <span>{step}</span>
+                  {index < committeeFlowSteps.length - 1 ? <i aria-hidden /> : null}
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.planTrustBox}>
+              <p className={styles.planTrustTitle}>Decision Card trust artifacts</p>
+              <ul className={styles.planTrustList}>
+                {trustArtifacts.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <section className={`${styles.section} ${styles.planSection}`}>
+            <p className={styles.planEyebrow}>Personas and Scope</p>
+            <h2 className={styles.sectionTitle}>Who Kai serves and what Kai provides in V1 and V1.1.</h2>
+
+            <div className={styles.planPersonaGrid}>
+              {riskPersonaCards.map((item) => (
+                <article key={item.title} className={styles.planPersonaCard}>
+                  <div className={styles.planPersonaHead}>
+                    <h3>{item.title}</h3>
+                    <span>{item.subtitle}</span>
+                  </div>
+                  <p>{item.body}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className={styles.planAudienceList}>
+              {targetAudiences.map((item) => (
+                <div key={item} className={styles.planAudienceItem}>
+                  <FaShieldAlt className={styles.iconBlue} aria-hidden />
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.planScopeGrid}>
+              <article className={styles.planScopeCard}>
+                <h3>V1 Consumer</h3>
+                <ul>
+                  {v1Scope.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+              <article className={styles.planScopeCard}>
+                <h3>V1.1 Pro / Advisor</h3>
+                <ul>
+                  {v11Scope.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            </div>
+
+            <div className={styles.planActions}>
+              <Link href={KAI_APP_URL} className={styles.ctaPrimary} data-cta="kai-plan-start">
+                Start with Kai
+              </Link>
+              <Link href="/contact-us" className={styles.ctaSecondary} data-cta="kai-plan-talk-team">
+                Talk to Team
+              </Link>
+            </div>
+          </section>
+
+          <section className={`${styles.section} ${styles.planSection} ${styles.flowFullWidthSection}`}>
+            <p className={styles.planEyebrow}>End-to-End Flow</p>
+            <h2 className={styles.sectionTitle}>From market signal to explainable investor action.</h2>
+            <p className={styles.planLead}>
+              This is the exact user journey Kai follows to turn raw market noise into a committee-grade decision.
+            </p>
+            <div className={styles.journeyDiagram}>
+              {investorJourneyStages.map((stage, index) => (
+                <React.Fragment key={stage.title}>
+                  <article className={styles.journeyStageCard}>
+                    <span className={styles.journeyStageTag}>{stage.tag}</span>
+                    <h3>{stage.title}</h3>
+                    <ul>
+                      {stage.bullets.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  </article>
+                  {index < investorJourneyStages.length - 1 ? (
+                    <span className={styles.journeyConnector} aria-hidden>
+                      <FaArrowRight />
+                    </span>
+                  ) : null}
+                </React.Fragment>
+              ))}
+            </div>
+          </section>
+
+          <section className={`${styles.section} ${styles.planSection}`}>
+            <p className={styles.planEyebrow}>Product Experience</p>
+            <h2 className={styles.sectionTitle}>What investors actually see inside Kai.</h2>
+            <p className={styles.planLead}>
+              Two connected screens define the product experience: structured reasoning first, then an evidence-backed
+              decision card.
+            </p>
+            <div className={styles.triPhoneShowcase}>
+              <div className={styles.triPhoneRow}>
+                {appShowcasePhones.map((phone) => (
+                  <figure key={phone.key} className={`${styles.triPhoneItem} ${styles[`triPhone${phone.key}`]}`}>
+                    <Image
+                      src={phone.src}
+                      alt={phone.alt}
+                      width={phone.width}
+                      height={phone.height}
+                      sizes="(max-width: 767px) 28vw, (max-width: 1199px) 180px, 280px"
+                      quality={60}
+                      className={styles.triPhoneImage}
+                    />
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </section>
+
           <motion.section className={styles.finalSection} {...revealProps}>
             <h2 className={styles.finalTitle}>Ready for Clarity?</h2>
             <p className={styles.finalText}>Join investors who have replaced noise with structure.</p>
@@ -509,9 +777,10 @@ const HushhKai = () => {
         </div>
       </div>
     </main>
-    <FooterComponent />
+    {/* <FooterComponent /> */}
     </>
   );
 };
 
 export default HushhKai;
+

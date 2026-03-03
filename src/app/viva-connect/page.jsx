@@ -35,10 +35,7 @@ import AppleIcon from "../_components/svg/icons/appleIcon";
 import PlayStoreIcon from "../_components/svg/icons/playStoreIcon";
 import dynamic from "next/dynamic";
 
-const CldVideoPlayer = dynamic(
-  () => import("next-cloudinary").then((mod) => mod.CldVideoPlayer),
-  { ssr: false }
-);
+
 
 export default function vivaConnect2() {
   const router = useRouter();
@@ -203,14 +200,7 @@ export default function vivaConnect2() {
                   </HStack> */}
                 <HStack minW={'100%'} display={'flex'} mx={{md:'4rem',base:'0.5rem'}} gap={{md:'5rem',base:'1rem'}} alignItems={'center'}>
                   <Box flex='3' alignItems={'center'} justifyContent={'center'} minWidth={"70%"} gap={{md:'2rem',base:'1rem'}} display={{md:'flex',base:'none'}} flexDirection={{md:'column',base:'column'}}>
-                  <CldVideoPlayer
-                    alt="Hushh Wallet App Apple Users Live Demo"
-                    title="Step by step live demo for wallet app for apple users"
-                    controls="true"
-                    width="480"
-                    height="650"
-                    src="walletApp-Ios-demo_isc5mt"
-                  />
+           
                   <Button
                       p={{ md: "0.4rem", base: "" }}
                       border={"1px solid #606060"}  
@@ -229,14 +219,7 @@ export default function vivaConnect2() {
                   </Button>
                   </Box>
                   <Box  alignItems={'center'} justifyContent={'center'} flex='3' minWidth={"70%"} gap={{md:'2rem',base:'1rem'}} display={{md:'flex',base:'none'}} flexDirection={{md:'column',base:'column'}}>
-                  <CldVideoPlayer
-                    alt="Hushh Wallet App Android Live Demo"
-                    title="Step by step live demo for wallet app for adnroid users"
-                    controls="true"
-                    width="480"
-                    height="650"
-                    src="hushhWallet_Android_demo_nffycm"
-                  />
+                 
                   <Button
                       p={{ md: "0.4rem", base: "" }}
                       border={"1px solid #606060"}
@@ -256,26 +239,7 @@ export default function vivaConnect2() {
                 </Box>
                 </HStack>
 
-                <Box gap={{md:'2rem',base:'1rem'}} w={'100%'} display={{md:'none',base:'flex'}} flexDirection={'column'}>
-                  <CldVideoPlayer
-                    alt="Hushh Wallet App Apple Users Live Demo"
-                    title="Step by step live demo for wallet app for apple users"
-                    controls="true"
-                    width="380"
-                    height="250"
-                    // posterOptions='{ "publicId": "walletApp-Ios-demo_isc5mt", "effect": ["saturation:-100"] }'
-                    src="walletApp-Ios-demo_isc5mt"
-                  />
-                  <CldVideoPlayer
-                    alt="Hushh Wallet App Android Live Demo"
-                    title="Step by step live demo for wallet app for adnroid users"
-                    controls="true"
-                    width="380"
-                    height="250"
-                    // posterOptions='{ "publicId": "hushhWallet_Android_demo_nffycm", "effect": ["saturation:-100"] }'
-                    src="hushhWallet_Android_demo_nffycm"
-                  />
-                </Box>
+               
                 </VStack>
                 
                 
@@ -330,16 +294,7 @@ export default function vivaConnect2() {
                     </Button>
                   </HStack>
                 </VStack>
-                <Box flex={3} mt={{md:'2rem',base:'1rem'}} maxW={"40rem"} maxHeight={"40rem"}>
-                  <CldVideoPlayer
-                    alt="Hushh Browser Companion Guide"
-                    title="Hushh browser companion walkthrough"
-                    controls="true"
-                    width="440"
-                    height="250"
-                    src="How_to_install_Browser_Companion_t4v4sj"
-                  />
-                </Box>
+                
               </Box>
             </HStack>
             <HStack
@@ -405,16 +360,7 @@ export default function vivaConnect2() {
                     </Button> */}
                   </HStack>
                 </VStack>
-                {/* <Box flex={3} maxW={"40rem"} maxHeight={"40rem"}>
-                  <CldVideoPlayer
-                    alt="Hushh Button Guide"
-                    title="Hushh button developer walkthrough"
-                    controls="true"
-                    width="440"
-                    height="250"
-                    src="Hushh_button_-_developer_walkthrough_uwwiy0"
-                  />
-                </Box> */}
+               
               </Box>
             </HStack>
             <HStack
@@ -480,16 +426,7 @@ export default function vivaConnect2() {
                     </Button> */}
                   </HStack>
                 </VStack>
-                {/* <Box flex={3} maxW={"40rem"} maxHeight={"40rem"}>
-                  <CldVideoPlayer
-                    alt="Hushh Wallet App Live Demo"
-                    title="Step by step live demo for wallet app"
-                    controls="true"
-                    width="440"
-                    height="250"
-                    src="walletApp-Ios-demo_isc5mt"
-                  />
-                </Box> */}
+                
               </Box>
             </HStack>
           </VStack>
