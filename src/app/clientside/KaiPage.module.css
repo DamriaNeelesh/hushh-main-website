@@ -1983,7 +1983,7 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.8rem, 2vw, 1.8rem);
+  gap: clamp(1.2rem, 2.8vw, 2.6rem);
   align-items: end;
 }
 
@@ -2007,7 +2007,7 @@
 
 .triPhoneleft .triPhoneImage,
 .triPhoneright .triPhoneImage {
-  transform: scale(1.1);
+  transform: scale(1.04);
 }
 
 @media (min-width: 768px) {
@@ -2206,7 +2206,7 @@
   .triPhoneRow {
     width: 100%;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.25rem;
+    gap: 0.6rem;
   }
 
   .triPhoneItem {
