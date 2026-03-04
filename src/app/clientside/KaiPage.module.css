@@ -2149,8 +2149,11 @@
 
 @media (min-width: 1200px) {
   .flowFullWidthSection {
-    width: 100%;
-    padding-inline: clamp(1.2rem, 3vw, 3rem);
+    width: min(calc(100vw - 2.4rem), 1720px);
+    max-width: none;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-inline: clamp(1.1rem, 2.2vw, 2.2rem);
   }
 
   .flowFullWidthSection .planEyebrow,
@@ -2163,7 +2166,7 @@
 
   .flowFullWidthSection .journeyDiagram {
     width: 100%;
-    max-width: 1560px;
+    max-width: none;
     margin-left: auto;
     margin-right: auto;
     gap: clamp(0.55rem, 1vw, 1.1rem);
