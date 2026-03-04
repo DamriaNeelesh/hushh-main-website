@@ -1611,6 +1611,21 @@
   text-decoration: underline;
 }
 
+.paperCredit {
+  margin-top: 0.55rem;
+  color: #6b7280;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.paperCredit a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+
 @media (min-width: 768px) {
   .mobileFrame {
     width: min(100%, 1320px);

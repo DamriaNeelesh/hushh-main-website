@@ -783,6 +783,12 @@ const HushhKai = () => {
               <br />
               {"\u00A9 2026 Kai"}
             </p>
+            <p className={styles.paperCredit}>
+              AlphaAgents Credit for paper:{" "}
+              <a href="https://arxiv.org/pdf/2508.11152v1" target="_blank" rel="noopener noreferrer">
+                https://arxiv.org/pdf/2508.11152v1
+              </a>
+            </p>
           </motion.section>
         </div>
       </div>
