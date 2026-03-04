@@ -114,16 +114,16 @@ const FooterComponent = () => {
             </h2>
           </header>
 
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 auto-rows-fr md:grid-cols-2 xl:grid-cols-3">
             {footerSections.map((section) => (
-              <section key={section.title} className="group text-left">
-                <div className="rounded-xl border border-[rgba(0,0,0,0.05)] bg-[rgba(255,255,255,0.7)] p-5 text-left shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-1px_rgba(0,0,0,0.03)] backdrop-blur-md transition-all duration-300 hover:shadow-lg dark:border-[rgba(255,255,255,0.1)] dark:bg-[rgba(30,41,59,0.7)]">
+              <section key={section.title} className="group h-full text-left">
+                <div className="flex h-full min-h-[20rem] flex-col rounded-xl border border-[rgba(0,0,0,0.05)] bg-[rgba(255,255,255,0.7)] p-5 text-left shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05),0_2px_4px_-1px_rgba(0,0,0,0.03)] backdrop-blur-md transition-all duration-300 hover:shadow-lg dark:border-[rgba(255,255,255,0.1)] dark:bg-[rgba(30,41,59,0.7)]">
                   <h3 className="mb-4 text-left text-sm font-bold uppercase tracking-widest text-[#111827] dark:text-[#f3f4f6]">
                     {section.title}
                     <div className="gradient-underline ml-0 mr-auto" />
                   </h3>
 
-                  <ul className="space-y-3 text-left">
+                  <ul className="mt-1 flex-1 space-y-3 text-left">
                     {section.links.map((item) => (
                       <li key={`${section.title}-${item.label}`}>
                         {item.external ? (
