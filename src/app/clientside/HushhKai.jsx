@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { FaApple, FaArrowRight, FaBell, FaChartLine, FaLock, FaShieldAlt, FaSun } from "react-icons/fa";
 import styles from "./KaiPage.module.css";
 import FooterComponent from "../_components/features/FooterComponent";
@@ -92,7 +92,7 @@ const notificationItems = [
   },
 ];
 
-const KAI_APP_URL = "https://hushh-webapp-1006304528804.us-central1.run.app/";
+const KAI_APP_URL = "https://apps.apple.com/au/app/hushh-personal-agent-kai/id6757718917";
 
 const committeeWorkflowCards = [
   {
@@ -223,23 +223,32 @@ const HushhKai = () => {
   const [alphaView, setAlphaView] = useState("preMarket");
   const isPreMarketView = alphaView === "preMarket";
   const alphaItems = isPreMarketView ? preMarketDigestItems : notificationItems;
-  const revealProps = {
-    initial: { opacity: 0, y: 24 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, ease: "easeOut" },
-    viewport: { once: true, amount: 0.3 },
-  };
-  const phoneReveal = {
-    initial: { opacity: 0, rotate: -10, y: 28, scale: 0.96 },
+  const shouldReduceMotion = useReducedMotion();
+
+  const revealProps = (delay = 0, amount = 0.3, y = 28) => ({
+    initial: shouldReduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y, scale: 0.98 },
+    whileInView: { opacity: 1, y: 0, scale: 1 },
+    transition: shouldReduceMotion
+      ? { duration: 0.01, delay: 0 }
+      : { duration: 0.72, delay, ease: [0.22, 1, 0.36, 1] },
+    viewport: { once: false, amount, margin: "0px 0px -8% 0px" },
+  });
+
+  const phoneReveal = (delay = 0, rotate = 0) => ({
+    initial: shouldReduceMotion
+      ? { opacity: 1, rotate: 0, y: 0, scale: 1 }
+      : { opacity: 0, rotate, y: 32, scale: 0.94 },
     whileInView: { opacity: 1, rotate: 0, y: 0, scale: 1 },
-    transition: { duration: 0.8, ease: "easeOut" },
-    viewport: { once: true, amount: 0.45 },
-  };
+    transition: shouldReduceMotion
+      ? { duration: 0.01, delay: 0 }
+      : { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] },
+    viewport: { once: false, amount: 0.35, margin: "0px 0px -8% 0px" },
+  });
 
   return (
     <>
     <main className={styles.page}>
-      <section className={styles.heroStage}>
+      <motion.section className={styles.heroStage} {...revealProps(0, 0.45, 34)}>
         <div className={styles.heroBackdrop} aria-hidden="true">
           <span className={styles.backdropGlow} />
           <span className={styles.backdropGlowSecondary} />
@@ -249,18 +258,19 @@ const HushhKai = () => {
 
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <div className={styles.heroBadge}>
+            <motion.div className={styles.heroBadge} {...revealProps(0.02, 0.65, 16)}>
               <span className={styles.heroBadgeLogo} aria-hidden="true">
                 KAI
               </span>
-              Introducing your new financial copilot powered by hushh.ai
-            </div>
+              Introducing your new financial copilot powered by
+              <a href="https://hushhtech.com" target="_blank" rel="noopener noreferrer" className={styles.heroBadgeLink}>
+                Hushh Tech
+              </a>
+            </motion.div>
 
             <motion.h1
               className={styles.heroTitle}
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              {...revealProps(0.08, 0.62, 22)}
             >
               Your Personal Agent
               <br />
@@ -269,18 +279,14 @@ const HushhKai = () => {
 
             <motion.p
               className={styles.heroSubtitle}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+              {...revealProps(0.14, 0.6, 20)}
             >
               Personal Agent Kai helps you cut through noise and make clear, confident decisions with calm, private guidance.
             </motion.p>
 
             <motion.div
               className={styles.heroHighlights}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+              {...revealProps(0.2, 0.58, 18)}
             >
               <span>Calm confidence</span>
               <span>Private advantage</span>
@@ -289,12 +295,10 @@ const HushhKai = () => {
 
             <motion.div
               className={styles.heroActions}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
+              {...revealProps(0.26, 0.56, 16)}
             >
               <Link
-                href="https://hushh-webapp-1006304528804.us-central1.run.app/"
+                href="https://apps.apple.com/au/app/hushh-personal-agent-kai/id6757718917"
                 className={styles.ctaPrimary}
               >
                 Start with Kai
@@ -306,9 +310,7 @@ const HushhKai = () => {
 
             <motion.div
               className={styles.heroStats}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.4 }}
+              {...revealProps(0.32, 0.54, 14)}
             >
               <div>
                 <p className={styles.heroStatValue}>3</p>
@@ -329,9 +331,7 @@ const HushhKai = () => {
             <div className={styles.heroProductStack}>
               <motion.div
                 className={styles.desktopFrame}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                {...revealProps(0.14, 0.5, 24)}
               >
                 <div className={styles.desktopTopBar}>
                   <span className={styles.desktopDot} />
@@ -372,9 +372,7 @@ const HushhKai = () => {
 
               <motion.div
                 className={styles.heroInsightPanel}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: "easeOut", delay: 0.35 }}
+                {...revealProps(0.24, 0.5, 20)}
               >
                 <p className={styles.heroInsightTitle}>Calm Guidance</p>
                 <p className={styles.heroInsightBody}>
@@ -387,18 +385,18 @@ const HushhKai = () => {
                 </div>
               </motion.div>
 
-              <div className={styles.heroSignalGrid}>
+              <motion.div className={styles.heroSignalGrid} {...revealProps(0.3, 0.45, 16)}>
                 {[
                   { label: "Attention", value: "Aligned" },
                   { label: "Tradeoffs", value: "Clear" },
                   { label: "Next step", value: "Ready" },
                 ].map((item) => (
-                  <div key={item.label} className={styles.heroSignalCard}>
+                  <motion.div key={item.label} className={styles.heroSignalCard} {...revealProps(0.34, 0.45, 12)}>
                     <p className={styles.heroSignalLabel}>{item.label}</p>
                     <p className={styles.heroSignalValue}>{item.value}</p>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
               <span className={styles.floatingOrb} aria-hidden="true" />
               <span className={styles.floatingOrbAlt} aria-hidden="true" />
@@ -411,11 +409,11 @@ const HushhKai = () => {
           <span className={styles.scrollDot} aria-hidden="true" />
           Scroll to explore the committee view
         </div>
-      </section>
+      </motion.section>
 
       <div className={styles.shell}>
         <div className={styles.mobileFrame}>
-          <motion.section id="kai-analysis" className={styles.section} {...revealProps}>
+          <motion.section id="kai-analysis" className={styles.section} {...revealProps(0.04, 0.3, 24)}>
             <h2 className={styles.sectionTitle}>
               A Committee Decision on
               <br />
@@ -423,7 +421,7 @@ const HushhKai = () => {
             </h2>
 
             <div className={styles.cardWrap}>
-              <article className={styles.card}>
+              <motion.article className={styles.card} {...revealProps(0.08, 0.35, 18)}>
                 <header className={styles.stockHead}>
                   <div className={styles.stockInfo}>
                     <span className={styles.appleIcon}>
@@ -449,10 +447,10 @@ const HushhKai = () => {
                 <hr className={styles.divider} />
 
                 <div className={styles.signals}>
-                  {signals.map((signal) => {
+                  {signals.map((signal, index) => {
                     const Icon = signal.icon;
                     return (
-                      <div key={signal.title} className={styles.row}>
+                      <motion.div key={signal.title} className={styles.row} {...revealProps(index * 0.05, 0.28, 12)}>
                         <div className={styles.rowLeft}>
                           <span className={styles.rowIcon}>
                             <Icon className={signal.iconClass} aria-hidden />
@@ -463,15 +461,15 @@ const HushhKai = () => {
                           </div>
                         </div>
                         <span className={`${styles.tag} ${signal.tagClass}`}>{signal.value}</span>
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
-              </article>
+              </motion.article>
             </div>
           </motion.section>
 
-          <motion.section className={styles.splitSection} {...revealProps}>
+          <motion.section className={styles.splitSection} {...revealProps(0.06, 0.28, 26)}>
             <div className={styles.splitCopy}>
               <p className={styles.splitEyebrow}>The Process</p>
               <h2 className={styles.splitTitle}>Markets move fast. Personal Agent Kai keeps you grounded.</h2>
@@ -488,7 +486,7 @@ const HushhKai = () => {
             <div className={styles.splitVisual}>
               <motion.div
                 className={styles.splitPhoneFrame}
-                {...phoneReveal}
+                {...phoneReveal(0.12, -8)}
               >
                 <Image
                   src="/Images/kai/screen_1_high_level.png"
@@ -508,7 +506,7 @@ const HushhKai = () => {
             </span>
           </div> */}
 
-          <motion.section className={`${styles.splitSection} ${styles.splitReverse}`} {...revealProps}>
+          <motion.section className={`${styles.splitSection} ${styles.splitReverse}`} {...revealProps(0.08, 0.28, 26)}>
             <div className={styles.splitCopy}>
               <p className={styles.splitEyebrow}>Clear Decision</p>
               <h2 className={styles.splitTitle}>Less noise. Better choices.</h2>
@@ -525,7 +523,7 @@ const HushhKai = () => {
             <div className={styles.splitVisual}>
               <motion.div
                 className={styles.splitPhoneFrame}
-                {...phoneReveal}
+                {...phoneReveal(0.12, 8)}
               >
                 <Image
                   src="/Images/kai/screen_2_stock_analysis.png"
@@ -538,7 +536,7 @@ const HushhKai = () => {
             </div>
           </motion.section>
 
-          <motion.section className={styles.section} {...revealProps}>
+          <motion.section className={styles.section} {...revealProps(0.1, 0.3, 24)}>
             <h2 className={styles.sectionTitle}>
               Transparency built into
               <br />
@@ -547,18 +545,18 @@ const HushhKai = () => {
 
             <div className={styles.transparencyList}>
               {transparencyCards.map((item, index) => (
-                <article key={item.title} className={styles.transparencyItem}>
+                <motion.article key={item.title} className={styles.transparencyItem} {...revealProps(index * 0.05, 0.22, 14)}>
                   <span className={styles.stepBubble}>{index + 1}</span>
                   <div>
                     <h3 className={styles.transparencyTitle}>{item.title}</h3>
                     <p className={styles.transparencyText}>{item.body}</p>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
           </motion.section>
 
-          <motion.section className={styles.section} {...revealProps}>
+          <motion.section className={styles.section} {...revealProps(0.12, 0.3, 24)}>
             <h2 className={styles.sectionTitle}>Start your day with Alpha</h2>
             <p className={styles.sectionSub}>A clean, curated digest of opportunities every morning.</p>
 
@@ -593,8 +591,8 @@ const HushhKai = () => {
               </div>
 
               <div className={styles.digestRows}>
-                {alphaItems.map((item) => (
-                  <div key={item.title} className={styles.digestRow}>
+                {alphaItems.map((item, index) => (
+                  <motion.div key={item.title} className={styles.digestRow} {...revealProps(index * 0.04, 0.2, 12)}>
                     <div className={styles.digestMain}>
                       <div className={styles.digestTitleRow}>
                         {!isPreMarketView ? <span className={`${styles.noticeDot} ${item.dotClass}`} aria-hidden /> : null}
@@ -604,101 +602,106 @@ const HushhKai = () => {
                       {!isPreMarketView ? <p className={styles.notificationTime}>{item.time}</p> : null}
                     </div>
                     <span className={`${styles.digestTag} ${item.tagClass}`}>{item.tag}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </motion.section>
 
-          <section className={`${styles.section} ${styles.planSection}`}>
+          <motion.section className={`${styles.section} ${styles.planSection}`} {...revealProps(0.16, 0.28, 24)}>
             <p className={styles.planEyebrow}>Committee Workflow</p>
             <h2 className={styles.sectionTitle}>How Kai reaches a recommendation investors can audit.</h2>
             <div className={styles.planCards}>
-              {committeeWorkflowCards.map((item) => (
-                <article key={item.title} className={styles.planCard}>
+              {committeeWorkflowCards.map((item, index) => (
+                <motion.article key={item.title} className={styles.planCard} {...revealProps(index * 0.05, 0.22, 18)}>
                   <div className={styles.planCardTitleRow}>
                     <FaChartLine className={item.iconClass} aria-hidden />
                     <h3 className={styles.planCardTitle}>{item.title}</h3>
                   </div>
                   <p className={styles.planCardBody}>{item.body}</p>
-                </article>
+                </motion.article>
               ))}
             </div>
 
             <div className={styles.planFlowRail}>
               {committeeFlowSteps.map((step, index) => (
-                <div key={step} className={styles.planFlowItem}>
+                <motion.div key={step} className={styles.planFlowItem} {...revealProps(index * 0.04, 0.25, 14)}>
                   <span>{step}</span>
                   {index < committeeFlowSteps.length - 1 ? <i aria-hidden /> : null}
-                </div>
+                </motion.div>
               ))}
             </div>
 
             <div className={styles.planTrustBox}>
               <p className={styles.planTrustTitle}>Decision Card trust artifacts</p>
               <ul className={styles.planTrustList}>
-                {trustArtifacts.map((item) => (
-                  <li key={item}>{item}</li>
+                {trustArtifacts.map((item, index) => (
+                  <motion.li key={item} {...revealProps(index * 0.04, 0.2, 12)}>
+                    {item}
+                  </motion.li>
                 ))}
               </ul>
             </div>
-          </section>
+          </motion.section>
 
-          <section className={`${styles.section} ${styles.planSection}`}>
+          <motion.section className={`${styles.section} ${styles.planSection}`} {...revealProps(0.18, 0.28, 24)}>
             <p className={styles.planEyebrow}>Personas and Scope</p>
             <h2 className={styles.sectionTitle}>Who Kai serves and  what Kai provides in V1</h2>
 
             <div className={styles.planPersonaGrid}>
-              {riskPersonaCards.map((item) => (
-                <article key={item.title} className={styles.planPersonaCard}>
+              {riskPersonaCards.map((item, index) => (
+                <motion.article key={item.title} className={styles.planPersonaCard} {...revealProps(index * 0.05, 0.22, 18)}>
                   <div className={styles.planPersonaHead}>
                     <h3>{item.title}</h3>
                     <span>{item.subtitle}</span>
                   </div>
                   <p>{item.body}</p>
-                </article>
+                </motion.article>
               ))}
             </div>
 
             <div className={styles.planAudienceList}>
-              {targetAudiences.map((item) => (
-                <div key={item} className={styles.planAudienceItem}>
+              {targetAudiences.map((item, index) => (
+                <motion.div key={item} className={styles.planAudienceItem} {...revealProps(index * 0.05, 0.2, 14)}>
                   <FaShieldAlt className={styles.iconBlue} aria-hidden />
                   <p>{item}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             <div className={styles.planScopeGrid}>
-              <article className={styles.planScopeCard}>
+              <motion.article className={styles.planScopeCard} {...revealProps(0.08, 0.2, 14)}>
                 <h3>V1 Consumer</h3>
                 <ul>
                   {v1Scope.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-              </article>
-              <article className={styles.planScopeCard}>
+              </motion.article>
+              <motion.article className={styles.planScopeCard} {...revealProps(0.14, 0.2, 14)}>
                 <h3>V1.1 Pro / Advisor</h3>
                 <ul>
                   {v11Scope.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-              </article>
+              </motion.article>
             </div>
 
-            <div className={styles.planActions}>
+            <motion.div className={styles.planActions} {...revealProps(0.16, 0.2, 12)}>
               <Link href={KAI_APP_URL} className={styles.ctaPrimary} data-cta="kai-plan-start">
                 Start with Kai
               </Link>
               <Link href="/contact-us" className={styles.ctaSecondary} data-cta="kai-plan-talk-team">
                 Talk to Team
               </Link>
-            </div>
-          </section>
+            </motion.div>
+          </motion.section>
 
-          <section className={`${styles.section} ${styles.planSection} ${styles.flowFullWidthSection}`}>
+          <motion.section
+            className={`${styles.section} ${styles.planSection} ${styles.flowFullWidthSection}`}
+            {...revealProps(0.2, 0.28, 24)}
+          >
             <p className={styles.planEyebrow}>End-to-End Flow</p>
             <h2 className={styles.sectionTitle}>From market signal to explainable investor action.</h2>
             <p className={styles.planLead}>
@@ -707,7 +710,7 @@ const HushhKai = () => {
             <div className={styles.journeyDiagram}>
               {investorJourneyStages.map((stage, index) => (
                 <React.Fragment key={stage.title}>
-                  <article className={styles.journeyStageCard}>
+                  <motion.article className={styles.journeyStageCard} {...revealProps(index * 0.06, 0.2, 16)}>
                     <span className={styles.journeyStageTag}>{stage.tag}</span>
                     <h3>{stage.title}</h3>
                     <ul>
@@ -715,18 +718,18 @@ const HushhKai = () => {
                         <li key={point}>{point}</li>
                       ))}
                     </ul>
-                  </article>
+                  </motion.article>
                   {index < investorJourneyStages.length - 1 ? (
-                    <span className={styles.journeyConnector} aria-hidden>
+                    <motion.span className={styles.journeyConnector} aria-hidden {...revealProps(index * 0.06 + 0.03, 0.2, 10)}>
                       <FaArrowRight />
-                    </span>
+                    </motion.span>
                   ) : null}
                 </React.Fragment>
               ))}
             </div>
-          </section>
+          </motion.section>
 
-          <section className={`${styles.section} ${styles.planSection}`}>
+          <motion.section className={`${styles.section} ${styles.planSection}`} {...revealProps(0.22, 0.3, 24)}>
             <p className={styles.planEyebrow}>Product Experience</p>
             <h2 className={styles.sectionTitle}>What investors actually see inside Kai.</h2>
             <p className={styles.planLead}>
@@ -735,8 +738,12 @@ const HushhKai = () => {
             </p>
             <div className={styles.triPhoneShowcase}>
               <div className={styles.triPhoneRow}>
-                {appShowcasePhones.map((phone) => (
-                  <figure key={phone.key} className={`${styles.triPhoneItem} ${styles[`triPhone${phone.key}`]}`}>
+                {appShowcasePhones.map((phone, index) => (
+                  <motion.figure
+                    key={phone.key}
+                    className={`${styles.triPhoneItem} ${styles[`triPhone${phone.key}`]}`}
+                    {...phoneReveal(index * 0.08, index === 0 ? -6 : 6)}
+                  >
                     <Image
                       src={phone.src}
                       alt={phone.alt}
@@ -746,13 +753,13 @@ const HushhKai = () => {
                       quality={60}
                       className={styles.triPhoneImage}
                     />
-                  </figure>
+                  </motion.figure>
                 ))}
               </div>
             </div>
-          </section>
+          </motion.section>
 
-          <motion.section className={styles.finalSection} {...revealProps}>
+          <motion.section className={styles.finalSection} {...revealProps(0.14, 0.3, 22)}>
             <h2 className={styles.finalTitle}>Ready for Clarity?</h2>
             <p className={styles.finalText}>Join investors who have replaced noise with structure.</p>
             <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.finalButton}>
