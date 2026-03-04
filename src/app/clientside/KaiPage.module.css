@@ -94,8 +94,11 @@
 .heroBadge {
   display: inline-flex;
   align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   gap: 0.65rem;
   width: fit-content;
+  max-width: 100%;
   padding: 0.5rem 1.15rem;
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.06);
@@ -120,6 +123,25 @@
   font-weight: 800;
   letter-spacing: 0;
   flex-shrink: 0;
+}
+
+.heroBadgeText {
+  white-space: nowrap;
+}
+
+.heroBadgeLink {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  color: #0f172a;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.heroBadgeLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .shell {
@@ -742,16 +764,20 @@
   }
 
   .heroBadge {
-    font-size: 0.8rem;
-    padding: 0.38rem 0.82rem;
-    gap: 0.5rem;
+    font-size: 0.68rem;
+    padding: 0.34rem 0.56rem;
+    gap: 0.38rem;
   }
 
   .heroBadgeLogo {
-    width: 1.95rem;
-    height: 1.95rem;
+    width: 1.7rem;
+    height: 1.7rem;
     border-radius: 0.42rem;
-    font-size: 0.74rem;
+    font-size: 0.62rem;
+  }
+
+  .heroBadgeLink {
+    font-size: inherit;
   }
 
   .heroTitle {
@@ -873,6 +899,18 @@
 }
 
 @media (max-width: 420px) {
+  .heroBadge {
+    font-size: 0.63rem;
+    gap: 0.32rem;
+    padding: 0.3rem 0.48rem;
+  }
+
+  .heroBadgeLogo {
+    width: 1.55rem;
+    height: 1.55rem;
+    font-size: 0.56rem;
+  }
+
   .heroStats {
     grid-template-columns: 1fr;
   }

@@ -270,7 +270,9 @@ const HushhKai = () => {
               <span className={styles.heroBadgeLogo} aria-hidden="true">
                 KAI
               </span>
-              Introducing your new financial copilot powered by
+              <span className={styles.heroBadgeText}>
+                Introducing your new financial copilot powered by
+              </span>
               <a href="https://hushhtech.com" target="_blank" rel="noopener noreferrer" className={styles.heroBadgeLink}>
                 Hushh Tech
               </a>
