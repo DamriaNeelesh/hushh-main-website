@@ -245,10 +245,18 @@ const HushhKai = () => {
     viewport: { once: false, amount: 0.35, margin: "0px 0px -8% 0px" },
   });
 
+  const heroReveal = (delay = 0, y = 20) => ({
+    initial: shouldReduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y, scale: 0.98 },
+    animate: { opacity: 1, y: 0, scale: 1 },
+    transition: shouldReduceMotion
+      ? { duration: 0.01, delay: 0 }
+      : { duration: 0.72, delay, ease: [0.22, 1, 0.36, 1] },
+  });
+
   return (
     <>
     <main className={styles.page}>
-      <motion.section className={styles.heroStage} {...revealProps(0, 0.45, 34)}>
+      <motion.section className={styles.heroStage} {...heroReveal(0, 26)}>
         <div className={styles.heroBackdrop} aria-hidden="true">
           <span className={styles.backdropGlow} />
           <span className={styles.backdropGlowSecondary} />
@@ -258,7 +266,7 @@ const HushhKai = () => {
 
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <motion.div className={styles.heroBadge} {...revealProps(0.02, 0.65, 16)}>
+            <motion.div className={styles.heroBadge} {...heroReveal(0.04, 14)}>
               <span className={styles.heroBadgeLogo} aria-hidden="true">
                 KAI
               </span>
@@ -270,7 +278,7 @@ const HushhKai = () => {
 
             <motion.h1
               className={styles.heroTitle}
-              {...revealProps(0.08, 0.62, 22)}
+              {...heroReveal(0.1, 20)}
             >
               Your Personal Agent
               <br />
@@ -279,14 +287,14 @@ const HushhKai = () => {
 
             <motion.p
               className={styles.heroSubtitle}
-              {...revealProps(0.14, 0.6, 20)}
+              {...heroReveal(0.16, 18)}
             >
               Personal Agent Kai helps you cut through noise and make clear, confident decisions with calm, private guidance.
             </motion.p>
 
             <motion.div
               className={styles.heroHighlights}
-              {...revealProps(0.2, 0.58, 18)}
+              {...heroReveal(0.22, 16)}
             >
               <span>Calm confidence</span>
               <span>Private advantage</span>
@@ -295,7 +303,7 @@ const HushhKai = () => {
 
             <motion.div
               className={styles.heroActions}
-              {...revealProps(0.26, 0.56, 16)}
+              {...heroReveal(0.28, 14)}
             >
               <Link
                 href="https://apps.apple.com/au/app/hushh-personal-agent-kai/id6757718917"
@@ -310,7 +318,7 @@ const HushhKai = () => {
 
             <motion.div
               className={styles.heroStats}
-              {...revealProps(0.32, 0.54, 14)}
+              {...heroReveal(0.34, 12)}
             >
               <div>
                 <p className={styles.heroStatValue}>3</p>
@@ -331,7 +339,7 @@ const HushhKai = () => {
             <div className={styles.heroProductStack}>
               <motion.div
                 className={styles.desktopFrame}
-                {...revealProps(0.14, 0.5, 24)}
+                {...heroReveal(0.18, 22)}
               >
                 <div className={styles.desktopTopBar}>
                   <span className={styles.desktopDot} />
@@ -372,7 +380,7 @@ const HushhKai = () => {
 
               <motion.div
                 className={styles.heroInsightPanel}
-                {...revealProps(0.24, 0.5, 20)}
+                {...heroReveal(0.28, 18)}
               >
                 <p className={styles.heroInsightTitle}>Calm Guidance</p>
                 <p className={styles.heroInsightBody}>
@@ -385,13 +393,13 @@ const HushhKai = () => {
                 </div>
               </motion.div>
 
-              <motion.div className={styles.heroSignalGrid} {...revealProps(0.3, 0.45, 16)}>
+              <motion.div className={styles.heroSignalGrid} {...heroReveal(0.34, 14)}>
                 {[
                   { label: "Attention", value: "Aligned" },
                   { label: "Tradeoffs", value: "Clear" },
                   { label: "Next step", value: "Ready" },
-                ].map((item) => (
-                  <motion.div key={item.label} className={styles.heroSignalCard} {...revealProps(0.34, 0.45, 12)}>
+                ].map((item, index) => (
+                  <motion.div key={item.label} className={styles.heroSignalCard} {...heroReveal(0.38 + index * 0.04, 10)}>
                     <p className={styles.heroSignalLabel}>{item.label}</p>
                     <p className={styles.heroSignalValue}>{item.value}</p>
                   </motion.div>
