@@ -619,6 +619,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                   <button
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSearchOpen(); }}
                     className="group relative self-center flex h-10 w-10 items-center justify-center p-0 leading-none rounded-full hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    style={{ marginBottom: 0 }}
                     aria-label="Search (⌘K)"
                     type="button"
                     title="Search (⌘K)"
@@ -714,6 +715,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
                     ref={hamburgerRef}
                     onClick={handleMenuIconToggle}
                     className="mobile-menu-trigger lg:hidden relative self-center flex h-10 w-10 items-center justify-center p-0 leading-none bg-transparent border-0 shadow-none rounded-none transition-transform duration-200 hover:shadow-none active:scale-95"
+                    style={{ marginBottom: 0 }}
                     type="button"
                     aria-label="Toggle mobile menu"
                   >

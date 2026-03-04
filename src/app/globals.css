@@ -559,7 +559,9 @@ body {
     padding: 1rem; /* Add padding */
   }
 
-  input, textarea, button {
+  #form input,
+  #form textarea,
+  #form button {
     width: 100%; /* Full width for inputs and button */
     margin-bottom: 1rem; /* Space between elements */
   }

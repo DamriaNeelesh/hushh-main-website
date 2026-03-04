@@ -846,11 +846,16 @@
   .heroActions {
     flex-direction: column;
     width: 100%;
+    align-items: center;
+    gap: 0.65rem;
   }
 
   .ctaPrimary,
   .ctaSecondary {
-    width: 100%;
+    width: min(100%, 12.5rem);
+    min-height: 3rem;
+    padding: 0 1.1rem;
+    font-size: 0.9rem;
   }
 
   .phoneFrame {
