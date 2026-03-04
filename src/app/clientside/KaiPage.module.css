@@ -1,14 +1,28 @@
-﻿.page {
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap");
+
+.page {
+  --kai-font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --kai-font-body: "Geist", var(--font-figtree), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --kai-font-mono: "Geist Mono", "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
   background: #ffffff;
   color: #000000;
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
+  font-family: var(--kai-font-body);
 }
 
 .page * {
   box-sizing: border-box;
   min-width: 0;
+}
+
+.page :where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--kai-font-heading);
+}
+
+.page :where(code, pre, kbd, samp, .monoText) {
+  font-family: var(--kai-font-mono);
 }
 
 .heroStage {
@@ -195,7 +209,7 @@
   margin: 0;
   font-size: clamp(2.8rem, 5vw, 4.4rem);
   line-height: 1.05;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.03em;
   color: #0f172a;
 }
@@ -633,7 +647,7 @@
 
 .splitTitle {
   font-size: clamp(1.8rem, 4vw, 2.4rem);
-  font-weight: 800;
+  font-weight: 600;
   color: #0f172a;
   line-height: 1.15;
 }
@@ -1034,7 +1048,7 @@
   text-align: center;
   font-size: clamp(2rem, 5.2vw, 2.35rem);
   line-height: 1.16;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.02em;
 }
 
@@ -2149,11 +2163,13 @@
 
 @media (min-width: 1200px) {
   .flowFullWidthSection {
-    width: min(calc(100vw - 2.4rem), 1720px);
-    max-width: none;
-    left: 50%;
-    transform: translateX(-50%);
-    padding-inline: clamp(1.1rem, 2.2vw, 2.2rem);
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    left: auto;
+    transform: none;
+    padding-inline: clamp(2.6rem, 5vw, 6.5rem);
   }
 
   .flowFullWidthSection .planEyebrow,
@@ -2166,7 +2182,7 @@
 
   .flowFullWidthSection .journeyDiagram {
     width: 100%;
-    max-width: none;
+    max-width: 1520px;
     margin-left: auto;
     margin-right: auto;
     gap: clamp(0.55rem, 1vw, 1.1rem);
@@ -2271,4 +2287,5 @@
     height: clamp(360px, 58vw, 760px);
   }
 }
+
 
