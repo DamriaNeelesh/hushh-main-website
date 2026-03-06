@@ -334,6 +334,43 @@
   position: relative;
 }
 
+.heroTeslaStage {
+  position: relative;
+  width: min(100%, 390px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heroTeslaGlow {
+  position: absolute;
+  width: clamp(180px, 28vw, 320px);
+  height: clamp(130px, 20vw, 240px);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.26), rgba(59, 130, 246, 0.1) 45%, transparent 75%);
+  filter: blur(18px);
+  z-index: 0;
+  animation: pulseGlow 5.8s ease-in-out infinite;
+}
+
+.heroTeslaScreen {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 390px);
+  border-radius: 0;
+  overflow: visible;
+  border: 0;
+  box-shadow: none;
+  animation: teslaFloat 7.2s ease-in-out infinite;
+}
+
+.heroTeslaImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 28px 46px rgba(15, 23, 42, 0.32));
+}
+
 .deviceStack {
   position: relative;
   width: min(100%, 520px);
@@ -699,6 +736,471 @@
   margin-top: clamp(1.15rem, 2.6vw, 1.7rem);
 }
 
+.desktopInsightSection {
+  display: block;
+}
+
+.desktopInsightOnly {
+  display: none;
+}
+
+.mobileInsightFallback {
+  display: contents;
+}
+
+.desktopInsightCopy {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+}
+
+.desktopInsightTitle {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(2.05rem, 5.4vw, 2.85rem);
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  font-weight: 700;
+}
+
+.desktopInsightLead {
+  margin: 1rem 0 0;
+  max-width: 62ch;
+  color: #6b7280;
+  font-size: clamp(0.96rem, 1.45vw, 1.05rem);
+  line-height: 1.62;
+}
+
+.desktopInsightPillars {
+  margin-top: 1.8rem;
+  display: grid;
+  gap: 1.38rem;
+}
+
+.desktopInsightPillar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.68rem;
+  align-items: start;
+  transition: transform 0.2s ease;
+}
+
+.desktopInsightPillar:hover {
+  transform: translateY(-1px);
+}
+
+.desktopInsightPillarIcon {
+  width: 1.02rem;
+  height: 1.02rem;
+  color: #111827;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.18rem;
+}
+
+.desktopInsightPillarIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.desktopInsightPillar h3 {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(1rem, 1.38vw, 1.17rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.desktopInsightPillar p {
+  margin: 0.34rem 0 0;
+  color: #6b7280;
+  font-size: clamp(0.88rem, 1.1vw, 0.95rem);
+  line-height: 1.58;
+  max-width: 57ch;
+}
+
+.desktopConfidenceCard {
+  position: relative;
+  order: 2;
+  max-width: 360px;
+  width: 100%;
+  margin-inline: auto;
+  border-radius: 1.55rem;
+  border: 1px solid #e4e8ee;
+  background: #ffffff;
+  box-shadow: 0 18px 40px -20px rgba(15, 23, 42, 0.35);
+  overflow: hidden;
+}
+
+.desktopConfidenceGlow {
+  display: none;
+}
+
+.desktopConfidenceInner {
+  position: relative;
+  z-index: 1;
+  padding: clamp(1rem, 2vw, 1.2rem);
+}
+
+.desktopConfidenceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.desktopConfidenceMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.desktopConfidenceMeta h3 {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(1.45rem, 2.2vw, 1.82rem);
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.024em;
+}
+
+.desktopConfidenceMeta p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.62rem;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+.desktopConfidenceScore {
+  text-align: right;
+}
+
+.desktopConfidenceScore strong {
+  display: block;
+  color: #0b76dc;
+  font-size: clamp(2rem, 3.2vw, 2.7rem);
+  line-height: 0.95;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.desktopConfidenceScore span {
+  display: block;
+  margin-top: 0.24rem;
+  color: #9ca8ba;
+  font-size: 0.5rem;
+  line-height: 1.15;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.desktopConfidenceRows {
+  margin-top: 1.1rem;
+  display: grid;
+  gap: 0.58rem;
+}
+
+.desktopConfidenceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.62rem 0.74rem;
+  border-radius: 0.68rem;
+  border: 1px solid #e4eaf1;
+  background: #f4f7fa;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.desktopConfidenceRow:hover {
+  background: #f8fafd;
+  border-color: #dbe3ec;
+  transform: translateY(-1px);
+}
+
+.desktopConfidenceRowTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.desktopConfidenceSignalIcon {
+  width: 0.72rem;
+  height: 0.72rem;
+  color: #9aa8b8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.desktopConfidenceSignalIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.desktopConfidenceRowTitle p {
+  margin: 0;
+  color: #334155;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.desktopConfidenceBadge {
+  padding: 0;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  font-weight: 700;
+  white-space: nowrap;
+  background: transparent;
+}
+
+.desktopConfidenceBadgePositive {
+  color: #159653;
+}
+
+.desktopConfidenceBadgeNeutral {
+  color: #94a3b8;
+}
+
+.desktopConfidenceFooter {
+  margin-top: 0.95rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid #edf1f5;
+  color: #a2adbb;
+  font-size: 0.58rem;
+  line-height: 1.58;
+  font-weight: 500;
+}
+
+.desktopOnlyText {
+  display: none;
+}
+
+.mobileOnlyText {
+  display: inline;
+}
+
+.dailyBriefDesktopGrid {
+  display: none;
+}
+
+.dailyBriefCard {
+  border-radius: 2rem;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dailyBriefCardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.dailyBriefTagPrimary,
+.dailyBriefTagBlue,
+.dailyBriefTagMuted {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.25rem;
+  border-radius: 0.34rem;
+  padding: 0 0.52rem;
+  font-size: 0.57rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.dailyBriefTagPrimary {
+  background: #dbeafe;
+  color: #0071e3;
+}
+
+.dailyBriefTagBlue {
+  background: #0071e3;
+  color: #ffffff;
+}
+
+.dailyBriefTagMuted {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.dailyBriefDate {
+  color: #94a3b8;
+  font-size: 0.72rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.dailyBriefDateDark {
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.dailyBriefContent h3 {
+  margin: 0;
+  color: #111111;
+  font-size: 1.26rem;
+  line-height: 1.26;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.dailyBriefContent p {
+  margin: 0.7rem 0 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.dailyBriefFooter {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #eef2f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dailyBriefStrongBuy {
+  color: #15803d;
+  font-size: 0.69rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.dailyBriefFooter button {
+  border: 0;
+  background: transparent;
+  color: #0071e3;
+  font-size: 0.74rem;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dailyBriefCardDark {
+  background: #0b0b0d;
+  border-color: #2a2f39;
+  box-shadow: 0 0 20px rgba(0, 113, 227, 0.18);
+}
+
+.dailyBriefCardDark .dailyBriefContent h3,
+.dailyBriefCardDark .dailyBriefContent p {
+  color: #ffffff;
+}
+
+.dailyBriefCardDark .dailyBriefContent p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.dailyBriefPriceRow {
+  margin-top: 0.55rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.48rem;
+}
+
+.dailyBriefPriceRow strong {
+  color: #ffffff;
+  font-size: 1.9rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.dailyBriefPriceRow span {
+  color: #4ade80;
+  font-size: 0.8rem;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.dailyBriefActionDark {
+  margin-top: auto;
+  border: 0;
+  border-radius: 0.7rem;
+  min-height: 2.65rem;
+  background: #ffffff;
+  color: #111111;
+  font-size: 0.82rem;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dailyBriefMetric {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #eef2f7;
+}
+
+.dailyBriefMetricRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.dailyBriefMetricRow span {
+  color: #64748b;
+  font-size: 0.75rem;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.dailyBriefMetricRow strong {
+  color: #111111;
+  font-size: 0.76rem;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.dailyBriefMetricBar {
+  margin-top: 0.58rem;
+  width: 100%;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.dailyBriefMetricBar i {
+  display: block;
+  width: 65%;
+  height: 100%;
+  background: #2563eb;
+}
+
+.dailyBriefMetric p {
+  margin: 0.56rem 0 0;
+  color: #6b7280;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
 @media (max-width: 980px) {
   .heroStage {
     min-height: auto;
@@ -733,6 +1235,14 @@
     margin-top: 1.5rem;
   }
 
+  .heroTeslaStage {
+    width: min(100%, 350px);
+  }
+
+  .heroTeslaScreen {
+    width: min(100%, 350px);
+  }
+
   .deviceStack {
     width: min(100%, 480px);
   }
@@ -759,6 +1269,11 @@
     grid-template-columns: 1fr;
     width: 100%;
     gap: 1.6rem;
+  }
+
+  .insightGrid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
   }
 }
 
@@ -836,6 +1351,25 @@
     margin-top: 1.15rem;
   }
 
+  .heroTeslaStage {
+    width: 100%;
+    max-width: 240px;
+  }
+
+  .heroTeslaGlow {
+    width: clamp(130px, 54vw, 190px);
+    height: clamp(95px, 38vw, 150px);
+    filter: blur(12px);
+  }
+
+  .heroTeslaScreen {
+    width: 100%;
+  }
+
+  .heroTeslaImage {
+    filter: drop-shadow(0 18px 30px rgba(15, 23, 42, 0.28));
+  }
+
   .heroProductStack {
     width: 100%;
     max-width: 360px;
@@ -910,6 +1444,29 @@
   .splitPhoneFrame {
     width: min(100%, 350px);
   }
+
+  .insightSection {
+    border-radius: 1.2rem;
+    padding: 0.95rem;
+  }
+
+  .insightCard {
+    border-radius: 1rem;
+    padding: 0.95rem;
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
+  }
+
+  .insightSignalRow {
+    padding: 0.72rem 0.74rem;
+  }
+
+  .insightCardQuote {
+    font-size: 0.72rem;
+  }
+
+  .insightPillarList {
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 420px) {
@@ -940,6 +1497,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .backdropOrbit,
+  .heroTeslaGlow,
+  .heroTeslaScreen,
   .floatingOrb,
   .floatingOrbAlt,
   .marketPulse,
@@ -996,6 +1555,16 @@
   }
   50% {
     transform: translateY(6px);
+  }
+}
+
+@keyframes teslaFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
   }
 }
 
@@ -1063,156 +1632,289 @@
   margin-right: auto;
 }
 
-.cardWrap {
-  margin-top: 1.35rem;
+.kaiInsideSection {
+  width: 100%;
+  margin-inline: auto;
+  display: none;
 }
 
-.card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 1.55rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  padding: 1.35rem 1.15rem 1.25rem;
-  color: #000000;
+.kaiInsideDesktopView {
+  width: min(100%, 1220px);
+  margin-inline: auto;
 }
 
-.stockHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.85rem;
+.kaiInsideTitle {
+  margin: 0;
+  text-align: center;
+  color: #111111;
+  font-family: var(--kai-font-heading);
+  font-size: clamp(2rem, 2.6vw, 3rem);
+  line-height: 1.14;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
-.stockInfo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.kaiInsideGrid {
+  margin-top: clamp(3.1rem, 4.8vw, 4.6rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2.2rem, 4.5vw, 5rem);
+  align-items: start;
+}
+
+.kaiInsideCard {
   min-width: 0;
+  width: min(100%, 320px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-self: center;
 }
 
-.appleIcon {
-  width: 2.95rem;
-  height: 2.95rem;
-  border-radius: 999px;
-  background: #000000;
-  color: #ffffff;
+.kaiInsideIconWrap {
+  width: clamp(2.8rem, 3.2vw, 3.2rem);
+  height: clamp(2.8rem, 3.2vw, 3.2rem);
+  border-radius: 0.75rem;
+  background: #e7ebf2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
-.appleIcon svg {
-  width: 1.38rem;
-  height: 1.38rem;
+.kaiInsideIcon {
+  width: clamp(1.1rem, 1.4vw, 1.35rem);
+  height: clamp(1.1rem, 1.4vw, 1.35rem);
+  color: #0075eb;
 }
 
-.stockName {
-  font-size: 1.44rem;
-  line-height: 1.1;
+.kaiInsideCardTitle {
+  margin: clamp(0.95rem, 1.45vw, 1.2rem) 0 0;
+  color: #111111;
+  font-family: var(--kai-font-heading);
+  font-size: clamp(1.25rem, 1.45vw, 1.55rem);
+  line-height: 1.25;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-.stockTicker {
-  margin-top: 0.08rem;
-  color: #86868b;
-  font-size: 0.95rem;
-  line-height: 1.2;
-  font-weight: 500;
+.kaiInsideCardBody {
+  margin: clamp(0.55rem, 0.9vw, 0.8rem) 0 0;
+  color: #6b7280;
+  font-family: var(--kai-font-body);
+  font-size: clamp(0.92rem, 1.02vw, 1.08rem);
+  line-height: 1.55;
+  font-weight: 400;
+  max-width: 31ch;
 }
 
-.buyChip {
-  background: #15803d;
-  color: #ffffff;
-  border-radius: 999px;
-  font-size: 0.94rem;
-  line-height: 1;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 0.62rem 1.05rem;
-  flex-shrink: 0;
+.insightSection {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  background: #f3f4f6;
+  border-radius: clamp(1.35rem, 2.5vw, 2.2rem);
+  padding: clamp(1.05rem, 3vw, 2.45rem);
 }
 
-.scoreArea {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
+.insightGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+  gap: clamp(1.5rem, 4.5vw, 4rem);
   align-items: center;
 }
 
-.score {
-  font-size: clamp(4.3rem, 11vw, 5rem);
+.insightCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: clamp(1.2rem, 2.4vw, 2rem);
+  box-shadow: 0 24px 44px rgba(15, 23, 42, 0.11);
+  padding: clamp(1rem, 2.2vw, 1.9rem);
+}
+
+.insightCardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.insightStockName {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(1.4rem, 3vw, 2.75rem);
+  line-height: 1.06;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.insightStockMeta {
+  margin-top: 0.28rem;
+  color: #94a3b8;
+  font-size: clamp(0.72rem, 1.4vw, 1.12rem);
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.insightScoreWrap {
+  text-align: right;
+}
+
+.insightScore {
+  margin: 0;
+  color: #1477da;
+  font-size: clamp(2rem, 4vw, 4.25rem);
   line-height: 1;
   font-weight: 800;
   letter-spacing: -0.03em;
 }
 
-.scorePercent {
-  color: #9ca3af;
-  font-size: clamp(2rem, 4.4vw, 2.4rem);
-  font-weight: 600;
-  margin-left: 0.2rem;
-  vertical-align: super;
-}
-
-.scoreLabel {
-  margin-top: 0.46rem;
-  color: #6b7280;
-  font-size: 0.78rem;
-  line-height: 1.2;
+.insightScoreLabel {
+  margin-top: 0.22rem;
+  color: #94a3b8;
+  font-size: clamp(0.56rem, 0.8vw, 0.8rem);
+  line-height: 1.15;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.scoreMeta {
-  margin-top: 0.75rem;
-  background: #eceff4;
-  border-radius: 0.55rem;
-  color: #4b5563;
-  font-size: 0.8125rem;
-  line-height: 1.28;
-  padding: 0.33rem 0.72rem;
-  font-weight: 600;
-  text-align: center;
-}
-
-.divider {
-  margin: 1.45rem 0 1.2rem;
-  border: 0;
-  border-top: 1px solid #dfdfdf;
-}
-
 .signals {
+  margin-top: clamp(1rem, 1.8vw, 1.8rem);
   display: grid;
-  gap: 1.35rem;
+  gap: clamp(0.68rem, 1vw, 1rem);
 }
 
-.row {
+.insightSignalRow {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 0.8rem;
-  padding-block: 0.08rem;
+  gap: 0.65rem;
+  border-radius: clamp(0.68rem, 1.2vw, 0.96rem);
+  border: 1px solid #e5e7eb;
+  background: #f1f5f9;
+  padding: clamp(0.72rem, 1vw, 1rem) clamp(0.8rem, 1.3vw, 1.08rem);
 }
 
-.rowLeft {
+.insightSignalLeft {
   display: flex;
-  align-items: flex-start;
-  gap: 0.72rem;
+  align-items: center;
+  gap: 0.58rem;
   min-width: 0;
 }
 
-.rowIcon {
-  width: 2.1rem;
-  height: 2.1rem;
-  border-radius: 0.6rem;
-  background: #f0f1f3;
+.insightSignalIcon {
+  width: clamp(0.74rem, 1vw, 0.98rem);
+  height: clamp(0.74rem, 1vw, 0.98rem);
+  color: #8ea0b8;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.insightSignalIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.insightSignalTitle {
+  margin: 0;
+  color: #334155;
+  font-size: clamp(0.82rem, 1.15vw, 1.06rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.insightSignalValue {
+  flex-shrink: 0;
+  font-size: clamp(0.8rem, 1vw, 1.03rem);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.signalTrendPositive {
+  color: #16a34a;
+}
+
+.signalTrendNeutral {
+  color: #94a3b8;
+}
+
+.insightCardQuote {
+  margin: clamp(0.9rem, 1.4vw, 1.4rem) 0 0;
+  padding-top: clamp(0.88rem, 1.3vw, 1.1rem);
+  border-top: 1px solid #e5e7eb;
+  color: #94a3b8;
+  font-size: clamp(0.7rem, 0.9vw, 0.92rem);
+  line-height: 1.6;
+}
+
+.insightCopy {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 1.6vw, 1.4rem);
+}
+
+.insightTitle {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(1.95rem, 5vw, 4.15rem);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.insightSubtitle {
+  margin: 0;
+  color: #475569;
+  font-size: clamp(0.98rem, 1.45vw, 1.4rem);
+  line-height: 1.55;
+  max-width: 34ch;
+}
+
+.insightPillarList {
+  margin-top: clamp(0.1rem, 0.8vw, 0.4rem);
+  display: grid;
+  gap: clamp(1.05rem, 1.8vw, 2rem);
+}
+
+.insightPillar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.65rem;
+}
+
+.insightPillarIcon {
+  width: clamp(0.95rem, 1.2vw, 1.3rem);
+  height: clamp(0.95rem, 1.2vw, 1.3rem);
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.18rem;
+}
+
+.insightPillarIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.insightPillarTitle {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(1.05rem, 1.8vw, 2rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.insightPillarBody {
+  margin: 0.3rem 0 0;
+  color: #64748b;
+  font-size: clamp(0.92rem, 1.3vw, 1.26rem);
+  line-height: 1.56;
+  max-width: 44ch;
 }
 
 .iconGreen {
@@ -1225,43 +1927,6 @@
 
 .iconBlue {
   color: #1477da;
-}
-
-.rowTitle {
-  color: #000000;
-  font-size: 0.96rem;
-  line-height: 1.2;
-  font-weight: 700;
-}
-
-.rowText {
-  margin-top: 0.16rem;
-  color: #6b7280;
-  font-size: 0.8125rem;
-  line-height: 1.22;
-  font-weight: 500;
-}
-
-.tag {
-  border-radius: 0.43rem;
-  border: 1px solid;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.72rem;
-  line-height: 1;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.tagGreen {
-  color: #34c759;
-  border-color: #c5eccf;
-  background: #e8f7ed;
-}
-
-.tagOrange {
-  color: #f59e0b;
-  border-color: #f8dfbf;
-  background: #fff2e2;
 }
 
 .appSection {
@@ -1638,6 +2303,10 @@
     margin-inline: auto;
   }
 
+  .section.insightSection {
+    width: min(100%, 1180px);
+  }
+
   .splitSection {
     width: min(100%, 1080px);
   }
@@ -1650,8 +2319,8 @@
     width: min(100%, 338px);
   }
 
-  .card {
-    padding: 1.5rem 1.32rem 1.4rem;
+  .insightSection {
+    padding: clamp(1.45rem, 3vw, 2.25rem);
   }
 
   .transparencyList {
@@ -1666,6 +2335,272 @@
 
   .stepBubble {
     margin-top: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroStage {
+    min-height: calc(100vh - 170px);
+    padding: clamp(1.2rem, 1.8vw, 2rem) clamp(2rem, 5vw, 5.5rem) clamp(1rem, 1.6vw, 1.8rem);
+    background: #ffffff;
+    border-bottom: 0;
+  }
+
+  .heroBackdrop {
+    display: none;
+  }
+
+  .heroGrid {
+    width: min(100%, 1280px);
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(1.6rem, 3vw, 2.8rem);
+  }
+
+  .heroCopy {
+    gap: 1.5rem;
+    max-width: 640px;
+  }
+
+  .heroBadge,
+  .heroHighlights,
+  .scrollIndicator {
+    display: none;
+  }
+
+  .heroTitle {
+    font-size: clamp(2.8rem, 3.8vw, 3.4rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    color: #111111;
+  }
+
+  .heroSubtitle {
+    max-width: 34ch;
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.56;
+  }
+
+  .heroActions {
+    margin-top: 0.2rem;
+    gap: 0.9rem;
+  }
+
+  .ctaPrimary {
+    min-height: 3.25rem;
+    padding: 0 1.75rem;
+    border-radius: 0.75rem;
+    background: #0071e3;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 10px 24px -8px rgba(0, 113, 227, 0.45);
+  }
+
+  .ctaPrimary:hover {
+    background: #0077ee;
+    box-shadow: 0 14px 26px -10px rgba(0, 113, 227, 0.5);
+  }
+
+  .ctaSecondary {
+    min-height: 3.25rem;
+    padding: 0 1.75rem;
+    border-radius: 0.75rem;
+    border: 2px solid #0071e3;
+    color: #0071e3;
+    background: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .ctaSecondary:hover {
+    border-color: #0077ee;
+    color: #0077ee;
+    background: #eff6ff;
+    box-shadow: none;
+  }
+
+  .heroVisual {
+    justify-content: flex-end;
+  }
+
+  .heroTeslaStage {
+    width: min(100%, 360px);
+    justify-content: flex-end;
+  }
+
+  .heroTeslaScreen {
+    width: min(100%, 360px);
+  }
+
+  .heroTeslaImage {
+    filter: drop-shadow(0 30px 50px rgba(15, 23, 42, 0.34));
+  }
+
+  .heroProductStack {
+    width: min(100%, 560px);
+    padding: 0;
+    gap: 0;
+  }
+
+  .heroInsightPanel,
+  .heroSignalGrid,
+  .floatingOrb,
+  .floatingOrbAlt,
+  .marketPulse {
+    display: none;
+  }
+
+  .desktopFrame {
+    background: #000000;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2.45rem;
+    padding: 0.58rem;
+    box-shadow:
+      0 100px 140px -20px rgba(0, 0, 0, 0.68),
+      0 50px 80px -15px rgba(0, 0, 0, 0.46);
+    transform: perspective(1200px) rotateY(-20deg) rotateX(10deg) scale(1.03);
+  }
+
+  .desktopTopBar {
+    height: 2.2rem;
+    padding: 0 0.9rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .desktopDot {
+    background: rgba(255, 255, 255, 0.34);
+  }
+
+  .desktopBody {
+    min-height: 20rem;
+    background: linear-gradient(135deg, #09408b 0%, #4c1775 50%, #c20e54 100%);
+    padding: 1rem;
+    gap: 0.9rem;
+  }
+
+  .desktopTitle,
+  .desktopStock,
+  .desktopScore {
+    color: #ffffff;
+  }
+
+  .desktopSubtitle,
+  .desktopCardText,
+  .signalLabel {
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .desktopChip {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+  }
+
+  .desktopCard {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .desktopSignals {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .signalValue {
+    color: #ffffff;
+  }
+
+  .section.kaiInsideSection {
+    display: block;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    background: #f8fafc;
+    border-top: 1px solid #eef2f7;
+    border-bottom: 1px solid #eef2f7;
+    padding: clamp(4.7rem, 6.5vw, 6.4rem) clamp(2rem, 5.2vw, 5.5rem) clamp(4.5rem, 6vw, 5.8rem);
+  }
+
+  .kaiInsideTitle {
+    font-size: clamp(2.25rem, 3.1vw, 2.7rem);
+    line-height: 1.15;
+    letter-spacing: -0.018em;
+    font-weight: 600;
+  }
+
+  .kaiInsideGrid {
+    margin-top: clamp(2.8rem, 3.7vw, 3.5rem);
+    gap: clamp(2.3rem, 3.5vw, 4rem);
+  }
+
+  .kaiInsideCard {
+    width: min(100%, 350px);
+    padding: 1.3rem 1.2rem;
+    border-radius: 1.1rem;
+    border: 1px solid transparent;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .kaiInsideCard:hover {
+    border-color: #e5e7eb;
+    box-shadow: 0 16px 30px -22px rgba(15, 23, 42, 0.28);
+    transform: translateY(-2px);
+  }
+
+  .desktopInsightSection {
+    display: block;
+    width: min(100%, 1240px);
+    margin-inline: auto;
+    padding: clamp(4.2rem, 5.8vw, 5.8rem) clamp(2rem, 4.2vw, 3.5rem);
+    background: #f2f2f4;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .desktopInsightOnly {
+    display: grid;
+    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.6rem, 4.4vw, 5rem);
+  }
+
+  .desktopConfidenceCard {
+    order: 1;
+    max-width: 360px;
+    margin-inline: 0;
+  }
+
+  .desktopInsightCopy {
+    order: 2;
+  }
+
+  .mobileInsightFallback {
+    display: none;
+  }
+
+  .dailyBriefSection {
+    width: min(100%, 1280px);
+  }
+
+  .desktopOnlyText {
+    display: inline;
+  }
+
+  .mobileOnlyText {
+    display: none;
+  }
+
+  .dailyBriefDesktopGrid {
+    margin-top: 2.2rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.4rem;
+  }
+
+  .alphaPanel {
+    display: none;
   }
 }
 

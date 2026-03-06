@@ -4,34 +4,147 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { FaApple, FaArrowRight, FaBell, FaChartLine, FaLock, FaShieldAlt, FaSun } from "react-icons/fa";
+import { FaArrowRight, FaBell, FaChartLine, FaShieldAlt, FaSun } from "react-icons/fa";
 import styles from "./KaiPage.module.css";
 import FooterComponent from "../_components/features/FooterComponent";
 
-const signals = [
+const PortfolioBreakdownIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <path d="M4.5 18.5H19.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    <path d="M7.5 18.5V11.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    <path d="M12 18.5V6.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    <path d="M16.5 18.5V9.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+  </svg>
+);
+
+const SignalAnalysisIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 4.8L15.3 6.7V10.4L12 12.3L8.7 10.4V6.7L12 4.8Z" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M7.1 13.2L10.4 15.1V18.8L7.1 20.7L3.8 18.8V15.1L7.1 13.2Z" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M16.9 13.2L20.2 15.1V18.8L16.9 20.7L13.6 18.8V15.1L16.9 13.2Z" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M8.6 8.7H5.3V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M15.4 8.7H18.7V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M12 12.3V15.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const ConvictionScoreIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M12 3.8L18.3 6.2V11.6C18.3 15.4 15.8 18.6 12 19.8C8.2 18.6 5.7 15.4 5.7 11.6V6.2L12 3.8Z"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinejoin="round"
+    />
+    <path d="M9.3 11.9L11.1 13.7L14.8 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const FundamentalSignalIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <rect x="4.6" y="4.8" width="14.8" height="14.4" rx="2.4" stroke="currentColor" strokeWidth="1.55" />
+    <path d="M8.4 9.1H15.6" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" />
+    <path d="M8.4 13.1H13.7" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" />
+    <circle cx="16.2" cy="14.2" r="1.35" stroke="currentColor" strokeWidth="1.55" />
+  </svg>
+);
+
+const SentimentSignalIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="7.2" stroke="currentColor" strokeWidth="1.55" />
+    <path d="M9.2 10.5V10.55" stroke="currentColor" strokeWidth="1.85" strokeLinecap="round" />
+    <path d="M14.8 10.5V10.55" stroke="currentColor" strokeWidth="1.85" strokeLinecap="round" />
+    <path d="M9 14.2C9.9 15.35 11 16 12 16C13 16 14.1 15.35 15 14.2" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" />
+  </svg>
+);
+
+const TechnicalSignalIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 17.2H19" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" />
+    <path d="M6.3 14.6L10.1 10.9L12.8 12.9L17.7 8.5" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const SignalDepthIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 5.1L18.1 8.7L12 12.3L5.9 8.7L12 5.1Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    <path d="M5.9 12.9L12 16.5L18.1 12.9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const StructuredReasoningIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <rect x="4.9" y="5.3" width="5.1" height="5.1" rx="1.2" stroke="currentColor" strokeWidth="1.5" />
+    <rect x="14" y="5.3" width="5.1" height="5.1" rx="1.2" stroke="currentColor" strokeWidth="1.5" />
+    <rect x="9.45" y="13.6" width="5.1" height="5.1" rx="1.2" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M10 7.85H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M12 10.45V13.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const ContinuousMonitoringIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+    <path d="M14.2 6.2A5.8 5.8 0 0 1 18.6 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    <path d="M18.6 12L16.3 10.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M9.8 17.8A5.8 5.8 0 0 1 5.4 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    <path d="M5.4 12L7.7 13.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const insideKaiCards = [
   {
-    title: "Company Strength",
-    subtitle: "Checks financial health",
-    value: "Strong",
-    icon: FaShieldAlt,
-    iconClass: styles.iconGreen,
-    tagClass: styles.tagGreen,
+    title: "Portfolio Breakdown",
+    body: "Clear allocation, sector exposure, and performance overview in one view.",
+    icon: PortfolioBreakdownIcon,
   },
   {
-    title: "Market Trend",
-    subtitle: "Reads market tone",
+    title: "Signal Analysis",
+    body: "Fundamental, sentiment, and technical signals structured clearly.",
+    icon: SignalAnalysisIcon,
+  },
+  {
+    title: "Conviction Score",
+    body: "A transparent score indicating strength of opportunity or downside risk.",
+    icon: ConvictionScoreIcon,
+  },
+];
+
+const committeeInsightPillars = [
+  {
+    title: "Signal Depth",
+    body: "Kai analyzes fundamental performance, market sentiment, and price trends together to form a complete view.",
+    icon: SignalDepthIcon,
+  },
+  {
+    title: "Structured Reasoning",
+    body: "Every insight is backed by a transparent chain of signals so you can understand why a decision was made.",
+    icon: StructuredReasoningIcon,
+  },
+  {
+    title: "Continuous Monitoring",
+    body: "Signals update automatically as markets move, helping you stay ahead of new risks and opportunities.",
+    icon: ContinuousMonitoringIcon,
+  },
+];
+
+const confidenceSignalRows = [
+  {
+    title: "Fundamental Analyst",
+    value: "+12% Trend",
+    tone: "positive",
+    icon: FundamentalSignalIcon,
+  },
+  {
+    title: "Sentiment Engine",
+    value: "+8% Trend",
+    tone: "positive",
+    icon: SentimentSignalIcon,
+  },
+  {
+    title: "Technical Chartist",
     value: "Neutral",
-    icon: FaChartLine,
-    iconClass: styles.iconOrange,
-    tagClass: styles.tagOrange,
-  },
-  {
-    title: "Fair Value",
-    subtitle: "Value & risk calculation",
-    value: "Good Entry",
-    icon: FaLock,
-    iconClass: styles.iconBlue,
-    tagClass: styles.tagGreen,
+    tone: "neutral",
+    icon: TechnicalSignalIcon,
   },
 ];
 
@@ -274,16 +387,16 @@ const HushhKai = () => {
               className={styles.heroTitle}
               {...heroReveal(0.1, 20)}
             >
-              Your Personal Agent
+              Your Explainable
               <br />
-              for Market Confidence
+              Investing Copilot
             </motion.h1>
 
             <motion.p
               className={styles.heroSubtitle}
               {...heroReveal(0.16, 18)}
             >
-              Personal Agent Kai helps you cut through noise and make clear, confident decisions with calm, private guidance.
+              Everything you need to understand the market without the noise.
             </motion.p>
 
             <motion.div
@@ -306,11 +419,11 @@ const HushhKai = () => {
                 Start with Kai
               </Link>
               <Link href="#kai-analysis" className={styles.ctaSecondary}>
-                See the analysis
+                Watch Demo
               </Link>
             </motion.div>
 
-            <motion.div
+            {/* <motion.div
               className={styles.heroStats}
               {...heroReveal(0.34, 12)}
             >
@@ -326,83 +439,22 @@ const HushhKai = () => {
                 <p className={styles.heroStatValue}>24/7</p>
                 <p className={styles.heroStatLabel}>Live monitoring</p>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
 
           <div className={styles.heroVisual}>
-            <div className={styles.heroProductStack}>
-              <motion.div
-                className={styles.desktopFrame}
-                {...heroReveal(0.18, 22)}
-              >
-                <div className={styles.desktopTopBar}>
-                  <span className={styles.desktopDot} />
-                  <span className={styles.desktopDot} />
-                  <span className={styles.desktopDot} />
-                </div>
-                <div className={styles.desktopBody}>
-                  <div className={styles.desktopHeader}>
-                    <div>
-                      <p className={styles.desktopTitle}>Kai Market Pulse</p>
-                      <p className={styles.desktopSubtitle}>Consensus dashboard</p>
-                    </div>
-                    <span className={styles.desktopChip}>Live</span>
-                  </div>
-                  <div className={styles.desktopCard}>
-                    <div className={styles.desktopCardHeader}>
-                      <span className={styles.desktopStock}>Apple - AAPL</span>
-                      <span className={styles.desktopScore}>87%</span>
-                    </div>
-                    <p className={styles.desktopCardText}>Confidence score based on 3-agent consensus.</p>
-                  </div>
-                  <div className={styles.desktopSignals}>
-                    <div>
-                      <p className={styles.signalLabel}>Trend</p>
-                      <p className={styles.signalValue}>Neutral</p>
-                    </div>
-                    <div>
-                      <p className={styles.signalLabel}>Risk</p>
-                      <p className={styles.signalValue}>Low</p>
-                    </div>
-                    <div>
-                      <p className={styles.signalLabel}>Entry</p>
-                      <p className={styles.signalValue}>Good</p>
-                    </div>
-                  </div>
-                </div>
+            <div className={styles.heroTeslaStage}>
+              <span className={styles.heroTeslaGlow} aria-hidden="true" />
+              <motion.div className={styles.heroTeslaScreen} {...heroReveal(0.18, 22)}>
+                <Image
+                  src="/Images/kai/tesla_analysis_animation.png"
+                  alt="Floating Tesla Analysis Screen"
+                  width={1216}
+                  height={914}
+                  className={styles.heroTeslaImage}
+                  priority
+                />
               </motion.div>
-
-              <motion.div
-                className={styles.heroInsightPanel}
-                {...heroReveal(0.28, 18)}
-              >
-                <p className={styles.heroInsightTitle}>Calm Guidance</p>
-                <p className={styles.heroInsightBody}>
-                  Personal Agent Kai brings clarity to every market decision while keeping control in your hands.
-                </p>
-                <div className={styles.heroInsightTags}>
-                  <span>Clarity</span>
-                  <span>Private</span>
-                  <span>Everyday</span>
-                </div>
-              </motion.div>
-
-              <motion.div className={styles.heroSignalGrid} {...heroReveal(0.34, 14)}>
-                {[
-                  { label: "Attention", value: "Aligned" },
-                  { label: "Tradeoffs", value: "Clear" },
-                  { label: "Next step", value: "Ready" },
-                ].map((item, index) => (
-                  <motion.div key={item.label} className={styles.heroSignalCard} {...heroReveal(0.38 + index * 0.04, 10)}>
-                    <p className={styles.heroSignalLabel}>{item.label}</p>
-                    <p className={styles.heroSignalValue}>{item.value}</p>
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              <span className={styles.floatingOrb} aria-hidden="true" />
-              <span className={styles.floatingOrbAlt} aria-hidden="true" />
-              <span className={styles.marketPulse} aria-hidden="true" />
             </div>
           </div>
         </div>
@@ -415,89 +467,114 @@ const HushhKai = () => {
 
       <div className={styles.shell}>
         <div className={styles.mobileFrame}>
-          <motion.section id="kai-analysis" className={styles.section} {...revealProps(0.04, 0.3, 24)}>
-            <h2 className={styles.sectionTitle}>
-              A Committee Decision on
-              <br />
-              Every Stock.
-            </h2>
-
-            <div className={styles.cardWrap}>
-              <motion.article className={styles.card} {...revealProps(0.08, 0.35, 18)}>
-                <header className={styles.stockHead}>
-                  <div className={styles.stockInfo}>
-                    <span className={styles.appleIcon}>
-                      <FaApple aria-hidden />
-                    </span>
-                    <div>
-                      <h3 className={styles.stockName}>Apple Inc.</h3>
-                      <p className={styles.stockTicker}>AAPL</p>
-                    </div>
-                  </div>
-
-                  <span className={styles.buyChip}>Buy</span>
-                </header>
-
-                <div className={styles.scoreArea}>
-                  <p className={styles.score}>
-                    87<span className={styles.scorePercent}>%</span>
-                  </p>
-                  <p className={styles.scoreLabel}>Confidence Score</p>
-                  <p className={styles.scoreMeta}>Consensus reached by 3 specialist AI agents</p>
-                </div>
-
-                <hr className={styles.divider} />
-
-                <div className={styles.signals}>
-                  {signals.map((signal, index) => {
-                    const Icon = signal.icon;
-                    return (
-                      <motion.div key={signal.title} className={styles.row} {...revealProps(index * 0.05, 0.28, 12)}>
-                        <div className={styles.rowLeft}>
-                          <span className={styles.rowIcon}>
-                            <Icon className={signal.iconClass} aria-hidden />
-                          </span>
-                          <div>
-                            <h3 className={styles.rowTitle}>{signal.title}</h3>
-                            <p className={styles.rowText}>{signal.subtitle}</p>
-                          </div>
-                        </div>
-                        <span className={`${styles.tag} ${signal.tagClass}`}>{signal.value}</span>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </motion.article>
+          <motion.section id="kai-analysis" className={`${styles.section} ${styles.kaiInsideSection}`} {...revealProps(0.04, 0.3, 24)}>
+            <div className={styles.kaiInsideDesktopView}>
+              <h2 className={styles.kaiInsideTitle}>What You See Inside Kai</h2>
+              <div className={styles.kaiInsideGrid}>
+                {insideKaiCards.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.article key={item.title} className={styles.kaiInsideCard} {...revealProps(index * 0.05, 0.22, 14)}>
+                      <span className={styles.kaiInsideIconWrap}>
+                        <Icon className={styles.kaiInsideIcon} />
+                      </span>
+                      <h3 className={styles.kaiInsideCardTitle}>{item.title}</h3>
+                      <p className={styles.kaiInsideCardBody}>{item.body}</p>
+                    </motion.article>
+                  );
+                })}
+              </div>
             </div>
           </motion.section>
 
-          <motion.section className={styles.splitSection} {...revealProps(0.06, 0.28, 26)}>
-            <div className={styles.splitCopy}>
-              <p className={styles.splitEyebrow}>The Process</p>
-              <h2 className={styles.splitTitle}>Markets move fast. Personal Agent Kai keeps you grounded.</h2>
-              <p className={styles.splitBody}>
-                Too much information creates hesitation. Kai simplifies what to focus on so you can stay aligned with
-                your goals and move with confidence.
-              </p>
-              <ul className={styles.splitList}>
-                <li>Spot what deserves your attention today.</li>
-                <li>Understand the tradeoffs before you act.</li>
-                <li>Choose your next step with greater confidence.</li>
-              </ul>
+          <motion.section className={`${styles.splitSection} ${styles.desktopInsightSection}`} {...revealProps(0.06, 0.28, 26)}>
+            <div className={styles.desktopInsightOnly}>
+              <motion.article className={styles.desktopConfidenceCard} {...revealProps(0.12, 0.22, 18)}>
+                <span className={styles.desktopConfidenceGlow} aria-hidden />
+                <div className={styles.desktopConfidenceInner}>
+                  <header className={styles.desktopConfidenceHeader}>
+                    <div className={styles.desktopConfidenceMeta}>
+                      <h3>Apple Inc.</h3>
+                      <p>AAPL - Technology</p>
+                    </div>
+                    <div className={styles.desktopConfidenceScore}>
+                      <strong>87%</strong>
+                      <span>Confidence Score</span>
+                    </div>
+                  </header>
+
+                  <div className={styles.desktopConfidenceRows}>
+                    {confidenceSignalRows.map((item, index) => (
+                      <motion.div key={item.title} className={styles.desktopConfidenceRow} {...revealProps(index * 0.04, 0.2, 12)}>
+                        <div className={styles.desktopConfidenceRowTitle}>
+                          <span className={styles.desktopConfidenceSignalIcon} aria-hidden>
+                            <item.icon />
+                          </span>
+                          <p>{item.title}</p>
+                        </div>
+                        <span
+                          className={`${styles.desktopConfidenceBadge} ${
+                            item.tone === "neutral" ? styles.desktopConfidenceBadgeNeutral : styles.desktopConfidenceBadgePositive
+                          }`}
+                        >
+                          {item.value}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  <footer className={styles.desktopConfidenceFooter}>
+                    "Strong institutional accumulation paired with robust quarterly guidance signals a high-conviction entry point."
+                  </footer>
+                </div>
+              </motion.article>
+
+              <div className={styles.desktopInsightCopy}>
+                <h2 className={styles.desktopInsightTitle}>How Kai Generates Insight</h2>
+                <p className={styles.desktopInsightLead}>
+                  Every investment is evaluated across multiple signals before a conclusion is made.
+                </p>
+                <div className={styles.desktopInsightPillars}>
+                  {committeeInsightPillars.map((item, index) => (
+                    <motion.article key={item.title} className={styles.desktopInsightPillar} {...revealProps(index * 0.05, 0.24, 14)}>
+                      <span className={styles.desktopInsightPillarIcon} aria-hidden>
+                        <item.icon />
+                      </span>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>{item.body}</p>
+                      </div>
+                    </motion.article>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className={styles.splitVisual}>
-              <motion.div
-                className={styles.splitPhoneFrame}
-                {...phoneReveal(0.12, -8)}
-              >
-                <Image
-                  src="/Images/kai/screen_1_high_level.png"
-                  alt="Kai process high-level flow mobile screen"
-                  width={1400}
-                  height={2537}
-                  className={styles.phoneImage}
-                />
-              </motion.div>
+
+            <div className={styles.mobileInsightFallback}>
+              <div className={styles.splitCopy}>
+                <p className={styles.splitEyebrow}>The Process</p>
+                <h2 className={styles.splitTitle}>Markets move fast. Personal Agent Kai keeps you grounded.</h2>
+                <p className={styles.splitBody}>
+                  Too much information creates hesitation. Kai simplifies what to focus on so you can stay aligned with
+                  your goals and move with confidence.
+                </p>
+                <ul className={styles.splitList}>
+                  <li>Spot what deserves your attention today.</li>
+                  <li>Understand the tradeoffs before you act.</li>
+                  <li>Choose your next step with greater confidence.</li>
+                </ul>
+              </div>
+              <div className={styles.splitVisual}>
+                <motion.div className={styles.splitPhoneFrame} {...phoneReveal(0.12, -8)}>
+                  <Image
+                    src="/Images/kai/screen_1_high_level.png"
+                    alt="Kai process high-level flow mobile screen"
+                    width={1400}
+                    height={2537}
+                    className={styles.phoneImage}
+                  />
+                </motion.div>
+              </div>
             </div>
           </motion.section>
 
@@ -558,9 +635,80 @@ const HushhKai = () => {
             </div>
           </motion.section>
 
-          <motion.section className={styles.section} {...revealProps(0.12, 0.3, 24)}>
-            <h2 className={styles.sectionTitle}>Start your day with Alpha</h2>
-            <p className={styles.sectionSub}>A clean, curated digest of opportunities every morning.</p>
+          <motion.section className={`${styles.section} ${styles.dailyBriefSection}`} {...revealProps(0.12, 0.3, 24)}>
+            <h2 className={styles.sectionTitle}>
+              <span className={styles.desktopOnlyText}>Your Daily Market Briefing. Simplified.</span>
+              <span className={styles.mobileOnlyText}>Start your day with Alpha</span>
+            </h2>
+            <p className={styles.sectionSub}>
+              <span className={styles.desktopOnlyText}>
+                Daily market insights and clear strategies delivered before the market opens.
+              </span>
+              <span className={styles.mobileOnlyText}>A clean, curated digest of opportunities every morning.</span>
+            </p>
+
+            <div className={styles.dailyBriefDesktopGrid}>
+              <motion.article className={styles.dailyBriefCard} {...revealProps(0.02, 0.22, 14)}>
+                <div className={styles.dailyBriefCardHead}>
+                  <span className={styles.dailyBriefTagPrimary}>MORNING DIGEST</span>
+                  <span className={styles.dailyBriefDate}>Oct 24, 2023</span>
+                </div>
+                <div className={styles.dailyBriefContent}>
+                  <h3>NVDA Quarterly Outlook</h3>
+                  <p>
+                    Demand for H100 remains robust. Supply chain constraints easing in Q4. Sentiment remains extremely
+                    bullish.
+                  </p>
+                </div>
+                <div className={styles.dailyBriefFooter}>
+                  <span className={styles.dailyBriefStrongBuy}>STRONG BUY</span>
+                  <button type="button">Read Full Report</button>
+                </div>
+              </motion.article>
+
+              <motion.article className={`${styles.dailyBriefCard} ${styles.dailyBriefCardDark}`} {...revealProps(0.08, 0.22, 14)}>
+                <div className={styles.dailyBriefCardHead}>
+                  <span className={styles.dailyBriefTagBlue}>TOP PICK</span>
+                  <span className={styles.dailyBriefDateDark}>TODAY</span>
+                </div>
+                <div className={styles.dailyBriefContent}>
+                  <h3>MSFT Momentum Watch</h3>
+                  <div className={styles.dailyBriefPriceRow}>
+                    <strong>$328.79</strong>
+                    <span>+2.4%</span>
+                  </div>
+                  <p>AI integration within Office 365 is driving higher-than-expected enterprise upgrades.</p>
+                </div>
+                <button type="button" className={styles.dailyBriefActionDark}>
+                  Analyze MSFT
+                </button>
+              </motion.article>
+
+              <motion.article className={styles.dailyBriefCard} {...revealProps(0.12, 0.22, 14)}>
+                <div className={styles.dailyBriefCardHead}>
+                  <span className={styles.dailyBriefTagMuted}>PORTFOLIO TACTIC</span>
+                  <span className={styles.dailyBriefDate}>ACTIVE</span>
+                </div>
+                <div className={styles.dailyBriefContent}>
+                  <h3>Rates and Cash Positioning</h3>
+                  <p>
+                    Bond yields are stabilizing. Recommend adjusting cash position to 15% and increasing tech exposure.
+                  </p>
+                </div>
+                <div className={styles.dailyBriefMetric}>
+                  <div className={styles.dailyBriefMetricRow}>
+                    <span>U.S. 10Y Yield</span>
+                    <strong>4.25%</strong>
+                  </div>
+                  <div className={styles.dailyBriefMetricBar}>
+                    <i aria-hidden />
+                  </div>
+                  <p>
+                    Market volatility remains within expected parameters for the current hedge configuration.
+                  </p>
+                </div>
+              </motion.article>
+            </div>
 
             <div className={styles.alphaPanel}>
               <div className={styles.toggle} role="tablist" aria-label="Alpha views">
@@ -610,7 +758,7 @@ const HushhKai = () => {
             </div>
           </motion.section>
 
-          <motion.section className={`${styles.section} ${styles.planSection}`} {...revealProps(0.16, 0.28, 24)}>
+          {/* <motion.section className={`${styles.section} ${styles.planSection}`} {...revealProps(0.16, 0.28, 24)}>
             <p className={styles.planEyebrow}>Committee Workflow</p>
             <h2 className={styles.sectionTitle}>How Kai reaches a recommendation investors can audit.</h2>
             <div className={styles.planCards}>
@@ -644,9 +792,9 @@ const HushhKai = () => {
                 ))}
               </ul>
             </div>
-          </motion.section>
+          </motion.section> */}
 
-          <motion.section className={`${styles.section} ${styles.planSection}`} {...revealProps(0.18, 0.28, 24)}>
+          {/* <motion.section className={`${styles.section} ${styles.planSection}`} {...revealProps(0.18, 0.28, 24)}>
             <p className={styles.planEyebrow}>Personas and Scope</p>
             <h2 className={styles.sectionTitle}>Who Kai serves and  what Kai provides in V1</h2>
 
@@ -698,7 +846,7 @@ const HushhKai = () => {
                 Talk to Team
               </Link>
             </motion.div>
-          </motion.section>
+          </motion.section> */}
 
           <motion.section
             className={`${styles.section} ${styles.planSection} ${styles.flowFullWidthSection}`}
@@ -733,9 +881,9 @@ const HushhKai = () => {
 
           <motion.section className={`${styles.section} ${styles.planSection}`} {...revealProps(0.22, 0.3, 24)}>
             <p className={styles.planEyebrow}>Product Experience</p>
-            <h2 className={styles.sectionTitle}>What investors actually see inside Kai.</h2>
+            <h2 className={styles.sectionTitle}>Two connected screens define the product experience</h2>
             <p className={styles.planLead}>
-              Two connected screens define the product experience: structured reasoning first, then an evidence-backed
+              Structured reasoning first, then an evidence-backed
               decision card.
             </p>
             <div className={styles.triPhoneShowcase}>
@@ -762,10 +910,10 @@ const HushhKai = () => {
           </motion.section>
 
           <motion.section className={styles.finalSection} {...revealProps(0.14, 0.3, 22)}>
-            <h2 className={styles.finalTitle}>Ready for Clarity?</h2>
-            <p className={styles.finalText}>Join investors who have replaced noise with structure.</p>
+            <h2 className={styles.finalTitle}>Know Before You Act</h2>
+            <p className={styles.finalText}>Start using Kai to understand your portfolio and the market.</p>
             <Link href="https://hushh-webapp-1006304528804.us-central1.run.app/" className={styles.finalButton}>
-              Get Started
+              Get Started with Kai
             </Link>
             <p className={styles.footer}>
               <Link href="/legal/privacypolicy" aria-label="Read privacy policy">
