@@ -447,7 +447,7 @@ const HushhKai = () => {
               <span className={styles.heroTeslaGlow} aria-hidden="true" />
               <motion.div className={styles.heroTeslaScreen} {...heroReveal(0.18, 22)}>
                 <Image
-                  src="/Images/kai/tesla_analysis_animation.png"
+                  src="/Images/kai/tesla_analysis_animation_transparent.png"
                   alt="Floating Tesla Analysis Screen"
                   width={1216}
                   height={914}

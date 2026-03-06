@@ -336,7 +336,7 @@
 
 .heroTeslaStage {
   position: relative;
-  width: min(100%, 390px);
+  width: min(100%, 450px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -356,7 +356,8 @@
 .heroTeslaScreen {
   position: relative;
   z-index: 1;
-  width: min(100%, 390px);
+  width: auto;
+  max-width: 100%;
   border-radius: 0;
   overflow: visible;
   border: 0;
@@ -365,8 +366,9 @@
 }
 
 .heroTeslaImage {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: min(62vh, 580px);
+  max-width: 100%;
   display: block;
   filter: drop-shadow(0 28px 46px rgba(15, 23, 42, 0.32));
 }
@@ -1240,7 +1242,11 @@
   }
 
   .heroTeslaScreen {
-    width: min(100%, 350px);
+    width: auto;
+  }
+
+  .heroTeslaImage {
+    height: min(90vh, 720px);
   }
 
   .deviceStack {
@@ -1363,10 +1369,11 @@
   }
 
   .heroTeslaScreen {
-    width: 100%;
+    width: auto;
   }
 
   .heroTeslaImage {
+    height: min(40vh, 300px);
     filter: drop-shadow(0 18px 30px rgba(15, 23, 42, 0.28));
   }
 
@@ -2341,7 +2348,7 @@
 @media (min-width: 1024px) {
   .heroStage {
     min-height: calc(100vh - 170px);
-    padding: clamp(1.2rem, 1.8vw, 2rem) clamp(2rem, 5vw, 5.5rem) clamp(1rem, 1.6vw, 1.8rem);
+    padding: 0 clamp(2rem, 5vw, 5.5rem) 0;
     background: #ffffff;
     border-bottom: 0;
   }
@@ -2353,11 +2360,12 @@
   .heroGrid {
     width: min(100%, 1280px);
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: clamp(1.6rem, 3vw, 2.8rem);
+    gap: clamp(1.8rem, 3vw, 3.2rem);
+    min-height: calc(100vh - 170px);
   }
 
   .heroCopy {
-    gap: 1.5rem;
+    gap: 1.2rem;
     max-width: 640px;
   }
 
@@ -2425,15 +2433,16 @@
   }
 
   .heroTeslaStage {
-    width: min(100%, 360px);
+    width: min(100%, 520px);
     justify-content: flex-end;
   }
 
   .heroTeslaScreen {
-    width: min(100%, 360px);
+    width: auto;
   }
 
   .heroTeslaImage {
+    height: min(68vh, 700px);
     filter: drop-shadow(0 30px 50px rgba(15, 23, 42, 0.34));
   }
 
