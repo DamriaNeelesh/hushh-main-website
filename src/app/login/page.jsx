@@ -20,8 +20,6 @@ import Link from 'next/link';
 import { ArrowBackIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import AppleSignInButton from './components/AppleSignInButton.jsx';
 import ContentWrapper from '../_components/layout/ContentWrapper';
-import MFAEnrollmentModal from '../_components/auth/MFAEnrollmentModal';
-import MFAVerificationModal from '../_components/auth/MFAVerificationModal';
 
 // Advanced Keyframe Animations 
 const float = keyframes`
@@ -61,13 +59,6 @@ const LoginPageContent = () => {
     signIn,
     isAuthenticated,
     loading,
-    mfaRequired,
-    mfaEnrollmentNeeded,
-    currentFactorId,
-    currentChallengeId,
-    checkingMFA,
-    completeMFAEnrollment,
-    completeMFAVerification,
   } = useAuth();
   const toast = useToast();
   const router = useRouter();
@@ -93,15 +84,13 @@ const LoginPageContent = () => {
       }
     }
 
-    // Only redirect if authenticated AND MFA check is complete AND MFA is not required/needed
-    if (isAuthenticated && !loading && !checkingMFA && !mfaRequired && !mfaEnrollmentNeeded) {
-      console.log('✅ User authenticated and MFA complete, redirecting...');
+    // Only redirect if authenticated
+    if (isAuthenticated && !loading) {
+      console.log('✅ User authenticated, redirecting...');
       setRedirecting(true); // Hide form immediately
       router.replace(redirectTo);
-    } else if (isAuthenticated && (mfaRequired || mfaEnrollmentNeeded)) {
-      console.log('🔐 MFA required - staying on login page to show modal');
     }
-  }, [isAuthenticated, loading, checkingMFA, mfaRequired, mfaEnrollmentNeeded, router, redirectTo]);
+  }, [isAuthenticated, loading, router, redirectTo]);
 
   useEffect(() => {
     setMounted(true);
@@ -629,61 +618,6 @@ const LoginPageContent = () => {
           </Flex>
         </Grid>
 
-        {/* MFA Enrollment Modal */}
-        <MFAEnrollmentModal
-          isOpen={mfaEnrollmentNeeded}
-          onClose={() => {
-            // User can't skip enrollment - it's mandatory
-            toast({
-              title: 'MFA Required',
-              description: 'Two-factor authentication is required for your account security',
-              status: 'info',
-              duration: 4000,
-              isClosable: true,
-              position: 'top',
-            });
-          }}
-          onSuccess={async () => {
-            await completeMFAEnrollment();
-            toast({
-              title: 'Success! 🎉',
-              description: 'Two-factor authentication has been enabled',
-              status: 'success',
-              duration: 4000,
-              isClosable: true,
-              position: 'top',
-            });
-          }}
-        />
-
-        {/* MFA Verification Modal */}
-        <MFAVerificationModal
-          isOpen={mfaRequired}
-          onClose={() => {
-            // User can't skip verification
-            toast({
-              title: 'Verification Required',
-              description: 'Please verify your identity to continue',
-              status: 'info',
-              duration: 4000,
-              isClosable: true,
-              position: 'top',
-            });
-          }}
-          factorId={currentFactorId}
-          challengeId={currentChallengeId}
-          onSuccess={async () => {
-            await completeMFAVerification();
-            toast({
-              title: 'Verified! 🎉',
-              description: 'Authentication successful. Redirecting...',
-              status: 'success',
-              duration: 3000,
-              isClosable: true,
-              position: 'top',
-            });
-          }}
-        />
       </Box>
     </ContentWrapper>
   );
