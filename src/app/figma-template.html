@@ -205,6 +205,7 @@
 </div>
 <!-- END: Top Funding Bar -->
 <!-- BEGIN: Navigation Header -->
+<input aria-hidden="true" class="site-mobile-nav-toggle" id="site-mobile-nav-toggle" type="checkbox"/>
 <header class="site-header">
 <div class="site-header-inner">
 <a class="site-logo" href="https://hushh.ai">
@@ -310,11 +311,75 @@
 <a class="site-signin-btn" href="https://hushh.ai/login">Sign In</a>
 <a class="site-early-btn" href="https://apps.apple.com/in/app/hushh-app/id6498471189" rel="noreferrer" target="_blank">🚀 Get Early Access</a>
 </div>
-<button aria-label="Open menu" class="site-mobile-menu">
-<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><line x1="4" x2="20" y1="7" y2="7"></line><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="17" y2="17"></line></svg>
-</button>
+<label aria-label="Toggle menu" class="site-mobile-menu" for="site-mobile-nav-toggle">
+<svg class="site-mobile-menu-open" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><line x1="4" x2="20" y1="7" y2="7"></line><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="17" y2="17"></line></svg>
+<svg class="site-mobile-menu-close" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><line x1="6" x2="18" y1="6" y2="18"></line><line x1="6" x2="18" y1="18" y2="6"></line></svg>
+</label>
 </div>
 </header>
+<div aria-label="Mobile Navigation" class="site-mobile-panel" role="dialog">
+<label class="site-mobile-overlay" for="site-mobile-nav-toggle"></label>
+<aside class="site-mobile-drawer">
+<div class="site-mobile-drawer-head">
+<span class="site-mobile-title">Menu</span>
+<label aria-label="Close menu" class="site-mobile-close-btn" for="site-mobile-nav-toggle">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><line x1="6" x2="18" y1="6" y2="18"></line><line x1="6" x2="18" y1="18" y2="6"></line></svg>
+</label>
+</div>
+<div class="site-mobile-links">
+<details class="site-mobile-group" open="">
+<summary>Products</summary>
+<a href="/products/kai">Agent Kai</a>
+<a href="/hushh-vault">Hushh Vault</a>
+<a href="/hushh-link">Hushh Link</a>
+<a href="/products/hushh-flow">Hushh Flow</a>
+<a href="/products/hushh-grid">Hushh Grid</a>
+<a href="/hushh-voice">Hushh Voice</a>
+<a href="/intelligence-portal">Hushh Intelligence</a>
+</details>
+<details class="site-mobile-group">
+<summary>Solutions</summary>
+<a href="/products/hushh-wallet-app">Hushh Wallet App</a>
+<a href="/products/hushh-button">Hushh Button</a>
+<a href="/products/browser-companion">Browser Companion</a>
+<a href="/products/hushh-vibe-search">VIBE Search App</a>
+<a href="/products/hushh-for-students">Hushh For Students</a>
+</details>
+<a class="site-mobile-link-plain" href="/labs">Hushh Labs</a>
+<details class="site-mobile-group">
+<summary>Developers</summary>
+<a href="/getting-started">Getting Started</a>
+<a href="/developerApi">API Reference</a>
+<a href="/agent-kit-cli#github-protocol">GitHub Protocol</a>
+<a href="/agent-kit-cli#agentkit-cli">Agentkit CLI</a>
+</details>
+<details class="site-mobile-group">
+<summary>Why Hushh?</summary>
+<a href="/why-hushh">Our Philosophy</a>
+<a href="/legal/privacypolicy">Privacy Manifesto</a>
+<a href="/consent-ai-protocol">Consent Protocol</a>
+</details>
+<details class="site-mobile-group">
+<summary>Community</summary>
+<a href="/hushh-community">Agent Builders Club</a>
+<a href="/solutions">Solutions</a>
+<a href="/pda/iithackathon">Hackathons</a>
+</details>
+<details class="site-mobile-group">
+<summary>Company</summary>
+<a href="/about">About</a>
+<a href="/contact-us">Contact</a>
+<a href="/career">Careers</a>
+<a href="/hushhBlogs">Blogs</a>
+<a href="/frequently-asked-questions">FAQ</a>
+</details>
+<div class="site-mobile-cta-row">
+<a class="site-mobile-signin" href="/login">Sign In</a>
+<a class="site-mobile-early" href="https://apps.apple.com/in/app/hushh-app/id6498471189" rel="noreferrer" target="_blank">Get Early Access</a>
+</div>
+</div>
+</aside>
+</div>
 <!-- END: Navigation Header -->
 <main>
 <!-- BEGIN: Hero Section -->
