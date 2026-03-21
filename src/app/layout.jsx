@@ -3,6 +3,7 @@ import { Providers } from "./provider";
 import ResponsiveSizeProvider from "./context/responsive";
 import { AuthProvider } from "./context/AuthContext";
 import { BannerHeightProvider } from "./context/BannerHeightContext";
+import GlobalSiteChrome from "./_components/features/GlobalSiteChrome";
 
 export const metadata = {
   title: "Hushh | Your Data. Your Business.",
@@ -33,7 +34,10 @@ export default function RootLayout({ children }) {
         <ResponsiveSizeProvider>
           <AuthProvider>
             <BannerHeightProvider>
-              <Providers>{children}</Providers>
+              <Providers>
+                <GlobalSiteChrome />
+                {children}
+              </Providers>
             </BannerHeightProvider>
           </AuthProvider>
         </ResponsiveSizeProvider>

@@ -57,7 +57,7 @@ const HeaderComponent = () => {
         transform: isVisible ? 'translateY(0)' : 'translateY(-100%)'
       }}
     >
-      <Header {...headerProps} />
+      <Header {...headerProps} topOffset={totalBannerHeight} />
     </div>
   );
 };

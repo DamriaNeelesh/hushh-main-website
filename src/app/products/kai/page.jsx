@@ -33,10 +33,14 @@ function extractBody(html) {
   return bodyMatch ? bodyMatch[1] : html;
 }
 
+function stripLegacyKaiNavbar(markup) {
+  return markup.replace(/<!--\s*Navbar\s*-->[\s\S]*?<\/nav>/i, "");
+}
+
 export default function AgentKaiPage() {
   const template = getKaiTemplate();
   const styleMarkup = extractStyles(template);
-  const bodyMarkup = extractBody(template);
+  const bodyMarkup = stripLegacyKaiNavbar(extractBody(template));
 
   return (
     <>
@@ -45,4 +49,3 @@ export default function AgentKaiPage() {
     </>
   );
 }
-

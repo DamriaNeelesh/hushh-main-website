@@ -31,7 +31,7 @@ import HushhVoice from '../_components/svg/icons/vaultLogo.svg'; // Temporary pl
 import SearchModal from "./features/SearchModal";
 import { useDisclosure } from "@chakra-ui/react";
 
-export default function Header({backgroundColor, textColor, borderBottom}) {
+export default function Header({ backgroundColor, textColor, borderBottom, topOffset = 0 }) {
   const { isTablet, isDesktop } = useResponsiveSizes();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -108,6 +108,9 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
   const handleMenuIconToggle = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (isMenuOpen) {
+      setActiveDropdown(null);
+    }
     setIsMenuOpen(!isMenuOpen);
   };
   
@@ -150,7 +153,7 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
     return () => {
       document.removeEventListener("mousedown", handler);
     };
-  });
+  }, []);
   
   // Dropdown menu data
   const menuItems = {
@@ -736,12 +739,12 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
               className="lg:hidden fixed"
               style={{
                 position: "fixed",
-                top: "70px",
+                top: `${70 + topOffset}px`,
                 left: "0",
                 right: "0",
                 bottom: "0",
                 width: "100vw",
-                height: "calc(100vh - 70px)",
+                height: `calc(100vh - ${70 + topOffset}px)`,
                 zIndex: 9999,
                 background: "rgba(255, 255, 255, 0.98)",
                 backdropFilter: "blur(20px) saturate(180%)",
@@ -1347,5 +1350,4 @@ export default function Header({backgroundColor, textColor, borderBottom}) {
     </>
   );
 }
-
 
