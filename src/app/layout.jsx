@@ -1,4 +1,8 @@
 import "./globals.css";
+import { Providers } from "./provider";
+import ResponsiveSizeProvider from "./context/responsive";
+import { AuthProvider } from "./context/AuthContext";
+import { BannerHeightProvider } from "./context/BannerHeightContext";
 
 export const metadata = {
   title: "Hushh | Your Data. Your Business.",
@@ -25,7 +29,15 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <ResponsiveSizeProvider>
+          <AuthProvider>
+            <BannerHeightProvider>
+              <Providers>{children}</Providers>
+            </BannerHeightProvider>
+          </AuthProvider>
+        </ResponsiveSizeProvider>
+      </body>
     </html>
   );
 }
