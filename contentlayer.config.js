@@ -31,7 +31,8 @@ const Blog = defineDocumentType(() => ({
       type: "string",
       required: true,
     },
-    image: { type: "image" },
+    // Keep image as string so local dev doesn't fail when optional image assets are not checked out.
+    image: { type: "string" },
     isPublished: {
       type: "boolean",
       default: true,

@@ -1,28 +1,22 @@
-import "./globals.css"
-import React from "react";
-import ClientHome from "./clientside/Home";
-import NewLandingPage from "./clientside/newLandingPage";
+import fs from "fs";
+import path from "path";
 
-export const metadata = {
-  title: "Hushh | 🤫 'Your' data, make it 'Your' business",
-  description:
-    "Intelligence as a service powered by your Data, extract value from your own data",
-  keywords:
-    "Data API Business, Data Autonomy, Data Equity, Consent-Driven Excellence, Technology For Everyone, Hushh Wallet App, Hushh Button, Vibe Search, Browser Companion, Concierge App, Valet Chat, Vibe Search API, Hushh For Students, Brand Wallet, Receipt Radar, Future of Digital Identity & Personalised Experiences, Gen AI, GenAI ",
-  canonical: "https://hushh.ai",
-  alternates: {
-    canonical: "https://hushh.ai",
-  },
-  openGraph: {
-  title: "Hushh | 🤫 'Your' data, make it 'Your' business",
-  description: "Intelligence as a service powered by your Data, extract value from your own data",
-  url: "https://hushh.ai",
+function getBodyMarkup() {
+  const templatePath = path.join(process.cwd(), "src/app/figma-template.html");
 
-    }, 
-};
+  try {
+    const html = fs.readFileSync(templatePath, "utf8");
+    const match = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    return match ? match[1] : html;
+  } catch (error) {
+    return `<main style="padding:2rem;font-family:Inter,sans-serif">
+      <h1>Figma Template Not Found</h1>
+      <p>Please check src/app/figma-template.html.</p>
+    </main>`;
+  }
+}
 
 export default function Home() {
-  return (
-    <NewLandingPage />
-  )
+  const bodyMarkup = getBodyMarkup();
+  return <div dangerouslySetInnerHTML={{ __html: bodyMarkup }} />;
 }
