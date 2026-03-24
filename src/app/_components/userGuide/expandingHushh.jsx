@@ -4,7 +4,6 @@ import {
   VStack,
   Heading,
   Text,
-  OrderedList,
   List,
   ListItem,
   ListIcon,

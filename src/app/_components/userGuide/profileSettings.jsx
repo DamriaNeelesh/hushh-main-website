@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, VStack, Heading, Text, List, ListItem, OrderedList, Divider, ListIcon, UnorderedList } from '@chakra-ui/react';
-import { ArrowForwardIcon } from '@chakra-ui/icons';
+import { Box, VStack, Heading, Text, ListItem, OrderedList, Divider, UnorderedList } from '@chakra-ui/react';
 
 const ProfileSettings = () => {
   return (

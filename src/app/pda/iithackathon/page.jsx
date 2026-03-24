@@ -1,7 +1,5 @@
 import React from 'react'
 import HushhHackhathon from '../../clientside/HushhHackhathon'
-import Image from 'next/image';
-import Head from 'next/head';
 import ContentWrapper from '../../_components/layout/ContentWrapper';
 // import OGImage from '../../../public/OG/daraNexusOG.png';
 
@@ -32,32 +30,10 @@ export const metadata = {
 };
 
 const page = () => {
-
-  
   return (
-    <>
-    <Head>
-    <title>
-    Hushh | Data Nexus Hackhathon
-    </title>
-    <meta
-      name="description"
-      content="hackathon data nexus project on hushh.ai"
-    />
-    <meta
-      name="keywords"
-      content="Hushh Community, Luxury Sales, Data Empowerment, Customer Insights, Personalized Communication, Ethical Data Collection, High-Value Customers, Sales Agents, Innovative Platform"
-    />
-    <meta property="og:title" content="Hushh | Data Nexus Hackhathon" />
-    <meta
-      property="og:description"
-      content="Hackathon data nexus project on hushh.ai"
-    />
-  </Head>
-   <ContentWrapper>
-     <HushhHackhathon/>
-   </ContentWrapper>
-   </>
+    <ContentWrapper>
+      <HushhHackhathon />
+    </ContentWrapper>
   )
 }
 

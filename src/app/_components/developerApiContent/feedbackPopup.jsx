@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../svg/hushhlogo";
 import FeedBack from "react-feedback-popup";
 import "../../globals.css";
 

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React from "react";
 import {
   Box,
   VStack,
   Input,
-  FormControl,
-  FormLabel,
   Button,
   Text,
   useToast,
@@ -41,20 +41,14 @@ const GenerateApiKey = () => {
     const userMail = user.email;
 
     try {
-      // Log userMail for debugging
-      console.log("User email:", userMail);
-      console.log("Authenticated user:", user);
-
-      const response = await fetch(
-        `https://hushh-api-53407187172.us-central1.run.app/generateapikey?mail=${userMail}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user.access_token || 'no-token'}`,
-          },
-        }
-      );
+      const response = await fetch("/api/developer/generate-api-key", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(user.access_token ? { Authorization: `Bearer ${user.access_token}` } : {}),
+        },
+        body: JSON.stringify({ mail: userMail }),
+      });
 
       if (!response.ok) {
         const errorMessage = await response.text();
@@ -68,12 +62,12 @@ const GenerateApiKey = () => {
         throw new Error("API key missing in response");
       }
 
-      // Save the API key to context (which also saves to localStorage)
+      // Keep the API key in volatile in-memory state only.
       saveApiKey(result.api_key);
 
       // Save the API key to Supabase database
       try {
-        const { error: updateError } = await config.supabaseClient
+        await config.supabaseClient
           .from('dev_api_userprofile')
           .upsert([
             {
@@ -337,7 +331,7 @@ const GenerateApiKey = () => {
                 fontFamily="system-ui, -apple-system"
                 fontWeight={400}
               >
-                Store this key securely. It won't be shown again.
+                Store this key securely. It won&rsquo;t be shown again.
               </Text>
             </VStack>
           </Box>

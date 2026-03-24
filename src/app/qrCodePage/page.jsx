@@ -14,7 +14,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/navigation";
 import { buildHushhId } from "../../lib/utils";
 
-const qrCodePage = () => {
+const QrCodePage = () => {
   const router = useRouter();
   const toast = useToast();
   const [qrValue, setQrValue] = useState("");
@@ -24,8 +24,8 @@ const qrCodePage = () => {
     const fetchUserData = () => {
       try {
         setIsLoading(true);
-        // Attempt to get user from localStorage which is set after profile creation
-        const storedUser = localStorage.getItem('hushh_user_profile');
+        // Read the transient profile payload from the active session only.
+        const storedUser = sessionStorage.getItem('hushh_user_profile');
         const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.hushh.ai").replace(/\/$/, "");
         if (storedUser) {
           const user = JSON.parse(storedUser);
@@ -38,7 +38,7 @@ const qrCodePage = () => {
             setQrValue(`${baseUrl}/hushh-id/${identifier}`);
           }
         } else {
-          // Fallback: If not in localstorage, maybe we can't show it yet
+          // Fallback: If not in session storage, maybe we can't show it yet
           setQrValue(`${baseUrl}/hushh-id/guest`);
         }
       } catch (err) {
@@ -158,4 +158,4 @@ const qrCodePage = () => {
   );
 };
 
-export default qrCodePage;
+export default QrCodePage;

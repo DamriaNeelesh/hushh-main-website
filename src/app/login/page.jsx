@@ -6,13 +6,12 @@ import {
   Text,
   Button,
   Image,
-  Container,
   useToast,
   Spinner,
   HStack,
   Grid,
-  Flex,
-} from '@chakra-ui/react';
+  Flex } from
+'@chakra-ui/react';
 import { keyframes } from '@emotion/react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -22,7 +21,7 @@ import AppleSignInButton from './components/AppleSignInButton.jsx';
 import ContentWrapper from '../_components/layout/ContentWrapper';
 
 // Advanced Keyframe Animations 
-const float = keyframes`
+const _float = keyframes`
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   25% { transform: translateY(-20px) rotate(5deg); }
   50% { transform: translateY(-10px) rotate(-5deg); }
@@ -39,7 +38,7 @@ const slideInUp = keyframes`
   100% { opacity: 1; transform: translateY(0); }
 `;
 
-const shimmer = keyframes`
+const _shimmer = keyframes`
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 `;
@@ -49,7 +48,7 @@ const rotate = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-const gradientShift = keyframes`
+const _gradientShift = keyframes`
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 `;
@@ -58,7 +57,7 @@ const LoginPageContent = () => {
   const {
     signIn,
     isAuthenticated,
-    loading,
+    loading
   } = useAuth();
   const toast = useToast();
   const router = useRouter();
@@ -66,19 +65,19 @@ const LoginPageContent = () => {
   const redirectTo = searchParams.get('redirect') || '/';
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [windowSize, setWindowSize] = useState({ width: 1920, height: 1080 });
+  const [_mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [_windowSize, setWindowSize] = useState({ width: 1920, height: 1080 });
   const [redirecting, setRedirecting] = useState(false);
 
   // Separate effect for immediate authentication redirect
   useEffect(() => {
     // Check for Apple auth success flag for instant redirect
     if (typeof window !== 'undefined') {
-      const appleAuthSuccess = localStorage.getItem('apple_auth_success');
+      const appleAuthSuccess = sessionStorage.getItem('apple_auth_success');
       if (appleAuthSuccess === 'true') {
         console.log('Apple auth success detected, redirecting immediately...');
         setRedirecting(true); // Hide form immediately
-        localStorage.removeItem('apple_auth_success'); // Clean up
+        sessionStorage.removeItem('apple_auth_success'); // Clean up
         router.replace(redirectTo);
         return;
       }
@@ -138,7 +137,7 @@ const LoginPageContent = () => {
         status: "error",
         duration: 4000,
         isClosable: true,
-        position: "top",
+        position: "top"
       });
       setIsSigningIn(false);
     }
@@ -151,8 +150,8 @@ const LoginPageContent = () => {
         bg="#ffffff"
         display="flex"
         alignItems="center"
-        justifyContent="center"
-      >
+        justifyContent="center">
+        
         <VStack spacing={6}>
           <Box position="relative">
             <Box
@@ -163,10 +162,10 @@ const LoginPageContent = () => {
               sx={{
                 background: "linear-gradient(45deg, #0071E3, #BB62FC, #F34556, #F44F22) border-box",
                 mask: "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)",
-                maskComposite: "exclude",
+                maskComposite: "exclude"
               }}
-              animation={`${rotate} 2s linear infinite`}
-            />
+              animation={`${rotate} 2s linear infinite`} />
+            
             <Box
               position="absolute"
               top="50%"
@@ -176,17 +175,17 @@ const LoginPageContent = () => {
               h="60px"
               borderRadius="50%"
               sx={{
-                background: "linear-gradient(45deg, #0071E3, #BB62FC, #F34556, #F44F22)",
+                background: "linear-gradient(45deg, #0071E3, #BB62FC, #F34556, #F44F22)"
               }}
-              animation={`${pulse} 2s ease-in-out infinite`}
-            />
+              animation={`${pulse} 2s ease-in-out infinite`} />
+            
           </Box>
           <Text color="#1d1d1f" fontSize="lg" fontWeight={500}>
             Loading your experience...
           </Text>
         </VStack>
-      </Box>
-    );
+      </Box>);
+
   }
 
   // Show minimal redirecting state when redirecting
@@ -197,28 +196,28 @@ const LoginPageContent = () => {
         bg="#ffffff"
         display="flex"
         alignItems="center"
-        justifyContent="center"
-      >
+        justifyContent="center">
+        
         <VStack spacing={4}>
           <Box fontSize="3xl">🚀</Box>
           <Text color="#1d1d1f" fontSize="lg" fontWeight={500}>
             Redirecting...
           </Text>
         </VStack>
-      </Box>
-    );
+      </Box>);
+
   }
 
   return (
     <ContentWrapper includeHeaderSpacing={true}>
       <Box
-        // minH="100vh"
-        position="relative"
-        overflow="hidden"
-        sx={{
-          background: "#ffffff",
-        }}
-      >
+      // minH="100vh"
+      position="relative"
+      overflow="hidden"
+      sx={{
+        background: "#ffffff"
+      }}>
+        
         {/* Minimal background for light theme intentionally left clean */}
 
         {/* Main Content Layout */}
@@ -226,8 +225,8 @@ const LoginPageContent = () => {
           templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
           minH="100vh"
           position="relative"
-          zIndex={1}
-        >
+          zIndex={1}>
+          
           {/* Left Side - Hero Section */}
           <Flex
             direction="column"
@@ -236,8 +235,8 @@ const LoginPageContent = () => {
             px={{ base: 6, lg: 16 }}
             py={{ base: 12, lg: 0 }}
             textAlign={{ base: "center", lg: "left" }}
-            position="relative"
-          >
+            position="relative">
+            
             {/* Back Button */}
             <HStack
               spacing={3}
@@ -249,8 +248,8 @@ const LoginPageContent = () => {
               transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
               mb={10}
               alignSelf={{ base: "center", lg: "flex-start" }}
-              p={0}
-            >
+              p={0}>
+              
               <ArrowBackIcon color="#6e6e73" />
               <Text color="#6e6e73" fontSize="sm" fontWeight={500}>
                 Back to Home
@@ -262,8 +261,8 @@ const LoginPageContent = () => {
               align={{ base: "center", lg: "flex-start" }}
               animation={`${slideInUp} 0.8s ease-out`}
               w="full"
-              maxW="600px"
-            >
+              maxW="600px">
+              
               {/* Enhanced Brand Section */}
               <VStack spacing={8} align={{ base: "center", lg: "flex-start" }}>
                 <HStack spacing={6} align="center">
@@ -271,38 +270,38 @@ const LoginPageContent = () => {
                     src="/svgs/hushhEmoji.svg"
                     alt="Hushh Logo"
                     w="64px"
-                    h="64px"
-                  />
+                    h="64px" />
+                  
 
                   {/* <VStack spacing={2} align={{ base: "center", lg: "flex-start" }}>
-                  <Text
-                    fontSize={{ base: "5xl", md: "6xl", lg: "7xl" }}
-                    fontFamily="Inter"
-                    fontWeight={900}
-                    letterSpacing="-0.03em"
-                    lineHeight="0.85"
-                    sx={{
-                      background: "linear-gradient(135deg, #0071E3 0%, #BB62FC 30%, #F34556 70%, #F44F22 100%)",
-                      backgroundSize: "300% 300%",
-                      webkitBackgroundClip: "text",
-                      backgroundClip: "text",
-                      webkitTextFillColor: "transparent",
-                      color: "transparent",
-                    }}
-                    animation={`${gradientShift} 6s ease infinite`}
-                  >
-                    Hushh
-                  </Text>
-                  <Text
-                    fontSize={{ base: "sm", md: "md", lg: "lg" }}
-                    color="rgba(255, 255, 255, 0.6)"
-                    fontWeight={600}
-                    letterSpacing="3px"
-                    textTransform="uppercase"
-                  >
-                    Personal Data Agent
-                  </Text>
-                </VStack> */}
+                    <Text
+                     fontSize={{ base: "5xl", md: "6xl", lg: "7xl" }}
+                     fontFamily="Inter"
+                     fontWeight={900}
+                     letterSpacing="-0.03em"
+                     lineHeight="0.85"
+                     sx={{
+                       background: "linear-gradient(135deg, #0071E3 0%, #BB62FC 30%, #F34556 70%, #F44F22 100%)",
+                       backgroundSize: "300% 300%",
+                       webkitBackgroundClip: "text",
+                       backgroundClip: "text",
+                       webkitTextFillColor: "transparent",
+                       color: "transparent",
+                     }}
+                     animation={`${gradientShift} 6s ease infinite`}
+                    >
+                     Hushh
+                    </Text>
+                    <Text
+                     fontSize={{ base: "sm", md: "md", lg: "lg" }}
+                     color="rgba(255, 255, 255, 0.6)"
+                     fontWeight={600}
+                     letterSpacing="3px"
+                     textTransform="uppercase"
+                    >
+                     Personal Data Agent
+                    </Text>
+                    </VStack> */}
                 </HStack>
 
                 <VStack spacing={6} maxW="550px" align={{ base: "center", lg: "flex-start" }}>
@@ -311,8 +310,8 @@ const LoginPageContent = () => {
                     fontWeight={800}
                     lineHeight="1.1"
                     color="#1d1d1f"
-                    letterSpacing="-0.02em"
-                  >
+                    letterSpacing="-0.02em">
+                    
                     Welcome to the Future of Data Sovereignty
                   </Text>
 
@@ -320,8 +319,8 @@ const LoginPageContent = () => {
                     fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
                     color="#6e6e73"
                     lineHeight="1.6"
-                    fontWeight={400}
-                  >
+                    fontWeight={400}>
+                    
                     Sign in to unlock your personal AI agent, take complete control of your data, and monetize your digital footprint on your own terms.
                   </Text>
                 </VStack>
@@ -332,46 +331,46 @@ const LoginPageContent = () => {
                 templateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }}
                 gap={4}
                 w="full"
-                maxW="550px"
-              >
+                maxW="550px">
+                
                 {[
-                  {
-                    icon: "🛡️",
-                    title: "Privacy First",
-                    desc: "End-to-end encrypted vault",
-                  },
-                  {
-                    icon: "🤖",
-                    title: "AI Powered",
-                    desc: "Intelligent automation",
-                  },
-                  {
-                    icon: "💰",
-                    title: "Monetize Data",
-                    desc: "Earn from your information",
-                  },
-                  {
-                    icon: "⚡",
-                    title: "Lightning Fast",
-                    desc: "Instant insights & actions",
-                  },
-                ].map((feature, i) => (
-                  <Box
-                    key={i}
-                    p={5}
-                    borderRadius="2xl"
-                    bg="#ffffff"
-                    border="1px solid #e5e5ea"
-                    position="relative"
-                    overflow="hidden"
-                    _hover={{
-                      bg: "#f5f5f7",
-                      borderColor: "#d2d2d7",
-                    }}
-                    transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
-                    animation={`${slideInUp} ${0.8 + i * 0.1}s ease-out`}
-                    cursor="pointer"
-                  >
+                {
+                  icon: "🛡️",
+                  title: "Privacy First",
+                  desc: "End-to-end encrypted vault"
+                },
+                {
+                  icon: "🤖",
+                  title: "AI Powered",
+                  desc: "Intelligent automation"
+                },
+                {
+                  icon: "💰",
+                  title: "Monetize Data",
+                  desc: "Earn from your information"
+                },
+                {
+                  icon: "⚡",
+                  title: "Lightning Fast",
+                  desc: "Instant insights & actions"
+                }].
+                map((feature, i) =>
+                <Box
+                  key={i}
+                  p={5}
+                  borderRadius="2xl"
+                  bg="#ffffff"
+                  border="1px solid #e5e5ea"
+                  position="relative"
+                  overflow="hidden"
+                  _hover={{
+                    bg: "#f5f5f7",
+                    borderColor: "#d2d2d7"
+                  }}
+                  transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                  animation={`${slideInUp} ${0.8 + i * 0.1}s ease-out`}
+                  cursor="pointer">
+                  
                     <VStack spacing={3} align="start" position="relative" zIndex={1}>
                       <HStack spacing={3}>
                         <Box fontSize="xl">{feature.icon}</Box>
@@ -386,7 +385,7 @@ const LoginPageContent = () => {
                       </HStack>
                     </VStack>
                   </Box>
-                ))}
+                )}
               </Grid>
             </VStack>
           </Flex>
@@ -398,8 +397,8 @@ const LoginPageContent = () => {
             align="center"
             px={{ base: 6, lg: 16 }}
             py={{ base: 12, lg: 0 }}
-            position="relative"
-          >
+            position="relative">
+            
             {/* No overlay needed in light theme */}
 
             <VStack
@@ -408,8 +407,8 @@ const LoginPageContent = () => {
               maxW="450px"
               animation={`${slideInUp} 1s ease-out`}
               position="relative"
-              zIndex={1}
-            >
+              zIndex={1}>
+              
               {/* Login Card */}
               <Box
                 w="full"
@@ -419,8 +418,8 @@ const LoginPageContent = () => {
                 border="1px solid #e5e5ea"
                 boxShadow="0 8px 24px rgba(0, 0, 0, 0.06)"
                 position="relative"
-                overflow="hidden"
-              >
+                overflow="hidden">
+                
                 {/* Minimal borders, no animated glow in light theme */}
 
                 <VStack spacing={8} position="relative" zIndex={1}>
@@ -429,16 +428,16 @@ const LoginPageContent = () => {
                       fontSize="3xl"
                       fontWeight={800}
                       color="#1d1d1f"
-                      letterSpacing="-0.02em"
-                    >
+                      letterSpacing="-0.02em">
+                      
                       Sign In to Continue
                     </Text>
                     <Text
                       fontSize="md"
                       color="#6e6e73"
                       lineHeight="1.6"
-                      maxW="300px"
-                    >
+                      maxW="300px">
+                      
                       Access your personalized data dashboard and AI-powered insights in seconds
                     </Text>
                   </VStack>
@@ -461,40 +460,40 @@ const LoginPageContent = () => {
                     boxShadow="none"
                     _hover={{
                       bg: "#f5f5f7",
-                      borderColor: "#1d1d1f",
+                      borderColor: "#1d1d1f"
                     }}
                     _active={{
-                      bg: "#f0f0f3",
+                      bg: "#f0f0f3"
                     }}
                     transition="all 0.2s ease"
                     leftIcon={
-                      !isSigningIn && (
-                        <Box w="24px" h="24px">
+                    !isSigningIn &&
+                    <Box w="24px" h="24px">
                           <svg viewBox="0 0 24 24" width="24" height="24">
                             <path
-                              fill="#4285F4"
-                              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                            />
+                          fill="#4285F4"
+                          d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                        
                             <path
-                              fill="#34A853"
-                              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                            />
+                          fill="#34A853"
+                          d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                        
                             <path
-                              fill="#FBBC05"
-                              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                            />
+                          fill="#FBBC05"
+                          d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                        
                             <path
-                              fill="#EA4335"
-                              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                            />
+                          fill="#EA4335"
+                          d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                        
                           </svg>
                         </Box>
-                      )
+
                     }
                     rightIcon={
-                      !isSigningIn && <ChevronRightIcon fontSize="xl" />
-                    }
-                  >
+                    !isSigningIn && <ChevronRightIcon fontSize="xl" />
+                    }>
+                    
                     Continue with Google
                   </Button>
 
@@ -509,7 +508,7 @@ const LoginPageContent = () => {
                         status: "success",
                         duration: 3000,
                         isClosable: true,
-                        position: "bottom",
+                        position: "bottom"
                       });
                     }}
                     onError={(error) => {
@@ -520,56 +519,56 @@ const LoginPageContent = () => {
                         status: "error",
                         duration: 5000,
                         isClosable: true,
-                        position: "bottom",
+                        position: "bottom"
                       });
-                    }}
-                  />
+                    }} />
+                  
 
                   {/* Divider */}
 
 
                   {/* Security Badges */}
                   {/* <VStack spacing={3} w="full">
-                  <HStack
-                    spacing={3}
-                    p={4}
-                    borderRadius="xl"
-                    bg="rgba(0, 113, 227, 0.15)"
-                    border="1px solid rgba(0, 113, 227, 0.3)"
-                    w="full"
-                    justify="center"
-                  >
-                    <Text fontSize="lg">🔒</Text>
-                    <VStack spacing={0} align="start" flex={1}>
-                      <Text fontSize="sm" color="white" fontWeight={600}>
-                        Enterprise-Grade Security
-                      </Text>
-                      <Text fontSize="xs" color="rgba(255, 255, 255, 0.7)">
-                        End-to-end encrypted with Zero Trust architecture
-                      </Text>
-                    </VStack>
-                  </HStack>
-
-                  <HStack
-                    spacing={3}
-                    p={4}
-                    borderRadius="xl"
-                    bg="rgba(187, 98, 252, 0.15)"
-                    border="1px solid rgba(187, 98, 252, 0.3)"
-                    w="full"
-                    justify="center"
-                  >
-                    <Text fontSize="lg">⚡</Text>
-                    <VStack spacing={0} align="start" flex={1}>
-                      <Text fontSize="sm" color="white" fontWeight={600}>
-                        Instant Access
-                      </Text>
-                      <Text fontSize="xs" color="rgba(255, 255, 255, 0.7)">
-                        Your data vault activates in under 3 seconds
-                      </Text>
-                    </VStack>
-                  </HStack>
-                </VStack> */}
+                    <HStack
+                     spacing={3}
+                     p={4}
+                     borderRadius="xl"
+                     bg="rgba(0, 113, 227, 0.15)"
+                     border="1px solid rgba(0, 113, 227, 0.3)"
+                     w="full"
+                     justify="center"
+                    >
+                     <Text fontSize="lg">🔒</Text>
+                     <VStack spacing={0} align="start" flex={1}>
+                       <Text fontSize="sm" color="white" fontWeight={600}>
+                         Enterprise-Grade Security
+                       </Text>
+                       <Text fontSize="xs" color="rgba(255, 255, 255, 0.7)">
+                         End-to-end encrypted with Zero Trust architecture
+                       </Text>
+                     </VStack>
+                    </HStack>
+                    <HStack
+                     spacing={3}
+                     p={4}
+                     borderRadius="xl"
+                     bg="rgba(187, 98, 252, 0.15)"
+                     border="1px solid rgba(187, 98, 252, 0.3)"
+                     w="full"
+                     justify="center"
+                    >
+                     <Text fontSize="lg">⚡</Text>
+                     <VStack spacing={0} align="start" flex={1}>
+                       <Text fontSize="sm" color="white" fontWeight={600}>
+                         Instant Access
+                       </Text>
+                       <Text fontSize="xs" color="rgba(255, 255, 255, 0.7)">
+                         Your data vault activates in under 3 seconds
+                       </Text>
+                     </VStack>
+                    </HStack>
+                    </VStack> */
+                  }
                 </VStack>
               </Box>
 
@@ -578,37 +577,37 @@ const LoginPageContent = () => {
                 p={6}
                 borderRadius="xl"
                 bg="#f5f5f7"
-                border="1px solid #e5e5ea"
-              >
+                border="1px solid #e5e5ea">
+                
                 <Text
                   fontSize="sm"
                   color="#6e6e73"
                   textAlign="center"
-                  lineHeight="1.6"
-                >
+                  lineHeight="1.6">
+                  
                   By signing in, you agree to our{" "}
-                  <Link href="/legal/termsofuse">
+                  <Link href="/terms">
                     <Text
                       as="span"
                       color="#06c"
                       textDecoration="underline"
                       fontWeight={600}
                       _hover={{ color: "#0040aa" }}
-                      transition="color 0.2s ease"
-                    >
+                      transition="color 0.2s ease">
+                      
                       Terms of Service
                     </Text>
                   </Link>
                   {" "}and{" "}
-                  <Link href="/legal/privacypolicy">
+                  <Link href="/privacy">
                     <Text
                       as="span"
                       color="#06c"
                       textDecoration="underline"
                       fontWeight={600}
                       _hover={{ color: "#0040aa" }}
-                      transition="color 0.2s ease"
-                    >
+                      transition="color 0.2s ease">
+                      
                       Privacy Policy
                     </Text>
                   </Link>
@@ -619,23 +618,23 @@ const LoginPageContent = () => {
         </Grid>
 
       </Box>
-    </ContentWrapper>
-  );
+    </ContentWrapper>);
+
 };
 
 export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <Box minH="100vh" bg="#ffffff" display="flex" alignItems="center" justifyContent="center">
+      <Box minH="100vh" bg="#ffffff" display="flex" alignItems="center" justifyContent="center">
           <VStack spacing={6}>
             <Spinner size="xl" color="#1d1d1f" />
             <Text color="#1d1d1f" fontSize="lg" fontWeight={500}>Loading...</Text>
           </VStack>
         </Box>
-      }
-    >
+      }>
+      
       <LoginPageContent />
-    </Suspense>
-  );
-} 
+    </Suspense>);
+
+}

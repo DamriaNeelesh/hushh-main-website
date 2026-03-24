@@ -4,11 +4,47 @@ import ResponsiveSizeProvider from "./context/responsive";
 import { AuthProvider } from "./context/AuthContext";
 import { BannerHeightProvider } from "./context/BannerHeightContext";
 import GlobalSiteChrome from "./_components/features/GlobalSiteChrome";
+import { siteMetadata } from "./sitemetadata";
+
+export const revalidate = 3600;
 
 export const metadata = {
-  title: "Hushh | Your Data. Your Business.",
-  description:
-    "Meet the world's first personal data agent platform built with trust, privacy, and power at the core.",
+  metadataBase: new URL(siteMetadata.siteUrl),
+  applicationName: "Hushh",
+  title: {
+    default: "Hushh | Your Data. Your Business.",
+    template: "%s | Hushh",
+  },
+  description: siteMetadata.description,
+  keywords: siteMetadata.keywords,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Hushh | Your Data. Your Business.",
+    description: siteMetadata.description,
+    url: siteMetadata.siteUrl,
+    siteName: "Hushh",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: siteMetadata.socialBanner,
+        alt: "Hushh",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hushh | Your Data. Your Business.",
+    description: siteMetadata.description,
+    images: [siteMetadata.socialBanner],
+    creator: "@hushh_ai",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -35,8 +71,7 @@ export default function RootLayout({ children }) {
           <AuthProvider>
             <BannerHeightProvider>
               <Providers>
-                <GlobalSiteChrome />
-                {children}
+                <GlobalSiteChrome>{children}</GlobalSiteChrome>
               </Providers>
             </BannerHeightProvider>
           </AuthProvider>

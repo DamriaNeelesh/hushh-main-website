@@ -57,7 +57,7 @@ export function truncateString(str, length = 100) {
 }
 
 /**
- * Gracefully handle image paths in MDX content
+ * Gracefully handle image paths in typed content modules
  * @param {string} imagePath - The image path
  * @returns {string} A properly formatted image path
  */

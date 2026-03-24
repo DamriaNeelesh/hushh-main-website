@@ -1,25 +1,23 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
+    Alert,
+    AlertDescription,
+    AlertIcon,
+    AlertTitle,
     Box,
+    Button,
     VStack,
     HStack,
     Text,
-    Button,
     Container,
+    Divider,
     useToast,
     Spinner,
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription,
     Badge,
-    Divider,
     Card,
-    CardHeader,
     CardBody,
     Heading,
-    Switch,
     useDisclosure,
 } from '@chakra-ui/react';
 import { useAuth } from '../../context/AuthContext';
@@ -29,7 +27,7 @@ import MFAEnrollmentModal from '../../_components/auth/MFAEnrollmentModal';
 import ContentWrapper from '../../_components/layout/ContentWrapper';
 
 const MFASettingsPage = () => {
-    const { user, isAuthenticated, loading, mfaFactors, refreshMFAStatus } = useAuth();
+    const { isAuthenticated, loading, refreshMFAStatus } = useAuth();
     const router = useRouter();
     const toast = useToast();
     const [isLoadingFactors, setIsLoadingFactors] = useState(true);
@@ -43,13 +41,7 @@ const MFASettingsPage = () => {
         }
     }, [isAuthenticated, loading, router]);
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            loadMFAFactors();
-        }
-    }, [isAuthenticated]);
-
-    const loadMFAFactors = async () => {
+    const loadMFAFactors = useCallback(async () => {
         setIsLoadingFactors(true);
         try {
             const { default: authentication } = await import('../../../lib/auth/authentication');
@@ -74,7 +66,13 @@ const MFASettingsPage = () => {
         } finally {
             setIsLoadingFactors(false);
         }
-    };
+    }, [toast]);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            loadMFAFactors();
+        }
+    }, [isAuthenticated, loadMFAFactors]);
 
     const handleRemoveMFA = async (factorId) => {
         if (!confirm('Are you sure you want to disable two-factor authentication? This will make your account less secure.')) {

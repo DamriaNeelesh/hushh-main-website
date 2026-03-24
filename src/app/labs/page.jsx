@@ -9,24 +9,17 @@ import {
   Text,
   Heading,
   Button,
-  Badge,
-  useColorModeValue,
   SimpleGrid,
-  Card,
-  CardBody,
   Icon,
-  Image,
   Flex,
   Divider
 } from '@chakra-ui/react';
 import { 
-  FiArrowRight, 
   FiUsers, 
   FiBriefcase,
   FiTarget,
   FiZap,
-  FiGlobe,
-  FiBook
+  FiGlobe
 } from 'react-icons/fi';
 import Link from 'next/link';
 import ContentWrapper from 'src/app/_components/layout/ContentWrapper';

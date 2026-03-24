@@ -11,7 +11,7 @@ import ContentWrapper from "src/app/_components/layout/ContentWrapper";
 export default function OnboardingCompletedPage() {
   useEffect(() => {
     try {
-      localStorage.setItem("hushh_social_profile_completed", "true");
+      sessionStorage.setItem("hushh_social_profile_completed", "true");
     } catch {}
   }, []);
   return (
@@ -38,5 +38,4 @@ export default function OnboardingCompletedPage() {
     </ContentWrapper>
   );
 }
-
 

@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import JsonLdScript from "../../_components/seo/JsonLdScript";
 
 export const metadata = {
   title: 'Careers at Hushh Labs - Join Our AI Research Team | 10 Open Positions',
@@ -47,44 +47,41 @@ export const metadata = {
 export default function CareersLayout({ children }) {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "JobPosting",
-            "title": "Multiple AI Research and Engineering Positions",
-            "description": "Join Hushh Labs elite AI research team. 10 open positions including Principal AI Research Scientist, ML Engineer, Data Engineer, and more.",
-            "hiringOrganization": {
-              "@type": "Organization",
-              "name": "Hushh Labs",
-              "sameAs": "https://hushh.ai"
-            },
-            "jobLocation": {
-              "@type": "Place",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "San Francisco",
-                "addressRegion": "CA",
-                "addressCountry": "US"
-              }
-            },
-            "employmentType": "FULL_TIME",
-            "baseSalary": {
-              "@type": "MonetaryAmount",
-              "currency": "USD",
-              "value": {
-                "@type": "QuantitativeValue",
-                "minValue": 140000,
-                "maxValue": 500000,
-                "unitText": "YEAR"
-              }
-            },
-            "datePosted": new Date().toISOString().split('T')[0],
-            "validThrough": new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-            "industry": "Artificial Intelligence Research",
-            "qualifications": "Advanced degree in AI/ML, Computer Science, or related field. Strong programming skills. Research experience preferred."
-          })
+      <JsonLdScript
+        data={{
+          "@context": "https://schema.org",
+          "@type": "JobPosting",
+          "title": "Multiple AI Research and Engineering Positions",
+          "description": "Join Hushh Labs elite AI research team. 10 open positions including Principal AI Research Scientist, ML Engineer, Data Engineer, and more.",
+          "hiringOrganization": {
+            "@type": "Organization",
+            "name": "Hushh Labs",
+            "sameAs": "https://hushh.ai"
+          },
+          "jobLocation": {
+            "@type": "Place",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "San Francisco",
+              "addressRegion": "CA",
+              "addressCountry": "US"
+            }
+          },
+          "employmentType": "FULL_TIME",
+          "baseSalary": {
+            "@type": "MonetaryAmount",
+            "currency": "USD",
+            "value": {
+              "@type": "QuantitativeValue",
+              "minValue": 140000,
+              "maxValue": 500000,
+              "unitText": "YEAR"
+            }
+          },
+          "datePosted": new Date().toISOString().split('T')[0],
+          "validThrough": new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          "industry": "Artificial Intelligence Research",
+          "qualifications": "Advanced degree in AI/ML, Computer Science, or related field. Strong programming skills. Research experience preferred."
         }}
       />
       {children}

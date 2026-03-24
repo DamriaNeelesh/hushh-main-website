@@ -4,14 +4,10 @@ import {
   VStack,
   Heading,
   Text,
-  OrderedList,
   List,
   ListItem,
-  ListIcon,
-  Divider,
   UnorderedList,
 } from '@chakra-ui/react';
-import { CheckCircleIcon } from '@chakra-ui/icons';
 
 const HushhAccount = () => {
   return (

@@ -175,8 +175,8 @@ class AppleAuthService {
 
       // Store authentication data
       if (typeof window !== 'undefined') {
-        localStorage.setItem('apple_auth_success', 'true');
-        localStorage.setItem('apple_user_email', user.email || '');
+        sessionStorage.setItem('apple_auth_success', 'true');
+        sessionStorage.setItem('apple_user_email', user.email || '');
       }
 
       // Insert/Update user profile in database
@@ -271,8 +271,8 @@ class AppleAuthService {
 
       // Clean up local storage
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('apple_auth_success');
-        localStorage.removeItem('apple_user_email');
+        sessionStorage.removeItem('apple_auth_success');
+        sessionStorage.removeItem('apple_user_email');
         sessionStorage.removeItem('apple_auth_nonce');
       }
 

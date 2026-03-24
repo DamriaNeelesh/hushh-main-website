@@ -1,10 +1,19 @@
+import authConfig from "../../../lib/config/authConfig";
+
 export default async function getUserDetails(setUserDetails) {
-  let localCreds = localStorage.getItem("sb-eaeokyefsdfamwqqzfko-auth-token");
-  let localCredsJSON = JSON.parse(localCreds ? localCreds : null);
-  let userDetails = {
-    data: localCredsJSON,
-  };
-  setUserDetails? setUserDetails(userDetails): '';
-  console.log('User Details:',userDetails);
-  return userDetails;
+  try {
+    const {
+      data: { session },
+    } = await authConfig.supabaseClient.auth.getSession();
+
+    const userDetails = {
+      data: session,
+    };
+
+    setUserDetails ? setUserDetails(userDetails) : "";
+    return userDetails;
+  } catch (error) {
+    console.error("Error getting user details:", error);
+    return { data: null };
+  }
 }

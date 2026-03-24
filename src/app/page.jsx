@@ -1,30 +1,29 @@
-import fs from "fs";
-import path from "path";
+import HomePage from "./_components/home/HomePage";
 
-function stripLegacyHeaderSections(markup) {
-  return markup.replace(
-    /<!--\s*BEGIN: Top Funding Bar\s*-->[\s\S]*?<!--\s*END: Navigation Header\s*-->/i,
-    "",
-  );
-}
+export const metadata = {
+  title: "Hushh | Your Data. Your Business.",
+  description:
+    "Meet the world's first personal data agent platform built with trust, privacy, and power at the core.",
+  alternates: {
+    canonical: "https://www.hushh.ai/",
+  },
+  openGraph: {
+    title: "Hushh | Your Data. Your Business.",
+    description:
+      "Meet the world's first personal data agent platform built with trust, privacy, and power at the core.",
+    url: "https://www.hushh.ai/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hushh | Your Data. Your Business.",
+    description:
+      "Meet the world's first personal data agent platform built with trust, privacy, and power at the core.",
+  },
+};
 
-function getBodyMarkup() {
-  const templatePath = path.join(process.cwd(), "src/app/figma-template.html");
-
-  try {
-    const html = fs.readFileSync(templatePath, "utf8");
-    const match = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-    const body = match ? match[1] : html;
-    return stripLegacyHeaderSections(body);
-  } catch (error) {
-    return `<main style="padding:2rem;font-family:Inter,sans-serif">
-      <h1>Figma Template Not Found</h1>
-      <p>Please check src/app/figma-template.html.</p>
-    </main>`;
-  }
-}
+export const revalidate = 3600;
 
 export default function Home() {
-  const bodyMarkup = getBodyMarkup();
-  return <div dangerouslySetInnerHTML={{ __html: bodyMarkup }} />;
+  return <HomePage />;
 }

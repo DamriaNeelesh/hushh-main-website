@@ -1,12 +1,12 @@
-import { ApiKeyProvider } from "../context/apiKeyContext"
+import { ApiKeyProvider } from "../context/apiKeyContext";
 
 export default function ClientSideLayout({
   children,
-  session
+  session: _session
 }) {
   return (
     <ApiKeyProvider>
       {children}
-    </ApiKeyProvider>
-  )
+    </ApiKeyProvider>);
+
 }

@@ -1,4 +1,4 @@
-import { s, colors } from "./styles";
+import { s } from "./styles";
 
 const USE_CASES = [
   {
@@ -84,7 +84,7 @@ export default function UseCasesTab() {
             <pre style={s.code}>{`// Get Supabase JWT
 const { data } = await supabase.auth.signInWithPassword({
   email: "user@example.com",
-  password: "password"
+  password: userProvidedPassword
 });
 const jwt = data.session.access_token;`}</pre>
           </div>

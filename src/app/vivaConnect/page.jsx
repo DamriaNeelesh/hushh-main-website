@@ -12,10 +12,8 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   ModalCloseButton,
   useDisclosure,
-  useToast,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
@@ -30,19 +28,12 @@ import ButtonIcon from "../_components/svg/productIcons/hushhButtonIcon.svg";
 import HushhAppIcon from "../_components/svg/productIcons/hushhAppIcon.svg";
 import hushhLogo from "../_components/svg/productIcons/hushhLogo.svg";
 
-export default function vivaConnect() {
+export default function VivaConnectPage() {
   const router = useRouter();
-  const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isWalletOpen,
     onOpen: onWalletOpen,
     onClose: onWalletClose,
-  } = useDisclosure();
-  const {
-    isOpen: isCompanionOpen,
-    onOpen: onCompanionOpen,
-    onClose: onCompanionClose,
   } = useDisclosure();
   const modalSize = useBreakpointValue({ base: "sm", md: "md" });
 
@@ -102,7 +93,7 @@ export default function vivaConnect() {
               fontSize={{ base: "1.53rem", md: "2.25rem" }}
               className="gradient"
             >
-              "Your" Data "Your" Business!
+              &ldquo;Your&rdquo; Data &ldquo;Your&rdquo; Business!
             </Text>
             <Text
               p={"0"}
@@ -282,7 +273,7 @@ export default function vivaConnect() {
             cursor={"pointer"}
             onClick={() =>
               window.open(
-                "/developerApi",
+                "/developers",
                 "_blank"
               )
             }

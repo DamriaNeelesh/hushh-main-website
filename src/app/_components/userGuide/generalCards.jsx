@@ -4,13 +4,9 @@ import {
   VStack,
   Heading,
   Text,
-  List,
   ListItem,
-  ListIcon,
   OrderedList,
-  Divider,
 } from '@chakra-ui/react';
-import { CheckCircleIcon } from '@chakra-ui/icons';
 
 const GeneralCards = () => {
   return (

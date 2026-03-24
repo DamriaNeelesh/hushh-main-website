@@ -2,6 +2,7 @@ import React from "react";
 import ClientVibeSearch from "../../clientside/VibeSearch";
 import { siteMetadata } from "../../sitemetadata";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
+import JsonLdScript from "../../_components/seo/JsonLdScript";
 export const metadata = {
   title: "Hushh Vibe Search | Find Perfect Items with One-Click Personalization",
   description:
@@ -89,10 +90,7 @@ const productJsonLd = {
 const vibeSearch = () => {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
-      />
+      <JsonLdScript data={productJsonLd} />
       <ContentWrapper includeHeaderSpacing={true}>
         <ClientVibeSearch />
       </ContentWrapper>

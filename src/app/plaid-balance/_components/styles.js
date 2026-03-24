@@ -2,8 +2,6 @@ export const SUPABASE_URL = "https://ibsisfnjxeowvdtvgzff.supabase.co";
 export const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlic2lzZm5qeGVvd3ZkdHZnemZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ1NTk1NzgsImV4cCI6MjA4MDEzNTU3OH0.K16sO1R9L2WZGPueDP0mArs2eDYZc-TnIk2LApDw_fs";
 export const FUNCTIONS_BASE = `${SUPABASE_URL}/functions/v1`;
-export const TEST_EMAIL = "plaid-test@hushh.ai";
-export const TEST_PASSWORD = "TestPlaid2026!";
 
 // Apple-style colors
 export const colors = {

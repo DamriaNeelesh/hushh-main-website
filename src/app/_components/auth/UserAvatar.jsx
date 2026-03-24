@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Avatar,
   Menu,
@@ -15,10 +15,9 @@ import {
   Icon,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { FiUser, FiLogOut, FiMail, FiSettings, FiChevronRight, FiUserPlus } from 'react-icons/fi';
+import { FiUser, FiLogOut, FiMail, FiChevronRight, FiUserPlus } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
 const UserAvatar = () => {
   const { user, signOut } = useAuth();

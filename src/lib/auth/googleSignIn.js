@@ -14,8 +14,10 @@ export default async function googleSignIn(callback, customRedirectPath) {
       // Auto-detect current page
       const currentPath = window.location.pathname;
       
-      if (currentPath.includes('/developer-Api/on-boarding')) {
-        redirectPath = '/developer-Api/on-boarding';
+      if (currentPath.includes('/developers/on-boarding')) {
+        redirectPath = '/developers/on-boarding';
+      } else if (currentPath.includes('/developers/getting-started')) {
+        redirectPath = '/developers/getting-started';
       } else if (currentPath.includes('/login')) {
         redirectPath = '/login';
       }
@@ -30,7 +32,7 @@ export default async function googleSignIn(callback, customRedirectPath) {
       return;
     }
     
-    const { data, error } = await authConfig.supabaseClient.auth.signInWithOAuth({
+    const { error } = await authConfig.supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo,

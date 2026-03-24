@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useMemo, useState } from 'react';
 
 const CustomPre = ({ children }) => {
@@ -5,7 +7,7 @@ const CustomPre = ({ children }) => {
 
   const { codeText, languageLabel } = useMemo(() => {
     const codeElement = React.Children.toArray(children).find((child) =>
-      React.isValidElement(child)
+    React.isValidElement(child)
     );
     const className = codeElement?.props?.className || '';
     const rawLanguage = className.replace('language-', '').trim();
@@ -31,7 +33,7 @@ const CustomPre = ({ children }) => {
         document.execCommand('copy');
         document.body.removeChild(textarea);
       }
-    } catch (error) {
+    } catch {
       return;
     }
     setCopied(true);
@@ -46,14 +48,14 @@ const CustomPre = ({ children }) => {
           type="button"
           className={`docs-code-copy${copied ? ' is-copied' : ''}`}
           onClick={handleCopy}
-          aria-label={copied ? 'Copied to clipboard' : 'Copy code'}
-        >
+          aria-label={copied ? 'Copied to clipboard' : 'Copy code'}>
+          
           {copied ? 'Copied' : 'Copy'}
         </button>
       </div>
       <pre>{children}</pre>
-    </div>
-  );
+    </div>);
+
 };
 
 export default CustomPre;

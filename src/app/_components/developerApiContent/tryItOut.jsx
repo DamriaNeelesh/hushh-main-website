@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
@@ -24,7 +26,7 @@ const generateDummyData = (requestBodyDefinition) => {
         result[key] = definition.example;
       } else if (key === "text") {
         result[key] =
-          "Provide a JSON profile for Sundar Pichai, email sundar.pichai@example.com, phone +1 6505559001.";
+        "Provide a JSON profile for Sundar Pichai, email sundar.pichai@example.com, phone +1 6505559001.";
       } else if (key === "sessionId") {
         result[key] = "session-456";
       } else if (key === "id") {
@@ -54,7 +56,7 @@ const TryItOut = ({
   title = "Try it out",
   subtitle = "Run a live request against the Hushh API in test mode.",
   samples = [],
-  apiKey = "",
+  apiKey = ""
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [jsonBody, setJsonBody] = useState("");
@@ -100,7 +102,7 @@ const TryItOut = ({
       if (jsonBody.trim()) {
         try {
           parsedBody = JSON.parse(jsonBody);
-        } catch (error) {
+        } catch {
           setResponse("Invalid JSON in request body.");
           setIsLoading(false);
           return;
@@ -110,7 +112,7 @@ const TryItOut = ({
 
     try {
       const headers = {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       };
       if (apiKey) {
         headers.Authorization = `Bearer ${apiKey}`;
@@ -120,15 +122,15 @@ const TryItOut = ({
         method,
         url: fullUrl,
         headers,
-        data: method !== "GET" ? parsedBody : undefined,
+        data: method !== "GET" ? parsedBody : undefined
       });
       setResponse(JSON.stringify(res.data, null, 2));
     } catch (error) {
       const errorData = error?.response?.data || "Error occurred.";
       setResponse(
-        typeof errorData === "string"
-          ? errorData
-          : JSON.stringify(errorData, null, 2)
+        typeof errorData === "string" ?
+        errorData :
+        JSON.stringify(errorData, null, 2)
       );
     } finally {
       setIsLoading(false);
@@ -147,22 +149,22 @@ const TryItOut = ({
 
       <div className="docs-tryout-grid">
         <div className="docs-tryout-list">
-          {samples.map((sample, index) => (
-            <button
-              key={sample.title}
-              type="button"
-              className={`docs-tryout-item${
-                index === activeIndex ? " is-active" : ""
-              }`}
-              onClick={() => setActiveIndex(index)}
-              aria-pressed={index === activeIndex}
-            >
+          {samples.map((sample, index) =>
+          <button
+            key={sample.title}
+            type="button"
+            className={`docs-tryout-item${
+            index === activeIndex ? " is-active" : ""}`
+            }
+            onClick={() => setActiveIndex(index)}
+            aria-pressed={index === activeIndex}>
+            
               <span className="docs-tryout-item-title">{sample.title}</span>
-              {sample.description ? (
-                <span className="docs-tryout-item-desc">{sample.description}</span>
-              ) : null}
+              {sample.description ?
+            <span className="docs-tryout-item-desc">{sample.description}</span> :
+            null}
             </button>
-          ))}
+          )}
         </div>
 
         <div className="docs-tryout-console">
@@ -177,8 +179,8 @@ const TryItOut = ({
               type="button"
               className="docs-tryout-run"
               onClick={handleSubmit}
-              disabled={isLoading}
-            >
+              disabled={isLoading}>
+              
               {isLoading ? "Running..." : "Run request"}
             </button>
           </div>
@@ -186,41 +188,41 @@ const TryItOut = ({
           <div className="docs-tryout-console-body">
             <div className="docs-tryout-panel">
               <div className="docs-tryout-panel-title">Request body</div>
-              {hasRequestBody ? (
-                <textarea
-                  className="docs-tryout-textarea"
-                  value={jsonBody}
-                  onChange={(event) => setJsonBody(event.target.value)}
-                  rows={10}
-                />
-              ) : (
-                <div className="docs-tryout-placeholder">
+              {hasRequestBody ?
+              <textarea
+                className="docs-tryout-textarea"
+                value={jsonBody}
+                onChange={(event) => setJsonBody(event.target.value)}
+                rows={10} /> :
+
+
+              <div className="docs-tryout-placeholder">
                   This endpoint does not require a request body.
                 </div>
-              )}
+              }
             </div>
 
             <div className="docs-tryout-panel">
               <div className="docs-tryout-panel-title">Response</div>
               <pre className="docs-tryout-response">
-                {isLoading
-                  ? "Waiting for response..."
-                  : response || "Run a request to see the response."}
+                {isLoading ?
+                "Waiting for response..." :
+                response || "Run a request to see the response."}
               </pre>
             </div>
           </div>
 
           <div className="docs-tryout-footnote">
-            {requestedUrl ? (
-              <span>Requested URL: {requestedUrl}</span>
-            ) : (
-              <span>Requests run against the live test endpoint.</span>
-            )}
+            {requestedUrl ?
+            <span>Requested URL: {requestedUrl}</span> :
+
+            <span>Requests run against the live test endpoint.</span>
+            }
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default TryItOut;

@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx,html}",
-    "./src/**/*.{html,js,jsx,ts,tsx,mdx}",
+    "./src/pages/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,html}",
+    "./src/**/*.{html,js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
@@ -77,7 +77,6 @@ module.exports = {
     require("@tailwindcss/container-queries"),
   ],
   safelist: [
-    { pattern: /hljs(-.*)?/ },
     "apple-code-block",
     "language-badge",
     "line-number",

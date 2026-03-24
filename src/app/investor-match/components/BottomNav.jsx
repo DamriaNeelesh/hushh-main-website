@@ -9,7 +9,7 @@ const NAV_ITEMS = [
 ];
 
 export default function BottomNav() {
-  const pathname = usePathname();
+  const pathname = usePathname() || "";
 
   return (
     <nav className="im-bottom-nav" role="navigation" aria-label="Main navigation">

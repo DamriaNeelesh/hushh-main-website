@@ -1,33 +1,35 @@
 'use client';
 import React from 'react';
 import { Box } from '@chakra-ui/react';
-import { useBannerHeight } from '../../context/BannerHeightContext';
 
 /**
- * ContentWrapper - Automatically handles top spacing for page content
- * 
- * This component ensures all page content starts below the fixed header and banners
- * without requiring manual padding/margin adjustments on individual pages.
+ * ContentWrapper - Shared page frame for route content
+ *
+ * Global header/banner spacing is owned by the site shell.
+ * This wrapper now standardizes page width, optional background, and route-local spacing only.
  */
-const ContentWrapper = ({ 
-  children, 
-  includeHeaderSpacing = true,
+const ContentWrapper = ({
+  children,
+  includeHeaderSpacing: _includeHeaderSpacing = true,
   additionalSpacing = 0,
   minHeight = "auto",
-  ...boxProps 
+  surface = "default",
+  className = "",
+  ...boxProps
 }) => {
-  const { totalOffsetHeight } = useBannerHeight();
-
   return (
     <Box
+      data-site-page-frame
+      data-surface={surface}
       w="full"
       minH={minHeight}
-      pt={includeHeaderSpacing ? `${totalOffsetHeight + additionalSpacing}px` : `${additionalSpacing}px`}
-      {...boxProps}
-    >
+      pt={`${additionalSpacing}px`}
+      className={`site-page-frame ${className}`.trim()}
+      {...boxProps}>
+      
       {children}
-    </Box>
-  );
+    </Box>);
+
 };
 
-export default ContentWrapper; 
+export default ContentWrapper;

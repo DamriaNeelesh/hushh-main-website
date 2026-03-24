@@ -1,7 +1,15 @@
-/* eslint-disable no-undef */
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: "https://www.hushh.ai",
+  exclude: [
+    "/developerApi",
+    "/developerApi/*",
+    "/developer-Api",
+    "/developer-Api/*",
+    "/legal/privacypolicy",
+    "/legal/termsofuse",
+    "/developers/login",
+  ],
   generateRobotsTxt: true,
   robotsTxtOptions: {
     policies: [
@@ -33,7 +41,7 @@ module.exports = {
     if (path === '/products/hushh-button') priority = 0.9;
     if (path === '/products/browser-companion') priority = 0.9;
     if (path === '/products/hushh-vibe-search') priority = 0.9;
-    if (path === '/developerApi') priority = 0.9;
+    if (path === '/developers') priority = 0.9;
     if (path === '/about') priority = 0.8;
     if (path === '/contact-us') priority = 0.8;
     

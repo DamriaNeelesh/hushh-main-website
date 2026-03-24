@@ -10,15 +10,11 @@ import Chalhoub from "../svg/images/chalhoub";
 import Citadium from "../svg/images/citadium";
 import Costco from "../svg/images/costco";
 import Fourseasons from "../svg/images/four-seasons";
-import Brand1 from "../svg/images/brand1";
 import Brand2 from "../svg/images/brand2";
 import Google from "../svg/images/google";
 import Gucci from "../svg/images/Gucci";
 import Laredoute from "../svg/images/la-redoute";
-import Lvtetia from "../svg/images/LVTETIA";
 import Nordstrom from "../svg/images/Nordstrom";
-import Tumi from "../svg/images/tumi";
-import Reliance from "../svg/images/reliance";
 
 const BrandContainer = styled.div`
   display: flex;

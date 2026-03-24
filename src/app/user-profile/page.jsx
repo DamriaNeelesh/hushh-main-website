@@ -26,14 +26,10 @@ import {
   Card,
   CardBody,
   Divider,
-  Image,
   Flex,
   Icon,
   Badge,
   Avatar,
-  useColorModeValue,
-  InputGroup,
-  InputLeftElement,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -41,30 +37,26 @@ import {
   ModalBody,
   ModalFooter,
   ModalCloseButton,
-  useDisclosure,
-} from "@chakra-ui/react";
+  useDisclosure } from
+"@chakra-ui/react";
 import { useAuth } from "../context/AuthContext";
-import { 
-  FiUser, 
-  FiMail, 
-  FiPhone, 
-  FiMapPin, 
-  FiCalendar, 
-  FiEdit3, 
-  FiShield, 
-  FiClock, 
+import {
+  FiUser,
+  FiMail,
+  FiPhone,
+  FiMapPin,
+  FiCalendar,
+  FiEdit3,
+  FiShield,
   FiCheck,
-  FiSettings,
   FiLogOut,
   FiSave,
-  FiX
-} from "react-icons/fi";
-import { BiUser, BiMale, BiFemale } from "react-icons/bi";
+  FiX } from
+"react-icons/fi";
+import { BiUser } from "react-icons/bi";
 import { IoLocationOutline } from "react-icons/io5";
-import { MdWork, MdOutlineWorkOutline } from "react-icons/md";
-import Link from "next/link";
+import { MdOutlineWorkOutline } from "react-icons/md";
 import { motion } from "framer-motion";
-import HushhLogo from "../_components/svg/hushhLogoS.svg";
 import ContentWrapper from "../_components/layout/ContentWrapper";
 
 const MotionBox = motion(Box);
@@ -81,16 +73,16 @@ const API_HEADERS = {
 
 const UserProfile = () => {
   const router = useRouter();
-  const { user, session, loading: authLoading, signOut } = useAuth();
+  const { user, session: _session, loading: authLoading, signOut } = useAuth();
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  
+  const { isOpen, onOpen: _onOpen, onClose } = useDisclosure();
+
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [error, setError] = useState(null);
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  
+
   // Form fields for editing
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -107,7 +99,7 @@ const UserProfile = () => {
   const [errors, setErrors] = useState({});
 
   // Animation variants
-  const fadeInUp = {
+  const _fadeInUp = {
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6, ease: "easeOut" }
@@ -115,7 +107,7 @@ const UserProfile = () => {
 
   const staggerChildren = {
     initial: { opacity: 0 },
-    animate: { 
+    animate: {
       opacity: 1,
       transition: { staggerChildren: 0.1, delayChildren: 0.2 }
     }
@@ -128,7 +120,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (authLoading) return;
-    
+
     if (!user) {
       router.push('/login');
       return;
@@ -143,23 +135,23 @@ const UserProfile = () => {
     try {
       setIsLoadingProfile(true);
       console.log('🔍 Fetching user profile for:', email);
-      
+
       // Use the check-user API which returns both existence and full user data
       const response = await fetch(
         `https://hushh-api-53407187172.us-central1.run.app/api/check-user?email=${email}`,
         { headers: API_HEADERS }
       );
-      
+
       if (response.ok) {
         const data = await response.json();
         console.log('✅ Profile API Response:', data);
-        
+
         // Check if user exists and has data
         if (data && (data.message === "User exists" || data.exists) && data.user) {
           const profileData = data.user;
           console.log('📝 User profile data found:', profileData);
           setUserData(profileData);
-          
+
           // Populate form fields for editing using the correct field names
           setFirstName(profileData.first_name || "");
           setLastName(profileData.last_name || "");
@@ -171,7 +163,7 @@ const UserProfile = () => {
           setCity(profileData.city || "");
           setDateOfBirth(profileData.dob || "");
           setReasonForUsingHushh(profileData.reason_for_using_hushhTech);
-          
+
           console.log('✅ Profile loaded successfully');
         } else {
           // User not found in database, redirect to registration
@@ -181,7 +173,7 @@ const UserProfile = () => {
             description: "Please complete your registration first.",
             status: "warning",
             duration: 3000,
-            isClosable: true,
+            isClosable: true
           });
           router.push('/user-registration');
         }
@@ -192,7 +184,7 @@ const UserProfile = () => {
           description: "Failed to load your profile. Please try again.",
           status: "error",
           duration: 4000,
-          isClosable: true,
+          isClosable: true
         });
       }
     } catch (error) {
@@ -202,7 +194,7 @@ const UserProfile = () => {
         description: `Failed to load profile: ${error.message}`,
         status: "error",
         duration: 4000,
-        isClosable: true,
+        isClosable: true
       });
     } finally {
       setIsLoadingProfile(false);
@@ -211,12 +203,12 @@ const UserProfile = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!firstName.trim()) newErrors.firstName = "First name is required";
     if (!lastName.trim()) newErrors.lastName = "Last name is required";
     if (!phoneNumber.trim()) newErrors.phoneNumber = "Phone number is required";
     if (!investorType) newErrors.investorType = "Investor type is required";
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -228,7 +220,7 @@ const UserProfile = () => {
         description: "Please fill in all required fields.",
         status: "error",
         duration: 4000,
-        isClosable: true,
+        isClosable: true
       });
       return;
     }
@@ -247,7 +239,7 @@ const UserProfile = () => {
         country: country,
         city: city,
         dob: dateOfBirth,
-        reason_for_using: reasonForUsingHushh,
+        reason_for_using: reasonForUsingHushh
       };
 
       const response = await fetch(
@@ -258,23 +250,23 @@ const UserProfile = () => {
           body: JSON.stringify(updateData)
         }
       );
-      
+
       if (response.ok) {
         toast({
           title: "✅ Profile Updated",
           description: "Your profile has been updated successfully!",
           status: "success",
           duration: 3000,
-          isClosable: true,
+          isClosable: true
         });
-        
+
         // Refresh user data
         setUserData({ ...userData, ...updateData });
         setIsEditing(false);
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
     } catch (err) {
       console.error("Profile update error:", err);
       setError(`An unexpected error occurred. Please try again later.`);
@@ -283,7 +275,7 @@ const UserProfile = () => {
         description: "There was an error updating your profile. Please try again.",
         status: "error",
         duration: 4000,
-        isClosable: true,
+        isClosable: true
       });
     } finally {
       setIsLoading(false);
@@ -299,7 +291,7 @@ const UserProfile = () => {
         description: "You have been signed out of your account.",
         status: "success",
         duration: 3000,
-        isClosable: true,
+        isClosable: true
       });
     } catch (error) {
       console.error('Error signing out:', error);
@@ -308,7 +300,7 @@ const UserProfile = () => {
         description: "There was an error signing out. Please try again.",
         status: "error",
         duration: 3000,
-        isClosable: true,
+        isClosable: true
       });
     }
   };
@@ -316,13 +308,13 @@ const UserProfile = () => {
   // Add utility function to format date
   const formatAccountCreationDate = (dateString) => {
     if (!dateString) return 'N/A';
-    
+
     try {
       const date = new Date(dateString);
-      const options = { 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
+      const options = {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
       };
       return date.toLocaleDateString('en-US', options);
     } catch (error) {
@@ -338,16 +330,16 @@ const UserProfile = () => {
         bg="gray.50"
         display="flex"
         alignItems="center"
-        justifyContent="center"
-      >
+        justifyContent="center">
+        
         <VStack spacing={4}>
           <Spinner size="xl" color="blue.500" />
           <Text fontSize="lg" color="gray.600">
             Loading your profile...
           </Text>
         </VStack>
-      </Box>
-    );
+      </Box>);
+
   }
 
   if (!userData) {
@@ -357,8 +349,8 @@ const UserProfile = () => {
         bg="gray.50"
         display="flex"
         alignItems="center"
-        justifyContent="center"
-      >
+        justifyContent="center">
+        
         <VStack spacing={6} mt={5}>
           <Icon as={FiUser} fontSize="4xl" color="gray.400" />
           <Text fontSize="lg" color="gray.600">
@@ -368,8 +360,8 @@ const UserProfile = () => {
             Complete Registration
           </Button>
         </VStack>
-      </Box>
-    );
+      </Box>);
+
   }
 
   return (
@@ -378,61 +370,61 @@ const UserProfile = () => {
         minH="100vh"
         bg="white"
         py={{ base: 8, md: 12 }}
-        px={{ base: 4, md: 8 }}
-      >
+        px={{ base: 4, md: 8 }}>
+        
         <Container maxW="6xl">
         <MotionBox
-          initial="initial"
-          animate="animate"
-          variants={staggerChildren}
-        >
+            initial="initial"
+            animate="animate"
+            variants={staggerChildren}>
+            
           {/* Header */}
           <MotionCard
-            variants={childVariants}
-            bg="linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)"
-            boxShadow="0px 10px 30px rgba(0, 0, 0, 0.1)"
-            borderRadius={{ base: "20px", md: "30px" }}
-            border="1px solid rgba(0, 0, 0, 0.05)"
-            p={{ base: 4, md: 8 }}
-            mb={8}
-          >
+              variants={childVariants}
+              bg="linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)"
+              boxShadow="0px 10px 30px rgba(0, 0, 0, 0.1)"
+              borderRadius={{ base: "20px", md: "30px" }}
+              border="1px solid rgba(0, 0, 0, 0.05)"
+              p={{ base: 4, md: 8 }}
+              mb={8}>
+              
             {/* Desktop Layout */}
-            <Flex 
-              justify="space-between" 
-              align="center" 
-              wrap="wrap" 
-              gap={4}
-              display={{ base: "none", lg: "flex" }}
-            >
+            <Flex
+                justify="space-between"
+                align="center"
+                wrap="wrap"
+                gap={4}
+                display={{ base: "none", lg: "flex" }}>
+                
               <HStack spacing={6}>
                 <Avatar
-                  size="xl"
-                  name={`${userData.first_name} ${userData.last_name}`}
-                  src={user?.user_metadata?.avatar_url}
-                  bg="linear-gradient(135deg, #0071E3, #BB62FC)"
-                  color="white"
-                  border="3px solid rgba(255, 255, 255, 0.2)"
-                />
+                    size="xl"
+                    name={`${userData.first_name} ${userData.last_name}`}
+                    src={user?.user_metadata?.avatar_url}
+                    bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                    color="white"
+                    border="3px solid rgba(255, 255, 255, 0.2)" />
+                  
                 <VStack align="start" spacing={2}>
                   <Heading
-                    size="lg"
-                    color="black"
-                    fontFamily="Inter, sans-serif"
-                    fontWeight="700"
-                  >
+                      size="lg"
+                      color="black"
+                      fontFamily="Inter, sans-serif"
+                      fontWeight="700">
+                      
                     {userData.first_name} {userData.last_name}
                   </Heading>
                   <Text color="rgba(0, 0, 0, 0.7)" fontSize="md">
                     {user?.email}
                   </Text>
-                  <Badge 
-                    bg="linear-gradient(135deg, #0071E3, #BB62FC)" 
-                    color="white" 
-                    size="lg" 
-                    borderRadius="full"
-                    px={3}
-                    py={1}
-                  >
+                  <Badge
+                      bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                      color="white"
+                      size="lg"
+                      borderRadius="full"
+                      px={3}
+                      py={1}>
+                      
                     {userData.investor_type === 'individual' ? 'Individual Investor' : 'Institutional Investor'}
                   </Badge>
                   <Text color="rgba(0, 0, 0, 0.6)" fontSize="sm" fontFamily="mono">
@@ -441,16 +433,16 @@ const UserProfile = () => {
                       <Text fontWeight="bold" color="#BB62FC" fontSize="sm">
                         Hushh ID:
                       </Text>
-                      <Badge 
-                        bg="linear-gradient(135deg, #0071E3, #BB62FC)" 
-                        color="white"
-                        variant="solid" 
-                        px={3} 
-                        py={1} 
-                        borderRadius="md"
-                        fontFamily="mono"
-                        fontSize="xs"
-                      >
+                      <Badge
+                          bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                          color="white"
+                          variant="solid"
+                          px={3}
+                          py={1}
+                          borderRadius="md"
+                          fontFamily="mono"
+                          fontSize="xs">
+                          
                         {userData.hushh_id || 'N/A'}
                       </Badge>
                     </HStack>
@@ -459,26 +451,26 @@ const UserProfile = () => {
               </HStack>
               
               <HStack spacing={3}>
-                {!isEditing ? (
+                {!isEditing ?
                   <>
                     {/* <Button
-                      onClick={() => setIsEditing(true)}
-                      bg="linear-gradient(135deg, #0071E3, #BB62FC)"
-                      color="white"
-                      leftIcon={<FiEdit3 />}
-                      size="lg"
-                      borderRadius="full"
-                      fontFamily="Inter, sans-serif"
-                      fontWeight="600"
-                      _hover={{
-                        bg: "linear-gradient(135deg, #005bb5, #9a4fd1)",
-                        transform: "translateY(-2px)",
-                        boxShadow: "0 8px 25px rgba(0, 113, 227, 0.4)"
-                      }}
-                      transition="all 0.3s ease"
-                    >
-                      Edit Profile
-                    </Button> */}
+                       onClick={() => setIsEditing(true)}
+                       bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                       color="white"
+                       leftIcon={<FiEdit3 />}
+                       size="lg"
+                       borderRadius="full"
+                       fontFamily="Inter, sans-serif"
+                       fontWeight="600"
+                       _hover={{
+                         bg: "linear-gradient(135deg, #005bb5, #9a4fd1)",
+                         transform: "translateY(-2px)",
+                         boxShadow: "0 8px 25px rgba(0, 113, 227, 0.4)"
+                       }}
+                       transition="all 0.3s ease"
+                      >
+                       Edit Profile
+                      </Button> */}
                     <Button
                       onClick={() => router.push('/')}
                       variant="outline"
@@ -489,17 +481,17 @@ const UserProfile = () => {
                       borderRadius="full"
                       fontFamily="Inter, sans-serif"
                       fontWeight="600"
-                      _hover={{ 
-                        bg: "rgba(255, 255, 255, 0.1)", 
+                      _hover={{
+                        bg: "rgba(255, 255, 255, 0.1)",
                         borderColor: "rgba(255, 255, 255, 0.5)",
                         transform: "translateY(-2px)"
                       }}
-                      transition="all 0.3s ease"
-                    >
+                      transition="all 0.3s ease">
+                      
                       Go to Home
                     </Button>
-                  </>
-                ) : (
+                  </> :
+
                   <>
                     <Button
                       onClick={handleSaveProfile}
@@ -517,8 +509,8 @@ const UserProfile = () => {
                         transform: "translateY(-2px)",
                         boxShadow: "0 8px 25px rgba(76, 175, 80, 0.4)"
                       }}
-                      transition="all 0.3s ease"
-                    >
+                      transition="all 0.3s ease">
+                      
                       Save Changes
                     </Button>
                     <Button
@@ -538,60 +530,60 @@ const UserProfile = () => {
                       borderRadius="full"
                       fontFamily="Inter, sans-serif"
                       fontWeight="600"
-                      _hover={{ 
-                        bg: "rgba(255, 255, 255, 0.1)", 
+                      _hover={{
+                        bg: "rgba(255, 255, 255, 0.1)",
                         borderColor: "rgba(255, 255, 255, 0.5)",
                         transform: "translateY(-2px)"
                       }}
-                      transition="all 0.3s ease"
-                    >
+                      transition="all 0.3s ease">
+                      
                       Cancel
                     </Button>
                   </>
-                )}
+                  }
               </HStack>
             </Flex>
 
             {/* Mobile Layout */}
-            <VStack 
-              spacing={6} 
-              align="stretch" 
-              display={{ base: "flex", lg: "none" }}
-            >
+            <VStack
+                spacing={6}
+                align="stretch"
+                display={{ base: "flex", lg: "none" }}>
+                
               {/* User Info Section */}
               <VStack spacing={4} align="center" textAlign="center">
                 <Avatar
-                  size={{ base: "lg", sm: "xl" }}
-                  name={`${userData.first_name} ${userData.last_name}`}
-                  src={user?.user_metadata?.avatar_url}
-                  bg="linear-gradient(135deg, #0071E3, #BB62FC)"
-                  color="white"
-                  border="3px solid rgba(255, 255, 255, 0.2)"
-                />
+                    size={{ base: "lg", sm: "xl" }}
+                    name={`${userData.first_name} ${userData.last_name}`}
+                    src={user?.user_metadata?.avatar_url}
+                    bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                    color="white"
+                    border="3px solid rgba(255, 255, 255, 0.2)" />
+                  
                 <VStack spacing={2} align="center">
                   <Heading
-                    size={{ base: "md", sm: "lg" }}
-                    color="black"
-                    fontFamily="Inter, sans-serif"
-                    fontWeight="700"
-                  >
+                      size={{ base: "md", sm: "lg" }}
+                      color="black"
+                      fontFamily="Inter, sans-serif"
+                      fontWeight="700">
+                      
                     {userData.first_name} {userData.last_name}
                   </Heading>
-                  <Text 
-                    color="rgba(0, 0, 0, 0.7)" 
-                    fontSize={{ base: "sm", sm: "md" }}
-                    wordBreak="break-word"
-                  >
+                  <Text
+                      color="rgba(0, 0, 0, 0.7)"
+                      fontSize={{ base: "sm", sm: "md" }}
+                      wordBreak="break-word">
+                      
                     {user?.email}
                   </Text>
-                  <Badge 
-                    bg="linear-gradient(135deg, #0071E3, #BB62FC)" 
-                    color="white" 
-                    borderRadius="full"
-                    px={3}
-                    py={1}
-                    fontSize="xs"
-                  >
+                  <Badge
+                      bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                      color="white"
+                      borderRadius="full"
+                      px={3}
+                      py={1}
+                      fontSize="xs">
+                      
                     {userData.investor_type === 'individual' ? 'Individual Investor' : 'Institutional Investor'}
                   </Badge>
                   {/* Hushh ID - Mobile */}
@@ -602,16 +594,16 @@ const UserProfile = () => {
                         Hushh ID:
                       </Text>
                     </HStack>
-                    <Badge 
-                      bg="linear-gradient(135deg, #0071E3, #BB62FC)" 
-                      color="white"
-                      variant="solid" 
-                      px={2} 
-                      py={1} 
-                      borderRadius="md"
-                      fontFamily="mono"
-                      fontSize="xs"
-                    >
+                    <Badge
+                        bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                        color="white"
+                        variant="solid"
+                        px={2}
+                        py={1}
+                        borderRadius="md"
+                        fontFamily="mono"
+                        fontSize="xs">
+                        
                       {userData.hushh_id || 'N/A'}
                     </Badge>
                   </VStack>
@@ -620,27 +612,27 @@ const UserProfile = () => {
               
               {/* Action Buttons - Mobile */}
               <VStack spacing={3} w="full">
-                {!isEditing ? (
+                {!isEditing ?
                   <>
                     {/* <Button
-                      onClick={() => setIsEditing(true)}
-                      bg="linear-gradient(135deg, #0071E3, #BB62FC)"
-                      color="white"
-                      leftIcon={<FiEdit3 />}
-                      size="md"
-                      borderRadius="full"
-                      fontFamily="Inter, sans-serif"
-                      fontWeight="600"
-                      w="full"
-                      _hover={{
-                        bg: "linear-gradient(135deg, #005bb5, #9a4fd1)",
-                        transform: "translateY(-2px)",
-                        boxShadow: "0 8px 25px rgba(0, 113, 227, 0.4)"
-                      }}
-                      transition="all 0.3s ease"
-                    >
-                      Edit Profile
-                    </Button> */}
+                       onClick={() => setIsEditing(true)}
+                       bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                       color="white"
+                       leftIcon={<FiEdit3 />}
+                       size="md"
+                       borderRadius="full"
+                       fontFamily="Inter, sans-serif"
+                       fontWeight="600"
+                       w="full"
+                       _hover={{
+                         bg: "linear-gradient(135deg, #005bb5, #9a4fd1)",
+                         transform: "translateY(-2px)",
+                         boxShadow: "0 8px 25px rgba(0, 113, 227, 0.4)"
+                       }}
+                       transition="all 0.3s ease"
+                      >
+                       Edit Profile
+                      </Button> */}
                     <Button
                       onClick={() => router.push('/')}
                       variant="outline"
@@ -652,17 +644,17 @@ const UserProfile = () => {
                       fontFamily="Inter, sans-serif"
                       fontWeight="600"
                       w="full"
-                      _hover={{ 
-                        bg: "rgba(255, 255, 255, 0.1)", 
+                      _hover={{
+                        bg: "rgba(255, 255, 255, 0.1)",
                         borderColor: "rgba(255, 255, 255, 0.5)",
                         transform: "translateY(-2px)"
                       }}
-                      transition="all 0.3s ease"
-                    >
+                      transition="all 0.3s ease">
+                      
                       Go to Home
                     </Button>
-                  </>
-                ) : (
+                  </> :
+
                   <>
                     <Button
                       onClick={handleSaveProfile}
@@ -681,8 +673,8 @@ const UserProfile = () => {
                         transform: "translateY(-2px)",
                         boxShadow: "0 8px 25px rgba(76, 175, 80, 0.4)"
                       }}
-                      transition="all 0.3s ease"
-                    >
+                      transition="all 0.3s ease">
+                      
                       Save Changes
                     </Button>
                     <Button
@@ -703,34 +695,34 @@ const UserProfile = () => {
                       fontFamily="Inter, sans-serif"
                       fontWeight="600"
                       w="full"
-                      _hover={{ 
-                        bg: "rgba(255, 255, 255, 0.1)", 
+                      _hover={{
+                        bg: "rgba(255, 255, 255, 0.1)",
                         borderColor: "rgba(255, 255, 255, 0.5)",
                         transform: "translateY(-2px)"
                       }}
-                      transition="all 0.3s ease"
-                    >
+                      transition="all 0.3s ease">
+                      
                       Cancel
                     </Button>
                   </>
-                )}
+                  }
               </VStack>
             </VStack>
           </MotionCard>
 
           {/* Profile Details */}
-          <Grid templateColumns={{ base: "1fr", lg: "1fr 2fr", md:'1fr 2fr' }} gap={{ base: 6, lg: 8 }}>
+          <Grid templateColumns={{ base: "1fr", lg: "1fr 2fr", md: '1fr 2fr' }} gap={{ base: 6, lg: 8 }}>
              {/* Sidebar */}
              <GridItem order={{ base: 2, lg: 1 }}>
               <VStack spacing={6}>
                 {/* Account Stats */}
                 <MotionCard
-                  variants={childVariants}
-                  bg="white"
-                  boxShadow="lg"
-                  borderRadius="xl"
-                  w="full"
-                >
+                    variants={childVariants}
+                    bg="white"
+                    boxShadow="lg"
+                    borderRadius="xl"
+                    w="full">
+                    
                   <CardBody p={6}>
                     <VStack spacing={4} align="stretch">
                       <Heading size="sm" color="gray.800" fontFamily="Inter, sans-serif">
@@ -764,12 +756,12 @@ const UserProfile = () => {
 
                 {/* Quick Actions */}
                 <MotionCard
-                  variants={childVariants}
-                  bg="white"
-                  boxShadow="lg"
-                  borderRadius="xl"
-                  w="full"
-                >
+                    variants={childVariants}
+                    bg="white"
+                    boxShadow="lg"
+                    borderRadius="xl"
+                    w="full">
+                    
                   <CardBody p={6}>
                     <VStack spacing={4} align="stretch">
                       <Heading size="sm" color="gray.800" fontFamily="Inter, sans-serif">
@@ -781,8 +773,8 @@ const UserProfile = () => {
                         variant="outline"
                         size="sm"
                         w="full"
-                        onClick={() => router.push('/')}
-                      >
+                        onClick={() => router.push('/')}>
+                          
                         Explore our products
                       </Button>
                       
@@ -791,19 +783,19 @@ const UserProfile = () => {
                         variant="outline"
                         size="sm"
                         w="full"
-                        onClick={() => router.push('/about')}
-                      >
+                        onClick={() => router.push('/about')}>
+                          
                         🤫 Know About Hushh
                       </Button>
                       
                       <Button
-                        leftIcon={<FiLogOut />}
-                        variant="outline"
-                        colorScheme="red"
-                        size="sm"
-                        w="full"
-                        onClick={handleSignOut}
-                      >
+                          leftIcon={<FiLogOut />}
+                          variant="outline"
+                          colorScheme="red"
+                          size="sm"
+                          w="full"
+                          onClick={handleSignOut}>
+                          
                         Sign Out
                       </Button>
                     </VStack>
@@ -815,28 +807,28 @@ const UserProfile = () => {
             {/* Main Profile Information */}
             <GridItem order={{ base: 1, lg: 2 }}>
               <MotionCard
-                variants={childVariants}
-                bg="linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)"
-                boxShadow="0px 10px 30px rgba(0, 0, 0, 0.08)"
-                borderRadius={{ base: "20px", md: "30px" }}
-                border="1px solid rgba(0, 0, 0, 0.05)"
-                overflow="hidden"
-              >
+                  variants={childVariants}
+                  bg="linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)"
+                  boxShadow="0px 10px 30px rgba(0, 0, 0, 0.08)"
+                  borderRadius={{ base: "20px", md: "30px" }}
+                  border="1px solid rgba(0, 0, 0, 0.05)"
+                  overflow="hidden">
+                  
                 <CardBody p={{ base: 4, sm: 6, md: 8 }}>
                   <VStack spacing={6} align="stretch">
                     <Flex justify="space-between" align="center">
                       <Heading size="md" color="black" fontFamily="Inter, sans-serif">
                         Personal Information
                       </Heading>
-                      {!isEditing && (
+                      {!isEditing &&
                         <Badge bg="linear-gradient(135deg, #4CAF50, #45A049)" color="white" variant="solid">
                           <Icon as={FiCheck} mr={1} />
                           Complete
                         </Badge>
-                      )}
+                        }
                     </Flex>
 
-                    {error && (
+                    {error &&
                       <Alert status="error" bg="rgba(255, 82, 82, 0.1)" borderRadius="md" border="1px solid rgba(255, 82, 82, 0.3)">
                         <AlertIcon color="#FF5252" />
                         <Box>
@@ -844,7 +836,7 @@ const UserProfile = () => {
                           <AlertDescription color="#FF5252">{error}</AlertDescription>
                         </Box>
                       </Alert>
-                    )}
+                      }
 
                     <VStack spacing={6} align="stretch">
                       {/* Name Fields */}
@@ -855,7 +847,7 @@ const UserProfile = () => {
                               <Icon as={FiUser} mr={2} color="#0071E3" />
                               First Name
                             </FormLabel>
-                            {isEditing ? (
+                            {isEditing ?
                               <Input
                                 value={firstName}
                                 onChange={(e) => setFirstName(e.target.value)}
@@ -867,13 +859,13 @@ const UserProfile = () => {
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
                                 _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
-                                borderRadius="lg"
-                              />
-                            ) : (
+                                borderRadius="lg" /> :
+
+
                               <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.03)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.08)">
                                 {userData.first_name || "Not provided"}
                               </Text>
-                            )}
+                              }
                             <FormErrorMessage color="#FF5252">{errors.firstName}</FormErrorMessage>
                           </FormControl>
                         </GridItem>
@@ -883,7 +875,7 @@ const UserProfile = () => {
                               <Icon as={FiUser} mr={2} color="#0071E3" />
                               Last Name
                             </FormLabel>
-                            {isEditing ? (
+                            {isEditing ?
                               <Input
                                 value={lastName}
                                 onChange={(e) => setLastName(e.target.value)}
@@ -895,13 +887,13 @@ const UserProfile = () => {
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
                                 _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
-                                borderRadius="lg"
-                              />
-                            ) : (
+                                borderRadius="lg" /> :
+
+
                               <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.03)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.08)">
                                 {userData.last_name || "Not provided"}
                               </Text>
-                            )}
+                              }
                             <FormErrorMessage color="#FF5252">{errors.lastName}</FormErrorMessage>
                           </FormControl>
                         </GridItem>
@@ -929,7 +921,7 @@ const UserProfile = () => {
                               <Icon as={FiPhone} mr={2} color="#0071E3" />
                               Phone Number
                             </FormLabel>
-                            {isEditing ? (
+                            {isEditing ?
                               <Input
                                 type="tel"
                                 value={phoneNumber}
@@ -942,13 +934,13 @@ const UserProfile = () => {
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
                                 _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
-                                borderRadius="lg"
-                              />
-                            ) : (
+                                borderRadius="lg" /> :
+
+
                               <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.03)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.08)">
                                 {userData.phone_number || "Not provided"}
                               </Text>
-                            )}
+                              }
                             <FormErrorMessage color="#FF5252">{errors.phoneNumber}</FormErrorMessage>
                           </FormControl>
                         </GridItem>
@@ -960,7 +952,7 @@ const UserProfile = () => {
                           <Icon as={MdOutlineWorkOutline} mr={2} color="#BB62FC" />
                           Investor Type
                         </FormLabel>
-                        {isEditing ? (
+                        {isEditing ?
                           <Select
                             value={investorType}
                             onChange={(e) => setInvestorType(e.target.value)}
@@ -971,16 +963,16 @@ const UserProfile = () => {
                             color="black"
                             _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
                             _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
-                            borderRadius="lg"
-                          >
-                            <option value="individual" style={{backgroundColor: '#ffffff', color: 'black'}}>Individual Investor</option>
-                            <option value="institutional" style={{backgroundColor: '#ffffff', color: 'black'}}>Institutional / Corporate Investor</option>
-                          </Select>
-                        ) : (
+                            borderRadius="lg">
+                            
+                            <option value="individual" style={{ backgroundColor: '#ffffff', color: 'black' }}>Individual Investor</option>
+                            <option value="institutional" style={{ backgroundColor: '#ffffff', color: 'black' }}>Institutional / Corporate Investor</option>
+                          </Select> :
+
                           <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.03)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.08)">
                             {userData.investor_type === 'individual' ? 'Individual Investor' : 'Institutional / Corporate Investor'}
                           </Text>
-                        )}
+                          }
                         <FormErrorMessage color="#FF5252">{errors.investorType}</FormErrorMessage>
                       </FormControl>
 
@@ -1012,7 +1004,7 @@ const UserProfile = () => {
                               <Icon as={BiUser} mr={2} color="#0071E3" />
                               Gender
                             </FormLabel>
-                            {isEditing ? (
+                            {isEditing ?
                               <Select
                                 value={gender}
                                 onChange={(e) => setGender(e.target.value)}
@@ -1023,18 +1015,18 @@ const UserProfile = () => {
                                 color="black"
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
                                 _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
-                                borderRadius="lg"
-                              >
+                                borderRadius="lg">
+                                
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="other">Other</option>
                                 <option value="prefer-not-to-say">Prefer not to say</option>
-                              </Select>
-                            ) : (
+                              </Select> :
+
                               <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.03)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.08)">
                                 {userData.gender || "Not provided"}
                               </Text>
-                            )}
+                              }
                           </FormControl>
                         </GridItem>
                         <GridItem>
@@ -1043,7 +1035,7 @@ const UserProfile = () => {
                               <Icon as={IoLocationOutline} mr={2} color="#0071E3" />
                               Country
                             </FormLabel>
-                            {isEditing ? (
+                            {isEditing ?
                               <Input
                                 value={country}
                                 onChange={(e) => setCountry(e.target.value)}
@@ -1055,13 +1047,13 @@ const UserProfile = () => {
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
                                 _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
-                                borderRadius="lg"
-                              />
-                            ) : (
+                                borderRadius="lg" /> :
+
+
                               <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.03)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.08)">
                                 {userData.country || "Not provided"}
                               </Text>
-                            )}
+                              }
                           </FormControl>
                         </GridItem>
                         <GridItem>
@@ -1070,7 +1062,7 @@ const UserProfile = () => {
                               <Icon as={FiMapPin} mr={2} color="#0071E3" />
                               City
                             </FormLabel>
-                            {isEditing ? (
+                            {isEditing ?
                               <Input
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
@@ -1082,13 +1074,13 @@ const UserProfile = () => {
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
                                 _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
-                                borderRadius="lg"
-                              />
-                            ) : (
+                                borderRadius="lg" /> :
+
+
                               <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.03)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.08)">
                                 {userData.city || "Not provided"}
                               </Text>
-                            )}
+                              }
                           </FormControl>
                         </GridItem>
                       </Grid>
@@ -1099,7 +1091,7 @@ const UserProfile = () => {
                           <Icon as={FiCalendar} mr={2} color="#BB62FC" />
                           Date of Birth
                         </FormLabel>
-                        {isEditing ? (
+                        {isEditing ?
                           <Input
                             type="date"
                             value={dateOfBirth}
@@ -1110,13 +1102,13 @@ const UserProfile = () => {
                             color="black"
                             _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
                             _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
-                            borderRadius="lg"
-                          />
-                        ) : (
+                            borderRadius="lg" /> :
+
+
                           <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.03)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.08)">
                             {userData.dob ? new Date(userData.dob).toLocaleDateString() : "Not provided"}
                           </Text>
-                        )}
+                          }
                       </FormControl>
 
                       {/* Reason for using Hushh */}
@@ -1125,7 +1117,7 @@ const UserProfile = () => {
                           <Icon as={FiEdit3} mr={2} color="#0071E3" />
                           Reason for using Hushh
                         </FormLabel>
-                        {isEditing ? (
+                        {isEditing ?
                           <Textarea
                             value={reasonForUsingHushh}
                             onChange={(e) => setReasonForUsingHushh(e.target.value)}
@@ -1138,13 +1130,13 @@ const UserProfile = () => {
                             _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
                             _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
                             borderRadius="lg"
-                            rows={4}
-                          />
-                        ) : (
+                            rows={4} /> :
+
+
                           <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.03)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.08)" minH="80px">
                             {userData.reason_for_using || "Not provided"}
                           </Text>
-                        )}
+                          }
                       </FormControl>
                     </VStack>
                   </VStack>
@@ -1176,8 +1168,8 @@ const UserProfile = () => {
         </ModalContent>
       </Modal>
       </Box>
-    </ContentWrapper>
-  );
+    </ContentWrapper>);
+
 };
 
-export default UserProfile; 
+export default UserProfile;

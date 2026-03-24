@@ -1,6 +1,5 @@
 "use client";
 import {
-  Container,
   Box,
   Heading,
   Text,
@@ -9,17 +8,12 @@ import {
   Stack,
   VStack,
   UnorderedList,
-  ListItem,
-} from "@chakra-ui/react";
+  ListItem } from
+"@chakra-ui/react";
 import React from "react";
 import extendedTheme from "../theme";
-import FramCard1 from "../_components/svg/card/frameCardHushhButton.svg";
-import FrameCard2 from "../_components/svg/card/buttonvoucherCard.svg";
 import Image from "next/image";
-import BarIcon from "../_components/svg/icons/barIcon.svg";
-import DirectionLine from "../_components/svg/icons/directionLine.svg";
 import { useState, useEffect } from "react";
-import { useResponsiveSizes } from "../context/responsive";
 import HushhEmoji from "../_components/svg/card/hushhCircleEmoji.svg";
 import HushhBrandCard from "../_components/svg/card/hushhBrandCard.svg";
 import HushhButtonBg from "../_components/svg/hushhButtonBg.svg";
@@ -42,7 +36,7 @@ const CldVideoPlayer = dynamic(
 
 const ClientHushhButton = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const [_loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -67,8 +61,8 @@ const ClientHushhButton = () => {
         minW={"100%"}
         display={"flex"}
         flexDirection={"column"}
-        position={"relative"}
-      >
+        position={"relative"}>
+        
         <Box display={{ base: "none", md: "block" }}>
           <Image
             src={VibeSearchGif}
@@ -80,10 +74,10 @@ const ClientHushhButton = () => {
               top: "0px",
               left: "30%",
               zIndex: "-10",
-              filter: "grayscale(100%)",
+              filter: "grayscale(100%)"
             }}
-            unoptimized
-          />
+            unoptimized />
+          
         </Box>
         <Box display={{ base: "block", md: "none" }}>
           <Image
@@ -98,18 +92,18 @@ const ClientHushhButton = () => {
               zIndex: "-10",
               width: "10rem",
               height: "16rem",
-              filter: "grayscale(100%)",
+              filter: "grayscale(100%)"
             }}
-            unoptimized
-          />
+            unoptimized />
+          
         </Box>
         <Box
           alignItems={"center"}
           w={"100%"}
           display={"flex"}
           flexDirection={"column"}
-          mt={{ base: "3rem" }}
-        >
+          mt={{ base: "3rem" }}>
+          
           <Heading
             fontWeight={"700"}
             lineHeight={{ md: "255.6px", base: "60px" }}
@@ -119,8 +113,8 @@ const ClientHushhButton = () => {
             className="gradient"
             px={{ base: "0.5rem" }}
             mb={{ base: "0.5rem" }}
-            as="h1"
-          >
+            as="h1">
+            
             Hushh Button
           </Heading>
           <Text
@@ -128,8 +122,8 @@ const ClientHushhButton = () => {
             mb={{ base: "1rem", md: "4rem" }}
             textAlign={"center"}
             color={"#656565"}
-            fontSize={{ md: "1rem", base: "1rem" }}
-          >
+            fontSize={{ md: "1rem", base: "1rem" }}>
+            
             Imagine a world where shopping feels effortless and tailored just
             for you. Hushh Button, a powerful plugin, bridges the gap between
             your preferences/choices/needs/likes and your favourite brands with
@@ -137,29 +131,29 @@ const ClientHushhButton = () => {
           </Text>
           <Box display={"flex"} gap={{ md: "4rem", base: "1rem" }}>
             {/* <Button
-            border={"1px solid #606060"}
-            borderRadius={"2px"}
-            w={{ md: "16.25rem", base: "auto" }}
-            h={{ md: "3.75rem", base: "2.5rem" }}
-            color={extendedTheme.colors._white}
-            lineHeight={{ md: "28px", base: "14px" }}
-            background={"transparent"}
-            fontWeight={'400'}
-            fontSize={{base:'0.75rem', md:'1rem'}}
-            letterSpacing={{ md: "0.5rem", base: "0.1rem" }}
-            _hover={{
-              background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
-              border: "none",
-            }}
-            onClick={() =>
-              router.push(
-                "https://hushh-button.vercel.app/",
-              )
-            }
-          >
-            LEARN MORE
-          </Button> */}
+              border={"1px solid #606060"}
+              borderRadius={"2px"}
+              w={{ md: "16.25rem", base: "auto" }}
+              h={{ md: "3.75rem", base: "2.5rem" }}
+              color={extendedTheme.colors._white}
+              lineHeight={{ md: "28px", base: "14px" }}
+              background={"transparent"}
+              fontWeight={'400'}
+              fontSize={{base:'0.75rem', md:'1rem'}}
+              letterSpacing={{ md: "0.5rem", base: "0.1rem" }}
+              _hover={{
+               background:
+                 "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+               border: "none",
+              }}
+              onClick={() =>
+               router.push(
+                 "https://hushh-button.vercel.app/",
+               )
+              }
+              >
+              LEARN MORE
+              </Button> */}
             <Button
               as="a"
               href="https://www.npmjs.com/package/hushh-button-sdk"
@@ -177,9 +171,9 @@ const ClientHushhButton = () => {
               letterSpacing={{ md: "0.5rem", base: "0.1rem" }}
               _hover={{
                 background: "white",
-                color: "black",
-              }}
-            >
+                color: "black"
+              }}>
+              
               HUSHH SDK
             </Button>
           </Box>
@@ -191,8 +185,8 @@ const ClientHushhButton = () => {
           display={"flex"}
           flexDirection={{ base: "row", md: "row" }}
           justifyContent="flex-end"
-          mr={"3rem"}
-        >
+          mr={"3rem"}>
+          
           <Button
             display={{ md: "flex", base: "none" }}
             border={"1px solid #606060"}
@@ -205,11 +199,11 @@ const ClientHushhButton = () => {
             onClick={scrollTo}
             _hover={{
               background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
-              border: "none",
+              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              border: "none"
             }}
-            padding={"15px 68px 15px 68px"}
-          >
+            padding={"15px 68px 15px 68px"}>
+            
             PLAY DEMO
           </Button>
         </HStack>
@@ -217,8 +211,8 @@ const ClientHushhButton = () => {
         <Box
           display={{ base: "flex", md: "none" }}
           mt={"2rem"}
-          justifyContent={"center"}
-        >
+          justifyContent={"center"}>
+          
           <Button
             ml={{ md: "55rem" }}
             display={"flex"}
@@ -232,11 +226,11 @@ const ClientHushhButton = () => {
             onClick={scrollInMobile}
             _hover={{
               background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
-              border: "none",
+              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              border: "none"
             }}
-            padding={"15px 68px 15px 68px"}
-          >
+            padding={"15px 68px 15px 68px"}>
+            
             PLAY DEMO
           </Button>
         </Box>
@@ -250,21 +244,21 @@ const ClientHushhButton = () => {
           display={"flex"}
           flexDirection={"column"}
           textAlign={"center"}
-          py={{ md: "3rem", base: "1rem" }}
-        >
+          py={{ md: "3rem", base: "1rem" }}>
+          
           <Text
             color={"#0D0D25"}
             fontWeight={"700"}
             fontSize={{ md: "3.5rem", base: "1.5rem" }}
-            as={"h2"}
-          >
+            as={"h2"}>
+            
             Seamless Data Sharing for Personalized Experiences
           </Text>
           <Text
             mt={"1rem"}
             color={"#656565"}
-            fontSize={{ md: "1rem", base: "0.75rem" }}
-          >
+            fontSize={{ md: "1rem", base: "0.75rem" }}>
+            
             Hushh is your one-stop solution for seamless data sharing between
             you and your favorite websites. With Hushh, you can effortlessly
             share your personal data with brands to enhance your browsing
@@ -281,13 +275,13 @@ const ClientHushhButton = () => {
           alignItems="flex-start"
           justifyContent="flex-start"
           flexDirection={{ base: "column", md: "row" }}
-          gap={{ md: "6rem", base: "2rem" }}
-        >
+          gap={{ md: "6rem", base: "2rem" }}>
+          
           <VStack
             display={"flex"}
             alignItems="flex-start"
-            justifyContent="flex-start"
-          >
+            justifyContent="flex-start">
+            
             <Box display={{ base: "flex", md: "none" }} gap={"1rem"}>
               <Text className="gradient">
                 <Text fontSize={{ md: "2rem", base: "1.5rem" }}>
@@ -300,15 +294,15 @@ const ClientHushhButton = () => {
               <Image
                 src={HushhEmoji}
                 alt="hushhButtonCircle"
-                style={{ width: "30%" }}
-              />
+                style={{ width: "30%" }} />
+              
             </Box>
 
             <Text
               className="gradient"
               display={{ md: "flex", base: "none" }}
-              flexDirection={"column"}
-            >
+              flexDirection={"column"}>
+              
               <Text fontSize={{ md: "2rem", base: "1.5rem" }}>
                 Hushh Button For
               </Text>
@@ -321,8 +315,8 @@ const ClientHushhButton = () => {
               fontWeight={"400"}
               fontSize={"1rem"}
               lineHeight={{ md: "28.8px" }}
-              color={extendedTheme.colors.secondary}
-            >
+              color={extendedTheme.colors.secondary}>
+              
               <ListItem mb={{ md: "1rem", base: "0.5rem" }}>
                 Sync your preferences, past purchases, sizing information to
                 brands with a single click
@@ -347,22 +341,22 @@ const ClientHushhButton = () => {
               letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
               _hover={{
                 background:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
-                border: "none",
+                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                border: "none"
               }}
               onClick={() =>
-                router.push(
-                  "https://www.npmjs.com/package/hushh-button-sdk"
-                )
-              }
-            >
+              router.push(
+                "https://www.npmjs.com/package/hushh-button-sdk"
+              )
+              }>
+              
               LEARN MORE
             </Button>
           </VStack>
           <VStack
             display={{ base: "none", md: "flex" }}
-            w={{ md: "60%", base: "50%" }}
-          >
+            w={{ md: "60%", base: "50%" }}>
+            
             <Image src={HushhEmoji} alt="hushhButtonCircle" />
           </VStack>
         </Stack>
@@ -376,8 +370,8 @@ const ClientHushhButton = () => {
           alignItems="flex-start"
           justifyContent="flex-start"
           flexDirection={{ base: "column", md: "row" }}
-          gap={{ md: "6rem", base: "2rem" }}
-        >
+          gap={{ md: "6rem", base: "2rem" }}>
+          
           <VStack display={{ md: "flex", base: "none" }} mt={"3rem"} w={"40%"}>
             <Image src={HushhBrandCard} alt="hushhButtonCircle" />
           </VStack>
@@ -385,14 +379,14 @@ const ClientHushhButton = () => {
             w={{ md: "50%" }}
             display={"flex"}
             alignItems="flex-start"
-            justifyContent="flex-start"
-          >
+            justifyContent="flex-start">
+            
             <HStack display={{ md: "none", base: "flex" }} gap={"1.5rem"}>
               <Image
                 src={HushhBrandCard}
                 style={{ width: "40%" }}
-                alt="hushhButtonCircle"
-              />
+                alt="hushhButtonCircle" />
+              
               <Text className="gradient">
                 <Text fontSize={{ md: "2rem", base: "1.5rem" }}>
                   Hushh Button For
@@ -403,8 +397,8 @@ const ClientHushhButton = () => {
             <Text
               className="gradient"
               display={{ md: "flex", base: "none" }}
-              flexDirection={{ md: "column" }}
-            >
+              flexDirection={{ md: "column" }}>
+              
               <Text fontSize={{ md: "2rem", base: "1.5rem" }}>
                 Hushh Button For
               </Text>
@@ -416,8 +410,8 @@ const ClientHushhButton = () => {
               fontWeight={"400"}
               fontSize={"1rem"}
               lineHeight={{ md: "28.8px" }}
-              color={extendedTheme.colors.secondary}
-            >
+              color={extendedTheme.colors.secondary}>
+              
               <ListItem mb={"1rem"}>
                 Access authentic data from Hushh users who opt-in, allowing for
                 personalized product recommendations and marketing campaigns
@@ -442,15 +436,15 @@ const ClientHushhButton = () => {
               letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
               _hover={{
                 background:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
-                border: "none",
+                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                border: "none"
               }}
               onClick={() =>
-                router.push(
-                  "https://www.npmjs.com/package/hushh-button-sdk"
-                )
-              }
-            >
+              router.push(
+                "https://www.npmjs.com/package/hushh-button-sdk"
+              )
+              }>
+              
               GET IT NOW
             </Button>
           </VStack>
@@ -460,8 +454,8 @@ const ClientHushhButton = () => {
           bg={"white"}
           pos={"relative"}
           display={{ md: "flex", base: "none" }}
-          flexDirection={"row"}
-        >
+          flexDirection={"row"}>
+          
           <Image src={HushhButtonBg} alt="hushhbuttonBg" />
           <VStack
             gap={{ md: "2.5rem", base: "1rem" }}
@@ -470,13 +464,13 @@ const ClientHushhButton = () => {
             alignItems="flex-start"
             justifyContent="flex-start"
             pl={{ md: "3rem" }}
-            pos={"absolute"}
-          >
+            pos={"absolute"}>
+            
             <Box
               fontWeight={"400"}
               lineHeight={{ md: "60.6px", base: "30.3px" }}
-              fontSize={{ md: "3.75rem", base: "1.5rem" }}
-            >
+              fontSize={{ md: "3.75rem", base: "1.5rem" }}>
+              
               <Text color={"#0D0D25"}>
                 The <br></br> Hushh Button{" "}
                 <span style={{ fontWeight: "700" }}> is a </span>{" "}
@@ -489,8 +483,8 @@ const ClientHushhButton = () => {
               color={"#0D0D25"}
               fontWeight={"400"}
               fontSize={{ md: "1.25rem", base: "0.75rem" }}
-              lineHeight={{ base: "", md: "27px" }}
-            >
+              lineHeight={{ base: "", md: "27px" }}>
+              
               Customers enjoy a seamless and personalized shopping experience,
               while brands gain valuable insights and build stronger
               relationships with their audience
@@ -513,16 +507,16 @@ const ClientHushhButton = () => {
               letterSpacing={"0.5rem"}
               _hover={{
                 background:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
                 color: "white",
-                border: "none",
+                border: "none"
               }}
               onClick={() =>
-                router.push(
-                  "https://www.npmjs.com/package/hushh-button-sdk"
-                )
-              }
-            >
+              router.push(
+                "https://www.npmjs.com/package/hushh-button-sdk"
+              )
+              }>
+              
               GET IT NOW
             </Button>
           </VStack>
@@ -532,8 +526,8 @@ const ClientHushhButton = () => {
             alignItems="flex-end"
             justifyContent="flex-end"
             pr={"1rem"}
-            pos={"absolute"}
-          >
+            pos={"absolute"}>
+            
             <Image src={HushhButtonWin} alt="hushhButtonUser" />
           </VStack>
         </Stack>
@@ -545,13 +539,13 @@ const ClientHushhButton = () => {
           pb={"4rem"}
           align="left"
           justify="left"
-          position={"relative"}
-        >
+          position={"relative"}>
+          
           <Image
             src={HushhButtonBg}
             alt="hushhbuttonBg"
-            style={{ boxSizing: "content-box", height: "20rem" }}
-          />
+            style={{ boxSizing: "content-box", height: "20rem" }} />
+          
           <VStack
             gap="1rem"
             mt="2rem"
@@ -563,13 +557,13 @@ const ClientHushhButton = () => {
             top="0"
             left="0"
             right="0"
-            textAlign="left"
-          >
+            textAlign="left">
+            
             <Box
               fontWeight={"400"}
               lineHeight={{ md: "60.6px", base: "30.3px" }}
-              fontSize={{ md: "3.75rem", base: "1.5rem" }}
-            >
+              fontSize={{ md: "3.75rem", base: "1.5rem" }}>
+              
               <Text color={"#0D0D25"}>
                 The Hushh Button{" "}
                 <span style={{ fontWeight: "700" }}> is a </span>{" "}
@@ -582,8 +576,8 @@ const ClientHushhButton = () => {
               color={"#0D0D25"}
               fontWeight={"400"}
               fontSize={{ md: "1.25rem", base: "0.75rem" }}
-              lineHeight={{ base: "", md: "27px" }}
-            >
+              lineHeight={{ base: "", md: "27px" }}>
+              
               Customers enjoy a seamless and personalized shopping experience,
               while brands gain valuable insights and build stronger
               relationships with their audience
@@ -607,16 +601,16 @@ const ClientHushhButton = () => {
               letterSpacing={"0.1rem"}
               _hover={{
                 background:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
                 color: "white",
-                border: "none",
+                border: "none"
               }}
               onClick={() =>
-                router.push(
-                  "https://www.npmjs.com/package/hushh-button-sdk"
-                )
-              }
-            >
+              router.push(
+                "https://www.npmjs.com/package/hushh-button-sdk"
+              )
+              }>
+              
               GET IT NOW
             </Button>
           </VStack>
@@ -626,13 +620,13 @@ const ClientHushhButton = () => {
             bottom={0}
             display={{ md: "none", base: "flex" }}
             alignItems="flex-end"
-            justifyContent="flex-end"
-          >
+            justifyContent="flex-end">
+            
             <Image
               src={HushhButtonWin}
               alt="HushhButtonOnlyUser"
-              style={{ height: "100%", position: "absolute", width: "50%" }}
-            />
+              style={{ height: "100%", position: "absolute", width: "50%" }} />
+            
           </VStack>
         </Stack>
 
@@ -640,8 +634,8 @@ const ClientHushhButton = () => {
           mx={{ md: "10rem", base: "3.5rem" }}
           mt={{ base: "3.5rem", md: "10rem" }}
           mb={{ base: "2.5rem", md: "15rem" }}
-          position={"relative"}
-        >
+          position={"relative"}>
+          
           <Box display={{ base: "none", md: "block" }}>
             <Image
               src={BgAnimation}
@@ -652,10 +646,10 @@ const ClientHushhButton = () => {
                 zIndex: "-10",
                 width: "100%",
                 height: "40rem",
-                filter: "grayscale(100%)",
+                filter: "grayscale(100%)"
               }}
-              unoptimized
-            />
+              unoptimized />
+            
           </Box>
           <Box display={{ base: "block", md: "none" }}>
             <Image
@@ -667,10 +661,10 @@ const ClientHushhButton = () => {
                 zIndex: "-10",
                 width: "100%",
                 height: "13rem",
-                filter: "grayscale(100%)",
+                filter: "grayscale(100%)"
               }}
-              unoptimized
-            />
+              unoptimized />
+            
           </Box>
 
           <VStack px={{ md: "10rem", base: "0rem" }}>
@@ -679,8 +673,8 @@ const ClientHushhButton = () => {
               className="gradient"
               fontWeight={"400"}
               fontSize={{ md: "3.75rem", base: "1.25rem" }}
-              lineHeight={{ base: "45px", md: "75px" }}
-            >
+              lineHeight={{ base: "45px", md: "75px" }}>
+              
               Transformed Shopping <br></br> Experience
             </Text>
             <Text
@@ -689,8 +683,8 @@ const ClientHushhButton = () => {
               textAlign={"center"}
               fontWeight={"400"}
               lineHeight={{ md: "31.5px", base: "20px" }}
-              fontSize={{ md: "1.125rem", base: "0.75rem" }}
-            >
+              fontSize={{ md: "1.125rem", base: "0.75rem" }}>
+              
               With the Hushh Widget, websites and apps seamlessly change to
               showcase products that align with the user's preferences. It's
               like having a personalized shopping assistant that curates
@@ -702,43 +696,43 @@ const ClientHushhButton = () => {
           pb={{ base: "3rem", md: "6rem" }}
           px={{ md: "10rem", base: "1rem" }}
           gap={{ md: "5rem", base: "1.25rem" }}
-          mt={{ md: "5rem", base: "2rem" }}
-        >
+          mt={{ md: "5rem", base: "2rem" }}>
+          
           <VStack
             gap={{ md: "2rem", base: "0.5rem" }}
             alignItems={"flex-start"}
-            textAlign={"left"}
-          >
+            textAlign={"left"}>
+            
             <Box display={{ md: "block", base: "none" }}>
               <Image
                 src={Slogo}
                 alt="sLogo"
                 style={{ width: "120px", height: "160px" }}
-                unoptimized
-              />
+                unoptimized />
+              
             </Box>
             <Box display={{ md: "none", base: "block" }}>
               <Image
                 src={Slogo}
                 alt="sLogo"
                 style={{ width: "90px", height: "110px" }}
-                unoptimized
-              />
+                unoptimized />
+              
             </Box>
 
             <Text
               fontWeight={"400"}
               fontSize={{ md: "3.75rem", base: "1.25rem" }}
               lineHeight={{ md: "75px", base: "30px" }}
-              className="gradient"
-            >
+              className="gradient">
+              
               Hushh Button <br></br> Magic
             </Text>
             <Text
               lineHeight={{ md: "31.5px" }}
               color={"white"}
-              fontSize={{ md: "1.125rem", base: "0.56rem" }}
-            >
+              fontSize={{ md: "1.125rem", base: "0.56rem" }}>
+              
               The widget allows users to create their cookies and control what
               information they want to share with different websites. This gives
               users complete control over their data privacy while enjoying a
@@ -748,37 +742,37 @@ const ClientHushhButton = () => {
           <VStack
             alignItems={"flex-start"}
             textAlign={"left"}
-            gap={{ md: "2rem", base: "0.5rem" }}
-          >
+            gap={{ md: "2rem", base: "0.5rem" }}>
+            
             <Box display={{ md: "block", base: "none" }}>
               <Image
                 src={DataRetrievalMade}
                 alt="DataRetrievalMade"
                 style={{ width: "120px", height: "160px" }}
-                unoptimized
-              />
+                unoptimized />
+              
             </Box>
             <Box display={{ md: "none", base: "block" }}>
               <Image
                 src={DataRetrievalMade}
                 alt="DataRetrievalMade"
                 style={{ width: "90px", height: "110px" }}
-                unoptimized
-              />
+                unoptimized />
+              
             </Box>
             <Text
               fontWeight={"400"}
               fontSize={{ md: "3.75rem", base: "1.25rem" }}
               lineHeight={{ md: "75px", base: "30px" }}
-              className="gradient"
-            >
+              className="gradient">
+              
               Data Retrieval Made Easy
             </Text>
             <Text
               lineHeight={{ md: "31.5px" }}
               color={"white"}
-              fontSize={{ md: "1.125rem", base: "0.56rem" }}
-            >
+              fontSize={{ md: "1.125rem", base: "0.56rem" }}>
+              
               The widget allows users to retieve their data and control what
               information they want to share with different websites. This gives
               users complete control over their data privacy while enjoying a
@@ -789,8 +783,8 @@ const ClientHushhButton = () => {
         <HushhButtonFaq />
       </Box>
       <ContactForm />
-    </>
-  );
+    </>);
+
 };
 
 export default ClientHushhButton;

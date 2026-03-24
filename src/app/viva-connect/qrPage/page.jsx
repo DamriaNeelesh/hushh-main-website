@@ -3,8 +3,6 @@ import React from "react";
 import {
   Box,
   Button,
-  IconButton,
-  StackDivider,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -14,7 +12,7 @@ import { useToast } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/navigation";
 
-const qrCodePage2 = () => {
+const VivaConnectQrPage = () => {
   const router = useRouter();
   const toast = useToast();
   const qrValue = "https://www.hush1one.com/viva-connect";
@@ -104,4 +102,4 @@ const qrCodePage2 = () => {
   );
 };
 
-export default qrCodePage2;
+export default VivaConnectQrPage;

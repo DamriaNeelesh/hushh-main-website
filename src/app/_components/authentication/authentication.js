@@ -1,7 +1,6 @@
 import getUserDetails from "./getUserDetails";
 import googleSignIn from "./googleSignIn";
 import signOut from "./signOut";
-import getAccessToken from "./getAccessToken";
 import isLoggedIn from "./isLoggedIn";
 import getFullName from "./getFullName";
 import getSession from "./getSession";

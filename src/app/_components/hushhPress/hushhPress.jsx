@@ -10,8 +10,6 @@ import {
     ListItem,
     Stack,
   } from "@chakra-ui/react";
-import { useState } from "react";  
-import FooterComponent from "../features/FooterComponent";
 import ContentWrapper from "../layout/ContentWrapper";
 // import Header from "../_components/header";
 
@@ -258,7 +256,6 @@ import ContentWrapper from "../layout/ContentWrapper";
         </VStack>
       </Box>
       </ContentWrapper>
-      <FooterComponent/>
       </>
     );
   };

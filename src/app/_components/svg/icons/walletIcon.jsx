@@ -10,7 +10,7 @@ const WalletIcon = () => (
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect x="0.5" width="68" height="68" rx="20" fill="#2B2B2B" />
-      <g opacity="0.84992" clip-path="url(#clip0_1484_814)">
+      <g opacity="0.84992" clipPath="url(#clip0_1484_814)">
         <path
           fill-rule="evenodd"
           clip-rule="evenodd"

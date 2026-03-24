@@ -1,15 +1,12 @@
 'use client'
 import React from 'react'
-import { Container, VStack, Heading, Text, HStack, Button, Box } from '@chakra-ui/react'
-// import { useRouter } from 'next/navigation'
-import NextImage from 'next/image'
-// import BlackLockIcon from '@/public/images/black-lock-icon.png'
+import { Container, VStack, Heading, Text, Button, Box } from '@chakra-ui/react'
 import ContentWrapper from '../_components/layout/ContentWrapper'
 import ContactForm from '../_components/features/contactForm'
 import { useRouter } from 'next/navigation'
 
-const page = () => {
-const router = useRouter();
+export default function WhyHushhPage() {
+  const router = useRouter();
   return (
     <>
     <Box bg="#f5f5f7">
@@ -45,9 +42,9 @@ const router = useRouter();
               fontFamily="Inter, sans-serif"
             //   maxW={{ base: "100%", md: "90%", lg: "85%", xl: "80%" }}
             >
-              We're building
+              We&rsquo;re building
               <br />
-              the Internet's trust layer.
+              the Internet&rsquo;s trust layer.
             </Heading>
           </VStack>
 
@@ -141,7 +138,7 @@ const router = useRouter();
                 fontWeight="400"
                 textAlign="left"
               >
-                Consent is not a checkbox — it's a contract.
+                Consent is not a checkbox — it&rsquo;s a contract.
               </Text>
             </Box>
 
@@ -200,7 +197,7 @@ const router = useRouter();
             fontWeight="600"
             textAlign="center"
           >
-            We don't sell user data. We help users create value with it — on their terms.
+            We don&rsquo;t sell user data. We help users create value with it — on their terms.
           </Text>
 
         </Box>
@@ -300,7 +297,7 @@ const router = useRouter();
             maxW={{ base: "100%", md: "90%", lg: "85%" }}
             px={{ base: 4, md: 0 }}
           >
-            We believe that privacy isn't just about compliance — it's about respect, autonomy, and long-term trust. Our Consent AI Protocol enforces that belief in code.
+            We believe that privacy isn&rsquo;t just about compliance — it&rsquo;s about respect, autonomy, and long-term trust. Our Consent AI Protocol enforces that belief in code.
           </Text>
 
           {/* CTA Button */}
@@ -313,7 +310,7 @@ const router = useRouter();
             px={{ base: 6, md: 8 }}
             py={{ base: 4, md: 5 }}
             onClick={() => {
-              router.push("/legal/privacypolicy");
+              router.push("/privacy");
             }}
             fontSize={{ base: "16px", md: "18px" }}
             fontWeight="500"
@@ -435,7 +432,7 @@ const router = useRouter();
               maxW={{ base: "100%", md: "90%", lg: "85%" }}
               px={{ base: 4, md: 0 }}
             >
-              This protocol is our north star — and it's fully open
+              This protocol is our north star — and it&rsquo;s fully open
             </Text>
 
             {/* CTA Button */}
@@ -475,5 +472,3 @@ const router = useRouter();
     </>
   )
 }
-
-export default page

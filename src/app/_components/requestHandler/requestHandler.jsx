@@ -16,8 +16,8 @@ export async function httpRequest(method, endpoint, options = {}) {
     method: method.toUpperCase(),
     headers: {
       "Content-Type": "application/json",
-      ...(headers || {}),
-    },
+      ...(headers || {})
+    }
   };
 
   // Attach body if needed
@@ -36,7 +36,7 @@ export async function httpRequest(method, endpoint, options = {}) {
       // Parse and return the JSON response
       try {
         return await response.json();
-      } catch (err) {
+      } catch {
         return null; // Return null if parsing fails
       }
     } else if (response.status === 429) {

@@ -8,14 +8,15 @@ export async function GET() {
     '/contact-us',
     '/career',
     '/demoBookingPage',
-    '/developerApi',
+    '/developers',
     '/hushh-press',
-    '/legal/privacypolicy',
-    '/legal/termsofuse',
+    '/privacy',
+    '/terms',
   ];
 
   // Define product routes
   const productRoutes = [
+    '/products/kai',
     '/products/hushh-wallet-app',
     '/products/hushh-button',
     '/products/browser-companion',
@@ -33,7 +34,7 @@ export async function GET() {
     if (route === '/') priority = 1.0;
     if (route.startsWith('/products/')) priority = 0.9;
     if (route === '/about' || route === '/contact-us') priority = 0.8;
-    if (route === '/developerApi') priority = 0.9;
+    if (route === '/developers') priority = 0.9;
 
     return {
       loc: `https://www.hushh.ai${route}`,

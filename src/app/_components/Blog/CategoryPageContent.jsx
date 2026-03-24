@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { format } from "date-fns";
 import Categories from "./Categories";
+import { formatContentDate } from "../../../lib/content/date-utils";
 
 const FALLBACK_IMAGE = "/blogs/blog2o.png";
 
@@ -36,7 +36,7 @@ const CategoryPageContent = ({ blogs = [], allCategories = [], params, categoryN
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
             {blogs.map((blog) => {
               const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
-              const publishedAt = blog.publishedAt ? format(new Date(blog.publishedAt), "d MMM yyyy") : "Recent post";
+              const publishedAt = formatContentDate(blog.publishedAt);
 
               return (
                 <article key={blog._id} className="blog-card h-full flex flex-col">

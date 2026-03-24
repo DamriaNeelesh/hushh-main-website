@@ -18,7 +18,7 @@ import {
     Grid
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 // Font stack
 const fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
@@ -74,8 +74,9 @@ const LabelText = ({ children }) => (
     </Text>
 );
 
-export default function PublicProfilePage({ params }) {
-    const id = params.id; // Single ID param for /p/[id]
+export default function PublicProfilePage() {
+    const params = useParams();
+    const id = typeof params?.id === "string" ? params.id : Array.isArray(params?.id) ? params.id[0] : undefined;
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();

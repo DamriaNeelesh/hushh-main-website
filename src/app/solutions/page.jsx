@@ -1,12 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Box, Container, Flex, Heading, Text, Grid, GridItem, Button, Image, VStack, HStack, Divider, Link, SimpleGrid } from '@chakra-ui/react';
-import { CheckCircleIcon } from '@chakra-ui/icons';
-import extendedTheme from '../theme';
+import { Box, Container, Heading, Text, Grid, GridItem, Button, VStack, SimpleGrid } from '@chakra-ui/react';
 import './solutions.css';
-import Head from "next/head";
-import { siteMetadata } from "../sitemetadata";
 
 const SolutionsPage = () => {
   return (
@@ -788,7 +784,7 @@ const SolutionsPage = () => {
                 lineHeight={1.2}
                 textAlign="center"
               >
-                Let's Build Your Infrastructure
+                Let&apos;s Build Your Infrastructure
               </Heading>
               
               <Text
@@ -801,7 +797,7 @@ const SolutionsPage = () => {
                 textAlign="center"
                 maxW="700px"
               >
-                Need help selecting the right server or computing solution? We're just a call or message away.
+                Need help selecting the right server or computing solution? We&apos;re just a call or message away.
               </Text>
               
               <Button

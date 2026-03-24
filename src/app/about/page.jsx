@@ -5,13 +5,12 @@ import AboutGroupPhoto from "../_components/svg/aboutImages/AboutGroupPhoto.svg"
 import AboutOfficePhoto from "../_components/svg/aboutImages/AboutOfficePhoto.svg";
 import AboutDockPhoto from "../_components/svg/aboutImages/AboutDockPhoto.svg";
 import Image from "next/image";
-import AboutMission from "../_components/svg/aboutImages/AboutMission.svg";
-import AboutVision from "../_components/svg/aboutImages/AboutVision.svg";
 import ContactUsClient from "../contact-us/ContactUsClient";
 import AboutFaq from "../_components/features/faq/aboutFaq";
 import ImageGrid from "../_components/features/dynamicImageGrid";
 import { siteMetadata } from "../sitemetadata";
 import ContentWrapper from "../_components/layout/ContentWrapper";
+import JsonLdScript from "../_components/seo/JsonLdScript";
 
 export const metadata = {
   title: "About Hushh | Pioneering Data Empowerment & Privacy",
@@ -90,10 +89,7 @@ const organizationJsonLd = {
 export default function About() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-      />
+      <JsonLdScript data={organizationJsonLd} />
       <ContentWrapper>
       <Box bg="#f5f5f7" w="full">
         {/* Hero Section */}

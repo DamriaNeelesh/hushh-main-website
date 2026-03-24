@@ -6,7 +6,6 @@ import Head from "next/head";
 import ConsentAILanding from "../_components/features/ConsentAILanding";
 import CodeLikeBacteriaSection from "../_components/features/CodeLikeBacteriaSection";
 import ConsentAgentsAsOperons from "../_components/features/ConsentAgentsAsOperons";
-import EukaryoticBackbone from "../_components/features/EukaryoticBackbone";
 import VerifiediOSUserSection from "../_components/features/VerifiediOSUserSection";
 import ContactForm from "../_components/features/contactForm";
 import NotificationPopup from "../_components/features/popupNotification";
@@ -14,23 +13,23 @@ import DownloadModal from "../_components/primitives/downloadModal";
 import { useDisclosure, useTheme } from "@chakra-ui/react";
 
 const ClientHome = () => {
-  const router = useRouter();
+  const _router = useRouter();
   const [showPopup, setShowPopup] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const theme = useTheme();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [_loading, setLoading] = useState(true);
+  const _theme = useTheme();
+  const { isOpen: _isOpen, onOpen, onClose: _onClose } = useDisclosure();
   const [hasHovered, setHasHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentQRLink, setCurrentQRLink] = useState("");
+  const [_currentQRLink, setCurrentQRLink] = useState("");
 
-  const handleMouseEnter = () => {
+  const _handleMouseEnter = () => {
     if (!hasHovered) {
       onOpen();
       setHasHovered(true);
     }
   };
 
-  const handleOpenModal = (link) => {
+  const _handleOpenModal = (link) => {
     setCurrentQRLink(link);
     setIsModalOpen(true);
   };
@@ -51,11 +50,11 @@ const ClientHome = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  const handleDownloadClick = () => {
+  const _handleDownloadClick = () => {
     setIsModalOpen(true); // Open the modal instead of navigating
   };
 
-  const handleTestBuildClick = (platform) => {
+  const _handleTestBuildClick = (platform) => {
     if (platform === "android") {
       window.location.href = "https://bit.ly/hushh-wallet-android-dev"; // Test build for Android
     } else {
@@ -63,7 +62,7 @@ const ClientHome = () => {
     }
   };
 
-  const handleProductionBuildClick = (platform) => {
+  const _handleProductionBuildClick = (platform) => {
     if (platform === "android") {
       window.location.href = "https://bit.ly/hushh-wallet-play-store"; // Production build for Android
     } else {
@@ -78,25 +77,25 @@ const ClientHome = () => {
         <meta name="title" content="HUSHH - Home" />
         <meta
           name="description"
-          content="Intelligence as a service powered by your Data"
-        />
+          content="Intelligence as a service powered by your Data" />
+        
         <meta
           name="keywords"
-          content="Data API Business, Data Autonomy, Data Equity, Consent-Driven Excellence, Technology For Everyone, Hushh Wallet App, Hushh Button, Vibe Search, Browser Companion, Concierge App, Valet Chat, Vibe Search API, Hushh For Students, Brand Wallet, Receipt Radar, Future of Digital Identity & Personalised Experiences, Gen AI, GenAI "
-        />
+          content="Data API Business, Data Autonomy, Data Equity, Consent-Driven Excellence, Technology For Everyone, Hushh Wallet App, Hushh Button, Vibe Search, Browser Companion, Concierge App, Valet Chat, Vibe Search API, Hushh For Students, Brand Wallet, Receipt Radar, Future of Digital Identity & Personalised Experiences, Gen AI, GenAI " />
+        
          <meta property="og:title" content="Hushh - user data API businesses" />
         <meta
           property="og:description"
-          content="Integrated Wallet & Data Control"
-        />
+          content="Integrated Wallet & Data Control" />
+        
         <meta property="og:url" content="https://hushh.ai" />
-        <link rel="canonical" href="https://hushh.ai" key="canonical"/>
+        <link rel="canonical" href="https://hushh.ai" key="canonical" />
       </Head>
       
       <DownloadModal
-      isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} />
+      
       
       {/* New ConsentAI Landing Section */}
       <ConsentAILanding />
@@ -117,13 +116,13 @@ const ClientHome = () => {
       <ContactForm />
       
       {/* Notification Popup */}
-      {showPopup && (
-        <NotificationPopup 
-          onClose={() => setShowPopup(false)} 
-        />
-      )}
-    </>
-  );
+      {showPopup &&
+      <NotificationPopup
+        onClose={() => setShowPopup(false)} />
+
+      }
+    </>);
+
 };
 
 export default ClientHome;

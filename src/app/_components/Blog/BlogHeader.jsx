@@ -15,7 +15,7 @@ const BlogHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { colorMode } = useColorMode();
-  const pathname = usePathname();
+  const pathname = usePathname() || "";
   
   // Determine if we're on a detailed blog post page
   const isDetailPage = pathname && pathname.startsWith('/blogs/') && pathname !== '/blogs';

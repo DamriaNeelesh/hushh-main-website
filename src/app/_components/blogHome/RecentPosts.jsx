@@ -3,10 +3,10 @@
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { sortBlogs } from "../../utils";
 import { FALLBACK_IMAGE } from "../Blog/constants";
+import { formatContentDate } from "../../../lib/content/date-utils";
 
 const RecentPosts = ({ blogs = [] }) => {
   const router = useRouter();
@@ -35,7 +35,7 @@ const RecentPosts = ({ blogs = [] }) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
         {displayedBlogs.map((blog) => {
-          const publishedAt = blog.publishedAt ? format(new Date(blog.publishedAt), "d MMM yyyy") : "Recent post";
+          const publishedAt = formatContentDate(blog.publishedAt);
           const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
 
           return (

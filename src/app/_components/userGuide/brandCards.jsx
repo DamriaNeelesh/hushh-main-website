@@ -4,14 +4,10 @@ import {
   VStack,
   Heading,
   Text,
-  List,
   ListItem,
-  ListIcon,
   OrderedList,
-  Divider,
   UnorderedList,
 } from '@chakra-ui/react';
-import { CheckCircleIcon } from '@chakra-ui/icons';
 
 const BrandCards = () => {
   return (

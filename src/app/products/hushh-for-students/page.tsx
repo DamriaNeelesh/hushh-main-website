@@ -2,6 +2,7 @@ import React from "react";
 import { siteMetadata } from "../../sitemetadata";
 import ClientHushhForStudents from "../../clientside/HFS";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
+import JsonLdScript from "../../_components/seo/JsonLdScript";
 export const metadata = {
   title: "Hushh For Students | Empower Your Academic Journey with Data Control",
   description:
@@ -89,10 +90,7 @@ const productJsonLd = {
 const hushhForStudents = () => {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
-      />
+      <JsonLdScript data={productJsonLd} />
       <ContentWrapper includeHeaderSpacing={true}>
         <ClientHushhForStudents />
       </ContentWrapper>

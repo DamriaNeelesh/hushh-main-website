@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import Image from "next/image";
 import Script from "next/script";
-import { s, TABS, colors, SUPABASE_URL, SUPABASE_ANON_KEY, FUNCTIONS_BASE, TEST_EMAIL, TEST_PASSWORD } from "./_components/styles";
+import { s, TABS, colors, FUNCTIONS_BASE } from "./_components/styles";
 import OverviewTab from "./_components/OverviewTab";
 import LiveTestTab from "./_components/LiveTestTab";
 import ApiDocsTab from "./_components/ApiDocsTab";
@@ -13,7 +14,7 @@ import ActivityLog from "./_components/ActivityLog";
 
 export default function PlaidBalancePage() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [jwt, setJwt] = useState(null);
+  const [jwt] = useState(null);
   const [authReady, setAuthReady] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -153,29 +154,14 @@ export default function PlaidBalancePage() {
 
   // ─── AUTO AUTH ON MOUNT ───
   useEffect(() => {
-    const autoLogin = async () => {
-      try {
-        const res = await fetch(
-          `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
-          {
-            method: "POST",
-            headers: { apikey: SUPABASE_ANON_KEY, "Content-Type": "application/json" },
-            body: JSON.stringify({ email: TEST_EMAIL, password: TEST_PASSWORD }),
-          }
-        );
-        const data = await res.json();
-        if (data.access_token) {
-          setJwt(data.access_token);
-          addLog("success", `Session ready — ${TEST_EMAIL}`);
-        } else {
-          addLog("error", "Auto-auth failed", data);
-        }
-      } catch (err) {
-        addLog("error", "Auth error", err.message);
-      }
+    const initializePortal = async () => {
+      addLog(
+        "info",
+        "Secure live testing is disabled on the public site build. Use the internal environment for Plaid write and balance validation.",
+      );
       setAuthReady(true);
     };
-    autoLogin();
+    initializePortal();
   }, [addLog]);
 
   // ─── CHECK ENDPOINT STATUS ───
@@ -212,6 +198,11 @@ export default function PlaidBalancePage() {
 
   // ─── HANDLERS ───
   const handleCreateLinkToken = async () => {
+    if (!jwt) {
+      setPlaidError("Secure live testing is unavailable in the public build.");
+      addLog("warning", "Blocked live test action without an internal secure session.");
+      return;
+    }
     setPlaidLoading(true);
     setPlaidError("");
     addLog("info", "POST /create-link-token");
@@ -231,6 +222,27 @@ export default function PlaidBalancePage() {
     setPlaidLoading(false);
   };
 
+  const handleExchangeToken = useCallback(async (publicToken, institutionName) => {
+    if (!jwt) {
+      setPlaidError("Secure live testing is unavailable in the public build.");
+      addLog("warning", "Blocked token exchange without an internal secure session.");
+      return;
+    }
+    setPlaidLoading(true);
+    addLog("info", "POST /exchange-public-token");
+    try {
+      const res = await fetch(`${FUNCTIONS_BASE}/exchange-public-token`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ public_token: publicToken, institution_name: institutionName || "Unknown" }),
+      });
+      const data = await res.json();
+      if (data.error) { setPlaidError(data.error); addLog("error", "Exchange failed", data); }
+      else { setLinkSuccess(true); setLinkedItemId(data.item_id); addLog("success", "Account linked!", { item_id: data.item_id }); }
+    } catch (err) { setPlaidError(err.message); addLog("error", "Error", err.message); }
+    setPlaidLoading(false);
+  }, [addLog, jwt]);
+
   const handleOpenPlaidLink = useCallback(() => {
     if (!linkToken || !window.Plaid) { addLog("error", "Plaid Link SDK not loaded"); return; }
     addLog("info", "Opening Plaid Link UI...");
@@ -247,25 +259,14 @@ export default function PlaidBalancePage() {
       onEvent: (eventName) => addLog("info", `Plaid event: ${eventName}`),
     });
     handler.open();
-  }, [linkToken, addLog]);
-
-  const handleExchangeToken = async (publicToken, institutionName) => {
-    setPlaidLoading(true);
-    addLog("info", "POST /exchange-public-token");
-    try {
-      const res = await fetch(`${FUNCTIONS_BASE}/exchange-public-token`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ public_token: publicToken, institution_name: institutionName || "Unknown" }),
-      });
-      const data = await res.json();
-      if (data.error) { setPlaidError(data.error); addLog("error", "Exchange failed", data); }
-      else { setLinkSuccess(true); setLinkedItemId(data.item_id); addLog("success", "Account linked!", { item_id: data.item_id }); }
-    } catch (err) { setPlaidError(err.message); addLog("error", "Error", err.message); }
-    setPlaidLoading(false);
-  };
+  }, [addLog, handleExchangeToken, linkToken]);
 
   const handleGetBalance = async () => {
+    if (!jwt) {
+      setBalanceError("Secure live testing is unavailable in the public build.");
+      addLog("warning", "Blocked balance fetch without an internal secure session.");
+      return;
+    }
     setBalanceLoading(true);
     setBalanceError("");
     addLog("info", "POST /get-balance");
@@ -332,7 +333,7 @@ export default function PlaidBalancePage() {
               </div>
               {TABS.map((tab) => (
                 <button key={tab.id} style={s.navItem(activeTab === tab.id)} onClick={() => { setActiveTab(tab.id); if (isMobile) setSidebarOpen(false); }}>
-                  <img src={tab.icon} alt="" width={16} height={16} style={{ opacity: activeTab === tab.id ? 1 : 0.6 }} />
+                  <Image src={tab.icon} alt="" unoptimized width={16} height={16} style={{ opacity: activeTab === tab.id ? 1 : 0.6 }} />
                   <span>{tab.label}</span>
                 </button>
               ))}

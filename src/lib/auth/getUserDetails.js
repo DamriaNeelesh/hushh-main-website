@@ -1,18 +1,13 @@
 import authConfig from "../config/authConfig";
 
-const getAuthTokenKey = () => {
-  const match = authConfig.SUPABASE_URL?.match(/https?:\/\/(.*?)\.supabase\.co/i);
-  const projectRef = match?.[1] || "supabase";
-  return `sb-${projectRef}-auth-token`;
-};
-
 export default async function getUserDetails(setUserDetails) {
   try {
-    const localCreds = localStorage.getItem(getAuthTokenKey());
-    const localCredsJSON = localCreds ? JSON.parse(localCreds) : null;
-    
+    const {
+      data: { session },
+    } = await authConfig.supabaseClient.auth.getSession();
+
     const userDetails = {
-      data: localCredsJSON,
+      data: session,
     };
     
     if (setUserDetails) {

@@ -2,6 +2,7 @@ import React from "react";
 import ClientHushhValetChat from "../../clientside/HushhValetChat";
 import { siteMetadata } from "../../sitemetadata";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
+import JsonLdScript from "../../_components/seo/JsonLdScript";
 export const metadata = {
   title: "Hushh Valet Chat | AI-Powered Receipt & Finance Management",
   description:
@@ -89,10 +90,7 @@ const productJsonLd = {
 const hushhValetChat = () => {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
-      />
+      <JsonLdScript data={productJsonLd} />
       <ContentWrapper includeHeaderSpacing={true}>
         <ClientHushhValetChat />
       </ContentWrapper>

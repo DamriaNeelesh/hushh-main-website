@@ -47,8 +47,13 @@ describe("TABLES", () => {
 
 describe("Supabase client", () => {
   it("creates client with correct config", () => {
+    process.env.NEXT_PUBLIC_SUPABASE_AUTH_ANON_KEY = "test-anon-key";
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "test-anon-key";
     const { createClient } = require("@supabase/supabase-js");
-    // The module was already imported, so createClient was already called
+    const { getVaniSupabase } = require("../lib/supabase");
+
+    getVaniSupabase();
+
     expect(createClient).toHaveBeenCalled();
     const [url, , options] = createClient.mock.calls[0];
     expect(url).toContain("supabase.co");

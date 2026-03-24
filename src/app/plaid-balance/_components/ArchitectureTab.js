@@ -1,4 +1,4 @@
-import { s, colors } from "./styles";
+import { s } from "./styles";
 
 export default function ArchitectureTab() {
   return (

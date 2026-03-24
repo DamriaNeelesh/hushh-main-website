@@ -2,6 +2,7 @@ import React from "react";
 import ClientHushhButton from "../../clientside/HushhButton";
 import { siteMetadata } from "../../sitemetadata";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
+import JsonLdScript from "../../_components/seo/JsonLdScript";
 export const metadata = {
   title: "Hushh Button | One-Click Data Sharing Solution for Personalized Experiences",
   description:
@@ -65,10 +66,7 @@ const productJsonLd = {
 const hushhButton = () => {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
-      />
+      <JsonLdScript data={productJsonLd} />
       <ContentWrapper includeHeaderSpacing={true} >
         <ClientHushhButton />
       </ContentWrapper>

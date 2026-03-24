@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import SocialLinkInput from '../../_components/socialOnboarding/SocialLinkInput';
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
 import { saveUserSocials } from "../../lib/api/socialOnboarding";
@@ -22,9 +22,11 @@ export default function SocialLinksPage() {
           {/* Left visual section */}
           <section className="hidden lg:block bg-black">
             <div className="h-full w-full flex items-center justify-center p-16">
-              <img 
-                src="/socialMediaBanner.png" 
-                alt="Social Media Connection Banner" 
+              <Image
+                src="/socialMediaBanner.png"
+                alt="Social Media Connection Banner"
+                width={1280}
+                height={1280}
                 className="max-w-full max-h-full object-contain"
               />
             </div>
@@ -171,7 +173,7 @@ export default function SocialLinksPage() {
                       facebook_id: meta,
                     });
                     try {
-                      localStorage.setItem(
+                      sessionStorage.setItem(
                         "hushh_social_socials",
                         JSON.stringify({ instagram, linkedin, twitter, facebook: meta })
                       );
@@ -196,5 +198,3 @@ export default function SocialLinksPage() {
     </ContentWrapper>
   );
 }
-
-

@@ -30,7 +30,7 @@ export const SPEECH_LANGUAGES = {
   "ml-IN": "Malayalam (India)",
   "pa-IN": "Punjabi (India)",
   "or-IN": "Odia (India)",
-  "ur-IN": "Urdu (India)",
+  "ur-IN": "Urdu (India)"
 };
 
 /**
@@ -41,11 +41,11 @@ export const SPEECH_LANGUAGES = {
  * @param {number} sampleRateHertz - Sample rate (e.g., 48000)
  */
 export async function transcribeAudio(
-  audioContent,
-  languageCode = "hi-IN",
-  encoding = "WEBM_OPUS",
-  sampleRateHertz = 48000
-) {
+audioContent,
+languageCode = "hi-IN",
+_encoding = "WEBM_OPUS",
+_sampleRateHertz = 48000)
+{
   const speechClient = getClient();
   const recognizer = `projects/${GCP_CONFIG.projectId}/locations/${GCP_CONFIG.location}/recognizers/_`;
 
@@ -58,22 +58,22 @@ export async function transcribeAudio(
       features: {
         enableAutomaticPunctuation: true,
         enableWordTimeOffsets: true,
-        enableWordConfidence: true,
-      },
+        enableWordConfidence: true
+      }
     },
-    content: audioContent.toString("base64"),
+    content: audioContent.toString("base64")
   });
 
   const results = response.results || [];
-  const transcript = results
-    .map((result) => result.alternatives?.[0]?.transcript || "")
-    .join(" ")
-    .trim();
+  const transcript = results.
+  map((result) => result.alternatives?.[0]?.transcript || "").
+  join(" ").
+  trim();
 
   const confidence =
-    results.length > 0
-      ? results[0].alternatives?.[0]?.confidence || 0
-      : 0;
+  results.length > 0 ?
+  results[0].alternatives?.[0]?.confidence || 0 :
+  0;
 
   const words = results.flatMap(
     (result) => result.alternatives?.[0]?.words || []
@@ -89,8 +89,8 @@ export async function transcribeAudio(
       word: w.word,
       confidence: w.confidence,
       startTime: w.startOffset?.seconds || 0,
-      endTime: w.endOffset?.seconds || 0,
+      endTime: w.endOffset?.seconds || 0
     })),
-    model: CHIRP_MODEL,
+    model: CHIRP_MODEL
   };
 }

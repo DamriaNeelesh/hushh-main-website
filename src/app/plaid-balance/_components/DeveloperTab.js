@@ -245,7 +245,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUz..."; // your anon key
 const res = await fetch(SUPABASE_URL + "/auth/v1/token?grant_type=password", {
   method: "POST",
   headers: { apikey: SUPABASE_ANON_KEY, "Content-Type": "application/json" },
-  body: JSON.stringify({ email: "your@email.com", password: "yourPassword" })
+  body: JSON.stringify({ email: "your@email.com", password: userProvidedPassword })
 });
 const { access_token } = await res.json();
 // access_token is your JWT — valid for ~1 hour`}</pre>
@@ -360,7 +360,7 @@ const FUNCTIONS_BASE = SUPABASE_URL + "/functions/v1";
 const authRes = await fetch(SUPABASE_URL + "/auth/v1/token?grant_type=password", {
   method: "POST",
   headers: { apikey: SUPABASE_ANON_KEY, "Content-Type": "application/json" },
-  body: JSON.stringify({ email: "user@example.com", password: "password" })
+  body: JSON.stringify({ email: "user@example.com", password: userProvidedPassword })
 });
 const { access_token: jwt } = await authRes.json();
 

@@ -1,8 +1,10 @@
-import { allBlogs } from "contentlayer/generated";
+import { allBlogSummaries } from "../../lib/content/blog-registry";
 import ContactForm from "../_components/features/contactForm";
 import HushhBlogsContent from "../_components/Blog/HushhBlogsContent";
 import { siteMetadata } from "../sitemetadata";
 import ContentWrapper from "../_components/layout/ContentWrapper";
+
+export const revalidate = 3600;
 
 export const metadata = {
   title: "Hushh Newsroom | Latest Insights and Updates",
@@ -34,7 +36,7 @@ export const metadata = {
 export default function HushhBlogs() {
   return (
     <ContentWrapper>
-      <HushhBlogsContent blogs={allBlogs} />
+      <HushhBlogsContent blogs={allBlogSummaries} />
       <ContactForm />
     </ContentWrapper>
   );

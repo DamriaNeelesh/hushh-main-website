@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useBannerHeight } from "../../context/BannerHeightContext";
 
 const HeaderComponent = () => {
-  const pathname = usePathname();
+  const pathname = usePathname() || "";
   const { totalBannerHeight } = useBannerHeight();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -50,6 +50,7 @@ const HeaderComponent = () => {
 
   return (
     <div 
+      data-site-header
       className="w-full fixed z-50 transition-transform duration-300 ease-in-out"
       style={{ 
         top: `${totalBannerHeight}px`,

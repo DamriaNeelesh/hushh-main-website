@@ -21,12 +21,15 @@ const FundingBanner = () => {
     <Box
       bg="linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)"
       color="white"
-      py={{ base: 1.5, md: 2 }}
       position="fixed"
       top={0}
       left={0}
       right={0}
       zIndex={10000}
+      height={{ base: "32px", lg: "36px" }}
+      minHeight={{ base: "32px", lg: "36px" }}
+      display="flex"
+      alignItems="center"
       boxShadow="0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
       sx={{
         animation: 'fadeIn 0.8s ease-out',
@@ -39,7 +42,8 @@ const FundingBanner = () => {
       {/* Mobile Continuous Slider Version */}
       <Box
         display={{ base: 'block', lg: 'none' }}
-        height="32px"
+        height="100%"
+        width="100%"
         overflow="hidden"
         position="relative"
       >
@@ -89,12 +93,14 @@ const FundingBanner = () => {
       <Container 
         maxW="container.xl" 
         px={{ base: 4, md: 8 }}
+        h="100%"
         display={{ base: 'none', lg: 'block' }}
       >
         <Flex
           align="center"
           justify="center"
           textAlign="center"
+          height="100%"
         >
           <Text
             fontSize={{ base: 'sm', md: 'md' }}

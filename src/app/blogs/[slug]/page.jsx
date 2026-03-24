@@ -1,16 +1,23 @@
 import { siteMetadata } from "../../sitemetadata";
-import { allBlogs } from "contentlayer/generated";
+import { allBlogs, getBlogBySlug } from "../../../lib/content/blog-registry";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Box, Container, Heading, Text } from "@chakra-ui/react";
 import ContactForm from "src/app/_components/features/contactForm";
-import Script from "next/script";
-import { format } from "date-fns";
 import ClientBlogContent from "../../_components/Blog/ClientBlogContent";
+import RenderContent from "../../_components/Blog/RenderContent";
+import JsonLdScript from "../../_components/seo/JsonLdScript";
 import { calculateReadingTime } from "../../../lib/utils";
+import {
+  formatContentDate,
+  getContentDateIso,
+  getContentDateTimestamp,
+} from "../../../lib/content/date-utils";
+import { buildPageMetadata, resolveCanonicalUrl } from "../../../lib/seo/pageMetadata";
 
 // Default image path for blogs that don't have an image
 const DEFAULT_BLOG_IMAGE = "/images/default-blog-img.jpg";
+export const revalidate = 3600;
 
 // Function to generate related posts
 function getRelatedPosts(currentBlog, allBlogs) {
@@ -30,7 +37,7 @@ function getRelatedPosts(currentBlog, allBlogs) {
           blog._id !== currentBlog._id && 
           !relatedByTag.some(related => related._id === blog._id)
         )
-        .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+        .sort((a, b) => getContentDateTimestamp(b.publishedAt) - getContentDateTimestamp(a.publishedAt))
         .slice(0, 3 - relatedByTag.length);
         
       relatedByTag = [...relatedByTag, ...recentPosts];
@@ -53,13 +60,14 @@ function getRelatedPosts(currentBlog, allBlogs) {
 // Generate static params for all blogs
 export async function generateStaticParams() {
   return allBlogs.map((blog) => ({
-    slug: blog._raw.flattenedPath,
+    slug: blog.slug,
   }));
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
-  const blog = allBlogs.find((blog) => blog._raw.flattenedPath === params.slug);
+  const { slug } = await params;
+  const blog = getBlogBySlug(slug);
   
   if (!blog) {
     return {
@@ -69,57 +77,47 @@ export async function generateMetadata({ params }) {
   }
 
   // Base metadata
-  const publicationDate = new Date(blog.publishedAt).toISOString();
-  const modificationDate = new Date(blog.updatedAt || blog.publishedAt).toISOString();
+  const publicationDate = getContentDateIso(blog.publishedAt);
+  const modificationDate = getContentDateIso(blog.updatedAt || blog.publishedAt) || publicationDate;
   
   // Get image for metadata
   let imageUrl = siteMetadata.socialBanner;
   if (blog.image?.filePath) {
     imageUrl = `${siteMetadata.siteUrl}${blog.image.filePath.replace("../public", "")}`;
   }
-  
-  return {
+
+  return buildPageMetadata({
     title: blog.title,
     description: blog.description,
+    pathname: `/blogs/${slug}`,
+    image: imageUrl,
+    type: "article",
+    keywords: blog.tags,
     openGraph: {
-      title: blog.title,
-      description: blog.description,
-      publishedTime: publicationDate,
-      modifiedTime: modificationDate,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: blog.title,
-        },
-      ],
+      ...(publicationDate ? { publishedTime: publicationDate } : {}),
+      ...(modificationDate ? { modifiedTime: modificationDate } : {}),
       locale: "en_US",
-      type: "article",
       authors: [blog.author || siteMetadata.author],
     },
     twitter: {
-      card: "summary_large_image",
-      title: blog.title,
-      description: blog.description,
       images: [imageUrl],
     },
-    alternates: {
-      canonical: `${siteMetadata.siteUrl}/blogs/${params.slug}`,
-    },
-  };
+  });
 }
 
-export default function BlogPage({ params }) {
+export default async function BlogPage({ params }) {
   try {
-    const blog = allBlogs.find((blog) => blog._raw.flattenedPath === params.slug);
+    const { slug } = await params;
+    const blog = getBlogBySlug(slug);
     
     if(!blog){
       notFound();
     }
 
     // Format date to match Apple's style: "31 March 2025"
-    const formattedDate = format(new Date(blog.publishedAt), "d MMMM yyyy");
+    const publicationDate = getContentDateIso(blog.publishedAt);
+    const modificationDate = getContentDateIso(blog.updatedAt || blog.publishedAt) || publicationDate;
+    const formattedDate = formatContentDate(blog.publishedAt, "d MMMM yyyy", "Recent post");
     
     // Calculate reading time
     const readingTime = blog.readingTime?.text || 
@@ -142,8 +140,8 @@ export default function BlogPage({ params }) {
       "headline": blog.title,
       "description": blog.description,
       "image": imageList,
-      "datePublished": new Date(blog.publishedAt).toISOString(),
-      "dateModified": new Date(blog.updatedAt || blog.publishedAt).toISOString(),
+      ...(publicationDate ? { "datePublished": publicationDate } : {}),
+      ...(modificationDate ? { "dateModified": modificationDate } : {}),
       "author": [{
           "@type": "Person",
           "name": blog?.author ? blog.author : siteMetadata.author,
@@ -159,9 +157,10 @@ export default function BlogPage({ params }) {
     );
 
     // Prepare the enhanced blog content with proper error handling
+    const { Content, ...blogData } = blog;
+
     const enhancedBlog = {
-      ...blog,
-      content: blog.body.raw, // Pass raw content for MDX rendering
+      ...blogData,
       image: {
         ...blog.image,
         filePath: blog.image?.filePath?.replace("../public", "") || DEFAULT_BLOG_IMAGE
@@ -172,11 +171,7 @@ export default function BlogPage({ params }) {
     return (
       <>
         {/* JSON-LD structured data for SEO */}
-        <Script 
-          id="structured-data"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLdScript data={{ ...jsonLd, mainEntityOfPage: resolveCanonicalUrl(`/blogs/${slug}`) }} />
         
         {/* Main blog content component */}
         <ClientBlogContent 
@@ -184,8 +179,7 @@ export default function BlogPage({ params }) {
           formattedDate={formattedDate} 
           readingTime={readingTime}
           isUpdate={isUpdate}
-          allBlogs={allBlogs}
-          params={params}
+          articleContent={<RenderContent blog={blog} />}
         />
         
         {/* Contact form section */}

@@ -39,11 +39,6 @@ export default withAuth(
           return true
         }
         
-        // Require authentication for developer API routes
-        if (req.nextUrl.pathname.startsWith('/developer-Api/content')) {
-          return !!token
-        }
-        
         return true
       },
     },
@@ -54,7 +49,6 @@ export const config = {
   matcher: [
     "/pda",
     "/voice",
-    "/hushhwallet",
-    "/developer-Api/content"
+    "/hushhwallet"
   ] 
 }

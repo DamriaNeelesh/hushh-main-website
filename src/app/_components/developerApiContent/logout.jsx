@@ -1,7 +1,6 @@
-import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import React from "react";
-import '../../../../pages/fonts.css'
+import '../../_styles/developer-fonts.css'
 import { useAuth } from "../../context/AuthContext";
 
 const LogoutButton = () => {
@@ -10,7 +9,7 @@ const LogoutButton = () => {
 
   const handleLogout = async () => {
     await signOut();
-    router.push("/developer-Api/about-developer-api");
+    router.push("/developers");
   };
 
   return (
@@ -20,7 +19,7 @@ const LogoutButton = () => {
       ) : (
         <button
           onClick={() =>
-            router.push("/developer-Api/login")
+            router.push("/developers/login")
           }
         >
           LogIn

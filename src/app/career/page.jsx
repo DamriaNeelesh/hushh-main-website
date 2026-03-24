@@ -2,6 +2,7 @@ import React from 'react'
 import CareerPage from '../_components/career/carrer';
 import { siteMetadata } from '../sitemetadata';
 import ContentWrapper from '../_components/layout/ContentWrapper';
+import JsonLdScript from '../_components/seo/JsonLdScript';
 export const metadata = {
   title: "Careers at Hushh | Join Our Data Privacy Revolution",
   description:
@@ -70,10 +71,7 @@ const jobPostingJsonLd = {
 const Career = () => {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd) }}
-      />
+      <JsonLdScript data={jobPostingJsonLd} />
       <ContentWrapper>
         <CareerPage />
       </ContentWrapper>

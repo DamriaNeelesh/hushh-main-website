@@ -1,4 +1,4 @@
-import { s, colors, FUNCTIONS_BASE } from "./styles";
+import { s, FUNCTIONS_BASE } from "./styles";
 
 const API_ENDPOINTS = [
   {

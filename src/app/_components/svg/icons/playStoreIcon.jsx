@@ -9,7 +9,7 @@ const PlayStoreIcon = () => (
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1953_3363)">
+      <g clipPath="url(#clip0_1953_3363)">
         <path
           d="M16.5186 16.2614L13.066 12.8022L1.64111 24.4049C1.75032 24.3637 1.85619 24.3141 1.95776 24.2565L16.5186 16.2614Z"
           fill="white"

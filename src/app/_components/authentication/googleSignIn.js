@@ -7,7 +7,7 @@ import authConfig from '../../../lib/config/authConfig';
 //     const { data, error } = await config.supabaseClient.auth.signInWithOAuth({
 //       provider: 'google',
 //       options: {
-//         redirectTo: 'http://localhost:3000/developer-Api/on-boarding',
+//         redirectTo: 'http://localhost:3000/developers/on-boarding',
 //       },
 //     });
 

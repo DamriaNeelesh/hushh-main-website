@@ -1,0 +1,102 @@
+/*@jsxRuntime automatic @jsxImportSource react*/
+function createContent(props: any) {
+  const _components = Object.assign({
+    h2: "h2",
+    p: "p",
+    a: "a",
+    code: "code",
+    ul: "ul",
+    li: "li",
+    strong: "strong",
+    h3: "h3",
+    ol: "ol"
+  }, props.components);
+  return <><_components.h2>{"GeminiAI Public Data Agent Documentation"}</_components.h2>{"\n"}<_components.p>{"The GeminiAI Public Data Agent is an AI-powered service within the Hushh platform that enriches user profiles using publicly available information. When a user shares basic identifiers like name, email, or phone number through the Hushh UI, this agent leverages GeminiAI’s intelligent retrieval and inference capabilities to assemble a detailed JSON profile. It directly powers our personalization, segmentation, and intent prediction modules—and is featured alongside other orchestrated agents on "}<_components.a href="/agents"><_components.code>{"/agents"}</_components.code></_components.a>{"."}</_components.p>{"\n"}<_components.h2>{"1. Overview"}</_components.h2>{"\n"}<_components.ul>{"\n"}<_components.li><_components.strong>{"Purpose:"}</_components.strong>{" Generate complete, realistic user insights without manual effort."}</_components.li>{"\n"}<_components.li><_components.strong>{"LLM Backbone:"}</_components.strong>{" "}<_components.code>{"gemini-2.5-pro"}</_components.code>{"."}</_components.li>{"\n"}<_components.li><_components.strong>{"Output:"}</_components.strong>{" Structured JSON containing demographics, lifestyle, intents, and behavioral preferences."}</_components.li>{"\n"}</_components.ul>{"\n"}<_components.h2>{"2. Functional Workflow"}</_components.h2>{"\n"}<_components.h3>{"Step 1: User Input (Hushh UI)"}</_components.h3>{"\n"}<_components.p>{"The customer provides their name, email, and phone number via the onboarding interface. This minimal dataset initiates an enrichment flow while keeping friction low."}</_components.p>{"\n"}<_components.h3>{"Step 2: Agent Invocation (MuleSoft Flow)"}</_components.h3>{"\n"}<_components.p>{"The Hushh backend, built on MuleSoft, wraps the payload in a JSON-RPC 2.0 POST request and calls the GeminiAI Agent endpoint. This ensures consistency with other multi-agent calls handled within the MCP ecosystem."}</_components.p>{"\n"}<_components.h3>{"Step 3: Data Retrieval & Enrichment"}</_components.h3>{"\n"}<_components.p>{"GeminiAI interprets the identifiers, applies natural-language inference, and enriches gaps by referencing public signals. When a data point is unavailable, it generates sensible placeholders so downstream systems can still operate on complete objects."}</_components.p>{"\n"}<_components.h3>{"Step 4: Structured Response"}</_components.h3>{"\n"}<_components.p>{"The agent responds with a "}<_components.code>{"userProfile"}</_components.code>{" JSON object that includes:"}</_components.p>{"\n"}<_components.ul>{"\n"}<_components.li>{"Demographics and geo markers."}</_components.li>{"\n"}<_components.li>{"Interests, lifestyle traits, and consumption habits."}</_components.li>{"\n"}<_components.li>{"Intent signals and propensity scores."}</_components.li>{"\n"}<_components.li>{"Behavioral preferences that feed personalization rules."}</_components.li>{"\n"}</_components.ul>{"\n"}<_components.h3>{"Step 5: Integration with Hushh"}</_components.h3>{"\n"}<_components.p>{"The enriched profile is persisted in Hushh’s CRM and analytics workspaces, making it immediately available for dashboards, segmentation, and downstream agents showcased on "}<_components.a href="/agents"><_components.code>{"/agents"}</_components.code></_components.a>{". This real-time handoff ensures every customer touchpoint benefits from consistent, AI-generated intelligence."}</_components.p>{"\n"}<_components.h2>{"User Stories"}</_components.h2>{"\n"}<_components.ul>{"\n"}<_components.li><_components.strong>{"Growth Marketer:"}</_components.strong>{" Sundar Pichai runs a limited-time campaign for eco-conscious shoppers. She drops a CSV of leads into the Hushh UI, and the Gemini agent instantly returns each person’s lifestyle hints and sustainability sentiment, allowing her to tailor copy without manual research."}</_components.li>{"\n"}<_components.li><_components.strong>{"Community Manager:"}</_components.strong>{" Neelesh uses the agent when a new creator joins the Hushh One collective. Instead of asking for long bios, he simply inputs their handles and receives a structured persona that helps him welcome them with context-aware perks."}</_components.li>{"\n"}<_components.li><_components.strong>{"Product Manager:"}</_components.strong>{" Helio monitors which features resonate with privacy-first power users. By enriching trial signups with Gemini data, he segments the backlog of requests and builds a roadmap grounded in real personas."}</_components.li>{"\n"}<_components.li><_components.strong>{"Sales Development Rep:"}</_components.strong>{" Sebastian receives inbound leads with only email addresses. With one click, she gets background info, workplace context, and talking points, letting her personalize a first reply that feels handcrafted."}</_components.li>{"\n"}<_components.li><_components.strong>{"Event Planner:"}</_components.strong>{" Oliver needs to curate VIP lounge experiences. He uses Gemini profiles to understand dietary preferences, travel frequency, and brand affinities so every guest feels seen when they arrive onsite."}</_components.li>{"\n"}</_components.ul>{"\n"}<_components.h2>{"Architecture & Observability Highlights"}</_components.h2>{"\n"}<_components.ul>{"\n"}<_components.li><_components.strong>{"Event Pipes:"}</_components.strong>{" MuleSoft flows stream the enriched JSON into Supabase while simultaneously notifying Salesforce via the Brand Agent, so ops teams never deal with stale leads."}</_components.li>{"\n"}<_components.li><_components.strong>{"LLM Guardrails:"}</_components.strong>{" Prompt templates reference strict schemas, and the response is validated against Zod definitions before persisting, catching malformed or hallucinated fields."}</_components.li>{"\n"}<_components.li><_components.strong>{"Metrics Layer:"}</_components.strong>{" Every invocation emits latency, token cost, and coverage metrics to a BigQuery table that feeds Looker dashboards for model-performance tuning."}</_components.li>{"\n"}</_components.ul>{"\n"}<_components.h2>{"Customer Snapshot"}</_components.h2>{"\n"}<_components.p>{"During a fintech pilot, the GeminiAI agent enriched 1,200 leads sourced from a waitlist API. Marketing set an SLA of five minutes; the Hushh flow averaged 48 seconds per profile, producing detailed personas that doubled nurture-email CTR and trimmed manual research time by 30 hours per week."}</_components.p>{"\n"}<_components.h2>{"Day 0 Story — Sundar Pichai Intake"}</_components.h2>{"\n"}<_components.ol>{"\n"}<_components.li><_components.strong>{"Minimal inputs, full brief:"}</_components.strong>{" Sundar Pichai’s name, personal email, and WhatsApp number arrive from the Supabase Profile Creation Agent. That three-field payload is enough for the GeminiAI Public Data Agent to kick in without extra forms or CSV juggling."}</_components.li>{"\n"}<_components.li><_components.strong>{"Public web sweep:"}</_components.strong>{" GeminiAI fans out across public data, compiling executive bios, investment mentions, verified social handles, and philanthropy references. It flags confidence levels so KYC reviewers can see which facts are sourced vs. inferred."}</_components.li>{"\n"}<_components.li><_components.strong>{"Investor-ready JSON:"}</_components.strong>{" The agent returns a canonical JSON profile that already includes investor accreditation hints, board memberships, geography, and device usage signals. MuleSoft pipes the data straight into Supabase plus the regulated KYC workspace so downstream bots read the same truth."}</_components.li>{"\n"}<_components.li><_components.strong>{"Personal MCP endpoint minted:"}</_components.strong>{" As soon as the payload lands, MuleSoft assigns Sundar a personal MCP endpoint such as "}<_components.code>{"https://hushh.ai/profile/phone/+16505559001"}</_components.code>{" and "}<_components.code>{"https://hushh.ai/profile/sundar-pichai"}</_components.code>{". Every other agent references that alias when they need deterministic data."}</_components.li>{"\n"}</_components.ol>{"\n"}<_components.h2>{"Why It Matters"}</_components.h2>{"\n"}<_components.ul>{"\n"}<_components.li><_components.strong>{"Instant Personalization:"}</_components.strong>{" Teams can tailor outreach or product surfaces moments after sign-up."}</_components.li>{"\n"}<_components.li><_components.strong>{"Better Segmentation:"}</_components.strong>{" Unified JSON profiles make it easier to group users by behavior or intent."}</_components.li>{"\n"}<_components.li><_components.strong>{"Agent Ecosystem Harmony:"}</_components.strong>{" GeminiAI’s outputs become inputs for other orchestrated agents, keeping the /agents library cohesive."}</_components.li>{"\n"}</_components.ul>{"\n"}<_components.p>{"With the GeminiAI Public Data Agent, Hushh advances its mission to deliver privacy-conscious, intelligence-rich experiences from the very first interaction. Continuous tuning of "}<_components.code>{"gemini-2.5-pro"}</_components.code>{" prompts and MuleSoft orchestration keeps the pipeline resilient as new data sources and compliance requirements emerge."}</_components.p></>;
+}
+export default function Content(props: { components?: Record<string, any> } = {}) {
+  return createContent(props);
+}
+
+export const contentMeta = {
+  "title": "GeminiAI Public Data Agent Documentation",
+  "description": "How Hushh’s GeminiAI agent enriches user profiles with public data and feeds the /agents ecosystem.",
+  "image": "/blogs/new/gemini_public_data.png",
+  "publishedAt": "November 26, 2025",
+  "updatedAt": "November 26, 2025",
+  "author": "Hushh.ai Team",
+  "isPublished": true,
+  "tags": [
+    "AI Agents",
+    "Data Enrichment",
+    "GeminiAI",
+    "Integrations"
+  ]
+};
+export const contentHeadings = [
+  {
+    "text": "GeminiAI Public Data Agent Documentation",
+    "level": 2,
+    "slug": "geminiai-public-data-agent-documentation"
+  },
+  {
+    "text": "1. Overview",
+    "level": 2,
+    "slug": "1-overview"
+  },
+  {
+    "text": "2. Functional Workflow",
+    "level": 2,
+    "slug": "2-functional-workflow"
+  },
+  {
+    "text": "Step 1: User Input (Hushh UI)",
+    "level": 3,
+    "slug": "step-1-user-input-hushh-ui"
+  },
+  {
+    "text": "Step 2: Agent Invocation (MuleSoft Flow)",
+    "level": 3,
+    "slug": "step-2-agent-invocation-mulesoft-flow"
+  },
+  {
+    "text": "Step 3: Data Retrieval & Enrichment",
+    "level": 3,
+    "slug": "step-3-data-retrieval--enrichment"
+  },
+  {
+    "text": "Step 4: Structured Response",
+    "level": 3,
+    "slug": "step-4-structured-response"
+  },
+  {
+    "text": "Step 5: Integration with Hushh",
+    "level": 3,
+    "slug": "step-5-integration-with-hushh"
+  },
+  {
+    "text": "User Stories",
+    "level": 2,
+    "slug": "user-stories"
+  },
+  {
+    "text": "Architecture & Observability Highlights",
+    "level": 2,
+    "slug": "architecture--observability-highlights"
+  },
+  {
+    "text": "Customer Snapshot",
+    "level": 2,
+    "slug": "customer-snapshot"
+  },
+  {
+    "text": "Day 0 Story — Sundar Pichai Intake",
+    "level": 2,
+    "slug": "day-0-story--sundar-pichai-intake"
+  },
+  {
+    "text": "Why It Matters",
+    "level": 2,
+    "slug": "why-it-matters"
+  }
+];
+export const contentPlainText = "GeminiAI Public Data Agent Documentation The GeminiAI Public Data Agent is an AI powered service within the Hushh platform that enriches user profiles using publicly available information. When a user shares basic identifiers like name, email, or phone number through the Hushh UI, this agent leverages GeminiAI’s intelligent retrieval and inference capabilities to assemble a detailed JSON profile. It directly powers our personalization, segmentation, and intent prediction modules—and is featured alongside other orchestrated agents on . 1. Overview Purpose: Generate complete, realistic user insights without manual effort. LLM Backbone: . Output: Structured JSON containing demographics, lifestyle, intents, and behavioral preferences. 2. Functional Workflow Step 1: User Input (Hushh UI) The customer provides their name, email, and phone number via the onboarding interface. This minimal dataset initiates an enrichment flow while keeping friction low. Step 2: Agent Invocation (MuleSoft Flow) The Hushh backend, built on MuleSoft, wraps the payload in a JSON RPC 2.0 POST request and calls the GeminiAI Agent endpoint. This ensures consistency with other multi agent calls handled within the MCP ecosystem. Step 3: Data Retrieval & Enrichment GeminiAI interprets the identifiers, applies natural language inference, and enriches gaps by referencing public signals. When a data point is unavailable, it generates sensible placeholders so downstream systems can still operate on complete objects. Step 4: Structured Response The agent responds with a JSON object that includes: Demographics and geo markers. Interests, lifestyle traits, and consumption habits. Intent signals and propensity scores. Behavioral preferences that feed personalization rules. Step 5: Integration with Hushh The enriched profile is persisted in Hushh’s CRM and analytics workspaces, making it immediately available for dashboards, segmentation, and downstream agents showcased on . This real time handoff ensures every customer touchpoint benefits from consistent, AI generated intelligence. User Stories Growth Marketer: Sundar Pichai runs a limited time campaign for eco conscious shoppers. She drops a CSV of leads into the Hushh UI, and the Gemini agent instantly returns each person’s lifestyle hints and sustainability sentiment, allowing her to tailor copy without manual research. Community Manager: Neelesh uses the agent when a new creator joins the Hushh One collective. Instead of asking for long bios, he simply inputs their handles and receives a structured persona that helps him welcome them with context aware perks. Product Manager: Helio monitors which features resonate with privacy first power users. By enriching trial signups with Gemini data, he segments the backlog of requests and builds a roadmap grounded in real personas. Sales Development Rep: Sebastian receives inbound leads with only email addresses. With one click, she gets background info, workplace context, and talking points, letting her personalize a first reply that feels handcrafted. Event Planner: Oliver needs to curate VIP lounge experiences. He uses Gemini profiles to understand dietary preferences, travel frequency, and brand affinities so every guest feels seen when they arrive onsite. Architecture & Observability Highlights Event Pipes: MuleSoft flows stream the enriched JSON into Supabase while simultaneously notifying Salesforce via the Brand Agent, so ops teams never deal with stale leads. LLM Guardrails: Prompt templates reference strict schemas, and the response is validated against Zod definitions before persisting, catching malformed or hallucinated fields. Metrics Layer: Every invocation emits latency, token cost, and coverage metrics to a BigQuery table that feeds Looker dashboards for model performance tuning. Customer Snapshot During a fintech pilot, the GeminiAI agent enriched 1,200 leads sourced from a waitlist API. Marketing set an SLA of five minutes; the Hushh flow averaged 48 seconds per profile, producing detailed personas that doubled nurture email CTR and trimmed manual research time by 30 hours per week. Day 0 Story — Sundar Pichai Intake 1. Minimal inputs, full brief: Sundar Pichai’s name, personal email, and WhatsApp number arrive from the Supabase Profile Creation Agent. That three field payload is enough for the GeminiAI Public Data Agent to kick in without extra forms or CSV juggling. 2. Public web sweep: GeminiAI fans out across public data, compiling executive bios, investment mentions, verified social handles, and philanthropy references. It flags confidence levels so KYC reviewers can see which facts are sourced vs. inferred. 3. Investor ready JSON: The agent returns a canonical JSON profile that already includes investor accreditation hints, board memberships, geography, and device usage signals. MuleSoft pipes the data straight into Supabase plus the regulated KYC workspace so downstream bots read the same truth. 4. Personal MCP endpoint minted: As soon as the payload lands, MuleSoft assigns Sundar a personal MCP endpoint such as and . Every other agent references that alias when they need deterministic data. Why It Matters Instant Personalization: Teams can tailor outreach or product surfaces moments after sign up. Better Segmentation: Unified JSON profiles make it easier to group users by behavior or intent. Agent Ecosystem Harmony: GeminiAI’s outputs become inputs for other orchestrated agents, keeping the /agents library cohesive. With the GeminiAI Public Data Agent, Hushh advances its mission to deliver privacy conscious, intelligence rich experiences from the very first interaction. Continuous tuning of prompts and MuleSoft orchestration keeps the pipeline resilient as new data sources and compliance requirements emerge.";

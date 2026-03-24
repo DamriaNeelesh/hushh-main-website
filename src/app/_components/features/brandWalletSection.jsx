@@ -6,9 +6,8 @@ import {
   Text,
   VStack,
   Button,
-  useDisclosure,
-} from "@chakra-ui/react";
-import BrandWalletMobile from "../../../../public/Images/BrandWalletMobile.png";
+  useDisclosure } from
+"@chakra-ui/react";
 import NextImage from "next/image";
 import React from "react";
 import SendReceiveIcon from "../svg/icons/sendReceive";
@@ -16,26 +15,23 @@ import ChartIcon from "../svg/icons/chartIcon";
 import RefreshIcon from "../svg/icons/refreshIcon";
 import WalletIcon from "../svg/icons/walletIcon";
 import { useRouter } from "next/navigation";
-import { isMobile, isAndroid, isIOS } from "react-device-detect";
-import { QRCode } from "react-qrcode-logo";
 import { useState } from "react";
 import extendedTheme from "../../theme";
-import Image from "next/image";
 import theme from "../../theme";
 import DownloadModal from "../primitives/downloadModal";
 
 const BrandWalletSection = () => {
-  const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const _router = useRouter();
+  const { isOpen: _isOpen, onOpen: _onOpen, onClose: _onClose } = useDisclosure();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentQRLink, setCurrentQRLink] = useState("");
+  const [_currentQRLink, setCurrentQRLink] = useState("");
 
-  const handleOpenModal = (link) => {
+  const _handleOpenModal = (link) => {
     setCurrentQRLink(link);
     setIsModalOpen(true);
   };
 
-  const handleDownloadClick = () => {
+  const _handleDownloadClick = () => {
     window.location.href = "https://apps.apple.com/in/app/hushh-app/id6498471189";
   };
 
@@ -47,8 +43,8 @@ const BrandWalletSection = () => {
           fontSize={{ md: "3.75rem", base: "1.5rem" }}
           mx={"0.5rem"}
           textAlign={"center"}
-          as={'h3'}
-        >
+          as={'h3'}>
+          
           Build your own brand wallet
         </Text>
         <Text
@@ -57,8 +53,8 @@ const BrandWalletSection = () => {
           px={{ md: "30rem", base: "3rem" }}
           color={extendedTheme.colors.secondary}
           lineHeight={{ md: "36px", base: "22px" }}
-          mb={"1rem"}
-        >
+          mb={"1rem"}>
+          
           Take control of your digital identity with our innovative "Build Your
           Own Brand Wallet" gen AI feature.
         </Text>
@@ -70,15 +66,15 @@ const BrandWalletSection = () => {
           alignItems="start"
           w="full"
           maxW="1400px"
-          mx="auto"
-        >
+          mx="auto">
+          
           {/* Left column */}
           <VStack
             w="full"
             display={{ md: "flex", base: "none" }}
             gap="2rem"
-            alignItems="stretch"
-          >
+            alignItems="stretch">
+            
             <VStack
               align={"flex-start"}
               bg="#1C1C1C"
@@ -88,13 +84,13 @@ const BrandWalletSection = () => {
               borderRadius={"2rem"}
               flex="1"
               minH="200px"
-              justifyContent="flex-start"
-            >
+              justifyContent="flex-start">
+              
               <SendReceiveIcon />
               <Text
                 fontSize={{ md: "1.25rem", base: "1rem" }}
-                color={extendedTheme.colors._white}
-              >
+                color={extendedTheme.colors._white}>
+                
                 HUSHH Bot
               </Text>
               <Text color={extendedTheme.colors._white}>
@@ -111,13 +107,13 @@ const BrandWalletSection = () => {
               borderRadius={"2rem"}
               flex="1"
               minH="200px"
-              justifyContent="flex-start"
-            >
+              justifyContent="flex-start">
+              
               <ChartIcon />
               <Text
                 fontSize={{ md: "1.25rem", base: "1rem" }}
-                color={extendedTheme.colors._white}
-              >
+                color={extendedTheme.colors._white}>
+                
                 SEAMLESS INTEGRATION
               </Text>
               <Text color={extendedTheme.colors._white}>
@@ -136,8 +132,8 @@ const BrandWalletSection = () => {
             className="gradient-bg"
             position="relative"
             overflow="hidden"
-            minH={{ md: "550px", base: "450px" }}
-          >
+            minH={{ md: "550px", base: "450px" }}>
+            
             {/* Content Container */}
             <VStack
               spacing={{ md: 6, base: 4 }}
@@ -146,26 +142,26 @@ const BrandWalletSection = () => {
               h="full"
               p={{ md: "2rem", base: "1.5rem" }}
               position="relative"
-              zIndex={2}
-            >
+              zIndex={2}>
+              
               {/* Header Section */}
               <VStack spacing={{ md: 3, base: 2 }} align="center" textAlign="center">
-                <Text 
-                  fontSize={{ md: "20px", base: "16px" }} 
+                <Text
+                  fontSize={{ md: "20px", base: "16px" }}
                   color={extendedTheme.colors._white}
                   fontWeight="700"
                   letterSpacing="1px"
-                  textTransform="uppercase"
-                >
+                  textTransform="uppercase">
+                  
                   iOS & ANDROID APP
                 </Text>
-                <Text 
+                <Text
                   color={extendedTheme.colors._white}
                   fontSize={{ md: "16px", base: "14px" }}
                   lineHeight={{ md: "1.6", base: "1.5" }}
                   maxW={{ md: "320px", base: "280px" }}
-                  opacity={0.9}
-                >
+                  opacity={0.9}>
+                  
                   Experience the convenience of managing your digital life with
                   Hushh, available on both iOS and Android.
                 </Text>
@@ -179,8 +175,8 @@ const BrandWalletSection = () => {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                mt={{ md: 1, base: 2 }}
-              >
+                mt={{ md: 1, base: 2 }}>
+                
                 {/* Desktop Mobile Image */}
                 <Box
                   display={{ md: "block", base: "none" }}
@@ -196,11 +192,11 @@ const BrandWalletSection = () => {
                     height={250}
                     style={{
                       width: "100%",
-                      height: "420px",
+                      height: "420px"
 
                     }}
-                    priority
-                  />
+                    priority />
+                  
                 </Box>
 
                 {/* Mobile Image */}
@@ -223,8 +219,8 @@ const BrandWalletSection = () => {
                       filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.4))",
                       transform: "scale(1.02)"
                     }}
-                    priority
-                  />
+                    priority />
+                  
                 </Box>
 
                 {/* Background Glow Effect */}
@@ -238,8 +234,8 @@ const BrandWalletSection = () => {
                   bgGradient="radial(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 30%, transparent 70%)"
                   borderRadius="50%"
                   filter="blur(20px)"
-                  zIndex={1}
-                />
+                  zIndex={1} />
+                
               </Box>
             </VStack>
 
@@ -252,8 +248,8 @@ const BrandWalletSection = () => {
               bottom={0}
               bgGradient="linear(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.1) 100%)"
               borderRadius={"2rem"}
-              zIndex={1}
-            />
+              zIndex={1} />
+            
           </Box>
 
           {/* Right column */}
@@ -261,8 +257,8 @@ const BrandWalletSection = () => {
             w="full"
             display={{ md: "flex", base: "none" }}
             gap="2rem"
-            alignItems="stretch"
-          >
+            alignItems="stretch">
+            
             <VStack
               align={"flex-start"}
               bg="#1C1C1C"
@@ -272,13 +268,13 @@ const BrandWalletSection = () => {
               borderRadius={"2rem"}
               flex="1"
               minH="200px"
-              justifyContent="flex-start"
-            >
+              justifyContent="flex-start">
+              
               <WalletIcon />
               <Text
                 fontSize={{ md: "1.25rem", base: "1rem" }}
-                color={extendedTheme.colors._white}
-              >
+                color={extendedTheme.colors._white}>
+                
                 OPTIMIZED DATA SHARING
               </Text>
               <Text color={extendedTheme.colors._white}>
@@ -295,13 +291,13 @@ const BrandWalletSection = () => {
               borderRadius={"2rem"}
               flex="1"
               minH="200px"
-              justifyContent="flex-start"
-            >
+              justifyContent="flex-start">
+              
               <RefreshIcon />
               <Text
                 fontSize={{ md: "1.25rem", base: "1rem" }}
-                color={extendedTheme.colors._white}
-              >
+                color={extendedTheme.colors._white}>
+                
                 RECEIPT RADAR
               </Text>
               <Text color={extendedTheme.colors._white}>
@@ -315,16 +311,16 @@ const BrandWalletSection = () => {
             spacing="1rem"
             w={"full"}
             display={{ base: "flex", md: "none" }}
-            justifyContent="center"
-          >
+            justifyContent="center">
+            
             <VStack
               align={"left"}
               bg="#1C1C1C"
               px="0.5rem"
               py="0.5rem"
               gap={"0.5rem"}
-              borderRadius={"1rem"}
-            >
+              borderRadius={"1rem"}>
+              
               <ChartIcon width={20} height={20} />
               <Text fontSize={"0.875rem"} color={extendedTheme.colors._white}>
                 Seamless Integration
@@ -332,8 +328,8 @@ const BrandWalletSection = () => {
               <Text
                 fontSize={"0.75rem"}
                 color={extendedTheme.colors._white}
-                textAlign="center"
-              >
+                textAlign="center">
+                
                 We offer robust APIs and developer tools for effortless
                 integration with trusted brands.
               </Text>
@@ -344,8 +340,8 @@ const BrandWalletSection = () => {
               px="0.5rem"
               py="0.5rem"
               gap={"0.5rem"}
-              borderRadius={"1rem"}
-            >
+              borderRadius={"1rem"}>
+              
               <RefreshIcon width={20} height={20} />
               <Text fontSize={"0.875rem"} color={extendedTheme.colors._white}>
                 Optimized Data Sharing
@@ -353,8 +349,8 @@ const BrandWalletSection = () => {
               <Text
                 fontSize={"0.75rem"}
                 color={extendedTheme.colors._white}
-                textAlign="center"
-              >
+                textAlign="center">
+                
                 Effortlessly share and manage your data with our solutions to
                 control and monitor data access
               </Text>
@@ -366,8 +362,8 @@ const BrandWalletSection = () => {
           display={"flex"}
           gap={{ md: "2rem", base: "1rem" }}
           flexDirection={{ md: "row", base: "column" }}
-          zIndex={"9"}
-        >
+          zIndex={"9"}>
+          
           <Button
             border="1px solid #606060"
             borderRadius="2px"
@@ -382,18 +378,18 @@ const BrandWalletSection = () => {
             letterSpacing={{ md: "0.1rem", base: "0.1rem" }}
             _hover={{
               background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
-              border: "none",
+              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              border: "none"
             }}
-            w={{ md: "18rem", base: "14rem" }}
-          >
+            w={{ md: "18rem", base: "14rem" }}>
+            
             Download Hushh Wallet App
           </Button>
         </Box>
       </VStack>
-      <DownloadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
-    </>
-  );
+      <DownloadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>);
+
 };
 
 export default BrandWalletSection;

@@ -19,7 +19,7 @@ import {
   Flex
 } from '@chakra-ui/react'
 import { EmailIcon, PhoneIcon } from '@chakra-ui/icons'
-import { FaUser, FaGlobe } from 'react-icons/fa'
+import { FaUser } from 'react-icons/fa'
 import { motion } from 'framer-motion';
 
 const MotionBox = motion(Box);

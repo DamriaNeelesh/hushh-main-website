@@ -1,15 +1,6 @@
-// Dynamic imports for server-side only modules
-let fs, path, matter;
-
-if (typeof window === 'undefined') {
-  try {
-    fs = require('fs');
-    path = require('path');
-    matter = require('gray-matter');
-  } catch (error) {
-    console.warn('Server-side dependencies not available:', error);
-  }
-}
+import { allBlogSummaries } from "../../../lib/content/blog-registry";
+import { developerDocContentBySlug } from "../../../lib/content/developer-doc-registry";
+import { developerDocs } from "../../developers/docs.config";
 
 // Comprehensive content indexer for the entire website
 export class ContentIndexer {
@@ -18,247 +9,54 @@ export class ContentIndexer {
     this.isClient = typeof window !== 'undefined';
   }
 
-  // Extract content from all blog MDX files in /content/ directory
+  // Extract content from all typed blog content modules in /content/ directory
   async indexBlogContent() {
-    if (this.isClient || !fs || !path || !matter) return [];
+    if (this.isClient) return [];
 
-    const blogEntries = [];
-    const contentDir = path.join(process.cwd(), 'content');
-    
-    try {
-      if (!fs.existsSync(contentDir)) {
-        console.warn('Content directory not found:', contentDir);
-        return [];
-      }
-      
-      const blogFolders = fs.readdirSync(contentDir);
-      console.log(`Found ${blogFolders.length} blog folders in content directory`);
-      
-      for (const folder of blogFolders) {
-        const folderPath = path.join(contentDir, folder);
-        const stat = fs.statSync(folderPath);
-        
-        if (stat.isDirectory()) {
-          const indexPath = path.join(folderPath, 'index.mdx');
-          
-          if (fs.existsSync(indexPath)) {
-            try {
-              const fileContent = fs.readFileSync(indexPath, 'utf-8');
-              const { data: frontmatter, content } = matter(fileContent);
-              
-              // Clean content - remove MDX syntax and get text content
-              const cleanContent = content
-                .replace(/```[\s\S]*?```/g, '') // Remove code blocks
-                .replace(/`[^`]*`/g, '') // Remove inline code
-                .replace(/import\s+.*?from\s+['"][^'"]*['"];?/gi, '') // Remove import statements
-                .replace(/export\s+.*?from\s+['"][^'"]*['"];?/gi, '') // Remove export statements
-                .replace(/import\s*\{[^}]*\}\s*from\s*['"][^'"]*['"];?/gi, '') // Remove named imports
-                .replace(/import\s+\w+\s*,?\s*\{[^}]*\}\s*from\s*['"][^'"]*['"];?/gi, '') // Remove mixed imports
-                .replace(/const\s+\w+\s*=\s*require\(['"][^'"]*['"]\);?/gi, '') // Remove require statements
-                .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
-                .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1') // Extract link text
-                .replace(/<[^>]*>/g, '') // Remove HTML tags
-                .replace(/\{[^}]*\}/g, '') // Remove JSX expressions
-                .replace(/^\s*\/\/.*$/gm, '') // Remove single-line comments
-                .replace(/\/\*[\s\S]*?\*\//g, '') // Remove multi-line comments
-                .replace(/^\s*\*.*$/gm, '') // Remove JSDoc style comments
-                .replace(/\n\s*\n/g, '\n') // Normalize line breaks
-                .replace(/[#*_`]/g, '') // Remove markdown formatting
-                .replace(/^\s+/gm, '') // Remove leading whitespace
-                .trim();
-
-              const blogUrl = `/blogs/${folder}`;
-              
-              // Enhanced title extraction with better fallbacks
-              let title = frontmatter.title;
-              if (!title) {
-                // Extract first heading from content
-                const headingMatch = content.match(/^#\s+(.+)$/m);
-                if (headingMatch) {
-                  title = headingMatch[1].trim();
-                } else {
-                  title = folder.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                }
-              }
-              
-              // Enhanced description extraction
-              let description = frontmatter.description || frontmatter.excerpt;
-              if (!description && cleanContent.length > 10) {
-                // Extract first meaningful paragraph (at least 50 characters)
-                const paragraphs = cleanContent.split('\n').filter(p => p.trim().length > 50);
-                if (paragraphs.length > 0) {
-                  description = paragraphs[0].substring(0, 200) + '...';
-                } else {
-                  // Fallback to first sentences
-                  const sentences = cleanContent.split(/[.!?]+/).filter(s => s.trim().length > 20);
-                  if (sentences.length > 0) {
-                    description = sentences.slice(0, 2).join('. ').substring(0, 200) + '...';
-                  } else {
-                    description = `Blog post about ${title}`;
-                  }
-                }
-              } else if (!description) {
-                description = `Blog post about ${title}`;
-              }
-              
-              blogEntries.push({
-                id: `blog-${folder}`,
-                title: title,
-                description: description,
-                content: cleanContent,
-                url: blogUrl,
-                type: 'blog',
-                category: frontmatter.category || 'Blog',
-                tags: frontmatter.tags || [],
-                author: frontmatter.author || 'Hushh Team',
-                date: frontmatter.date || new Date().toISOString(),
-                keywords: [
-                  ...(frontmatter.tags || []),
-                  'blog', 'article', 'hushh', 'AI', 'data', 'privacy', 'technology',
-                  ...title.toLowerCase().split(' '),
-                  ...(frontmatter.keywords || [])
-                ].filter(Boolean),
-                searchableText: `${title} ${description} ${cleanContent} ${(frontmatter.tags || []).join(' ')} ${folder.replace(/-/g, ' ')}`.toLowerCase()
-              });
-              
-              console.log(`✅ Indexed blog: ${title}`);
-            } catch (error) {
-              console.error(`❌ Error processing blog ${folder}:`, error);
-            }
-          }
-        }
-      }
-    } catch (error) {
-      console.error('❌ Error indexing blog content:', error);
-    }
-    
-    return blogEntries;
+    return allBlogSummaries.map((blog) => ({
+      id: `blog-${blog.slug}`,
+      title: blog.title,
+      description: blog.description || `Blog post about ${blog.title}`,
+      content: blog.plainText || "",
+      url: blog.url,
+      type: 'blog',
+      category: 'Blog',
+      tags: blog.tags || [],
+      author: blog.author || 'Hushh Team',
+      date: blog.publishedAt || new Date().toISOString(),
+      keywords: [
+        ...(blog.tags || []),
+        'blog', 'article', 'hushh', 'AI', 'data', 'privacy', 'technology',
+        ...blog.title.toLowerCase().split(' ')
+      ].filter(Boolean),
+      searchableText: `${blog.title} ${blog.description || ""} ${blog.plainText || ""} ${(blog.tags || []).join(' ')}`.toLowerCase(),
+    }));
   }
 
-  // Extract content from all MDX files in /pages/ directory
+  // Extract content from the developer docs TypeScript content registry
   async indexPagesContent() {
-    if (this.isClient || !fs || !path || !matter) return [];
+    if (this.isClient) return [];
 
-    const pagesEntries = [];
-    const pagesDir = path.join(process.cwd(), 'pages');
-    
-    try {
-      if (!fs.existsSync(pagesDir)) {
-        console.warn('Pages directory not found:', pagesDir);
-        return [];
-      }
-
-      const scanDirectory = (dir, basePath = '') => {
-        const items = fs.readdirSync(dir);
-        
-        for (const item of items) {
-          const fullPath = path.join(dir, item);
-          const stat = fs.statSync(fullPath);
-          
-          if (stat.isDirectory() && !item.startsWith('.')) {
-            scanDirectory(fullPath, path.join(basePath, item));
-          } else if (item.endsWith('.mdx')) {
-            try {
-              const relativeFilePath = path.join(basePath, item);
-              
-              // 🚫 TEMPORARILY SKIP DEVELOPER API MDX FILES
-              // Skip any files in developer-Api directory or containing developer API content
-              if (relativeFilePath.includes('developer-Api') || 
-                  relativeFilePath.includes('developerApi') ||
-                  (relativeFilePath.toLowerCase().includes('api') && 
-                   (relativeFilePath.includes('dev') || relativeFilePath.includes('getting-started')))) {
-                console.log(`⏭️ Skipping developer API MDX file: ${relativeFilePath}`);
-                continue; // Skip this file completely
-              }
-              
-              const fileContent = fs.readFileSync(fullPath, 'utf-8');
-              const { data: frontmatter, content } = matter(fileContent);
-              
-              const cleanContent = content
-                .replace(/```[\s\S]*?```/g, '') // Remove code blocks
-                .replace(/`[^`]*`/g, '') // Remove inline code
-                .replace(/import\s+.*?from\s+['"][^'"]*['"];?/gi, '') // Remove import statements
-                .replace(/export\s+.*?from\s+['"][^'"]*['"];?/gi, '') // Remove export statements
-                .replace(/import\s*\{[^}]*\}\s*from\s*['"][^'"]*['"];?/gi, '') // Remove named imports
-                .replace(/import\s+\w+\s*,?\s*\{[^}]*\}\s*from\s*['"][^'"]*['"];?/gi, '') // Remove mixed imports
-                .replace(/const\s+\w+\s*=\s*require\(['"][^'"]*['"]\);?/gi, '') // Remove require statements
-                .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
-                .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1') // Extract link text
-                .replace(/<[^>]*>/g, '') // Remove HTML tags
-                .replace(/\{[^}]*\}/g, '') // Remove JSX expressions
-                .replace(/^\s*\/\/.*$/gm, '') // Remove single-line comments
-                .replace(/\/\*[\s\S]*?\*\//g, '') // Remove multi-line comments
-                .replace(/^\s*\*.*$/gm, '') // Remove JSDoc style comments
-                .replace(/\n\s*\n/g, '\n') // Normalize line breaks
-                .replace(/[#*_`]/g, '') // Remove markdown formatting
-                .replace(/^\s+/gm, '') // Remove leading whitespace
-                .trim();
-
-              const urlPath = relativeFilePath.replace(/\.mdx$/, '').replace(/\\/g, '/');
-              
-              // Enhanced title extraction with better fallbacks
-              let title = frontmatter.title;
-              if (!title) {
-                // Extract first heading from content
-                const headingMatch = content.match(/^#\s+(.+)$/m);
-                if (headingMatch) {
-                  title = headingMatch[1].trim();
-                } else {
-                  title = path.basename(item, '.mdx').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                }
-              }
-              
-              // Enhanced description extraction 
-              let description = frontmatter.description || frontmatter.excerpt;
-              if (!description && cleanContent.length > 10) {
-                // Extract first meaningful paragraph (at least 50 characters)
-                const paragraphs = cleanContent.split('\n').filter(p => p.trim().length > 50);
-                if (paragraphs.length > 0) {
-                  description = paragraphs[0].substring(0, 200) + '...';
-                } else {
-                  // Fallback to first sentences
-                  const sentences = cleanContent.split(/[.!?]+/).filter(s => s.trim().length > 20);
-                  if (sentences.length > 0) {
-                    description = sentences.slice(0, 2).join('. ').substring(0, 200) + '...';
-                  } else {
-                    description = `Documentation for ${title}`;
-                  }
-                }
-              } else if (!description) {
-                description = `Documentation for ${title}`;
-              }
-              
-              pagesEntries.push({
-                id: `page-${urlPath.replace(/[^a-z0-9]/gi, '-')}`,
-                title: title,
-                description: description,
-                content: cleanContent,
-                url: `/${urlPath}`,
-                type: relativeFilePath.includes('developer-Api') ? 'api-docs' : 'documentation',
-                category: relativeFilePath.includes('developer-Api') ? 'API Documentation' : 'Documentation',
-                keywords: [
-                  'documentation', 'API', 'developer', 'guide', 'hushh',
-                  ...title.toLowerCase().split(' '),
-                  ...(frontmatter.tags || []),
-                  ...relativeFilePath.replace(/[-_]/g, ' ').toLowerCase().split(' ')
-                ].filter(Boolean),
-                searchableText: `${title} ${description} ${cleanContent} ${(frontmatter.tags || []).join(' ')} ${relativeFilePath.replace(/[-_]/g, ' ')}`.toLowerCase()
-              });
-              
-              console.log(`✅ Indexed page: ${title}`);
-            } catch (error) {
-              console.error(`❌ Error processing ${fullPath}:`, error);
-            }
-          }
-        }
+    return developerDocs.map((doc) => {
+      const sourceSlug = doc.source.replace(/\.tsx$/, '');
+      const content = developerDocContentBySlug[sourceSlug]?.plainText || '';
+      return {
+        id: `page-developer-${doc.slug}`,
+        title: doc.title,
+        description: doc.description,
+        content,
+        url: `/developers/${doc.slug}`,
+        type: 'api-docs',
+        category: 'API Documentation',
+        keywords: [
+          'documentation', 'API', 'developer', 'guide', 'hushh',
+          ...doc.title.toLowerCase().split(' '),
+          doc.section.toLowerCase(),
+          doc.slug.replace(/[-_]/g, ' ')
+        ].filter(Boolean),
+        searchableText: `${doc.title} ${doc.description} ${content} ${doc.section} ${doc.slug.replace(/[-_]/g, ' ')}`.toLowerCase(),
       };
-
-      scanDirectory(pagesDir);
-    } catch (error) {
-      console.error('❌ Error indexing pages content:', error);
-    }
-    
-    return pagesEntries;
+    });
   }
 
   // Index all product pages - COMPREHENSIVE PRODUCT COVERAGE
@@ -362,7 +160,7 @@ export class ContentIndexer {
         title: 'Developer API',
         description: 'Comprehensive tools for businesses to integrate Hushh data and privacy features into their applications.',
         content: 'Developer API REST API GraphQL API integration tools business integration data API privacy API developer tools API documentation SDK software development kit API endpoints data integration platform API developer resources business API enterprise API data platform API privacy-first API secure API developer platform API integration business tools enterprise integration data platform API developer documentation API reference business developer tools API gateway data access API privacy-aware API developer API platform business API platform enterprise API platform data API platform integration API platform developer API tools business API tools enterprise API tools data API tools API development platform business integration platform enterprise integration platform data integration API platform developer integration platform API business platform enterprise data platform privacy API platform secure API platform developer platform API business platform integration enterprise platform integration data platform integration API platform integration tools business integration API enterprise integration API data integration API tools',
-        url: '/developerApi',
+        url: '/developers',
         type: 'product',
         category: 'Solution Products',
         keywords: ['developer API', 'REST API', 'GraphQL', 'integration', 'SDK', 'developer tools', 'business integration', 'API documentation', 'enterprise API', 'data platform', 'API platform', 'developer platform', 'business API', 'integration tools', 'API tools']
@@ -476,7 +274,7 @@ export class ContentIndexer {
         title: 'Getting Started - Hushh Developer Guide',
         description: 'Begin your journey with Hushh development tools, APIs, and integration guides.',
         content: 'Getting started developer guide API documentation integration tutorial development setup SDK installation developer resources development tools API integration getting started guide developer documentation technical documentation development tutorial API setup integration guide developer quickstart API quickstart development guide technical guide developer onboarding API onboarding development resources technical resources developer tools development platform API platform integration platform developer support technical support getting started page developer page API page documentation page tutorial page setup page installation page integration page development page technical page developer guide page',
-        url: '/getting-started',
+        url: '/developers/getting-started',
         type: 'page',
         category: 'Developer Resources',
         keywords: ['getting started', 'developer guide', 'API documentation', 'integration', 'development', 'SDK', 'developer resources', 'technical documentation', 'API setup', 'developer onboarding', 'getting started page', 'developer page', 'API page', 'documentation page']
@@ -538,7 +336,7 @@ export class ContentIndexer {
         title: 'Privacy Manifesto - Our Commitment',
         description: 'Our comprehensive commitment to privacy rights, data protection, and user empowerment.',
         content: 'Privacy manifesto privacy commitment privacy policy data protection user privacy rights digital privacy manifesto privacy principles privacy advocacy privacy protection privacy rights manifesto data privacy manifesto user empowerment manifesto digital rights manifesto privacy philosophy manifesto user control manifesto data sovereignty manifesto privacy-first manifesto digital privacy principles privacy advocacy manifesto user rights manifesto data protection manifesto privacy ethics manifesto privacy manifesto page privacy policy page data protection page privacy commitment page privacy rights page digital privacy page privacy principles page privacy advocacy page',
-        url: '/legal/privacypolicy',
+        url: '/privacy',
         type: 'page',
         category: 'Legal',
         keywords: ['privacy manifesto', 'privacy commitment', 'privacy policy', 'data protection', 'user privacy rights', 'digital privacy', 'privacy principles', 'privacy advocacy', 'privacy rights', 'data privacy', 'privacy manifesto page', 'privacy policy page', 'data protection page']
@@ -614,7 +412,7 @@ export class ContentIndexer {
         title: 'Terms of Service - Hushh Legal Terms',
         description: 'Comprehensive terms of service governing the use of Hushh products and services.',
         content: 'Terms of service legal terms user agreement service agreement terms and conditions legal agreement usage terms service terms legal document user terms service conditions legal conditions usage agreement terms of use legal terms and conditions service agreement terms legal policy user agreement terms service legal terms legal framework user legal terms service legal agreement terms legal conditions terms of service page legal terms page user agreement page service agreement page terms and conditions page legal agreement page usage terms page legal document page legal policy page',
-        url: '/legal/termsofuse',
+        url: '/terms',
         type: 'page',
         category: 'Legal',
         keywords: ['terms of service', 'legal terms', 'user agreement', 'service agreement', 'terms and conditions', 'legal agreement', 'usage terms', 'legal document', 'user terms', 'service terms', 'terms of service page', 'legal terms page', 'user agreement page']

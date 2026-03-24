@@ -1,6 +1,6 @@
-import { Button, Box, Text, List, UnorderedList, ListItem } from '@chakra-ui/react'
+import { Box, Text, UnorderedList, ListItem } from '@chakra-ui/react'
 import React from 'react'
-import '../../../../pages/fonts.css'
+import '../../_styles/developer-fonts.css'
 
 const ApiContent = () => {
     return (

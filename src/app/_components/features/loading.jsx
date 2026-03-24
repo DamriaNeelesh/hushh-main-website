@@ -1,4 +1,4 @@
-import { Box, Spinner, Flex, Text } from "@chakra-ui/react";
+import { Spinner, Flex, Text } from "@chakra-ui/react";
 
 export default function Loading() {
   return (

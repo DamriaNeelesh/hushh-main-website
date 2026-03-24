@@ -38,7 +38,7 @@ export function SwipeProvider({ children }) {
     setSwipes((prev) => ({
       ...prev,
       liked: [...prev.liked.filter((id) => id !== investorId), investorId],
-      passed: prev.passed.filter((id) => id !== investorId),
+      passed: prev.passed.filter((id) => id !== investorId)
     }));
   }, []);
 
@@ -46,19 +46,19 @@ export function SwipeProvider({ children }) {
     setSwipes((prev) => ({
       ...prev,
       passed: [...prev.passed.filter((id) => id !== investorId), investorId],
-      liked: prev.liked.filter((id) => id !== investorId),
+      liked: prev.liked.filter((id) => id !== investorId)
     }));
   }, []);
 
   const undoLastSwipe = useCallback(() => {
     // Find the most recent swipe
     setSwipes((prev) => {
-      const lastLiked = prev.liked[prev.liked.length - 1];
-      const lastPassed = prev.passed[prev.passed.length - 1];
+      const _lastLiked = prev.liked[prev.liked.length - 1];
+      const _lastPassed = prev.passed[prev.passed.length - 1];
       // Simple undo: remove last liked or last passed (whichever came last - we just remove last liked)
       return {
         liked: prev.liked.slice(0, -1),
-        passed: prev.passed,
+        passed: prev.passed
       };
     });
   }, []);
@@ -86,12 +86,12 @@ export function SwipeProvider({ children }) {
         handlePass,
         undoLastSwipe,
         saveProfile,
-        resetSwipes,
-      }}
-    >
+        resetSwipes
+      }}>
+      
       {children}
-    </SwipeContext.Provider>
-  );
+    </SwipeContext.Provider>);
+
 }
 
 export function useSwipe() {

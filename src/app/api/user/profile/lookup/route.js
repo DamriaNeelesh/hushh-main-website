@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 import { SUPABASE_URL } from '../../../../../lib/config/supabaseEnv';
 
 function getSupabase() {
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!supabaseKey) throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_ANON_KEY');
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseKey) throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY');
   return createClient(SUPABASE_URL, supabaseKey);
 }
 

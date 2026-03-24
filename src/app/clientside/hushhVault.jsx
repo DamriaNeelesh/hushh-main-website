@@ -1,32 +1,27 @@
 'use client';
 
 import React from 'react';
-import { 
-  Box, 
-  Container, 
-  Heading, 
-  Text, 
-  Button, 
-  VStack, 
-  HStack, 
-  useColorModeValue,
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Button,
+  VStack,
+  HStack,
   Center,
   Grid,
   GridItem,
-  List,
-  ListItem,
-  ListIcon,
   Icon,
   Flex,
   SimpleGrid,
-  AspectRatio,
-  Code
-} from '@chakra-ui/react';
+  Code } from
+'@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaApple, FaFolder, FaLink, FaShieldAlt } from 'react-icons/fa';
-import HushhVaultMobile from '../_components/svg/hushhVaultMobile.svg'
+import HushhVaultMobile from '../_components/svg/hushhVaultMobile.svg';
 // import ExportDelete from '../../../public/exportordelete.svg'
-import HowHushhVaultWorks from '../_components/svg/hushhVault/howthevaultworks.svg'
+import HowHushhVaultWorks from '../_components/svg/hushhVault/howthevaultworks.svg';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import ContactForm from '../_components/features/contactForm';
@@ -71,46 +66,46 @@ const HushhVault = () => {
     transition: { duration: 0.8, delay: 0.2, ease: "easeOut" }
   };
 
-  const staggeredFadeIn = {
+  const _staggeredFadeIn = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6, ease: "easeOut" }
   };
 
   // Feature Card Component
-  const FeatureCard = ({ title, description, placeholderText, isGray = false, delay = 0, children }) => (
-    <MotionBox
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: "easeOut" }}
-      bg={isGray ? "rgba(204, 204, 204, 0.09)" : "#0071E3"}
-      borderRadius="xl"
-      p={0}
-      h="100%"
-      overflow="hidden"
-      position="relative"
-    >
+  const FeatureCard = ({ title, description, placeholderText, isGray = false, delay = 0, children }) =>
+  <MotionBox
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay, ease: "easeOut" }}
+    bg={isGray ? "rgba(204, 204, 204, 0.09)" : "#0071E3"}
+    borderRadius="xl"
+    p={0}
+    h="100%"
+    overflow="hidden"
+    position="relative">
+    
       <VStack h="100%" align="stretch" spacing={0}>
         {/* Header Section */}
         <Box p={8} pb={4}>
           <VStack align="start" spacing={2}>
             <Text
-              fontSize={{ base: "20px", md: "24px", lg: "28px" }}
-              fontWeight="bold"
-              color={isGray ? "#333333" : "white"}
-              fontFamily="Inter, sans-serif"
-              letterSpacing="-0.02em"
-              lineHeight="1.2"
-            >
+            fontSize={{ base: "20px", md: "24px", lg: "28px" }}
+            fontWeight="bold"
+            color={isGray ? "#333333" : "white"}
+            fontFamily="Inter, sans-serif"
+            letterSpacing="-0.02em"
+            lineHeight="1.2">
+            
               {title}
             </Text>
             <Text
-              fontSize={{ base: "16px", md: "18px", lg: "20px" }}
-              color={isGray ? "#333333" : "white"}
-              fontFamily="Inter, sans-serif"
-              lineHeight="1.4"
-              opacity={0.9}
-            >
+            fontSize={{ base: "16px", md: "18px", lg: "20px" }}
+            color={isGray ? "#333333" : "white"}
+            fontFamily="Inter, sans-serif"
+            lineHeight="1.4"
+            opacity={0.9}>
+            
               {description}
             </Text>
           </VStack>
@@ -118,114 +113,114 @@ const HushhVault = () => {
 
         {/* Image Placeholder Section */}
         <Box flex={1} p={8} pt={0} position="relative">
-          {children || (
-            <Box
-              bg="white"
-              borderRadius="xl"
-              h="100%"
-              minH="200px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              boxShadow="lg"
-              position="relative"
-            >
-              {placeholderText && (
-                <Text
-                  fontSize={{ base: "16px", md: "18px", lg: "20px" }}
-                  fontWeight="600"
-                  color="#666666"
-                  fontFamily="Inter, sans-serif"
-                >
+          {children ||
+        <Box
+          bg="white"
+          borderRadius="xl"
+          h="100%"
+          minH="200px"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          boxShadow="lg"
+          position="relative">
+          
+              {placeholderText &&
+          <Text
+            fontSize={{ base: "16px", md: "18px", lg: "20px" }}
+            fontWeight="600"
+            color="#666666"
+            fontFamily="Inter, sans-serif">
+            
                   {placeholderText}
                 </Text>
-              )}
+          }
             </Box>
-          )}
+        }
         </Box>
       </VStack>
-    </MotionBox>
-  );
+    </MotionBox>;
+
 
   // Capability Card Component
-  const CapabilityCard = ({ title, backgroundImage, delay = 0, fontSize = "64px", width = "100%", height = "100%", textPosition = "bottom-left" }) => (
-    <MotionBox
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: "easeOut" }}
-      position="relative"
-      borderRadius="30px"
-      overflow="hidden"
-      w={width}
-      h={height}
-      minH="300px"
-      boxShadow="0px 4px 4px 0px rgba(0,0,0,0.25)"
-      _hover={{
-        transform: "translateY(-5px)",
-        boxShadow: "0px 8px 25px 0px rgba(0,0,0,0.3)"
-      }}
-    >
+  const CapabilityCard = ({ title, backgroundImage, delay = 0, fontSize = "64px", width = "100%", height = "100%", textPosition = "bottom-left" }) =>
+  <MotionBox
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay, ease: "easeOut" }}
+    position="relative"
+    borderRadius="30px"
+    overflow="hidden"
+    w={width}
+    h={height}
+    minH="300px"
+    boxShadow="0px 4px 4px 0px rgba(0,0,0,0.25)"
+    _hover={{
+      transform: "translateY(-5px)",
+      boxShadow: "0px 8px 25px 0px rgba(0,0,0,0.3)"
+    }}>
+    
       {/* Background Image */}
       <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        backgroundImage={`url('${backgroundImage}')`}
-        backgroundSize="cover"
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-      />
+      position="absolute"
+      top={0}
+      left={0}
+      right={0}
+      bottom={0}
+      backgroundImage={`url('${backgroundImage}')`}
+      backgroundSize="cover"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat" />
+    
       
       {/* Dark Overlay for better text readability */}
       <Box
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        bg="rgba(0, 0, 0, 0.3)"
-        opacity={0.8}
-      />
+      position="absolute"
+      top={0}
+      left={0}
+      right={0}
+      bottom={0}
+      bg="rgba(0, 0, 0, 0.3)"
+      opacity={0.8} />
+    
 
       {/* Text Content */}
       <Box
-        position="absolute"
-        bottom={textPosition === "bottom-left" ? "8" : "auto"}
-        top={textPosition === "top-left" ? "8" : "auto"}
-        left="8"
-        right="8"
-        zIndex={2}
-      >
+      position="absolute"
+      bottom={textPosition === "bottom-left" ? "8" : "auto"}
+      top={textPosition === "top-left" ? "8" : "auto"}
+      left="8"
+      right="8"
+      zIndex={2}>
+      
         <Text
-          fontSize={{ base: "24px", md: "32px", lg: fontSize }}
-          fontWeight="bold"
-          color="white"
-          fontFamily="Inter, sans-serif"
-          letterSpacing="-0.02em"
-          lineHeight="1.2"
-          maxW="90%"
-        >
+        fontSize={{ base: "24px", md: "32px", lg: fontSize }}
+        fontWeight="bold"
+        color="white"
+        fontFamily="Inter, sans-serif"
+        letterSpacing="-0.02em"
+        lineHeight="1.2"
+        maxW="90%">
+        
           {title}
         </Text>
       </Box>
-    </MotionBox>
-  );
+    </MotionBox>;
+
 
   // Code Snippet Component
-  const CodeSnippet = ({ children, color = "#22C55E" }) => (
-    <Code
-      bg="transparent"
-      color={color}
-      fontSize={{ base: "14px", md: "16px", lg: "18px" }}
-      fontFamily="'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace"
-      fontWeight="600"
-      p={0}
-    >
+  const CodeSnippet = ({ children, color = "#22C55E" }) =>
+  <Code
+    bg="transparent"
+    color={color}
+    fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+    fontFamily="'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace"
+    fontWeight="600"
+    p={0}>
+    
       {children}
-    </Code>
-  );
+    </Code>;
+
 
   return (
     <>
@@ -249,20 +244,20 @@ const HushhVault = () => {
           opacity="0.02"
           backgroundImage="radial-gradient(circle at 25% 25%, #000 1px, transparent 1px)"
           backgroundSize="60px 60px"
-          pointerEvents="none"
-        />
+          pointerEvents="none" />
         
-        <Container 
-          maxW="7xl" 
+        
+        <Container
+          maxW="7xl"
           px={{ base: 4, md: 6, lg: 8 }}
-          py={{ base: 8, md: 12, lg: 16 }}
-        >
+          py={{ base: 8, md: 12, lg: 16 }}>
+          
           <Center>
-            <VStack 
+            <VStack
               spacing={{ base: 8, md: 12, lg: 16 }}
               textAlign="center"
-              maxW="5xl"
-            >
+              maxW="5xl">
+              
               {/* Gradient Title */}
               <MotionBox {...fadeInUp}>
                 <Text
@@ -272,8 +267,8 @@ const HushhVault = () => {
                   bgClip="text"
                   letterSpacing="-0.02em"
                   fontFamily="Inter, sans-serif"
-                  mb={{ base: 4, md: 6 }}
-                >
+                  mb={{ base: 4, md: 6 }}>
+                  
                   Hushh Vault
                 </Text>
               </MotionBox>
@@ -289,8 +284,8 @@ const HushhVault = () => {
                 letterSpacing="-0.02em"
                 fontFamily="Inter, sans-serif"
                 maxW="1400px"
-                mx="auto"
-              >
+                mx="auto">
+                
                 Your Data. Encrypted.{" "}
                 <br />
                 Yours Forever.
@@ -304,19 +299,19 @@ const HushhVault = () => {
                 fontWeight="400"
                 // maxW="800px"
                 // mx="auto"
-                lineHeight="1.6"
-              >
+                lineHeight="1.6">
+                
                 Introducing the Hushh Vault — a personal, programmable data store built to protect what matters most: your digital self.
               </MotionText>
 
               {/* CTA Buttons */}
               <MotionBox {...buttonAnimation}>
-                <HStack 
+                <HStack
                   spacing={{ base: 4, md: 6 }}
                   justify="center"
                   flexDir={{ base: "column", md: "row" }}
-                  w="full"
-                >
+                  w="full">
+                  
                   <MotionButton
                     size="lg"
                     bg="#0071E3"
@@ -343,8 +338,8 @@ const HushhVault = () => {
                     }}
                     transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                     whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
+                    whileTap={{ scale: 0.98 }}>
+                    
                     Explore the Vault
                   </MotionButton>
 
@@ -376,8 +371,8 @@ const HushhVault = () => {
                     }}
                     transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                     whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
+                    whileTap={{ scale: 0.98 }}>
+                    
                     View Consent Protocol
                   </MotionButton>
                 </HStack>
@@ -393,8 +388,8 @@ const HushhVault = () => {
                 fontWeight="400"
                 maxW="600px"
                 mx="auto"
-                mt={{ base: 8, md: 12 }}
-              >
+                mt={{ base: 8, md: 12 }}>
+                
                 Built with privacy-first architecture and zero-knowledge encryption. 
                 Your data remains yours, always.
               </MotionText>
@@ -407,14 +402,14 @@ const HushhVault = () => {
       <Box
         bg="#ffffff"
         py={{ base: 16, md: 20, lg: 24 }}
-        position="relative"
-      >
+        position="relative">
+        
         <Container maxW="7xl" px={{ base: 4, md: 6, lg: 8 }}>
           <Grid
-            templateColumns={{ base: "1fr", lg: "1.2fr 1fr",md: "1.2fr 1fr" }}
-            gap={{ base: 12, lg: 16 ,md: 12}}
-            alignItems="center"
-          >
+            templateColumns={{ base: "1fr", lg: "1.2fr 1fr", md: "1.2fr 1fr" }}
+            gap={{ base: 12, lg: 16, md: 12 }}
+            alignItems="center">
+            
             {/* Left Column - Main Content */}
             <GridItem>
               <MotionBox {...fadeInLeft}>
@@ -427,8 +422,8 @@ const HushhVault = () => {
                     color="#000000"
                     letterSpacing="-0.02em"
                     fontFamily="Inter, sans-serif"
-                    lineHeight="1.1"
-                  >
+                    lineHeight="1.1">
+                    
                     What Is the Hushh Vault?
                   </Heading>
 
@@ -439,8 +434,8 @@ const HushhVault = () => {
                     fontWeight="400"
                     fontFamily="Inter, sans-serif"
                     lineHeight="1.6"
-                    maxW="500px"
-                  >
+                    maxW="500px">
+                    
                     A consent-native storage layer that lives inside every Personal Data Agent.
                   </Text>
 
@@ -455,8 +450,8 @@ const HushhVault = () => {
                       // maxW="400px"
                       display="flex"
                       alignItems="center"
-                      gap={3}
-                    >
+                      gap={3}>
+                      
                       <Box
                         bg="hsla(210, 100%, 45%, 1)"
                         borderRadius="8px"
@@ -465,8 +460,8 @@ const HushhVault = () => {
                         h="40px"
                         display="flex"
                         alignItems="center"
-                        justifyContent="center"
-                      >
+                        justifyContent="center">
+                        
                         <Icon as={FaApple} color="white" boxSize={5} />
                       </Box>
                       <Text
@@ -474,8 +469,8 @@ const HushhVault = () => {
                         color="hsla(0, 0%, 0%, 1)"
                         fontWeight="500"
                         fontFamily="Inter, sans-serif"
-                        lineHeight="1.4"
-                      >
+                        lineHeight="1.4">
+                        
                         Built for iOS-verified humans.
                       </Text>
                     </Box>
@@ -489,8 +484,8 @@ const HushhVault = () => {
                       // maxW="400px"
                       display="flex"
                       alignItems="center"
-                      gap={3}
-                    >
+                      gap={3}>
+                      
                       <Box
                         bg="hsla(210, 100%, 45%, 1)"
                         borderRadius="8px"
@@ -499,8 +494,8 @@ const HushhVault = () => {
                         h="40px"
                         display="flex"
                         alignItems="center"
-                        justifyContent="center"
-                      >
+                        justifyContent="center">
+                        
                         <Icon as={FaFolder} color="white" boxSize={5} />
                       </Box>
                       <Text
@@ -508,8 +503,8 @@ const HushhVault = () => {
                         color="hsla(0, 0%, 0%, 1)"
                         fontWeight="500"
                         fontFamily="Inter, sans-serif"
-                        lineHeight="1.4"
-                      >
+                        lineHeight="1.4">
+                        
                         Stores your preferences, identity keys, agent memories, and data maps.
                       </Text>
                     </Box>
@@ -523,8 +518,8 @@ const HushhVault = () => {
                       // maxW="400px"
                       display="flex"
                       alignItems="center"
-                      gap={3}
-                    >
+                      gap={3}>
+                      
                       <Box
                         bg="#3B82F6"
                         borderRadius="8px"
@@ -533,8 +528,8 @@ const HushhVault = () => {
                         h="40px"
                         display="flex"
                         alignItems="center"
-                        justifyContent="center"
-                      >
+                        justifyContent="center">
+                        
                         <Icon as={FaLink} color="white" boxSize={5} />
                       </Box>
                       <Text
@@ -542,8 +537,8 @@ const HushhVault = () => {
                         color="hsla(0, 0%, 0%, 1)"
                         fontWeight="500"
                         fontFamily="Inter, sans-serif"
-                        lineHeight="1.4"
-                      >
+                        lineHeight="1.4">
+                        
                         Integrates with iCloud, Gmail, Drive, Notion, Stripe
                       </Text>
                     </Box>
@@ -557,8 +552,8 @@ const HushhVault = () => {
                       // maxW="400px"
                       display="flex"
                       alignItems="center"
-                      gap={3}
-                    >
+                      gap={3}>
+                      
                       <Box
                         bg="#3B82F6"
                         borderRadius="8px"
@@ -567,8 +562,8 @@ const HushhVault = () => {
                         h="40px"
                         display="flex"
                         alignItems="center"
-                        justifyContent="center"
-                      >
+                        justifyContent="center">
+                        
                         <Icon as={FaShieldAlt} color="white" boxSize={5} />
                       </Box>
                       <Text
@@ -576,8 +571,8 @@ const HushhVault = () => {
                         color="hsla(0, 0%, 0%, 1)"
                         fontWeight="500"
                         fontFamily="Inter, sans-serif"
-                        lineHeight="1.4"
-                      >
+                        lineHeight="1.4">
+                        
 Enforces zero-trust access to every byte.                       
 </Text>
                     </Box>
@@ -591,8 +586,8 @@ Enforces zero-trust access to every byte.
                     fontFamily="Inter, sans-serif"
                     lineHeight="1.6"
                     maxW="500px"
-                    mt={6}
-                  >
+                    mt={6}>
+                    
                     Think of it as a personal hard drive for your AI — encrypted, inspectable, and fully under your control.
                   </Text>
                 </VStack>
@@ -607,8 +602,8 @@ Enforces zero-trust access to every byte.
                   justifyContent="center"
                   alignItems="center"
                   h="full"
-                  position="relative"
-                >
+                  position="relative">
+                  
                   {/* Mobile Phone Container */}
                  <Image src={HushhVaultMobile} alt="Hushh Vault Mobile" />
                 </Box>
@@ -626,8 +621,8 @@ Enforces zero-trust access to every byte.
         minH="100vh"
         display="flex"
         flexDirection="column"
-        justifyContent="center"
-      >
+        justifyContent="center">
+        
         <Container maxW="8xl" px={{ base: 4, md: 6, lg: 8 }}>
           {/* Section Title */}
           <MotionBox {...fadeInUp} mb={{ base: 12, md: 16, lg: 20 }}>
@@ -639,14 +634,14 @@ Enforces zero-trust access to every byte.
               letterSpacing={{ base: "-0.8px", md: "-1.12px", lg: "-1.28px" }}
               fontFamily="Inter, sans-serif"
               textAlign="center"
-              lineHeight={{ base: "44px", md: "48px", lg: "52px" }}
-            >
+              lineHeight={{ base: "44px", md: "48px", lg: "52px" }}>
+              
               How the Vault Works
             </Heading>
           </MotionBox>
 
           {/* Mobile Layout - Clean Text Only */}
-          <Box display={{ base: "block", lg: "none" }} mb={{md:0,base:10}} maxW="600px" mx="auto">
+          <Box display={{ base: "block", lg: "none" }} mb={{ md: 0, base: 10 }} maxW="600px" mx="auto">
             <VStack spacing={12}>
               {/* Mobile Feature Text Blocks */}
               <MotionBox
@@ -654,8 +649,8 @@ Enforces zero-trust access to every byte.
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 w="full"
-                textAlign="center"
-              >
+                textAlign="center">
+                
                 <Text fontSize="24px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.48px" lineHeight="28px">
                   Encryption
                 </Text>
@@ -669,8 +664,8 @@ Enforces zero-trust access to every byte.
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 w="full"
-                textAlign="center"
-              >
+                textAlign="center">
+                
                 <Text fontSize="24px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.48px" lineHeight="28px">
                   Schema Core
                 </Text>
@@ -687,10 +682,10 @@ Enforces zero-trust access to every byte.
                 w="full"
                 display="flex"
                 justifyContent="center"
-                py={8}
-              >
-                <Image 
-                  src={HowHushhVaultWorks} 
+                py={8}>
+                
+                <Image
+                  src={HowHushhVaultWorks}
                   alt="How Hushh Vault Works"
                   width={200}
                   height={240}
@@ -698,8 +693,8 @@ Enforces zero-trust access to every byte.
                     width: "200px",
                     height: "auto"
                   }}
-                  filter="drop-shadow(0px 4px 20px rgba(252, 242, 255, 0.8))"
-                />
+                  filter="drop-shadow(0px 4px 20px rgba(252, 242, 255, 0.8))" />
+                
               </MotionBox>
 
               <MotionBox
@@ -707,8 +702,8 @@ Enforces zero-trust access to every byte.
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 w="full"
-                textAlign="center"
-              >
+                textAlign="center">
+                
                 <Text fontSize="24px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.48px" lineHeight="28px">
                   Audit Trails
                 </Text>
@@ -722,8 +717,8 @@ Enforces zero-trust access to every byte.
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 w="full"
-                textAlign="center"
-              >
+                textAlign="center">
+                
                 <Text fontSize="24px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.48px" lineHeight="28px">
                   Consent Logs
                 </Text>
@@ -737,8 +732,8 @@ Enforces zero-trust access to every byte.
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
                 w="full"
-                textAlign="center"
-              >
+                textAlign="center">
+                
                 <Text fontSize="24px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.48px" lineHeight="28px">
                   Sync Engine
                 </Text>
@@ -753,14 +748,14 @@ Enforces zero-trust access to every byte.
           <Box display={{ base: "none", lg: "block" }} position="relative" w="100%" mx="auto" pt={16}>
             
             {/* Top Row - 3 Text Blocks Evenly Spaced */}
-            <Box position="relative" mb={20} >
+            <Box position="relative" mb={20}>
               <Grid templateColumns="1fr 1fr 1fr" gap={12} mb={12}>
                 {/* Encryption - Top Left */}
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                >
+                  transition={{ duration: 0.6, delay: 0.1 }}>
+                  
                   <Text fontSize="28px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.56px" lineHeight="32px">
                     Encryption
                   </Text>
@@ -773,8 +768,8 @@ Enforces zero-trust access to every byte.
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
+                  transition={{ duration: 0.6, delay: 0.2 }}>
+                  
                   <Text fontSize="28px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.56px" lineHeight="32px">
                     Schema Core
                   </Text>
@@ -787,8 +782,8 @@ Enforces zero-trust access to every byte.
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
+                  transition={{ duration: 0.6, delay: 0.3 }}>
+                  
                   <Text fontSize="28px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.56px" lineHeight="32px">
                     Audit Trails
                   </Text>
@@ -809,8 +804,8 @@ Enforces zero-trust access to every byte.
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
+                  transition={{ duration: 0.6, delay: 0.5 }}>
+                  
                   <Text fontSize="28px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.56px" lineHeight="32px">
                     Consent Logs
                   </Text>
@@ -825,8 +820,8 @@ Enforces zero-trust access to every byte.
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
+                  transition={{ duration: 0.6, delay: 0.6 }}>
+                  
                   <Text fontSize="28px" fontWeight="bold" color="#000000" mb={2} fontFamily="Inter, sans-serif" letterSpacing="-0.56px" lineHeight="32px">
                     Sync Engine
                   </Text>
@@ -839,29 +834,29 @@ Enforces zero-trust access to every byte.
               
             </Box>
                             <MotionBox
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  position="relative"
-                  zIndex={2}
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  mb={{ base: -20, md: -28, lg: -32 }}
-                >
-                  <Image 
-                    src={HowHushhVaultWorks} 
-                    alt="How Hushh Vault Works"
-                    width={440}
-                    height={420}
-                    style={{
-                      clipPath: "inset(0 0 25% 0)",
-                      display: "block",
-                      // width: "180px",
-                      // height: "220px"
-                    }}
-                    filter="drop-shadow(0px 4px 40px rgba(252, 242, 255, 0.8))"
-                  />
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              position="relative"
+              zIndex={2}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              mb={{ base: -20, md: -28, lg: -32 }}>
+              
+                  <Image
+                src={HowHushhVaultWorks}
+                alt="How Hushh Vault Works"
+                width={440}
+                height={420}
+                style={{
+                  clipPath: "inset(0 0 25% 0)",
+                  display: "block"
+                  // width: "180px",
+                  // height: "220px"
+                }}
+                filter="drop-shadow(0px 4px 40px rgba(252, 242, 255, 0.8))" />
+              
                 </MotionBox>
           </Box>
         </Container>
@@ -875,8 +870,8 @@ Enforces zero-trust access to every byte.
         minH="100vh"
         display="flex"
         flexDirection="column"
-        justifyContent="center"
-      >
+        justifyContent="center">
+        
         <Container maxW="8xl" px={{ base: 4, md: 6, lg: 8 }}>
           {/* Section Title */}
           <MotionBox
@@ -884,8 +879,8 @@ Enforces zero-trust access to every byte.
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             mb={{ base: 12, md: 16, lg: 20 }}
-            textAlign="center"
-          >
+            textAlign="center">
+            
             <Heading
               as="h2"
               fontSize={{ base: "3xl", md: "5xl", lg: "6xl" }}
@@ -893,8 +888,8 @@ Enforces zero-trust access to every byte.
               color="black"
               letterSpacing="tight"
               fontFamily="Inter, sans-serif"
-              lineHeight="shorter"
-            >
+              lineHeight="shorter">
+              
               Vault Capabilities
             </Heading>
           </MotionBox>
@@ -906,26 +901,26 @@ Enforces zero-trust access to every byte.
                 title="Export or delete data at will (one-tap data liberation)"
                 backgroundImage={'/exportordelete.svg'}
                 delay={0.1}
-                fontSize="2xl"
-              />
+                fontSize="2xl" />
+              
               <CapabilityCard
                 title="Store structured + unstructured data"
                 backgroundImage={'/storestructured.svg'}
                 delay={0.2}
-                fontSize="2xl"
-              />
+                fontSize="2xl" />
+              
               <CapabilityCard
                 title="Track decisions, preferences, and revocation logs"
                 backgroundImage={'/trackdecisions.svg'}
                 delay={0.3}
-                fontSize="2xl"
-              />
+                fontSize="2xl" />
+              
               <CapabilityCard
                 title="Link identity (Apple ID, OAuth, hushhID)"
                 backgroundImage={'/linkIdentity.svg'}
                 delay={0.4}
-                fontSize="2xl"
-              />
+                fontSize="2xl" />
+              
             </SimpleGrid>
           </Box>
 
@@ -935,22 +930,22 @@ Enforces zero-trust access to every byte.
               templateColumns="1fr 1fr 1fr"
               templateRows="auto auto"
               gap={5}
-              h="auto"
-            >
+              h="auto">
+              
               {/* Large Left Card - spans 2 rows */}
               <GridItem rowSpan={2}>
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                >
+                  transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}>
+                  
                   <CapabilityCard
                     title="Export or delete data at will (one-tap data liberation)"
                     backgroundImage={'/exportordelete.svg'}
                     delay={0.1}
                     fontSize="6xl"
-                    height="609px"
-                  />
+                    height="609px" />
+                  
                 </MotionBox>
               </GridItem>
 
@@ -959,15 +954,15 @@ Enforces zero-trust access to every byte.
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                >
+                  transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}>
+                  
                   <CapabilityCard
                     title="Store structured + unstructured data"
                     backgroundImage="/storestructured.svg"
                     delay={0.2}
                     fontSize="4xl"
-                    height="300px"
-                  />
+                    height="300px" />
+                  
                 </MotionBox>
               </GridItem>
 
@@ -976,15 +971,15 @@ Enforces zero-trust access to every byte.
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                >
+                  transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}>
+                  
                   <CapabilityCard
                     title="Link identity (Apple ID, OAuth, hushhID)"
                     backgroundImage="/linkIdentity.svg"
-                    delay={0.3} 
+                    delay={0.3}
                     fontSize="5xl"
-                    height="609px"
-                  />
+                    height="609px" />
+                  
                 </MotionBox>
               </GridItem>
 
@@ -993,15 +988,15 @@ Enforces zero-trust access to every byte.
                 <MotionBox
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-                >
+                  transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}>
+                  
                   <CapabilityCard
                     title="Track decisions, preferences, and revocation logs"
                     backgroundImage="/trackdecisions.svg"
                     delay={0.4}
                     fontSize="4xl"
-                    height="300px"
-                  />
+                    height="300px" />
+                  
                 </MotionBox>
               </GridItem>
             </Grid>
@@ -1017,21 +1012,21 @@ Enforces zero-trust access to every byte.
         minH="100vh"
         display="flex"
         flexDirection="column"
-        justifyContent="center"
-      >
+        justifyContent="center">
+        
         <Container maxW="7xl" px={{ base: 4, md: 6, lg: 8 }}>
           <Grid
             templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
             gap={{ base: 12, lg: 16 }}
-            alignItems="start"
-          >
+            alignItems="start">
+            
             {/* Left Column - Main Content */}
             <GridItem>
               <MotionBox
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
+                transition={{ duration: 0.6, ease: "easeOut" }}>
+                
                 <VStack spacing={{ base: 6, md: 8 }} align="start">
                   {/* Title */}
                   <Heading
@@ -1041,8 +1036,8 @@ Enforces zero-trust access to every byte.
                     color="gray.700"
                     letterSpacing="tight"
                     fontFamily="Inter, sans-serif"
-                    lineHeight="shorter"
-                  >
+                    lineHeight="shorter">
+                    
                     Built for Agents, Not Apps
                   </Heading>
 
@@ -1052,8 +1047,8 @@ Enforces zero-trust access to every byte.
                     color="gray.600"
                     fontFamily="Inter, sans-serif"
                     lineHeight="tall"
-                    maxW="2xl"
-                  >
+                    maxW="2xl">
+                    
                     Operons connect to the Vault automatically via{" "}
                     <Text as="span" color="green.500" fontWeight="medium" fontFamily="mono">
                       vault.read()
@@ -1079,8 +1074,8 @@ Enforces zero-trust access to every byte.
               <MotionBox
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
+                transition={{ duration: 0.6, ease: "easeOut" }}>
+                
                 <VStack spacing={{ base: 6, md: 8 }} align="start">
                   {/* API Methods */}
                   <Box>
@@ -1089,56 +1084,56 @@ Enforces zero-trust access to every byte.
                       color="gray.600"
                       fontFamily="Inter, sans-serif"
                       lineHeight="tall"
-                      mb={4}
-                    >
+                      mb={4}>
+                      
                       Operons connect to the Vault automatically via
                     </Text>
                     <VStack spacing={3} align="start">
                       <MotionBox
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                      >
+                        transition={{ duration: 0.5, delay: 0.1 }}>
+                        
                         <Code
                           bg="transparent"
                           color="green.500"
                           fontSize={{ base: "sm", md: "md", lg: "lg" }}
                           fontFamily="mono"
                           fontWeight="semibold"
-                          p={0}
-                        >
+                          p={0}>
+                          
                           vault.read()
                         </Code>
                       </MotionBox>
                       <MotionBox
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                      >
+                        transition={{ duration: 0.5, delay: 0.2 }}>
+                        
                         <Code
                           bg="transparent"
                           color="green.500"
                           fontSize={{ base: "sm", md: "md", lg: "lg" }}
                           fontFamily="mono"
                           fontWeight="semibold"
-                          p={0}
-                        >
+                          p={0}>
+                          
                           vault.write()
                         </Code>
                       </MotionBox>
                       <MotionBox
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                      >
+                        transition={{ duration: 0.5, delay: 0.3 }}>
+                        
                         <Code
                           bg="transparent"
                           color="green.500"
                           fontSize={{ base: "sm", md: "md", lg: "lg" }}
                           fontFamily="mono"
                           fontWeight="semibold"
-                          p={0}
-                        >
+                          p={0}>
+                          
                           vault.query(scope)
                         </Code>
                       </MotionBox>
@@ -1152,24 +1147,24 @@ Enforces zero-trust access to every byte.
                       color="gray.600"
                       fontFamily="Inter, sans-serif"
                       lineHeight="tall"
-                      mb={4}
-                    >
+                      mb={4}>
+                      
                       All data access routes pass through{" "}
                       <MotionBox
                         as="span"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
-                        display="inline-block"
-                      >
+                        display="inline-block">
+                        
                         <Code
                           bg="transparent"
                           color="green.500"
                           fontSize={{ base: "sm", md: "md", lg: "lg" }}
                           fontFamily="mono"
                           fontWeight="semibold"
-                          p={0}
-                        >
+                          p={0}>
+                          
                           hushh.link.verifyConsent()
                         </Code>
                       </MotionBox>
@@ -1181,14 +1176,14 @@ Enforces zero-trust access to every byte.
                     <MotionBox
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.5 }}
-                    >
+                      transition={{ duration: 0.5, delay: 0.5 }}>
+                      
                       <Text
                         fontSize={{ base: "md", md: "lg", lg: "xl" }}
                         color="gray.600"
                         fontFamily="Inter, sans-serif"
-                        lineHeight="tall"
-                      >
+                        lineHeight="tall">
+                        
                         Supports agent-to-agent data sharing via signed MCP tokens
                       </Text>
                     </MotionBox>
@@ -1204,8 +1199,8 @@ Enforces zero-trust access to every byte.
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
             mt={{ base: 16, md: 20, lg: 24 }}
-            textAlign="center"
-          >
+            textAlign="center">
+            
             <Text
               fontSize={{ base: "sm", md: "md", lg: "lg" }}
               fontWeight="bold"
@@ -1213,8 +1208,8 @@ Enforces zero-trust access to every byte.
               fontFamily="Inter, sans-serif"
               letterSpacing="wider"
               textTransform="uppercase"
-              lineHeight="normal"
-            >
+              lineHeight="normal">
+              
               Explore the Stack
             </Text>
           </MotionBox>
@@ -1229,16 +1224,16 @@ Enforces zero-trust access to every byte.
         minH="100vh"
         display="flex"
         flexDirection="column"
-        justifyContent="center"
-      >
+        justifyContent="center">
+        
         <Container maxW="8xl" px={{ base: 4, md: 6, lg: 8 }}>
           {/* Section Title */}
           <MotionBox
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            mb={{ base: 12, md: 16, lg: 20 }}
-          >
+            mb={{ base: 12, md: 16, lg: 20 }}>
+            
             <Heading
               as="h2"
               fontSize={{ base: "40px", md: "56px", lg: "64px" }}
@@ -1247,8 +1242,8 @@ Enforces zero-trust access to every byte.
               letterSpacing="-0.02em"
               fontFamily="Inter, sans-serif"
               lineHeight="1.1"
-              mb={{ base: 8, md: 12, lg: 16 }}
-            >
+              mb={{ base: 8, md: 12, lg: 16 }}>
+              
               Sample Usecase
             </Heading>
           </MotionBox>
@@ -1259,8 +1254,8 @@ Enforces zero-trust access to every byte.
             gap={{ base: 6, md: 12, lg: 6 }}
             mb={{ base: 16, md: 20, lg: 24 }}
             maxW="1600px"
-            mx="auto"
-          >
+            mx="auto">
+            
             {/* Card 1 - Doctor Sleep Data */}
             <GridItem>
               <MotionBox
@@ -1270,15 +1265,15 @@ Enforces zero-trust access to every byte.
                 position="relative"
                 borderRadius="29px"
                 overflow="hidden"
-                w={{base:'100%',md:'100%',lg:'100%'}} 
+                w={{ base: '100%', md: '100%', lg: '100%' }}
                 h={{ base: "400px", md: "500px", lg: "636px" }}
                 boxShadow="0px 2px 4px 0px rgba(0,0,0,0.15)"
                 border="1px solid #000000"
                 _hover={{
                   transform: "translateY(-5px)",
-                  boxShadow:"0px 2px 4px 0px rgba(0,0,0,0)"
-                }}
-              >
+                  boxShadow: "0px 2px 4px 0px rgba(0,0,0,0)"
+                }}>
+                
                 {/* Background Image */}
                 <Box
                   position="absolute"
@@ -1289,8 +1284,8 @@ Enforces zero-trust access to every byte.
                   backgroundImage="/samplecase1.svg"
                   backgroundSize="cover"
                   backgroundPosition="center"
-                  backgroundRepeat="no-repeat"
-                />
+                  backgroundRepeat="no-repeat" />
+                
                 
                 {/* Dark Overlay */}
                 <Box
@@ -1299,8 +1294,8 @@ Enforces zero-trust access to every byte.
                   left={0}
                   right={0}
                   bottom={0}
-                  bg="rgba(0, 0, 0, 0.1)"
-                />
+                  bg="rgba(0, 0, 0, 0.1)" />
+                
 
                 {/* Text Content */}
                 <Box
@@ -1309,16 +1304,16 @@ Enforces zero-trust access to every byte.
                   left="8"
                   right="8"
                   zIndex={2}
-                  maxW="280px"
-                >
+                  maxW="280px">
+                  
                   <Text
                     fontSize={{ base: "24px", md: "28px", lg: "36px" }}
                     fontWeight="600"
                     color="white"
                     fontFamily="Inter, sans-serif"
                     letterSpacing="-0.02em"
-                    lineHeight="1.1"
-                  >
+                    lineHeight="1.1">
+                    
                     Let my doctor view my sleep data from Apple Health for 3 days
                   </Text>
                 </Box>
@@ -1339,8 +1334,8 @@ Enforces zero-trust access to every byte.
                 _hover={{
                   transform: "translateY(-5px)",
                   boxShadow: "0px 8px 25px 0px rgba(0,0,0,0.3)"
-                }}
-              >
+                }}>
+                
                 {/* Background Image */}
                 <Box
                   position="absolute"
@@ -1351,8 +1346,8 @@ Enforces zero-trust access to every byte.
                   backgroundImage="/samplecase2.svg"
                   backgroundSize="cover"
                   backgroundPosition="center"
-                  backgroundRepeat="no-repeat"
-                />
+                  backgroundRepeat="no-repeat" />
+                
                 
                 {/* Dark Overlay */}
                 <Box
@@ -1361,8 +1356,8 @@ Enforces zero-trust access to every byte.
                   left={0}
                   right={0}
                   bottom={0}
-                  bg="rgba(0, 0, 0, 0.1)"
-                />
+                  bg="rgba(0, 0, 0, 0.1)" />
+                
 
                 {/* Text Content */}
                 <Box
@@ -1371,16 +1366,16 @@ Enforces zero-trust access to every byte.
                   left="8"
                   right="8"
                   zIndex={2}
-                  maxW="320px"
-                >
+                  maxW="320px">
+                  
                   <Text
                     fontSize={{ base: "24px", md: "28px", lg: "36px" }}
                     fontWeight="600"
                     color="white"
                     fontFamily="Inter, sans-serif"
                     letterSpacing="-0.02em"
-                    lineHeight="1.1"
-                  >
+                    lineHeight="1.1">
+                    
                     Store job preferences for AI recruiter assistant
                   </Text>
                 </Box>
@@ -1401,8 +1396,8 @@ Enforces zero-trust access to every byte.
                 _hover={{
                   transform: "translateY(-5px)",
                   boxShadow: "0px 8px 25px 0px rgba(0,0,0,0.3)"
-                }}
-              >
+                }}>
+                
                 {/* Background Image */}
                 <Box
                   position="absolute"
@@ -1413,8 +1408,8 @@ Enforces zero-trust access to every byte.
                   backgroundImage="/samplecase3.svg"
                   backgroundSize="cover"
                   backgroundPosition="center"
-                  backgroundRepeat="no-repeat"
-                />
+                  backgroundRepeat="no-repeat" />
+                
                 
                 {/* Dark Overlay */}
                 <Box
@@ -1423,8 +1418,8 @@ Enforces zero-trust access to every byte.
                   left={0}
                   right={0}
                   bottom={0}
-                  bg="rgba(0, 0, 0, 0.1)"
-                />
+                  bg="rgba(0, 0, 0, 0.1)" />
+                
 
                 {/* Text Content */}
                 <Box
@@ -1433,16 +1428,16 @@ Enforces zero-trust access to every byte.
                   left="8"
                   right="8"
                   zIndex={2}
-                  maxW="280px"
-                >
+                  maxW="280px">
+                  
                   <Text
                     fontSize={{ base: "24px", md: "28px", lg: "36px" }}
                     fontWeight="600"
                     color="white"
                     fontFamily="Inter, sans-serif"
                     letterSpacing="-0.02em"
-                    lineHeight="1.1"
-                  >
+                    lineHeight="1.1">
+                    
                     Log every agent interaction with consent-based hash trails
                   </Text>
                 </Box>
@@ -1462,16 +1457,16 @@ Enforces zero-trust access to every byte.
         minH="100vh"
         display="flex"
         flexDirection="column"
-        justifyContent="center"
-      >
+        justifyContent="center">
+        
         <Container maxW="6xl" px={{ base: 4, md: 6, lg: 8 }}>
           <VStack spacing={{ base: 8, md: 10, lg: 12 }} align="center" textAlign="center">
             {/* Section Title */}
             <MotionBox
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
+              transition={{ duration: 0.6, ease: "easeOut" }}>
+              
               <Heading
                 as="h2"
                 fontSize={{ base: "3xl", md: "5xl", lg: "6xl" }}
@@ -1480,25 +1475,25 @@ Enforces zero-trust access to every byte.
                 letterSpacing="tight"
                 fontFamily="Inter, sans-serif"
                 lineHeight="shorter"
-                textAlign="center"
-              >
+                textAlign="center">
+                
                 Security at Core
               </Heading>
             </MotionBox>
 
             {/* Security Features List */}
-            <VStack 
-              spacing={{ base: "60px", md: "60px", lg: "60px" }} 
-              align="center" 
+            <VStack
+              spacing={{ base: "60px", md: "60px", lg: "60px" }}
+              align="center"
               maxW="1400px"
-              mx="auto"
-            >
+              mx="auto">
+              
               {/* Feature 1 */}
               <MotionBox
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-              >
+                transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}>
+                
                 <Text
                   fontSize={{ base: "24px", md: "36px", lg: "48px" }}
                   fontWeight="bold"
@@ -1511,8 +1506,8 @@ Enforces zero-trust access to every byte.
                   transform={highlightedFeature === 1 ? "translateY(-2px)" : "translateY(0)"}
                   transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                   onMouseEnter={() => setHighlightedFeature(1)}
-                  onMouseLeave={() => setHighlightedFeature(2)}
-                >
+                  onMouseLeave={() => setHighlightedFeature(2)}>
+                  
                   Vault lives locally by default, offloaded with full encryption
                 </Text>
               </MotionBox>
@@ -1521,8 +1516,8 @@ Enforces zero-trust access to every byte.
               <MotionBox
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              >
+                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}>
+                
                 <Text
                   fontSize={{ base: "24px", md: "36px", lg: "48px" }}
                   fontWeight="bold"
@@ -1535,8 +1530,8 @@ Enforces zero-trust access to every byte.
                   transform={highlightedFeature === 2 ? "translateY(-2px)" : "translateY(0)"}
                   transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                   onMouseEnter={() => setHighlightedFeature(2)}
-                  onMouseLeave={() => setHighlightedFeature(2)}
-                >
+                  onMouseLeave={() => setHighlightedFeature(2)}>
+                  
                   Consent key signature required for any external access
                 </Text>
               </MotionBox>
@@ -1545,8 +1540,8 @@ Enforces zero-trust access to every byte.
               <MotionBox
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-              >
+                transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}>
+                
                 <Text
                   fontSize={{ base: "24px", md: "36px", lg: "48px" }}
                   fontWeight="bold"
@@ -1559,8 +1554,8 @@ Enforces zero-trust access to every byte.
                   transform={highlightedFeature === 3 ? "translateY(-2px)" : "translateY(0)"}
                   transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                   onMouseEnter={() => setHighlightedFeature(3)}
-                  onMouseLeave={() => setHighlightedFeature(2)}
-                >
+                  onMouseLeave={() => setHighlightedFeature(2)}>
+                  
                   Immutable audit trails built-in
                 </Text>
               </MotionBox>
@@ -1569,8 +1564,8 @@ Enforces zero-trust access to every byte.
               <MotionBox
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              >
+                transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}>
+                
                 <Text
                   fontSize={{ base: "24px", md: "36px", lg: "48px" }}
                   fontWeight="bold"
@@ -1583,8 +1578,8 @@ Enforces zero-trust access to every byte.
                   transform={highlightedFeature === 4 ? "translateY(-2px)" : "translateY(0)"}
                   transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                   onMouseEnter={() => setHighlightedFeature(4)}
-                  onMouseLeave={() => setHighlightedFeature(2)}
-                >
+                  onMouseLeave={() => setHighlightedFeature(2)}>
+                  
                   Ready for SOC2 and HIPAA-level compliance extensions
                 </Text>
               </MotionBox>
@@ -1597,8 +1592,8 @@ Enforces zero-trust access to every byte.
       <Box
         bg="#f5f5f7"
         position="relative"
-        py={{ base: "60px", md: "80px", lg: "120px" }}
-      >
+        py={{ base: "60px", md: "80px", lg: "120px" }}>
+        
         {/* White Background for Right Half */}
         <Box
           position="absolute"
@@ -1607,22 +1602,22 @@ Enforces zero-trust access to every byte.
           w={{ base: "0%", lg: "50%" }}
           h="full"
           bg="#ffffff"
-          zIndex={1}
-        />
+          zIndex={1} />
+        
         
         <Container maxW="8xl" px={0} position="relative" zIndex={2}>
           <Grid
             templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
             gap={0}
-            alignItems="start"
-          >
+            alignItems="start">
+            
             {/* Left Column - Developer Ready */}
             <GridItem px={{ base: "32px", md: "48px", lg: "120px" }} py={{ base: "40px", md: "60px", lg: "80px" }}>
               <MotionBox
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
+                transition={{ duration: 0.6, ease: "easeOut" }}>
+                
                 <VStack spacing={{ base: "32px", md: "40px", lg: "48px" }} align="start" w="full">
                   {/* Title */}
                   <Heading
@@ -1632,8 +1627,8 @@ Enforces zero-trust access to every byte.
                     color="#333333"
                     fontFamily="Inter, sans-serif"
                     lineHeight="1.2"
-                    mb={{ base: "24px", md: "32px", lg: "40px" }}
-                  >
+                    mb={{ base: "24px", md: "32px", lg: "40px" }}>
+                    
                     Developer Ready
                   </Heading>
 
@@ -1643,8 +1638,8 @@ Enforces zero-trust access to every byte.
                     <MotionBox
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                    >
+                      transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}>
+                      
                       <Flex align="start" gap={{ base: "12px", md: "14px", lg: "16px" }}>
                         <Box
                           w={{ base: "5px", md: "6px", lg: "7px" }}
@@ -1652,15 +1647,15 @@ Enforces zero-trust access to every byte.
                           bg="#333333"
                           borderRadius="full"
                           mt={{ base: "7px", md: "8px", lg: "9px" }}
-                          flexShrink={0}
-                        />
+                          flexShrink={0} />
+                        
                         <Text
                           fontSize={{ base: "14px", md: "16px", lg: "18px" }}
                           fontWeight="400"
                           color="#333333"
                           fontFamily="Inter, sans-serif"
-                          lineHeight="1.5"
-                        >
+                          lineHeight="1.5">
+                          
                           REST API + SDK integration with iOS, Firebase, Node.js
                         </Text>
                       </Flex>
@@ -1670,8 +1665,8 @@ Enforces zero-trust access to every byte.
                     <MotionBox
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                    >
+                      transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}>
+                      
                       <Flex align="start" gap={{ base: "12px", md: "14px", lg: "16px" }}>
                         <Box
                           w={{ base: "5px", md: "6px", lg: "7px" }}
@@ -1679,15 +1674,15 @@ Enforces zero-trust access to every byte.
                           bg="#333333"
                           borderRadius="full"
                           mt={{ base: "7px", md: "8px", lg: "9px" }}
-                          flexShrink={0}
-                        />
+                          flexShrink={0} />
+                        
                         <Text
                           fontSize={{ base: "14px", md: "16px", lg: "18px" }}
                           fontWeight="400"
                           color="#333333"
                           fontFamily="Inter, sans-serif"
-                          lineHeight="1.5"
-                        >
+                          lineHeight="1.5">
+                          
                           Built-in JSON schema validation for your operons
                         </Text>
                       </Flex>
@@ -1697,8 +1692,8 @@ Enforces zero-trust access to every byte.
                     <MotionBox
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                    >
+                      transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}>
+                      
                       <Flex align="start" gap={{ base: "12px", md: "14px", lg: "16px" }}>
                         <Box
                           w={{ base: "5px", md: "6px", lg: "7px" }}
@@ -1706,15 +1701,15 @@ Enforces zero-trust access to every byte.
                           bg="#333333"
                           borderRadius="full"
                           mt={{ base: "7px", md: "8px", lg: "9px" }}
-                          flexShrink={0}
-                        />
+                          flexShrink={0} />
+                        
                         <Text
                           fontSize={{ base: "14px", md: "16px", lg: "18px" }}
                           fontWeight="400"
                           color="#333333"
                           fontFamily="Inter, sans-serif"
-                          lineHeight="1.5"
-                        >
+                          lineHeight="1.5">
+                          
                           Data lifespan rules (TTL, purpose limitation) supported by design
                         </Text>
                       </Flex>
@@ -1722,13 +1717,13 @@ Enforces zero-trust access to every byte.
                   </VStack>
 
                   {/* Buttons Section */}
-                  <HStack 
+                  <HStack
                     spacing={{ base: "12px", md: "16px", lg: "20px" }}
                     flexDir={{ base: "column", sm: "row" }}
                     w="full"
                     align="start"
-                    mt={{ base: "32px", md: "40px", lg: "48px" }}
-                  >
+                    mt={{ base: "32px", md: "40px", lg: "48px" }}>
+                    
                     <MotionButton
                       size="lg"
                       bg="#0071E3"
@@ -1754,42 +1749,42 @@ Enforces zero-trust access to every byte.
                       }}
                       transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                       whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
+                      whileTap={{ scale: 0.98 }}>
+                      
                       Use Link in your Agent
                     </MotionButton>
 
                     {/* <MotionButton
-                      size="lg"
-                      bg="transparent"
-                      color="#0071E3"
-                      px={{ base: "24px", md: "28px", lg: "32px" }}
-                      py={{ base: "12px", md: "14px", lg: "16px" }}
-                      borderRadius="full"
-                      fontSize={{ base: "14px", md: "16px", lg: "16px" }}
-                      fontWeight="500"
-                      fontFamily="Inter, sans-serif"
-                      h={{ base: "44px", md: "48px", lg: "52px" }}
-                      minW={{ base: "180px", md: "200px", lg: "220px" }}
-                      border="2px solid #0071E3"
-                      _hover={{
-                        bg: "#0071E3",
-                        color: "white",
-                        transform: "translateY(-1px)",
-                        boxShadow: "0 4px 12px rgba(0, 113, 227, 0.3)"
-                      }}
-                      _active={{
-                        transform: "translateY(0)"
-                      }}
-                      onClick={() => {
-                        router.push("https://github.com/hushh-labs/consent-protocol");
-                      }}
-                      transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Audit Sample Logs
-                    </MotionButton> */}
+                       size="lg"
+                       bg="transparent"
+                       color="#0071E3"
+                       px={{ base: "24px", md: "28px", lg: "32px" }}
+                       py={{ base: "12px", md: "14px", lg: "16px" }}
+                       borderRadius="full"
+                       fontSize={{ base: "14px", md: "16px", lg: "16px" }}
+                       fontWeight="500"
+                       fontFamily="Inter, sans-serif"
+                       h={{ base: "44px", md: "48px", lg: "52px" }}
+                       minW={{ base: "180px", md: "200px", lg: "220px" }}
+                       border="2px solid #0071E3"
+                       _hover={{
+                         bg: "#0071E3",
+                         color: "white",
+                         transform: "translateY(-1px)",
+                         boxShadow: "0 4px 12px rgba(0, 113, 227, 0.3)"
+                       }}
+                       _active={{
+                         transform: "translateY(0)"
+                       }}
+                       onClick={() => {
+                         router.push("https://github.com/hushh-labs/consent-protocol");
+                       }}
+                       transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                       whileHover={{ scale: 1.02 }}
+                       whileTap={{ scale: 0.98 }}
+                      >
+                       Audit Sample Logs
+                      </MotionButton> */}
                   </HStack>
                 </VStack>
               </MotionBox>
@@ -1800,8 +1795,8 @@ Enforces zero-trust access to every byte.
               <MotionBox
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
+                transition={{ duration: 0.6, ease: "easeOut" }}>
+                
                 <VStack spacing={{ base: "32px", md: "40px", lg: "48px" }} align="start" w="full">
                   {/* Title */}
                   <Heading
@@ -1811,8 +1806,8 @@ Enforces zero-trust access to every byte.
                     color="#333333"
                     fontFamily="Inter, sans-serif"
                     lineHeight="1.2"
-                    mb={{ base: "24px", md: "32px", lg: "40px" }}
-                  >
+                    mb={{ base: "24px", md: "32px", lg: "40px" }}>
+                    
                     Future Vault+ Capabilities{" "}
                     <Text as="span" display="block">
                       (Premium Layer)
@@ -1825,8 +1820,8 @@ Enforces zero-trust access to every byte.
                     <MotionBox
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                    >
+                      transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}>
+                      
                       <Flex align="start" gap={{ base: "12px", md: "14px", lg: "16px" }}>
                         <Box
                           w={{ base: "5px", md: "6px", lg: "7px" }}
@@ -1834,15 +1829,15 @@ Enforces zero-trust access to every byte.
                           bg="#333333"
                           borderRadius="full"
                           mt={{ base: "7px", md: "8px", lg: "9px" }}
-                          flexShrink={0}
-                        />
+                          flexShrink={0} />
+                        
                         <Text
                           fontSize={{ base: "14px", md: "16px", lg: "18px" }}
                           fontWeight="400"
                           color="#333333"
                           fontFamily="Inter, sans-serif"
-                          lineHeight="1.5"
-                        >
+                          lineHeight="1.5">
+                          
                           Privacy-preserving federated learning
                         </Text>
                       </Flex>
@@ -1852,8 +1847,8 @@ Enforces zero-trust access to every byte.
                     <MotionBox
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                    >
+                      transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}>
+                      
                       <Flex align="start" gap={{ base: "12px", md: "14px", lg: "16px" }}>
                         <Box
                           w={{ base: "5px", md: "6px", lg: "7px" }}
@@ -1861,15 +1856,15 @@ Enforces zero-trust access to every byte.
                           bg="#333333"
                           borderRadius="full"
                           mt={{ base: "7px", md: "8px", lg: "9px" }}
-                          flexShrink={0}
-                        />
+                          flexShrink={0} />
+                        
                         <Text
                           fontSize={{ base: "14px", md: "16px", lg: "18px" }}
                           fontWeight="400"
                           color="#333333"
                           fontFamily="Inter, sans-serif"
-                          lineHeight="1.5"
-                        >
+                          lineHeight="1.5">
+                          
                           Personalized AI model cache & fine-tuning
                         </Text>
                       </Flex>
@@ -1879,8 +1874,8 @@ Enforces zero-trust access to every byte.
                     <MotionBox
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                    >
+                      transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}>
+                      
                       <Flex align="start" gap={{ base: "12px", md: "14px", lg: "16px" }}>
                         <Box
                           w={{ base: "5px", md: "6px", lg: "7px" }}
@@ -1888,15 +1883,15 @@ Enforces zero-trust access to every byte.
                           bg="#333333"
                           borderRadius="full"
                           mt={{ base: "7px", md: "8px", lg: "9px" }}
-                          flexShrink={0}
-                        />
+                          flexShrink={0} />
+                        
                         <Text
                           fontSize={{ base: "14px", md: "16px", lg: "18px" }}
                           fontWeight="400"
                           color="#333333"
                           fontFamily="Inter, sans-serif"
-                          lineHeight="1.5"
-                        >
+                          lineHeight="1.5">
+                          
                           Voting ledger + signal sharing marketplace
                         </Text>
                       </Flex>
@@ -1909,9 +1904,9 @@ Enforces zero-trust access to every byte.
         </Container>
       </Box>
 
-     <ContactForm/>
-    </>
-  );
+     <ContactForm />
+    </>);
+
 };
 
 export default HushhVault;

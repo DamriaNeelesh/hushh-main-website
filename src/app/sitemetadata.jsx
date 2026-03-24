@@ -1,4 +1,3 @@
-import HushhHeaderLogo from "../app/_components/svg/hushhHeaderLogo";
 export const siteMetadata = {
   title: 'Hushh | Your Data Your Business',
   author: 'Manish Sainani',

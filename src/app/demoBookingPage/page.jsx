@@ -2,6 +2,7 @@ import React from "react";
 import ClientDemoBooking from "../clientside/DemoBooking";
 import { siteMetadata } from "../sitemetadata";
 import ContentWrapper from "../_components/layout/ContentWrapper";
+import JsonLdScript from "../_components/seo/JsonLdScript";
 
 export const metadata = {
   title: "Schedule a Demo | See Hushh's Data Privacy Solutions in Action",
@@ -82,10 +83,7 @@ const serviceJsonLd = {
 const DemoBooking = () => {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
-      />
+      <JsonLdScript data={serviceJsonLd} />
       <ContentWrapper includeHeaderSpacing={true}>
         <ClientDemoBooking />
       </ContentWrapper>

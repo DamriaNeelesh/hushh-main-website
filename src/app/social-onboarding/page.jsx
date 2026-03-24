@@ -35,7 +35,7 @@ export default function SocialOnboardingPage() {
       setSubmitting(true);
       await uploadImages({ email: user.email, files: files.filter(Boolean) });
       try {
-        localStorage.setItem("hushh_social_images_count", String(files.filter(Boolean).length));
+        sessionStorage.setItem("hushh_social_images_count", String(files.filter(Boolean).length));
       } catch {}
       router.push("/social-onboarding/social-links");
     } catch (err) {
@@ -118,5 +118,4 @@ export default function SocialOnboardingPage() {
     </ContentWrapper>
   );
 }
-
 

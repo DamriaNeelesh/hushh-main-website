@@ -6,12 +6,9 @@ import {
   Text, 
   useToast, 
   VStack, 
-  Input,
   Textarea
 } from "@chakra-ui/react";
 import { keyframes } from '@emotion/react';
-import config from '../config/config';
-import { httpRequest } from '../requestHandler/requestHandler';
 import { useApiKey } from '../../context/apiKeyContext';
 import { useAuth } from '../../context/AuthContext';
 
@@ -54,20 +51,20 @@ const SessionToken = () => {
 
     setIsLoading(true);
     try {
-      console.log('Fetching session token for user:', user.email);
-      
-      const response = await httpRequest(
-        'POST',
-        `sessiontoken?mail=${user.email}&api_key=${apiKey}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await fetch("/api/developer/session-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          mail: user.email,
+          apiKey,
+        }),
+      });
+      const payload = await response.json().catch(() => ({}));
 
-      if (response.status_code === 200) {
-        setSessionToken(response.token);
+      if (response.ok && payload.status_code === 200) {
+        setSessionToken(payload.token);
         setError(''); // Clear any errors
         toast({
           title: 'Session Token Retrieved',
@@ -80,7 +77,7 @@ const SessionToken = () => {
         setError('Failed to fetch session token');
         toast({
           title: 'Error',
-          description: 'Failed to fetch session token. Please try again.',
+          description: payload.message || 'Failed to fetch session token. Please try again.',
           status: 'error',
           duration: 3000,
           isClosable: true,

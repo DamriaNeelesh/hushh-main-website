@@ -4,13 +4,13 @@ import { useState } from "react";
 import { Globe, ArrowRight, Loader2 } from "lucide-react";
 
 const DEMO_LANGUAGES = [
-  { code: "hi", name: "Hindi", native: "हिन्दी" },
-  { code: "ta", name: "Tamil", native: "தமிழ்" },
-  { code: "bn", name: "Bengali", native: "বাংলা" },
-  { code: "te", name: "Telugu", native: "తెలుగు" },
-  { code: "mr", name: "Marathi", native: "मराठी" },
-  { code: "gu", name: "Gujarati", native: "ગુજરાતી" },
-];
+{ code: "hi", name: "Hindi", native: "हिन्दी" },
+{ code: "ta", name: "Tamil", native: "தமிழ்" },
+{ code: "bn", name: "Bengali", native: "বাংলা" },
+{ code: "te", name: "Telugu", native: "తెలుగు" },
+{ code: "mr", name: "Marathi", native: "मराठी" },
+{ code: "gu", name: "Gujarati", native: "ગુજરાતી" }];
+
 
 export default function TranslationDemo() {
   const [inputText, setInputText] = useState("");
@@ -30,8 +30,8 @@ export default function TranslationDemo() {
         body: JSON.stringify({
           text: inputText,
           action: "multi",
-          targetLangs: DEMO_LANGUAGES.map((l) => l.code),
-        }),
+          targetLangs: DEMO_LANGUAGES.map((l) => l.code)
+        })
       });
 
       const json = await res.json();
@@ -40,7 +40,7 @@ export default function TranslationDemo() {
       } else {
         setError(json.error || "Translation failed");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
@@ -74,38 +74,38 @@ export default function TranslationDemo() {
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Type your marketing text here… e.g. 'Discover amazing deals this festive season!'"
               rows={3}
-              className="w-full rounded-2xl border border-gray-200 bg-white px-6 py-4 text-[#1A1A2E] placeholder:text-[#9CA3AF] outline-none transition-all duration-200 focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20 resize-none text-base"
-            />
+              className="w-full rounded-2xl border border-gray-200 bg-white px-6 py-4 text-[#1A1A2E] placeholder:text-[#9CA3AF] outline-none transition-all duration-200 focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20 resize-none text-base" />
+            
             <button
               onClick={handleTranslate}
               disabled={loading || !inputText.trim()}
-              className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-xl bg-[#7C3AED] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#6D28D9] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-            >
-              {loading ? (
-                <Loader2 size={16} className="animate-spin" />
-              ) : (
-                <>
+              className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-xl bg-[#7C3AED] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#6D28D9] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+              
+              {loading ?
+              <Loader2 size={16} className="animate-spin" /> :
+
+              <>
                   Translate <ArrowRight size={14} />
                 </>
-              )}
+              }
             </button>
           </div>
 
           {/* Error */}
-          {error && (
-            <p className="mt-3 text-sm text-[#EF4444] text-center">{error}</p>
-          )}
+          {error &&
+          <p className="mt-3 text-sm text-[#EF4444] text-center">{error}</p>
+          }
 
           {/* Results */}
-          {translations.length > 0 && (
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {translations.length > 0 &&
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {translations.map((t, idx) => {
-                const langInfo = DEMO_LANGUAGES.find((l) => l.code === t.targetLanguage);
-                return (
-                  <div
-                    key={t.targetLanguage}
-                    className="group rounded-xl border border-gray-100 bg-white p-5 transition-all duration-200 hover:border-[#7C3AED]/20 hover:shadow-md"
-                  >
+              const langInfo = DEMO_LANGUAGES.find((l) => l.code === t.targetLanguage);
+              return (
+                <div
+                  key={t.targetLanguage}
+                  className="group rounded-xl border border-gray-100 bg-white p-5 transition-all duration-200 hover:border-[#7C3AED]/20 hover:shadow-md">
+                  
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-xs font-bold text-[#7C3AED] uppercase tracking-wider">
                         {langInfo?.name}
@@ -117,13 +117,13 @@ export default function TranslationDemo() {
                     <p className="text-[#1A1A2E] text-sm leading-relaxed">
                       {t.translatedText}
                     </p>
-                  </div>
-                );
-              })}
+                  </div>);
+
+            })}
             </div>
-          )}
+          }
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }

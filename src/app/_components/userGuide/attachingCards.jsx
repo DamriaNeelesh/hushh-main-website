@@ -1,5 +1,4 @@
-import { Box, Heading, Text, List, ListItem, ListIcon, OrderedList, VStack, Divider } from '@chakra-ui/react';
-import { CheckCircleIcon } from '@chakra-ui/icons';
+import { Box, Heading, ListItem, OrderedList, VStack, Divider } from '@chakra-ui/react';
 import React from 'react';
 
 const AttachingCards = () => {

@@ -7,102 +7,73 @@ import {
   AccordionPanel,
   Box,
   Button,
-  Container,
   Divider,
-  Grid,
   HStack,
   Heading,
   ListItem,
   Stack,
   Text,
   UnorderedList,
-  VStack,
-  border,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  useDisclosure,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+  VStack } from
+"@chakra-ui/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import OutBoundServiceImg from "../_components/svg/outBoundService/outboundServiceImg.svg";
-import { ServiceCard } from "../_components/primitives/serviceCard";
-import PaperPlane from "../_components/svg/conciergeApp/paperPlanImage.svg";
-import { FiFlag } from "react-icons/fi";
-import ChartIcon from "../_components/svg/outBoundService/chartLogoIcon.svg";
-import ConsultationIcon from "../_components/svg/outBoundService/consultationIcon.svg";
-import DualDirection from "../_components/svg/outBoundService/dualDirection.svg";
-import FeedbackIcon from "../_components/svg/outBoundService/feedbackoundIcon.svg";
 import ContactForm from "../_components/features/contactForm";
-import One from "../_components/svg/outBoundService/one.svg";
-import Two from "../_components/svg/outBoundService/two.svg";
-import Three from "../_components/svg/outBoundService/three.svg";
-import Four from "../_components/svg/outBoundService/four.svg";
-import TrustedAIIcon from "../_components/svg/trustedAI";
-import ControlOver from "../_components/svg/controlOver";
-import TechIntegrationIcon from "../_components/svg/techIntegration";
-import RedifiningIcon from "../_components/svg/redifiningIcon";
-import TransparentSecureIcon from "../_components/svg/tranparentSecure";
 import Manish from "../../../public/Images/manish.png";
 import Justin from "../../../public/Images/justin.png";
 import TwitterIcon from "../_components/svg/icons/twitterIcon.svg";
-import SkypeIcon from "../_components/svg/icons/skypeIcon.svg";
 import LinkedInIcon from "../_components/svg/icons/linkedinIcon.svg";
 import { useRouter } from "next/navigation";
 import Shadow from "../_components/svg/outBoundService/shadowOutBound.svg";
 import { useMediaQuery } from "react-responsive";
 import SeasonedSvg from "../_components/svg/outBoundService/seasonedProfessional.svg";
 import BgShadow from "../_components/svg/outBoundService/bgShadow.svg";
-import DivideLine from "../_components/svg/outBoundService/Line 233.svg";
 import OutboundFaq from '../_components/features/faq/outboundFaq';
 import HeaderBG from "../_components/svg/hushhCommunity/headerBG.svg";
 
 const categories = {
   "AI Infrastructure": [
-    "Designing scalable AI systems",
-    "Optimizing AI processing pipelines",
-    "Selecting and implementing AI hardware solutions"
-  ],
+  "Designing scalable AI systems",
+  "Optimizing AI processing pipelines",
+  "Selecting and implementing AI hardware solutions"],
+
   "Machine Learning and Deep Learning": [
-    "Developing custom ML/DL models",
-    "Implementing transfer learning techniques",
-    "Fine-tuning pre-trained models for specific use cases"
-  ],
+  "Developing custom ML/DL models",
+  "Implementing transfer learning techniques",
+  "Fine-tuning pre-trained models for specific use cases"],
+
   "Large Language Models (LLMs) and Small Language Models (SLMs)": [
-    "Integrating LLMs/SLMs into existing systems",
-    "Customizing language models for domain-specific applications",
-    "Optimizing inference performance"
-  ],
+  "Integrating LLMs/SLMs into existing systems",
+  "Customizing language models for domain-specific applications",
+  "Optimizing inference performance"],
+
   "Data Architecture": [
-    "Designing robust data pipeliness",
-    "Implementing data lakes and data warehouses",
-    "Ensuring data quality and governance"
-  ],
+  "Designing robust data pipeliness",
+  "Implementing data lakes and data warehouses",
+  "Ensuring data quality and governance"],
+
   "Data Science": [
-    "Developing data-driven strategies",
-    "Implementing advanced analytics solutions",
-    "Creating insightful data visualizations"
-  ],
+  "Developing data-driven strategies",
+  "Implementing advanced analytics solutions",
+  "Creating insightful data visualizations"],
+
   "AI Hardware Selection": [
-    "Evaluating GPUs, TPUs, and specialized AI chips",
-    "Optimizing hardware configurations for specific AI workloads",
-    "Cost-benefit analysis of different AI hardware options"
-  ],
+  "Evaluating GPUs, TPUs, and specialized AI chips",
+  "Optimizing hardware configurations for specific AI workloads",
+  "Cost-benefit analysis of different AI hardware options"],
+
   "Product Leadership in AI/ML": [
-    "Developing AI-driven product strategies",
-    "Managing AI product life cycles",
-    "Aligning AI capabilities with business objectives"
-  ]
+  "Developing AI-driven product strategies",
+  "Managing AI product life cycles",
+  "Aligning AI capabilities with business objectives"]
+
 };
 
 const OutBoundService = () => {
   const [activeCategory, setActiveCategory] = useState("AI Infrastructure");
-  const router = useRouter();
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const _router = useRouter();
+  const _isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   // const {
   //   isOpen: isWalletOpen,
   //   onOpen: onWalletOpen,
@@ -114,7 +85,7 @@ const OutBoundService = () => {
   const scrollToStart = () => {
     window.scrollTo({
       top: document.getElementById("howItworks").offsetTop,
-      behavior: "smooth",
+      behavior: "smooth"
     });
   };
 
@@ -126,17 +97,17 @@ const OutBoundService = () => {
         minW={"100%"}
         display={"flex"}
         flexDirection={"column"}
-        position={"relative"}
-      >
-         <Image src={HeaderBG} style={{position:'absolute',zIndex:'-1'}} alt="header bg" title="header bg"/>
+        position={"relative"}>
+        
+         <Image src={HeaderBG} style={{ position: 'absolute', zIndex: '-1' }} alt="header bg" title="header bg" />
         <Box
           alignItems={"center"}
           w={"100%"}
           gap={{ md: "2rem", base: "1rem" }}
           display={"flex"}
           flexDirection={"column"}
-          mt={{ base: "3rem" }}
-        >
+          mt={{ base: "3rem" }}>
+          
           <Heading
             fontWeight={"700"}
             lineHeight={{ md: "90.28px", base: "48px" }}
@@ -146,20 +117,20 @@ const OutBoundService = () => {
             className="gradient"
             px={{ base: "0.5rem", md: "4rem" }}
             mb={{ base: "0.5rem" }}
-            as={"h1"}
-          >
+            as={"h1"}>
+            
             Hushh Advisory And Professional Consulting Services
           </Heading>
           <Text
-            // px={{ md: "17.8rem" }}
-            // mb={{ base: "1rem", md: "4rem" }}
-            textAlign={"center"}
-            fontWeight={"400"}
-            color={"#FFFFFF"}
-            letterSpacing={"-0.4px"}
-            lineHeight={{ md: "30px", base: "18px" }}
-            fontSize={{ md: "1.25rem", base: "0.75rem" }}
-          >
+          // px={{ md: "17.8rem" }}
+          // mb={{ base: "1rem", md: "4rem" }}
+          textAlign={"center"}
+          fontWeight={"400"}
+          color={"#FFFFFF"}
+          letterSpacing={"-0.4px"}
+          lineHeight={{ md: "30px", base: "18px" }}
+          fontSize={{ md: "1.25rem", base: "0.75rem" }}>
+            
             For all your AI and data problems
           </Text>
           <Button
@@ -173,11 +144,11 @@ const OutBoundService = () => {
             letterSpacing={{ md: "0.29rem", base: "0.145rem" }}
             _hover={{
               background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
-              border: "none",
+              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              border: "none"
             }}
-            onClick={scrollToStart}
-          >
+            onClick={scrollToStart}>
+            
             GET STARTED
           </Button>
         </Box>
@@ -187,19 +158,19 @@ const OutBoundService = () => {
           px={{ md: "7rem", base: "1.25rem" }}
           gap={{ md: "3rem", base: "0.5rem" }}
           display={"flex"}
-          flexDirection={{ md: "row", base: "column" }}
-        >
+          flexDirection={{ md: "row", base: "column" }}>
+          
           <Box
             display={"flex"}
             flexDirection={"column"}
             flex={1}
-            gap={{ md: "2rem", base: "1rem" }}
-          >
+            gap={{ md: "2rem", base: "1rem" }}>
+            
             <Image
               src={OutBoundServiceImg}
               alt="OutBoundServiceImg"
-              layout="responsive"
-            />
+              layout="responsive" />
+            
           </Box>
 
           <Box
@@ -207,8 +178,8 @@ const OutBoundService = () => {
             flexDirection={"column"}
             gap={{ md: "1rem", base: "1rem" }}
             flex={1}
-            mt={{md:'0',base:'1rem'}}
-          >
+            mt={{ md: '0', base: '1rem' }}>
+            
             <Text
               className="new-gradient"
               letterSpacing={"0.255rem"}
@@ -223,8 +194,8 @@ const OutBoundService = () => {
               className="gradient"
               fontSize={{ md: "3.75rem", base: "1.75rem" }}
               fontWeight={"500"}
-              lineHeight={{ md: "63.3px", base: "31.2px" }}
-            >
+              lineHeight={{ md: "63.3px", base: "31.2px" }}>
+              
               Outbound Services
             </Text>
 
@@ -232,8 +203,8 @@ const OutBoundService = () => {
               color={"#ABABAB"}
               fontWeight={"500"}
               fontSize={{ md: "1rem", base: "0.65rem" }}
-              lineHeight={{ md: "36px", base: "20px" }}
-            >
+              lineHeight={{ md: "36px", base: "20px" }}>
+              
               At Hushh, we provide expert advisory consultations to companies
               and teams seeking guidance in AI, data architecture, and related
               technologies. Our outbound services include:
@@ -246,27 +217,27 @@ const OutBoundService = () => {
               fontWeight={"500"}
               lineHeight={{ md: "36px", base: "24px" }}
               color={"#ABABAB"}
-              gap={"1rem"}
-            >
+              gap={"1rem"}>
+              
               <VStack
                 textAlign={"left"}
                 alignItems={"flex-start"}
-                lineHeight={"1rem"}
-              >
+                lineHeight={"1rem"}>
+                
                 <Text
                   fontWeight={"700"}
                   fontSize={{ md: "1.25rem", base: "1rem" }}
                   lineHeight={{ md: "24px", base: "16px" }}
-                  color={"#FFFFFF"}
-                >
+                  color={"#FFFFFF"}>
+                  
                   Remote advisory sessions
                 </Text>
                 <Text
                   color={"#ABABAB"}
                   lineHeight={{ md: "36px", base: "24px" }}
                   fontWeight={"500"}
-                  fontSize={{ md: "1rem", base: "0.75rem" }}
-                >
+                  fontSize={{ md: "1rem", base: "0.75rem" }}>
+                  
                   Flexible online consultations to address your specific AI and
                   data challenges.
                 </Text>
@@ -274,22 +245,22 @@ const OutBoundService = () => {
               <VStack
                 textAlign={"left"}
                 alignItems={"flex-start"}
-                lineHeight={"1rem"}
-              >
+                lineHeight={"1rem"}>
+                
                 <Text
                   fontWeight={"700"}
                   fontSize={{ md: "1.25rem", base: "1rem" }}
                   lineHeight={{ md: "24px", base: "16px" }}
-                  color={"#FFFFFF"}
-                >
+                  color={"#FFFFFF"}>
+                  
                   Short-term expert placements
                 </Text>
                 <Text
                   color={"#ABABAB"}
                   lineHeight={{ md: "36px", base: "24px" }}
                   fontWeight={"500"}
-                  fontSize={{ md: "1rem", base: "0.75rem" }}
-                >
+                  fontSize={{ md: "1rem", base: "0.75rem" }}>
+                  
                   Temporary integration of our specialists into your team for
                   focused problem-solving.
                 </Text>
@@ -297,22 +268,22 @@ const OutBoundService = () => {
               <VStack
                 textAlign={"left"}
                 alignItems={"flex-start"}
-                lineHeight={"1rem"}
-              >
+                lineHeight={"1rem"}>
+                
                 <Text
                   fontWeight={"700"}
                   fontSize={{ md: "1.25rem", base: "1rem" }}
                   lineHeight={{ md: "24px", base: "16px" }}
-                  color={"#FFFFFF"}
-                >
+                  color={"#FFFFFF"}>
+                  
                   Strategic planning assistance
                 </Text>
                 <Text
                   color={"#ABABAB"}
                   lineHeight={{ md: "36px", base: "24px" }}
                   fontWeight={"500"}
-                  fontSize={{ md: "1rem", base: "0.75rem" }}
-                >
+                  fontSize={{ md: "1rem", base: "0.75rem" }}>
+                  
                   Help in developing roadmaps for AI adoption and data
                   infrastructure improvements.
                 </Text>
@@ -327,8 +298,8 @@ const OutBoundService = () => {
           display={"flex"}
           flexDirection={"column"}
           textAlign={"center"}
-          gap={{ md: "2rem", base: "1rem" }}
-        >
+          gap={{ md: "2rem", base: "1rem" }}>
+          
           <Text
             className="gradient"
             fontSize={{ md: "2.15rem", base: "1rem" }}
@@ -336,8 +307,8 @@ const OutBoundService = () => {
             fontWeight={"700"}
             lineHeight={{ md: "51px", base: "30px" }}
             px={{ md: "15%", base: "5%" }}
-            mb={{md:'0',base:'1rem'}}
-          >
+            mb={{ md: '0', base: '1rem' }}>
+            
             Our seasoned professionals bring their extensive experience to bear
             on your unique challenges, offering insights and solutions in areas
             such as:
@@ -352,13 +323,13 @@ const OutBoundService = () => {
           minW={{ md: "100%", base: "100%" }}
           position={"relative"}
           mt={{ md: "2rem", basse: "0.5rem" }}
-          px={{ md: "5rem", base: "2rem" }}
-        >
+          px={{ md: "5rem", base: "2rem" }}>
+          
           <Image
             src={SeasonedSvg}
             alt="Hushh outbound Services"
-            title="Hushh Outbound Service Description"
-          />
+            title="Hushh Outbound Service Description" />
+          
           <Text
             display={"flex"}
             mt={{ md: "2rem", base: "1rem" }}
@@ -368,8 +339,8 @@ const OutBoundService = () => {
             color={"#ABABAB"}
             fontWeight={"500"}
             fontSize={{ md: "1rem", base: "0.75rem" }}
-            lineHeight={{ md: "36px", base: "24px" }}
-          >
+            lineHeight={{ md: "36px", base: "24px" }}>
+            
             Whether you need a quick consultation or ongoing support, our team
             is ready to provide the expertise you need to navigate the complex
             landscape of AI and data technologies.
@@ -377,84 +348,84 @@ const OutBoundService = () => {
         </Box>
 
         <VStack
-      px={{ md: "5rem", base: "1.25rem" }}
-      py={{ md: "8rem", base: "4rem" }}
-      className="howItworks"
-      id="howItworks"
-      position={"relative"}
-    >
+          px={{ md: "5rem", base: "1.25rem" }}
+          py={{ md: "8rem", base: "4rem" }}
+          className="howItworks"
+          id="howItworks"
+          position={"relative"}>
+          
       <Text
-        className="hushh-gradient"
-        fontWeight={"600"}
-        fontSize={{ md: "1rem", base: "0.5rem" }}
-        lineHeight={{ md: "16px" }}
-        letterSpacing={"0.255rem"}
-      >
+            className="hushh-gradient"
+            fontWeight={"600"}
+            fontSize={{ md: "1rem", base: "0.5rem" }}
+            lineHeight={{ md: "16px" }}
+            letterSpacing={"0.255rem"}>
+            
         CORE VALUE COMPANY
       </Text>
       <Text
-        className="gradient"
-        textAlign={"center"}
-        fontWeight={"700"}
-        fontSize={{ md: "3.75rem", base: "1.75rem" }}
-        lineHeight={{ md: "90px", base: "28.3px" }}
-      >
+            className="gradient"
+            textAlign={"center"}
+            fontWeight={"700"}
+            fontSize={{ md: "3.75rem", base: "1.75rem" }}
+            lineHeight={{ md: "90px", base: "28.3px" }}>
+            
         Our Expertise
       </Text>
       <Box display={"flex"} flexDirection={{ md: "row", base: "column" }}>
         <VStack
-          textAlign={"left"}
-          alignContent={"flex-start"}
-          alignItems={"flex-start"}
-          flex={1}
-        >
-          {Object.keys(categories).map((category) => (
-            <React.Fragment key={category}>
+              textAlign={"left"}
+              alignContent={"flex-start"}
+              alignItems={"flex-start"}
+              flex={1}>
+              
+          {Object.keys(categories).map((category) =>
+              <React.Fragment key={category}>
               <Text
-                w={'100%'} 
-                zIndex={3}
-                opacity={'100%'}
-                color={activeCategory === category ? "#FFFFFF" : "#E5E5E5"}
-                fontWeight={activeCategory === category ? "700" : "300"}
-                fontSize={{ md: activeCategory === category ? "2.5rem" : "2rem", base: activeCategory === category ? "1.5rem" : "1rem" }}
-                lineHeight={{ md: activeCategory === category ? "50.6px" : "32px", base: activeCategory === category ? "32px" : "24px" }}
-                onClick={() => setActiveCategory(category)}
-                style={{ cursor: 'pointer' }}
-              >
+                  w={'100%'}
+                  zIndex={3}
+                  opacity={'100%'}
+                  color={activeCategory === category ? "#FFFFFF" : "#E5E5E5"}
+                  fontWeight={activeCategory === category ? "700" : "300"}
+                  fontSize={{ md: activeCategory === category ? "2.5rem" : "2rem", base: activeCategory === category ? "1.5rem" : "1rem" }}
+                  lineHeight={{ md: activeCategory === category ? "50.6px" : "32px", base: activeCategory === category ? "32px" : "24px" }}
+                  onClick={() => setActiveCategory(category)}
+                  style={{ cursor: 'pointer' }}>
+                  
                 {category}
               </Text>
               <Divider />
             </React.Fragment>
-          ))}
+              )}
           <Image
-            style={{
-              position: "absolute",
-              zIndex: "2",
-              left: "-50px",
-              top: "60px",
-              width: "100%",
-              opacity: "80%",
-            }}
-            src={BgShadow}
-            alt="shadow"
-          />
+                style={{
+                  position: "absolute",
+                  zIndex: "2",
+                  left: "-50px",
+                  top: "60px",
+                  width: "100%",
+                  opacity: "80%"
+                }}
+                src={BgShadow}
+                alt="shadow" />
+              
         </VStack>
         <VStack
-          flex={1}
-          justifyContent={{ md: "center", base: 'flex-start' }}
-          justifyItems={{ md: "center", base: 'flex-start' }}
-          p={{ md: "4rem", base: '0' }}
-          mt={{ md: '0', base: '1rem' }}
-        >
+              flex={1}
+              justifyContent={{ md: "center", base: 'flex-start' }}
+              justifyItems={{ md: "center", base: 'flex-start' }}
+              p={{ md: "4rem", base: '0' }}
+              mt={{ md: '0', base: '1rem' }}>
+              
           <UnorderedList
-            color={"#ABABAB"}
-            fontWeight={"500"}
-            lineHeight={{ md: "69px", base: "30px" }}
-            gap={{ md: "1rem", base: "0.25rem" }}
-          >
-            {categories[activeCategory].map((item, index) => (
-              <ListItem key={index}>{item}</ListItem>
-            ))}
+                color={"#ABABAB"}
+                fontWeight={"500"}
+                lineHeight={{ md: "69px", base: "30px" }}
+                gap={{ md: "1rem", base: "0.25rem" }}>
+                
+            {categories[activeCategory].map((item, index) =>
+                <ListItem key={index}>{item}</ListItem>
+                )}
           </UnorderedList>
         </VStack>
       </Box>
@@ -467,22 +438,22 @@ const OutBoundService = () => {
               zIndex: "-1",
               left: "-600px",
               top: "100px",
-              width: "100%",
+              width: "100%"
             }}
             src={Shadow}
-            alt="shadow"
-          />
+            alt="shadow" />
+          
           <VStack
             px={{ md: "3.5rem", base: "1.15rem" }}
-            py={{ md: "6rem", base: "2rem" }}
-          >
+            py={{ md: "6rem", base: "2rem" }}>
+            
             <Text
               className="hushh-gradient"
               fontWeight={"600"}
               fontSize={{ md: "1rem", base: "0.5rem" }}
               lineHeight={"16px"}
-              letterSpacing={"0.255rem"}
-            >
+              letterSpacing={"0.255rem"}>
+              
               MEET THE FOUNDERS
             </Text>
             <Text
@@ -490,16 +461,16 @@ const OutBoundService = () => {
               textAlign={"center"}
               fontWeight={"400"}
               fontSize={{ md: "3.75rem", base: "1.75rem" }}
-              lineHeight={{ base: "40px", md: "63.3px" }}
-            >
+              lineHeight={{ base: "40px", md: "63.3px" }}>
+              
               Our Team
             </Text>
             <Text
               color={"#E5E5E5"}
               fontWeight={"400"}
               fontSize={{ md: "1rem", base: "0.75rem" }}
-              lineHeight={{ md: "28px", base: "20px" }}
-            >
+              lineHeight={{ md: "28px", base: "20px" }}>
+              
               Leadership isn't a title, it's an action. Thank you for leading by
               example.
             </Text>
@@ -510,22 +481,22 @@ const OutBoundService = () => {
             px={{ md: "5rem", base: "1.15rem" }}
             display={"flex"}
             w={"100%"}
-            flexDirection={{ md: "row", base: "column" }}
-          >
+            flexDirection={{ md: "row", base: "column" }}>
+            
             <Box
               flex={1}
               w={"100%"}
               h={"100%"}
-              display={{ md: "flex", base: "none" }}
-            >
+              display={{ md: "flex", base: "none" }}>
+              
               <Image
                 alt="manish"
                 src={Manish}
                 title="manish sainani"
                 width={"355"}
                 height={"489"}
-                style={{ border: "10px solid white", borderRadius: "21.16px" }}
-              />
+                style={{ border: "10px solid white", borderRadius: "21.16px" }} />
+              
             </Box>
             <Box w={"100%"} h={"100%"} display={{ md: "none", base: "flex" }} justifyContent={'center'} alignItems={'center'}>
               <Image
@@ -533,32 +504,32 @@ const OutBoundService = () => {
                 src={Manish}
                 title="manish sainani"
                 width={"200"}
-                height={"220"}
-              />
+                height={"220"} />
+              
             </Box>
             <VStack
               flex={2}
               gap={{ md: "1rem", base: "1rem" }}
               textAlign={"left"}
-              alignItems={"flex-start"}
-            >
-              <HStack w={"100%"} flexDirection={{base:'column',md:'row'}} justifyContent={"space-between"}>
+              alignItems={"flex-start"}>
+              
+              <HStack w={"100%"} flexDirection={{ base: 'column', md: 'row' }} justifyContent={"space-between"}>
                 <Box display={"flex"} flexDirection={"column"}>
                   <Text
                     fontWeight={"700"}
                     lineHeight={{ md: "32.13px", base: "20px" }}
                     fontSize={{ md: "1.67rem", base: "1.15rem" }}
                     className="hushh-gradient"
-                    mt={{ base: "1rem" }}
-                  >
+                    mt={{ base: "1rem" }}>
+                    
                     Manish Sainani
                   </Text>
                   <Text
                     fontWeight={"400"}
                     lineHeight={{ md: "21.42px", base: "14px" }}
                     fontSize={{ md: "1.1rem", base: "0.75rem" }}
-                    className="gradient"
-                  >
+                    className="gradient">
+                    
                     CEO, CPO and Founder
                   </Text>
                 </Box>
@@ -566,8 +537,8 @@ const OutBoundService = () => {
                 <Box display={"flex"} flexDirection={"row"}>
                   <HStack
                     display={"flex"}
-                    gap={{ md: "1rem", base: "0.5rem" }}
-                  >
+                    gap={{ md: "1rem", base: "0.5rem" }}>
+                    
                     <Button
                       backgroundColor={"#0565FF"}
                       color={"white"}
@@ -575,20 +546,20 @@ const OutBoundService = () => {
                       cursor={"pointer"}
                       padding={{
                         md: "5px 20px 5px 20px",
-                        base: "5px 10px 5px 10px",
+                        base: "5px 10px 5px 10px"
                       }}
                       fontSize={{ md: "1rem", base: "0.75rem" }}
                       _hover={{
                         color: "white",
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)"
                       }}
                       onClick={() =>
-                        window.open(
-                          "https://calendly.com/hushh/advisory-meet-with-our-leadership-team",
-                          "_blank"
-                        )
-                      }
-                    >
+                      window.open(
+                        "https://calendly.com/hushh/advisory-meet-with-our-leadership-team",
+                        "_blank"
+                      )
+                      }>
+                      
                       Book a call with Manish
                     </Button>
                     <Image
@@ -597,21 +568,21 @@ const OutBoundService = () => {
                       title="manish twitter"
                       style={{ cursor: "pointer" }}
                       onClick={() =>
-                        window.open("https://x.com/manishsainani", "_blank")
-                      }
-                    />
+                      window.open("https://x.com/manishsainani", "_blank")
+                      } />
+                    
                     <Image
                       src={LinkedInIcon}
                       alt="LinkedInIcon"
                       title="Manish LinkedIn"
                       style={{ cursor: "pointer" }}
                       onClick={() =>
-                        window.open(
-                          "https://www.linkedin.com/in/manishsainani/",
-                          "_blank"
-                        )
-                      }
-                    />
+                      window.open(
+                        "https://www.linkedin.com/in/manishsainani/",
+                        "_blank"
+                      )
+                      } />
+                    
                   </HStack>
                 </Box>
               </HStack>
@@ -620,8 +591,8 @@ const OutBoundService = () => {
                 fontSize={{ md: "1rem", base: "0.75rem" }}
                 lineHeight={{ md: "36px", base: "20px" }}
                 color={"#ABABAB"}
-                opacity={"80%"}
-              >
+                opacity={"80%"}>
+                
                 As CEO and Chief Product Officer, Manish leads Hushh's overall
                 strategy and product vision. He leverages his extensive
                 experience in AI infrastructure and product management to guide
@@ -631,8 +602,8 @@ const OutBoundService = () => {
                 mt={{ md: "2rem", base: "1rem" }}
                 defaultIndex={[0]}
                 allowToggle
-                w={"100%"}
-              >
+                w={"100%"}>
+                
                 <AccordionItem>
                   <AccordionButton>
                     <Text
@@ -641,8 +612,8 @@ const OutBoundService = () => {
                       lineHeight={"24px"}
                       fontSize={{ md: "1.25rem", base: "0.75rem" }}
                       flex="1"
-                      textAlign="left"
-                    >
+                      textAlign="left">
+                      
                       AI Infrastructure
                     </Text>
                     <AccordionIcon color={"white"} />
@@ -652,8 +623,8 @@ const OutBoundService = () => {
                       color={"#ABABAB"}
                       fontWeight={"500"}
                       fontSize={{ md: "1rem", base: "0.75rem" }}
-                      lineHeight={{ md: "36px", base: "22px" }}
-                    >
+                      lineHeight={{ md: "36px", base: "22px" }}>
+                      
                       <ListItem>
                         Expert in selecting optimal AI processing hardware
                         (GPUs, TPUs, AWS Inferentia, AWS Trainium)
@@ -678,8 +649,8 @@ const OutBoundService = () => {
                       lineHeight={"24px"}
                       fontSize={{ md: "1.25rem", base: "0.75rem" }}
                       flex="1"
-                      textAlign="left"
-                    >
+                      textAlign="left">
+                      
                       Large Language Models (LLMs) and Small Language Models
                       (SLMs)
                     </Text>
@@ -690,8 +661,8 @@ const OutBoundService = () => {
                       color={"#ABABAB"}
                       fontWeight={"500"}
                       fontSize={{ md: "1rem", base: "0.75rem" }}
-                      lineHeight={{ md: "36px", base: "22px" }}
-                    >
+                      lineHeight={{ md: "36px", base: "22px" }}>
+                      
                       <ListItem>
                         Strategies for integrating language models into existing
                         systems
@@ -715,19 +686,19 @@ const OutBoundService = () => {
                       lineHeight={"24px"}
                       fontSize={{ md: "1.25rem", base: "0.75rem" }}
                       flex="1"
-                      textAlign="left"
-                    >
+                      textAlign="left">
+                      
                       AI Product Strategy
                     </Text>
                     <AccordionIcon color={"white"} />
                   </AccordionButton>
-                  <AccordionPanel pb={{md:4,base:0}}>
+                  <AccordionPanel pb={{ md: 4, base: 0 }}>
                     <UnorderedList
                       color={"#ABABAB"}
                       fontWeight={"500"}
                       fontSize={{ md: "1rem", base: "0.75rem" }}
-                      lineHeight={{ md: "36px", base: "22px" }}
-                    >
+                      lineHeight={{ md: "36px", base: "22px" }}>
+                      
                       <ListItem>
                         Developing roadmaps for AI product development
                       </ListItem>
@@ -754,17 +725,17 @@ const OutBoundService = () => {
             px={{ md: "5rem", base: "1.15rem" }}
             display={"flex"}
             flexDirection={{ md: "row", base: "column-reverse" }}
-            position={"relative"}
-          >
+            position={"relative"}>
+            
             <Box flex={2} display={"flex"} flexDirection={"column"}>
               <HStack
                 gap={{ md: "1rem", base: "0.5rem" }}
                 // textAlign={{ md: "left", base: "left" }}
                 alignItems={{ md: "flex-start", base: "center" }}
-                flexDirection={{md:"row",base:'column'}}
+                flexDirection={{ md: "row", base: 'column' }}
                 w={"100%"}
-                justifyContent={"space-between"}
-              >
+                justifyContent={"space-between"}>
+                
                 <Box display={"flex"} flexDirection={"column"}>
                   <Text
                     fontWeight={"700"}
@@ -772,16 +743,16 @@ const OutBoundService = () => {
                     fontSize={{ md: "1.67rem", base: "1rem" }}
                     className="hushh-gradient"
                     mt={{ base: "1rem", md: "0rem" }}
-                    textAlign={"left"}
-                  >
+                    textAlign={"left"}>
+                    
                     Justin Donaldson
                   </Text>
                   <Text
                     fontWeight={"400"}
                     lineHeight={{ md: "21.42px", base: "14px" }}
                     fontSize={{ md: "1.1rem", base: "0.75rem" }}
-                    className="gradient"
-                  >
+                    className="gradient">
+                    
                     CTO and Co-Founder
                   </Text>
                 </Box>
@@ -793,12 +764,12 @@ const OutBoundService = () => {
                     cursor={"pointer"}
                     padding={{
                       md: "5px 20px 5px 20px",
-                      base: "5px 10px 5px 10px",
+                      base: "5px 10px 5px 10px"
                     }}
                     fontSize={{ md: "1rem", base: "0.75rem" }}
                     _hover={{
                       color: "white",
-                      bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                      bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)"
                     }}
                     // onClick={() =>
                     //   window.open(
@@ -815,21 +786,21 @@ const OutBoundService = () => {
                     title="Justin twitter"
                     style={{ cursor: "pointer" }}
                     onClick={() =>
-                      window.open("https://x.com/omgjjd", "_blank")
-                    }
-                  />
+                    window.open("https://x.com/omgjjd", "_blank")
+                    } />
+                  
                   <Image
                     src={LinkedInIcon}
                     alt="LinkedInIcon"
                     title="Justin LinkedIn"
                     style={{ cursor: "pointer" }}
                     onClick={() =>
-                      window.open(
-                        "https://www.linkedin.com/in/jjustindonaldson/",
-                        "_blank"
-                      )
-                    }
-                  />
+                    window.open(
+                      "https://www.linkedin.com/in/jjustindonaldson/",
+                      "_blank"
+                    )
+                    } />
+                  
                 </HStack>
               </HStack>
               <Text
@@ -838,16 +809,16 @@ const OutBoundService = () => {
                 lineHeight={{ md: "36px", base: "20px" }}
                 color={"#ABABAB"}
                 opacity={"80%"}
-                mt={{md:'2rem',base:'1rem'}}
-              >
+                mt={{ md: '2rem', base: '1rem' }}>
+                
                 As Chief Technology Officer, Justin oversees the technical direction of Hushh and provides expert guidance on data infrastructure and data science initiatives. He brings a wealth of experience in designing and implementing robust data solutions.
               </Text>
               <Accordion
                 mt={{ md: "2rem", base: "1rem" }}
                 defaultIndex={[0]}
                 allowToggle
-                w={"100%"}
-              >
+                w={"100%"}>
+                
                 <AccordionItem>
                   <AccordionButton>
                     <Text
@@ -856,8 +827,8 @@ const OutBoundService = () => {
                       lineHeight={"24px"}
                       fontSize={{ md: "1.25rem", base: "0.75rem" }}
                       flex="1"
-                      textAlign="left"
-                    >
+                      textAlign="left">
+                      
                       Data Infrastructure
                     </Text>
                     <AccordionIcon color={"white"} />
@@ -867,8 +838,8 @@ const OutBoundService = () => {
                       color={"#ABABAB"}
                       fontWeight={"500"}
                       fontSize={{ md: "1rem", base: "0.75rem" }}
-                      lineHeight={{ md: "36px", base: "22px" }}
-                    >
+                      lineHeight={{ md: "36px", base: "22px" }}>
+                      
                       <ListItem>
                       Designing scalable and efficient data architectures
                       </ListItem>
@@ -890,8 +861,8 @@ const OutBoundService = () => {
                       lineHeight={"24px"}
                       fontSize={{ md: "1.25rem", base: "0.75rem" }}
                       flex="1"
-                      textAlign="left"
-                    >
+                      textAlign="left">
+                      
                       Data Science
                     </Text>
                     <AccordionIcon color={"white"} />
@@ -901,8 +872,8 @@ const OutBoundService = () => {
                       color={"#ABABAB"}
                       fontWeight={"500"}
                       fontSize={{ md: "1rem", base: "0.75rem" }}
-                      lineHeight={{ md: "36px", base: "22px" }}
-                    >
+                      lineHeight={{ md: "36px", base: "22px" }}>
+                      
                       <ListItem>
                       Developing advanced analytics solutions
                       </ListItem>
@@ -924,8 +895,8 @@ const OutBoundService = () => {
                       lineHeight={"24px"}
                       fontSize={{ md: "1.25rem", base: "0.75rem" }}
                       flex="1"
-                      textAlign="left"
-                    >
+                      textAlign="left">
+                      
                       Big Data Technologies
                     </Text>
                     <AccordionIcon color={"white"} />
@@ -935,8 +906,8 @@ const OutBoundService = () => {
                       color={"#ABABAB"}
                       fontWeight={"500"}
                       fontSize={{ md: "1rem", base: "0.75rem" }}
-                      lineHeight={{ md: "36px", base: "22px" }}
-                    >
+                      lineHeight={{ md: "36px", base: "22px" }}>
+                      
                       <ListItem>
                       Expertise in distributed computing frameworks 
                       </ListItem>
@@ -955,16 +926,16 @@ const OutBoundService = () => {
               flex={1}
               w={"100%"}
               h={"100%"}
-              display={{ md: "flex", base: "none" }}
-            >
+              display={{ md: "flex", base: "none" }}>
+              
               <Image
                 alt="Justin"
                 src={Justin}
                 title="Justin Donaldson"
                 width={"355"}
                 height={"489"}
-                style={{ border: "10px solid white", borderRadius: "21.16px" }}
-              />
+                style={{ border: "10px solid white", borderRadius: "21.16px" }} />
+              
             </Box>
             <Box w={"100%"} h={"100%"} alignItems={'center'} justifyContent={'center'} display={{ md: "none", base: "flex" }}>
               <Image
@@ -972,8 +943,8 @@ const OutBoundService = () => {
                 src={Justin}
                 title="Justin Donaldson"
                 width={"200"}
-                height={"220"}
-              />
+                height={"220"} />
+              
             </Box>
           </Stack>
           <Image
@@ -983,18 +954,18 @@ const OutBoundService = () => {
               right: "0px",
               overflow: "hidden",
               top: "900px",
-              width: "80%",
+              width: "80%"
             }}
             src={Shadow}
-            alt="shadow"
-          />
+            alt="shadow" />
+          
         </Box>
       </Box>
-      <OutboundFaq/>
+      <OutboundFaq />
       <ContactForm />
   
-    </>
-  );
+    </>);
+
 };
 
 export default OutBoundService;

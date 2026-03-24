@@ -1,13 +1,9 @@
 import { HushhButton } from "../svg/icons/HeaderIcons/HushhButton";
 import { HushhWalletApp } from "../svg/icons/HeaderIcons/HushhWalletApp";
-import { ConciergeApp } from "../svg/icons/HeaderIcons/ConciergeApp";
 import { ChromeExtension } from "../svg/icons/HeaderIcons/ChromeExtension";
-import { ValetChat } from "../svg/icons/HeaderIcons/ValetChat";
 import { VibeSearchApp } from "../svg/icons/HeaderIcons/VibeSearchApp";
 import HfsLogo from "../svg/hfsLogo";
-import HushhHeaderLogo from "../svg/hushhHeaderLogo";
 import { FcOnlineSupport } from "react-icons/fc";
-import { TbWorldDollar } from "react-icons/tb";
 
 const contentMap = [
   {

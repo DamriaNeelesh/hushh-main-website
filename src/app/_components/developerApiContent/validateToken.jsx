@@ -1,14 +1,13 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useToast } from '@chakra-ui/react';
-import { httpRequest } from '../requestHandler/requestHandler';
 
 const ValidateToken = () => {
   const [sessionToken, setSessionToken] = useState('');
   const [validationStatus, setValidationStatus] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [, setError] = useState('');
   const toast = useToast();
 
   const handleValidateToken = async () => {
@@ -25,18 +24,17 @@ const ValidateToken = () => {
 
     setIsLoading(true);
     try {
-      const response = await httpRequest(
-        'POST',
-        `validatetoken?token=${sessionToken}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      const message = response.msg || 'Operation completed.'; // Default message if 'msg' is not present
+      const response = await fetch("/api/developer/validate-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token: sessionToken }),
+      });
+      const payload = await response.json().catch(() => ({}));
+      const message = payload.msg || payload.message || 'Operation completed.'; // Default message if 'msg' is not present
 
-      if (response.status_code === 200) {
+      if (response.ok && payload.status_code === 200) {
         setValidationStatus('Valid');
         toast({
           title: 'Success',

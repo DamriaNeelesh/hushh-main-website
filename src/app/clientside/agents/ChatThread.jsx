@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import {
   Box,
   VStack,
@@ -12,27 +12,12 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import HushhLogoS from '../../_components/svg/hushhLogoS.svg'
-import MarkdownIt from 'markdown-it'
 import { FiAlertTriangle, FiMessageCircle } from 'react-icons/fi'
+import { SafeMessageContent } from '../../_components/content/SafeMessageContent'
 
 export default function ChatThread({ messages, loading, error, userInitials }) {
   const listRef = useRef(null)
   const prefersReducedMotion = usePrefersReducedMotion()
-
-  const markdown = useMemo(() => {
-    const md = new MarkdownIt({
-      html: false,
-      linkify: true,
-      breaks: true,
-    })
-
-    return md.disable('image')
-  }, [])
-
-  const formatContent = useCallback((value) => {
-    if (!value) return ''
-    return markdown.render(value)
-  }, [markdown])
 
   useEffect(() => {
     if (!listRef.current) return
@@ -189,8 +174,9 @@ export default function ChatThread({ messages, loading, error, userInitials }) {
                     marginBottom: '0.35rem',
                   },
                 }}
-                dangerouslySetInnerHTML={{ __html: formatContent(m.content || '') }}
-              />
+              >
+                <SafeMessageContent content={m.content || ''} />
+              </Box>
             </Box>
           </HStack>
         ))}

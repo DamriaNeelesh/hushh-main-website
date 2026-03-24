@@ -71,9 +71,9 @@ export default function PersonalPreferencesPage() {
       </div>
 
       <div className="mt-8 text-xs text-gray-500 text-center">
-        By entering information, I agree to Hushh's
-        <a className="text-red-500 underline ml-1" href="/legal/termsofuse">Terms of Service</a>,
-        <a className="text-red-500 underline ml-1" href="/legal/privacypolicy">Privacy Policy</a>.
+        By entering information, I agree to Hushh&apos;s
+        <a className="text-red-500 underline ml-1" href="/terms">Terms of Service</a>,
+        <a className="text-red-500 underline ml-1" href="/privacy">Privacy Policy</a>.
         See our Consent Policy <a className="text-red-500 underline" href="/consent-ai-protocol">here</a>.
       </div>
 
@@ -88,7 +88,7 @@ export default function PersonalPreferencesPage() {
               setSaving(true);
               await savePreferences({ email: user.email, answers: buildPreferencesPayload(state) });
               try {
-                localStorage.setItem("hushh_social_preferences", JSON.stringify(state));
+                sessionStorage.setItem("hushh_social_preferences", JSON.stringify(state));
               } catch {}
               router.push("/social-onboarding/completed");
             } catch (e) {
@@ -107,5 +107,3 @@ export default function PersonalPreferencesPage() {
     </ContentWrapper>
   );
 }
-
-

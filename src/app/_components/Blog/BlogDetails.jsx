@@ -2,8 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { format, parseISO } from "date-fns";
 import { slug } from "github-slugger";
+import { formatContentDate } from "../../../lib/content/date-utils";
 
 const BlogDetails = ({ blog }) => {
   if (!blog) return null;
@@ -18,7 +18,7 @@ const BlogDetails = ({ blog }) => {
         {blog.publishedAt && (
           <div>
             <dt className="text-xs uppercase tracking-[0.08em] text-[#6b7280] font-semibold">Published</dt>
-            <dd className="mt-1 text-sm text-[#111827]">{format(parseISO(blog.publishedAt), "MMMM d, yyyy")}</dd>
+            <dd className="mt-1 text-sm text-[#111827]">{formatContentDate(blog.publishedAt, "MMMM d, yyyy", "Recently published")}</dd>
           </div>
         )}
 

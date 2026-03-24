@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useCallback } from 'react'
-import { Box, Container, useToast } from '@chakra-ui/react'
+import { Box, useToast } from '@chakra-ui/react'
 import UserDetailsForm from './agent-signin/UserDetailsForm'
 import ResultsDisplay from './agent-signin/ResultsDisplay'
 import DataSourceComparison from './agent-signin/DataSourceComparison'
@@ -628,7 +628,7 @@ Ensure all intent, lifestyle, and psychographic fields are persisted correctly. 
         // Only sync if we have a confirmed Supabase UUID from the profile-creation agent.
         if (!aggregatedData.user_id) {
           console.warn('⚠️ Skipping local profile save: missing confirmed user_id from agent');
-          localStorage.setItem('hushh_user_profile', JSON.stringify({
+          sessionStorage.setItem('hushh_user_profile', JSON.stringify({
             full_name: formData.fullName,
             email: formData.email,
             phone: `${formData.countryCode || ''} ${formData.phoneNumber || ''}`.trim(),
@@ -660,8 +660,8 @@ Ensure all intent, lifestyle, and psychographic fields are persisted correctly. 
             aggregatedData.user_id = savedUuid;
             setUserData({ ...aggregatedData });
           }
-          // Store in localStorage for the QR code page to access 
-          localStorage.setItem('hushh_user_profile', JSON.stringify({
+          // Keep the QR payload in session storage only for the immediate follow-on flow.
+          sessionStorage.setItem('hushh_user_profile', JSON.stringify({
             user_id: savedUuid || saveResult.userId,
             full_name: formData.fullName,
             email: formData.email,

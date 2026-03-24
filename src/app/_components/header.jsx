@@ -1,46 +1,34 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import HushhHeaderLogo from "./svg/hushhHeaderLogo";
 import Link from "next/link";
-import { Box, Button, VStack, Flex, Text, Divider, HStack } from "@chakra-ui/react";
-import { useResponsiveSizes } from "../context/responsive";
-import SearchBar from "./features/searchBar";
-import { ChevronArrowIcon } from "./svg/icons/chevronArrowIcon";
+import { Button, useDisclosure, useToast } from "@chakra-ui/react";
 import HushhWalletIcon from "./svg/hushhWalletIcon";
 import HushhButtonIcon from "./svg/hushhButton";
 import VibeSearchIcon from "./svg/vibeSearch";
 import { SearchIcon } from "@chakra-ui/icons";
 import ChromeExtentionLogo from "./svg/ChromeExtensionLogo";
 import VibeSearchApi from "./svg/vibeSearchApi";
-import ValetChat from "./svg/valetChat";  
-import { usePathname, useRouter } from 'next/navigation'
-import { useToast } from '@chakra-ui/react';
+import ValetChat from "./svg/valetChat";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { ChevronRightIcon, CloseIcon, HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons";
-import { isMobile, isAndroid, isIOS } from 'react-device-detect';
+import { CloseIcon, HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { useAuth } from "../context/AuthContext";
 import UserAvatar from "./auth/UserAvatar";
-import HushhNewLogo from "../../../public/svgs/hushh_new_logo.svg"
+import HushhNewLogo from "../../../public/svgs/hushh_new_logo.svg";
 import { useHushhIdFlow } from "../hooks/useHushhIdFlow";
-import HushhFlow from '../_components/svg/icons/flowLogo.svg'
-import HushhGrid from '../_components/svg/icons/girdLogo.svg';  
-import HushhLink from '../_components/svg/icons/linkLogo.svg';
-import HushhVault from '../_components/svg/icons/vaultLogo.svg';
-import HushhPDA from '../_components/svg/icons/pdaLogo.svg';
-import HushhVoice from '../_components/svg/icons/vaultLogo.svg'; // Temporary placeholder icon
+import HushhFlow from "../_components/svg/icons/flowLogo.svg";
+import HushhGrid from "../_components/svg/icons/girdLogo.svg";
+import HushhLink from "../_components/svg/icons/linkLogo.svg";
+import HushhVault from "../_components/svg/icons/vaultLogo.svg";
+import HushhPDA from "../_components/svg/icons/pdaLogo.svg";
+import HushhVoice from "../_components/svg/icons/vaultLogo.svg";
 import SearchModal from "./features/SearchModal";
-import { useDisclosure } from "@chakra-ui/react";
 
-export default function Header({ backgroundColor, textColor, borderBottom, topOffset = 0 }) {
-  const { isTablet, isDesktop } = useResponsiveSizes();
+export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const pathname = usePathname()
+  const pathname = usePathname();
   const router = useRouter();
-  const overlayRef = useRef(null);
-  
-  // Search modal state
   const { isOpen: isSearchOpen, onOpen: onSearchOpen, onClose: onSearchClose } = useDisclosure();
 
   // Keyboard shortcut for search (Cmd+K / Ctrl+K)
@@ -58,17 +46,13 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
 
   const noHeaderPaths = ['/vivaConnect', '/viva-connect', '/viva-connect/qrPage', '/qrCodePage'];
   const shouldShowHeader = !noHeaderPaths.includes(pathname);
-  
+
   // Auth context
   const { isAuthenticated, user, loading, signOut } = useAuth();
   const toast = useToast();
-  
+
   // Use our reusable authentication flow hook for consistent user status checking
-  const { 
-    navigateToProfile, 
-    navigateToRegistration,
-    userExists
-  } = useHushhIdFlow();
+  const { navigateToProfile } = useHushhIdFlow();
 
   // Handle sign out for mobile
   const handleSignOut = async () => {
@@ -76,7 +60,7 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
       setIsMenuOpen(false);
       await signOut();
       router.push('/');
-      
+
       setTimeout(() => {
         toast({
           title: "✅ Signed out successfully",
@@ -84,10 +68,10 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
           status: "success",
           duration: 3000,
           isClosable: true,
-          position: "top",
+          position: "top"
         });
       }, 100);
-      
+
     } catch (error) {
       console.error('Error signing out:', error);
       toast({
@@ -96,13 +80,9 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
         status: "error",
         duration: 3000,
         isClosable: true,
-        position: "top",
+        position: "top"
       });
     }
-  };
-
-  const handleDownloadClick = () => {
-    window.location.href = "https://apps.apple.com/in/app/hushh-app/id6498471189";
   };
 
   const handleMenuIconToggle = (e) => {
@@ -113,7 +93,7 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
     }
     setIsMenuOpen(!isMenuOpen);
   };
-  
+
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -135,15 +115,15 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
       // Check if click is on a dropdown item (Link)
       const isDropdownLink = e.target.closest('a[href]');
       const isDropdownMenu = e.target.closest('.dropdown-menu');
-      
+
       // Don't close if clicking on:
       // 1. Hamburger button or inside mobile menu
       // 2. Dropdown link (let navigation happen first)
       // 3. Inside dropdown menu
-      if (!menuRef.current?.contains(e.target) && 
-          !hamburgerRef.current?.contains(e.target) && 
-          !isDropdownLink && 
-          !isDropdownMenu) {
+      if (!menuRef.current?.contains(e.target) &&
+      !hamburgerRef.current?.contains(e.target) &&
+      !isDropdownLink &&
+      !isDropdownMenu) {
         setIsMenuOpen(false);
         setActiveDropdown(null);
       }
@@ -154,202 +134,207 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
       document.removeEventListener("mousedown", handler);
     };
   }, []);
-  
+
   // Dropdown menu data
   const menuItems = {
     products: {
       title: "Products",
       items: [
-        {
-          name: "Agent Kai",
-          description: "Your Explainable Investing Copilot",
-          href: "/products/kai",
-          icon:HushhPDA
-        },
-        {
-          name: "Hushh Vault",
-          description: "Secure personal data storage and management",
-          href: "/hushh-vault",
-          icon:HushhVault
-        },
-        {
-          name: "Hushh Link",
-          description: "Connect and share data seamlessly",
-          href: "/hushh-link",
-          icon:HushhLink
-        },
-        {
-          name: "Hushh Flow",
-          description: "Streamline your data workflows",
-          href: "/products/hushh-flow",
-          icon:HushhFlow
-        },
-        {
-          name: "Hushh Grid",
-          description: "Visualize and organize your data",
-          href: "/products/hushh-grid",
-          icon: HushhGrid
-        },
-        {
-          name: "Hushh Voice",
-          description: "Your private, consent-first AI copilot",
-          href: "/hushh-voice",
-          icon: HushhVoice
-        },
-        {
-          name: "Hushh Intelligence",
-          description: "Advanced AI intelligence platform for data insights",
-          href: "/intelligence-portal",
-          icon: HushhFlow
-        }
-      ]
+      {
+        name: "Agent Kai",
+        description: "Your Explainable Investing Copilot",
+        href: "/products/kai",
+        icon: HushhPDA
+      },
+      {
+        name: "Hushh Vault",
+        description: "Secure personal data storage and management",
+        href: "/hushh-vault",
+        icon: HushhVault
+      },
+      {
+        name: "Hushh Link",
+        description: "Connect and share data seamlessly",
+        href: "/hushh-link",
+        icon: HushhLink
+      },
+      {
+        name: "Hushh Flow",
+        description: "Streamline your data workflows",
+        href: "/products/hushh-flow",
+        icon: HushhFlow
+      },
+      {
+        name: "Hushh Grid",
+        description: "Visualize and organize your data",
+        href: "/products/hushh-grid",
+        icon: HushhGrid
+      },
+      {
+        name: "Hushh Voice",
+        description: "Your private, consent-first AI copilot",
+        href: "/hushh-voice",
+        icon: HushhVoice
+      },
+      {
+        name: "Hushh Intelligence",
+        description: "Advanced AI intelligence platform for data insights",
+        href: "/intelligence-portal",
+        icon: HushhFlow
+      }]
+
     },
     solutions: {
       title: "Solutions",
       items: [
-        {
-          name: "Hushh Wallet App",
-          description: "Your personal data vault. Organize, control, and monetize your information",
-          href: "/products/hushh-wallet-app",
-          icon: HushhWalletIcon
-        },
-        {
-          name: "Hushh Button",
-          description: "Seamlessly share your preferences with brands for personalized experiences",
-          href: "/products/hushh-button",
-          icon: HushhButtonIcon
-        },
-        {
-          name: "Hushh Browser Companion",
-          description: "Track and manage your online browsing data, building a complete digital profile",
-          href: "/products/browser-companion",
-          icon: ChromeExtentionLogo
-        },
-        {
-          name: "VIBE Search App",
-          description: "Discover products you love with image-based search and AI recommendations",
-          href: "/products/hushh-vibe-search",
-          icon: VibeSearchIcon
-        },
-        {
-          name: "Developer API",
-          description: "Tools for businesses to integrate Hushh data into their applications",
-          href: "/developerApi",
-          icon: VibeSearchApi
-        },
-        {
-          name: "Hushh For Students",
-          description: "Rewards & empowers students with data control (safe & secure)",
-          href: "/products/hushh-for-students",
-          icon: ValetChat
-        }
-      ]
+      {
+        name: "Hushh Wallet App",
+        description: "Your personal data vault. Organize, control, and monetize your information",
+        href: "/products/hushh-wallet-app",
+        icon: HushhWalletIcon
+      },
+      {
+        name: "Hushh Button",
+        description: "Seamlessly share your preferences with brands for personalized experiences",
+        href: "/products/hushh-button",
+        icon: HushhButtonIcon
+      },
+      {
+        name: "Hushh Browser Companion",
+        description: "Track and manage your online browsing data, building a complete digital profile",
+        href: "/products/browser-companion",
+        icon: ChromeExtentionLogo
+      },
+      {
+        name: "VIBE Search App",
+        description: "Discover products you love with image-based search and AI recommendations",
+        href: "/products/hushh-vibe-search",
+        icon: VibeSearchIcon
+      },
+      {
+        name: "Developer API",
+        description: "Tools for businesses to integrate Hushh data into their applications",
+        href: "/developers",
+        icon: VibeSearchApi
+      },
+      {
+        name: "Hushh For Students",
+        description: "Rewards & empowers students with data control (safe & secure)",
+        href: "/products/hushh-for-students",
+        icon: ValetChat
+      }]
+
     },
     developers: {
       title: "Developers",
       items: [
-        {
-          name: "Getting Started",
-          description: "Begin your journey with Hushh",
-          href: "/getting-started"
-        },
-        {
-          name: "API Reference",
-          description: "Complete API documentation",
-          href: "/developerApi"
-        },
-        {
-          name: "GitHub Protocol",
-          description: "Open source development framework",
-          href: "/agent-kit-cli#github-protocol"
-        },
-        {
-          name: "Agentkit CLI",
-          description: "Command line tools for developers",
-          href: "/agent-kit-cli#agentkit-cli"  
-        },
-        {
-          name: "Build an Operon",
-          description: "Create custom data operations",
-          href: "/agent-kit-cli#build-operon"
-        },
-        {
-          name: "Submit to Marketplace",
-          description: "Publish your creations",
-          href: "/agent-kit-cli#submit-marketplace"
-        }
-      ]
+      {
+        name: "Getting Started",
+        description: "Begin your journey with Hushh",
+        href: "/developers/getting-started"
+      },
+      {
+        name: "API Reference",
+        description: "Complete API documentation",
+        href: "/developers/rootEndpoints"
+      },
+      {
+        name: "GitHub Protocol",
+        description: "Open source development framework",
+        href: "/agent-kit-cli#github-protocol"
+      },
+      {
+        name: "Agentkit CLI",
+        description: "Command line tools for developers",
+        href: "/agent-kit-cli#agentkit-cli"
+      },
+      {
+        name: "Build an Operon",
+        description: "Create custom data operations",
+        href: "/agent-kit-cli#build-operon"
+      },
+      {
+        name: "Submit to Marketplace",
+        description: "Publish your creations",
+        href: "/agent-kit-cli#submit-marketplace"
+      }]
+
     },
     whyHushh: {
       title: "Why Hushh?",
       items: [
-        {
-          name: "Our Philosophy",
-          description: "Understanding our core beliefs",
-          href: "/why-hushh"
-        },
-        {
-          name: "Privacy Manifesto",
-          description: "Our commitment to your privacy",
-          href: "/legal/privacypolicy"
-        },
-        {
-          name: "Consent Protocol",
-          description: "How we handle your consent",
-          href: "/consent-ai-protocol"
-        }
-      ]
+      {
+        name: "Our Philosophy",
+        description: "Understanding our core beliefs",
+        href: "/why-hushh"
+      },
+      {
+        name: "Privacy Manifesto",
+        description: "Our commitment to your privacy",
+        href: "/privacy"
+      },
+      {
+        name: "Terms of Use",
+        description: "The legal terms governing our website and services",
+        href: "/terms"
+      },
+      {
+        name: "Consent Protocol",
+        description: "How we handle your consent",
+        href: "/consent-ai-protocol"
+      }]
+
     },
     community: {
       title: "Community",
       items: [
-        {
-          name: "Agent Builders Club",
-          description: "Join our developer community",
-          href: "/hushh-community"
-        },
-        {
-          name: "Solutions",
-          description: "Delivering tailored IT services that meets the rigorous demands of modern business",
-          href: "/solutions"
-        },
-        {
-          name: "Hackathons",
-          description: "Build the future with us",
-          href: "/pda/iithackathon"
-        },
-        
-      ]
+      {
+        name: "Agent Builders Club",
+        description: "Join our developer community",
+        href: "/hushh-community"
+      },
+      {
+        name: "Solutions",
+        description: "Delivering tailored IT services that meets the rigorous demands of modern business",
+        href: "/solutions"
+      },
+      {
+        name: "Hackathons",
+        description: "Build the future with us",
+        href: "/pda/iithackathon"
+      }]
+
+
     },
     company: {
       title: "Company",
       items: [
-        {
-          name: "About",
-          description: "Learn about our mission",
-          href: "/about"
-        },
-        {
-          name: "Contact",
-          description: "Get in touch with us",
-          href: "/contact-us"
-        },
-        {
-          name: "Careers",
-          description: "Join our team",
-          href: "/career"
-        },
-        {
-          name: "Blogs",
-          description: "Latest news and insights",
-          href: "/hushhBlogs"
-        },
-        {
-          name: "FAQ",
-          description: "Frequently asked questions",
-          href: "/frequently-asked-questions"
-        },
-      ]
+      {
+        name: "About",
+        description: "Learn about our mission",
+        href: "/about"
+      },
+      {
+        name: "Contact",
+        description: "Get in touch with us",
+        href: "/contact-us"
+      },
+      {
+        name: "Careers",
+        description: "Join our team",
+        href: "/career"
+      },
+      {
+        name: "Blogs",
+        description: "Latest news and insights",
+        href: "/hushhBlogs"
+      },
+      {
+        name: "FAQ",
+        description: "Frequently asked questions",
+        href: "/frequently-asked-questions"
+      }]
+
     }
   };
 
@@ -362,6 +347,22 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
     setActiveDropdown(menuKey);
   };
 
+  const closeDropdowns = () => {
+    if (closeDropdownTimeoutRef.current) {
+      clearTimeout(closeDropdownTimeoutRef.current);
+      closeDropdownTimeoutRef.current = null;
+    }
+    setActiveDropdown(null);
+  };
+
+  const toggleDropdown = (menuKey) => {
+    if (activeDropdown === menuKey) {
+      closeDropdowns();
+      return;
+    }
+    openDropdown(menuKey);
+  };
+
   const scheduleCloseDropdown = () => {
     if (closeDropdownTimeoutRef.current) {
       clearTimeout(closeDropdownTimeoutRef.current);
@@ -369,6 +370,26 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
     closeDropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
     }, 200);
+  };
+
+  const handleDesktopDropdownBlur = (event) => {
+    const nextFocused = event.relatedTarget;
+    if (!event.currentTarget.contains(nextFocused)) {
+      scheduleCloseDropdown();
+    }
+  };
+
+  const handleDesktopDropdownKeyDown = (event, menuKey) => {
+    if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
+      event.preventDefault();
+      openDropdown(menuKey);
+      return;
+    }
+
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeDropdowns();
+    }
   };
 
   useEffect(() => {
@@ -379,76 +400,76 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
     };
   }, []);
 
-           const renderDropdownMenu = (menuKey, menuData) => {
-      // Check if this is the solutions or products dropdown to apply grid layout
-      const isSolutionsDropdown = menuKey === 'solutions';
-      const isProductsDropdown = menuKey === 'products';
-      
-      return (
-        <div
-          className="dropdown-menu absolute top-full left-0 bg-white shadow-2xl border border-gray-100 z-50 rounded-2xl mt-2"
-          style={{
-            animation: "fadeInDown 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-            minWidth: isSolutionsDropdown ? "800px" : isProductsDropdown ? "600px" : "280px",
-            maxWidth: isSolutionsDropdown ? "900px" : isProductsDropdown ? "700px" : "380px",
-            boxShadow: "0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 25px rgba(0, 0, 0, 0.08)",
-            backdropFilter: "blur(20px)",
-          }}
-          onMouseEnter={() => openDropdown(menuKey)}
-          onMouseLeave={scheduleCloseDropdown}
-        >
+  const renderDropdownMenu = (menuKey, menuData) => {
+    // Check if this is the solutions or products dropdown to apply grid layout
+    const isSolutionsDropdown = menuKey === 'solutions';
+    const isProductsDropdown = menuKey === 'products';
+
+    return (
+      <div
+        id={`desktop-menu-${menuKey}`}
+        className="dropdown-menu absolute top-full left-0 bg-white shadow-2xl border border-gray-100 z-50 rounded-2xl mt-2"
+        style={{
+          animation: "fadeInDown 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+          minWidth: isSolutionsDropdown ? "800px" : isProductsDropdown ? "600px" : "280px",
+          maxWidth: isSolutionsDropdown ? "900px" : isProductsDropdown ? "700px" : "380px",
+          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 25px rgba(0, 0, 0, 0.08)",
+          backdropFilter: "blur(20px)"
+        }}
+        role="menu"
+        aria-label={menuData.title}
+        onMouseEnter={() => openDropdown(menuKey)}
+        onMouseLeave={scheduleCloseDropdown}>
+        
           {/* Dropdown Arrow */}
-          <div 
-            className="absolute -top-2 left-6 w-4 h-4 bg-white border-t border-l border-gray-100 transform rotate-45"
-            style={{
-              filter: "drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.02))"
-            }}
-          ></div>
+          <div
+          className="absolute -top-2 left-6 w-4 h-4 bg-white border-t border-l border-gray-100 transform rotate-45"
+          style={{
+            filter: "drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.02))"
+          }}>
+        </div>
           
           <div className="relative bg-white rounded-2xl overflow-hidden">
             <div className="px-4 py-4">
               <div className={
-                isSolutionsDropdown ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" :
-                isProductsDropdown ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" :
-                "space-y-1"
-              }>
-                {menuData.items.map((item, index) => (
-                  <div
-                    key={index}
-                    className="group block p-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-200 hover:shadow-sm dropdown-item cursor-pointer"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      // Close dropdown immediately
-                      setActiveDropdown(null);
-                      // Navigate using router
-                      router.push(item.href);
-                    }}
-                  >
+            isSolutionsDropdown ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" :
+            isProductsDropdown ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" :
+            "space-y-1"
+            }>
+                {menuData.items.map((item, index) =>
+              <Link
+                key={`${menuKey}-${item.href}`}
+                href={item.href}
+                role="menuitem"
+                className="group block p-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-200 hover:shadow-sm dropdown-item cursor-pointer"
+                onClick={() => {
+                  closeDropdowns();
+                }}>
+                
                     <div className={
-                      isSolutionsDropdown ? "flex flex-col items-start text-left space-y-2" :
-                      isProductsDropdown ? "flex flex-col items-start text-left space-y-2" :
-                      "flex items-center space-x-3"
-                    }>
+                isSolutionsDropdown ? "flex flex-col items-start text-left space-y-2" :
+                isProductsDropdown ? "flex flex-col items-start text-left space-y-2" :
+                "flex items-center space-x-3"
+                }>
                       {/* Show icons for products and other dropdowns (not solutions) */}
-                      {item.icon && menuKey !== 'solutions' && (
-                        <div className="flex-shrink-0">
+                      {item.icon && menuKey !== 'solutions' &&
+                  <div className="flex-shrink-0">
                           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center group-hover:from-blue-100 group-hover:to-indigo-100 transition-all duration-200">
-                            <Image 
-                              src={item.icon} 
-                              alt={item.name} 
-                              width={16} 
-                              height={16} 
-                              className="w-4 h-4"
-                              style={{borderRadius:'20%'}}
-                              onError={(e) => {
-                                console.log('Image load error:', item.name, item.icon);
-                                e.target.style.display = 'none';
-                              }}
-                            />
+                            <Image
+                        src={item.icon}
+                        alt={item.name}
+                        width={16}
+                        height={16}
+                        className="w-4 h-4"
+                        style={{ borderRadius: '20%' }}
+                        onError={(e) => {
+                          console.log('Image load error:', item.name, item.icon);
+                          e.target.style.display = 'none';
+                        }} />
+                      
                           </div>
                         </div>
-                      )}
+                  }
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-semibold text-gray-900 group-hover:text-blue-700 transition-colors duration-200">
                           {item.name}
@@ -460,67 +481,111 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
                       </div>
                      
                     </div>
-                  </div>
-                ))}
+                  </Link>
+              )}
               </div>
             </div>
           </div>
-        </div>
-      );
-    };
+        </div>);
+
+  };
+
+  const renderMobileMenuItems = (menuKey, items) =>
+  <div className="mt-3 space-y-3 pl-4">
+      {items.map((item) =>
+    <Link
+      key={`${menuKey}-${item.href}`}
+      href={item.href}
+      onClick={() => {
+        setIsMenuOpen(false);
+        closeDropdowns();
+      }}
+      className="block mobile-menu-item">
+      
+          <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+            {item.icon ?
+        <div className="flex-shrink-0 mt-1">
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <Image
+              src={item.icon}
+              alt={item.name}
+              width={16}
+              height={16}
+              className="w-4 h-4"
+              style={{ borderRadius: "20%" }} />
+            
+                </div>
+              </div> :
+        null}
+            <div>
+              <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
+              <p className="text-xs text-gray-500 mt-1">{item.description}</p>
+            </div>
+          </div>
+        </Link>
+    )}
+    </div>;
+
 
   return (
     <>
-      {shouldShowHeader && (
-        <div>
+      {shouldShowHeader &&
+      <div>
           {/* Apple-style Header */}
-          <header 
-            className="bg-white bg-opacity-95 backdrop-blur-xl border-b border-gray-200 sticky top-0 left-0 right-0 z-50"
-            style={{
-              height: "70px",
-              background: "rgba(255, 255, 255, 0.98)",
-              backdropFilter: "saturate(180%) blur(20px)",
-              zIndex: 1000,
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08)",
-              borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
-            }}
-          >
+          <header
+          className="bg-white bg-opacity-95 backdrop-blur-xl border-b border-gray-200 sticky top-0 left-0 right-0 z-50"
+          style={{
+            height: "70px",
+            background: "rgba(255, 255, 255, 0.98)",
+            backdropFilter: "saturate(180%) blur(20px)",
+            zIndex: 1000,
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08)",
+            borderBottom: "1px solid rgba(0, 0, 0, 0.1)"
+          }}>
+          
             <div className="w-full mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 2xl:px-12">
               <div
-                className="flex items-center justify-between"
-                style={{
-                  height: "70px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "100%",
-                }}
-              >
+              className="flex items-center justify-between"
+              style={{
+                height: "70px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                width: "100%"
+              }}>
+              
                 {/* Logo */}
                 <div className="flex-shrink-0 mr-4 h-full flex items-center">
                   <Link href="/" className="flex items-center">
-                    <Image 
-                      src={HushhNewLogo} 
-                      alt="Hushh Logo" 
-                      width={140} 
-                      height={45} 
-                      priority 
-                      className="block h-8 w-auto sm:h-10 lg:h-11"
-                    />
+                    <Image
+                    src={HushhNewLogo}
+                    alt="Hushh Logo"
+                    width={210}
+                    height={68}
+                    priority
+                    className="block h-12 w-auto sm:h-[60px] lg:h-[66px]" />
+                  
                   </Link>
                 </div>
 
                 {/* Desktop Navigation */}
                 <nav className="desktop-nav hidden lg:flex items-center space-x-3 xl:space-x-5 2xl:space-x-6 flex-1 justify-center max-w-5xl mx-auto">
                   {/* Products Dropdown */}
-                  <div 
-                    className="relative group"
-                    onMouseEnter={() => openDropdown('products')}
-                    onMouseLeave={scheduleCloseDropdown}
-                  >
+                  <div
+                  className="relative group"
+                  onMouseEnter={() => openDropdown('products')}
+                  onMouseLeave={scheduleCloseDropdown}
+                  onFocus={() => openDropdown('products')}
+                  onBlur={handleDesktopDropdownBlur}>
+                  
                     <button
-                      className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap"
-                    >
+                    type="button"
+                    aria-expanded={activeDropdown === 'products'}
+                    aria-controls="desktop-menu-products"
+                    onClick={() => toggleDropdown('products')}
+                    onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'products')}
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    
                       <span>Products</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
                     </button>
@@ -528,14 +593,21 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
                   </div>
  
                   {/* Solutions Dropdown */}
-                  <div 
-                    className="relative group"
-                    onMouseEnter={() => openDropdown('solutions')}
-                    onMouseLeave={scheduleCloseDropdown}
-                  >
+                  <div
+                  className="relative group"
+                  onMouseEnter={() => openDropdown('solutions')}
+                  onMouseLeave={scheduleCloseDropdown}
+                  onFocus={() => openDropdown('solutions')}
+                  onBlur={handleDesktopDropdownBlur}>
+                  
                     <button
-                      className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap"
-                    >
+                    type="button"
+                    aria-expanded={activeDropdown === 'solutions'}
+                    aria-controls="desktop-menu-solutions"
+                    onClick={() => toggleDropdown('solutions')}
+                    onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'solutions')}
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    
                       <span>Solutions</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
                     </button>
@@ -544,23 +616,30 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
 
                   {/* Hushh Labs Direct Link */}
  <div className="relative group">
-                    <button
-                      className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 py-4 px-2 xl:px-3 nav-button whitespace-nowrap"
-                      onClick={() => router.push('/labs')}
-                    >
+                    <Link
+                    href="/labs"
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 py-4 px-2 xl:px-3 nav-button whitespace-nowrap inline-flex">
+                    
                       <span>Hushh Labs</span>
-                    </button>
+                    </Link>
                   </div>
 
                   {/* Developers Dropdown */}
-                  <div 
-                    className="relative group"
-                    onMouseEnter={() => openDropdown('developers')}
-                    onMouseLeave={scheduleCloseDropdown}
-                  >
+                  <div
+                  className="relative group"
+                  onMouseEnter={() => openDropdown('developers')}
+                  onMouseLeave={scheduleCloseDropdown}
+                  onFocus={() => openDropdown('developers')}
+                  onBlur={handleDesktopDropdownBlur}>
+                  
                     <button
-                      className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap"
-                    >
+                    type="button"
+                    aria-expanded={activeDropdown === 'developers'}
+                    aria-controls="desktop-menu-developers"
+                    onClick={() => toggleDropdown('developers')}
+                    onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'developers')}
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    
                       <span>Developers</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'developers' ? 'rotate-180' : ''}`} />
                     </button>
@@ -568,14 +647,21 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
                   </div>
 
                   {/* Why Hushh Dropdown */}
-                  <div 
-                    className="relative group"
-                    onMouseEnter={() => openDropdown('whyHushh')}
-                    onMouseLeave={scheduleCloseDropdown}
-                  >
+                  <div
+                  className="relative group"
+                  onMouseEnter={() => openDropdown('whyHushh')}
+                  onMouseLeave={scheduleCloseDropdown}
+                  onFocus={() => openDropdown('whyHushh')}
+                  onBlur={handleDesktopDropdownBlur}>
+                  
                     <button
-                      className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap"
-                    >
+                    type="button"
+                    aria-expanded={activeDropdown === 'whyHushh'}
+                    aria-controls="desktop-menu-whyHushh"
+                    onClick={() => toggleDropdown('whyHushh')}
+                    onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'whyHushh')}
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    
                       <span>Why Hushh?</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'whyHushh' ? 'rotate-180' : ''}`} />
                     </button>
@@ -583,14 +669,21 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
                   </div>
 
                   {/* Community Dropdown */}
-                  <div 
-                    className="relative group"
-                    onMouseEnter={() => openDropdown('community')}
-                    onMouseLeave={scheduleCloseDropdown}
-                  >
+                  <div
+                  className="relative group"
+                  onMouseEnter={() => openDropdown('community')}
+                  onMouseLeave={scheduleCloseDropdown}
+                  onFocus={() => openDropdown('community')}
+                  onBlur={handleDesktopDropdownBlur}>
+                  
                     <button
-                      className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap"
-                    >
+                    type="button"
+                    aria-expanded={activeDropdown === 'community'}
+                    aria-controls="desktop-menu-community"
+                    onClick={() => toggleDropdown('community')}
+                    onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'community')}
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    
                       <span>Community</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'community' ? 'rotate-180' : ''}`} />
                     </button>
@@ -598,14 +691,21 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
                   </div>
 
                   {/* Company Dropdown */}
-                  <div 
-                    className="relative group"
-                    onMouseEnter={() => openDropdown('company')}
-                    onMouseLeave={scheduleCloseDropdown}
-                  >
+                  <div
+                  className="relative group"
+                  onMouseEnter={() => openDropdown('company')}
+                  onMouseLeave={scheduleCloseDropdown}
+                  onFocus={() => openDropdown('company')}
+                  onBlur={handleDesktopDropdownBlur}>
+                  
                     <button
-                      className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap"
-                    >
+                    type="button"
+                    aria-expanded={activeDropdown === 'company'}
+                    aria-controls="desktop-menu-company"
+                    onClick={() => toggleDropdown('company')}
+                    onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'company')}
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    
                       <span>Company</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'company' ? 'rotate-180' : ''}`} />
                     </button>
@@ -620,13 +720,13 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
                 <div className="flex h-full items-center space-x-2 lg:space-x-3 xl:space-x-4 ml-4">
                   {/* Search Icon */}
                   <button
-                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSearchOpen(); }}
-                    className="group relative self-center flex h-10 w-10 items-center justify-center p-0 leading-none rounded-full hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                    style={{ marginBottom: 0 }}
-                    aria-label="Search (⌘K)"
-                    type="button"
-                    title="Search (⌘K)"
-                  >
+                  onClick={(e) => {e.preventDefault();e.stopPropagation();onSearchOpen();}}
+                  className="group relative self-center flex h-10 w-10 items-center justify-center p-0 leading-none rounded-full hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                  style={{ marginBottom: 0 }}
+                  aria-label="Search (⌘K)"
+                  type="button"
+                  title="Search (⌘K)">
+                  
                     <SearchIcon className="w-5 h-5 text-gray-600 hover:text-gray-800 transition-colors duration-200" />
                     
                     {/* Tooltip */}
@@ -637,96 +737,51 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
 
                   {/* Desktop Auth */}
                   <div className="desktop-auth hidden lg:flex items-center space-x-2 xl:space-x-3">
-                    {loading ? (
-                      <div className="w-6 h-6 animate-pulse bg-gray-300 rounded-full"></div>
-                    ) : isAuthenticated ? (
-                      <UserAvatar />
-                    ) : (
-                      <Button
-                        onClick={() => router.push('/login')}
-                        bg="transparent"
-                        color="gray.800"
-                        border="1px solid"
-                        borderColor="gray.300"
-                        borderRadius="8px"
-                        px={{ base: 3, xl: 5 }}
-                        py={2}
-                        fontSize={{ base: "xs", xl: "sm" }}
-                        fontWeight={500}
-                        height="40px"
-                        _hover={{
-                          bg: "gray.50",
-                          borderColor: "gray.400",
-                        }}
-                        _active={{
-                          transform: "scale(0.98)",
-                        }}
-                        transition="all 0.2s"
-                      >
-                        Sign In
-                      </Button>
-                    )}
-                  </div>
+                    {loading ?
+                  <div className="w-6 h-6 animate-pulse bg-gray-300 rounded-full"></div> :
+                  isAuthenticated ?
+                  <UserAvatar /> :
 
-                  {/* Get Early Access Button - Desktop */}
                   <Button
-              onClick={() => window.open("https://apps.apple.com/in/app/hushh-app/id6498471189", '_blank')}
-              bg="linear-gradient(135deg, #007AFF, #5E5CE6, #7C3AED)"
-                    color="white"
-                    borderRadius="10px"
-                    px={{ base: 3, xl: 4 }}
-                    py={1}
+                    onClick={() => router.push('/login')}
+                    bg="transparent"
+                    color="gray.800"
+                    border="1px solid"
+                    borderColor="gray.300"
+                    borderRadius="8px"
+                    px={{ base: 3, xl: 5 }}
+                    py={2}
                     fontSize={{ base: "xs", xl: "sm" }}
-                    fontWeight={700}
+                    fontWeight={500}
                     height="40px"
-                    position="relative"
-                    overflow="hidden"
                     _hover={{
-                      transform: "translateY(-2px)",
-                      boxShadow: "0 8px 25px rgba(0, 122, 255, 0.4), 0 4px 12px rgba(126, 58, 237, 0.3)",
+                      bg: "gray.50",
+                      borderColor: "gray.400"
                     }}
                     _active={{
-                      transform: "scale(0.98)",
+                      transform: "scale(0.98)"
                     }}
-                    _before={{
-                      content: '""',
-                      position: "absolute",
-                      top: 0,
-                      left: "-100%",
-                      width: "100%",
-                      height: "100%",
-                      background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)",
-                      transition: "left 0.6s ease",
-                    }}
-                    _groupHover={{
-                      _before: {
-                        left: "100%",
-                      }
-                    }}
-                    transition="all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-                    className="desktop-only hidden lg:block group"
-                    display={{ base: "none", lg: "flex" }}
-                    whiteSpace="nowrap"
-                  >
-                    🚀 Get Early Access
-                  </Button>
-                  
-
+                    transition="all 0.2s">
+                    
+                        Sign In
+                      </Button>
+                  }
+                  </div>
 
                   {/* Mobile menu button */}
                   <button
-                    ref={hamburgerRef}
-                    onClick={handleMenuIconToggle}
-                    className="mobile-menu-trigger lg:hidden relative self-center flex h-10 w-10 items-center justify-center p-0 leading-none bg-transparent border-0 shadow-none rounded-none transition-transform duration-200 hover:shadow-none active:scale-95"
-                    style={{ marginBottom: 0 }}
-                    type="button"
-                    aria-label="Toggle mobile menu"
-                  >
-                    {isMenuOpen ? (
-                      <CloseIcon className="w-6 h-6 text-gray-700" />
-                    ) : (
-                    <HamburgerIcon className="w-6 h-6 text-gray-700" />
-                    )}
+                  ref={hamburgerRef}
+                  onClick={handleMenuIconToggle}
+                  className="mobile-menu-trigger lg:hidden relative self-center flex h-10 w-10 items-center justify-center p-0 leading-none bg-transparent border-0 shadow-none rounded-none transition-transform duration-200 hover:shadow-none active:scale-95"
+                  style={{ marginBottom: 0 }}
+                  type="button"
+                  aria-label="Toggle mobile menu">
+                  
+                    {isMenuOpen ?
+                  <CloseIcon className="w-6 h-6 text-gray-700" /> :
+
+                  <HamburgerIcon className="w-6 h-6 text-gray-700" />
+                  }
                   </button>
                 </div>
               </div>
@@ -734,437 +789,234 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
           </header>
 
           {/* Mobile Menu Overlay */}
-          {isMenuOpen && (
-            <div 
-              className="lg:hidden fixed"
-              style={{
-                position: "fixed",
-                top: `${70 + topOffset}px`,
-                left: "0",
-                right: "0",
-                bottom: "0",
-                width: "100vw",
-                height: `calc(100vh - ${70 + topOffset}px)`,
-                zIndex: 9999,
-                background: "rgba(255, 255, 255, 0.98)",
-                backdropFilter: "blur(20px) saturate(180%)",
-                animation: "slideInUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                overflow: "auto"
-              }} 
-              ref={menuRef}
-            >
+          {isMenuOpen &&
+        <div
+          className="lg:hidden fixed"
+          style={{
+            position: "fixed",
+            top: `${70 + topOffset}px`,
+            left: "0",
+            right: "0",
+            bottom: "0",
+            width: "100vw",
+            height: `calc(100vh - ${70 + topOffset}px)`,
+            zIndex: 9999,
+            background: "rgba(255, 255, 255, 0.98)",
+            backdropFilter: "blur(20px) saturate(180%)",
+            animation: "slideInUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+            overflow: "auto"
+          }}
+          ref={menuRef}>
+          
               <div className="h-full overflow-y-auto custom-scrollbar">
                 {/* Mobile Menu Content */}
                 <div className="px-6 py-6">
                     {/* Close button for mobile menu */}
                     {/* <div className="flex justify-end mb-4 lg:hidden">
-                      <button
-                        onClick={() => setIsMenuOpen(false)}
-                        className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
-                        aria-label="Close menu"
-                      >
-                        <CloseIcon className="w-5 h-5 text-gray-600" />
-                      </button>
-                  </div> */}
+                 <button
+                   onClick={() => setIsMenuOpen(false)}
+                   className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
+                   aria-label="Close menu"
+                 >
+                   <CloseIcon className="w-5 h-5 text-gray-600" />
+                 </button>
+                </div> */}
                   {/* Authentication Section */}
-                  {!loading && (
-                    <div className="mb-6 pb-4 border-b border-gray-200">
-                      {isAuthenticated && user ? (
-                        <div className="flex items-center justify-between">
+                  {!loading &&
+              <div className="mb-6 pb-4 border-b border-gray-200">
+                      {isAuthenticated && user ?
+                <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
-                            <UserAvatar 
-                              user={user} 
-                              size="sm"
-                              className="w-10 h-10"
-                            />
+                            <UserAvatar
+                      user={user}
+                      size="sm"
+                      className="w-10 h-10" />
+                    
                             <div>
                               <p className="text-sm font-medium text-gray-900">
                                 {user.user_metadata?.name || user.email || 'User'}
                               </p>
                               {/* <p className="text-xs text-gray-500">
-                                {user.email}
-                              </p> */}
+                         {user.email}
+                        </p> */}
                   </div>
                   </div>
                   <button
-                            onClick={() => {
-                              setIsMenuOpen(false);
-                              navigateToProfile();
-                            }}
-                            className="text-sm text-black-600 hover:text-black-700 font-medium"
-                          >
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigateToProfile();
+                    }}
+                    className="text-sm text-black-600 hover:text-black-700 font-medium">
+                    
                             View Profile
                           </button>
                           <button
-                            onClick={handleSignOut}
-                            className="text-sm text-red-600 hover:text-red-700 font-medium"
-                          >
+                    onClick={handleSignOut}
+                    className="text-sm text-red-600 hover:text-red-700 font-medium">
+                    
                             Sign Out
                           </button>
                           
-                        </div>
-                      ) : (
-                        <div className="flex space-x-3">
+                        </div> :
+
+                <div className="flex space-x-3">
                           {/* <button
-                            onClick={() => {
-                              setIsMenuOpen(false);
-                              navigateToRegistration();
-                            }}
-                            className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
-                          >
-                            Sign Up
-                          </button> */}
+                     onClick={() => {
+                       setIsMenuOpen(false);
+                       navigateToRegistration();
+                     }}
+                     className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                    >
+                     Sign Up
+                    </button> */}
                           <button
-                            onClick={() => {
-                              setIsMenuOpen(false);
-                              navigateToProfile();
-                            }}
-                            className="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
-                          >
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigateToProfile();
+                    }}
+                    className="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
+                    
                             Sign In
                           </button>
                         </div>
-                      )}
+                }
                     </div>
-                  )}
+              }
 
                   {/* Navigation Menu */}
                   <div className="space-y-6">
                     {/* Products Section */}
                     <div className="mobile-menu-section">
-                  <button 
-                        onClick={() => setActiveDropdown(activeDropdown === 'products' ? null : 'products')}
-                        className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2"
-                      >
+                  <button
+                    onClick={() => setActiveDropdown(activeDropdown === 'products' ? null : 'products')}
+                    className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2">
+                    
                         <span>Products</span>
                         <ChevronDownIcon className={`w-5 h-5 transition-transform duration-200 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
                       </button>
-                      {activeDropdown === 'products' && (
-                                                 <div className="mt-3 space-y-3 pl-4">
-                                                     {menuItems.products.items.map((item, index) => (
-                             <div
-                               key={index}
-                               onClick={(e) => {
-                                 e.preventDefault();
-                                 e.stopPropagation();
-                                 setIsMenuOpen(false);
-                                 router.push(item.href);
-                               }}
-                               className="block mobile-menu-item cursor-pointer"
-                             >
-                               <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                                 {item.icon && (
-                                   <div className="flex-shrink-0 mt-1">
-                                     <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                       <Image 
-                                         src={item.icon} 
-                                         alt={item.name} 
-                                         width={16} 
-                                         height={16} 
-                                         className="w-4 h-4"
-                                         style={{borderRadius:'20%'}}
-                                       />
-                                     </div>
-                                   </div>
-                                 )}
-                                 <div>
-                                   <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
-                                   <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-                                 </div>
-                               </div>
-                             </div>
-                           ))}
-                         </div>
-                      )}
+                      {activeDropdown === 'products' &&
+                  renderMobileMenuItems("products", menuItems.products.items)
+                  }
                     </div>
 
                     {/* Solutions Section */}
                     <div className="mobile-menu-section">
                       <button
-                        onClick={() => setActiveDropdown(activeDropdown === 'solutions' ? null : 'solutions')}
-                        className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2"
-                      >
+                    onClick={() => setActiveDropdown(activeDropdown === 'solutions' ? null : 'solutions')}
+                    className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2">
+                    
                         <span>Solutions</span>
                         <ChevronDownIcon className={`w-5 h-5 transition-transform duration-200 ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
                       </button>
-                      {activeDropdown === 'solutions' && (
-                                                 <div className="mt-3 space-y-3 pl-4">
-                           {menuItems.solutions.items.map((item, index) => (
-                             <div
-                               key={index}
-                               onClick={(e) => {
-                                 e.preventDefault();
-                                 e.stopPropagation();
-                                 setIsMenuOpen(false);
-                                 router.push(item.href);
-                               }}
-                               className="block mobile-menu-item cursor-pointer"
-                             >
-                               <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                                 {/* {item.icon && (
-                                   <div className="flex-shrink-0 mt-1">
-                                     <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                       <Image 
-                                         src={item.icon} 
-                                         alt={item.name} 
-                                         width={16} 
-                                         height={16} 
-                                         className="w-4 h-4"
-                                         style={{borderRadius:'20%'}}
-                                       />
-                                     </div>
-                                   </div>
-                                 )} */}
-                                 <div>
-                                   <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
-                                   <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-                                 </div>
-                               </div>
-                             </div>
-                           ))}
-                         </div>
-                      )}
+                      {activeDropdown === 'solutions' &&
+                  renderMobileMenuItems("solutions", menuItems.solutions.items)
+                  }
                     </div>
 
                     {/* Hushh Labs Section */}
                     <div className="mobile-menu-section">
-                      <div
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          setIsMenuOpen(false);
-                          router.push('/labs');
-                        }}
-                        className="cursor-pointer py-2"
-                      >
+                      <Link
+                    href="/labs"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      closeDropdowns();
+                    }}
+                    className="block py-2">
+                    
                         <div className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
                           Hushh Labs
                         </div>
                         <div className="text-sm text-gray-500 mt-1">
                           Advanced AI research and development
                         </div>
-                      </div>
+                      </Link>
                     </div>
 
                     {/* Developers Section */}
                     <div className="mobile-menu-section">
                       <button
-                        onClick={() => setActiveDropdown(activeDropdown === 'developers' ? null : 'developers')}
-                        className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2"
-                      >
+                    onClick={() => setActiveDropdown(activeDropdown === 'developers' ? null : 'developers')}
+                    className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2">
+                    
                         <span>Developers</span>
                         <ChevronDownIcon className={`w-5 h-5 transition-transform duration-200 ${activeDropdown === 'developers' ? 'rotate-180' : ''}`} />
                       </button>
-                      {activeDropdown === 'developers' && (
-                                                 <div className="mt-3 space-y-3 pl-4">
-                           {menuItems.developers.items.map((item, index) => (
-                             <div
-                               key={index}
-                               onClick={(e) => {
-                                 e.preventDefault();
-                                 e.stopPropagation();
-                                 setIsMenuOpen(false);
-                                 router.push(item.href);
-                               }}
-                               className="block mobile-menu-item cursor-pointer"
-                             >
-                               <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                                 {item.icon && (
-                                   <div className="flex-shrink-0 mt-1">
-                                     <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                       <Image 
-                                         src={item.icon} 
-                                         alt={item.name} 
-                                         width={16} 
-                                         height={16} 
-                                         className="w-4 h-4"
-                                         style={{borderRadius:'20%'}}
-                                       />
-                                     </div>
-                                   </div>
-                                 )}
-                                 <div>
-                                   <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
-                                   <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-                                 </div>
-                               </div>
-                             </div>
-                           ))}
-                         </div>
-                      )}
+                      {activeDropdown === 'developers' &&
+                  renderMobileMenuItems("developers", menuItems.developers.items)
+                  }
                     </div>
 
                     {/* Why Hushh Section */}
                     <div className="mobile-menu-section">
                       <button
-                        onClick={() => setActiveDropdown(activeDropdown === 'whyHushh' ? null : 'whyHushh')}
-                        className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2"
-                      >
+                    onClick={() => setActiveDropdown(activeDropdown === 'whyHushh' ? null : 'whyHushh')}
+                    className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2">
+                    
                         <span>Why Hushh?</span>
                         <ChevronDownIcon className={`w-5 h-5 transition-transform duration-200 ${activeDropdown === 'whyHushh' ? 'rotate-180' : ''}`} />
                       </button>
-                      {activeDropdown === 'whyHushh' && (
-                                                 <div className="mt-3 space-y-3 pl-4">
-                           {menuItems.whyHushh.items.map((item, index) => (
-                             <div
-                               key={index}
-                               onClick={(e) => {
-                                 e.preventDefault();
-                                 e.stopPropagation();
-                                 setIsMenuOpen(false);
-                                 router.push(item.href);
-                               }}
-                               className="block mobile-menu-item cursor-pointer"
-                             >
-                               <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                                 {item.icon && (
-                                   <div className="flex-shrink-0 mt-1">
-                                     <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                       <Image 
-                                         src={item.icon} 
-                                         alt={item.name} 
-                                         width={16} 
-                                         height={16} 
-                                         className="w-4 h-4"
-                                         style={{borderRadius:'20%'}}
-                                       />
-                                     </div>
-                                   </div>
-                                 )}
-                                 <div>
-                                   <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
-                                   <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-                                 </div>
-                               </div>
-                             </div>
-                           ))}
-                         </div>
-                      )}
+                      {activeDropdown === 'whyHushh' &&
+                  renderMobileMenuItems("whyHushh", menuItems.whyHushh.items)
+                  }
                     </div>
 
                     {/* Community Section */}
                     <div className="mobile-menu-section">
                       <button
-                        onClick={() => setActiveDropdown(activeDropdown === 'community' ? null : 'community')}
-                        className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2"
-                      >
+                    onClick={() => setActiveDropdown(activeDropdown === 'community' ? null : 'community')}
+                    className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2">
+                    
                         <span>Community</span>
                         <ChevronDownIcon className={`w-5 h-5 transition-transform duration-200 ${activeDropdown === 'community' ? 'rotate-180' : ''}`} />
                       </button>
-                      {activeDropdown === 'community' && (
-                                                 <div className="mt-3 space-y-3 pl-4">
-                           {menuItems.community.items.map((item, index) => (
-                             <div
-                               key={index}
-                               onClick={(e) => {
-                                 e.preventDefault();
-                                 e.stopPropagation();
-                                 setIsMenuOpen(false);
-                                 router.push(item.href);
-                               }}
-                               className="block mobile-menu-item cursor-pointer"
-                             >
-                               <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                                 {item.icon && (
-                                   <div className="flex-shrink-0 mt-1">
-                                     <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                       <Image 
-                                         src={item.icon} 
-                                         alt={item.name} 
-                                         width={16} 
-                                         height={16} 
-                                         className="w-4 h-4"
-                                         style={{borderRadius:'20%'}}
-                                       />
-                                     </div>
-                                   </div>
-                                 )}
-                                 <div>
-                                   <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
-                                   <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-                                 </div>
-                               </div>
-                             </div>
-                           ))}
-                         </div>
-                      )}
+                      {activeDropdown === 'community' &&
+                  renderMobileMenuItems("community", menuItems.community.items)
+                  }
                     </div>
 
                     {/* Company Section */}
                     <div className="mobile-menu-section">
                       <button
-                        onClick={() => setActiveDropdown(activeDropdown === 'company' ? null : 'company')}
-                        className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2"
-                      >
+                    onClick={() => setActiveDropdown(activeDropdown === 'company' ? null : 'company')}
+                    className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2">
+                    
                         <span>Company</span>
                         <ChevronDownIcon className={`w-5 h-5 transition-transform duration-200 ${activeDropdown === 'company' ? 'rotate-180' : ''}`} />
                       </button>
-                      {activeDropdown === 'company' && (
-                                                 <div className="mt-3 space-y-3 pl-4">
-                           {menuItems.company.items.map((item, index) => (
-                             <div
-                               key={index}
-                               onClick={(e) => {
-                                 e.preventDefault();
-                                 e.stopPropagation();
-                                 setIsMenuOpen(false);
-                                 router.push(item.href);
-                               }}
-                               className="block mobile-menu-item cursor-pointer"
-                             >
-                               <div className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                                 {item.icon && (
-                                   <div className="flex-shrink-0 mt-1">
-                                     <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                       <Image 
-                                         src={item.icon} 
-                                         alt={item.name} 
-                                         width={16} 
-                                         height={16} 
-                                         className="w-4 h-4"
-                                         style={{borderRadius:'20%'}}
-                                       />
-                                     </div>
-                                   </div>
-                                 )}
-                                 <div>
-                                   <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
-                                   <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-                                 </div>
-                               </div>
-                             </div>
-                           ))}
-                         </div>
-                      )}
+                      {activeDropdown === 'company' &&
+                  renderMobileMenuItems("company", menuItems.company.items)
+                  }
                     </div>
 
                     
                   </div>
 
                                     {/* Bottom Action Buttons */}
-                  <div className="mt-8 pt-6 border-t border-gray-200 space-y-4">
-                    <button
-                                    onClick={() => window.open("https://apps.apple.com/in/app/hushh-app/id6498471189", '_blank')}
-
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg text-base font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg"
-                    style={{ 
-                        background: "linear-gradient(135deg, #007AFF, #5E5CE6, #7C3AED)",
-                      }}
-                    >
-                      🚀 Get Early Access
-                  </button>
-                    
-                    <button
+                  <div className="mt-8 pt-6 border-t border-gray-200">
+                    <div className="text-center">
+                      <div className="mb-4 flex flex-wrap items-center justify-center gap-3 text-xs text-gray-500">
+                        <Link
+                      href="/privacy"
                       onClick={() => {
                         setIsMenuOpen(false);
-                        handleDownloadClick();
+                        closeDropdowns();
                       }}
-                      className="w-full bg-gray-100 text-gray-800 px-6 py-3 rounded-lg text-base font-medium hover:bg-gray-200 transition-colors"
-                    >
-                      Download App
-                    </button>
-                    
-                    <div className="text-center">
+                      className="hover:text-blue-600 transition-colors">
+                      
+                          Privacy Manifesto
+                        </Link>
+                        <span aria-hidden="true" className="text-gray-300">|</span>
+                        <Link
+                      href="/terms"
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        closeDropdowns();
+                      }}
+                      className="hover:text-blue-600 transition-colors">
+                      
+                          Terms of Use
+                        </Link>
+                      </div>
                       <p className="text-xs text-gray-500">
                         © 2024 Hushh. All rights reserved.
                       </p>
@@ -1173,11 +1025,11 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
                 </div>
               </div>
             </div>
-          )}
+        }
 
           {/* No header spacer needed with sticky positioning */}
         </div>
-      )}
+      }
 
       <style jsx>{`
         @keyframes fadeInDown {
@@ -1347,7 +1199,6 @@ export default function Header({ backgroundColor, textColor, borderBottom, topOf
       
       {/* Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={onSearchClose} />
-    </>
-  );
-}
+    </>);
 
+}

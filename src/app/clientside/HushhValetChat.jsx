@@ -7,14 +7,10 @@ import {
   Heading,
   Stack,
   Text,
-  VStack,
-} from "@chakra-ui/react";
+  VStack } from
+"@chakra-ui/react";
 import extendedTheme from "../theme";
 import Image from "next/image";
-import DirectionLine from "../_components/svg/icons/directionLine.svg";
-import BarIcon from "../_components/svg/icons/barIcon.svg";
-import FrameCard2 from "../_components/svg/card/buttonvoucherCard.svg";
-import FramCard1 from "../_components/svg/card/frameCardHushhButton.svg";
 import { useRouter } from "next/navigation";
 import { animateScroll as scroll } from "react-scroll";
 import ManageFinanceBox from "../_components/svg/managefinanceBox.svg";
@@ -25,7 +21,6 @@ import BgAnimation from "../../../public/Gif/bgAnimation.gif";
 import { useState, useEffect } from "react";
 import ValetChatGif from "../../../public/Gif/valeTChatBg.gif";
 import "next-cloudinary/dist/cld-video-player.css";
-import dynamic from "next/dynamic";
 
 // const CldVideoPlayer = dynamic(
 //   () => import("next-cloudinary").then((mod) => mod.CldVideoPlayer),
@@ -35,7 +30,7 @@ import dynamic from "next/dynamic";
 const ClientHushhValetChat = () => {
   const gradient = "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)";
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const [_loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -64,8 +59,8 @@ const ClientHushhValetChat = () => {
         minW={"100%"}
         display={"flex"}
         flexDirection={"column"}
-        position={"relative"}
-      >
+        position={"relative"}>
+        
         <Box display={{ base: "none", md: "block" }}>
           <Image
             src={ValetChatGif}
@@ -77,10 +72,10 @@ const ClientHushhValetChat = () => {
               top: "0px",
               left: "30%",
               zIndex: "-10",
-              filter: "grayscale(100%)",
+              filter: "grayscale(100%)"
             }}
-            unoptimized
-          />
+            unoptimized />
+          
         </Box>
         <Box display={{ base: "block", md: "none" }}>
           <Image
@@ -95,18 +90,18 @@ const ClientHushhValetChat = () => {
               zIndex: "-10",
               width: "10rem",
               height: "16rem",
-              filter: "grayscale(100%)",
+              filter: "grayscale(100%)"
             }}
-            unoptimized
-          />
+            unoptimized />
+          
         </Box>
         <Box
           alignItems={"center"}
           w={"100%"}
           display={"flex"}
           flexDirection={"column"}
-          mt={{ base: "3rem" }}
-        >
+          mt={{ base: "3rem" }}>
+          
           <Heading
             fontWeight={"700"}
             lineHeight={{ md: "255.6px", base: "60px" }}
@@ -116,16 +111,16 @@ const ClientHushhValetChat = () => {
             className="gradient"
             px={{ base: "0.5rem" }}
             mb={{ base: "0.5rem" }}
-            as={"h1"}
-          >
+            as={"h1"}>
+            
             Hushh Valet Chat
           </Heading>
           <Text
             px={{ md: "17.8rem" }}
             mb={{ base: "1rem", md: "4rem" }}
             textAlign={"center"}
-            color={"#656565"}
-          >
+            color={"#656565"}>
+            
             Lets you collect all your receipts from mail and manage them to help
             you better understand your spending habits and finance
           </Text>
@@ -139,11 +134,11 @@ const ClientHushhValetChat = () => {
             letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
             _hover={{
               background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
-              border: "none",
+              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              border: "none"
             }}
-            onClick={learnMoreScroll}
-          >
+            onClick={learnMoreScroll}>
+            
             LEARN MORE
           </Button>
         </Box>
@@ -154,8 +149,8 @@ const ClientHushhValetChat = () => {
           display={"flex"}
           flexDirection={{ base: "row", md: "row" }}
           justifyContent="flex-end"
-          mr={"3rem"}
-        >
+          mr={"3rem"}>
+          
           <Button
             display={{ md: "flex", base: "none" }}
             border={"1px solid #606060"}
@@ -169,18 +164,18 @@ const ClientHushhValetChat = () => {
             _hover={{
               border: "none",
               background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
             }}
-            padding={"15px 68px 15px 68px"}
-          >
+            padding={"15px 68px 15px 68px"}>
+            
             PLAY DEMO
           </Button>
         </HStack>
         <Box
           display={{ base: "flex", md: "none" }}
           mt={"2rem"}
-          justifyContent={"center"}
-        >
+          justifyContent={"center"}>
+          
           <Button
             ml={{ md: "55rem" }}
             display={"flex"}
@@ -195,10 +190,10 @@ const ClientHushhValetChat = () => {
             _hover={{
               border: "none",
               background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
             }}
-            padding={"15px 68px 15px 68px"}
-          >
+            padding={"15px 68px 15px 68px"}>
+            
             PLAY DEMO
           </Button>
         </Box>
@@ -212,22 +207,22 @@ const ClientHushhValetChat = () => {
           display={"flex"}
           flexDirection={"column"}
           textAlign={"center"}
-          py={{ md: "3rem", base: "1rem" }}
-        >
+          py={{ md: "3rem", base: "1rem" }}>
+          
           <Text
             color={"#0D0D25"}
             fontWeight={"700"}
             fontSize={{ md: "3.5rem", base: "1.5rem" }}
-            as={"h2"}
-          >
+            as={"h2"}>
+            
             Manage your receipts in one place, gaining insights into your
             finances
           </Text>
           <Text
             mt={"1rem"}
             color={"#656565"}
-            fontSize={{ md: "1rem", base: "0.75rem" }}
-          >
+            fontSize={{ md: "1rem", base: "0.75rem" }}>
+            
             Tired of? all the receipts at your mail and don't know how to manage
             them ? Valet chat is your one stop solution to find and manage all
             your receipts at one place and also get useful insights from us to
@@ -241,32 +236,32 @@ const ClientHushhValetChat = () => {
           my={{ md: "8rem", base: "3rem" }}
           px={{ md: "7rem", base: "1.25rem" }}
           display={{ base: "flex" }}
-          flexDirection={{ base: "column", md: "row" }}
-        >
+          flexDirection={{ base: "column", md: "row" }}>
+          
           <Box display={"flex"} flexDirection={"column"} gap={"1rem"} flex={1}>
             <Text
               className="default-gradient"
               letterSpacing={"0.255rem"}
               lineHeight={"1rem"}
               fontWeight={"600"}
-              fontSize={{ md: "1rem", base: "0.75rem" }}
-            >
+              fontSize={{ md: "1rem", base: "0.75rem" }}>
+              
               HUSHH
             </Text>
             <Text
               className="gradient"
               fontSize={{ md: "3.75rem", base: "1.75rem" }}
               fontWeight={"400"}
-              lineHeight={{ md: "83.3px", base: "41.2px" }}
-            >
+              lineHeight={{ md: "83.3px", base: "41.2px" }}>
+              
               Valet chat helps you{" "}
             </Text>
             <Text
               className="gradient"
               fontSize={{ md: "3.75rem", base: "1.75rem" }}
               fontWeight={"700"}
-              lineHeight={{ md: "83.3px", base: "41.2px" }}
-            >
+              lineHeight={{ md: "83.3px", base: "41.2px" }}>
+              
               Manage Finance
             </Text>
             <Box
@@ -284,13 +279,13 @@ const ClientHushhValetChat = () => {
                   WebkitTextFillColor: "transparent",
                   border: "0 solid",
                   borderImageSource: gradient,
-                  borderImageSlice: 1,
+                  borderImageSlice: 1
                 },
                 background: gradient,
                 WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
+                WebkitTextFillColor: "transparent"
+              }}>
+              
               Track your recipts
             </Box>
             <Box
@@ -300,8 +295,8 @@ const ClientHushhValetChat = () => {
               fontWeight={"500"}
               lineHeight={"30.04px"}
               color={"#ABACB0"}
-              gap={{ md: "1rem", base: "0rem" }}
-            >
+              gap={{ md: "1rem", base: "0rem" }}>
+              
               <Text>Sync all your receipts automatically </Text>
               <Text>Chat with our AI to understand your Finances better</Text>
               <Text>Manage and categories receipts for easy access</Text>
@@ -313,8 +308,8 @@ const ClientHushhValetChat = () => {
             <Text
               fontSize={{ md: "1rem", base: "0.75rem" }}
               color={"#ABABAB"}
-              lineHeight={{ md: "36px", base: "18px" }}
-            >
+              lineHeight={{ md: "36px", base: "18px" }}>
+              
               See all the different spending habits you have from your receipts
               to better understand your spending habits. Manage and gain
               insightful data on your finance
@@ -326,14 +321,14 @@ const ClientHushhValetChat = () => {
               _hover={{
                 border: "none",
                 color: "white",
-                bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
               }}
               onClick={() =>
-                router.push(
-                  "https://sites.google.com/hush1one.com/drops/mlds#h.phjv03hn3bq",
-                )
-              }
-            >
+              router.push(
+                "https://sites.google.com/hush1one.com/drops/mlds#h.phjv03hn3bq"
+              )
+              }>
+              
               Explore
             </Button>
           </Box>
@@ -344,14 +339,14 @@ const ClientHushhValetChat = () => {
           px={{ md: "7rem", base: "1.25rem" }}
           gap={{ md: "2rem", base: "0.25rem" }}
           display={"flex"}
-          flexDirection={{ md: "row", base: "column" }}
-        >
+          flexDirection={{ md: "row", base: "column" }}>
+          
           <Box
             display={"flex"}
             flexDirection={"column"}
             flex={1}
-            gap={{ md: "2rem", base: "1rem" }}
-          >
+            gap={{ md: "2rem", base: "1rem" }}>
+            
             <Image src={ValetIntegrationBox} alt="ValetIntegrationBox" />
             {/* <Text fontSize={{ md:'1rem', base:'0.75rem'}} color={'#ABABAB'} lineHeight={{md:'36px', base:'18px'}}>See exactly what data is being collected about you, including search queries, brand interactions, interests, preferences, likes, and clicks. Gain insights into your online behavior and understand what shapes your digital footprint</Text> */}
           </Box>
@@ -362,16 +357,16 @@ const ClientHushhValetChat = () => {
               letterSpacing={"0.255rem"}
               lineHeight={"1rem"}
               fontWeight={"600"}
-              fontSize={"1rem"}
-            >
+              fontSize={"1rem"}>
+              
               Convenient
             </Text>
             <Text
               className="gradient"
               fontSize={{ md: "3.75rem", base: "1.75rem" }}
               fontWeight={"400"}
-              lineHeight={{ md: "83.3px", base: "41.2px" }}
-            >
+              lineHeight={{ md: "83.3px", base: "41.2px" }}>
+              
               Wallet Integration
             </Text>
             <Box
@@ -389,13 +384,13 @@ const ClientHushhValetChat = () => {
                   WebkitTextFillColor: "transparent",
                   border: "0 solid",
                   borderImageSource: gradient,
-                  borderImageSlice: 1,
+                  borderImageSlice: 1
                 },
                 background: gradient,
                 WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
+                WebkitTextFillColor: "transparent"
+              }}>
+              
               Streamlined Integration via Valet Chat
             </Box>
             <Box
@@ -405,8 +400,8 @@ const ClientHushhValetChat = () => {
               fontWeight={"500"}
               lineHeight={"36px"}
               color={"#ABABAB"}
-              gap={"1rem"}
-            >
+              gap={"1rem"}>
+              
               <Text>
                 Hushh Valet chat also enables users to share their Reciepts in
                 their Hushh Wallet. This makes it easy to organize and access
@@ -425,14 +420,14 @@ const ClientHushhValetChat = () => {
               _hover={{
                 border: "none",
                 background:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
               }}
               onClick={() =>
-                router.push(
-                  "https://sites.google.com/hush1one.com/drops/mlds#h.phjv03hn3bq",
-                )
-              }
-            >
+              router.push(
+                "https://sites.google.com/hush1one.com/drops/mlds#h.phjv03hn3bq"
+              )
+              }>
+              
               REQUEST ACCESS
             </Button>
           </Box>
@@ -449,10 +444,10 @@ const ClientHushhValetChat = () => {
                 zIndex: "-10",
                 width: "100%",
                 height: "40rem",
-                filter: "grayscale(100%)",
+                filter: "grayscale(100%)"
               }}
-              unoptimized
-            />
+              unoptimized />
+            
           </Box>
           <Box display={{ base: "block", md: "none" }}>
             <Image
@@ -464,10 +459,10 @@ const ClientHushhValetChat = () => {
                 zIndex: "-10",
                 width: "100%",
                 height: "13rem",
-                filter: "grayscale(100%)",
+                filter: "grayscale(100%)"
               }}
-              unoptimized
-            />
+              unoptimized />
+            
           </Box>
           <VStack px={{ md: "10rem", base: "0rem" }}>
             <Text
@@ -475,8 +470,8 @@ const ClientHushhValetChat = () => {
               className="gradient"
               fontWeight={"400"}
               fontSize={{ md: "3.75rem", base: "1.25rem" }}
-              lineHeight={{ base: "45px", md: "75px" }}
-            >
+              lineHeight={{ base: "45px", md: "75px" }}>
+              
               Intelligent Finance and Receipts <br></br> Management
             </Text>
             <Text
@@ -485,8 +480,8 @@ const ClientHushhValetChat = () => {
               textAlign={"center"}
               fontWeight={"400"}
               lineHeight={{ md: "31.5px", base: "20px" }}
-              fontSize={{ md: "1.125rem", base: "0.75rem" }}
-            >
+              fontSize={{ md: "1.125rem", base: "0.75rem" }}>
+              
               The Valet chat app utilizes advanced algorithms and AI technology
               to analyze the captured data and generate brilliant insights.
               Users receive personalized Insights on receipts, Manage their
@@ -498,8 +493,8 @@ const ClientHushhValetChat = () => {
         <ValetChatFaq />
       </Box>
       <ContactForm />
-    </>
-  );
+    </>);
+
 };
 
 export default ClientHushhValetChat;

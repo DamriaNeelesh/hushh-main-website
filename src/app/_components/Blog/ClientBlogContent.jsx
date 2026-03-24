@@ -4,11 +4,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useToast } from "@chakra-ui/react";
-import { format } from "date-fns";
-import RenderMdx from "./RenderMdx";
 import BlogDetails from "./BlogDetails";
+import { formatContentDate } from "../../../lib/content/date-utils";
 
-const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
+const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, articleContent }) => {
   const toast = useToast();
   const [progress, setProgress] = useState(0);
   const [url, setUrl] = useState("");
@@ -19,7 +18,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
     const onScroll = () => {
       const scrollTop = window.scrollY;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const nextProgress = scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100)) : 0;
+      const nextProgress = scrollHeight > 0 ? Math.min(100, Math.max(0, scrollTop / scrollHeight * 100)) : 0;
       setProgress(nextProgress);
     };
 
@@ -36,16 +35,16 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
       twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=${encodeURIComponent(url)}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-      email: `mailto:?subject=${encodeURIComponent(blog.title)}&body=${encodeURIComponent(url)}`,
+      email: `mailto:?subject=${encodeURIComponent(blog.title)}&body=${encodeURIComponent(url)}`
     };
   }, [blog.title, url]);
 
   const readingLabel =
-    !readingTime
-      ? "Quick read"
-      : typeof readingTime === "string" && readingTime.toLowerCase().includes("read")
-      ? readingTime
-      : `${readingTime} read`;
+  !readingTime ?
+  "Quick read" :
+  typeof readingTime === "string" && readingTime.toLowerCase().includes("read") ?
+  readingTime :
+  `${readingTime} read`;
   const derivedImageSrc = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : "/blogs/blog2o.png";
 
   const copyArticleLink = async () => {
@@ -59,16 +58,16 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
         status: "success",
         duration: 1800,
         isClosable: true,
-        position: "bottom-right",
+        position: "bottom-right"
       });
-    } catch (error) {
+    } catch {
       toast({
         title: "Copy failed",
         description: "Unable to copy link. Please copy manually.",
         status: "error",
         duration: 2200,
         isClosable: true,
-        position: "bottom-right",
+        position: "bottom-right"
       });
     }
   };
@@ -96,12 +95,12 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
               <span>{formattedDate}</span>
               <span className="w-1 h-1 rounded-full bg-[#9ca3af]" />
               <span>{readingLabel}</span>
-              {blog.author && (
-                <>
+              {blog.author &&
+              <>
                   <span className="w-1 h-1 rounded-full bg-[#9ca3af]" />
                   <span>{blog.author}</span>
                 </>
-              )}
+              }
             </div>
           </header>
 
@@ -110,24 +109,24 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
               className="blog-btn-secondary px-4 py-2 text-sm"
               href={shareLinks?.linkedin || "#"}
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
+              
               LinkedIn
             </a>
             <a
               className="blog-btn-secondary px-4 py-2 text-sm"
               href={shareLinks?.twitter || "#"}
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
+              
               X
             </a>
             <a
               className="blog-btn-secondary px-4 py-2 text-sm"
               href={shareLinks?.facebook || "#"}
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
+              
               Facebook
             </a>
             <a className="blog-btn-secondary px-4 py-2 text-sm" href={shareLinks?.email || "#"}>
@@ -146,8 +145,8 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
                 width={1400}
                 height={787}
                 className="w-full h-full object-cover"
-                priority
-              />
+                priority />
+              
             </div>
           </div>
         </div>
@@ -155,7 +154,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
         <div className="blog-container pb-14 md:pb-20">
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 xl:gap-10">
             <article className="xl:col-span-8 blog-article">
-              <RenderMdx blog={blog} />
+              {articleContent}
             </article>
 
             <aside className="xl:col-span-4">
@@ -166,26 +165,24 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
           </div>
         </div>
 
-        {blog.relatedPosts?.length > 0 && (
-          <section className="blog-container pb-16 md:pb-20">
+        {blog.relatedPosts?.length > 0 &&
+        <section className="blog-container pb-16 md:pb-20">
             <h2 className="blog-section-title mb-5">More to Explore</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
-              {blog.relatedPosts.map((post) => (
-                <article key={post.slug} className="blog-card h-full flex flex-col">
+              {blog.relatedPosts.map((post) =>
+            <article key={post.slug} className="blog-card h-full flex flex-col">
                   <Link href={post.slug} className="blog-card-image block">
                     <Image
-                      src={post.image}
-                      alt={post.title}
-                      width={800}
-                      height={450}
-                      className="w-full h-full object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    />
+                  src={post.image}
+                  alt={post.title}
+                  width={800}
+                  height={450}
+                  className="w-full h-full object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" />
+                
                   </Link>
                   <div className="p-5 flex flex-col flex-1">
-                    {post.date && !Number.isNaN(new Date(post.date).getTime()) && (
-                      <span className="blog-meta mb-2">{format(new Date(post.date), "d MMM yyyy")}</span>
-                    )}
+                    {post.date && <span className="blog-meta mb-2">{formatContentDate(post.date)}</span>}
                     <Link href={post.slug} className="group">
                       <h3 className="text-[1.08rem] font-semibold leading-6 tracking-[-0.01em] text-[#111827] group-hover:text-[#0056b3] transition-colors blog-clamp-2">
                         {post.title}
@@ -194,13 +191,13 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate }) => {
                     {post.description && <p className="mt-3 text-sm leading-6 text-[#4b5563] blog-clamp-3">{post.description}</p>}
                   </div>
                 </article>
-              ))}
+            )}
             </div>
           </section>
-        )}
+        }
       </div>
-    </>
-  );
+    </>);
+
 };
 
 export default ClientBlogContent;

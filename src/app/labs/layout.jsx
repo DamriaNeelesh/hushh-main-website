@@ -1,5 +1,3 @@
-import { Metadata } from 'next';
-
 export const metadata = {
   title: 'Hushh Labs - Advanced AI Research & Development | Careers',
   description: 'Join Hushh Labs, an elite AI research organization partnering with Stanford, Purdue, and IIT. 10 open positions in AI research, engineering, and product development. Build superintelligent AI systems that benefit humanity.',

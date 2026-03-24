@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Box,
   Input,
@@ -11,13 +11,12 @@ import {
   ModalOverlay,
   ModalContent,
   ModalCloseButton,
-  useDisclosure,
   Flex,
   Icon,
   Kbd,
   Spinner,
-  useColorModeValue
-} from "@chakra-ui/react";
+  useColorModeValue } from
+"@chakra-ui/react";
 import { SearchIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/navigation";
 import { useResponsiveSizes } from "../../context/responsive";
@@ -25,17 +24,17 @@ import { useResponsiveSizes } from "../../context/responsive";
 const SearchModal = ({ isOpen, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [suggestions, setSuggestions] = useState([]);
+  const [_suggestions, setSuggestions] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [contentIndex, setContentIndex] = useState([]);
   const [recentSearches, setRecentSearches] = useState([]);
-  
+
   const router = useRouter();
   const inputRef = useRef(null);
-  const resultsRef = useRef(null);
-  const { isDesktop, isTablet, isMobile } = useResponsiveSizes();
-  
+  const _resultsRef = useRef(null);
+  const { isDesktop: _isDesktop, isTablet: _isTablet, isMobile: _isMobile } = useResponsiveSizes();
+
   // Apple-style colors
   const bgColor = useColorModeValue("rgba(255, 255, 255, 0.95)", "rgba(0, 0, 0, 0.95)");
   const overlayColor = useColorModeValue("rgba(0, 0, 0, 0.4)", "rgba(0, 0, 0, 0.6)");
@@ -48,42 +47,42 @@ const SearchModal = ({ isOpen, onClose }) => {
     const loadContentIndex = async () => {
       try {
         console.log('🔍 Loading search index from professional API...');
-        
+
         // Fetch from our new search API endpoint
         const response = await fetch('/api/search');
         const data = await response.json();
-        
+
         if (data.success && data.results) {
           console.log(`✅ Search index loaded with ${data.indexSize} total items (${data.totalResults} recent blogs)`);
-          
+
           // Store both recent blogs and the full index for search
           setContentIndex(data.results); // Recent blogs for initial display
-          
+
           // Store full index for searching
           window.hushhSearchIndex = data.results;
-          
+
         } else {
           console.warn('⚠️ API returned unsuccessful response:', data);
           setContentIndex([]);
         }
-        
+
       } catch (error) {
         console.error("❌ Error loading search index from API:", error);
-        
+
         // Fallback - basic content if API fails
         const fallbackContent = [
-          {
-            id: 'home',
-            title: 'Hushh - Your Data, Your Business',
-            description: 'Transform how you control, share, and monetize your personal data with AI-powered privacy tools.',
-            url: '/',
-            type: 'page',
-            category: 'Main Pages',
-            author: 'Hushh Team',
-            tags: ['home', 'privacy', 'data control']
-          }
-        ];
-        
+        {
+          id: 'home',
+          title: 'Hushh - Your Data, Your Business',
+          description: 'Transform how you control, share, and monetize your personal data with AI-powered privacy tools.',
+          url: '/',
+          type: 'page',
+          category: 'Main Pages',
+          author: 'Hushh Team',
+          tags: ['home', 'privacy', 'data control']
+        }];
+
+
         console.log('🔄 Using fallback content');
         setContentIndex(fallbackContent);
       }
@@ -91,7 +90,7 @@ const SearchModal = ({ isOpen, onClose }) => {
 
     if (isOpen) {
       loadContentIndex();
-      
+
       // Load recent searches from localStorage
       const stored = localStorage.getItem("hushh-recent-searches");
       if (stored) {
@@ -124,57 +123,57 @@ const SearchModal = ({ isOpen, onClose }) => {
       }
 
       setIsSearching(true);
-      
+
       try {
         // Use our professional search API for live search
         const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&limit=15`);
         const data = await response.json();
-        
+
         if (data.success && data.results) {
           console.log(`🔍 Search "${query}" found ${data.totalResults} results`);
           setSearchResults(data.results);
-          
+
           // Generate suggestions from API results
           const suggestionSet = new Set();
-          
-          data.results.forEach(item => {
+
+          data.results.forEach((item) => {
             const title = item.title.toLowerCase();
             const queryLower = query.toLowerCase();
-            
+
             // Add matching titles
             if (title.includes(queryLower)) {
               suggestionSet.add(item.title);
             }
-            
+
             // Add matching tags
-            (item.tags || []).forEach(tag => {
+            (item.tags || []).forEach((tag) => {
               if (tag.toLowerCase().includes(queryLower)) {
                 suggestionSet.add(tag);
               }
             });
-            
+
             // Add matching authors
             if (item.author && item.author.toLowerCase().includes(queryLower)) {
               suggestionSet.add(item.author);
             }
           });
-          
+
           setSuggestions(Array.from(suggestionSet).slice(0, 6));
-          
+
         } else {
           console.warn('Search API returned no results for:', query);
           setSearchResults([]);
           setSuggestions([]);
         }
-        
+
       } catch (error) {
         console.error("❌ Search API error:", error);
-        
+
         // Fallback to local search if API fails
         try {
           const results = searchContent(query, contentIndex);
           setSearchResults(results);
-          
+
           const suggestionsList = generateSuggestions(query, contentIndex);
           setSuggestions(suggestionsList);
         } catch (fallbackError) {
@@ -182,7 +181,7 @@ const SearchModal = ({ isOpen, onClose }) => {
           setSearchResults([]);
           setSuggestions([]);
         }
-        
+
       } finally {
         setIsSearching(false);
       }
@@ -202,13 +201,13 @@ const SearchModal = ({ isOpen, onClose }) => {
   const handleResultSelect = (result) => {
     // Save to recent searches
     const newRecentSearches = [
-      searchQuery,
-      ...recentSearches.filter(s => s !== searchQuery)
-    ].slice(0, 5);
-    
+    searchQuery,
+    ...recentSearches.filter((s) => s !== searchQuery)].
+    slice(0, 5);
+
     setRecentSearches(newRecentSearches);
     localStorage.setItem("hushh-recent-searches", JSON.stringify(newRecentSearches));
-    
+
     // Navigate to result
     router.push(result.url);
     onClose();
@@ -222,14 +221,14 @@ const SearchModal = ({ isOpen, onClose }) => {
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setSelectedIndex((prev) => 
-          prev < searchResults.length - 1 ? prev + 1 : 0
+        setSelectedIndex((prev) =>
+        prev < searchResults.length - 1 ? prev + 1 : 0
         );
         break;
       case "ArrowUp":
         e.preventDefault();
-        setSelectedIndex((prev) => 
-          prev > 0 ? prev - 1 : searchResults.length - 1
+        setSelectedIndex((prev) =>
+        prev > 0 ? prev - 1 : searchResults.length - 1
         );
         break;
       case "Enter":
@@ -295,25 +294,25 @@ const SearchModal = ({ isOpen, onClose }) => {
   // Highlight search term in text
   const highlightSearchTerm = (text, term) => {
     if (!term || !text) return text;
-    
+
     const regex = new RegExp(`(${term})`, 'gi');
     const parts = text.split(regex);
-    
-    return parts.map((part, index) => 
-      regex.test(part) ? (
-        <Text as="span" key={index} fontWeight="600" color="blue.500">
+
+    return parts.map((part, index) =>
+    regex.test(part) ?
+    <Text as="span" key={index} fontWeight="600" color="blue.500">
           {part}
-        </Text>
-      ) : (
-        part
-      )
+        </Text> :
+
+    part
+
     );
   };
 
   return (
-    <Modal 
-      isOpen={isOpen} 
-      onClose={onClose} 
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
       size="2xl"
       motionPreset="slideInTop"
       closeOnOverlayClick={true}
@@ -321,13 +320,13 @@ const SearchModal = ({ isOpen, onClose }) => {
       // Ensure modal renders above fixed header and other overlays
       blockScrollOnMount={true}
       isCentered={true}
-      zIndex={2000}
-    >
-      <ModalOverlay 
+      zIndex={2000}>
+      
+      <ModalOverlay
         bg={overlayColor}
         backdropFilter="blur(20px)"
-        backdropSaturate="180%"
-      />
+        backdropSaturate="180%" />
+      
       <ModalContent
         bg={bgColor}
         backdropFilter="saturate(180%) blur(20px)"
@@ -335,8 +334,8 @@ const SearchModal = ({ isOpen, onClose }) => {
         borderRadius={{ base: "0", md: "16px" }}
         boxShadow="0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)"
         maxH="80vh"
-        overflow="hidden"
-      >
+        overflow="hidden">
+        
         <Box p={0}>
           {/* Search Header */}
           <Flex
@@ -344,8 +343,8 @@ const SearchModal = ({ isOpen, onClose }) => {
             px={6}
             py={4}
             borderBottom={`1px solid ${borderColor}`}
-            position="relative"
-          >
+            position="relative">
+            
             <Icon as={SearchIcon} color={secondaryTextColor} mr={3} boxSize={5} />
             <Input
               ref={inputRef}
@@ -362,56 +361,56 @@ const SearchModal = ({ isOpen, onClose }) => {
               outline="none"
               _focus={{ outline: "none", boxShadow: "none" }}
               autoComplete="off"
-              spellCheck="false"
-            />
-            {isSearching && (
-              <Spinner size="sm" color={secondaryTextColor} mr={2} />
-            )}
-            {searchQuery && !isSearching && (
-              <Text 
-                cursor="pointer" 
-                onClick={clearSearch}
-                color={secondaryTextColor}
-                fontSize="sm"
-                _hover={{ color: textColor }}
-                mr={2}
-              >
+              spellCheck="false" />
+            
+            {isSearching &&
+            <Spinner size="sm" color={secondaryTextColor} mr={2} />
+            }
+            {searchQuery && !isSearching &&
+            <Text
+              cursor="pointer"
+              onClick={clearSearch}
+              color={secondaryTextColor}
+              fontSize="sm"
+              _hover={{ color: textColor }}
+              mr={2}>
+              
                 Clear
               </Text>
-            )}
-            <ModalCloseButton 
-              position="static" 
+            }
+            <ModalCloseButton
+              position="static"
               color={secondaryTextColor}
-              _hover={{ color: textColor }}
-            />
+              _hover={{ color: textColor }} />
+            
           </Flex>
 
           {/* Search Content */}
           <Box maxH="60vh" overflowY="auto">
-            {!searchQuery ? (
-              // Empty State - Recent Searches
-              <Box p={6}>
-                {recentSearches.length > 0 && (
-                  <VStack align="stretch" spacing={3}>
+            {!searchQuery ?
+            // Empty State - Recent Searches
+            <Box p={6}>
+                {recentSearches.length > 0 &&
+              <VStack align="stretch" spacing={3}>
                     <Text fontSize="sm" fontWeight="600" color={secondaryTextColor} mb={2}>
                       Recent Searches
                     </Text>
-                    {recentSearches.map((search, index) => (
-                      <Flex
-                        key={index}
-                        align="center"
-                        p={3}
-                        borderRadius="8px"
-                        cursor="pointer"
-                        _hover={{ bg: "rgba(0, 0, 0, 0.05)" }}
-                        onClick={() => handleRecentSearchClick(search)}
-                      >
+                    {recentSearches.map((search, index) =>
+                <Flex
+                  key={index}
+                  align="center"
+                  p={3}
+                  borderRadius="8px"
+                  cursor="pointer"
+                  _hover={{ bg: "rgba(0, 0, 0, 0.05)" }}
+                  onClick={() => handleRecentSearchClick(search)}>
+                  
                         <Icon as={SearchIcon} color={secondaryTextColor} mr={3} boxSize={4} />
                         <Text color={textColor}>{search}</Text>
                       </Flex>
-                    ))}
-                  </VStack>
                 )}
+                  </VStack>
+              }
                 
                 {/* Quick Tips */}
                 <Box mt={6} pt={6} borderTop={`1px solid ${borderColor}`}>
@@ -433,77 +432,77 @@ const SearchModal = ({ isOpen, onClose }) => {
                     </HStack>
                   </VStack>
                 </Box>
-              </Box>
-            ) : searchResults.length > 0 ? (
-              // Search Results
-              <VStack spacing={0} align="stretch">
-                {searchResults.map((result, index) => (
-                  <Flex
-                    key={result.id}
-                    p={4}
-                    cursor="pointer"
-                    bg={selectedIndex === index ? "rgba(0, 122, 255, 0.1)" : "transparent"}
-                    borderLeft={selectedIndex === index ? "3px solid #007AFF" : "3px solid transparent"}
-                    _hover={{ bg: "rgba(0, 122, 255, 0.05)" }}
-                    onClick={() => handleResultSelect(result)}
-                    align="center"
-                  >
+              </Box> :
+            searchResults.length > 0 ?
+            // Search Results
+            <VStack spacing={0} align="stretch">
+                {searchResults.map((result, index) =>
+              <Flex
+                key={result.id}
+                p={4}
+                cursor="pointer"
+                bg={selectedIndex === index ? "rgba(0, 122, 255, 0.1)" : "transparent"}
+                borderLeft={selectedIndex === index ? "3px solid #007AFF" : "3px solid transparent"}
+                _hover={{ bg: "rgba(0, 122, 255, 0.05)" }}
+                onClick={() => handleResultSelect(result)}
+                align="center">
+                
                     <Text fontSize="lg" mr={3}>
                       {getTypeIcon(result.type)}
                     </Text>
                     <Box flex={1} minW={0}>
                       <HStack mb={1} spacing={2}>
-                        <Text 
-                          fontSize="md" 
-                          fontWeight="600" 
-                          color={textColor}
-                          noOfLines={1}
-                        >
+                        <Text
+                      fontSize="md"
+                      fontWeight="600"
+                      color={textColor}
+                      noOfLines={1}>
+                      
                           {highlightSearchTerm(result.title, searchQuery)}
                         </Text>
-                        <Badge 
-                          colorScheme={getTypeBadgeColor(result.type)}
-                          size="sm"
-                          fontSize="xs"
-                          textTransform="capitalize"
-                        >
+                        <Badge
+                      colorScheme={getTypeBadgeColor(result.type)}
+                      size="sm"
+                      fontSize="xs"
+                      textTransform="capitalize">
+                      
                           {result.type}
                         </Badge>
                       </HStack>
-                      <Text 
-                        fontSize="sm" 
-                        color={secondaryTextColor} 
-                        noOfLines={2}
-                        lineHeight="1.4"
-                      >
+                      <Text
+                    fontSize="sm"
+                    color={secondaryTextColor}
+                    noOfLines={2}
+                    lineHeight="1.4">
+                    
                         {highlightSearchTerm(result.description, searchQuery)}
                       </Text>
-                      {result.author && (
-                        <Text fontSize="xs" color={secondaryTextColor} mt={1}>
+                      {result.author &&
+                  <Text fontSize="xs" color={secondaryTextColor} mt={1}>
                           by {result.author}
                         </Text>
-                      )}
+                  }
                     </Box>
                     <ChevronRightIcon color={secondaryTextColor} boxSize={4} />
                   </Flex>
-                ))}
-              </VStack>
-            ) : searchQuery.length >= 2 && !isSearching ? (
-              // No Results
-              <Box p={6} textAlign="center">
+              )}
+              </VStack> :
+            searchQuery.length >= 2 && !isSearching ?
+            // No Results
+            <Box p={6} textAlign="center">
                 <Text fontSize="lg" color={textColor} mb={2}>
                   No results found
                 </Text>
                 <Text fontSize="sm" color={secondaryTextColor}>
                   Try different keywords or check your spelling
                 </Text>
-              </Box>
-            ) : null}
+              </Box> :
+            null}
           </Box>
         </Box>
       </ModalContent>
-    </Modal>
-  );
+    </Modal>);
+
 };
 
 // Utility functions
@@ -527,26 +526,26 @@ function searchContent(query, contentIndex) {
   const searchTerm = query.toLowerCase().trim();
   const limit = 20;
 
-  let results = contentIndex.filter(item => {
+  let results = contentIndex.filter((item) => {
     // Search in searchableText (comprehensive search)
     const matchesContent = item.searchableText?.includes(searchTerm);
-    
+
     // Search in keywords (exact and partial matches)
-    const matchesKeywords = item.keywords?.some(keyword => 
-      keyword.toLowerCase().includes(searchTerm)
+    const matchesKeywords = item.keywords?.some((keyword) =>
+    keyword.toLowerCase().includes(searchTerm)
     );
-    
+
     // Title and description exact matches get higher priority
     const matchesTitle = item.title.toLowerCase().includes(searchTerm);
     const matchesDescription = item.description.toLowerCase().includes(searchTerm);
-    
+
     return matchesContent || matchesKeywords || matchesTitle || matchesDescription;
   });
 
   // Sort by relevance
-  results = results.map(item => {
+  results = results.map((item) => {
     let relevanceScore = 0;
-    
+
     // Title matches get highest score
     if (item.title.toLowerCase().includes(searchTerm)) {
       relevanceScore += 100;
@@ -554,26 +553,26 @@ function searchContent(query, contentIndex) {
         relevanceScore += 50; // Boost for title starting with search term
       }
     }
-    
+
     // Description matches get high score
     if (item.description.toLowerCase().includes(searchTerm)) {
       relevanceScore += 50;
     }
-    
+
     // Keyword matches get medium score
-    if (item.keywords?.some(keyword => keyword.toLowerCase().includes(searchTerm))) {
+    if (item.keywords?.some((keyword) => keyword.toLowerCase().includes(searchTerm))) {
       relevanceScore += 30;
     }
-    
+
     // Content matches get base score
     if (item.searchableText?.includes(searchTerm)) {
       relevanceScore += 10;
-      
+
       // Count occurrences for frequency boost
       const occurrences = (item.searchableText.match(new RegExp(searchTerm, 'g')) || []).length;
       relevanceScore += occurrences * 2;
     }
-    
+
     return { ...item, relevanceScore };
   });
 
@@ -593,14 +592,14 @@ function generateSuggestions(query, contentIndex) {
   const limit = 8;
 
   // Extract suggestions from titles and keywords
-  contentIndex.forEach(item => {
+  contentIndex.forEach((item) => {
     // Add title if it contains the search term
     if (item.title.toLowerCase().includes(searchTerm)) {
       suggestions.add(item.title);
     }
-    
+
     // Add matching keywords
-    item.keywords?.forEach(keyword => {
+    item.keywords?.forEach((keyword) => {
       if (keyword.toLowerCase().includes(searchTerm)) {
         suggestions.add(keyword);
       }
@@ -610,4 +609,4 @@ function generateSuggestions(query, contentIndex) {
   return Array.from(suggestions).slice(0, limit);
 }
 
-export default SearchModal; 
+export default SearchModal;

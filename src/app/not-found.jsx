@@ -1,54 +1,60 @@
-import { Box, Container, VStack, Heading, Text, Button } from '@chakra-ui/react';
-import Link from 'next/link';
+import { Box, Container, VStack, Heading, Text } from "@chakra-ui/react";
+import Link from "next/link";
+import ContentWrapper from "./_components/layout/ContentWrapper";
 
 export default function NotFound() {
   return (
-    <Container maxW="7xl" pt={{ base: 24, md: 32 }}>
-      <VStack spacing={8} textAlign="center" minH="60vh" justify="center">
-        <Box>
-          <Heading 
-            as="h1" 
-            size="4xl" 
-            color="gray.900"
-            fontFamily="'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-            mb={4}
-          >
-            404
-          </Heading>
-          <Heading 
-            as="h2" 
-            size="xl" 
-            color="gray.700"
-            fontFamily="'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-            mb={4}
-          >
-            Page Not Found
-          </Heading>
-          <Text 
-            color="gray.600" 
-            fontSize="lg"
-            fontFamily="'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-            maxW="md"
-            mx="auto"
-          >
-            Sorry, we couldn't find the page you're looking for. It might have been moved or deleted.
-          </Text>
-        </Box>
-        
-        <Button
-          as={Link}
-          href="/"
-          bg="blue.600"
-          color="white"
-          size="lg"
-          borderRadius="12px"
-          px={8}
-          _hover={{ bg: "blue.700" }}
-          fontFamily="'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    <ContentWrapper surface="muted">
+      <Container maxW="7xl" py={{ base: 16, md: 20, lg: 24 }}>
+        <VStack
+          spacing={{ base: 8, md: 10 }}
+          textAlign="center"
+          minH="60vh"
+          justify="center"
+          rounded={{ base: "24px", md: "32px" }}
+          border="1px solid rgba(15, 23, 42, 0.06)"
+          bg="white"
+          px={{ base: 6, md: 10 }}
+          py={{ base: 10, md: 14 }}
+          boxShadow="0 24px 80px rgba(15, 23, 42, 0.06)"
         >
-          Return Home
-        </Button>
-      </VStack>
-    </Container>
+          <Box>
+            <Text className="site-page-eyebrow" mb={4}>
+              Navigation
+            </Text>
+            <Heading
+              as="h1"
+              className="site-page-title"
+              mb={4}
+              fontSize={{ base: "64px", md: "96px" }}
+            >
+              404
+            </Heading>
+            <Heading
+              as="h2"
+              fontSize={{ base: "28px", md: "42px" }}
+              fontWeight="700"
+              color="#111827"
+              fontFamily="Inter, sans-serif"
+              mb={4}
+              letterSpacing="-0.03em"
+            >
+              Page Not Found
+            </Heading>
+            <Text className="site-page-copy" maxW="xl" mx="auto">
+              Sorry, we couldn&apos;t find the page you&apos;re looking for. It might have been moved or deleted.
+            </Text>
+          </Box>
+
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center rounded-[12px] bg-[#1A1A1B] px-8 py-4 text-[12px] font-semibold uppercase tracking-[0.16em] text-white transition-colors hover:bg-[#0A1128]"
+            style={{ fontFamily: "Inter, sans-serif" }}
+          >
+            Return Home
+          </Link>
+        </VStack>
+      </Container>
+    </ContentWrapper>
   );
-} 
+}

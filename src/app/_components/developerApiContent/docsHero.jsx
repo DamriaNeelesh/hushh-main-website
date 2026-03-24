@@ -49,12 +49,12 @@ const DocsHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Link href="/developer-Api/on-boarding" className="group flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[var(--accent-primary)] text-[var(--accent-contrast)] font-medium transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[var(--accent-primary)]/20">
+          <Link href="/developers/on-boarding" className="group flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[var(--accent-primary)] text-[var(--accent-contrast)] font-medium transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[var(--accent-primary)]/20">
             Start Building
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Link>
 
-          <Link href="/developer-Api/rootEndpoints" className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-primary)] text-[var(--text-primary)] font-medium transition-all hover:bg-[var(--bg-tertiary)] active:scale-95">
+          <Link href="/developers/rootEndpoints" className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-primary)] text-[var(--text-primary)] font-medium transition-all hover:bg-[var(--bg-tertiary)] active:scale-95">
             <Terminal size={18} />
             API Reference
           </Link>

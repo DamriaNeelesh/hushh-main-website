@@ -1,11 +1,11 @@
-'use client'
+'use client';
 import { useState, useEffect } from 'react';
-import { Box, Button, Avatar, Menu, MenuButton, MenuList, MenuItem, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import authConfig from '../../../lib/config/authConfig';
 
 export default function Header() {
-  const [session, setSession] = useState(null);
+  const [_session, setSession] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function Header() {
 
     // Listen for auth state changes
     const {
-      data: { subscription },
+      data: { subscription }
     } = authConfig.supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
@@ -24,7 +24,7 @@ export default function Header() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const handleLogout = async () => {
+  const _handleLogout = async () => {
     try {
       await authConfig.supabaseClient.auth.signOut();
       setSession(null);
@@ -38,25 +38,25 @@ export default function Header() {
     <Box as="header" bg="black" color="white" p={4} display="flex" justifyContent="space-between" alignItems="center">
       <Text fontSize="xl" fontWeight="bold">Hushh Developer API</Text>
       {/* {session ? (
-        <Menu>
-          <MenuButton as={Button} variant="link">
-            <Avatar src={session.user.user_metadata.avatar_url} name={session.user.email} />
-          </MenuButton>
-          <MenuList>
-            <MenuItem>
-              <Text fontWeight="bold">{session.user.user_metadata.full_name}</Text>
-            </MenuItem> 
-            <MenuItem>
-              <Text>{session.user.email}</Text>
-            </MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
-          </MenuList>
-        </Menu>
-      ) : (
-        <Button onClick={() => router.push('/developerApi/login')} colorScheme="teal">
-          Log In
-        </Button>
-      )} */}
-    </Box>
-  );
+         <Menu>
+           <MenuButton as={Button} variant="link">
+             <Avatar src={session.user.user_metadata.avatar_url} name={session.user.email} />
+           </MenuButton>
+           <MenuList>
+             <MenuItem>
+               <Text fontWeight="bold">{session.user.user_metadata.full_name}</Text>
+             </MenuItem> 
+             <MenuItem>
+               <Text>{session.user.email}</Text>
+             </MenuItem>
+             <MenuItem onClick={handleLogout}>Logout</MenuItem>
+           </MenuList>
+         </Menu>
+        ) : (
+         <Button onClick={() => router.push('/developers/login')} colorScheme="teal">
+           Log In
+         </Button>
+        )} */}
+    </Box>);
+
 }

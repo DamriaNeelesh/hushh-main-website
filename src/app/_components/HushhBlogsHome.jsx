@@ -9,18 +9,13 @@ import {
   Flex,
   Heading,
   Text,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import Apporv from "../_components/svg/aboutImages/TeamImages/ApoorvBedmutha.svg";
-import PythonEng from "../../../public/blogs/python_Eng_with_hushh.png";
 import { useRouter } from "next/navigation";
-import DiscoverFashion from '../../../public/blogs/discoveryFashion1.png'
-import WalletBlog from "../../../public/blogs/hushhwalletBlog.png"
-import Link from "next/link";
-import { allBlogs } from "contentlayer/generated";
+import { allBlogSummaries } from "../../lib/content/blog-registry";
 import BlogImage from '../../../public/blogs/blog2o.png'
+import { formatContentDate, getContentDateTimestamp } from "../../lib/content/date-utils";
 
 export const HushhBlogsHome = () => {
     const router = useRouter();
@@ -28,13 +23,11 @@ export const HushhBlogsHome = () => {
     
     useEffect(() => {
     // Sort blogs by updatedAt or publishedAt
-    console.log('All blogs',allBlogs)
-    const sortedBlogs = allBlogs
-      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+    const sortedBlogs = [...allBlogSummaries]
+      .sort((a, b) => getContentDateTimestamp(b.updatedAt) - getContentDateTimestamp(a.updatedAt))
       .slice(0, 3); // Get top 3 blogs
     setTopBlogs(sortedBlogs);
   }, []);
-  console.log('All blogs',allBlogs)
 
   return (
     <>
@@ -97,7 +90,7 @@ export const HushhBlogsHome = () => {
               <Flex align="center" mt="4">
                 <Avatar size="xs" name={blog.author} src={blog.authorImage} />
                 <Text ml="2" fontSize="sm" color={"#FFFFFF"}>
-                  {blog.author} - {new Date(blog.publishedAt).toLocaleDateString()}
+                  {blog.author} - {formatContentDate(blog.publishedAt, "MMM d, yyyy", "Recent post")}
                 </Text>
                  </Flex>
             </Box>

@@ -5,54 +5,17 @@ import {
   VStack,
   Text,
   Button,
-  Stack,
   Flex,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ModalCloseButton,
-  useDisclosure,
-  useToast,
-  useBreakpointValue,
   HStack,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { QRCode } from "react-qrcode-logo";
 
 // New Icons for Mobile Screens
-import ChromeIcon from "../_components/svg/productIcons/chromeIcon.svg";
-import DeveloperIcon from "../_components/svg/productIcons/developerIcon.svg";
-import VibeSearchNew from "../_components/svg/productIcons/vibeSearchIcon.svg";
-import ButtonIcon from "../_components/svg/productIcons/hushhButtonIcon.svg";
-import HushhAppIcon from "../_components/svg/productIcons/hushhAppIcon.svg";
 import hushhLogo from "../_components/svg/productIcons/hushhLogo.svg";
 import "next-cloudinary/dist/cld-video-player.css";
 import AppleIcon from "../_components/svg/icons/appleIcon";
 import PlayStoreIcon from "../_components/svg/icons/playStoreIcon";
-import dynamic from "next/dynamic";
-
-
-
-export default function vivaConnect2() {
-  const router = useRouter();
-  const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isWalletOpen,
-    onOpen: onWalletOpen,
-    onClose: onWalletClose,
-  } = useDisclosure();
-  const {
-    isOpen: isCompanionOpen,
-    onOpen: onCompanionOpen,
-    onClose: onCompanionClose,
-  } = useDisclosure();
-  const modalSize = useBreakpointValue({ base: "sm", md: "md" });
-
+export default function VivaConnectShowcasePage() {
   return (
     <>
       <Box
@@ -109,7 +72,7 @@ export default function vivaConnect2() {
               fontSize={{ base: "1.53rem", md: "2.25rem" }}
               className="gradient"
             >
-              "Your" Data "Your" Business!
+              &ldquo;Your&rdquo; Data &ldquo;Your&rdquo; Business!
             </Text>
             <Text
               p={"0"}
@@ -289,6 +252,12 @@ export default function vivaConnect2() {
                       flex={1}
                       bg={"black"}
                       color={"white"}
+                      onClick={() =>
+                        window.open(
+                          "https://chromewebstore.google.com/detail/hushh-browser-companion/glmkckchoggnebfiklpbiajpmjoagjgj?hl=en&authuser=0n",
+                          "_blank"
+                        )
+                      }
                     >
                       Add Extension
                     </Button>

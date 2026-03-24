@@ -29,8 +29,6 @@ import markMc from "../svg/aboutImages/advisoryImages/markMcLaughlin.png";
 import nilanshu from "../svg/aboutImages/advisoryImages/nilanshu.png";
 import rishi from "../svg/aboutImages/advisoryImages/rishiTandon.png";
 import samant from "../svg/aboutImages/advisoryImages/samantNagpal.png";
-import shirley from "../svg/aboutImages/advisoryImages/shirleyPelicer.png";
-import sid from "../svg/aboutImages/advisoryImages/sidGavandi.png";
 import stephane from "../svg/aboutImages/advisoryImages/stephane.png";
 import sudhir from "../svg/aboutImages/advisoryImages/sudhir.png";
 import suresh from "../svg/aboutImages/advisoryImages/sureshAttuluri.png";

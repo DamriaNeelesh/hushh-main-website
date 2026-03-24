@@ -1,9 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
 
 export default function VoicePage() {
-  const router = useRouter();
   const [countdown, setCountdown] = useState(3);
   const redirectUrl = "https://hushhvoice-2.onrender.com/";
 
@@ -25,11 +23,11 @@ export default function VoicePage() {
           // Fallback redirect methods
           try {
             window.location.replace(redirectUrl);
-          } catch (error) {
+          } catch {
             try {
               window.open(redirectUrl, '_self');
-            } catch (error2) {
-              console.error('All redirect methods failed:', error2);
+            } catch (fallbackError) {
+              console.error('All redirect methods failed:', fallbackError);
             }
           }
           return 0;
@@ -70,7 +68,7 @@ export default function VoicePage() {
         
         <div className="space-y-4">
           <p className="text-sm text-gray-500">
-            If you're not redirected automatically:
+            If you&apos;re not redirected automatically:
           </p>
           
           <a 

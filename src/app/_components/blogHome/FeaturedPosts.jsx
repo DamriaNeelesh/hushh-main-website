@@ -3,9 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { format } from "date-fns";
 import { sortBlogs } from "../../utils";
 import { FALLBACK_IMAGE } from "../Blog/constants";
+import { formatContentDate } from "../../../lib/content/date-utils";
 
 const FeaturedPosts = ({ blogs }) => {
   const sortedBlogs = sortBlogs([...(blogs || [])]);
@@ -21,7 +21,7 @@ const FeaturedPosts = ({ blogs }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
         {featuredBlogs.map((blog) => {
-          const publishedAt = blog.publishedAt ? format(new Date(blog.publishedAt), "d MMM yyyy") : "Recent post";
+          const publishedAt = formatContentDate(blog.publishedAt);
           const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
 
           return (

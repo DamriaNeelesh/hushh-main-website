@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { images } from "../../../../public/Images/images";
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";

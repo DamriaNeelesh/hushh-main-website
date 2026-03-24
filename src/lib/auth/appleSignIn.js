@@ -11,10 +11,12 @@ export default async function appleSignIn(callback, customRedirectPath) {
     } else if (typeof window !== "undefined") {
       const currentPath = window.location.pathname;
 
-      if (currentPath.includes("/developerApi/login")) {
-        redirectPath = "/developerApi/login";
-      } else if (currentPath.includes("/developer-Api/on-boarding")) {
-        redirectPath = "/developer-Api/on-boarding";
+      if (currentPath.includes("/developers/login")) {
+        redirectPath = "/developers/login";
+      } else if (currentPath.includes("/developers/on-boarding")) {
+        redirectPath = "/developers/on-boarding";
+      } else if (currentPath.includes("/developers/getting-started")) {
+        redirectPath = "/developers/getting-started";
       } else if (currentPath.includes("/login")) {
         redirectPath = "/login";
       }

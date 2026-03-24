@@ -1,14 +1,10 @@
 import React from "react";
 import { Box, Container, Grid, HStack, Text } from "@chakra-ui/react";
-import { Heading } from "@chakra-ui/react";
 import { ServiceCard } from "../primitives/serviceCard";
 import TrustedAIIcon from "../svg/trustedAI";
 import ControlOver from "../svg/controlOver";
 import TechIntegrationIcon from "../svg/techIntegration";
-import RedifiningIcon from "../svg/redifiningIcon";
-import TransparentSecureIcon from "../svg/tranparentSecure";
 import extendedTheme from "../../theme";
-import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 
 const TechnologySection = () => {

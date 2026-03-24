@@ -1,40 +1,40 @@
-![Screenshot 2024-02-22 143311](https://github.com/hushh-labs/hushh_website/assets/66689602/fcd88d6f-5bb8-41e1-9d85-8a3ee2ed95fe)
+# Hushh Website
 
-# HUSHH Website
+The website is a Next.js app with a shared site shell, marketing and product surfaces, developer flows, legal pages, and integration entrypoints.
 
-## "Your" Data "Your" Business
+## Repository structure
 
-## Getting Started
+- `src/` contains the application routes, shared shell, and feature components.
+- `docs/` is the canonical home for architecture, design-system, feature, integration, operations, and runbook documentation.
+- `support/postman/` contains durable Postman collections.
+- `support/prompts/` contains durable prompt and query reference assets.
+- The repo root is reserved for core project files, configs, and the canonical `README.md`.
 
-First, run the development server:
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install --legacy-peer-deps
+npm run dev -- --port 3001
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3001`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Verification
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm run build
+npm run verify:oauth-branding
+npm run audit:docs
+BASE_URL=http://localhost:3001 npm run audit:shell
+```
 
-## Learn More
+## Documentation
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Architecture](docs/architecture/agent-api-proxy-pattern.md)
+- [Design system](docs/design-system/site-shell.md)
+- [Features](docs/features/agent-signin.md)
+- [Guides](docs/guides/hooks.md)
+- [Integrations](docs/integrations/a2a-website-integration.md)
+- [Operations](docs/operations/api-verification.md)
+- [Runbooks](docs/runbooks/plaid-production-demo.md)
+- [Support assets](support/)

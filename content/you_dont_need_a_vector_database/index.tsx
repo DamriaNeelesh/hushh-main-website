@@ -1,0 +1,91 @@
+/*@jsxRuntime automatic @jsxImportSource react*/
+function createContent(props: any) {
+  const _components = Object.assign({
+    h2: "h2",
+    p: "p",
+    em: "em",
+    a: "a",
+    h3: "h3",
+    h1: "h1",
+    ul: "ul",
+    li: "li",
+    strong: "strong",
+    h4: "h4"
+  }, props.components), {Image} = _components;
+  if (!Image) _missingContentReference("Image", true);
+  return <><_components.h2>{"Vector Databases are in vogue, but do you really need one to support your AI powered Search?"}</_components.h2>{"\n"}<_components.p>{"If you’ve been paying attention to the recent advances in Large Language Models (LLM), you’ve noticed that a whole new crop of startups emerged to provide search over embeddings."}</_components.p>{"\n"}<Image src="/blogs/vectoDatabaseBrands.png" width="718" height="404" alt="vectoDatabaseBrands" sizes="100vw" />{"\n"}<_components.p><_components.em>{"Vector libraries and databases "}<_components.a href="https://blog.det.life/why-you-shouldnt-invest-in-vector-databases-c0cd3f59d23c">{"source"}</_components.a></_components.em></_components.p>{"\n"}<_components.p>{"Search over embeddings is a very different process than search over a database of documents. Embedding search uses a vector space representation of an image or document that has been created by a corresponding model, rather than an inverted index of terms and documents. Search in a vector space is typically handled with "}<_components.em><_components.a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm_">{"nearest neighbor"}</_components.a></_components.em>{" search, which returns the embeddings of the closest records to the target record. This technique is much more intensive to calculate than a simple inverted index lookup, and accordingly databases need to make trade offs for precision/recall in order to provide reasonable performance over large sets of data."}</_components.p>{"\n"}<_components.h3>{"Embedding Databases for Smaller Datasets"}</_components.h3>{"\n"}<_components.p>{"Here at Hushh we were suprised to realize that there wasn’t a good option for smaller/portable embeddings for databases. Many modeling tasks rely on smaller and more domain-specific datasets to perform domain-specific tasks. For instance, image recognition models might need to index the products of a given storefront. There may be many thousand products, but often not the millions of products that would necessitate a standalone database. Furthermore, a standalone database would need to be running at all times, incurring a large one-time cost for any sort of embedding search functionality."}</_components.p>{"\n"}<_components.p>{"If one doesn’t have a lot of data, and doesn’t want to pay the maintenance fee on hosted embedding search, using an embedding search database is costly overkill, but what are the options?"}</_components.p>{"\n"}<_components.p>{"Many embedding databases and models use python, so accordingly, the embeddings can be exported in the "}<_components.a href="https://docs.python.org/3/library/pickle.html">{"python pickle"}</_components.a>{" format. However, the pickle format is unsafe, making it a risky bet for production systems."}</_components.p>{"\n"}<_components.p>{"JSON formats can also be used for pickling data, but JSON requires all of the embedding data to be decoded and loaded into memory. This process can take a significant amount of time, making it costly to load/unload embedding datasets on the fly."}</_components.p>{"\n"}<_components.p><_components.a href="https://msgpack.org/index.html">{"Messagepack"}</_components.a>{" is another solid option, optimized for speed and portability. Originally, this was the format that we were likely to use. However, in the back of our minds we wondered, can we make it even faster?"}</_components.p>{"\n"}<_components.h1>{"Introducing The Hushh Catalog Format"}</_components.h1>{"\n"}<_components.p>{"We introduce the "}<_components.em><_components.a href="https://github.com/hushh-labs/hushh-vibe-catalog">{"Hushh Catalog Format"}</_components.a></_components.em>{" "}<_components.em>{"(HCF)"}</_components.em>{", a file format that is optimized for speedy (and lazy) loading of embeddings from disk."}</_components.p>{"\n"}<_components.p>{"To understand the performance benefits of the HCF format, we’ll use this "}<_components.a href="https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-small">{"fashion dataset"}</_components.a>{" comprising ~44K product images, representative of the fashion offerings of a mid-to-large size department store."}</_components.p>{"\n"}<_components.p>{"We’ll also take figures and data from this "}<_components.a href="https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/notebooks/Create%20Catalog.ipynb">{"data science notebook"}</_components.a>{" that contains the result of the analysis."}</_components.p>{"\n"}<_components.p>{"React, developed by Facebook (now Meta), is a flexible library for building user interfaces. It focuses on the view layer, providing a simple and efficient way to create interactive components."}</_components.p>{"\n"}<_components.h2>{"Comparisons"}</_components.h2>{"\n"}<_components.p>{"For the purposes of comparison, we’ll generate embedding vectors in three different formats:"}</_components.p>{"\n"}<_components.ul>{"\n"}<_components.li><_components.strong>{"JSON"}</_components.strong>{": A popular option for web development due to it being human-readable"}</_components.li>{"\n"}<_components.li><_components.strong>{"Msgpack"}</_components.strong>{": A schema-less binary format that is a good option for smaller/faster serialization"}</_components.li>{"\n"}<_components.li><_components.strong>{"Hushh Catalog Format"}</_components.strong>{": A format with a schema designed especially for storing product information and metadata."}</_components.li>{"\n"}</_components.ul>{"\n"}<_components.h3>{"File Size"}</_components.h3>{"\n"}<div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '50vh'
+  }}><Image src="/blogs/fileSizeVector.png" width={518} height={304} alt="Image" sizes="80vw" /></div>{"\n"}<_components.h3>{"File Size Comparison"}</_components.h3>{"\n"}<_components.p>{"File sizes for smaller/embedded databases can add a lot of overhead for search. In our first comparison we look at the file size from our example dataset and see that HCF is half the size of messagepack, and a less than 25% the size of a comparable json format."}</_components.p>{"\n"}<_components.p>{"File size matters a lot for databases, particularly since files like messagepack and json need to be loaded fully into memory. If you have a bigger file format, your program will use more memory to store it internally, which adds overhead for resource usage and time."}</_components.p>{"\n"}<_components.h3>{"Loading Time Comparison"}</_components.h3>{"\n"}<_components.p>{"Interestingly enough, the file size difference becomes even more pronounced when the loading time is compared. The HCF format is a whopping 20,000 times faster at loading the embedding data than JSON, and also beats msgpack by over an order of magnitude."}</_components.p>{"\n"}<_components.p><_components.em><_components.strong>{"How is this possible?"}</_components.strong></_components.em></_components.p>{"\n"}<_components.p>{"The answer is that the Hushh Catalog Format reader doesn’t read in the data all at once. Instead, it streams it in as necessary directly from disk without needing to parse the entire file. This technique of lazy loading enables the Hushh Catalog Format to all but eliminate a startup delay when loading embedding data."}</_components.p>{"\n"}<_components.p><_components.em><_components.strong>{"What was used to build the Hushh Catalog Format?"}</_components.strong></_components.em></_components.p>{"\n"}<_components.p>{"The Hushh Catalog Format is built on top of "}<_components.a href="https://flatbuffers.dev/">{"flatbuffers"}</_components.a>{". Flatbuffers is similar to "}<_components.a href="https://protobuf.dev/">{"protobuffers"}</_components.a>{", except it’s designed for larger amounts of data that can be streamed lazily. Flatbuffers excel at loading densely packed numeric and textual data in a structured format. The structured format requires a schema, and here’s the current "}<_components.a href="https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/schemas/hushh-catalog.fbs">{"schema for Hushh Catalog Format"}</_components.a></_components.p>{"\n"}<_components.p>{"Using the schema, we can use flatbuffers to generate python "}<_components.a href="https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/python/src/hushh/hcf/Catalog.py">{"runtime classes"}</_components.a>{" that stream the file into memory, along with some "}<_components.a href="https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/python/src/hushh/catalog.py">{"helper constructor methods"}</_components.a>{". There’s runtime classes for "}<_components.a href="https://github.com/hushh-labs/hushh-vibe-catalog/blob/main/swift/Sources/hushh-catalog_generated.swift">{"Swift"}</_components.a>{" available as well, with more to come."}</_components.p>{"\n"}<_components.h2>{"What can you do with the Hushh Catalog Format?"}</_components.h2>{"\n"}<_components.p>{"For now, the format is geared towards providing catalog search services. Accordingly, information pertaining to products are supported. As we expand the scope of the format, we will enable more fine-tuned schemas for a growing number of open source personal data formats."}</_components.p>{"\n"}<_components.h4>{"Vibe Search"}</_components.h4>{"\n"}<_components.p>{"We’re using the HCF format as a way of providing portable embedding indexes that are available from the phone or from a web server. Our Vibe search service will use it under the hood, making state of the art embedding search more easily available to everyone!"}</_components.p>{"\n"}<_components.h2>{"Related Reading"}</_components.h2>{"\n"}<_components.p>{"If you’re interested in optimized file protocols specifically for machine learning artifacts, check this "}<_components.a href="https://vickiboykis.com/2024/02/28/gguf-the-long-way-around/">{"overview of GGUF by Vicki Boykis"}</_components.a>{"."}</_components.p></>;
+}
+export default function Content(props: { components?: Record<string, any> } = {}) {
+  return createContent(props);
+}
+function _missingContentReference(id: string, component: boolean) {
+  throw new Error("Expected " + (component ? "component" : "object") + " `" + id + "` to be defined: you likely forgot to import, pass, or provide it.");
+}
+
+export const contentMeta = {
+  "title": "You (Probably) Don’t Need an Embedding Database",
+  "description": "Vector Databases are in vogue, but do you really need one to support your AI powered Search?",
+  "image": "/blogs/new/you-dont-need.png",
+  "publishedAt": "January 30, 2024",
+  "updatedAt": "February 2, 2024",
+  "author": "Justin Donaldson",
+  "isPublished": true,
+  "tags": [
+    "Embedding",
+    "Search",
+    "Open Source"
+  ]
+};
+export const contentHeadings = [
+  {
+    "text": "Vector Databases are in vogue, but do you really need one to support your AI powered Search?",
+    "level": 2,
+    "slug": "vector-databases-are-in-vogue-but-do-you-really-need-one-to-support-your-ai-powered-search"
+  },
+  {
+    "text": "Embedding Databases for Smaller Datasets",
+    "level": 3,
+    "slug": "embedding-databases-for-smaller-datasets"
+  },
+  {
+    "text": "Comparisons",
+    "level": 2,
+    "slug": "comparisons"
+  },
+  {
+    "text": "File Size",
+    "level": 3,
+    "slug": "file-size"
+  },
+  {
+    "text": "File Size Comparison",
+    "level": 3,
+    "slug": "file-size-comparison"
+  },
+  {
+    "text": "Loading Time Comparison",
+    "level": 3,
+    "slug": "loading-time-comparison"
+  },
+  {
+    "text": "What can you do with the Hushh Catalog Format?",
+    "level": 2,
+    "slug": "what-can-you-do-with-the-hushh-catalog-format"
+  },
+  {
+    "text": "Vibe Search",
+    "level": 3,
+    "slug": "vibe-search"
+  },
+  {
+    "text": "Related Reading",
+    "level": 2,
+    "slug": "related-reading"
+  }
+];
+export const contentPlainText = "Vector Databases are in vogue, but do you really need one to support your AI powered Search? If you’ve been paying attention to the recent advances in Large Language Models (LLM), you’ve noticed that a whole new crop of startups emerged to provide search over embeddings. Vector libraries and databases source Search over embeddings is a very different process than search over a database of documents. Embedding search uses a vector space representation of an image or document that has been created by a corresponding model, rather than an inverted index of terms and documents. Search in a vector space is typically handled with nearest neighbor search, which returns the embeddings of the closest records to the target record. This technique is much more intensive to calculate than a simple inverted index lookup, and accordingly databases need to make trade offs for precision/recall in order to provide reasonable performance over large sets of data. Embedding Databases for Smaller Datasets Here at Hushh we were suprised to realize that there wasn’t a good option for smaller/portable embeddings for databases. Many modeling tasks rely on smaller and more domain specific datasets to perform domain specific tasks. For instance, image recognition models might need to index the products of a given storefront. There may be many thousand products, but often not the millions of products that would necessitate a standalone database. Furthermore, a standalone database would need to be running at all times, incurring a large one time cost for any sort of embedding search functionality. If one doesn’t have a lot of data, and doesn’t want to pay the maintenance fee on hosted embedding search, using an embedding search database is costly overkill, but what are the options? Many embedding databases and models use python, so accordingly, the embeddings can be exported in the python pickle format. However, the pickle format is unsafe, making it a risky bet for production systems. JSON formats can also be used for pickling data, but JSON requires all of the embedding data to be decoded and loaded into memory. This process can take a significant amount of time, making it costly to load/unload embedding datasets on the fly. Messagepack is another solid option, optimized for speed and portability. Originally, this was the format that we were likely to use. However, in the back of our minds we wondered, can we make it even faster? Introducing The Hushh Catalog Format We introduce the Hushh Catalog Format (HCF) , a file format that is optimized for speedy (and lazy) loading of embeddings from disk. To understand the performance benefits of the HCF format, we’ll use this fashion dataset comprising 44K product images, representative of the fashion offerings of a mid to large size department store. We’ll also take figures and data from this data science notebook that contains the result of the analysis. React, developed by Facebook (now Meta), is a flexible library for building user interfaces. It focuses on the view layer, providing a simple and efficient way to create interactive components. Comparisons For the purposes of comparison, we’ll generate embedding vectors in three different formats: JSON : A popular option for web development due to it being human readable Msgpack : A schema less binary format that is a good option for smaller/faster serialization Hushh Catalog Format : A format with a schema designed especially for storing product information and metadata. File Size File Size Comparison File sizes for smaller/embedded databases can add a lot of overhead for search. In our first comparison we look at the file size from our example dataset and see that HCF is half the size of messagepack, and a less than 25% the size of a comparable json format. File size matters a lot for databases, particularly since files like messagepack and json need to be loaded fully into memory. If you have a bigger file format, your program will use more memory to store it internally, which adds overhead for resource usage and time. Loading Time Comparison Interestingly enough, the file size difference becomes even more pronounced when the loading time is compared. The HCF format is a whopping 20,000 times faster at loading the embedding data than JSON, and also beats msgpack by over an order of magnitude. How is this possible? The answer is that the Hushh Catalog Format reader doesn’t read in the data all at once. Instead, it streams it in as necessary directly from disk without needing to parse the entire file. This technique of lazy loading enables the Hushh Catalog Format to all but eliminate a startup delay when loading embedding data. What was used to build the Hushh Catalog Format? The Hushh Catalog Format is built on top of flatbuffers. Flatbuffers is similar to protobuffers, except it’s designed for larger amounts of data that can be streamed lazily. Flatbuffers excel at loading densely packed numeric and textual data in a structured format. The structured format requires a schema, and here’s the current schema for Hushh Catalog Format Using the schema, we can use flatbuffers to generate python runtime classes that stream the file into memory, along with some helper constructor methods. There’s runtime classes for Swift available as well, with more to come. What can you do with the Hushh Catalog Format? For now, the format is geared towards providing catalog search services. Accordingly, information pertaining to products are supported. As we expand the scope of the format, we will enable more fine tuned schemas for a growing number of open source personal data formats. Vibe Search We’re using the HCF format as a way of providing portable embedding indexes that are available from the phone or from a web server. Our Vibe search service will use it under the hood, making state of the art embedding search more easily available to everyone! Related Reading If you’re interested in optimized file protocols specifically for machine learning artifacts, check this overview of GGUF by Vicki Boykis.";

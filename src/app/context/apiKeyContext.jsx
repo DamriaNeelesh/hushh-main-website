@@ -1,5 +1,5 @@
 'use client'
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 // Define the context
 const ApiKeyContext = createContext();
@@ -9,24 +9,14 @@ export const ApiKeyProvider = ({ children }) => {
   const [apiKey, setApiKey] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Load API key from localStorage on mount
-  useEffect(() => {
-    const storedApiKey = localStorage.getItem('hushh_api_key');
-    if (storedApiKey) {
-      setApiKey(storedApiKey);
-    }
-  }, []);
-
-  // Save API key to both state and localStorage
+  // Keep API keys in memory only to avoid persistent client-side secret storage.
   const saveApiKey = (newApiKey) => {
     setApiKey(newApiKey);
-    localStorage.setItem('hushh_api_key', newApiKey);
   };
 
-  // Clear API key from both state and localStorage
+  // Clear API key from in-memory state.
   const clearApiKey = () => {
     setApiKey('');
-    localStorage.removeItem('hushh_api_key');
   };
 
   // Check if API key exists

@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState } from "react";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import { Loader2 } from "lucide-react"; // Assuming lucide-react is available since we used it elsewhere
 import axios from "axios";
 
@@ -32,7 +34,7 @@ function generateDummyData(requestBodyDefinition) {
         result[key] = definition.example;
       } else if (key === "text") {
         result[key] =
-          "Provide a detailed JSON profile for Sundar Pichai, email sundar.pichai@example.com, phone +1 6505559001.";
+        "Provide a detailed JSON profile for Sundar Pichai, email sundar.pichai@example.com, phone +1 6505559001.";
       } else if (key === "sessionId") {
         result[key] = "session-456";
       } else if (key === "id") {
@@ -52,10 +54,10 @@ function generateDummyData(requestBodyDefinition) {
       } else {
         if (definition.items?.type === "object") {
           result[key] = [
-            {
-              sampleKey: "sampleValue",
-            },
-          ];
+          {
+            sampleKey: "sampleValue"
+          }];
+
         } else {
           result[key] = ["sampleItem1", "sampleItem2"];
         }
@@ -72,7 +74,7 @@ function generateDummyData(requestBodyDefinition) {
   return JSON.stringify(result, null, 2);
 }
 
-const ApiSection = ({ endpoint, apiKey }) => {
+const ApiSection = ({ endpoint, apiKey = "" }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [localApiKey] = useState(apiKey || "");
 
@@ -93,9 +95,9 @@ const ApiSection = ({ endpoint, apiKey }) => {
   );
 
   // Generate a dummy JSON string if requestBody is defined
-  const initialJsonBody = endpoint?.requestBody
-    ? generateDummyData(endpoint.requestBody)
-    : "";
+  const initialJsonBody = endpoint?.requestBody ?
+  generateDummyData(endpoint.requestBody) :
+  "";
 
   const [jsonBody, setJsonBody] = useState(initialJsonBody);
 
@@ -116,8 +118,8 @@ const ApiSection = ({ endpoint, apiKey }) => {
     const baseUrl = resolveBaseUrl(endpoint?.baseUrl);
     const isAbsolutePath = /^https?:\/\//i.test(endpoint?.path || "");
     const urlRoot = isAbsolutePath ? "" : baseUrl;
-    const fullUrl = `${urlRoot}${endpoint.path}${queryString ? "?" + queryString : ""
-      }`;
+    const fullUrl = `${urlRoot}${endpoint.path}${queryString ? "?" + queryString : ""}`;
+
     setRequestedUrl(fullUrl);
     setResponse(null);
     setIsLoading(true);
@@ -126,7 +128,7 @@ const ApiSection = ({ endpoint, apiKey }) => {
     const finalHeaders = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localApiKey}`,
-      ...headerParams,
+      ...headerParams
     };
 
     // Parse the JSON body if the method is not GET
@@ -135,7 +137,7 @@ const ApiSection = ({ endpoint, apiKey }) => {
       if (jsonBody.trim()) {
         try {
           parsedBody = JSON.parse(jsonBody);
-        } catch (error) {
+        } catch {
           setResponse("Invalid JSON in request body");
           return;
         }
@@ -147,7 +149,7 @@ const ApiSection = ({ endpoint, apiKey }) => {
         method: endpoint.method,
         url: fullUrl,
         headers: finalHeaders,
-        data: endpoint.method !== "GET" ? parsedBody : undefined,
+        data: endpoint.method !== "GET" ? parsedBody : undefined
       });
       setResponse(res.data);
     } catch (error) {
@@ -161,7 +163,7 @@ const ApiSection = ({ endpoint, apiKey }) => {
     GET: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
     POST: "bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20",
     PUT: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/20",
-    DELETE: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
+    DELETE: "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
   };
 
   const badgeClass = methodColors[endpoint?.method] || "bg-gray-500/10 text-gray-600 dark:text-gray-400 border-gray-500/20";
@@ -171,8 +173,8 @@ const ApiSection = ({ endpoint, apiKey }) => {
       {/* Header */}
       <div
         className="flex items-center justify-between p-4 cursor-pointer bg-[var(--bg-secondary)] hover:bg-[var(--bg-tertiary)] transition-colors"
-        onClick={onToggle}
-      >
+        onClick={onToggle}>
+        
         <div className="flex items-center gap-3">
           <span className={`px-2 py-1 rounded-md border text-xs font-bold uppercase tracking-wider ${badgeClass}`}>
             {endpoint?.method || "POST"}
@@ -186,81 +188,81 @@ const ApiSection = ({ endpoint, apiKey }) => {
         </div>
       </div>
 
-      {endpoint?.description && (
-        <div className="px-4 pb-4 text-sm text-[var(--text-secondary)]">
+      {endpoint?.description &&
+      <div className="px-4 pb-4 text-sm text-[var(--text-secondary)]">
           {endpoint.description}
         </div>
-      )}
+      }
 
       {/* Collapsible Content */}
-      {isOpen && (
-        <div className="border-t border-[var(--border-primary)] bg-[var(--bg-tertiary)]/30 p-4">
+      {isOpen &&
+      <div className="border-t border-[var(--border-primary)] bg-[var(--bg-tertiary)]/30 p-4">
           <div className="flex flex-col gap-6">
 
             {/* Query Parameters */}
-            {endpoint?.queryParams && endpoint.queryParams.length > 0 && (
-              <div className="w-full">
+            {endpoint?.queryParams && endpoint.queryParams.length > 0 &&
+          <div className="w-full">
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-2">Query Parameters</label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {endpoint.queryParams.map((param) => (
-                    <div key={param.name}>
+                  {endpoint.queryParams.map((param) =>
+              <div key={param.name}>
                       <span className="block text-xs text-[var(--text-secondary)] mb-1">{param.name}</span>
                       <input
-                        className="w-full px-3 py-2 rounded-md bg-[var(--bg-primary)] border border-[var(--border-primary)] text-sm text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)] placeholder-[var(--text-tertiary)]"
-                        placeholder={param.placeholder || `Enter ${param.name}`}
-                        value={queryParams[param.name] || ""}
-                        onChange={(e) =>
-                          handleInputChange(setQueryParams, param.name, e.target.value)
-                        }
-                      />
+                  className="w-full px-3 py-2 rounded-md bg-[var(--bg-primary)] border border-[var(--border-primary)] text-sm text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)] placeholder-[var(--text-tertiary)]"
+                  placeholder={param.placeholder || `Enter ${param.name}`}
+                  value={queryParams[param.name] || ""}
+                  onChange={(e) =>
+                  handleInputChange(setQueryParams, param.name, e.target.value)
+                  } />
+                
                     </div>
-                  ))}
+              )}
                 </div>
               </div>
-            )}
+          }
 
             {/* Headers */}
-            {endpoint?.headers && endpoint.headers.length > 0 && (
-              <div className="w-full">
+            {endpoint?.headers && endpoint.headers.length > 0 &&
+          <div className="w-full">
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-2">Headers</label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {endpoint.headers.map((header) => (
-                    <div key={header.name}>
+                  {endpoint.headers.map((header) =>
+              <div key={header.name}>
                       <span className="block text-xs text-[var(--text-secondary)] mb-1">{header.name}</span>
                       <input
-                        className="w-full px-3 py-2 rounded-md bg-[var(--bg-primary)] border border-[var(--border-primary)] text-sm text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)] placeholder-[var(--text-tertiary)]"
-                        placeholder={header.placeholder || `Enter ${header.name}`}
-                        value={headerParams[header.name] || ""}
-                        onChange={(e) =>
-                          handleInputChange(setHeaderParams, header.name, e.target.value)
-                        }
-                      />
+                  className="w-full px-3 py-2 rounded-md bg-[var(--bg-primary)] border border-[var(--border-primary)] text-sm text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)] placeholder-[var(--text-tertiary)]"
+                  placeholder={header.placeholder || `Enter ${header.name}`}
+                  value={headerParams[header.name] || ""}
+                  onChange={(e) =>
+                  handleInputChange(setHeaderParams, header.name, e.target.value)
+                  } />
+                
                     </div>
-                  ))}
+              )}
                 </div>
               </div>
-            )}
+          }
 
             {/* Request Body (JSON TextArea) */}
-            {endpoint?.requestBody && (
-              <div className="w-full">
+            {endpoint?.requestBody &&
+          <div className="w-full">
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-2">Request Body (JSON)</label>
                 <textarea
-                  className="w-full px-3 py-2 rounded-md bg-[var(--bg-primary)] border border-[var(--border-primary)] text-sm font-mono text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)] min-h-[150px]"
-                  value={jsonBody}
-                  onChange={(e) => setJsonBody(e.target.value)}
-                  rows={8}
-                />
+              className="w-full px-3 py-2 rounded-md bg-[var(--bg-primary)] border border-[var(--border-primary)] text-sm font-mono text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-primary)] min-h-[150px]"
+              value={jsonBody}
+              onChange={(e) => setJsonBody(e.target.value)}
+              rows={8} />
+            
               </div>
-            )}
+          }
 
             {/* Send Request Button */}
             <div>
               <button
-                onClick={handleSubmit}
-                disabled={isLoading}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-[var(--accent-primary)] text-[var(--accent-contrast)] text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
-              >
+              onClick={handleSubmit}
+              disabled={isLoading}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-[var(--accent-primary)] text-[var(--accent-contrast)] text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
+              
                 {isLoading ? <Loader2 size={16} className="animate-spin" /> : null}
                 {isLoading ? "Sending..." : "Send Request"}
               </button>
@@ -268,43 +270,43 @@ const ApiSection = ({ endpoint, apiKey }) => {
 
 
             {/* Display Requested URL */}
-            {requestedUrl && (
-              <div className="w-full">
+            {requestedUrl &&
+          <div className="w-full">
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-2">Requested URL</label>
                 <div className="px-3 py-2 rounded-md bg-[var(--code-bg)] border border-[var(--border-primary)] text-xs font-mono text-[var(--text-secondary)] break-all">
                   {requestedUrl}
                 </div>
               </div>
-            )}
+          }
 
             {/* Display Response */}
-            {(isLoading || response) && (
-              <div className="w-full">
+            {(isLoading || response) &&
+          <div className="w-full">
                 <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-2">Response</label>
-                {isLoading ? (
-                  <div className="flex items-center gap-2 px-3 py-4 rounded-md bg-[var(--bg-primary)] border border-[var(--border-primary)]">
+                {isLoading ?
+            <div className="flex items-center gap-2 px-3 py-4 rounded-md bg-[var(--bg-primary)] border border-[var(--border-primary)]">
                     <Loader2 size={16} className="animate-spin text-[var(--text-tertiary)]" />
                     <span className="text-sm text-[var(--text-secondary)]">Waiting for response...</span>
-                  </div>
-                ) : (
-                  <textarea
-                    className="w-full px-3 py-2 rounded-md bg-[var(--code-block-bg)] border border-[var(--border-primary)] text-sm font-mono text-[var(--code-block-text)] focus:outline-none min-h-[200px]"
-                    value={
-                      typeof response === "string"
-                        ? response
-                        : JSON.stringify(response, null, 2)
-                    }
-                    readOnly
-                  />
-                )}
+                  </div> :
+
+            <textarea
+              className="w-full px-3 py-2 rounded-md bg-[var(--code-block-bg)] border border-[var(--border-primary)] text-sm font-mono text-[var(--code-block-text)] focus:outline-none min-h-[200px]"
+              value={
+              typeof response === "string" ?
+              response :
+              JSON.stringify(response, null, 2)
+              }
+              readOnly />
+
+            }
               </div>
-            )}
+          }
 
           </div>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 };
 
 export default ApiSection;

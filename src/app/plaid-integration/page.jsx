@@ -331,7 +331,7 @@ export default function PlaidIntegrationPage() {
             available_environments: data?.available_environments || null,
           });
         }
-      } catch (error) {
+      } catch {
         if (isMounted) {
           toast({
             title: "Credentials unavailable",

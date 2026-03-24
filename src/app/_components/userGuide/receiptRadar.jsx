@@ -6,7 +6,6 @@ import {
   Text,
   ListItem,
   OrderedList,
-  Divider,
 } from '@chakra-ui/react';
 
 const ReceiptRadar = () => {

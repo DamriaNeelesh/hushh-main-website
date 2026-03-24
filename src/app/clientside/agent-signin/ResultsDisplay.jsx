@@ -1,5 +1,5 @@
-'use client'
-import React, { useMemo, useState } from 'react'
+'use client';
+import React, { useMemo, useState } from 'react';
 import {
   Box,
   Container,
@@ -23,42 +23,42 @@ import {
   Icon,
   Link,
   Divider,
-  Flex
-} from '@chakra-ui/react'
-import { FaUser, FaMapMarkerAlt, FaBriefcase, FaHeart, FaGamepad, FaPlane, FaLeaf, FaLaptop, FaDownload, FaTrash, FaCode, FaRedo } from 'react-icons/fa'
-import HushhProfileCard from '../../../components/profile/HushhProfileCard'
-import { buildHushhId, extractUuid, getSiteUrl } from '../../../lib/utils'
+  Flex } from
+'@chakra-ui/react';
+import { FaUser, FaMapMarkerAlt, FaBriefcase, FaHeart, FaPlane, FaLeaf, FaLaptop, FaDownload, FaRedo } from 'react-icons/fa';
+import HushhProfileCard from '../../../components/profile/HushhProfileCard';
+import { buildHushhId, extractUuid, getSiteUrl } from '../../../lib/utils';
 
 // Helper function to extract data from API responses
 const extractUserData = (agentResults, userData) => {
-  const allData = { ...userData }
+  const allData = { ...userData };
 
-  console.log('🔍 Extracting data from agent results:', agentResults)
+  console.log('🔍 Extracting data from agent results:', agentResults);
 
-  const priorityOrder = ['brand', 'hushh', 'public', 'gemini', 'gemini-proxy', 'supabase-profile-creation-agent']
+  const priorityOrder = ['brand', 'hushh', 'public', 'gemini', 'gemini-proxy', 'supabase-profile-creation-agent'];
   const sortedEntries = Object.entries(agentResults).sort((a, b) => {
-    const indexA = priorityOrder.indexOf(a[0])
-    const indexB = priorityOrder.indexOf(b[0])
-    return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB)
-  })
+    const indexA = priorityOrder.indexOf(a[0]);
+    const indexB = priorityOrder.indexOf(b[0]);
+    return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+  });
 
   sortedEntries.forEach(([agent, result]) => {
     if (result.success && result.data) {
       let responseData = result.data?.result?.status?.message?.parts?.[0]?.text ||
-        result.data?.result?.artifacts?.[0]?.parts?.[0]?.text ||
-        result.data?.result?.message?.parts?.[0]?.text ||
-        result.data?.result?.response?.parts?.[0]?.text ||
-        result.data?.result?.response?.candidates?.[0]?.content?.parts?.[0]?.text ||
-        result.data?.result?.output?.[0]?.content?.[0]?.text ||
-        result.data?.result?.output ||
-        result.data?.data ||
-        result.data
+      result.data?.result?.artifacts?.[0]?.parts?.[0]?.text ||
+      result.data?.result?.message?.parts?.[0]?.text ||
+      result.data?.result?.response?.parts?.[0]?.text ||
+      result.data?.result?.response?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      result.data?.result?.output?.[0]?.content?.[0]?.text ||
+      result.data?.result?.output ||
+      result.data?.data ||
+      result.data;
 
       if (typeof responseData === 'string') {
         try {
-          const cleanedData = responseData.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
+          const cleanedData = responseData.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
           const jsonMatch = cleanedData.match(/\{[\s\S]*\}/);
-          const parsed = JSON.parse(jsonMatch ? jsonMatch[0] : cleanedData)
+          const parsed = JSON.parse(jsonMatch ? jsonMatch[0] : cleanedData);
 
           let dataToMerge = parsed.userProfile || parsed.profile || parsed.data || parsed;
 
@@ -113,7 +113,7 @@ const extractUserData = (agentResults, userData) => {
           }
 
           if (Array.isArray(dataToMerge.intents)) {
-            dataToMerge.intents.forEach(int => {
+            dataToMerge.intents.forEach((int) => {
               const tf = int.time_frame || int.timeFrame;
               const i = extract(int);
               if (tf?.includes('24h')) {
@@ -138,7 +138,7 @@ const extractUserData = (agentResults, userData) => {
           // but NOT overwrite the Core Identity fields if the user explicitly provided them.
           const protectedFields = ['email', 'phone', 'phoneNumber', 'full_name', 'fullName', 'name'];
 
-          Object.keys(dataToMerge).forEach(key => {
+          Object.keys(dataToMerge).forEach((key) => {
             // If the key is a protected field AND we already have a value from the original userData, skip it.
             if (protectedFields.includes(key) && userData[key]) {
               return;
@@ -147,7 +147,7 @@ const extractUserData = (agentResults, userData) => {
             allData[key] = dataToMerge[key];
           });
         } catch (e) {
-          console.error(`❌ Failed to parse JSON from ${agent}:`, e)
+          console.error(`❌ Failed to parse JSON from ${agent}:`, e);
         }
       } else if (typeof responseData === 'object' && responseData !== null) {
         let objToMerge = responseData.userProfile || responseData.profile || responseData.data || responseData;
@@ -156,7 +156,7 @@ const extractUserData = (agentResults, userData) => {
         if (extractedUuid) allData.user_id = extractedUuid;
 
         const protectedFields = ['email', 'phone', 'phoneNumber', 'full_name', 'fullName', 'name'];
-        Object.keys(objToMerge).forEach(key => {
+        Object.keys(objToMerge).forEach((key) => {
           if (protectedFields.includes(key) && userData[key]) {
             return;
           }
@@ -164,7 +164,7 @@ const extractUserData = (agentResults, userData) => {
         });
       }
     }
-  })
+  });
 
   // Final safeguarding: Ensure user_id from Supabase agent wins if multiple IDs present
   const supabaseResult = agentResults['supabase-profile-creation-agent'];
@@ -184,69 +184,69 @@ const extractUserData = (agentResults, userData) => {
         if (finalHushhId && (!allData.hushh_id || allData.hushh_id.includes('pending-') || finalHushhId.includes('/'))) {
           allData.hushh_id = finalHushhId;
         }
-      } catch (e) { }
+      } catch {}
     }
   }
 
-  return allData
-}
+  return allData;
+};
 
 // Helper to get field value (supports nested objects)
 const getField = (data, ...keys) => {
   for (const key of keys) {
     if (key.includes('.')) {
-      const parts = key.split('.')
-      let value = data
+      const parts = key.split('.');
+      let value = data;
       for (const part of parts) {
         if (value && value[part] !== undefined) {
-          value = value[part]
+          value = value[part];
         } else {
-          value = null
-          break
+          value = null;
+          break;
         }
       }
-      if (value !== null && value !== undefined) return value
+      if (value !== null && value !== undefined) return value;
     } else {
       if (data[key] !== undefined && data[key] !== null && data[key] !== '') {
-        return data[key]
+        return data[key];
       }
     }
   }
-  return 'Not available' // Consistent placeholder
-}
+  return 'Not available'; // Consistent placeholder
+};
 
 // Helper to format array values
 const formatArrayValue = (value) => {
   if (Array.isArray(value)) {
-    return value.join(', ')
+    return value.join(', ');
   }
   if (typeof value === 'object' && value !== null) {
-    return Object.values(value).join(', ')
+    return Object.values(value).join(', ');
   }
-  return value
-}
+  return value;
+};
 
 // Reusable Dashboard Card Component
-const DashboardCard = ({ title, icon, children, colorScheme = "blue" }) => (
-  <Box
-    bg="white"
-    border="1px solid"
-    borderColor="rgba(0,0,0,0.05)"
-    borderRadius="2xl"
-    p={6}
-    height="full"
-    transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-    _hover={{ transform: "translateY(-4px)", boxShadow: "0 15px 30px rgba(0,0,0,0.08)" }}
-    boxShadow="0 4px 10px rgba(0,0,0,0.02)"
-  >
+const DashboardCard = ({ title, icon, children, colorScheme = "blue" }) =>
+<Box
+  bg="white"
+  border="1px solid"
+  borderColor="rgba(0,0,0,0.05)"
+  borderRadius="2xl"
+  p={6}
+  height="full"
+  transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+  _hover={{ transform: "translateY(-4px)", boxShadow: "0 15px 30px rgba(0,0,0,0.08)" }}
+  boxShadow="0 4px 10px rgba(0,0,0,0.02)">
+  
     <HStack mb={6} spacing={3} align="center">
       <Flex
-        w={10} h={10}
-        align="center" justify="center"
-        borderRadius="lg"
-        bg={`${colorScheme}.50`}
-        color={`${colorScheme}.600`}
-      >
+      w={10} h={10}
+      align="center" justify="center"
+      borderRadius="lg"
+      bg={`${colorScheme}.50`}
+      color={`${colorScheme}.600`}>
+      
         <Icon as={icon} boxSize={5} />
       </Flex>
       <Heading size="md" fontWeight="bold" letterSpacing="tight" color="#1d1d1f">
@@ -256,31 +256,31 @@ const DashboardCard = ({ title, icon, children, colorScheme = "blue" }) => (
     <VStack align="stretch" spacing={4}>
       {children}
     </VStack>
-  </Box>
-)
+  </Box>;
 
-const InfoRow = ({ label, value }) => (
-  <Box>
+
+const InfoRow = ({ label, value }) =>
+<Box>
     <Text fontSize="xs" color="gray.500" fontWeight="700" letterSpacing="wider" textTransform="uppercase" mb={1}>
       {label}
     </Text>
     <Text fontSize="md" color="#1d1d1f" fontWeight="500">
       {value}
     </Text>
-  </Box>
-)
+  </Box>;
 
-const IntentCard = ({ badge, badgeColor, data, categoryKey, budgetKey, confidenceKey, timeWindowKey }) => (
-  <Box
-    bg="white"
-    p={4}
-    borderRadius="xl"
-    border="1px solid"
-    borderColor="rgba(0,0,0,0.05)"
-    boxShadow="sm"
-    transition="all 0.2s"
-    _hover={{ boxShadow: "md" }}
-  >
+
+const IntentCard = ({ badge, badgeColor, data, categoryKey, budgetKey, confidenceKey, timeWindowKey }) =>
+<Box
+  bg="white"
+  p={4}
+  borderRadius="xl"
+  border="1px solid"
+  borderColor="rgba(0,0,0,0.05)"
+  boxShadow="sm"
+  transition="all 0.2s"
+  _hover={{ boxShadow: "md" }}>
+  
     <VStack align="stretch" spacing={2}>
       <HStack justify="space-between">
         <Badge colorScheme={badgeColor} variant="subtle" borderRadius="full" px={2}>{badge}</Badge>
@@ -290,30 +290,30 @@ const IntentCard = ({ badge, badgeColor, data, categoryKey, budgetKey, confidenc
         <Text fontWeight="bold" fontSize="lg" color="#1d1d1f" noOfLines={1}>{data?.[categoryKey] || 'No category'}</Text>
         <Text fontSize="sm" color={`${badgeColor}.600`} fontWeight="semibold">{data?.[budgetKey] || 'Budget: N/A'}</Text>
       </Box>
-      {timeWindowKey && data?.[timeWindowKey] && (
-        <Text fontSize="xs" color="gray.500" fontStyle="italic">
+      {timeWindowKey && data?.[timeWindowKey] &&
+    <Text fontSize="xs" color="gray.500" fontStyle="italic">
           Window: {data[timeWindowKey]}
         </Text>
-      )}
+    }
     </VStack>
-  </Box>
-)
+  </Box>;
+
 
 export default function ResultsDisplay({ userData, agentResults, onBack }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const toast = useToast()
+  const { isOpen, onOpen: _onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
-  const parsedData = useMemo(() => extractUserData(agentResults, userData), [agentResults, userData])
-  const resolvedName = parsedData.full_name || parsedData.fullName || userData?.fullName || userData?.full_name || ''
-  const resolvedPhone = parsedData.phone || userData?.phone || (userData?.phoneNumber
-    ? `${userData.countryCode || ''} ${userData.phoneNumber || ''}`.trim()
-    : '')
-  const generatedHushhId = buildHushhId(resolvedName, resolvedPhone)
-  const displayHushhId = generatedHushhId || parsedData.hushh_id || parsedData.hushhId || 'Not available'
-  const [cardProfile, setCardProfile] = useState(null)
-  const [cardLoading, setCardLoading] = useState(false)
-  const [cardError, setCardError] = useState('')
-  const [publicLink, setPublicLink] = useState('')
+  const parsedData = useMemo(() => extractUserData(agentResults, userData), [agentResults, userData]);
+  const resolvedName = parsedData.full_name || parsedData.fullName || userData?.fullName || userData?.full_name || '';
+  const resolvedPhone = parsedData.phone || userData?.phone || (userData?.phoneNumber ?
+  `${userData.countryCode || ''} ${userData.phoneNumber || ''}`.trim() :
+  '');
+  const generatedHushhId = buildHushhId(resolvedName, resolvedPhone);
+  const displayHushhId = generatedHushhId || parsedData.hushh_id || parsedData.hushhId || 'Not available';
+  const [cardProfile, setCardProfile] = useState(null);
+  const [cardLoading, setCardLoading] = useState(false);
+  const [cardError, setCardError] = useState('');
+  const [publicLink, setPublicLink] = useState('');
 
   // Extract Intents safely
   const intents = useMemo(() => {
@@ -325,48 +325,48 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
     return Array.isArray(rawIntents) ? rawIntents : [];
   }, [parsedData]);
 
-  const getIntent = (idx) => intents[idx] || {};
+  const _getIntent = (idx) => intents[idx] || {};
 
   const handleExportResults = () => {
     try {
-      const dataStr = JSON.stringify({ userData, parsedData, agentResults, exportDate: new Date().toISOString() }, null, 2)
-      const dataBlob = new Blob([dataStr], { type: 'application/json' })
-      const url = URL.createObjectURL(dataBlob)
-      const link = document.createElement('a')
-      link.href = url
-      link.download = `hushh-profile-${userData.fullName?.replace(/\s+/g, '-') || 'user'}-${Date.now()}.json`
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
-      toast({ title: 'Export Successful', status: 'success', duration: 3000 })
+      const dataStr = JSON.stringify({ userData, parsedData, agentResults, exportDate: new Date().toISOString() }, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `hushh-profile-${userData.fullName?.replace(/\s+/g, '-') || 'user'}-${Date.now()}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      toast({ title: 'Export Successful', status: 'success', duration: 3000 });
     } catch (error) {
-      toast({ title: 'Export Failed', description: error.message, status: 'error' })
+      toast({ title: 'Export Failed', description: error.message, status: 'error' });
     }
-  }
+  };
 
-  const handleClearData = () => {
+  const _handleClearData = () => {
     if (window.confirm('Clear all analysis data?')) {
-      onBack?.()
+      onBack?.();
     }
-  }
+  };
 
   const handleGenerateCard = async () => {
-    setCardError('')
-    setPublicLink('')
-    setCardLoading(true)
+    setCardError('');
+    setPublicLink('');
+    setCardLoading(true);
 
     try {
-      const email = parsedData.email || userData?.email || ''
-      const fallbackPhone = userData?.phoneNumber
-        ? `${userData.countryCode || ''} ${userData.phoneNumber || ''}`.trim()
-        : ''
-      const phone = parsedData.phone || userData?.phone || fallbackPhone || ''
-      const fullName = parsedData.full_name || parsedData.fullName || userData?.fullName || userData?.full_name || ''
+      const email = parsedData.email || userData?.email || '';
+      const fallbackPhone = userData?.phoneNumber ?
+      `${userData.countryCode || ''} ${userData.phoneNumber || ''}`.trim() :
+      '';
+      const phone = parsedData.phone || userData?.phone || fallbackPhone || '';
+      const fullName = parsedData.full_name || parsedData.fullName || userData?.fullName || userData?.full_name || '';
 
       if (!email && !phone && !fullName) {
-        setCardError('Email, phone, or full name is required to lookup your UUID.')
-        return
+        setCardError('Email, phone, or full name is required to lookup your UUID.');
+        return;
       }
 
       const response = await fetch('/api/user/profile/lookup', {
@@ -375,27 +375,27 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
         body: JSON.stringify({
           email,
           phone,
-          full_name: fullName,
-        }),
-      })
+          full_name: fullName
+        })
+      });
 
-      const result = await response.json()
+      const result = await response.json();
       if (!response.ok || !result?.userId) {
-        setCardError(result?.error || 'Could not fetch UUID from Supabase.')
-        return
+        setCardError(result?.error || 'Could not fetch UUID from Supabase.');
+        return;
       }
 
-      const uuid = extractUuid(result.userId)
+      const uuid = extractUuid(result.userId);
       if (!uuid) {
-        setCardError('Supabase returned an invalid UUID.')
-        return
+        setCardError('Supabase returned an invalid UUID.');
+        return;
       }
 
-      const profileFromDb = result.profile || {}
-      const baseUrl = getSiteUrl()
-      const generatedHushhId = buildHushhId(fullName, phone)
-      const publicId = generatedHushhId || parsedData.hushh_id || result.hushhId
-      setPublicLink(publicId ? `${baseUrl}/hushh-id/${publicId}` : '')
+      const profileFromDb = result.profile || {};
+      const baseUrl = getSiteUrl();
+      const generatedHushhId = buildHushhId(fullName, phone);
+      const publicId = generatedHushhId || parsedData.hushh_id || result.hushhId;
+      setPublicLink(publicId ? `${baseUrl}/hushh-id/${publicId}` : '');
 
       // Prioritize User Input (userData) > Parsed Agent Data > DB Data
       setCardProfile({
@@ -405,14 +405,14 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
         // STRICTLY use initial user input if available
         email: userData?.email || parsedData.email || profileFromDb.email,
         phone: userData?.phone || userData?.phoneNumber || parsedData.phone || profileFromDb.phone,
-        full_name: userData?.fullName || userData?.full_name || parsedData.full_name || profileFromDb.full_name,
-      })
+        full_name: userData?.fullName || userData?.full_name || parsedData.full_name || profileFromDb.full_name
+      });
     } catch (error) {
-      setCardError(error.message || 'Failed to generate Hushh ID card.')
+      setCardError(error.message || 'Failed to generate Hushh ID card.');
     } finally {
-      setCardLoading(false)
+      setCardLoading(false);
     }
-  }
+  };
 
   return (
     <Box minH="100vh" bg="#f5f5f7" color="#1d1d1f" py={{ base: 6, md: 12 }}>
@@ -444,8 +444,8 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
                 bgGradient="linear(to-r, #0071E3, #BB62FC)"
                 color="white"
                 px={8}
-                _hover={{ opacity: 0.9, transform: 'translateY(-2px)' }}
-              >
+                _hover={{ opacity: 0.9, transform: 'translateY(-2px)' }}>
+                
                 Get Hushh ID Card
               </Button>
             </HStack>
@@ -454,18 +454,18 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
           {/* Profile Card & Key Stats */}
           <Grid templateColumns={{ base: '1fr', lg: '1fr 2fr' }} gap={8}>
             <GridItem>
-              {cardProfile ? (
-                <HushhProfileCard userData={cardProfile} />
-              ) : (
-                <Box
-                  bg="white"
-                  border="1px solid"
-                  borderColor="rgba(0,0,0,0.05)"
-                  borderRadius="2xl"
-                  p={8}
-                  textAlign="center"
-                  boxShadow="0 10px 30px rgba(0,0,0,0.05)"
-                >
+              {cardProfile ?
+              <HushhProfileCard userData={cardProfile} /> :
+
+              <Box
+                bg="white"
+                border="1px solid"
+                borderColor="rgba(0,0,0,0.05)"
+                borderRadius="2xl"
+                p={8}
+                textAlign="center"
+                boxShadow="0 10px 30px rgba(0,0,0,0.05)">
+                
                   <Heading size="md" mb={3} color="#1d1d1f">
                     Generate Your Hushh ID Card
                   </Heading>
@@ -473,43 +473,43 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
                     Click the button to fetch your UUID from Supabase and create the QR card.
                   </Text>
                   <Button
-                    onClick={handleGenerateCard}
-                    isLoading={cardLoading}
-                    loadingText="Fetching UUID"
-                    bg="#0071e3"
-                    color="white"
-                    px={8}
-                    py={6}
-                    fontSize="lg"
-                    borderRadius="full"
-                    _hover={{ bg: "#0077ED", transform: 'translateY(-1px)', boxShadow: 'lg' }}
-                  >
+                  onClick={handleGenerateCard}
+                  isLoading={cardLoading}
+                  loadingText="Fetching UUID"
+                  bg="#0071e3"
+                  color="white"
+                  px={8}
+                  py={6}
+                  fontSize="lg"
+                  borderRadius="full"
+                  _hover={{ bg: "#0077ED", transform: 'translateY(-1px)', boxShadow: 'lg' }}>
+                  
                     Get Hushh ID Card
                   </Button>
-                  {cardError && (
-                    <Text mt={3} fontSize="sm" color="red.500">
+                  {cardError &&
+                <Text mt={3} fontSize="sm" color="red.500">
                       {cardError}
                     </Text>
-                  )}
+                }
                 </Box>
-              )}
-              {publicLink && (
-                <Box mt={4} bg="white" border="1px solid" borderColor="rgba(0,0,0,0.05)" borderRadius="xl" p={4} boxShadow="sm">
+              }
+              {publicLink &&
+              <Box mt={4} bg="white" border="1px solid" borderColor="rgba(0,0,0,0.05)" borderRadius="xl" p={4} boxShadow="sm">
                   <Text fontSize="xs" color="gray.400" mb={2} textTransform="uppercase" letterSpacing="wide" fontWeight="700">
                     Public Profile Link
                   </Text>
                   <Link
-                    href={publicLink}
-                    isExternal
-                    fontSize="sm"
-                    color="#0071e3"
-                    fontWeight="500"
-                    wordBreak="break-all"
-                  >
+                  href={publicLink}
+                  isExternal
+                  fontSize="sm"
+                  color="#0071e3"
+                  fontWeight="500"
+                  wordBreak="break-all">
+                  
                     {publicLink}
                   </Link>
                 </Box>
-              )}
+              }
             </GridItem>
             <GridItem>
               <SimpleGrid columns={{ base: 2, md: 2 }} spacing={4} h="full">
@@ -523,7 +523,7 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
                 <Box bg="white" p={6} borderRadius="2xl" border="1px solid" borderColor="rgba(0,0,0,0.05)" boxShadow="sm">
                   <Text color="gray.500" fontSize="xs" fontWeight="700" letterSpacing="wider">DATA POINTS</Text>
                   <Heading size="3xl" mt={2} color="#0071e3">
-                    {Object.values(parsedData).filter(v => v !== null && v !== undefined && v !== '' && v !== 'Not available').length}
+                    {Object.values(parsedData).filter((v) => v !== null && v !== undefined && v !== '' && v !== 'Not available').length}
                   </Heading>
                   <Text fontSize="sm" color="gray.500" mt={2}>Fields extracted & verified</Text>
                 </Box>
@@ -563,8 +563,8 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
               <VStack align="stretch" spacing={3}>
                 <InfoRow
                   label="ADDRESS"
-                  value={getField(parsedData, 'address_line1', 'address.street', 'street', 'location', 'address')}
-                />
+                  value={getField(parsedData, 'address_line1', 'address.street', 'street', 'location', 'address')} />
+                
                 <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4}>
                   <InfoRow label="CITY" value={getField(parsedData, 'city', 'address.city')} />
                   <InfoRow label="STATE" value={getField(parsedData, 'state', 'address.state')} />
@@ -639,19 +639,19 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
               <IntentCard
                 badge="24 HOURS" badgeColor="red"
                 data={parsedData}
-                categoryKey="intent_24h_category" budgetKey="intent_24h_budget" confidenceKey="intent_24h_confidence"
-              />
+                categoryKey="intent_24h_category" budgetKey="intent_24h_budget" confidenceKey="intent_24h_confidence" />
+              
               <IntentCard
                 badge="48 HOURS" badgeColor="orange"
                 data={parsedData}
                 categoryKey="intent_48h_category" budgetKey="intent_48h_budget" confidenceKey="intent_48h_confidence"
-                timeWindowKey="intent_48h_time_window"
-              />
+                timeWindowKey="intent_48h_time_window" />
+              
               <IntentCard
                 badge="72 HOURS" badgeColor="green"
                 data={parsedData}
-                categoryKey="intent_72h_category" budgetKey="intent_72h_budget" confidenceKey="intent_72h_confidence"
-              />
+                categoryKey="intent_72h_category" budgetKey="intent_72h_budget" confidenceKey="intent_72h_confidence" />
+              
             </SimpleGrid>
           </Box>
 
@@ -683,6 +683,6 @@ export default function ResultsDisplay({ userData, agentResults, onBack }) {
         </ModalContent>
       </Modal>
 
-    </Box>
-  )
+    </Box>);
+
 }

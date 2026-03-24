@@ -18,7 +18,7 @@ const Navbar = () => {
         <div className="nextra-search">
           <input type="search" placeholder="Search documentation…" />
         </div>
-        <Link href="/developer-Api/on-boarding" className="login-link">
+        <Link href="/developers/on-boarding" className="login-link">
           
             <img src="/_next/static/media/hushhLogoS.63f82129.svg" alt="hushhLogo" width="34" height="34" />
             <button type="button" className="login-button">LogIn</button>

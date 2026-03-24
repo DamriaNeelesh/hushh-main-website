@@ -1,10 +1,9 @@
 'use client'
 import React from 'react'
-import { Box, Heading } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import ContactForm from '../_components/features/contactForm'
-import Head from 'next/head'
-import { siteMetadata } from '../sitemetadata'
 import ContentWrapper from '../_components/layout/ContentWrapper'
+import JsonLdScript from '../_components/seo/JsonLdScript'
 
 // ContactPage JSON-LD structured data
 const contactPageJsonLd = {
@@ -33,10 +32,7 @@ const contactPageJsonLd = {
 const ContactUsClient = () => {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
-      />
+      <JsonLdScript data={contactPageJsonLd} />
       <ContentWrapper 
         includeHeaderSpacing={true}
         px={0}

@@ -24,7 +24,6 @@ import {
   MdWarning,
 } from "react-icons/md";
 import ContactForm from "../_components/features/contactForm";
-import FooterComponent from "../_components/features/FooterComponent";
 
 const leadersTop = [
   "Albert Bourla",
@@ -666,7 +665,7 @@ const HushhPDA = () => {
 
                 <div className="mt-8 pb-1">
                   <a
-                    href="/developer-Api"
+                    href="/developers"
                     className="inline-flex h-[54px] w-full items-center justify-center rounded-full bg-[#0071E3] px-8 text-[17px] font-semibold text-white shadow-[0_12px_24px_-8px_rgba(0,113,227,0.45)] transition hover:bg-[#005BB5] md:mx-auto md:max-w-[360px] lg:mx-0"
                   >
                     Launch Your Agent
@@ -692,7 +691,6 @@ const HushhPDA = () => {
 
       </div>
       <ContactForm />
-      <FooterComponent />
     </>
   );
 };

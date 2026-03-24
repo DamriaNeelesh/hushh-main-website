@@ -1,4 +1,4 @@
-import { Box, Heading , SimpleGrid} from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import ApiSection from "./api-section";
 
 const dataRetrievalEndpoints = [

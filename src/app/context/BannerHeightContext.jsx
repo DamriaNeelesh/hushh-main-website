@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect, useMemo, useCall
 
 // Constants extracted outside component to prevent recreation
 const HEADER_HEIGHT = 70;
-const MOBILE_BREAKPOINT = 768;
+const DESKTOP_BREAKPOINT = 1024;
 const BANNER_HEIGHTS = {
   funding: { mobile: 32, desktop: 36 }
 };
@@ -29,7 +29,7 @@ export const BannerHeightProvider = ({ children }) => {
   useEffect(() => {
     const updateScreenSize = () => {
       if (typeof window !== 'undefined') {
-        setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+        setIsMobile(window.innerWidth < DESKTOP_BREAKPOINT);
       }
     };
 

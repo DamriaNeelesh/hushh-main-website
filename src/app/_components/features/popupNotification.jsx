@@ -25,7 +25,7 @@ const PopupNotification = ({ message }) => {
     useEffect(() => {
       playNotificationSound();
 
-      const delayedExecution = () => {
+      const _delayedExecution = () => {
         playNotificationSound();
         // showPopupNotification();
       };
@@ -47,8 +47,8 @@ const PopupNotification = ({ message }) => {
         {message}
       </div>
       ;
-    </>
-  );
+    </>);
+
 };
 
 export default PopupNotification;

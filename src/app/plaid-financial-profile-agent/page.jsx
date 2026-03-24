@@ -23,7 +23,6 @@ import {
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import { FiServer, FiShield, FiZap } from "react-icons/fi";
 import ContentWrapper from "../_components/layout/ContentWrapper";
-import { useEffect } from "react";
 
 const AGENT_ENDPOINT = "https://hushh-plaid-agent-app-bubqpu.5sc6y6-4.usa-e2.cloudhub.io/plaid-agent";
 const MCP_ENDPOINT = "https://hushh-plaid-mcp-server-app-bubqpu.5sc6y6-4.usa-e2.cloudhub.io/mcp";
@@ -204,23 +203,14 @@ const inputStyles = {
 
 export default function PlaidFinancialProfileAgentPage() {
   const toast = useToast();
-  const [sessionId, setSessionId] = useState("");
-  const [taskId, setTaskId] = useState("");
-  const [prompt, setPrompt] = useState("");
-  const [profileJson, setProfileJson] = useState("");
-  const [mcpJson, setMcpJson] = useState("");
+  const [sessionId, setSessionId] = useState(docSessionId);
+  const [taskId, setTaskId] = useState(docTaskId);
+  const [prompt, setPrompt] = useState(docPrompt);
+  const [profileJson, setProfileJson] = useState(() => JSON.stringify(defaultProfileData, null, 2));
+  const [mcpJson, setMcpJson] = useState(() => JSON.stringify(defaultMcpRequest, null, 2));
   const [log, setLog] = useState([]);
   const [isLoadingAgent, setIsLoadingAgent] = useState(false);
   const [isLoadingMcp, setIsLoadingMcp] = useState(false);
-
-  // Populate defaults once so the form is ready-to-run and inputs stay editable.
-  useEffect(() => {
-    setSessionId(docSessionId);
-    setTaskId(docTaskId);
-    setPrompt(docPrompt);
-    setProfileJson(JSON.stringify(defaultProfileData, null, 2));
-    setMcpJson(JSON.stringify(defaultMcpRequest, null, 2));
-  }, []);
 
   const applyDocPreset = () => {
     setSessionId(docSessionId);
@@ -299,7 +289,7 @@ export default function PlaidFinancialProfileAgentPage() {
         null,
         2
       );
-    } catch (error) {
+    } catch {
       return "Invalid JSON in profile payload.";
     }
   }, [profileJson, prompt, sessionId, taskId]);
@@ -334,7 +324,7 @@ export default function PlaidFinancialProfileAgentPage() {
     let parsedProfile;
     try {
       parsedProfile = JSON.parse(profileJson);
-    } catch (error) {
+    } catch {
       toast({
         title: "Profile JSON invalid",
         description: "Fix the JSON payload before sending.",
@@ -376,7 +366,7 @@ export default function PlaidFinancialProfileAgentPage() {
     let parsed;
     try {
       parsed = JSON.parse(mcpJson);
-    } catch (error) {
+    } catch {
       toast({
         title: "MCP JSON invalid",
         description: "Fix the JSON payload before sending.",

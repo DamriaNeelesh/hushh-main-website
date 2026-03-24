@@ -1,4 +1,3 @@
-/* eslint-env node */
 import { NextResponse } from "next/server";
 
 // Configure function timeout (for Vercel deployment)
@@ -23,9 +22,6 @@ const AGENT_URLS = {
 
 // Optional: Facebook Graph API endpoint for WhatsApp Cloud API (used when provider === 'facebook')
 const FACEBOOK_WHATSAPP_URL = 'https://graph.facebook.com/v22.0/829639396896769/messages';
-
-// WhatsApp Cloud API Bearer Token (used only when provider === 'facebook')
-const WHATSAPP_BEARER_TOKEN = 'EAAT3oJUYUDQBPqJOrU4lY7dOaFOmlQsiGunaeACpfaf92PlBFmNwzxJDCbsd9PaMZBQlRHZCepZCZAldz8AZB9anrQRZAoVYoxRx8aQ1vUxL2sXZAohVZBJMJzk43ZCUEfnPoLJCLpdcvQi4UltrKGxUw2dHH4ZBFOLlNZC9oVMJhpKvQtoePZC45eC4WNdK6oeo4AZDZD';
 
 // Timeout for agent API calls (50 seconds to leave buffer for Vercel)
 const AGENT_TIMEOUT = 50000;
@@ -112,7 +108,15 @@ export async function POST(req, { params }) {
 
     // Add Authorization header only when calling Facebook Graph API
     if (agent === 'whatsapp' && upstream === FACEBOOK_WHATSAPP_URL) {
-      headers.Authorization = `Bearer ${WHATSAPP_BEARER_TOKEN}`;
+      const whatsappBearerToken = process.env.WHATSAPP_CLOUD_API_BEARER_TOKEN;
+      if (!whatsappBearerToken) {
+        return NextResponse.json({
+          error: "Missing WHATSAPP_CLOUD_API_BEARER_TOKEN",
+          agent,
+          timestamp: new Date().toISOString(),
+        }, { status: 500 });
+      }
+      headers.Authorization = `Bearer ${whatsappBearerToken}`;
     }
 
     // Ensure UTF-8 for email payloads (HTML content and unicode subject)
@@ -175,5 +179,4 @@ export async function POST(req, { params }) {
     }, { status: 500 });
   }
 }
-
 

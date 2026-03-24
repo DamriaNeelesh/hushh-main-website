@@ -1,0 +1,302 @@
+"use client";
+
+import {
+  Box,
+  Button,
+  Divider,
+  HStack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import DeveloperBg from "../../_components/svg/developerApi/developerApiLoginBg.svg";
+import BgLeftCircle from "../../_components/svg/developerApi/developerLoginLCircle.svg";
+import BgRightCircle from "../../_components/svg/developerApi/developerLoginRCircle.svg";
+import Image from "next/image";
+import { useAuth } from "../../context/AuthContext";
+import GoogelIcon from "../../_components/svg/icons/googleIcon.svg";
+import AppleIcon from "../../_components/svg/icons/appleIconLogo.svg";
+import 'react-phone-number-input/style.css'
+import MFAEnrollmentModal from "../../_components/auth/MFAEnrollmentModal";
+import MFAVerificationModal from "../../_components/auth/MFAVerificationModal";
+import authentication from "../../../lib/auth/authentication";
+import ContentWrapper from "../../_components/layout/ContentWrapper";
+
+export default function LoginPage() {
+  const {
+    isAuthenticated,
+    loading: authLoading,
+    mfaRequired,
+    mfaEnrollmentNeeded,
+    currentFactorId,
+    currentChallengeId,
+    checkingMFA,
+    completeMFAEnrollment,
+    completeMFAVerification,
+  } = useAuth();
+  const router = useRouter();
+  const toast = useToast();
+  const oauthReturnPath = "/developers/login";
+  const onboardingPath = "/developers/on-boarding";
+
+  useEffect(() => {
+    if (
+      isAuthenticated &&
+      !authLoading &&
+      !checkingMFA &&
+      !mfaRequired &&
+      !mfaEnrollmentNeeded
+    ) {
+      router.replace(onboardingPath);
+    }
+  }, [
+    isAuthenticated,
+    authLoading,
+    checkingMFA,
+    mfaRequired,
+    mfaEnrollmentNeeded,
+    router,
+    onboardingPath,
+  ]);
+
+  const handleGoogleLogin = async () => {
+    try {
+      await authentication.googleSignIn(null, oauthReturnPath);
+      toast({
+        title: "Redirecting to Google",
+        description: "Complete sign-in to continue.",
+        status: "info",
+        duration: 3000,
+        isClosable: true,
+      });
+      // router.push("/developers/on-boarding");
+    } catch (error) {
+      toast({
+        title: "Google Sign-In Error",
+        description: error.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    try {
+      await authentication.appleSignIn(null, oauthReturnPath);
+      toast({
+        title: "Redirecting to Apple",
+        description: "Complete sign-in to continue.",
+        status: "info",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: "Apple Sign-In Error",
+        description: error.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
+  // ... existing code ...
+
+  return (
+    <ContentWrapper surface="muted">
+      <section className="site-page-band site-page-band--wide developer-auth-band">
+        <div className="developer-auth-shell site-page-card">
+          <Image
+            src={BgLeftCircle}
+            alt="BgLeftCircle"
+            className="developer-auth-bg developer-auth-bg--left"
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANII="
+          />
+          <Image
+            src={BgRightCircle}
+            alt="BgRightCircle"
+            className="developer-auth-bg developer-auth-bg--right"
+            width={200}
+            height={200}
+          />
+          <Image
+            src={DeveloperBg}
+            alt="DeveloperBg"
+            className="developer-auth-bg developer-auth-bg--center"
+          />
+
+          {/* {loading && <Loading />} */}
+          <main className="developer-auth-main">
+            <Box
+              zIndex={"1"}
+              w={{ md: "lg", base: "100%" }}
+              minH={"25rem"}
+              borderRadius={"1.61rem"}
+              background={"#1E1E1E"}
+              p={{ md: "2.68rem", base: "1.34rem" }}
+              textAlign={"center"}
+              display={"flex"}
+              flexDirection={"column"}
+              alignContent={"space-between"}
+              className="developer-auth-card"
+            >
+          <Text
+            color={"#CBCBCB"}
+            fontSize={{ md: "1.65rem", base: "1.15rem" }}
+            fontWeight={"700"}
+            mb={{ md: "1.25rem", base: "1rem" }}
+            as={'h1'}
+          >
+            {" "}
+            Get your account ready for Hushh{" "}
+          </Text>
+
+          <Button
+            style={{ borderRadius: "3.35rem" }}
+            onClick={handleGoogleLogin}
+            w={"100%"}
+            background="#686F7D0F"
+            mb={{ md: "1.25rem", base: "0.75rem" }}
+            color={"#CBCBCB"}
+            fontWeight={"400"}
+            fontSize={"1rem"}
+            lineHeight={"17.5px"}
+            textAlign={"center"}
+            gap={{ md: "0.75rem", base: "0.45rem" }}
+            _hover={{
+              color: "white",
+              background:
+                "linear-gradient(270.53deg, #E54D60 2.44%, #A342FF 97.51%)",
+            }}
+          >
+            <Image src={GoogelIcon} alt="GoogelIcon" />
+            Continue with Google
+          </Button>
+
+          <Button
+            style={{ borderRadius: "3.35rem" }}
+            onClick={handleAppleLogin}
+            w={"100%"}
+            background="#686F7D0F"
+            mb={{ md: "1.25rem", base: "0.75rem" }}
+            color={"#CBCBCB"}
+            fontWeight={"400"}
+            fontSize={"1rem"}
+            lineHeight={"17.5px"}
+            textAlign={"center"}
+            gap={{ md: "0.75rem", base: "0.45rem" }}
+            _hover={{
+              color: "white",
+              background:
+                "linear-gradient(270.53deg, #E54D60 2.44%, #A342FF 97.51%)",
+            }}
+          >
+            <Image src={AppleIcon} alt="AppleIcon" />
+            Continue with Apple
+          </Button>
+
+          <HStack my={{ md: "1rem", base: "0.5rem" }}>
+            <Divider />
+            <Text
+              color={"#3F434A"}
+              fontWeight={"400"}
+              fontSize={{ md: "0.87rem", base: "0.6rem" }}
+            >
+              Or
+            </Text>
+            <Divider />
+          </HStack>
+
+          {/* ... existing form and other components ... */}
+
+          <Button
+            style={{ borderRadius: "3.35rem" }}
+            onClick={() => router.push('/developers/on-boarding')}
+            w={"100%"}
+            background="linear-gradient(270.53deg, #E54D60 2.44%, #A342FF 97.51%)"
+            mb={{ md: "1.25rem", base: "0.75rem" }}
+          >
+            Get Started
+          </Button>
+
+          <Text
+            fontWeight={"400"}
+            lineHeight={"18px"}
+            fontSize={{ md: "sm", base: "xs" }}
+            color={"white"}
+          >
+            By continuing, you&rsquo;re agreeing to our{" "}
+            <a href="/terms" style={{ textDecoration: "underline" }}>
+              Terms
+            </a>{" "}
+            and{" "}
+            <a
+              href="/privacy"
+              style={{ textDecoration: "underline" }}
+            >
+              Privacy Policy
+            </a>
+          </Text>
+            </Box>
+          </main>
+        </div>
+      </section>
+
+      <MFAEnrollmentModal
+        isOpen={mfaEnrollmentNeeded}
+        onClose={() => {
+          toast({
+            title: "Two-factor required",
+            description: "Enable two-factor authentication to continue.",
+            status: "info",
+            duration: 4000,
+            isClosable: true,
+            position: "top",
+          });
+        }}
+        onSuccess={async () => {
+          await completeMFAEnrollment();
+          toast({
+            title: "Two-factor enabled",
+            description: "Two-factor authentication is now active.",
+            status: "success",
+            duration: 4000,
+            isClosable: true,
+            position: "top",
+          });
+        }}
+      />
+
+      <MFAVerificationModal
+        isOpen={mfaRequired}
+        onClose={() => {
+          toast({
+            title: "Verification required",
+            description: "Enter your authentication code to continue.",
+            status: "info",
+            duration: 4000,
+            isClosable: true,
+            position: "top",
+          });
+        }}
+        factorId={currentFactorId}
+        challengeId={currentChallengeId}
+        onSuccess={async () => {
+          await completeMFAVerification();
+          toast({
+            title: "Verified",
+            description: "Authentication verified. Redirecting...",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top",
+          });
+        }}
+      />
+    </ContentWrapper>
+  );
+}

@@ -4,42 +4,42 @@ import { useState } from "react";
 import { Sparkles, Loader2, Copy, Check, Zap } from "lucide-react";
 
 const HUSHH_CONTENT_MODELS = [
-  {
-    id: "hushh.Kavi",
-    displayName: "hushh.Kavi",
-    hindi: "कवि",
-    meaning: "The Poet",
-    badge: "🖋️",
-    tier: "pro",
-    engine: "Gemini 2.5 Pro",
-    color: "#7C3AED",
-  },
-  {
-    id: "hushh.Rasa",
-    displayName: "hushh.Rasa",
-    hindi: "रस",
-    meaning: "The Essence",
-    badge: "✨",
-    tier: "premium",
-    engine: "Gemini 3 Pro",
-    color: "#F59E0B",
-  },
-];
+{
+  id: "hushh.Kavi",
+  displayName: "hushh.Kavi",
+  hindi: "कवि",
+  meaning: "The Poet",
+  badge: "🖋️",
+  tier: "pro",
+  engine: "Gemini 2.5 Pro",
+  color: "#7C3AED"
+},
+{
+  id: "hushh.Rasa",
+  displayName: "hushh.Rasa",
+  hindi: "रस",
+  meaning: "The Essence",
+  badge: "✨",
+  tier: "premium",
+  engine: "Gemini 3 Pro",
+  color: "#F59E0B"
+}];
+
 
 const TONE_OPTIONS = [
-  "friendly, relatable, culturally aware",
-  "professional, authoritative",
-  "playful, Gen-Z vibes",
-  "emotional, heartfelt",
-];
+"friendly, relatable, culturally aware",
+"professional, authoritative",
+"playful, Gen-Z vibes",
+"emotional, heartfelt"];
+
 
 const FORMAT_OPTIONS = [
-  "social media post",
-  "WhatsApp broadcast",
-  "email campaign",
-  "YouTube video script",
-  "SMS text",
-];
+"social media post",
+"WhatsApp broadcast",
+"email campaign",
+"YouTube video script",
+"SMS text"];
+
 
 export default function ContentGeneratorDemo() {
   const [brandName, setBrandName] = useState("");
@@ -68,8 +68,8 @@ export default function ContentGeneratorDemo() {
           topic,
           tone,
           format,
-          hushhModel: selectedModel.id,
-        }),
+          hushhModel: selectedModel.id
+        })
       });
 
       const json = await res.json();
@@ -78,7 +78,7 @@ export default function ContentGeneratorDemo() {
       } else {
         setError(json.error || "Generation failed");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
@@ -122,17 +122,17 @@ export default function ContentGeneratorDemo() {
                   key={model.id}
                   onClick={() => setSelectedModel(model)}
                   className={`relative flex items-center gap-3 rounded-2xl border-2 px-5 py-4 transition-all duration-300 cursor-pointer ${
-                    isSelected
-                      ? "border-[var(--model-color)] bg-[var(--model-color)]/5 shadow-lg"
-                      : "border-gray-200 bg-white hover:border-gray-300"
-                  }`}
-                  style={{ "--model-color": model.color }}
-                >
-                  {model.tier === "premium" && (
-                    <span className="absolute -top-2 -right-2 rounded-full bg-gradient-to-r from-[#F59E0B] to-[#EF4444] px-2 py-0.5 text-[10px] font-bold text-white">
+                  isSelected ?
+                  "border-[var(--model-color)] bg-[var(--model-color)]/5 shadow-lg" :
+                  "border-gray-200 bg-white hover:border-gray-300"}`
+                  }
+                  style={{ "--model-color": model.color }}>
+                  
+                  {model.tier === "premium" &&
+                  <span className="absolute -top-2 -right-2 rounded-full bg-gradient-to-r from-[#F59E0B] to-[#EF4444] px-2 py-0.5 text-[10px] font-bold text-white">
                       PREMIUM
                     </span>
-                  )}
+                  }
                   <span className="text-2xl">{model.badge}</span>
                   <div className="text-left">
                     <div className="flex items-center gap-2">
@@ -145,8 +145,8 @@ export default function ContentGeneratorDemo() {
                       {model.meaning} • {model.engine}
                     </p>
                   </div>
-                </button>
-              );
+                </button>);
+
             })}
           </div>
         </div>
@@ -165,8 +165,8 @@ export default function ContentGeneratorDemo() {
                   value={brandName}
                   onChange={(e) => setBrandName(e.target.value)}
                   placeholder="e.g. Zomato, Flipkart, Hushh"
-                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1A1A2E] placeholder:text-[#9CA3AF] outline-none focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20"
-                />
+                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1A1A2E] placeholder:text-[#9CA3AF] outline-none focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20" />
+                
               </div>
 
               {/* Topic */}
@@ -179,8 +179,8 @@ export default function ContentGeneratorDemo() {
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   placeholder="e.g. Diwali sale, new product launch"
-                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1A1A2E] placeholder:text-[#9CA3AF] outline-none focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20"
-                />
+                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1A1A2E] placeholder:text-[#9CA3AF] outline-none focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20" />
+                
               </div>
 
               {/* Tone */}
@@ -191,13 +191,13 @@ export default function ContentGeneratorDemo() {
                 <select
                   value={tone}
                   onChange={(e) => setTone(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1A1A2E] outline-none focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20 cursor-pointer"
-                >
-                  {TONE_OPTIONS.map((t) => (
-                    <option key={t} value={t}>
+                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1A1A2E] outline-none focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20 cursor-pointer">
+                  
+                  {TONE_OPTIONS.map((t) =>
+                  <option key={t} value={t}>
                       {t}
                     </option>
-                  ))}
+                  )}
                 </select>
               </div>
 
@@ -209,13 +209,13 @@ export default function ContentGeneratorDemo() {
                 <select
                   value={format}
                   onChange={(e) => setFormat(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1A1A2E] outline-none focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20 cursor-pointer"
-                >
-                  {FORMAT_OPTIONS.map((f) => (
-                    <option key={f} value={f}>
+                  className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1A1A2E] outline-none focus:border-[#7C3AED] focus:ring-2 focus:ring-[#7C3AED]/20 cursor-pointer">
+                  
+                  {FORMAT_OPTIONS.map((f) =>
+                  <option key={f} value={f}>
                       {f}
                     </option>
-                  ))}
+                  )}
                 </select>
               </div>
             </div>
@@ -226,47 +226,47 @@ export default function ContentGeneratorDemo() {
               className="w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               style={{
                 backgroundColor: selectedModel.color,
-                boxShadow: `0 10px 25px -5px ${selectedModel.color}40`,
-              }}
-            >
-              {loading ? (
-                <>
+                boxShadow: `0 10px 25px -5px ${selectedModel.color}40`
+              }}>
+              
+              {loading ?
+              <>
                   <Loader2 size={16} className="animate-spin" />
                   Generating with {selectedModel.displayName}…
-                </>
-              ) : (
-                <>
+                </> :
+
+              <>
                   <Zap size={16} />
                   Generate with {selectedModel.displayName}
                 </>
-              )}
+              }
             </button>
           </div>
 
           {/* Error */}
-          {error && (
-            <p className="mt-4 text-sm text-[#EF4444] text-center">{error}</p>
-          )}
+          {error &&
+          <p className="mt-4 text-sm text-[#EF4444] text-center">{error}</p>
+          }
 
           {/* Result */}
-          {result && (
-            <div className="mt-6 rounded-2xl border border-[#7C3AED]/10 bg-white p-6 sm:p-8 relative">
+          {result &&
+          <div className="mt-6 rounded-2xl border border-[#7C3AED]/10 bg-white p-6 sm:p-8 relative">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <span className="text-lg">{result.badge || selectedModel.badge}</span>
                   <span className="text-sm font-semibold" style={{ color: selectedModel.color }}>
                     Generated by {result.model}
                   </span>
-                  {result.tier === "premium" && (
-                    <span className="rounded-full bg-gradient-to-r from-[#F59E0B] to-[#EF4444] px-2 py-0.5 text-[10px] font-bold text-white">
+                  {result.tier === "premium" &&
+                <span className="rounded-full bg-gradient-to-r from-[#F59E0B] to-[#EF4444] px-2 py-0.5 text-[10px] font-bold text-white">
                       PREMIUM
                     </span>
-                  )}
+                }
                 </div>
                 <button
-                  onClick={handleCopy}
-                  className="inline-flex items-center gap-1.5 text-xs text-[#9CA3AF] hover:text-[#7C3AED] transition-colors cursor-pointer"
-                >
+                onClick={handleCopy}
+                className="inline-flex items-center gap-1.5 text-xs text-[#9CA3AF] hover:text-[#7C3AED] transition-colors cursor-pointer">
+                
                   {copied ? <Check size={14} /> : <Copy size={14} />}
                   {copied ? "Copied!" : "Copy"}
                 </button>
@@ -275,9 +275,9 @@ export default function ContentGeneratorDemo() {
                 {result.content}
               </div>
             </div>
-          )}
+          }
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }

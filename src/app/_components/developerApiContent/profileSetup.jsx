@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import {
   Box,
@@ -8,9 +10,6 @@ import {
   Button,
   Text,
   useToast,
-  Heading,
-  Divider,
-  Container,
 } from "@chakra-ui/react";
 import { keyframes } from '@emotion/react';
 import config from "../config/config"; // Developer API Supabase client config
