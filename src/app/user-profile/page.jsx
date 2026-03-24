@@ -58,17 +58,26 @@ import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import { motion } from "framer-motion";
 import ContentWrapper from "../_components/layout/ContentWrapper";
+import {
+  HUSHH_API_ANON_KEY,
+  HUSHH_API_BASE_URL,
+} from "@/lib/env/public";
 
 const MotionBox = motion(Box);
 const MotionCard = motion(Card);
 
-// API configuration - Using the same API configuration as UserRegistration
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwbXp5a294cW5ib3pnZG9xYnBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Mjc5NzEsImV4cCI6MjAxNzUwMzk3MX0.3GwG8YQKwZSWfGgTBEEA47YZAZ-Nr4HiirYPWiZtpZ0";
-const API_BASE_URL = "https://hushh-api-53407187172.us-central1.run.app";
-const API_HEADERS = {
-  'api_key': API_KEY,
-  'Authorization': `Bearer ${API_KEY}`,
-  'Content-Type': 'application/json'
+const API_BASE_URL = HUSHH_API_BASE_URL;
+
+const getApiHeaders = () => {
+  if (!HUSHH_API_ANON_KEY) {
+    throw new Error("Missing NEXT_PUBLIC_HUSHH_API_ANON_KEY");
+  }
+
+  return {
+    api_key: HUSHH_API_ANON_KEY,
+    Authorization: `Bearer ${HUSHH_API_ANON_KEY}`,
+    "Content-Type": "application/json",
+  };
 };
 
 const UserProfile = () => {
@@ -138,8 +147,8 @@ const UserProfile = () => {
 
       // Use the check-user API which returns both existence and full user data
       const response = await fetch(
-        `https://hushh-api-53407187172.us-central1.run.app/api/check-user?email=${email}`,
-        { headers: API_HEADERS }
+        `${API_BASE_URL}/api/check-user?email=${email}`,
+        { headers: getApiHeaders() }
       );
 
       if (response.ok) {
@@ -246,7 +255,7 @@ const UserProfile = () => {
         `${API_BASE_URL}/users?hushh_id=eq.${userData.hushh_id}`,
         {
           method: 'PATCH',
-          headers: API_HEADERS,
+          headers: getApiHeaders(),
           body: JSON.stringify(updateData)
         }
       );

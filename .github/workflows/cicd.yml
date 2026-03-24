@@ -28,10 +28,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --source . --no-git --redact --config .gitleaks.toml
 
   build:
     name: Website CI

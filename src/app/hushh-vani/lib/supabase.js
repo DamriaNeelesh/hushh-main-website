@@ -1,11 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
+import { SUPABASE_AUTH_ANON_KEY, SUPABASE_AUTH_URL } from "@/lib/config/supabaseAuthEnv";
+import { SUPABASE_ANON_KEY } from "@/lib/config/supabaseEnv";
 
-const supabaseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_AUTH_URL ||
-  "https://ibsisfnjxeowvdtvgzff.supabase.co";
+const supabaseUrl = SUPABASE_AUTH_URL;
 
-const supabaseAnonKey =
-  process.env.NEXT_PUBLIC_SUPABASE_AUTH_ANON_KEY || "";
+const supabaseAnonKey = SUPABASE_AUTH_ANON_KEY || "";
 
 /**
  * Hushh Vani Supabase Client
@@ -16,7 +15,7 @@ const supabaseAnonKey =
 let _vaniSupabase = null;
 export function getVaniSupabase() {
   if (!_vaniSupabase) {
-    const key = supabaseAnonKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const key = supabaseAnonKey || SUPABASE_ANON_KEY;
     if (!key) throw new Error("Missing NEXT_PUBLIC_SUPABASE_AUTH_ANON_KEY");
     _vaniSupabase = createClient(supabaseUrl, key, {
       auth: { persistSession: true, autoRefreshToken: true },

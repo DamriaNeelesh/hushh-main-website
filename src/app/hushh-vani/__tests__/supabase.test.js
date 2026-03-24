@@ -3,6 +3,15 @@
  */
 import { TABLES } from "../lib/supabase";
 
+jest.mock("@/lib/config/supabaseAuthEnv", () => ({
+  SUPABASE_AUTH_ANON_KEY: "test-auth-anon-key",
+  SUPABASE_AUTH_URL: "https://test-auth-project.supabase.co",
+}));
+
+jest.mock("@/lib/config/supabaseEnv", () => ({
+  SUPABASE_ANON_KEY: "test-data-anon-key",
+}));
+
 // Mock @supabase/supabase-js
 jest.mock("@supabase/supabase-js", () => {
   const mockFrom = jest.fn(() => ({
@@ -47,8 +56,6 @@ describe("TABLES", () => {
 
 describe("Supabase client", () => {
   it("creates client with correct config", () => {
-    process.env.NEXT_PUBLIC_SUPABASE_AUTH_ANON_KEY = "test-anon-key";
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "test-anon-key";
     const { createClient } = require("@supabase/supabase-js");
     const { getVaniSupabase } = require("../lib/supabase");
 

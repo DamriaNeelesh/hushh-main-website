@@ -1,23 +1,20 @@
 import { createClient } from '@supabase/supabase-js';
 import { SUPABASE_AUTH_ANON_KEY, SUPABASE_AUTH_URL } from '../../../lib/config/supabaseAuthEnv';
+import { PUBLIC_SITE_URL } from '@/lib/env/public';
+
+const LOCAL_DEV_SITE_URL = "http://localhost:3001";
 
 // Apple Sign-In Configuration for Supabase
 const appleAuthConfig = {
-  // Apple Developer Account Configuration
-  APPLE_CLIENT_ID: "com.hushh.auth.web",
-  APPLE_TEAM_ID: "WVDK9JW99C",
-  APPLE_KEY_ID: "358S6P5WC3",
-  APPLE_PRIVATE_KEY: "-----BEGIN PRIVATE KEY-----\nMIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgTiGn4rnvx4Yj9U053NKQngYpkA0XBzhu0Lp84vaelHagCgYIKoZIzj0DAQehRANCAAQhw93yeOtRHhd4ujcrwtqiVIGpH/m3k63q9NEMBCIlbXlp3ZJoW7qJSfJSUhxqcDiAs6f5lxqkwEw5FDukx+h+\n-----END PRIVATE KEY-----",
-  
   // Supabase Configuration
   SUPABASE_URL: SUPABASE_AUTH_URL,
   SUPABASE_ANON_KEY: SUPABASE_AUTH_ANON_KEY,
   
   // Redirect URLs Configuration
   redirectUrls: {
-    development: "http://localhost:3000/login/callback",
-    staging: "https://hushh.ai/login/callback", 
-    production: "https://hushh.ai/login/callback"
+    development: `${LOCAL_DEV_SITE_URL}/login/callback`,
+    staging: `${PUBLIC_SITE_URL}/login/callback`, 
+    production: `${PUBLIC_SITE_URL}/login/callback`
   },
   
   // Apple Sign-In Scope Configuration
@@ -69,17 +66,17 @@ async function hashNonce(nonce) {
 
 // Validate Apple Auth Configuration
 function validateAppleAuthConfig() {
-  const requiredEnvVars = [
-    'APPLE_CLIENT_ID',
-    'APPLE_TEAM_ID', 
-    'APPLE_KEY_ID',
-    'APPLE_PRIVATE_KEY'
-  ];
-  
-  const missing = requiredEnvVars.filter(envVar => !appleAuthConfig[envVar]);
+  const missing = [];
+
+  if (!appleAuthConfig.SUPABASE_URL) {
+    missing.push('NEXT_PUBLIC_SUPABASE_AUTH_URL or NEXT_PUBLIC_SUPABASE_URL');
+  }
+  if (!appleAuthConfig.SUPABASE_ANON_KEY) {
+    missing.push('NEXT_PUBLIC_SUPABASE_AUTH_ANON_KEY or NEXT_PUBLIC_SUPABASE_ANON_KEY');
+  }
   
   if (missing.length > 0) {
-    console.warn('Missing Apple Auth environment variables:', missing);
+    console.warn('Missing Apple Auth client configuration:', missing);
     return false;
   }
   

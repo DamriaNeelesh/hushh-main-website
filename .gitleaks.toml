@@ -1,0 +1,7 @@
+title = "hushh.ai website gitleaks config"
+
+[[allowlists]]
+description = "Offline support dataset with false-positive key-like feature flags"
+paths = [
+  '''support/data/tinder/data\.json''',
+]

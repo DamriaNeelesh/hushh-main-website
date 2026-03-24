@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 try {
-  const data = JSON.parse(fs.readFileSync('./public/tinder/data.json', 'utf8'));
+  const data = JSON.parse(fs.readFileSync('./support/data/tinder/data.json', 'utf8'));
   let businesses = [];
   
   // Try to find all objects that have a 'name' and 'id' property by deep tree walking

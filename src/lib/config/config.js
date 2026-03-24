@@ -8,6 +8,12 @@ const config = {
 };
 
 function createSupabaseClient() {
+  if (!config.SUPABASE_URL || !config.SUPABASE_ANON_KEY) {
+    throw new Error(
+      "Missing public data Supabase env. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY."
+    );
+  }
+
   const supabase = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY, {
     auth: {
       autoRefreshToken: true,
@@ -18,6 +24,16 @@ function createSupabaseClient() {
   return supabase;
 }
 
-config.supabaseClient = createSupabaseClient();
+let supabaseClient;
+
+Object.defineProperty(config, "supabaseClient", {
+  enumerable: true,
+  get() {
+    if (!supabaseClient) {
+      supabaseClient = createSupabaseClient();
+    }
+    return supabaseClient;
+  },
+});
 
 export default config;

@@ -18,6 +18,7 @@ import {
 import { FiUser, FiLogOut, FiMail, FiChevronRight, FiUserPlus } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
+import { HUSHH_API_BASE_URL } from '@/lib/env/public';
 
 const UserAvatar = () => {
   const { user, signOut } = useAuth();
@@ -30,7 +31,7 @@ const UserAvatar = () => {
   const [lastCheckedEmail, setLastCheckedEmail] = useState(null);
 
   // API configuration
-  const API_BASE_URL = "https://hushh-api-53407187172.us-central1.run.app/api";
+  const API_BASE_URL = `${HUSHH_API_BASE_URL}/api`;
   const API_HEADERS = {
     'Content-Type': 'application/json'
   };

@@ -35,7 +35,6 @@ function createContent(props: any) {
     snippet: "SYNC -> Salesforce CDP"
   }]} />{"\n"}<_components.p>{"The result is a profile that is consented, current, and actionable."}</_components.p>{"\n"}<_components.h2>{"Make your first request"}</_components.h2>{"\n"}<_components.p>{"Try it out right here. Use Ava as a reference profile to test the public agent."}</_components.p>{"\n"}<InteractiveEndpoint method="POST" path="/api/a2a/public" description="Enrich a profile using public data agents." curlCommand={`curl -X POST "https://hushh.ai/api/a2a/public" \\
   -H "Content-Type: application/json" \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
   -d "{\\"text\\":\\"Provide a detailed JSON profile for Sundar Pichai, email sundar.pichai@example.com, phone +1 6505559001.\\",\\"sessionId\\":\\"session-123\\",\\"id\\":\\"task-abc123\\"}"`} responseExample={`{
   "jsonrpc": "2.0",
   "result": {

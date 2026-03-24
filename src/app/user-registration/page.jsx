@@ -37,6 +37,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import authConfig from "../../lib/config/authConfig";
 import ContentWrapper from "../_components/layout/ContentWrapper";
+import { HUSHH_API_BASE_URL } from "@/lib/env/public";
 
 const MotionBox = motion(Box);
 const MotionCard = motion(Card);
@@ -45,7 +46,7 @@ const MotionCard = motion(Card);
 export const dynamic = 'force-dynamic';
 
 // API configuration - Updated to use new Hushh API
-const API_BASE_URL = "https://hushh-api-53407187172.us-central1.run.app/api";
+const API_BASE_URL = `${HUSHH_API_BASE_URL}/api`;
 const API_HEADERS = {
   'Content-Type': 'application/json'
 };
@@ -208,7 +209,7 @@ const UserRegistrationContent = () => {
 
       // Use the new Hushh API endpoint to check if user already exists
       const response = await fetch(
-        `https://hushh-api-53407187172.us-central1.run.app/api/check-user?email=${email}`,
+        `${API_BASE_URL}/check-user?email=${email}`,
         {
           method: 'GET',
           headers: API_HEADERS
@@ -359,7 +360,7 @@ const UserRegistrationContent = () => {
       if (isUpdateMode && userId) {
         // Update existing user with PATCH request - only updatable fields
         response = await fetch(
-          `https://ibsisfnjxeowvdtvgzff.supabase.co/rest/v1/users?hushh_id=eq.${userId}`,
+          `${authConfig.SUPABASE_URL}/rest/v1/users?hushh_id=eq.${userId}`,
           {
             method: 'PATCH',
             headers: API_HEADERS,
@@ -400,7 +401,7 @@ const UserRegistrationContent = () => {
       } else {
         // Create new user with POST request
         response = await fetch(
-          "https://ibsisfnjxeowvdtvgzff.supabase.co/rest/v1/users",
+          `${authConfig.SUPABASE_URL}/rest/v1/users`,
           {
             method: 'POST',
             headers: API_HEADERS,
@@ -422,7 +423,7 @@ const UserRegistrationContent = () => {
 
       // Registration mode only - POST request using new API
       const response = await fetch(
-        `https://hushh-api-53407187172.us-central1.run.app/api/hushhtech-wrapper`,
+        `${API_BASE_URL}/hushhtech-wrapper`,
         {
           method: 'POST',
           headers: API_HEADERS,

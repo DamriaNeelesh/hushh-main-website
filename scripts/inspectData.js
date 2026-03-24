@@ -1,5 +1,5 @@
 const fs = require('fs');
-const data = JSON.parse(fs.readFileSync('./public/tinder/data.json', 'utf8'));
+const data = JSON.parse(fs.readFileSync('./support/data/tinder/data.json', 'utf8'));
 
 let businesses = [];
 if (data.yelp_data && data.yelp_data.search_results) {

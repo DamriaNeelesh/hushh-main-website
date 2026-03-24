@@ -83,6 +83,8 @@ const deletedLegacyDocs = [
 ];
 
 const allowedRootFiles = [
+  ".env.example",
+  ".gitleaks.toml",
   ".gitignore",
   ".nvmrc",
   ".npmrc",

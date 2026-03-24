@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 
 const supabaseUrlFromEnv = process.env.NEXT_PUBLIC_SUPABASE_URL
-  || process.env.VITE_SUPABASE_URL
   || "https://ibsisfnjxeowvdtvgzff.supabase.co";
 
 const supabaseHostname = (() => {

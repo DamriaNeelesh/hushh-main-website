@@ -3,7 +3,21 @@ import React, { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "../../../lib/config/supabaseEnv";
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let supabase;
+
+const getSupabase = () => {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    throw new Error(
+      "Missing public data Supabase env. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY."
+    );
+  }
+
+  if (!supabase) {
+    supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+
+  return supabase;
+};
 
 const ViewCounter = ({ slug, noCount = false, showCount = true }) => {
   const [views, setViews] = useState(0);
@@ -11,7 +25,8 @@ const ViewCounter = ({ slug, noCount = false, showCount = true }) => {
   useEffect(() => {
     const incrementView = async () => {
       try {
-        let { error } = await supabase.rpc("increment", {
+        const supabaseClient = getSupabase();
+        let { error } = await supabaseClient.rpc("increment", {
           slug_text: slug,
         });
 
@@ -34,7 +49,8 @@ const ViewCounter = ({ slug, noCount = false, showCount = true }) => {
   useEffect(() => {
     const getViews = async () => {
       try {
-        let { data, error } = await supabase
+        const supabaseClient = getSupabase();
+        let { data, error } = await supabaseClient
           .from("views")
           .select("count")
           .match({ slug: slug })

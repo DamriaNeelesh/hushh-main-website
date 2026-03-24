@@ -93,6 +93,7 @@
     "unist-util-visit": "^5.0.0"
   },
   "overrides": {
+    "@tootallnate/once": "^3.0.1",
     "dompurify": "^3.3.3",
     "minimatch": "^9.0.7",
     "preact": "^10.27.3",
@@ -110,6 +111,7 @@
     "@types/react": "^19.2.14",
     "autoprefixer": "^10.0.1",
     "babel-jest": "^30.2.0",
+    "exceljs": "^4.4.0",
     "eslint-config-next": "^16.2.1",
     "eslint-plugin-unused-imports": "^4.4.1",
     "identity-obj-proxy": "^3.0.0",
@@ -118,7 +120,6 @@
     "postcss": "^8",
     "svg-loader": "^0.0.2",
     "tailwindcss": "^3.3.0",
-    "typescript": "5.3.3",
-    "xlsx": "^0.18.5"
+    "typescript": "5.3.3"
   }
 }

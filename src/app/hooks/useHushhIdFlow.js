@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@chakra-ui/react";
 import { useAuth } from "../context/AuthContext";
+import { HUSHH_API_BASE_URL } from "@/lib/env/public";
 
 /**
  * Custom hook for handling the complete Get Your Hushh Id authentication flow
@@ -19,7 +20,7 @@ export const useHushhIdFlow = () => {
   const [lastCheckedEmail, setLastCheckedEmail] = useState(null); // Cache to prevent repeated API calls
 
   // API configuration for checking user registration status
-  const API_BASE_URL = "https://hushh-api-53407187172.us-central1.run.app/api";
+  const API_BASE_URL = `${HUSHH_API_BASE_URL}/api`;
   const API_HEADERS = {
     'Content-Type': 'application/json'
   };

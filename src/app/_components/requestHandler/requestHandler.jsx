@@ -1,4 +1,6 @@
-const BASE_URL = "https://hushh-api-53407187172.us-central1.run.app/";
+import { HUSHH_API_BASE_URL } from "@/lib/env/public";
+
+const BASE_URL = `${HUSHH_API_BASE_URL}/`;
 // Maximum retries for 429 errors
 const MAX_RETRIES = 3;
 
