@@ -115,44 +115,50 @@ export default function ContactForm() {
         <div className="site-contact-grid">
           <aside className="site-page-card site-contact-aside">
             <div className="site-contact-aside-block space-y-4">
-              <p className="site-page-eyebrow">Contact Hushh</p>
-              <h2 className="site-contact-title">
-                Start the conversation with typed details or a scheduled working session
-              </h2>
+              <p className="site-page-eyebrow">Get in touch</p>
+              <h2 className="site-contact-title">Start a project conversation with Hushh</h2>
               <p className="site-page-copy">
-                Use the typed form for project details, or book time directly when you want a deeper
-                walkthrough with the team.
+                Share implementation context, rollout timing, or partnership goals in the form. If
+                a live working session is the better next step, schedule time directly with the
+                team.
               </p>
             </div>
 
-            <div className="site-contact-aside-block space-y-4">
+            <div className="site-contact-aside-block site-contact-action-stack">
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
                 className="site-contact-link"
               >
-                <span className="flex items-center gap-3">
-                  <MdEmail className="text-[22px] text-[var(--brand-gold,#C8A96A)]" />
-                  Email Hushh
+                <span className="site-contact-link-content">
+                  <span className="site-contact-link-title-wrap">
+                    <MdEmail className="site-contact-link-icon" />
+                    <span className="site-contact-link-title">Email Hushh</span>
+                  </span>
+                  <span className="site-contact-link-copy">{CONTACT_EMAIL}</span>
                 </span>
-                <MdOpenInNew className="text-[18px] text-[rgba(15,23,42,0.55)]" />
+                <MdOpenInNew className="site-contact-link-arrow" />
               </a>
 
               <a
                 href={SCHEDULE_MEETING_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-midnight site-contact-cta"
+                className="site-contact-link site-contact-link--primary"
               >
-                <MdCalendarToday className="text-[18px]" />
-                Schedule Meeting
+                <span className="site-contact-link-content">
+                  <span className="site-contact-link-title-wrap">
+                    <MdCalendarToday className="site-contact-link-icon" />
+                    <span className="site-contact-link-title">Schedule Meeting</span>
+                  </span>
+                  <span className="site-contact-link-copy">
+                    Office hours · 60 minute working session
+                  </span>
+                </span>
+                <MdOpenInNew className="site-contact-link-arrow" />
               </a>
             </div>
 
             <div className="site-contact-meta-grid">
-              <div className="site-contact-meta-card">
-                <p className="site-page-eyebrow">Email</p>
-                <p className="mt-3 text-[15px] leading-7 text-[rgba(15,23,42,0.82)]">{CONTACT_EMAIL}</p>
-              </div>
               <div className="site-contact-meta-card">
                 <p className="site-page-eyebrow">Location</p>
                 <p className="mt-3 flex items-start gap-2 text-[15px] leading-7 text-[rgba(15,23,42,0.82)]">
@@ -187,9 +193,7 @@ export default function ContactForm() {
           <div className="site-page-card site-contact-form-card">
             <div className="space-y-3">
               <p className="site-page-eyebrow">Typed contact form</p>
-              <h3 className="developer-landing-card-title text-[clamp(1.6rem,2.1vw,2.1rem)]">
-                Tell us what you are building
-              </h3>
+              <h3 className="site-contact-form-title">Tell us what you are building</h3>
               <p className="site-page-copy">
                 Share a little project context and the team can respond with the right next step.
               </p>

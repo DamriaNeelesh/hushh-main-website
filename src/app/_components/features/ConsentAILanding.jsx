@@ -21,7 +21,7 @@ const ConsentAILanding = () => {
     <ContentWrapper>
       <Box
         minH="100vh"
-        bg="#F8F9FA"
+        bg="#f8f6f1"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -52,11 +52,7 @@ const ConsentAILanding = () => {
                 fontWeight={400}
                 letterSpacing="wider"
                 sx={{
-                  background: "linear-gradient(90deg, #007BFF 0%, #E91E63 100%)",
-                  webkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  webkitTextFillColor: "transparent",
-                  color: "transparent",
+                  color: "#8f8570",
                 }}
               >
                 Now in Open Beta
@@ -76,7 +72,7 @@ const ConsentAILanding = () => {
                 fontWeight={700}
                 letterSpacing="-0.02em"
                 lineHeight={{ base: "1.1", md: "1.05" }}
-                color="#1A1A1A"
+                color="#171b29"
                 maxW="full"
               >
                 The Consent AI Protocol
@@ -90,7 +86,7 @@ const ConsentAILanding = () => {
                 fontWeight={400}
                 letterSpacing="-0.01em"
                 lineHeight={{ base: "1.4", md: "1.3" }}
-                color="#4A5568"
+                color="#5f5f5f"
                 px={{ base: 2, lg: 0 }}
               >
                 Empowering every verified iOS human with modular, trusted, consent-native 
@@ -106,7 +102,7 @@ const ConsentAILanding = () => {
               maxW="600px"
             >
               <Button
-                bg="#007BFF"
+                bg="#171b29"
                 color="white"
                 fontSize={{ base: "md", md: "lg", lg: "xl" }}
                 fontFamily="Inter"
@@ -116,9 +112,9 @@ const ConsentAILanding = () => {
                 borderRadius="full"
                 border="none"
                 _hover={{
-                  bg: "#0056b3",
+                  bg: "#0a1128",
                   transform: "translateY(-2px)",
-                  boxShadow: "0 8px 25px rgba(0, 123, 255, 0.3)",
+                  boxShadow: "0 8px 25px rgba(10, 17, 40, 0.24)",
                 }}
                 _active={{
                   transform: "translateY(0)",
@@ -131,19 +127,19 @@ const ConsentAILanding = () => {
               </Button>
               <Button
                 bg="transparent"
-                color="#007BFF"
+                color="#171b29"
                 fontSize={{ base: "md", md: "lg", lg: "xl" }}
                 fontFamily="Inter"
                 fontWeight={600}
                 h={{ base: "50px", md: "60px", lg: "64px" }}
                 px={{ base: 8, md: 12, lg: 16 }}
                 borderRadius="full"
-                border="2px solid #007BFF"
+                border="2px solid #171b29"
                 _hover={{
-                  bg: "#007BFF",
+                  bg: "#171b29",
                   color: "white",
                   transform: "translateY(-2px)",
-                  boxShadow: "0 8px 25px rgba(0, 123, 255, 0.2)",
+                  boxShadow: "0 8px 25px rgba(10, 17, 40, 0.16)",
                 }}
                 _active={{
                   transform: "translateY(0)",

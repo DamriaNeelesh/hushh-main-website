@@ -217,7 +217,7 @@ const ClientHFS = () => {
             color="#1d1d1f">
             
             Here's how{" "}
-            <Text style={{ fontWeight: 700, margin: "0 1rem" }}>
+            <Text as="span" style={{ fontWeight: 700, margin: "0 1rem" }}>
               Hushh elevates
             </Text>{" "}
             your experience
@@ -269,7 +269,6 @@ const ClientHFS = () => {
               title="Secure Data Exchange​"
               textAlign={"left"}
               // alignItems={""}
-              onClick={"#"}
               description="The platform enables businesses to securely purchase data from students. This process is designed to ensure data privacy and secure transactions.​​" />
             
             <ServiceCard

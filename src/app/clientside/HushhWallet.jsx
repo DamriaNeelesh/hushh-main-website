@@ -82,92 +82,78 @@ const ClientHushhWallet = () => {
           minW={"100%"}
           display={"flex"}
           flexDirection={"column"}>
-          
-          <Box
-            alignItems={"center"}
-            w={"100%"}
-            id={"1"}
-            display={"flex"}
-            flexDirection={"column"}
-            gap={{ base: "1rem", md: "2rem" }}
-            px={{ md: "15rem", base: "1.5rem" }}
-            position={{ md: "relative" }}>
-            
-            <Heading
-              fontWeight={"400"}
-              lineHeight={{ md: "87.46px", base: "43px" }}
-              textAlign={"center"}
-              fontSize={{ md: "5.4rem", base: "2rem" }}
-              color={"#FFFFFF"}
-              mb={{ base: "0.5rem" }}
-              as={"h1"}>
-              
-            World's first AI Powered Data Wallet
-          </Heading>
-          <Text
-              px={{ md: "17.8rem" }}
-              mb={{ base: "1rem", md: "1rem" }}
-              textAlign={"center"}
-              lineHeight={"24.6px"}
-              fontWeight={"400"}
-              fontSize={{ md: "1.25erm", base: "1rem" }}
-              color={"white"}>
-              
-            Unlock the power of your <span style={{ fontWeight: '700' }}>Hushh Data Wallet</span> with AI-driven management and secure storage.
-          </Text>
 
-          <Box
+          <Box className="wallet-hero-shell">
+            <Box
+              alignItems={"center"}
+              w={"100%"}
+              id={"1"}
+              display={"flex"}
+              flexDirection={"column"}
+              gap={{ base: "1rem", md: "1.4rem" }}
+              className="wallet-hero-content">
+
+            <Heading
+              className="wallet-hero-title"
+              as={"h1"}>
+
+              World's first AI Powered Data Wallet
+            </Heading>
+            <Text
+              className="wallet-hero-copy"
+              mb={{ base: "1rem", md: "1rem" }}
+              fontWeight={"400"}>
+
+              Unlock the power of your <span style={{ fontWeight: "700" }}>Hushh Data Wallet</span> with AI-driven management and secure storage.
+            </Text>
+
+            <Box
+              className="wallet-hero-actions"
               mt={{ md: "2rem", base: "1rem" }}
               display={"flex"}
               gap={{ md: "2rem", base: "1rem" }}
               flexDirection={{ md: "row", base: "column" }}
-              zIndex={'9'}>
-              
-                  <Button
-                border="1px solid #606060"
-                borderRadius="2px"
-                color={'white'}
-                lineHeight="28px"
-                background="transparent"
-                onClick={handleDownloadClick}
-                px="21px"
-                py="15px"
-                fontSize={{ md: "1rem", base: "0.75rem" }}
-                fontWeight="400"
-                letterSpacing={{ md: "0.1rem", base: "0.1rem" }}
-                _hover={{
-                  background:
-                  "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
-                  border: "none"
-                }}
-                w={{ md: "18rem", base: "14rem" }}>
-                
-                    Download Hushh Wallet App
-                  </Button>
-                </Box>
+              zIndex={"9"}>
 
-          <Box
-            // zIndex={"3"}
-            position={"absolute"}
-            mt={{ md: "5rem", base: "17rem" }}>
-              
-            <Image src={BoxBgWallet} alt="BoxBgWallet" />
+              <button
+                type="button"
+                className="wallet-hero-button"
+                onClick={handleDownloadClick}
+                style={{
+                  background: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
+                  color: "#ffffff",
+                  border: "1px solid rgba(255,255,255,0.16)",
+                  borderRadius: "999px",
+                  fontWeight: 700,
+                  letterSpacing: "0.18em",
+                  boxShadow: "0 20px 40px rgba(10, 17, 40, 0.24)",
+                  padding: "18px 28px",
+                }}>
+
+                Download Hushh Wallet App
+              </button>
+            </Box>
+
+            <Box className="wallet-hero-glow">
+              <Image src={BoxBgWallet} alt="BoxBgWallet" />
+            </Box>
+            <Box
+              className="wallet-hero-device"
+              display={{ md: "block", base: "none" }}>
+
+              <Image src={LouiWalletBg} alt="LouiWalletBg" />
+            </Box>
           </Box>
           <Box
-            // zIndex={"5"}
-            position={"absolute"}
-            display={{ md: "block", base: "none" }}
-            mt={{ md: "5rem", base: "17rem" }}>
-              
+            zIndex={"5"}
+            display={{ md: "none", base: "block" }}
+            mt={{ base: "-1rem" }}
+            mb={"-4rem"}
+            px={"1rem"}>
             <Image src={LouiWalletBg} alt="LouiWalletBg" />
           </Box>
         </Box>
-
-        <Box zIndex={"5"} display={{ md: "none", base: "block" }} mb={"-12rem"}>
-          <Image src={LouiWalletBg} alt="LouiWalletBg" />
-        </Box>
-      </Box>
-      <VStack mt={{ md: "34rem", base: "10rem" }}>
+      <VStack mt={{ md: "28rem", base: "6rem" }}>
         <Text
             className="color-gradient"
             fontWeight={"600"}
@@ -376,7 +362,7 @@ const ClientHushhWallet = () => {
               
             Scattered Data, Unified Identity
           </Text>
-          <Text color={"#ABABAB"} fontSize={{ md: "1.125rem", base: "0.7rem" }}>
+          <Text color={"rgba(255,255,255,0.74)"} fontSize={{ md: "1.125rem", base: "0.7rem" }}>
             Every brand you interact with, every click you make, every purchase
             you complete leaves a digital footprint. Your personality,
             preferences, buying power, and interests are scattered across
@@ -392,10 +378,8 @@ const ClientHushhWallet = () => {
               
             <Box
                 gap={"2rem"}
-                color={"#0D0D25"}
+                className="wallet-dark-card"
                 p={{ md: "2rem", base: "1rem" }}
-                bg={"transparent"}
-                border={"1px solid #FFFFFF"}
                 borderRadius={"0.75rem"}>
                 
               <Text
@@ -419,10 +403,8 @@ const ClientHushhWallet = () => {
             </Box>
             <Box
                 gap={"2rem"}
-                color={"#0D0D25"}
+                className="wallet-dark-card"
                 p={{ md: "2rem", base: "1rem" }}
-                bg={"transparent"}
-                border={"1px solid #FFFFFF"}
                 borderRadius={"0.75rem"}>
                 
               <Text
@@ -446,10 +428,8 @@ const ClientHushhWallet = () => {
             </Box>
             <Box
                 gap={"2rem"}
-                color={"#0D0D25"}
+                className="wallet-dark-card"
                 p={{ md: "2rem", base: "1rem" }}
-                bg={"transparent"}
-                border={"1px solid #FFFFFF"}
                 borderRadius={"0.75rem"}>
                 
               <Text
@@ -599,7 +579,6 @@ const ClientHushhWallet = () => {
             <ServiceCard
                 icon={<TrustedAIIcon />}
                 alignItems={""}
-                onClick={"#"}
                 title="Connect with brands and sales agents you trust​"
                 textAlign={"left"}
                 description="Share your curated data cards with businesses you choose, enabling them to offer personalized experiences and recommendations tailored to your unique preferences.​" />
@@ -607,7 +586,6 @@ const ClientHushhWallet = () => {
             <ServiceCard
                 icon={<TechIntegrationIcon />}
                 alignItems={""}
-                onClick={"#"}
                 title="Get rewarded for sharing data​​​"
                 textAlign={"left"}
                 description="Earn rewards for the valuable information you contribute, be it discounts, exclusive offers, or early access to products.​​" />
@@ -615,7 +593,6 @@ const ClientHushhWallet = () => {
             <ServiceCard
                 icon={<ControlOver />}
                 alignItems={""}
-                onClick={"#"}
                 title="Sell your data​"
                 textAlign={"left"}
                 description="You can sell your data directly to brands and agencies, receiving fair compensation for its value." />
@@ -623,17 +600,16 @@ const ClientHushhWallet = () => {
             <ServiceCard
                 icon={<RedifiningIcon />}
                 title="Transparency and Control​​​"
-                onClick={"#"}
                 alignItems={""}
                 textAlign={"left"}
                 description="Hushh prioritizes your privacy and control. You have full transparency over who has access to your data and what they can see. You can easily revoke access or modify your data cards at any time.​​" />
               
           </Grid>
           <Box
-              className="gradient-bg"
+              className="gradient-bg wallet-cta-panel"
+              borderRadius={"32px"}
               width={"65%"}
               display={{ md: "block", base: "none" }}
-              borderLeftRadius={"50px"}
               position={"absolute"}
               p={{ md: "2rem", base: "0.75rem" }}
               bottom={0}
@@ -691,12 +667,13 @@ const ClientHushhWallet = () => {
 
       <Stack
           mt={"4rem"}
-          className="gradient-bg"
+          className="gradient-bg wallet-cta-panel"
           display={{ md: "none", base: "flex" }}
           flexDirection={"column"}
           position={"relative"}
           px={"0.75rem"}
-          pt={"0.75rem"}>
+          pt={"0.75rem"}
+          borderRadius={"28px"}>
           
         <Text
             mb={{ base: "0.5rem" }}
@@ -774,11 +751,12 @@ const ClientHushhWallet = () => {
             
         </Box>
         </Stack>
+        </Box>
       </ContentWrapper>
 
       {/* <WalletFaq /> */}
       <ContactForm />
-<DownloadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <DownloadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>);
 
 };

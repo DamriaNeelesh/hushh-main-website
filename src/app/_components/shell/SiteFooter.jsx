@@ -79,7 +79,7 @@ export default function SiteFooter() {
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 items-start">
         <div className="flex flex-col items-start lg:pr-8">
-          <div className="mb-4 -ml-3 flex h-[54px] w-[124px] items-center">
+          <div className="mb-4 flex h-[54px] w-[124px] items-center justify-start">
             <Image
               src={HushhNewLogo}
               alt="Hushh"
@@ -87,7 +87,7 @@ export default function SiteFooter() {
               priority={false}
             />
           </div>
-          <p className="pl-1 text-xs text-mutedSlate leading-relaxed max-w-[240px]">
+          <p className="text-xs text-mutedSlate leading-relaxed max-w-[240px]">
             Securing the future of digital identity and personalized experiences through
             consent-first AI technology.
           </p>

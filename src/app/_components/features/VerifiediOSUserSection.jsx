@@ -75,7 +75,12 @@ const VerifiediOSUserSection = () => {
             </Text>
           </VStack>
           <Box w="full" h="250px" position="relative" alignSelf="center">
-            <Image src={image} alt={title} layout="fill" objectFit="contain" />
+            <Image
+              src={image}
+              alt={title}
+              fill
+              style={{ objectFit: "contain" }}
+            />
           </Box>
         </VStack>,
 
@@ -92,14 +97,24 @@ const VerifiediOSUserSection = () => {
             <Text color={'hsla(0, 0%, 35%, 1)'} fontSize={{ md: '1.5rem', base: '1rem' }} fontWeight="medium" textAlign="left">{description}</Text>
           </VStack>
           <Box w="40%" h="full" position="absolute" right={0} top={0}>
-            <Image src={image} alt={title} layout="fill" objectFit="cover" />
+            <Image
+              src={image}
+              alt={title}
+              fill
+              style={{ objectFit: "cover" }}
+            />
           </Box>
         </HStack>,
 
       horizontal:
       <HStack w="full" spacing={4} borderRadius={'30px'} align="center" h="full" p={{ base: 6, md: 8 }}>
             <Box w="40%" h="100px" position="relative">
-                <Image src={image} alt={title} layout="fill" objectFit="contain" objectPosition="left" />
+                <Image
+                  src={image}
+                  alt={title}
+                  fill
+                  style={{ objectFit: "contain", objectPosition: "left" }}
+                />
             </Box>
             <VStack align="right" w="60%">
                 <Heading as="h4" textAlign={'right'} fontSize={{ md: '2.5rem', base: '1.5rem' }} fontWeight="bold" color='hsla(0, 0%, 0%, 1)'>{title}</Heading>
@@ -113,7 +128,12 @@ const VerifiediOSUserSection = () => {
     const mobileLayout =
     <HStack w="full" spacing={4} align="center" h="full" p={6} borderRadius="30px">
         <Box w="30%" h="80px" position="relative">
-          <Image src={image} alt={title} layout="fill" objectFit="contain" objectPosition="left" />
+          <Image
+            src={image}
+            alt={title}
+            fill
+            style={{ objectFit: "contain", objectPosition: "left" }}
+          />
         </Box>
         <VStack align="flex-start" w="70%" spacing={1}>
           <Heading as="h4" fontSize={'1.5rem'} fontWeight="bold" color='hsla(0, 0%, 0%, 1)'>{title}</Heading>
@@ -171,10 +191,14 @@ const VerifiediOSUserSection = () => {
                  </Button>
               </VStack>
               <Box position="relative" w="320px" transform="rotate(-8deg)" borderRadius="40px">
-                 <Image src={ecosystemPhone} alt="Ecosystem Phone" borderRadius="40px" />
+                 <Image
+                   src={ecosystemPhone}
+                   alt="Ecosystem Phone"
+                   style={{ borderRadius: "40px" }}
+                 />
               </Box>
               <VStack w="30%" align="flex-end" spacing={4} textAlign="right">
-                <Heading as="h3" fontSize="5xl" fontWeight="bold" sx={{ background: "linear-gradient(90deg, #0071e3, #bb62fc, #da4b7a, #f44f22)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>A Eukaryotic Backbone</Heading>
+                <Heading as="h3" fontSize="5xl" fontWeight="bold" color="#8f8570">A Eukaryotic Backbone</Heading>
                 <Text fontSize="xl" color="gray.600">Structured coordination for platform-level orchestration</Text>
               </VStack>
             </Flex>
@@ -183,7 +207,11 @@ const VerifiediOSUserSection = () => {
               <Image src={fingerprintIcon} alt="Ecosystem Icon" width={60} height={60} />
               <Heading as="h2" fontSize="4xl" fontWeight="bold">Join the Ecosystem Today</Heading>
               <Box w="80%" maxW="280px" my={4}>
-                 <Image src={ecosystemPhone} alt="Ecosystem Phone" borderRadius="30px" />
+                 <Image
+                   src={ecosystemPhone}
+                   alt="Ecosystem Phone"
+                   style={{ borderRadius: "30px" }}
+                 />
               </Box>
               <Button
                 bg="black"
@@ -201,7 +229,7 @@ const VerifiediOSUserSection = () => {
                 Get Your Hushh Id
               </Button>
                <VStack spacing={4} pt={8}>
-                <Heading as="h3" fontSize="4xl" fontWeight="bold" sx={{ background: "linear-gradient(90deg, #0071e3, #bb62fc, #da4b7a, #f44f22)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>A Eukaryotic Backbone</Heading>
+                <Heading as="h3" fontSize="4xl" fontWeight="bold" color="#8f8570">A Eukaryotic Backbone</Heading>
                 <Text fontSize="lg" color="gray.600">Structured coordination for platform-level orchestration</Text>
               </VStack>
             </VStack>
@@ -249,7 +277,12 @@ const VerifiediOSUserSection = () => {
                   
                       <HStack w="full" spacing={4} align="center" h="full" p={6} borderRadius="30px">
                         <Box w="30%" h="80px" position="relative">
-                          <Image src={linkImage} alt="Link" layout="fill" objectFit="contain" objectPosition="left" />
+                          <Image
+                            src={linkImage}
+                            alt="Link"
+                            fill
+                            style={{ objectFit: "contain", objectPosition: "left" }}
+                          />
                         </Box>
                         <VStack align="flex-start" w="70%" spacing={1}>
                           <Heading as="h4" fontSize={'1.5rem'} fontWeight="bold" color='hsla(0, 0%, 0%, 1)'>Link</Heading>
@@ -266,7 +299,12 @@ const VerifiediOSUserSection = () => {
                   
                       <HStack w="full" spacing={4} align="center" h="full" p={6} borderRadius="30px">
                         <Box w="35%" h="100px" position="relative">
-                          <Image src={flowImage} alt="Flow" layout="fill" objectFit="contain" objectPosition="left" />
+                          <Image
+                            src={flowImage}
+                            alt="Flow"
+                            fill
+                            style={{ objectFit: "contain", objectPosition: "left" }}
+                          />
                         </Box>
                         <VStack align="flex-start" w="65%" spacing={1}>
                           <Heading as="h4" fontSize={'1.5rem'} fontWeight="bold" color='hsla(0, 0%, 0%, 1)'>Flow</Heading>
@@ -301,7 +339,13 @@ const VerifiediOSUserSection = () => {
                     </HStack>
                   )}
                  </VStack>
-                 <Image src={verifiedUserImage} alt="Verified iOS User" borderRadius="30px" w={{ base: "100%", md: "50%" }} maxW="300px" />
+                 <Box w={{ base: "100%", md: "50%" }} maxW="300px">
+                   <Image
+                     src={verifiedUserImage}
+                     alt="Verified iOS User"
+                     style={{ borderRadius: "30px", width: "100%", height: "auto" }}
+                   />
+                 </Box>
                 
                </Flex>
               <VStack spacing={6} align={{ base: "center", lg: "flex-start" }} textAlign={{ base: "center", lg: "left" }}>
@@ -320,7 +364,11 @@ const VerifiediOSUserSection = () => {
           {/* Section 4: Consent is the New Cookie */}
           <Box bg="#F5F5F7" borderRadius="45px" p={{ base: 6, md: 12 }} w="full">
              <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={{ base: 10, lg: 16 }} alignItems="center">
-                <Image src={consentCookieImage} alt="Consent is the new cookie" borderRadius="30px" />
+                <Image
+                  src={consentCookieImage}
+                  alt="Consent is the new cookie"
+                  style={{ borderRadius: "30px", width: "100%", height: "auto" }}
+                />
                 <VStack spacing={6} align={{ base: "center", lg: "flex-start" }} textAlign={{ base: "center", lg: "left" }}>
                     <Heading as="h2" fontSize={{ base: "4xl", sm: "5xl" }} fontWeight="bold" color="black">Consent is the New Cookie</Heading>
                     <Text fontSize={{ base: "lg", md: "xl" }} color="black">

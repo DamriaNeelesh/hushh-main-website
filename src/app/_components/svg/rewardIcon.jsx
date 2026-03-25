@@ -14,7 +14,7 @@ const RewardIcon = () => (
       height="69"
       rx="34.5"
       fill="url(#paint0_linear_2155_833)"
-      fill-opacity="0.03"
+      fillOpacity="0.03"
     />
     {/* Outline style for Apple-like black stroke */}
     <path
@@ -34,8 +34,8 @@ const RewardIcon = () => (
         y2="72.5"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="white" />
-        <stop offset="1" stop-color="#7A7A7E" />
+        <stop stopColor="white" />
+        <stop offset="1" stopColor="#7A7A7E" />
       </linearGradient>
     </defs>
   </svg>

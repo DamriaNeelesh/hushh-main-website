@@ -10,10 +10,13 @@ const ServiceCard = ({
   onClick,
   styles,
 }) => {
+  const resolvedOnClick = typeof onClick === "function" ? onClick : undefined;
+  const isInteractive = typeof resolvedOnClick === "function";
+
   return (
     <GridItem
-      cursor={"pointer"}
-      onClick={onClick}
+      cursor={isInteractive ? "pointer" : "default"}
+      onClick={resolvedOnClick}
       width={{ base: "100%", md: "100%" }}
       px={{ base: "1rem" }}
       style={styles}
