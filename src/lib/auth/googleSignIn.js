@@ -4,24 +4,22 @@ export default async function googleSignIn(callback, customRedirectPath) {
   try {
     console.log('Starting Google Sign-In process...');
     
-    // Determine redirect URL based on context
-    let redirectPath = '/user-registration'; // Default fallback
+    let redirectPath = '/';
     
     if (customRedirectPath) {
-      // Use custom redirect if provided
       redirectPath = customRedirectPath;
     } else if (typeof window !== 'undefined') {
-      // Auto-detect current page
-      const currentPath = window.location.pathname;
+      const currentPath = `${window.location.pathname}${window.location.search}`;
       
       if (currentPath.includes('/developers/on-boarding')) {
         redirectPath = '/developers/on-boarding';
       } else if (currentPath.includes('/developers/getting-started')) {
         redirectPath = '/developers/getting-started';
       } else if (currentPath.includes('/login')) {
-        redirectPath = '/login';
+        redirectPath = currentPath;
+      } else if (window.location.pathname) {
+        redirectPath = currentPath || window.location.pathname;
       }
-      // Add more path detections as needed
     }
     
     const redirectTo = window.location.origin + redirectPath;

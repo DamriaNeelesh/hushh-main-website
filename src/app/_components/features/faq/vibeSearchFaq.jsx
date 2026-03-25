@@ -184,7 +184,7 @@ export default function VibeSearchFaq() {
                 color: "transparent",
                 sx: {
                   backgroundImage:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                  "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent"
                 },
@@ -193,7 +193,7 @@ export default function VibeSearchFaq() {
                   display: "block",
                   height: "2px",
                   background:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                  "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   borderRadius: "2px"
                 }
               }}>

@@ -41,7 +41,7 @@ const handlePlayDemo = () => {
 };
 
 const ClientConciergeApp = () => {
-  const _gradient = "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)";
+  const _gradient = "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)";
   const _router = useRouter();
   const [_loading, setLoading] = useState(true);
 
@@ -123,7 +123,7 @@ const ClientConciergeApp = () => {
             letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             onClick={learnMoreScroll}>
@@ -151,7 +151,7 @@ const ClientConciergeApp = () => {
             letterSpacing={"0.2rem"}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             padding={"15px 68px 15px 68px"}
@@ -177,7 +177,7 @@ const ClientConciergeApp = () => {
             letterSpacing={"0.29rem"}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             padding={"15px 68px 15px 68px"}
@@ -346,7 +346,7 @@ const ClientConciergeApp = () => {
               gap={"2rem"}
               p={{ md: "2rem", base: "1rem" }}
               borderRadius={"1.75rem"}
-              background="linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)">
+              background="linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)">
               
               <Text
                 fontWeight={"700"}

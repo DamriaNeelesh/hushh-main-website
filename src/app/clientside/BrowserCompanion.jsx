@@ -28,7 +28,7 @@ import "next-cloudinary/dist/cld-video-player.css";
 // );
 
 const ClientBrowserCompanion = () => {
-  const gradient = "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)";
+  const gradient = "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)";
   const _router = useRouter();
   const [_loading, setLoading] = useState(true);
 
@@ -141,7 +141,7 @@ const ClientBrowserCompanion = () => {
               letterSpacing={{ md: "0.3rem", base: "0rem" }}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() =>
@@ -167,7 +167,7 @@ const ClientBrowserCompanion = () => {
               onClick={scrollTo}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               p={{ md: "1rem", base: "0.5rem" }}
@@ -200,7 +200,7 @@ const ClientBrowserCompanion = () => {
             onClick={scrollTo}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             padding={"15px 68px 15px 68px"}>
@@ -226,7 +226,7 @@ const ClientBrowserCompanion = () => {
              letterSpacing={"0.29rem"}
              _hover={{
                background:
-                 "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                 "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                border: "none",
              }}
              padding={"15px 68px 15px 68px"}
@@ -358,7 +358,7 @@ const ClientBrowserCompanion = () => {
               p={"1rem 2rem"}
               _hover={{
                 color: "white",
-                bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() =>
@@ -477,7 +477,7 @@ const ClientBrowserCompanion = () => {
               letterSpacing={"0.4rem"}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() =>

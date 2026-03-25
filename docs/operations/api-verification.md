@@ -1,23 +1,20 @@
 # API Verification
 
 ## Purpose
-Use this runbook to verify that proxy-backed integrations are working through the website surface.
+Use this runbook to verify the active website integrations without relying on local Docker stacks.
 
-## Typical verification steps
-1. start the website locally
-2. issue a request against the website proxy route
-3. confirm:
-   - HTTP success status
-   - `upstreamUrl`
-   - `upstreamStatus`
-   - parsed response body
+## Current verification set
+1. verify the Hushh API anon key against the dummy `check-user` path
+2. verify Supabase auth settings via the auth project HTTP endpoint
+3. verify the Supabase data root/OpenAPI endpoint
+4. verify the service-role key with a read-only `user_profiles` select
+5. verify `supabase projects list` and `supabase functions list --project-ref ...` for cloud state only
 
-## Example focus areas
-- A2A agents
-- email integrations
-- WhatsApp integrations
+## Important note on Supabase CLI
+- `supabase status` is a local-container command and needs Docker because it checks the local Supabase stack.
+- It is not required for cloud verification of this website.
 
 ## Failure handling
-- inspect whether the browser is hitting the website route or a direct upstream URL
-- inspect timeout behavior
-- inspect upstream status separately from route status
+- confirm the environment values match the website runtime contract in `.env.example`
+- confirm the route or secret being tested is still part of the public website
+- remove stale envs and detached features instead of keeping broken checks around

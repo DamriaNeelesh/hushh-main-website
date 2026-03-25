@@ -23,12 +23,6 @@ const connectSources = [
   "https://appleid.apple.com",
   "https://hushh-api-53407187172.us-central1.run.app",
   "https://developer-api-53407187172.us-central1.run.app",
-  "https://hushh-plaid-api-app-bubqpu.5sc6y6-1.usa-e2.cloudhub.io",
-  "https://hushh-plaid-agent-app-bubqpu.5sc6y6-4.usa-e2.cloudhub.io",
-  "https://hushh-plaid-mcp-server-app-bubqpu.5sc6y6-4.usa-e2.cloudhub.io",
-  "https://production.plaid.com",
-  "https://sandbox.plaid.com",
-  "https://cdn.plaid.com",
   "https://calendly.com",
   "https://docs.google.com",
   "https://api.github.com",
@@ -38,7 +32,6 @@ const connectSources = [
   "https://www.youtube.com",
   "https://youtube.com",
   "https://*.run.app",
-  "https://*.cloudhub.io",
   "wss:",
 ];
 
@@ -63,9 +56,9 @@ const nextConfig = {
       "media-src 'self' data: blob: https:",
       "font-src 'self' data: https://fonts.gstatic.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://accounts.google.com https://appleid.cdn-apple.com https://cdn.plaid.com`,
+      `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://accounts.google.com https://appleid.cdn-apple.com`,
       `connect-src ${[...new Set(connectSources)].join(" ")}`,
-      "frame-src 'self' https://docs.google.com https://calendly.com https://accounts.google.com https://appleid.apple.com https://cdn.plaid.com",
+      "frame-src 'self' https://docs.google.com https://calendly.com https://accounts.google.com https://appleid.apple.com",
       "worker-src 'self' blob:",
       "form-action 'self' https://docs.google.com",
       "upgrade-insecure-requests",
@@ -122,6 +115,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/developerApi/rootEndpoints",
+        destination: "/developers/agentic-apis",
+        permanent: true,
+      },
+      {
         source: "/developerApi/:path*",
         destination: "/developers/:path*",
         permanent: true,
@@ -132,8 +130,18 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/developer-Api/rootEndpoints",
+        destination: "/developers/agentic-apis",
+        permanent: true,
+      },
+      {
         source: "/developer-Api/:path*",
         destination: "/developers/:path*",
+        permanent: true,
+      },
+      {
+        source: "/developers/rootEndpoints",
+        destination: "/developers/agentic-apis",
         permanent: true,
       },
       {

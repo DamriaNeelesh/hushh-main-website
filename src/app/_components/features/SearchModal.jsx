@@ -281,7 +281,7 @@ const SearchModal = ({ isOpen, onClose }) => {
       case 'blog':
         return "blue";
       case 'product':
-        return "purple";
+        return "yellow";
       case 'page':
         return "green";
       case 'documentation':
@@ -300,7 +300,7 @@ const SearchModal = ({ isOpen, onClose }) => {
 
     return parts.map((part, index) =>
     regex.test(part) ?
-    <Text as="span" key={index} fontWeight="600" color="blue.500">
+    <Text as="span" key={index} fontWeight="600" color="#171b29">
           {part}
         </Text> :
 
@@ -442,7 +442,7 @@ const SearchModal = ({ isOpen, onClose }) => {
                 p={4}
                 cursor="pointer"
                 bg={selectedIndex === index ? "rgba(0, 122, 255, 0.1)" : "transparent"}
-                borderLeft={selectedIndex === index ? "3px solid #007AFF" : "3px solid transparent"}
+                borderLeft={selectedIndex === index ? "3px solid #171b29" : "3px solid transparent"}
                 _hover={{ bg: "rgba(0, 122, 255, 0.05)" }}
                 onClick={() => handleResultSelect(result)}
                 align="center">

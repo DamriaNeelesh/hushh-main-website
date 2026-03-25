@@ -445,8 +445,8 @@
 <stop offset="1" stop-color="white" stop-opacity="0"/>
 </linearGradient>
 <linearGradient id="paint33_linear_1851_4309" x1="345.086" y1="88.7345" x2="233.537" y2="89.2043" gradientUnits="userSpaceOnUse">
-<stop stop-color="#E54D60"/>
-<stop offset="1" stop-color="#A342FF"/>
+<stop stop-color="#8f8570"/>
+<stop offset="1" stop-color="#b7a789"/>
 </linearGradient>
 <linearGradient id="paint34_linear_1851_4309" x1="6.75054" y1="196.251" x2="536" y2="196.251" gradientUnits="userSpaceOnUse">
 <stop stop-color="#7A7A7E"/>

@@ -29,8 +29,8 @@ const HushhButtonIcon = ({ size }) => {
           y2="37.7608"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#E54D60" />
-          <stop offset="1" stopColor="#A342FF" />
+          <stop stopColor="#8f8570" />
+          <stop offset="1" stopColor="#b7a789" />
         </linearGradient>
         <clipPath id="clip0_1212_922">
           <rect

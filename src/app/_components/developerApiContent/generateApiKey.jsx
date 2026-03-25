@@ -10,7 +10,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { keyframes } from '@emotion/react';
-import config from "../config/config"; // Make sure this contains supabaseClient
 import { useApiKey } from "../../context/apiKeyContext";
 import { useAuth } from "../../context/AuthContext";
 
@@ -64,24 +63,6 @@ const GenerateApiKey = () => {
 
       // Keep the API key in volatile in-memory state only.
       saveApiKey(result.api_key);
-
-      // Save the API key to Supabase database
-      try {
-        await config.supabaseClient
-          .from('dev_api_userprofile')
-          .upsert([
-            {
-              mail: userMail,
-              api_key: result.api_key,
-            }
-          ], { 
-            onConflict: 'mail' 
-          });
-
-        console.log('API key saved to database successfully');
-      } catch (dbError) {
-        console.error('Database error:', dbError);
-      }
 
       toast({
         title: "API Key Generated",

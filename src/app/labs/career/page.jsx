@@ -363,7 +363,7 @@ const HushhLabsCareers = () => {
         <Container maxW="7xl" pt={{ base: 24, md: 32 }} pb={{ base: 16, md: 24 }}>
           <VStack spacing={{ base: 8, md: 12 }} textAlign="center" mb={{ base: 16, md: 20 }}>
             <Badge
-              bg="linear-gradient(to right, #0071E3, #0071E3)"
+              bg="linear-gradient(to right, #171b29, #171b29)"
               color="white"
               fontSize={{ base: "sm", md: "md" }}
               px={{ base: 4, md: 6 }}
@@ -379,7 +379,7 @@ const HushhLabsCareers = () => {
               <Heading
                 fontSize={{ base: "4xl", md: "6xl", lg: "7xl" }}
                 fontWeight="700"
-                bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) 0%, hsla(275, 96%, 69%, 1) 25%, hsla(354, 88%, 61%, 1) 50%, hsla(13, 91%, 55%, 1) 100%)"
+                bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
                 bgClip="text"
                 letterSpacing="-0.02em"
                 fontFamily="Inter, sans-serif"
@@ -614,7 +614,7 @@ const HushhLabsCareers = () => {
 
                   <VStack spacing={4} align={{ base: "stretch", lg: "end" }} mt={{ base: 6, lg: 0 }} minW={{ lg: "200px" }}>
                     <Button
-                    bg="#0071E3"
+                    bg="#171b29"
                     color="white"
                     size="lg"
                     rightIcon={<FiArrowRight />}

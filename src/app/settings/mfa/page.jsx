@@ -140,7 +140,7 @@ const MFASettingsPage = () => {
         return (
             <Box minH="100vh" bg="#ffffff" display="flex" alignItems="center" justifyContent="center">
                 <VStack spacing={6}>
-                    <Spinner size="xl" color="#0071E3" thickness="4px" />
+                    <Spinner size="xl" color="#171b29" thickness="4px" />
                     <Text color="#1d1d1f" fontSize="lg" fontWeight={500}>
                         Loading...
                     </Text>
@@ -212,7 +212,7 @@ const MFASettingsPage = () => {
                     {/* MFA Factors */}
                     {isLoadingFactors ? (
                         <Box py={8} textAlign="center">
-                            <Spinner size="lg" color="#0071E3" />
+                            <Spinner size="lg" color="#171b29" />
                         </Box>
                     ) : (
                         <VStack spacing={4} align="stretch">
@@ -241,7 +241,7 @@ const MFASettingsPage = () => {
                                                             alignItems="center"
                                                             justifyContent="center"
                                                         >
-                                                            <LockIcon color="#0071E3" fontSize="xl" />
+                                                            <LockIcon color="#171b29" fontSize="xl" />
                                                         </Box>
                                                         <VStack align="start" spacing={1}>
                                                             <Text fontSize="md" fontWeight={700} color="#1d1d1f">
@@ -274,7 +274,7 @@ const MFASettingsPage = () => {
                                     bg="#f0f9ff"
                                     border="1px solid #bfdbfe"
                                 >
-                                    <AlertIcon color="#0071E3" />
+                                    <AlertIcon color="#171b29" />
                                     <Box>
                                         <AlertTitle color="#1d1d1f" fontSize="md">
                                             No Authenticators Configured
@@ -295,14 +295,14 @@ const MFASettingsPage = () => {
                         {!hasMFA && (
                             <Button
                                 size="lg"
-                                bg="#0071E3"
+                                bg="#171b29"
                                 color="white"
                                 fontSize="lg"
                                 fontWeight={700}
                                 borderRadius="xl"
                                 h="56px"
-                                _hover={{ bg: "#0051B3" }}
-                                _active={{ bg: "#003D8F" }}
+                                _hover={{ bg: "#0a1128" }}
+                                _active={{ bg: "#070d1c" }}
                                 onClick={onOpen}
                                 leftIcon={<LockIcon />}
                             >

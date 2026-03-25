@@ -41,6 +41,8 @@ function getRepresentativeRoutes() {
     "/privacy",
     "/terms",
     "/developers",
+    "/developers/agent-kai",
+    "/developers/agentic-apis",
   ]);
 
   manifest.forEach((entry) => {

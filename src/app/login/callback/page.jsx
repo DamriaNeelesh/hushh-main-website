@@ -227,10 +227,10 @@ const AppleCallbackContent = () => {
         <VStack spacing={6} textAlign="center">
           <Box fontSize="4xl">⚠️</Box>
           <VStack spacing={3}>
-            <Text fontSize="xl" fontWeight={600} color="white">
+            <Text fontSize="xl" fontWeight={600} color="#171b29">
               Sign-in Failed
             </Text>
-            <Text fontSize="sm" color="rgba(255, 255, 255, 0.7)">
+            <Text fontSize="sm" color="rgba(15, 23, 42, 0.64)">
               {errorDetails.description}
             </Text>
           </VStack>
@@ -242,7 +242,7 @@ const AppleCallbackContent = () => {
     return (
       <VStack spacing={4} textAlign="center">
         <Box fontSize="4xl">🍃</Box>
-        <Text fontSize="lg" fontWeight={500} color="white">
+        <Text fontSize="lg" fontWeight={500} color="#171b29">
           Signing you in...
         </Text>
       </VStack>);
@@ -252,7 +252,7 @@ const AppleCallbackContent = () => {
   return (
     <Box
       minH="100vh"
-      bg="radial-gradient(ellipse at top, #0f0f23 0%, #000000 100%)"
+      bg="linear-gradient(180deg, #ffffff 0%, #f8f6f1 100%)"
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -267,7 +267,7 @@ const AppleCallbackContent = () => {
           left="10%"
           w="300px"
           h="300px"
-          bg="radial-gradient(circle, rgba(0, 113, 227, 0.1) 0%, transparent 70%)"
+          bg="radial-gradient(circle, rgba(143, 133, 112, 0.16) 0%, transparent 70%)"
           borderRadius="50%"
           filter="blur(60px)"
           animation={`${bounce} 8s ease-in-out infinite`} />
@@ -278,7 +278,7 @@ const AppleCallbackContent = () => {
           right="10%"
           w="250px"
           h="250px"
-          bg="radial-gradient(circle, rgba(187, 98, 252, 0.1) 0%, transparent 70%)"
+          bg="radial-gradient(circle, rgba(23, 27, 41, 0.1) 0%, transparent 70%)"
           borderRadius="50%"
           filter="blur(60px)"
           animation={`${bounce} 10s ease-in-out infinite reverse`} />
@@ -298,14 +298,14 @@ export default function AppleCallbackPage() {
       fallback={
       <Box
         minH="100vh"
-        bg="radial-gradient(ellipse at top, #0f0f23 0%, #000000 100%)"
+        bg="linear-gradient(180deg, #ffffff 0%, #f8f6f1 100%)"
         display="flex"
         alignItems="center"
         justifyContent="center">
         
           <VStack spacing={6}>
-            <Spinner size="xl" color="white" />
-            <Text color="white" fontSize="lg" fontWeight={500}>
+            <Spinner size="xl" color="#171b29" />
+            <Text color="#171b29" fontSize="lg" fontWeight={500}>
               Loading...
             </Text>
           </VStack>

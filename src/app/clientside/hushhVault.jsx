@@ -78,7 +78,7 @@ const HushhVault = () => {
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6, delay, ease: "easeOut" }}
-    bg={isGray ? "rgba(204, 204, 204, 0.09)" : "#0071E3"}
+    bg={isGray ? "rgba(204, 204, 204, 0.09)" : "#171b29"}
     borderRadius="xl"
     p={0}
     h="100%"
@@ -263,7 +263,7 @@ const HushhVault = () => {
                 <Text
                   fontSize={{ base: "24px", md: "32px", lg: "32px" }}
                   fontWeight="bold"
-                  bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) 0%, hsla(275, 96%, 69%, 1) 25%, hsla(354, 88%, 61%, 1) 50%, hsla(13, 91%, 55%, 1) 100%)"
+                  bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
                   bgClip="text"
                   letterSpacing="-0.02em"
                   fontFamily="Inter, sans-serif"
@@ -314,7 +314,7 @@ const HushhVault = () => {
                   
                   <MotionButton
                     size="lg"
-                    bg="#0071E3"
+                    bg="#171b29"
                     color="white"
                     onClick={() => {
                       router.push("/contact-us");
@@ -346,7 +346,7 @@ const HushhVault = () => {
                   <MotionButton
                     size="lg"
                     bg="transparent"
-                    color="#0071E3"
+                    color="#171b29"
                     px={{ base: 8, md: 12 }}
                     py={{ base: 6, md: 8 }}
                     borderRadius="60px"
@@ -359,9 +359,9 @@ const HushhVault = () => {
                     letterSpacing="-0.02em"
                     minW={{ base: "250px", md: "300px" }}
                     h={{ base: "50px", md: "70px" }}
-                    border="3px solid #0071E3"
+                    border="3px solid #171b29"
                     _hover={{
-                      bg: "#0071E3",
+                      bg: "#171b29",
                       color: "white",
                       transform: "translateY(-2px)",
                       boxShadow: "0 8px 25px rgba(0, 113, 227, 0.3)"
@@ -1726,7 +1726,7 @@ Enforces zero-trust access to every byte.
                     
                     <MotionButton
                       size="lg"
-                      bg="#0071E3"
+                      bg="#171b29"
                       color="white"
                       px={{ base: "24px", md: "28px", lg: "32px" }}
                       py={{ base: "12px", md: "14px", lg: "16px" }}
@@ -1757,7 +1757,7 @@ Enforces zero-trust access to every byte.
                     {/* <MotionButton
                        size="lg"
                        bg="transparent"
-                       color="#0071E3"
+                       color="#171b29"
                        px={{ base: "24px", md: "28px", lg: "32px" }}
                        py={{ base: "12px", md: "14px", lg: "16px" }}
                        borderRadius="full"
@@ -1766,9 +1766,9 @@ Enforces zero-trust access to every byte.
                        fontFamily="Inter, sans-serif"
                        h={{ base: "44px", md: "48px", lg: "52px" }}
                        minW={{ base: "180px", md: "200px", lg: "220px" }}
-                       border="2px solid #0071E3"
+                       border="2px solid #171b29"
                        _hover={{
-                         bg: "#0071E3",
+                         bg: "#171b29",
                          color: "white",
                          transform: "translateY(-1px)",
                          boxShadow: "0 4px 12px rgba(0, 113, 227, 0.3)"

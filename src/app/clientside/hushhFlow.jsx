@@ -111,7 +111,7 @@ const HushhFlow = () => {
                 <Text
                   fontSize={{ base: "24px", md: "32px", lg: "32px" }}
                   fontWeight="bold"
-                  bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) 0%, hsla(275, 96%, 69%, 1) 25%, hsla(354, 88%, 61%, 1) 50%, hsla(13, 91%, 55%, 1) 100%)"
+                  bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
                   bgClip="text"
                   letterSpacing="-0.02em"
                   fontFamily="Inter, sans-serif"
@@ -160,7 +160,7 @@ const HushhFlow = () => {
                   
                   <MotionButton
                     size="lg"
-                    bg="#0071E3"
+                    bg="#171b29"
                     onClick={() => {
                       router.push("/contact-us");
                     }}
@@ -192,7 +192,7 @@ const HushhFlow = () => {
                                      <MotionButton
                                        size="lg"
                                        bg="transparent"
-                                       color="#0071E3"
+                                       color="#171b29"
                                        px={{ base: 8, md: 12 }}
                                        py={{ base: 6, md: 8 }}
                                        borderRadius="60px"
@@ -202,9 +202,9 @@ const HushhFlow = () => {
                                        letterSpacing="-0.02em"
                                        minW={{ base: "250px", md: "300px" }}
                                        h={{ base: "50px", md: "70px" }}
-                                       border="3px solid #0071E3"
+                                       border="3px solid #171b29"
                                        _hover={{
-                                         bg: "#0071E3",
+                                         bg: "#171b29",
                                          color: "white",
                                          transform: "translateY(-2px)",
                                          boxShadow: "0 8px 25px rgba(0, 113, 227, 0.3)"
@@ -428,7 +428,7 @@ const HushhFlow = () => {
                   <Text
                     fontSize={{ base: "md", md: "xl", lg: "2xl", xl: "3xl" }}
                     fontWeight="semibold"
-                    bgGradient="linear(90deg, #0071E3 1.72%, #BB62FC 26.87%, #DA4B7A 69.77%, #F44F22 102.1%)"
+                    bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
                     bgClip="text"
                     lineHeight="shorter"
                     fontFamily="Inter, sans-serif"
@@ -635,7 +635,7 @@ const HushhFlow = () => {
                   as="h2"
                   fontSize={{ base: "3xl", md: "4xl", lg: "5xl", xl: "6xl" }}
                   fontWeight="bold"
-                  color="#0071E3"
+                  color="#171b29"
                   lineHeight="shorter"
                   letterSpacing="tight"
                   fontFamily="Inter, sans-serif">
@@ -903,7 +903,7 @@ const HushhFlow = () => {
                           as={FiUserCheck}
                           w="32px"
                           h="32px"
-                          color="#0071E3" />
+                          color="#171b29" />
                         
                           <Text
                           fontSize="20px"
@@ -936,7 +936,7 @@ const HushhFlow = () => {
                           as={GrAttachment}
                           w="32px"
                           h="32px"
-                          color="#0071E3" />
+                          color="#171b29" />
                         
                           <Text
                           fontSize="20px"
@@ -1128,7 +1128,7 @@ const HushhFlow = () => {
                           as={FiBriefcase}
                           w="32px"
                           h="32px"
-                          color="#0071E3" />
+                          color="#171b29" />
                         
                           <Text
                           fontSize="20px"
@@ -1161,7 +1161,7 @@ const HushhFlow = () => {
                           as={GrAttachment}
                           w="32px"
                           h="32px"
-                          color="#0071E3" />
+                          color="#171b29" />
                         
                           <Text
                           fontSize="20px"
@@ -1291,7 +1291,7 @@ const HushhFlow = () => {
                         as={FiUserCheck}
                         w="24px"
                         h="24px"
-                        color="#0071E3" />
+                        color="#171b29" />
                       
                       <Text
                         fontSize="18px"
@@ -1324,7 +1324,7 @@ const HushhFlow = () => {
                         as={GrAttachment}
                         w="20px"
                         h="20px"
-                        color="#0071E3" />
+                        color="#171b29" />
                       
                       <Text
                         fontSize="16px"
@@ -1465,7 +1465,7 @@ const HushhFlow = () => {
                         as={FiBriefcase}
                         w="24px"
                         h="24px"
-                        color="#0071E3" />
+                        color="#171b29" />
                       
                       <Text
                         fontSize="18px"
@@ -1498,7 +1498,7 @@ const HushhFlow = () => {
                         as={GrAttachment}
                         w="20px"
                         h="20px"
-                        color="#0071E3" />
+                        color="#171b29" />
                       
                       <Text
                         fontSize="16px"

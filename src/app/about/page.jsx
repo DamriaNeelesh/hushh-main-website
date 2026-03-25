@@ -101,7 +101,7 @@ export default function About() {
               <Text
                 fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
                 fontWeight="700"
-                bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+                bgGradient="linear(to-r, #171b29, #8f8570, #b7a789)"
                 bgClip="text"
                 letterSpacing="-0.02em"
                 fontFamily="Inter, sans-serif"
@@ -125,7 +125,7 @@ export default function About() {
                   maxW={{ base: "100%", md: "90%", lg: "85%", xl: "80%" }}
                 >
                   Building the future of{" "}
-                  <Text as="span" bgGradient="linear(to-r, #0071E3, #BB62FC)" bgClip="text">
+                  <Text as="span" bgGradient="linear(to-r, #171b29, #8f8570)" bgClip="text">
                     data sovereignty
                   </Text>
                 </Heading>
@@ -163,7 +163,7 @@ export default function About() {
                       <Heading
                         fontSize={{ base: "48px", md: "64px", lg: "72px" }}
                         fontWeight="bold"
-                        bgGradient="linear(to-r, #0071E3, #BB62FC)"
+                        bgGradient="linear(to-r, #171b29, #8f8570)"
                         bgClip="text"
                         fontFamily="Inter, sans-serif"
                         lineHeight={1}
@@ -180,7 +180,7 @@ export default function About() {
                         LinkedIn Followers
                     </Text>
                     </HStack>
-                    <Box h="1px" bg="linear-gradient(90deg, #0071E3 0%, #BB62FC 50%, transparent 100%)" />
+                    <Box h="1px" bg="linear-gradient(90deg, #171b29 0%, #8f8570 55%, transparent 100%)" />
                   </Box>
 
                   {/* Products */}
@@ -189,7 +189,7 @@ export default function About() {
                       <Heading
                         fontSize={{ base: "48px", md: "64px", lg: "72px" }}
                         fontWeight="bold"
-                        bgGradient="linear(to-r, #0071E3, #BB62FC)"
+                        bgGradient="linear(to-r, #171b29, #8f8570)"
                         bgClip="text"
                         fontFamily="Inter, sans-serif"
                         lineHeight={1}
@@ -206,7 +206,7 @@ export default function About() {
                         Products
                       </Text>
                     </HStack>
-                    <Box h="1px" bg="linear-gradient(90deg, #0071E3 0%, #BB62FC 50%, transparent 100%)" />
+                    <Box h="1px" bg="linear-gradient(90deg, #171b29 0%, #8f8570 55%, transparent 100%)" />
                   </Box>
 
                   {/* Team Members */}
@@ -216,7 +216,7 @@ export default function About() {
                         <Heading
                           fontSize={{ base: "48px", md: "64px", lg: "72px" }}
                           fontWeight="bold"
-                          bgGradient="linear(to-r, #0071E3, #BB62FC)"
+                          bgGradient="linear(to-r, #171b29, #8f8570)"
                           bgClip="text"
                           fontFamily="Inter, sans-serif"
                           lineHeight={1}
@@ -251,7 +251,7 @@ export default function About() {
                         Team Members and Growing
                       </Text>
                     </HStack>
-                    <Box h="1px" bg="linear-gradient(90deg, #0071E3 0%, #BB62FC 50%, transparent 100%)" />
+                    <Box h="1px" bg="linear-gradient(90deg, #171b29 0%, #8f8570 55%, transparent 100%)" />
                   </Box>
 
                   
@@ -288,7 +288,7 @@ export default function About() {
                       fontWeight="400"
                     >
                       We're constantly seeking out bright minds and diverse perspectives to join our mission. If you're passionate about data privacy and empowerment, cutting-edge technology, disrupting established industries, and making a real-world impact, then Hushh might be the perfect place for you. Explore our current openings{" "}
-                      <Text as="span" color="#0071E3" fontWeight="600" fontFamily="Inter, sans-serif">
+                      <Text as="span" color="#8f8570" fontWeight="600" fontFamily="Inter, sans-serif">
                         <Link href="/career">here</Link>
                       </Text>{" "}
                       and become part of the team that's changing the data landscape, one user at a time.

@@ -175,12 +175,6 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
         description: "Your private, consent-first AI copilot",
         href: "/hushh-voice",
         icon: HushhVoice
-      },
-      {
-        name: "Hushh Intelligence",
-        description: "Advanced AI intelligence platform for data insights",
-        href: "/intelligence-portal",
-        icon: HushhFlow
       }]
 
     },
@@ -212,8 +206,8 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
         icon: VibeSearchIcon
       },
       {
-        name: "Developer API",
-        description: "Tools for businesses to integrate Hushh data into their applications",
+        name: "API Reference",
+        description: "Developer hub for Agent Kai and the older Agentic APIs",
         href: "/developers",
         icon: VibeSearchApi
       },
@@ -226,37 +220,32 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
 
     },
     developers: {
-      title: "Developers",
+      title: "API Reference",
       items: [
       {
-        name: "Getting Started",
-        description: "Begin your journey with Hushh",
-        href: "/developers/getting-started"
-      },
-      {
         name: "API Reference",
-        description: "Complete API documentation",
-        href: "/developers/rootEndpoints"
+        description: "Start at the developer hub and choose Agent Kai or Agentic APIs",
+        href: "/developers"
       },
       {
-        name: "GitHub Protocol",
-        description: "Open source development framework",
-        href: "/agent-kit-cli#github-protocol"
+        name: "Agent Kai API",
+        description: "PKM, consent, REST, and MCP runtime guidance",
+        href: "/developers/agent-kai"
       },
       {
-        name: "Agentkit CLI",
-        description: "Command line tools for developers",
-        href: "/agent-kit-cli#agentkit-cli"
+        name: "Agentic APIs",
+        description: "A2A, MuleSoft, browser-proxy, and enrichment flows",
+        href: "/developers/agentic-apis"
       },
       {
-        name: "Build an Operon",
-        description: "Create custom data operations",
-        href: "/agent-kit-cli#build-operon"
+        name: "Developer Console Setup",
+        description: "Complete profile setup, API key, session token, and validation",
+        href: "/developers/on-boarding"
       },
       {
-        name: "Submit to Marketplace",
-        description: "Publish your creations",
-        href: "/agent-kit-cli#submit-marketplace"
+        name: "Support",
+        description: "Troubleshooting and escalation guidance",
+        href: "/developers/support"
       }]
 
     },
@@ -471,7 +460,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                         </div>
                   }
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm font-semibold text-gray-900 group-hover:text-blue-700 transition-colors duration-200">
+                        <div className="text-sm font-semibold text-gray-900 group-hover:text-[#171b29] transition-colors duration-200">
                           {item.name}
                         </div>
                         <div className="text-xs text-gray-500 mt-0.5 leading-relaxed group-hover:text-gray-600 transition-colors duration-200">
@@ -584,7 +573,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     aria-controls="desktop-menu-products"
                     onClick={() => toggleDropdown('products')}
                     onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'products')}
-                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
                     
                       <span>Products</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
@@ -606,7 +595,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     aria-controls="desktop-menu-solutions"
                     onClick={() => toggleDropdown('solutions')}
                     onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'solutions')}
-                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
                     
                       <span>Solutions</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
@@ -618,7 +607,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
  <div className="relative group">
                     <Link
                     href="/labs"
-                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 py-4 px-2 xl:px-3 nav-button whitespace-nowrap inline-flex">
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 py-4 px-2 xl:px-3 nav-button whitespace-nowrap inline-flex">
                     
                       <span>Hushh Labs</span>
                     </Link>
@@ -638,9 +627,9 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     aria-controls="desktop-menu-developers"
                     onClick={() => toggleDropdown('developers')}
                     onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'developers')}
-                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
                     
-                      <span>Developers</span>
+                      <span>API Reference</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'developers' ? 'rotate-180' : ''}`} />
                     </button>
                     {activeDropdown === 'developers' && renderDropdownMenu('developers', menuItems.developers)}
@@ -660,7 +649,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     aria-controls="desktop-menu-whyHushh"
                     onClick={() => toggleDropdown('whyHushh')}
                     onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'whyHushh')}
-                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
                     
                       <span>Why Hushh?</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'whyHushh' ? 'rotate-180' : ''}`} />
@@ -682,7 +671,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     aria-controls="desktop-menu-community"
                     onClick={() => toggleDropdown('community')}
                     onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'community')}
-                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
                     
                       <span>Community</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'community' ? 'rotate-180' : ''}`} />
@@ -704,7 +693,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     aria-controls="desktop-menu-company"
                     onClick={() => toggleDropdown('company')}
                     onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'company')}
-                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-blue-600 transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
                     
                       <span>Company</span>
                       <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'company' ? 'rotate-180' : ''}`} />
@@ -923,7 +912,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     }}
                     className="block py-2">
                     
-                        <div className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+                        <div className="text-lg font-semibold text-gray-900 hover:text-[#171b29] transition-colors">
                           Hushh Labs
                         </div>
                         <div className="text-sm text-gray-500 mt-1">
@@ -938,7 +927,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     onClick={() => setActiveDropdown(activeDropdown === 'developers' ? null : 'developers')}
                     className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2">
                     
-                        <span>Developers</span>
+                        <span>API Reference</span>
                         <ChevronDownIcon className={`w-5 h-5 transition-transform duration-200 ${activeDropdown === 'developers' ? 'rotate-180' : ''}`} />
                       </button>
                       {activeDropdown === 'developers' &&
@@ -1001,7 +990,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                         setIsMenuOpen(false);
                         closeDropdowns();
                       }}
-                      className="hover:text-blue-600 transition-colors">
+                      className="hover:text-[#171b29] transition-colors">
                       
                           Privacy Manifesto
                         </Link>
@@ -1012,7 +1001,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                         setIsMenuOpen(false);
                         closeDropdowns();
                       }}
-                      className="hover:text-blue-600 transition-colors">
+                      className="hover:text-[#171b29] transition-colors">
                       
                           Terms of Use
                         </Link>
@@ -1105,11 +1094,11 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
           border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(135deg, #007AFF, #5E5CE6);
+          background: linear-gradient(135deg, #171b29, #8f8570);
           border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(135deg, #0056CC, #4A47A3);
+          background: linear-gradient(135deg, #0f1422, #7b7260);
         }
         
                  /* Enhanced button hover effects */
@@ -1124,7 +1113,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
            left: -100%;
            width: 100%;
            height: 100%;
-           background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+           background: linear-gradient(90deg, transparent, rgba(143, 133, 112, 0.14), transparent);
            transition: left 0.5s ease;
          }
          .nav-button:hover::before {

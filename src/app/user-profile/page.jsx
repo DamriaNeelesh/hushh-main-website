@@ -342,7 +342,7 @@ const UserProfile = () => {
         justifyContent="center">
         
         <VStack spacing={4}>
-          <Spinner size="xl" color="blue.500" />
+          <Spinner size="xl" color="#171b29" />
           <Text fontSize="lg" color="gray.600">
             Loading your profile...
           </Text>
@@ -365,7 +365,7 @@ const UserProfile = () => {
           <Text fontSize="lg" color="gray.600">
             Profile not found
           </Text>
-          <Button onClick={() => router.push('/user-registration')} colorScheme="blue">
+          <Button onClick={() => router.push('/user-registration')} bg="#171b29" color="white" _hover={{ bg: "#0a1128" }}>
             Complete Registration
           </Button>
         </VStack>
@@ -374,10 +374,10 @@ const UserProfile = () => {
   }
 
   return (
-    <ContentWrapper includeHeaderSpacing={true}>
+    <ContentWrapper includeHeaderSpacing={true} surface="muted" className="site-auth-frame">
       <Box
         minH="100vh"
-        bg="white"
+        bg="transparent"
         py={{ base: 8, md: 12 }}
         px={{ base: 4, md: 8 }}>
         
@@ -410,7 +410,7 @@ const UserProfile = () => {
                     size="xl"
                     name={`${userData.first_name} ${userData.last_name}`}
                     src={user?.user_metadata?.avatar_url}
-                    bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                    bg="linear-gradient(135deg, #171b29, #8f8570)"
                     color="white"
                     border="3px solid rgba(255, 255, 255, 0.2)" />
                   
@@ -427,7 +427,7 @@ const UserProfile = () => {
                     {user?.email}
                   </Text>
                   <Badge
-                      bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                      bg="linear-gradient(135deg, #171b29, #8f8570)"
                       color="white"
                       size="lg"
                       borderRadius="full"
@@ -438,12 +438,12 @@ const UserProfile = () => {
                   </Badge>
                   <Text color="rgba(0, 0, 0, 0.6)" fontSize="sm" fontFamily="mono">
                     <HStack spacing={2} align="center">
-                      <Icon as={FiShield} color="#0071E3" />
-                      <Text fontWeight="bold" color="#BB62FC" fontSize="sm">
+                      <Icon as={FiShield} color="#171b29" />
+                      <Text fontWeight="bold" color="#8f8570" fontSize="sm">
                         Hushh ID:
                       </Text>
                       <Badge
-                          bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                          bg="linear-gradient(135deg, #171b29, #8f8570)"
                           color="white"
                           variant="solid"
                           px={3}
@@ -464,7 +464,7 @@ const UserProfile = () => {
                   <>
                     {/* <Button
                        onClick={() => setIsEditing(true)}
-                       bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                       bg="linear-gradient(135deg, #171b29, #8f8570)"
                        color="white"
                        leftIcon={<FiEdit3 />}
                        size="lg"
@@ -472,7 +472,7 @@ const UserProfile = () => {
                        fontFamily="Inter, sans-serif"
                        fontWeight="600"
                        _hover={{
-                         bg: "linear-gradient(135deg, #005bb5, #9a4fd1)",
+                         bg: "linear-gradient(135deg, #0a1128, #7b7260)",
                          transform: "translateY(-2px)",
                          boxShadow: "0 8px 25px rgba(0, 113, 227, 0.4)"
                        }}
@@ -483,16 +483,16 @@ const UserProfile = () => {
                     <Button
                       onClick={() => router.push('/')}
                       variant="outline"
-                      borderColor="rgba(255, 255, 255, 0.3)"
-                      color="rgba(255, 255, 255, 0.8)"
+                      borderColor="rgba(23, 27, 41, 0.14)"
+                      color="#171b29"
                       leftIcon={<FiLogOut />}
                       size="lg"
                       borderRadius="full"
                       fontFamily="Inter, sans-serif"
                       fontWeight="600"
                       _hover={{
-                        bg: "rgba(255, 255, 255, 0.1)",
-                        borderColor: "rgba(255, 255, 255, 0.5)",
+                        bg: "rgba(23, 27, 41, 0.04)",
+                        borderColor: "#171b29",
                         transform: "translateY(-2px)"
                       }}
                       transition="all 0.3s ease">
@@ -504,7 +504,7 @@ const UserProfile = () => {
                   <>
                     <Button
                       onClick={handleSaveProfile}
-                      bg="linear-gradient(135deg, #4CAF50, #45A049)"
+                      bg="linear-gradient(135deg, #171b29, #8f8570)"
                       color="white"
                       leftIcon={<FiSave />}
                       size="lg"
@@ -514,7 +514,7 @@ const UserProfile = () => {
                       fontFamily="Inter, sans-serif"
                       fontWeight="600"
                       _hover={{
-                        bg: "linear-gradient(135deg, #45A049, #3d8b40)",
+                        bg: "linear-gradient(135deg, #0f1422, #7b7260)",
                         transform: "translateY(-2px)",
                         boxShadow: "0 8px 25px rgba(76, 175, 80, 0.4)"
                       }}
@@ -532,16 +532,16 @@ const UserProfile = () => {
                         setInvestorType(userData.investor_type || "");
                       }}
                       variant="outline"
-                      borderColor="rgba(255, 255, 255, 0.3)"
-                      color="rgba(255, 255, 255, 0.8)"
+                      borderColor="rgba(23, 27, 41, 0.14)"
+                      color="#171b29"
                       leftIcon={<FiX />}
                       size="lg"
                       borderRadius="full"
                       fontFamily="Inter, sans-serif"
                       fontWeight="600"
                       _hover={{
-                        bg: "rgba(255, 255, 255, 0.1)",
-                        borderColor: "rgba(255, 255, 255, 0.5)",
+                        bg: "rgba(23, 27, 41, 0.04)",
+                        borderColor: "#171b29",
                         transform: "translateY(-2px)"
                       }}
                       transition="all 0.3s ease">
@@ -565,7 +565,7 @@ const UserProfile = () => {
                     size={{ base: "lg", sm: "xl" }}
                     name={`${userData.first_name} ${userData.last_name}`}
                     src={user?.user_metadata?.avatar_url}
-                    bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                    bg="linear-gradient(135deg, #171b29, #8f8570)"
                     color="white"
                     border="3px solid rgba(255, 255, 255, 0.2)" />
                   
@@ -586,7 +586,7 @@ const UserProfile = () => {
                     {user?.email}
                   </Text>
                   <Badge
-                      bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                      bg="linear-gradient(135deg, #171b29, #8f8570)"
                       color="white"
                       borderRadius="full"
                       px={3}
@@ -598,13 +598,13 @@ const UserProfile = () => {
                   {/* Hushh ID - Mobile */}
                   <VStack spacing={1} align="center">
                     <HStack spacing={2} align="center">
-                      <Icon as={FiShield} color="#0071E3" size="sm" />
-                      <Text fontWeight="bold" color="#BB62FC" fontSize="xs">
+                      <Icon as={FiShield} color="#171b29" size="sm" />
+                      <Text fontWeight="bold" color="#8f8570" fontSize="xs">
                         Hushh ID:
                       </Text>
                     </HStack>
                     <Badge
-                        bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                        bg="linear-gradient(135deg, #171b29, #8f8570)"
                         color="white"
                         variant="solid"
                         px={2}
@@ -625,7 +625,7 @@ const UserProfile = () => {
                   <>
                     {/* <Button
                        onClick={() => setIsEditing(true)}
-                       bg="linear-gradient(135deg, #0071E3, #BB62FC)"
+                       bg="linear-gradient(135deg, #171b29, #8f8570)"
                        color="white"
                        leftIcon={<FiEdit3 />}
                        size="md"
@@ -634,7 +634,7 @@ const UserProfile = () => {
                        fontWeight="600"
                        w="full"
                        _hover={{
-                         bg: "linear-gradient(135deg, #005bb5, #9a4fd1)",
+                         bg: "linear-gradient(135deg, #0a1128, #7b7260)",
                          transform: "translateY(-2px)",
                          boxShadow: "0 8px 25px rgba(0, 113, 227, 0.4)"
                        }}
@@ -645,8 +645,8 @@ const UserProfile = () => {
                     <Button
                       onClick={() => router.push('/')}
                       variant="outline"
-                      borderColor="rgba(255, 255, 255, 0.3)"
-                      color="rgba(255, 255, 255, 0.8)"
+                      borderColor="rgba(23, 27, 41, 0.14)"
+                      color="#171b29"
                       leftIcon={<FiLogOut />}
                       size="md"
                       borderRadius="full"
@@ -654,8 +654,8 @@ const UserProfile = () => {
                       fontWeight="600"
                       w="full"
                       _hover={{
-                        bg: "rgba(255, 255, 255, 0.1)",
-                        borderColor: "rgba(255, 255, 255, 0.5)",
+                        bg: "rgba(23, 27, 41, 0.04)",
+                        borderColor: "#171b29",
                         transform: "translateY(-2px)"
                       }}
                       transition="all 0.3s ease">
@@ -667,7 +667,7 @@ const UserProfile = () => {
                   <>
                     <Button
                       onClick={handleSaveProfile}
-                      bg="linear-gradient(135deg, #4CAF50, #45A049)"
+                      bg="linear-gradient(135deg, #171b29, #8f8570)"
                       color="white"
                       leftIcon={<FiSave />}
                       size="md"
@@ -678,7 +678,7 @@ const UserProfile = () => {
                       fontWeight="600"
                       w="full"
                       _hover={{
-                        bg: "linear-gradient(135deg, #45A049, #3d8b40)",
+                        bg: "linear-gradient(135deg, #0f1422, #7b7260)",
                         transform: "translateY(-2px)",
                         boxShadow: "0 8px 25px rgba(76, 175, 80, 0.4)"
                       }}
@@ -696,8 +696,8 @@ const UserProfile = () => {
                         setInvestorType(userData.investor_type || "");
                       }}
                       variant="outline"
-                      borderColor="rgba(255, 255, 255, 0.3)"
-                      color="rgba(255, 255, 255, 0.8)"
+                      borderColor="rgba(23, 27, 41, 0.14)"
+                      color="#171b29"
                       leftIcon={<FiX />}
                       size="md"
                       borderRadius="full"
@@ -705,8 +705,8 @@ const UserProfile = () => {
                       fontWeight="600"
                       w="full"
                       _hover={{
-                        bg: "rgba(255, 255, 255, 0.1)",
-                        borderColor: "rgba(255, 255, 255, 0.5)",
+                        bg: "rgba(23, 27, 41, 0.04)",
+                        borderColor: "#171b29",
                         transform: "translateY(-2px)"
                       }}
                       transition="all 0.3s ease">
@@ -830,7 +830,7 @@ const UserProfile = () => {
                         Personal Information
                       </Heading>
                       {!isEditing &&
-                        <Badge bg="linear-gradient(135deg, #4CAF50, #45A049)" color="white" variant="solid">
+                        <Badge bg="linear-gradient(135deg, #171b29, #8f8570)" color="white" variant="solid">
                           <Icon as={FiCheck} mr={1} />
                           Complete
                         </Badge>
@@ -853,7 +853,7 @@ const UserProfile = () => {
                         <GridItem>
                           <FormControl isInvalid={errors.firstName}>
                             <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                              <Icon as={FiUser} mr={2} color="#0071E3" />
+                              <Icon as={FiUser} mr={2} color="#171b29" />
                               First Name
                             </FormLabel>
                             {isEditing ?
@@ -867,7 +867,7 @@ const UserProfile = () => {
                                 color="black"
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
-                                _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
+                                _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 1px #171b29" }}
                                 borderRadius="lg" /> :
 
 
@@ -881,7 +881,7 @@ const UserProfile = () => {
                         <GridItem>
                           <FormControl isInvalid={errors.lastName}>
                             <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                              <Icon as={FiUser} mr={2} color="#0071E3" />
+                              <Icon as={FiUser} mr={2} color="#171b29" />
                               Last Name
                             </FormLabel>
                             {isEditing ?
@@ -895,7 +895,7 @@ const UserProfile = () => {
                                 color="black"
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
-                                _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
+                                _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 1px #171b29" }}
                                 borderRadius="lg" /> :
 
 
@@ -913,7 +913,7 @@ const UserProfile = () => {
                         <GridItem>
                           <FormControl>
                             <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                              <Icon as={FiMail} mr={2} color="#BB62FC" />
+                              <Icon as={FiMail} mr={2} color="#8f8570" />
                               Email Address
                             </FormLabel>
                             <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.05)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.1)">
@@ -927,7 +927,7 @@ const UserProfile = () => {
                         <GridItem>
                           <FormControl isInvalid={errors.phoneNumber}>
                             <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                              <Icon as={FiPhone} mr={2} color="#0071E3" />
+                              <Icon as={FiPhone} mr={2} color="#171b29" />
                               Phone Number
                             </FormLabel>
                             {isEditing ?
@@ -942,7 +942,7 @@ const UserProfile = () => {
                                 color="black"
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
-                                _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
+                                _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 1px #171b29" }}
                                 borderRadius="lg" /> :
 
 
@@ -958,7 +958,7 @@ const UserProfile = () => {
                       {/* Investor Type */}
                       <FormControl isInvalid={errors.investorType}>
                         <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                          <Icon as={MdOutlineWorkOutline} mr={2} color="#BB62FC" />
+                          <Icon as={MdOutlineWorkOutline} mr={2} color="#8f8570" />
                           Investor Type
                         </FormLabel>
                         {isEditing ?
@@ -971,7 +971,7 @@ const UserProfile = () => {
                             borderColor="rgba(0, 0, 0, 0.1)"
                             color="black"
                             _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
-                            _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 1px #171b29" }}
                             borderRadius="lg">
                             
                             <option value="individual" style={{ backgroundColor: '#ffffff', color: 'black' }}>Individual Investor</option>
@@ -988,7 +988,7 @@ const UserProfile = () => {
                       {/* Add Hushh ID below investor type */}
                       <FormControl>
                         <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                          <Icon as={FiShield} mr={2} color="#0071E3" />
+                          <Icon as={FiShield} mr={2} color="#171b29" />
                           Hushh ID
                         </FormLabel>
                         <Text fontSize="md" color="rgba(0, 0, 0, 0.8)" py={2} px={3} bg="rgba(0, 0, 0, 0.05)" borderRadius="lg" border="1px solid rgba(0, 0, 0, 0.1)" fontFamily="mono">
@@ -1010,7 +1010,7 @@ const UserProfile = () => {
                         <GridItem>
                           <FormControl>
                             <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                              <Icon as={BiUser} mr={2} color="#0071E3" />
+                              <Icon as={BiUser} mr={2} color="#171b29" />
                               Gender
                             </FormLabel>
                             {isEditing ?
@@ -1023,7 +1023,7 @@ const UserProfile = () => {
                                 borderColor="rgba(0, 0, 0, 0.1)"
                                 color="black"
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
-                                _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
+                                _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 1px #171b29" }}
                                 borderRadius="lg">
                                 
                                 <option value="male">Male</option>
@@ -1041,7 +1041,7 @@ const UserProfile = () => {
                         <GridItem>
                           <FormControl>
                             <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                              <Icon as={IoLocationOutline} mr={2} color="#0071E3" />
+                              <Icon as={IoLocationOutline} mr={2} color="#171b29" />
                               Country
                             </FormLabel>
                             {isEditing ?
@@ -1055,7 +1055,7 @@ const UserProfile = () => {
                                 color="black"
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
-                                _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
+                                _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 1px #171b29" }}
                                 borderRadius="lg" /> :
 
 
@@ -1068,7 +1068,7 @@ const UserProfile = () => {
                         <GridItem>
                           <FormControl>
                             <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                              <Icon as={FiMapPin} mr={2} color="#0071E3" />
+                              <Icon as={FiMapPin} mr={2} color="#171b29" />
                               City
                             </FormLabel>
                             {isEditing ?
@@ -1082,7 +1082,7 @@ const UserProfile = () => {
                                 color="black"
                                 _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                                 _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
-                                _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
+                                _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 1px #171b29" }}
                                 borderRadius="lg" /> :
 
 
@@ -1097,7 +1097,7 @@ const UserProfile = () => {
                       {/* Date of Birth */}
                       <FormControl>
                         <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                          <Icon as={FiCalendar} mr={2} color="#BB62FC" />
+                          <Icon as={FiCalendar} mr={2} color="#8f8570" />
                           Date of Birth
                         </FormLabel>
                         {isEditing ?
@@ -1110,7 +1110,7 @@ const UserProfile = () => {
                             borderColor="rgba(0, 0, 0, 0.1)"
                             color="black"
                             _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
-                            _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 1px #171b29" }}
                             borderRadius="lg" /> :
 
 
@@ -1123,7 +1123,7 @@ const UserProfile = () => {
                       {/* Reason for using Hushh */}
                       <FormControl>
                         <FormLabel color="rgba(0, 0, 0, 0.9)" fontWeight="600">
-                          <Icon as={FiEdit3} mr={2} color="#0071E3" />
+                          <Icon as={FiEdit3} mr={2} color="#171b29" />
                           Reason for using Hushh
                         </FormLabel>
                         {isEditing ?
@@ -1137,7 +1137,7 @@ const UserProfile = () => {
                             color="black"
                             _placeholder={{ color: "rgba(0, 0, 0, 0.5)" }}
                             _hover={{ borderColor: "rgba(0, 0, 0, 0.2)" }}
-                            _focus={{ borderColor: "#0071E3", boxShadow: "0 0 0 1px #0071E3" }}
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 1px #171b29" }}
                             borderRadius="lg"
                             rows={4} /> :
 

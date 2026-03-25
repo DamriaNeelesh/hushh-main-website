@@ -66,7 +66,7 @@ export const DEVELOPER_SECTIONS: DeveloperSection[] = [
   {
     id: "mcp",
     label: "MCP",
-    summary: "Remote MCP and npm launcher guidance for external agents.",
+    summary: "Remote MCP and npm launcher guidance for external developer hosts.",
   },
   {
     id: "api",
@@ -193,7 +193,7 @@ export const FAQ_ITEMS: DeveloperFaqItem[] = [
   {
     question: "Where does consent approval happen?",
     answer:
-      "Inside Kai. Your external agent requests consent, but the user approves or denies it in the Hushh product surface.",
+      "Inside Kai. Your external app requests consent, but the user approves or denies it in the Hushh product surface.",
   },
   {
     question: "Do raw REST callers need to send a connector key?",
@@ -210,7 +210,7 @@ export const FAQ_ITEMS: DeveloperFaqItem[] = [
 export const DEVELOPER_ACCESS_NOTES = [
   "One developer app is created per signed-in Kai account.",
   "One active developer token is kept at a time. Rotate it whenever you need a fresh credential.",
-  "Consent prompts show your app identity, not a raw token or opaque agent id.",
+  "Consent prompts show your app identity, not a raw token or opaque runtime id.",
 ];
 
 export const DEVELOPER_SCOPE_NOTES = [
@@ -331,7 +331,7 @@ export function buildRestSnippets(runtime: DeveloperRuntime, developerToken = "<
     "scope": "attr.financial.*",
     "expiry_hours": 24,
     "approval_timeout_minutes": 60,
-    "reason": "Show portfolio-aware insights inside the user's external agent",
+    "reason": "Show portfolio-aware insights inside the user's external app",
     "connector_public_key": "<base64-encoded-x25519-public-key>",
     "connector_key_id": "connector-key-1",
     "connector_wrapping_alg": "X25519-AES256-GCM"

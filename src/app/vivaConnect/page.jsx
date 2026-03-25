@@ -487,7 +487,7 @@ export default function VivaConnectPage() {
                   color="white"
                   _hover={{
                     color: "white",
-                    bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                    bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   }}
                   bg={"black"}
                   onClick={() =>
@@ -502,7 +502,7 @@ export default function VivaConnectPage() {
                   color="white"
                   _hover={{
                     color: "white",
-                    bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                    bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   }}
                   bg={"black"}
                   onClick={() =>
@@ -556,7 +556,7 @@ export default function VivaConnectPage() {
                   color="white"
                   _hover={{
                     color: "white",
-                    bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                    bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   }}
                   bg={"black"}
                   w={{ base: "100%", md: "auto" }}
@@ -568,7 +568,7 @@ export default function VivaConnectPage() {
                 color="white"
                 _hover={{
                   color: "white",
-                  bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                  bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 }}
                 bg={"black"}
                 w={{ base: "100%", md: "auto" }}

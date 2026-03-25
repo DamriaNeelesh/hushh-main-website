@@ -137,7 +137,7 @@ const ClientHushhWallet = () => {
                 letterSpacing={{ md: "0.1rem", base: "0.1rem" }}
                 _hover={{
                   background:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                  "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   border: "none"
                 }}
                 w={{ md: "18rem", base: "14rem" }}>
@@ -675,7 +675,7 @@ const ClientHushhWallet = () => {
                   _hover={{
                     border: "1px solid white",
                     background:
-                    "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
+                    "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)"
                   }}
                   onClick={handleDownloadClick}>
                   
@@ -729,7 +729,7 @@ const ClientHushhWallet = () => {
               cursor={'pointer'}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() => window.open("https://bit.ly/hushh-app-ios", "_blank")}>
@@ -748,7 +748,7 @@ const ClientHushhWallet = () => {
               borderRadius={"80px"}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() => window.open("https://bit.ly/hushh-wallet-play-store", "_blank")}>

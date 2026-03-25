@@ -1,6 +1,6 @@
 # Hushh Website
 
-The website is a Next.js app with a shared site shell, marketing and product surfaces, developer flows, legal pages, and integration entrypoints.
+The website is a Next.js app with a shared site shell, marketing and product surfaces, developer flows, legal pages, and the active Hushh API plus Supabase integrations.
 
 ## Repository structure
 
@@ -34,7 +34,8 @@ BASE_URL=http://localhost:3001 npm run audit:shell
 - [Design system](docs/design-system/site-shell.md)
 - [Features](docs/features/agent-signin.md)
 - [Guides](docs/guides/hooks.md)
-- [Integrations](docs/integrations/a2a-website-integration.md)
+- [Integrations](docs/integrations/apple-signin-setup.md)
 - [Operations](docs/operations/api-verification.md)
-- [Runbooks](docs/runbooks/plaid-production-demo.md)
+- [Runbooks](docs/runbooks/)
+- [Timeout runbook](docs/operations/vercel-timeout.md)
 - [Support assets](support/)

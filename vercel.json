@@ -1,8 +1,0 @@
-{
-  "functions": {
-    "src/app/api/a2a/[agent]/route.js": {
-      "maxDuration": 60
-    }
-  }
-}
-

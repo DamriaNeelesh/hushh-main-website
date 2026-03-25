@@ -5,15 +5,16 @@ const BASE_URL = process.env.BASE_URL || "http://localhost:3001";
 const REDIRECTS = [
   { from: "/developerApi", to: "/developers" },
   { from: "/developerApi/on-boarding", to: "/developers/on-boarding" },
-  { from: "/developerApi/rootEndpoints", to: "/developers/rootEndpoints" },
+  { from: "/developerApi/rootEndpoints", to: "/developers/agentic-apis" },
   { from: "/developerApi/use-cases", to: "/developers/use-cases" },
   { from: "/developerApi/support", to: "/developers/support" },
   { from: "/developer-Api", to: "/developers" },
   { from: "/developer-Api/on-boarding", to: "/developers/on-boarding" },
-  { from: "/developer-Api/rootEndpoints", to: "/developers/rootEndpoints" },
+  { from: "/developer-Api/rootEndpoints", to: "/developers/agentic-apis" },
   { from: "/developer-Api/use-cases", to: "/developers/use-cases" },
   { from: "/developer-Api/support", to: "/developers/support" },
   { from: "/developer-Api/user-on-boarding", to: "/developers/user-on-boarding" },
+  { from: "/developers/rootEndpoints", to: "/developers/agentic-apis" },
   { from: "/getting-started", to: "/developers/getting-started" },
   { from: "/use-cases", to: "/developers/use-cases" },
   { from: "/data-resources", to: "/developers/data-resources" },
@@ -24,7 +25,6 @@ const REDIRECTS = [
 const MARKERS = [
   "data-site-header",
   "data-site-footer",
-  "data-site-bottom-bar",
   "data-site-shell-spacer",
 ];
 
@@ -132,14 +132,14 @@ async function main() {
 
     if (route.path === "/developers") {
       assert(
-        body.includes('href="/developers/getting-started"') ||
-          body.includes("href=\"/developers/getting-started\""),
-        `${url} must expose the canonical getting started route.`,
+        body.includes('href="/developers/agent-kai"') ||
+          body.includes("href=\"/developers/agent-kai\""),
+        `${url} must expose the Agent Kai API track.`,
       );
       assert(
-        body.includes('href="/developers/rootEndpoints"') ||
-          body.includes("href=\"/developers/rootEndpoints\""),
-        `${url} must expose the canonical API reference route.`,
+        body.includes('href="/developers/agentic-apis"') ||
+          body.includes("href=\"/developers/agentic-apis\""),
+        `${url} must expose the Agentic APIs track.`,
       );
       assert(
         body.includes('href="/developers/on-boarding"') ||

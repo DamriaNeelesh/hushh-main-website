@@ -143,7 +143,7 @@ const ClientHushhButton = () => {
               letterSpacing={{ md: "0.5rem", base: "0.1rem" }}
               _hover={{
                background:
-                 "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                 "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                border: "none",
               }}
               onClick={() =>
@@ -167,7 +167,7 @@ const ClientHushhButton = () => {
               color={extendedTheme.colors._white}
               fontSize={{ base: "0.75rem", md: "1rem" }}
               lineHeight={{ md: "28px", base: "14px" }}
-              background="linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
+              background="linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)"
               letterSpacing={{ md: "0.5rem", base: "0.1rem" }}
               _hover={{
                 background: "white",
@@ -199,7 +199,7 @@ const ClientHushhButton = () => {
             onClick={scrollTo}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             padding={"15px 68px 15px 68px"}>
@@ -226,7 +226,7 @@ const ClientHushhButton = () => {
             onClick={scrollInMobile}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             padding={"15px 68px 15px 68px"}>
@@ -341,7 +341,7 @@ const ClientHushhButton = () => {
               letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() =>
@@ -436,7 +436,7 @@ const ClientHushhButton = () => {
               letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() =>
@@ -492,12 +492,12 @@ const ClientHushhButton = () => {
             <Button
               pos={"relative"}
               border={"3px solid"}
-              borderLeftColor={"#E54D60"}
-              borderRightColor={"#A342FF"}
-              borderTopColor={"#E54D60"}
-              borderBottomColor={"#A342FF"}
-              borderEndColor={"#E54D60"}
-              borderStartColor={"#A342FF"}
+              borderLeftColor={"#8f8570"}
+              borderRightColor={"#b7a789"}
+              borderTopColor={"#8f8570"}
+              borderBottomColor={"#b7a789"}
+              borderEndColor={"#8f8570"}
+              borderStartColor={"#b7a789"}
               borderRadius={"2px"}
               w={"16rem"}
               h={"3.75rem"}
@@ -507,7 +507,7 @@ const ClientHushhButton = () => {
               letterSpacing={"0.5rem"}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 color: "white",
                 border: "none"
               }}
@@ -585,12 +585,12 @@ const ClientHushhButton = () => {
             <Button
               pos={"relative"}
               border={"2px solid"}
-              borderLeftColor={"#E54D60"}
-              borderRightColor={"#A342FF"}
-              borderTopColor={"#E54D60"}
-              borderBottomColor={"#A342FF"}
-              borderEndColor={"#E54D60"}
-              borderStartColor={"#A342FF"}
+              borderLeftColor={"#8f8570"}
+              borderRightColor={"#b7a789"}
+              borderTopColor={"#8f8570"}
+              borderBottomColor={"#b7a789"}
+              borderEndColor={"#8f8570"}
+              borderStartColor={"#b7a789"}
               borderRadius={"2px"}
               w={"8rem"}
               h={"2.25rem"}
@@ -601,7 +601,7 @@ const ClientHushhButton = () => {
               letterSpacing={"0.1rem"}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 color: "white",
                 border: "none"
               }}

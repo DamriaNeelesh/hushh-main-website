@@ -61,13 +61,13 @@ const HushhVoice = () => {
     _hover={{
       transform: "translateY(-5px)",
       boxShadow: "0 8px 25px rgba(0, 113, 227, 0.2)",
-      borderColor: "#0071E3"
+      borderColor: "#171b29"
     }}
     h="full">
     
       <VStack align="start" spacing={4}>
         <Box
-        bg="#0071E3"
+        bg="#171b29"
         borderRadius="12px"
         p={3}
         display="flex"
@@ -142,7 +142,7 @@ const HushhVoice = () => {
                 py={3}
                 borderRadius="full"
                 bg="rgba(0, 113, 227, 0.1)"
-                color="#0071E3"
+                color="#171b29"
                 fontFamily="Inter, sans-serif"
                 letterSpacing="wider"
                 textTransform="uppercase">
@@ -203,7 +203,7 @@ const HushhVoice = () => {
                 
                 <MotionButton
                   size="lg"
-                  bg="#0071E3"
+                  bg="#171b29"
                   color="white"
                   onClick={() => window.open("https://hushhvoice-2.onrender.com", "_blank")}
                   px={{ base: 8, md: 10 }}
@@ -233,7 +233,7 @@ const HushhVoice = () => {
                 {/* <MotionButton
                    size="lg"
                    bg="transparent"
-                   color="#0071E3"
+                   color="#171b29"
                    px={{ base: 8, md: 10 }}
                    py={{ base: 6, md: 6 }}
                    borderRadius="60px"
@@ -244,9 +244,9 @@ const HushhVoice = () => {
                    letterSpacing="-0.02em"
                    minW={{ base: "250px", md: "280px" }}
                    h={{ base: "50px", md: "60px" }}
-                   border="3px solid #0071E3"
+                   border="3px solid #171b29"
                    _hover={{
-                     bg: "#0071E3",
+                     bg: "#171b29",
                      color: "white",
                      transform: "translateY(-2px)",
                      boxShadow: "0 8px 25px rgba(0, 113, 227, 0.3)"
@@ -332,7 +332,7 @@ const HushhVoice = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  bg="#0071E3"
+                  bg="#171b29"
                   borderRadius="24px"
                   p={8}
                   h="full"
@@ -372,10 +372,10 @@ const HushhVoice = () => {
                   p={8}
                   h="full"
                   borderWidth="2px"
-                  borderColor="#0071E3">
+                  borderColor="#171b29">
                   
                   <VStack align="start" spacing={4}>
-                    <Icon as={FaApple} color="#0071E3" boxSize={12} />
+                    <Icon as={FaApple} color="#171b29" boxSize={12} />
                     <Text
                       fontSize={{ base: "28px", md: "32px" }}
                       fontWeight="bold"
@@ -391,7 +391,7 @@ const HushhVoice = () => {
                       lineHeight="1.6">
                       
                       Fully integrated with Siri. Just say:{" "}
-                      <Text as="span" fontWeight="600" color="#0071E3">
+                      <Text as="span" fontWeight="600" color="#171b29">
                         "Hey Siri, open HushhVoice"
                       </Text>
                       {" "}...and boom, your copilot's ready to go.
@@ -559,10 +559,10 @@ const HushhVoice = () => {
                   bg="rgba(59, 130, 246, 0.1)"
                   borderRadius="16px"
                   p={6}
-                  borderLeft="4px solid #0071E3">
+                  borderLeft="4px solid #171b29">
                   
                   <HStack spacing={4} align="start">
-                    <Icon as={FaEye} color="#0071E3" boxSize={6} />
+                    <Icon as={FaEye} color="#171b29" boxSize={6} />
                     <VStack align="start" spacing={2}>
                       <Text fontWeight="600" fontSize="18px" color="#000000" fontFamily="Inter, sans-serif">
                         Transparent Actions
@@ -641,7 +641,7 @@ const HushhVoice = () => {
                   lineHeight="1.8">
                   
                   HushhVoice connects securely to your personal sources like{" "}
-                  <Text as="span" fontWeight="600" color="#0071E3">
+                  <Text as="span" fontWeight="600" color="#171b29">
                     Gmail, Calendar, and Health
                   </Text>
                   .
@@ -660,7 +660,7 @@ const HushhVoice = () => {
                   lineHeight="1.8">
                   
                   It gathers insights, processes them through its{" "}
-                  <Text as="span" fontWeight="600" color="#0071E3">
+                  <Text as="span" fontWeight="600" color="#171b29">
                     private AI engine
                   </Text>
                   , and then helps you act — all while keeping your data locked under your control.
@@ -679,7 +679,7 @@ const HushhVoice = () => {
                 <Text
                   fontSize={{ base: "20px", md: "22px", lg: "24px" }}
                   fontWeight="600"
-                  color="#0071E3"
+                  color="#171b29"
                   fontFamily="Inter, sans-serif"
                   fontStyle="italic">
                   
@@ -777,7 +777,7 @@ const HushhVoice = () => {
 
       {/* CTA Section */}
       <Box
-        bg="#0071E3"
+        bg="#171b29"
         py={{ base: 16, md: 20, lg: 24 }}
         position="relative">
         
@@ -823,7 +823,7 @@ const HushhVoice = () => {
                 <Button
                   size="lg"
                   bg="white"
-                  color="#0071E3"
+                  color="#171b29"
                   onClick={() => window.open("https://hushhvoice-2.onrender.com/", "_blank")}
                   px={10}
                   py={6}
@@ -862,7 +862,7 @@ const HushhVoice = () => {
                    border="3px solid white"
                    _hover={{
                      bg: "white",
-                     color: "#0071E3",
+                     color: "#171b29",
                      transform: "translateY(-2px)",
                      boxShadow: "0 8px 25px rgba(0, 0, 0, 0.2)"
                    }}

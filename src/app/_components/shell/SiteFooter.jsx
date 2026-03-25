@@ -8,7 +8,7 @@ const footerSections = [
   {
     title: "Products",
     links: [
-      { label: "Agent.ai", href: "/agents" },
+      { label: "Agent Kai", href: "/products/kai" },
       { label: "Hushh Vault", href: "/hushh-vault" },
       { label: "Hushh Link", href: "/hushh-link" },
       { label: "Hushh Flow", href: "/products/hushh-flow" },
@@ -27,10 +27,11 @@ const footerSections = [
   {
     title: "Developers",
     links: [
-      { label: "Getting Started", href: "/developers/getting-started" },
-      { label: "API Reference", href: "/developers/rootEndpoints" },
-      { label: "Github Protocol", href: "https://github.com/hushh-labs", external: true },
-      { label: "Agentic CLI", href: "/agent-kit-cli" },
+      { label: "API Reference", href: "/developers" },
+      { label: "Agent Kai API", href: "/developers/agent-kai" },
+      { label: "Agentic APIs", href: "/developers/agentic-apis" },
+      { label: "Developer Console Setup", href: "/developers/on-boarding" },
+      { label: "Support", href: "/developers/support" },
     ],
   },
   {
@@ -74,19 +75,19 @@ export default function SiteFooter() {
   return (
     <footer
       data-site-footer
-      className="bg-offWhite border-t border-borderLight pt-20 px-6 md:px-12 pb-[calc(8.5rem+env(safe-area-inset-bottom))] mt-auto"
+      className="bg-offWhite border-t border-borderLight pt-20 px-6 md:px-12 pb-[calc(2.5rem+env(safe-area-inset-bottom))] mt-auto"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 items-start">
-        <div>
-          <div className="mb-5">
+        <div className="flex flex-col items-start lg:pr-8">
+          <div className="mb-4 -ml-3 flex h-[54px] w-[124px] items-center">
             <Image
               src={HushhNewLogo}
               alt="Hushh"
-              className="h-[72px] w-auto"
+              className="h-[54px] w-auto object-contain object-left"
               priority={false}
             />
           </div>
-          <p className="text-xs text-mutedSlate leading-relaxed max-w-[240px]">
+          <p className="pl-1 text-xs text-mutedSlate leading-relaxed max-w-[240px]">
             Securing the future of digital identity and personalized experiences through
             consent-first AI technology.
           </p>

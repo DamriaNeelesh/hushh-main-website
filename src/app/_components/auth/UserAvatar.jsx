@@ -158,7 +158,10 @@ const UserAvatar = () => {
   const textPrimary = useColorModeValue('#1D1D1F', '#F5F5F7');
   const textSecondary = useColorModeValue('#6E6E73', '#86868B');
   const itemHoverBg = useColorModeValue('rgba(0, 0, 0, 0.04)', 'rgba(255, 255, 255, 0.08)');
-  const avatarBg = useColorModeValue('linear-gradient(135deg, #007AFF, #5E5CE6)', 'linear-gradient(135deg, #007AFF, #5E5CE6)');
+  const avatarBg = useColorModeValue(
+    'linear-gradient(135deg, #171b29, #8f8570)',
+    'linear-gradient(135deg, #171b29, #8f8570)'
+  );
 
   const handleSignOut = async () => {
     try {

@@ -1,34 +1,24 @@
-# Agent API Proxy Pattern
+# Website Runtime Boundaries
 
 ## Purpose
-The website talks to external agents through server-side Next.js routes instead of direct browser calls.
+The website keeps only the integrations that are part of the current public product surface:
+- Hushh API reads for profile status
+- Supabase auth and data access
+- `/developers` runtime discovery for Kai and PKM
 
-## Why the proxy exists
-- Prevent CORS failures from browser-to-agent calls.
-- Keep agent URLs, secrets, and auth headers on the server.
-- Add a single place for logging, timeout policy, and request shaping.
-- Return upstream diagnostics without exposing the browser directly to third-party services.
+Detached route families such as A2A, WhatsApp relay flows, Plaid tooling pages, and Hushh Vani are intentionally out of scope.
 
-## Request flow
-```text
-Browser -> /api/a2a/[agent] -> Next.js route -> upstream agent service
-```
-
-The browser correctly sees requests against `https://www.hushh.ai/api/a2a/...`. The upstream agent URL is visible in the JSON response payload and server logs.
-
-## Core responsibilities of the route
-- Map an internal agent slug to an upstream URL.
-- Convert frontend input into the expected JSON-RPC or service-specific payload.
-- Apply timeout and abort handling.
-- Return `upstreamUrl`, `upstreamStatus`, and parsed response data for debugging.
+## Active boundaries
+- Browser code uses public Hushh API and public Supabase values only.
+- Server routes use the service-role key only for read-only profile checks and related website operations.
+- `/developers` renders runtime URLs for Kai, the REST base, and the MCP endpoint without embedding removed proxy contracts.
 
 ## Operational rules
-- Do not call agent services directly from client components.
-- Keep per-agent URL mapping and auth handling server-side.
-- Prefer explicit timeout handling for long-running agent requests.
-- Treat the proxy route as the public contract and the upstream as implementation detail.
+- Do not reintroduce browser-visible secrets or dead provider envs.
+- Keep the public website focused on canonical routes only: `/`, `/privacy`, `/terms`, `/developers`, auth/profile surfaces, and the kept product pages.
+- When a feature is removed from the public route tree, its env contract and docs should be removed in the same pass.
 
 ## Related docs
-- [A2A website integration](../integrations/a2a-website-integration.md)
+- [Developer sign-in and console flow](../features/agent-signin.md)
 - [API verification](../operations/api-verification.md)
 - [Vercel timeout handling](../operations/vercel-timeout.md)

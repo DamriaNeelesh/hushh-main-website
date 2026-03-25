@@ -108,7 +108,7 @@ const HushhGrid = () => {
                 <Text
                   fontSize={{ base: "24px", md: "32px", lg: "32px" }}
                   fontWeight="bold"
-                  bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) 0%, hsla(275, 96%, 69%, 1) 25%, hsla(354, 88%, 61%, 1) 50%, hsla(13, 91%, 55%, 1) 100%)"
+                  bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
                   bgClip="text"
                   letterSpacing="-0.02em"
                   fontFamily="Inter, sans-serif"
@@ -160,7 +160,7 @@ const HushhGrid = () => {
                     onClick={() => {
                       router.push("https://github.com/hushh-labs/consent-protocol", target = "_blank");
                     }}
-                    bg="#0071E3"
+                    bg="#171b29"
                     color="white"
                     px={{ base: 8, md: 10 }}
                     py={{ base: 6, md: 6 }}
@@ -189,7 +189,7 @@ const HushhGrid = () => {
                   <MotionButton
                     size="lg"
                     bg="transparent"
-                    color="#0071E3"
+                    color="#171b29"
                     px={{ base: 8, md: 12 }}
                     py={{ base: 6, md: 8 }}
                     borderRadius="60px"
@@ -199,9 +199,9 @@ const HushhGrid = () => {
                     letterSpacing="-0.02em"
                     minW={{ base: "250px", md: "300px" }}
                     h={{ base: "50px", md: "70px" }}
-                    border="3px solid #0071E3"
+                    border="3px solid #171b29"
                     _hover={{
-                      bg: "#0071E3",
+                      bg: "#171b29",
                       color: "white",
                       transform: "translateY(-2px)",
                       boxShadow: "0 8px 25px rgba(0, 113, 227, 0.3)"
@@ -281,7 +281,7 @@ const HushhGrid = () => {
                       <Box
                         w="30px"
                         h="30px"
-                        // bg="#0071E3"
+                        // bg="#171b29"
                         // borderRadius="50%"
                         display="flex"
                         alignItems="center"
@@ -307,7 +307,7 @@ const HushhGrid = () => {
                       <Box
                         w="30px"
                         h="30px"
-                        // bg="#0071E3"
+                        // bg="#171b29"
                         // borderRadius="50%"
                         display="flex"
                         alignItems="center"
@@ -333,7 +333,7 @@ const HushhGrid = () => {
                       <Box
                         w="30px"
                         h="30px"
-                        // bg="#0071E3"
+                        // bg="#171b29"
                         // borderRadius="50%"
                         display="flex"
                         alignItems="center"
@@ -359,7 +359,7 @@ const HushhGrid = () => {
                       <Box
                         w="30px"
                         h="30px"
-                        // bg="#0071E3"
+                        // bg="#171b29"
                         // borderRadius="50%"
                         display="flex"
                         alignItems="center"

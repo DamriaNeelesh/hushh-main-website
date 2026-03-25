@@ -82,7 +82,7 @@ const HushhLabsHome = () => {
               <Text 
                 fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
                 fontWeight="bold"
-                bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) 0%, hsla(275, 96%, 69%, 1) 25%, hsla(354, 88%, 61%, 1) 50%, hsla(13, 91%, 55%, 1) 100%)"
+                bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
                 bgClip="text"
                 letterSpacing="-0.02em"
                 fontFamily="Inter, sans-serif"
@@ -148,7 +148,7 @@ const HushhLabsHome = () => {
                 <Link href="/labs/career">
                   <Button
                     size="lg"
-                    bg="#0071E3"
+                    bg="#171b29"
                     color="white"
                     px={{ base: 6, md: 10 }}
                     py={{ base: 4, md: 6 }}
@@ -511,7 +511,7 @@ const HushhLabsHome = () => {
                 <Box px={{ base: 2, md: 0 }} w="full" display="flex" justifyContent="center">
                   <Link href="/labs/career">
                     <Button
-                      bg="#0071E3"
+                      bg="#171b29"
                       color="white"
                       px={{ base: 4, sm: 6, md: 10 }}
                       py={{ base: 3, sm: 4, md: 6 }}

@@ -28,7 +28,7 @@ import CollegeStudentImg from "../_components/svg/collegeStudentImg.svg";
 import { useState, useEffect } from "react";
 
 const ClientHFS = () => {
-  const _gradient = "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)";
+  const _gradient = "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)";
   const router = useRouter();
   const [_loading, setLoading] = useState(true);
 
@@ -89,7 +89,7 @@ const ClientHFS = () => {
           <Text
             fontSize={{ base: "18px", md: "24px" }}
             fontWeight="bold"
-            bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) 0%, hsla(275, 96%, 69%, 1) 25%, hsla(354, 88%, 61%, 1) 50%, hsla(13, 91%, 55%, 1) 100%)"
+            bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
             bgClip="text"
             letterSpacing="-0.02em"
             fontFamily="Inter, sans-serif"

@@ -134,7 +134,7 @@ export default function VivaConnectShowcasePage() {
                       w={"50%"}
                       gap={{ md: "1rem", base: "0.5rem" }}
                       _hover={{
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #8f8570 8.81%, #b7a789 94.26%)",
                         color: "white",
                         border: "none",
                       }}
@@ -150,7 +150,7 @@ export default function VivaConnectShowcasePage() {
                       w={"50%"}
                       gap={{ md: "1rem", base: "0.5rem" }}
                       _hover={{
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #8f8570 8.81%, #b7a789 94.26%)",
                         color: "white",
                         border: "none",
                       }}
@@ -170,7 +170,7 @@ export default function VivaConnectShowcasePage() {
                       w={"50%"}
                       gap={{ md: "1rem", base: "0.5rem" }}
                       _hover={{
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #8f8570 8.81%, #b7a789 94.26%)",
                         color: "white",
                         border: "none",
                       }}
@@ -189,7 +189,7 @@ export default function VivaConnectShowcasePage() {
                       w={"50%"}
                       gap={{ md: "1rem", base: "0.5rem" }}
                       _hover={{
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #8f8570 8.81%, #b7a789 94.26%)",
                         color: "white",
                         border: "none",
                       }}
@@ -245,7 +245,7 @@ export default function VivaConnectShowcasePage() {
                       gap={{ md: "1rem", base: "0.5rem" }}
                       border={"1px solid #606060"}
                       _hover={{
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #8f8570 8.81%, #b7a789 94.26%)",
                         border: "none",
                         color: "white",
                       }}
@@ -305,7 +305,7 @@ export default function VivaConnectShowcasePage() {
                     <Button
                       gap={{ md: "1rem", base: "0.5rem" }}
                       _hover={{
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #8f8570 8.81%, #b7a789 94.26%)",
                         color: "white",
                       }}
                       flex={1}
@@ -318,7 +318,7 @@ export default function VivaConnectShowcasePage() {
                     {/* <Button
                       gap={{ md: "1rem", base: "0.5rem" }}
                       _hover={{
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #8f8570 8.81%, #b7a789 94.26%)",
                         color: "white",
                       }}
                       flex={1}
@@ -371,7 +371,7 @@ export default function VivaConnectShowcasePage() {
                      <Button
                       gap={{ md: "1rem", base: "0.5rem" }}
                       _hover={{
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #8f8570 8.81%, #b7a789 94.26%)",
                         color: "white",
                       }}
                       flex={1}
@@ -384,7 +384,7 @@ export default function VivaConnectShowcasePage() {
                     {/* <Button
                       gap={{ md: "1rem", base: "0.5rem" }}
                       _hover={{
-                        bg: "linear-gradient(265.3deg, #e54d60 8.81%, #a342ff 94.26%)",
+                        bg: "linear-gradient(265.3deg, #8f8570 8.81%, #b7a789 94.26%)",
                         color: "white",
                       }}
                       flex={1}
@@ -427,7 +427,7 @@ export default function VivaConnectShowcasePage() {
                   color="white"
                   _hover={{
                     color: "white",
-                    bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                    bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   }}
                   bg={"black"}
                   onClick={() =>
@@ -442,7 +442,7 @@ export default function VivaConnectShowcasePage() {
                   color="white"
                   _hover={{
                     color: "white",
-                    bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                    bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   }}
                   bg={"black"}
                   onClick={() =>
@@ -496,7 +496,7 @@ export default function VivaConnectShowcasePage() {
                   color="white"
                   _hover={{
                     color: "white",
-                    bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                    bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   }}
                   bg={"black"}
                   w={{ base: "100%", md: "auto" }}
@@ -508,7 +508,7 @@ export default function VivaConnectShowcasePage() {
                   color="white"
                   _hover={{
                     color: "white",
-                    bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                    bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   }}
                   bg={"black"}
                   w={{ base: "100%", md: "auto" }}

@@ -109,7 +109,7 @@ const HushhLink = () => {
                 <Text
                   fontSize={{ base: "24px", md: "32px", lg: "32px" }}
                   fontWeight="bold"
-                  bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) 0%, hsla(275, 96%, 69%, 1) 25%, hsla(354, 88%, 61%, 1) 50%, hsla(13, 91%, 55%, 1) 100%)"
+                  bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
                   bgClip="text"
                   letterSpacing="-0.02em"
                   fontFamily="Inter, sans-serif"
@@ -224,7 +224,7 @@ const HushhLink = () => {
                   <Text
                     fontSize={{ base: "16px", md: "20px", lg: "22px", xl: "24px", "2xl": "26px" }}
                     fontWeight="bold"
-                    bgGradient="linear(89.44deg, #0071E3 0.06%, #BB62FC 16.84%, #DA4B7A 39.50%, #F44F22 58.23%)"
+                    bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
                     bgClip="text"
 
                     // whiteSpace="nowrap"
@@ -663,7 +663,7 @@ const HushhLink = () => {
                   
                   Link Components
                 </Text>
-                <Box w="60px" h="2px" bg="linear-gradient(90deg, #007AFF, #34C759)" mx="auto" borderRadius="1px" />
+                <Box w="60px" h="2px" bg="linear-gradient(90deg, #171b29, #34C759)" mx="auto" borderRadius="1px" />
               </MotionBox>
 
               {/* Component-Functionality Pairs */}
@@ -1009,7 +1009,7 @@ const HushhLink = () => {
                   as="h2"
                   fontSize={{ base: "3xl", md: "4xl", lg: "5xl", xl: "6xl" }}
                   fontWeight="bold"
-                  color="#0071E3"
+                  color="#171b29"
                   lineHeight="shorter"
                   letterSpacing="tight"
                   fontFamily="Inter, sans-serif">
@@ -1289,7 +1289,7 @@ const HushhLink = () => {
                   
                   Real World Examples
                 </Text>
-                <Box w="80px" h="2px" bg="linear-gradient(90deg, #007AFF, #5856D6)" mx="auto" borderRadius="1px" />
+                <Box w="80px" h="2px" bg="linear-gradient(90deg, #171b29, #8f8570)" mx="auto" borderRadius="1px" />
               </MotionBox>
 
               {/* Mobile Use Case Cards */}
@@ -1509,7 +1509,7 @@ const HushhLink = () => {
                     mt={3}>
                     
                     <Box
-                      bg="#007AFF"
+                      bg="#171b29"
                       borderRadius="14px"
                       px={6}
                       py={3}
@@ -1790,7 +1790,7 @@ const HushhLink = () => {
                     
                     <MotionButton
                       size="lg"
-                      bg="#0071E3"
+                      bg="#171b29"
                       color="white"
                       px={{ base: "24px", md: "28px", lg: "32px" }}
                       py={{ base: "12px", md: "14px", lg: "16px" }}
@@ -1821,7 +1821,7 @@ const HushhLink = () => {
                     {/* <MotionButton
                        size="lg"
                        bg="transparent"
-                       color="#0071E3"
+                       color="#171b29"
                        px={{ base: "24px", md: "28px", lg: "32px" }}
                        py={{ base: "12px", md: "14px", lg: "16px" }}
                        borderRadius="full"
@@ -1830,9 +1830,9 @@ const HushhLink = () => {
                        fontFamily="Inter, sans-serif"
                        h={{ base: "44px", md: "48px", lg: "52px" }}
                        minW={{ base: "180px", md: "200px", lg: "220px" }}
-                       border="2px solid #0071E3"
+                       border="2px solid #171b29"
                        _hover={{
-                         bg: "#0071E3",
+                         bg: "#171b29",
                          color: "white",
                          transform: "translateY(-1px)",
                          boxShadow: "0 4px 12px rgba(0, 113, 227, 0.3)"

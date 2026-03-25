@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense, useEffect } from "react";
 import {
   Box,
   Button,
@@ -8,8 +9,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import DeveloperBg from "../../_components/svg/developerApi/developerApiLoginBg.svg";
 import BgLeftCircle from "../../_components/svg/developerApi/developerLoginLCircle.svg";
 import BgRightCircle from "../../_components/svg/developerApi/developerLoginRCircle.svg";
@@ -23,7 +23,7 @@ import MFAVerificationModal from "../../_components/auth/MFAVerificationModal";
 import authentication from "../../../lib/auth/authentication";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
 
-export default function LoginPage() {
+function DeveloperLoginPageContent() {
   const {
     isAuthenticated,
     loading: authLoading,
@@ -36,9 +36,11 @@ export default function LoginPage() {
     completeMFAVerification,
   } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const toast = useToast();
-  const oauthReturnPath = "/developers/login";
   const onboardingPath = "/developers/on-boarding";
+  const redirectTarget = searchParams.get("redirect") || onboardingPath;
+  const oauthReturnPath = redirectTarget;
 
   useEffect(() => {
     if (
@@ -48,7 +50,7 @@ export default function LoginPage() {
       !mfaRequired &&
       !mfaEnrollmentNeeded
     ) {
-      router.replace(onboardingPath);
+      router.replace(redirectTarget);
     }
   }, [
     isAuthenticated,
@@ -57,7 +59,7 @@ export default function LoginPage() {
     mfaRequired,
     mfaEnrollmentNeeded,
     router,
-    onboardingPath,
+    redirectTarget,
   ]);
 
   const handleGoogleLogin = async () => {
@@ -136,7 +138,8 @@ export default function LoginPage() {
               w={{ md: "lg", base: "100%" }}
               minH={"25rem"}
               borderRadius={"1.61rem"}
-              background={"#1E1E1E"}
+              background={"rgba(23, 27, 41, 0.95)"}
+              border={"1px solid rgba(255, 255, 255, 0.08)"}
               p={{ md: "2.68rem", base: "1.34rem" }}
               textAlign={"center"}
               display={"flex"}
@@ -170,7 +173,7 @@ export default function LoginPage() {
             _hover={{
               color: "white",
               background:
-                "linear-gradient(270.53deg, #E54D60 2.44%, #A342FF 97.51%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
             }}
           >
             <Image src={GoogelIcon} alt="GoogelIcon" />
@@ -192,7 +195,7 @@ export default function LoginPage() {
             _hover={{
               color: "white",
               background:
-                "linear-gradient(270.53deg, #E54D60 2.44%, #A342FF 97.51%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
             }}
           >
             <Image src={AppleIcon} alt="AppleIcon" />
@@ -215,10 +218,14 @@ export default function LoginPage() {
 
           <Button
             style={{ borderRadius: "3.35rem" }}
-            onClick={() => router.push('/developers/on-boarding')}
+            onClick={() => router.push(redirectTarget)}
             w={"100%"}
-            background="linear-gradient(270.53deg, #E54D60 2.44%, #A342FF 97.51%)"
+            background="linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)"
             mb={{ md: "1.25rem", base: "0.75rem" }}
+            color="white"
+            _hover={{
+              opacity: 0.94,
+            }}
           >
             Get Started
           </Button>
@@ -298,5 +305,13 @@ export default function LoginPage() {
         }}
       />
     </ContentWrapper>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <DeveloperLoginPageContent />
+    </Suspense>
   );
 }

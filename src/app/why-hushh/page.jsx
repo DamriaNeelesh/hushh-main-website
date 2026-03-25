@@ -20,7 +20,7 @@ export default function WhyHushhPage() {
               fontSize={{ base: "lg", md: "2xl", lg: "2xl" }}
               fontWeight="700"
               textAlign="center"
-              bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+              bgGradient="linear(to-r, #171b29, #8f8570, #b7a789)"
               bgClip="text"
               letterSpacing="-0.02em"
               fontFamily="Inter, sans-serif"
@@ -190,7 +190,7 @@ export default function WhyHushhPage() {
           {/* Blue Highlighted Statement */}
           <Text
             fontSize={{ base: "18px", md: "20px", lg: "22px" }}
-            color="#0071E3"
+            color="#8f8570"
             fontFamily="Inter, sans-serif"
             lineHeight={1.6}
             letterSpacing="-0.01em"
@@ -288,7 +288,7 @@ export default function WhyHushhPage() {
           {/* Blue Highlighted Paragraph */}
           <Text
             fontSize={{ base: "18px", md: "20px", lg: "22px" }}
-            color="#0071E3"
+            color="#8f8570"
             fontFamily="Inter, sans-serif"
             lineHeight={1.6}
             letterSpacing="-0.01em"
@@ -304,8 +304,8 @@ export default function WhyHushhPage() {
           <Button
             size="lg"
             bg="transparent"
-            color="#0071E3"
-            border="2px solid #0071E3"
+            color="#171b29"
+            border="2px solid #171b29"
             borderRadius="full"
             px={{ base: 6, md: 8 }}
             py={{ base: 4, md: 5 }}
@@ -316,13 +316,13 @@ export default function WhyHushhPage() {
             fontWeight="500"
             fontFamily="Inter, sans-serif"
             _hover={{ 
-              bg: "#0071E3", 
+              bg: "#171b29", 
               color: "white",
               transform: "translateY(-1px)",
-              boxShadow: "0 10px 25px rgba(0, 113, 227, 0.3)"
+              boxShadow: "0 10px 25px rgba(23, 27, 41, 0.18)"
             }}
             _active={{ 
-              bg: "#005bb5",
+              bg: "#0a1128",
               transform: "translateY(0px)"
             }}
             transition="all 0.2s ease"
@@ -423,7 +423,7 @@ export default function WhyHushhPage() {
             {/* Blue Highlighted Statement */}
             <Text
               fontSize={{ base: "18px", md: "20px", lg: "22px" }}
-              color="#0071E3"
+              color="#8f8570"
               fontFamily="Inter, sans-serif"
               lineHeight={1.6}
               letterSpacing="-0.01em"
@@ -438,7 +438,7 @@ export default function WhyHushhPage() {
             {/* CTA Button */}
             <Button
               size="lg"
-              bg="#0071E3"
+              bg="#171b29"
               color="white"
               borderRadius="full"
               px={{ base: 6, md: 8 }}
@@ -450,12 +450,12 @@ export default function WhyHushhPage() {
                 router.push("/consent-ai-protocol");
               }}
               _hover={{ 
-                bg: "#005bb5",
+                bg: "#0a1128",
                 transform: "translateY(-1px)",
-                boxShadow: "0 10px 25px rgba(0, 113, 227, 0.4)"
+                boxShadow: "0 10px 25px rgba(23, 27, 41, 0.24)"
               }}
               _active={{ 
-                bg: "#004494",
+                bg: "#070d1c",
                 transform: "translateY(0px)"
               }}
               transition="all 0.2s ease"

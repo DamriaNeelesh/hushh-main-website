@@ -227,8 +227,8 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
         overflow="hidden"
         my="auto">
         
-                <ModalHeader
-          bg="linear-gradient(135deg, #0071E3 0%, #BB62FC 100%)"
+        <ModalHeader
+          bg="linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)"
           color="white"
           py={4}
           fontSize="xl"
@@ -242,7 +242,7 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                 <ModalBody py={4} px={5}>
                     {isEnrolling ?
           <VStack spacing={4} py={8}>
-                            <Spinner size="lg" color="#0071E3" thickness="3px" />
+                            <Spinner size="lg" color="#171b29" thickness="3px" />
                             <Text color="#6e6e73" fontSize="sm">
                                 Setting up...
                             </Text>
@@ -256,7 +256,7 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                   w="24px"
                   h="24px"
                   borderRadius="full"
-                  bg={step >= 1 ? "#0071E3" : "#e5e5ea"}
+                  bg={step >= 1 ? "#171b29" : "#e5e5ea"}
                   color="white"
                   display="flex"
                   alignItems="center"
@@ -268,13 +268,13 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                                     </Box>
                                     <Text color="#1d1d1f" fontWeight={600} fontSize="xs">Scan</Text>
                                 </HStack>
-                                <Box w="20px" h="1px" bg={step >= 2 ? "#0071E3" : "#e5e5ea"} />
+                                <Box w="20px" h="1px" bg={step >= 2 ? "#171b29" : "#e5e5ea"} />
                                 <HStack spacing={1}>
                                     <Box
                   w="24px"
                   h="24px"
                   borderRadius="full"
-                  bg={step >= 2 ? "#0071E3" : "#e5e5ea"}
+                  bg={step >= 2 ? "#171b29" : "#e5e5ea"}
                   color="white"
                   display="flex"
                   alignItems="center"
@@ -381,13 +381,13 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                                     <Button
                 w="full"
                 h="44px"
-                bg="#0071E3"
+                bg="#171b29"
                 color="white"
                 fontSize="sm"
                 fontWeight={600}
                 borderRadius="lg"
-                _hover={{ bg: "#0051B3" }}
-                _active={{ bg: "#003D8F" }}
+                _hover={{ bg: "#0a1128" }}
+                _active={{ bg: "#070d1c" }}
                 onClick={() => setStep(2)}
                 mt={1}
                 isDisabled={!hasSavedKey}>
@@ -433,8 +433,8 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                     w="40px"
                     h="48px"
                     _focus={{
-                      borderColor: "#0071E3",
-                      boxShadow: "0 0 0 3px rgba(0, 113, 227, 0.1)"
+                      borderColor: "#171b29",
+                      boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)"
                     }} />
                   
                                             <PinInputField
@@ -448,8 +448,8 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                     w="40px"
                     h="48px"
                     _focus={{
-                      borderColor: "#0071E3",
-                      boxShadow: "0 0 0 3px rgba(0, 113, 227, 0.1)"
+                      borderColor: "#171b29",
+                      boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)"
                     }} />
                   
                                             <PinInputField
@@ -463,8 +463,8 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                     w="40px"
                     h="48px"
                     _focus={{
-                      borderColor: "#0071E3",
-                      boxShadow: "0 0 0 3px rgba(0, 113, 227, 0.1)"
+                      borderColor: "#171b29",
+                      boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)"
                     }} />
                   
                                             <PinInputField
@@ -478,8 +478,8 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                     w="40px"
                     h="48px"
                     _focus={{
-                      borderColor: "#0071E3",
-                      boxShadow: "0 0 0 3px rgba(0, 113, 227, 0.1)"
+                      borderColor: "#171b29",
+                      boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)"
                     }} />
                   
                                             <PinInputField
@@ -493,8 +493,8 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                     w="40px"
                     h="48px"
                     _focus={{
-                      borderColor: "#0071E3",
-                      boxShadow: "0 0 0 3px rgba(0, 113, 227, 0.1)"
+                      borderColor: "#171b29",
+                      boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)"
                     }} />
                   
                                             <PinInputField
@@ -508,8 +508,8 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                     w="40px"
                     h="48px"
                     _focus={{
-                      borderColor: "#0071E3",
-                      boxShadow: "0 0 0 3px rgba(0, 113, 227, 0.1)"
+                      borderColor: "#171b29",
+                      boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)"
                     }} />
                   
                                         </PinInput>
@@ -533,13 +533,13 @@ const MFAEnrollmentModal = ({ isOpen, onClose, onSuccess }) => {
                                         <Button
                   flex={2}
                   h="44px"
-                  bg="#0071E3"
+                  bg="#171b29"
                   color="white"
                   fontSize="sm"
                   fontWeight={600}
                   borderRadius="lg"
-                  _hover={{ bg: "#0051B3" }}
-                  _active={{ bg: "#003D8F" }}
+                  _hover={{ bg: "#0a1128" }}
+                  _active={{ bg: "#070d1c" }}
                   onClick={() => handleVerifyOTP(otp)}
                   isLoading={isLoading}
                   loadingText="Verifying..."

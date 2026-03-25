@@ -224,7 +224,7 @@ const HushhPDA = () => {
     <div className="relative w-full overflow-hidden bg-white text-[#111827]">
       <style jsx>{`
         .brand-gradient {
-          background: linear-gradient(90deg, #0056d2 0%, #d42880 100%);
+          background: linear-gradient(90deg, #171b29 0%, #8f8570 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -232,7 +232,7 @@ const HushhPDA = () => {
         }
 
         .text-gradient-brand {
-          background: linear-gradient(90deg, #0056d2 0%, #d42880 100%);
+          background: linear-gradient(90deg, #171b29 0%, #8f8570 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -338,7 +338,7 @@ const HushhPDA = () => {
 
             <a
               href="#get-in-touch"
-              className="mt-8 inline-flex h-[56px] w-full max-w-[370px] items-center justify-center rounded-full bg-[#0071E3] px-8 text-lg font-semibold text-white shadow-[0_14px_28px_-10px_rgba(0,113,227,0.6)] transition hover:bg-[#005BB5] xl:max-w-[320px]"
+              className="mt-8 inline-flex h-[56px] w-full max-w-[370px] items-center justify-center rounded-full bg-[#171b29] px-8 text-lg font-semibold text-white shadow-[0_14px_28px_-10px_rgba(0,113,227,0.6)] transition hover:bg-[#0f1422] xl:max-w-[320px]"
             >
               Get Early Access
             </a>
@@ -502,7 +502,7 @@ const HushhPDA = () => {
               <div className="mb-2 grid grid-cols-[1fr_24px_1.4fr] items-center gap-3 px-2 md:grid-cols-[1fr_36px_1fr] md:gap-4">
                 <div className="pl-3 text-[11px] font-extrabold uppercase tracking-[0.1em] text-gray-400">Now</div>
                 <div />
-                <div className="pl-3.5 text-[11px] font-extrabold uppercase tracking-[0.1em] text-[#0071E3]">Future</div>
+                <div className="pl-3.5 text-[11px] font-extrabold uppercase tracking-[0.1em] text-[#171b29]">Future</div>
               </div>
 
               {nowVsFuture.map((item, index) => {
@@ -585,7 +585,7 @@ const HushhPDA = () => {
           <div className="mt-10 flex justify-center">
             <a
               href="#get-in-touch"
-              className="inline-flex h-12 min-w-[180px] items-center justify-center rounded-full bg-[#0071E3] px-7 text-base font-semibold text-white transition hover:bg-[#005BB5]"
+              className="inline-flex h-12 min-w-[180px] items-center justify-center rounded-full bg-[#171b29] px-7 text-base font-semibold text-white transition hover:bg-[#0f1422]"
             >
               Continue
             </a>
@@ -666,7 +666,7 @@ const HushhPDA = () => {
                 <div className="mt-8 pb-1">
                   <a
                     href="/developers"
-                    className="inline-flex h-[54px] w-full items-center justify-center rounded-full bg-[#0071E3] px-8 text-[17px] font-semibold text-white shadow-[0_12px_24px_-8px_rgba(0,113,227,0.45)] transition hover:bg-[#005BB5] md:mx-auto md:max-w-[360px] lg:mx-0"
+                    className="inline-flex h-[54px] w-full items-center justify-center rounded-full bg-[#171b29] px-8 text-[17px] font-semibold text-white shadow-[0_12px_24px_-8px_rgba(0,113,227,0.45)] transition hover:bg-[#0f1422] md:mx-auto md:max-w-[360px] lg:mx-0"
                   >
                     Launch Your Agent
                   </a>

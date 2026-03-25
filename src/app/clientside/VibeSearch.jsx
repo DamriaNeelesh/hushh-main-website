@@ -30,7 +30,7 @@ import "next-cloudinary/dist/cld-video-player.css";
 // );
 
 const ClientVibeSearch = () => {
-  const gradient = "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)";
+  const gradient = "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)";
   const _router = useRouter();
 
   const scrollTo = () => {
@@ -138,7 +138,7 @@ const ClientVibeSearch = () => {
             letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             onClick={() =>
@@ -169,7 +169,7 @@ const ClientVibeSearch = () => {
             onClick={scrollTo}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             padding={"15px 68px 15px 68px"}>
@@ -195,7 +195,7 @@ const ClientVibeSearch = () => {
             letterSpacing={"0.29rem"}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             padding={"15px 68px 15px 68px"}>
@@ -326,7 +326,7 @@ const ClientVibeSearch = () => {
               p={"1rem 2rem"}
               _hover={{
                 color: "white",
-                bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() =>
@@ -426,7 +426,7 @@ const ClientVibeSearch = () => {
               letterSpacing={"0.4rem"}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() =>
@@ -500,7 +500,7 @@ const ClientVibeSearch = () => {
               letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
               _hover={{
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                 border: "none"
               }}
               onClick={() =>

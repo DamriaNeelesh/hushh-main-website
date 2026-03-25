@@ -1,15 +1,5 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import CustomPre from "../../app/_components/developerApiContent/CustomPre";
-import ApiSection from "../../app/_components/developerApiContent/apiTester";
-import DocsHero from "../../app/_components/developerApiContent/docsHero";
-import GenerateApiKey from "../../app/_components/developerApiContent/generateApiKey";
-import InteractiveEndpoint from "../../app/_components/developerApiContent/InteractiveEndpoint";
-import Onboarding from "../../app/_components/developerApiContent/onboarding";
-import ProfileSetup from "../../app/_components/developerApiContent/profileSetup";
-import SessionToken from "../../app/_components/developerApiContent/sessionToken";
-import StepProcess from "../../app/_components/developerApiContent/StepProcess";
-import TryItOut from "../../app/_components/developerApiContent/tryItOut";
 import Callout from "../../app/_components/developerDocs/Callout";
 import Steps from "../../app/_components/developerDocs/Steps";
 
@@ -47,17 +37,13 @@ export const developerDocComponents = {
   th: (props: any) => <th className="developer-docs-th" {...props} />,
   td: (props: any) => <td className="developer-docs-td" {...props} />,
   a: SmartLink,
-  pre: CustomPre,
+  pre: (props: any) => (
+    <pre
+      className="overflow-x-auto rounded-[20px] bg-[rgba(15,23,42,0.95)] px-5 py-4 text-[13px] leading-6 text-white"
+      {...props}
+    />
+  ),
   code: (props: any) => <code className="developer-docs-inline-code" {...props} />,
   Callout,
   Steps,
-  ApiSection,
-  DocsHero,
-  GenerateApiKey,
-  InteractiveEndpoint,
-  Onboarding,
-  ProfileSetup,
-  SessionToken,
-  StepProcess,
-  TryItOut,
 };

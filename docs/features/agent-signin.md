@@ -1,30 +1,21 @@
-# Agent Sign-In
+# Developer Console Sign-In
 
 ## Scope
-The agent sign-in flow collects user details, queries the supported profile agents, and presents merged results in a guided flow.
+The active developer sign-in flow lives under `/developers/login` and uses the same shared site shell as the rest of the website.
 
 ## Current shape
-- route: `/agent-sign-in`
-- main orchestrator: `AgentSignInClient.jsx`
-- stages:
-  - user details form
-  - analysis loader
-  - result display
-  - source comparison
-
-## Current supported agents
-- Brand agent
-- Hushh agent
-- Public data agent
-
-The older WhatsApp and Email calls were removed from the sign-in analysis path to keep the flow focused on profile retrieval and to reduce latency.
+- route: `/developers/login`
+- auth stack: Supabase OAuth
+- primary outcomes:
+  - authenticate the user
+  - move the user into developer setup
+  - keep developer identity consistent before consent requests are created in Kai
 
 ## Key implementation notes
-- Validate email, full name, and phone input before dispatch.
-- Use the website proxy routes for all agent calls.
-- Keep progress indicators aligned to the active set of agents.
-- Parse agent responses from JSON-RPC structures and nested artifact/message payloads.
+- There is no active NextAuth route in the current website contract.
+- Google and Apple continue through the Supabase-based auth flow.
+- The developer surface should stay aligned to the runtime values exposed on `/developers`.
 
 ## Maintenance notes
-- Treat this as a feature doc, not a temporary fix log.
-- Keep any future agent additions reflected here and in the UI comparison layer.
+- Keep the developer login route discoverable from the `/developers` hub and doc pages.
+- If the auth provider surface changes, update this document and the live verification checklist together.

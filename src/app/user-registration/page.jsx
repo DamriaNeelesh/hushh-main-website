@@ -484,7 +484,7 @@ const UserRegistrationContent = () => {
         justifyContent="center">
         
         <VStack spacing={4}>
-          <Spinner size="xl" color="blue.500" />
+          <Spinner size="xl" color="#171b29" />
           <Text fontSize="lg" color="gray.600">
             {isProcessingAuth ? "Processing authentication..." : "Loading your account..."}
           </Text>
@@ -494,10 +494,10 @@ const UserRegistrationContent = () => {
   }
 
   return (
-    <ContentWrapper includeHeaderSpacing={true}>
+    <ContentWrapper includeHeaderSpacing={true} surface="muted" className="site-auth-frame">
       <Box
         minH="100vh"
-        bg="gray.50"
+        bg="transparent"
         py={{ base: 8, md: 12 }}
         px={{ base: 4, md: 8 }}>
         
@@ -510,9 +510,10 @@ const UserRegistrationContent = () => {
           {/* Header */}
           <MotionCard
               variants={childVariants}
-              bg="white"
-              boxShadow="lg"
-              borderRadius="xl"
+              bg="linear-gradient(180deg, #ffffff 0%, #faf8f4 100%)"
+              boxShadow="0 18px 44px rgba(10, 17, 40, 0.08)"
+              borderRadius="2xl"
+              border="1px solid rgba(23, 27, 41, 0.08)"
               p={{ base: 6, md: 8 }}
               mb={8}>
               
@@ -520,7 +521,7 @@ const UserRegistrationContent = () => {
               <Box
                   w="80px"
                   h="80px"
-                  bg="blue.500"
+                  bg="#171b29"
                   borderRadius="full"
                   display="flex"
                   alignItems="center"
@@ -543,13 +544,13 @@ const UserRegistrationContent = () => {
                 </Text>
               </VStack>
               {isCheckingUser &&
-                <Badge colorScheme="blue" size="lg" borderRadius="full">
+                <Badge bg="rgba(23, 27, 41, 0.08)" color="#171b29" size="lg" borderRadius="full">
                   <Spinner size="sm" mr={2} />
                   Checking user status...
                 </Badge>
                 }
               {!isCheckingUser &&
-                <Badge colorScheme="purple" size="lg" borderRadius="full">
+                <Badge bg="rgba(143, 133, 112, 0.14)" color="#8f8570" size="lg" borderRadius="full">
                   <Icon as={FiUser} mr={1} />
                   New User Registration
                 </Badge>
@@ -561,8 +562,9 @@ const UserRegistrationContent = () => {
           <MotionCard
               variants={childVariants}
               bg="white"
-              boxShadow="lg"
-              borderRadius="xl"
+              boxShadow="0 18px 44px rgba(10, 17, 40, 0.08)"
+              borderRadius="2xl"
+              border="1px solid rgba(23, 27, 41, 0.08)"
               overflow="hidden">
               
             <CardBody p={{ base: 6, md: 8 }}>
@@ -592,7 +594,7 @@ const UserRegistrationContent = () => {
                         border="1px"
                         borderColor="gray.200"
                         _hover={{ borderColor: "gray.300" }}
-                        _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}>
+                        _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }}>
                         
                       <option value="Individual Investor">Individual Investor</option>
                       <option value="Institutional / Corporate Investor">Institutional / Corporate Investor</option>
@@ -616,7 +618,7 @@ const UserRegistrationContent = () => {
                             border="1px"
                             borderColor="gray.200"
                             _hover={{ borderColor: "gray.300" }}
-                            _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }} />
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
                           
                         <FormErrorMessage>{errors.firstName}</FormErrorMessage>
                       </FormControl>
@@ -635,7 +637,7 @@ const UserRegistrationContent = () => {
                             border="1px"
                             borderColor="gray.200"
                             _hover={{ borderColor: "gray.300" }}
-                            _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }} />
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
                           
                         <FormErrorMessage>{errors.lastName}</FormErrorMessage>
                       </FormControl>
@@ -659,7 +661,7 @@ const UserRegistrationContent = () => {
                             border="1px"
                             borderColor="gray.200"
                             _hover={{ borderColor: "gray.300" }}
-                            _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }} />
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
                           
                       </FormControl>
                     </GridItem>
@@ -678,7 +680,7 @@ const UserRegistrationContent = () => {
                             border="1px"
                             borderColor="gray.200"
                             _hover={{ borderColor: "gray.300" }}
-                            _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }} />
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
                           
                         <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage>
                       </FormControl>
@@ -707,7 +709,7 @@ const UserRegistrationContent = () => {
                             border="1px"
                             borderColor="gray.200"
                             _hover={{ borderColor: "gray.300" }}
-                            _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}>
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }}>
                             
                           <option value="male">Male</option>
                           <option value="female">Female</option>
@@ -731,7 +733,7 @@ const UserRegistrationContent = () => {
                             border="1px"
                             borderColor="gray.200"
                             _hover={{ borderColor: "gray.300" }}
-                            _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }} />
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
                           
                         <FormErrorMessage>{errors.country}</FormErrorMessage>
                       </FormControl>
@@ -750,7 +752,7 @@ const UserRegistrationContent = () => {
                             border="1px"
                             borderColor="gray.200"
                             _hover={{ borderColor: "gray.300" }}
-                            _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }} />
+                            _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
                           
                         <FormErrorMessage>{errors.city}</FormErrorMessage>
                       </FormControl>
@@ -771,7 +773,7 @@ const UserRegistrationContent = () => {
                         border="1px"
                         borderColor="gray.200"
                         _hover={{ borderColor: "gray.300" }}
-                        _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }} />
+                        _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
                       
                     <FormErrorMessage>{errors.dateOfBirth}</FormErrorMessage>
                   </FormControl>
@@ -790,7 +792,7 @@ const UserRegistrationContent = () => {
                         border="1px"
                         borderColor="gray.200"
                         _hover={{ borderColor: "gray.300" }}
-                        _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px #3182CE" }}
+                        _focus={{ borderColor: "#171b29", boxShadow: "0 0 0 3px rgba(23, 27, 41, 0.12)" }}
                         rows={4} />
                       
                     <FormErrorMessage>{errors.reasonForUsingHushh}</FormErrorMessage>
@@ -799,7 +801,8 @@ const UserRegistrationContent = () => {
                   {/* Submit Button */}
                   <Button
                       type="submit"
-                      colorScheme="blue"
+                      bg="#171b29"
+                      color="white"
                       size="lg"
                       fontSize="md"
                       fontWeight="600"
@@ -809,8 +812,9 @@ const UserRegistrationContent = () => {
                       isLoading={isLoading}
                       loadingText="Completing Registration..."
                       _hover={{
+                        bg: "#0a1128",
                         transform: "translateY(-2px)",
-                        boxShadow: "lg"
+                        boxShadow: "0 18px 34px rgba(10, 17, 40, 0.18)"
                       }}
                       _active={{
                         transform: "translateY(0)"
@@ -831,20 +835,21 @@ const UserRegistrationContent = () => {
               mt={8}
               py={6}
               px={4}
-              bg="white"
-              borderRadius="xl"
-              boxShadow="md">
+              bg="linear-gradient(180deg, #ffffff 0%, #faf8f4 100%)"
+              borderRadius="2xl"
+              boxShadow="0 16px 38px rgba(10, 17, 40, 0.08)"
+              border="1px solid rgba(23, 27, 41, 0.08)">
               
             <Text fontSize="sm" color="gray.600">
               By completing your profile, you agree to our{" "}
               <Link href="/terms">
-                <Text as="span" color="blue.500" fontWeight="600" _hover={{ textDecoration: "underline" }}>
+                <Text as="span" color="#171b29" fontWeight="600" _hover={{ color: "#8f8570", textDecoration: "underline" }}>
                   Terms of Service
                 </Text>
               </Link>
               {" "}and{" "}
               <Link href="/privacy">
-                <Text as="span" color="blue.500" fontWeight="600" _hover={{ textDecoration: "underline" }}>
+                <Text as="span" color="#171b29" fontWeight="600" _hover={{ color: "#8f8570", textDecoration: "underline" }}>
                   Privacy Policy
                 </Text>
               </Link>
@@ -869,7 +874,7 @@ const UserRegistration = () => {
       justifyContent="center">
       
         <VStack spacing={4}>
-          <Spinner size="xl" color="blue.500" />
+          <Spinner size="xl" color="#171b29" />
           <Text fontSize="lg" color="gray.600">
             Loading registration form...
           </Text>

@@ -118,7 +118,7 @@ const PrivacyPolicy = () => {
               
               <Text
                 fontSize={{ base: "18px", md: "20px", lg: "22px" }}
-                color="#0071E3"
+                color="#171b29"
                 fontFamily="Inter, sans-serif"
                 lineHeight={1.6}
                 letterSpacing="-0.01em"
@@ -275,7 +275,7 @@ const PrivacyPolicy = () => {
               <VStack spacing={{ base: 2, md: 3 }} align="start" pl={{ base: 4, md: 6 }}>
                 <Text
                   fontSize={{ base: "16px", md: "18px", lg: "20px" }}
-                  color="#0071E3"
+                  color="#171b29"
                   fontFamily="Inter, sans-serif"
                   lineHeight={1.6}
                   letterSpacing="-0.01em"

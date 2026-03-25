@@ -28,7 +28,7 @@ import "next-cloudinary/dist/cld-video-player.css";
 // );
 
 const ClientHushhValetChat = () => {
-  const gradient = "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)";
+  const gradient = "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)";
   const router = useRouter();
   const [_loading, setLoading] = useState(true);
 
@@ -134,7 +134,7 @@ const ClientHushhValetChat = () => {
             letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
             _hover={{
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
               border: "none"
             }}
             onClick={learnMoreScroll}>
@@ -164,7 +164,7 @@ const ClientHushhValetChat = () => {
             _hover={{
               border: "none",
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)"
             }}
             padding={"15px 68px 15px 68px"}>
             
@@ -190,7 +190,7 @@ const ClientHushhValetChat = () => {
             _hover={{
               border: "none",
               background:
-              "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
+              "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)"
             }}
             padding={"15px 68px 15px 68px"}>
             
@@ -321,7 +321,7 @@ const ClientHushhValetChat = () => {
               _hover={{
                 border: "none",
                 color: "white",
-                bg: "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
+                bg: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)"
               }}
               onClick={() =>
               router.push(
@@ -420,7 +420,7 @@ const ClientHushhValetChat = () => {
               _hover={{
                 border: "none",
                 background:
-                "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)"
+                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)"
               }}
               onClick={() =>
               router.push(

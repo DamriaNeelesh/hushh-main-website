@@ -46,8 +46,8 @@ export const AuthProvider = ({ children }) => {
     return () => subscription?.unsubscribe();
   }, []);
 
-  const signIn = async (callback) => {
-    return await authentication.googleSignIn(callback);
+  const signIn = async (callback, customRedirectPath) => {
+    return await authentication.googleSignIn(callback, customRedirectPath);
   };
 
   const signOut = async () => {

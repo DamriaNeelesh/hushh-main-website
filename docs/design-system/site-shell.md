@@ -8,7 +8,6 @@ Shared shell primitives:
 - fixed header
 - page spacer below the fixed chrome
 - shared footer
-- floating bottom bar
 - common safe-area and bottom-reserve behavior
 - reusable page-frame tokens for shared spacing, surfaces, and typography rhythm
 
@@ -24,7 +23,6 @@ Shared shell primitives:
 - Standard routes render exactly one:
   - `data-site-header`
   - `data-site-footer`
-  - `data-site-bottom-bar`
   - `data-site-shell-spacer`
 - Hidden-chrome routes remain opt-out only when the shell blocks the primary route purpose.
 
@@ -33,6 +31,9 @@ Shared shell primitives:
 - Standardize shell styling through shared wrappers, not route-local tweaks.
 - Use the same logo treatment, neutral surface palette, serif/sans contrast, and spacing rhythm established by the home page.
 - Keep home-only section rules scoped to the home page so they do not leak into other route families.
+
+## Current note
+- The floating bottom bar is intentionally hidden right now. Footer spacing still owns the bottom safe-area behavior.
 
 ## Verification
 - `npm run audit:shell`

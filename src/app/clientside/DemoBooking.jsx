@@ -172,7 +172,7 @@ const ClientDemoBooking = () => {
               display={{ md: "none", base: "block" }}>
               
               Explore Hushh in{" "}
-              <span className="bg-gradient-to-r from-purple-600 to-red-600 text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-[#171b29] via-[#8f8570] to-[#b7a789] text-transparent bg-clip-text">
                 {" "}
                 Action
               </span>
@@ -378,7 +378,7 @@ const ClientDemoBooking = () => {
                 color={"#FFFFFF"}
                 _hover={{
                   background:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                  "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   color: "#FFFFFF"
                 }}>
                 
@@ -398,7 +398,7 @@ const ClientDemoBooking = () => {
                   <span
                   style={{
                     background:
-                    "linear-gradient(269.19deg, #E54D60 47%, #A342FF 98.76%)",
+                    "linear-gradient(269.19deg, #8f8570 47%, #b7a789 98.76%)",
                     color: "transparent",
                     backgroundClip: "text"
                   }}>
@@ -442,7 +442,7 @@ const ClientDemoBooking = () => {
                 letterSpacing={{ md: "0.5rem", base: "0.25rem" }}
                 _hover={{
                   background:
-                  "linear-gradient(265.3deg, #E54D60 8.81%, #A342FF 94.26%)",
+                  "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
                   color: "white"
                 }}
                 cursor={"pointer"}
@@ -466,7 +466,7 @@ const ClientDemoBooking = () => {
           mt={{ md: "8rem", base: "3rem" }}>
           
           <Text
-            className="bg-gradient-to-r from-red-600 to-purple-600 text-transparent bg-clip-text"
+            className="bg-gradient-to-r from-[#171b29] via-[#8f8570] to-[#b7a789] text-transparent bg-clip-text"
             fontWeight={500}
             letterSpacing={"0.04rem"}
             fontSize={{ base: "1rem", md: "1.25rem" }}

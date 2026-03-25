@@ -36,6 +36,7 @@ const AppleSignInButton = ({
   isDisabled = false,
   onSuccess = null,
   onError = null,
+  redirectPath = "/",
   variant = "default", // "default", "minimal", "icon-only"
   size = "lg",
   fullWidth = true
@@ -66,9 +67,10 @@ const AppleSignInButton = ({
       });
 
       // Determine redirect URL based on environment
+      const encodedRedirect = encodeURIComponent(redirectPath || "/");
       const redirectTo = typeof window !== 'undefined' ?
-      `${window.location.origin}/login/callback` :
-      "https://www.hushh.ai/login/callback";
+      `${window.location.origin}/login/callback?redirect=${encodedRedirect}` :
+      `https://www.hushh.ai/login/callback?redirect=${encodedRedirect}`;
 
       console.log('Using redirect URL:', redirectTo);
 

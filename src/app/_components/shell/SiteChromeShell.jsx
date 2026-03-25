@@ -4,7 +4,6 @@ import FundingBanner from "../features/FundingBanner";
 import HeaderComponent from "../features/HeaderComponent";
 import { useBannerHeight } from "../../context/BannerHeightContext";
 import SiteFooter from "./SiteFooter";
-import SiteBottomBar from "./SiteBottomBar";
 import { normalizeChromePath, shouldHideChrome } from "./chromeConfig";
 
 export default function SiteChromeShell({ children, pathname = "/" }) {
@@ -38,7 +37,6 @@ export default function SiteChromeShell({ children, pathname = "/" }) {
         </div>
         <SiteFooter />
       </div>
-      <SiteBottomBar />
     </div>
   );
 }

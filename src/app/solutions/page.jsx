@@ -18,7 +18,7 @@ const SolutionsPage = () => {
                 fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
                 fontWeight="700"
                 textAlign="center"
-                bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+                bgGradient="linear(to-r, #171b29, #8f8570, #b7a789)"
                 bgClip="text"
                 letterSpacing="-0.02em"
                 fontFamily="Inter, sans-serif"
@@ -43,7 +43,7 @@ const SolutionsPage = () => {
                 Enterprise Grade
                 <br />
                 Solutions for a{" "}
-                <Text as="span" bgGradient="linear(to-r, #0071E3, #BB62FC)" bgClip="text">
+                <Text as="span" bgGradient="linear(to-r, #171b29, #8f8570)" bgClip="text">
                   Connected Future
                 </Text>
               </Heading>
@@ -328,7 +328,7 @@ const SolutionsPage = () => {
                       as="h3" 
                       fontSize={{ base: "24px", md: "28px" }}
                       fontWeight="bold"
-                      bgGradient="linear(to-r, #0071E3, #BB62FC)"
+                      bgGradient="linear(to-r, #171b29, #8f8570)"
                       bgClip="text"
                       fontFamily="Inter, sans-serif"
                     >
@@ -418,7 +418,7 @@ const SolutionsPage = () => {
                       as="h3" 
                       fontSize={{ base: "24px", md: "28px" }}
                       fontWeight="bold"
-                      bgGradient="linear(to-r, #0071E3, #BB62FC)"
+                      bgGradient="linear(to-r, #171b29, #8f8570)"
                       bgClip="text"
                       fontFamily="Inter, sans-serif"
                     >
@@ -508,7 +508,7 @@ const SolutionsPage = () => {
                       as="h3" 
                       fontSize={{ base: "24px", md: "28px" }}
                       fontWeight="bold"
-                      bgGradient="linear(to-r, #0071E3, #BB62FC)"
+                      bgGradient="linear(to-r, #171b29, #8f8570)"
                       bgClip="text"
                       fontFamily="Inter, sans-serif"
                     >
@@ -641,7 +641,7 @@ const SolutionsPage = () => {
                     <Box
                       w="6px"
                       h="6px"
-                      bg="#0071E3"
+                      bg="#8f8570"
                       borderRadius="50%"
                       mt="10px"
                       flexShrink={0}
@@ -664,7 +664,7 @@ const SolutionsPage = () => {
                     <Box
                       w="6px"
                       h="6px"
-                      bg="#0071E3"
+                      bg="#8f8570"
                       borderRadius="50%"
                       mt="10px"
                       flexShrink={0}
@@ -687,7 +687,7 @@ const SolutionsPage = () => {
                     <Box
                       w="6px"
                       h="6px"
-                      bg="#0071E3"
+                      bg="#8f8570"
                       borderRadius="50%"
                       mt="10px"
                       flexShrink={0}
@@ -712,7 +712,7 @@ const SolutionsPage = () => {
                     <Box
                       w="6px"
                       h="6px"
-                      bg="#0071E3"
+                      bg="#8f8570"
                       borderRadius="50%"
                       mt="10px"
                       flexShrink={0}
@@ -735,7 +735,7 @@ const SolutionsPage = () => {
                     <Box
                       w="6px"
                       h="6px"
-                      bg="#0071E3"
+                      bg="#8f8570"
                       borderRadius="50%"
                       mt="10px"
                       flexShrink={0}
@@ -802,7 +802,7 @@ const SolutionsPage = () => {
               
               <Button
                 size="lg"
-                bg="#0071E3"
+                bg="#171b29"
                 color="white"
                 borderRadius="full"
                 onClick={() => window.open("/contact-us", "_blank")}
@@ -812,9 +812,9 @@ const SolutionsPage = () => {
                 fontWeight="500"
                 fontFamily="Inter, sans-serif"
                 _hover={{
-                  bg: "#0056B3",
+                  bg: "#0a1128",
                   transform: "translateY(-2px)",
-                  boxShadow: "0 8px 25px rgba(0, 113, 227, 0.3)"
+                  boxShadow: "0 8px 25px rgba(23, 27, 41, 0.2)"
                 }}
                 _active={{
                   transform: "translateY(0)"

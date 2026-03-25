@@ -127,7 +127,7 @@ const LoginPageContent = () => {
 
     setIsSigningIn(true);
     try {
-      await signIn();
+      await signIn(null, redirectTo);
       // The OAuth process will redirect to Google, and success will be handled when user returns
     } catch (error) {
       console.error('Error signing in:', error);
@@ -160,7 +160,7 @@ const LoginPageContent = () => {
               border="3px solid transparent"
               borderRadius="50%"
               sx={{
-                background: "linear-gradient(45deg, #0071E3, #BB62FC, #F34556, #F44F22) border-box",
+                background: "linear-gradient(45deg, #171b29, #8f8570, #b7a789, #171b29) border-box",
                 mask: "linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)",
                 maskComposite: "exclude"
               }}
@@ -175,7 +175,7 @@ const LoginPageContent = () => {
               h="60px"
               borderRadius="50%"
               sx={{
-                background: "linear-gradient(45deg, #0071E3, #BB62FC, #F34556, #F44F22)"
+                background: "linear-gradient(45deg, #171b29, #8f8570, #b7a789, #171b29)"
               }}
               animation={`${pulse} 2s ease-in-out infinite`} />
             
@@ -209,13 +209,13 @@ const LoginPageContent = () => {
   }
 
   return (
-    <ContentWrapper includeHeaderSpacing={true}>
+    <ContentWrapper includeHeaderSpacing={true} surface="muted" className="site-auth-frame">
       <Box
       // minH="100vh"
       position="relative"
       overflow="hidden"
       sx={{
-        background: "#ffffff"
+        background: "transparent"
       }}>
         
         {/* Minimal background for light theme intentionally left clean */}
@@ -243,15 +243,15 @@ const LoginPageContent = () => {
               cursor="pointer"
               onClick={() => router.push('/')}
               _hover={{
-                color: "#000000"
+                color: "#171b29"
               }}
               transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
               mb={10}
               alignSelf={{ base: "center", lg: "flex-start" }}
               p={0}>
               
-              <ArrowBackIcon color="#6e6e73" />
-              <Text color="#6e6e73" fontSize="sm" fontWeight={500}>
+              <ArrowBackIcon color="#5f5f5f" />
+              <Text color="#5f5f5f" fontSize="sm" fontWeight={500}>
                 Back to Home
               </Text>
             </HStack>
@@ -271,37 +271,6 @@ const LoginPageContent = () => {
                     alt="Hushh Logo"
                     w="64px"
                     h="64px" />
-                  
-
-                  {/* <VStack spacing={2} align={{ base: "center", lg: "flex-start" }}>
-                    <Text
-                     fontSize={{ base: "5xl", md: "6xl", lg: "7xl" }}
-                     fontFamily="Inter"
-                     fontWeight={900}
-                     letterSpacing="-0.03em"
-                     lineHeight="0.85"
-                     sx={{
-                       background: "linear-gradient(135deg, #0071E3 0%, #BB62FC 30%, #F34556 70%, #F44F22 100%)",
-                       backgroundSize: "300% 300%",
-                       webkitBackgroundClip: "text",
-                       backgroundClip: "text",
-                       webkitTextFillColor: "transparent",
-                       color: "transparent",
-                     }}
-                     animation={`${gradientShift} 6s ease infinite`}
-                    >
-                     Hushh
-                    </Text>
-                    <Text
-                     fontSize={{ base: "sm", md: "md", lg: "lg" }}
-                     color="rgba(255, 255, 255, 0.6)"
-                     fontWeight={600}
-                     letterSpacing="3px"
-                     textTransform="uppercase"
-                    >
-                     Personal Data Agent
-                    </Text>
-                    </VStack> */}
                 </HStack>
 
                 <VStack spacing={6} maxW="550px" align={{ base: "center", lg: "flex-start" }}>
@@ -500,6 +469,7 @@ const LoginPageContent = () => {
                   {/* Apple Sign In Button */}
                   <AppleSignInButton
                     isDisabled={isSigningIn}
+                    redirectPath={redirectTo}
                     onSuccess={(data) => {
                       console.log('Apple Sign-In Success:', data);
                       toast({
@@ -589,10 +559,10 @@ const LoginPageContent = () => {
                   <Link href="/terms">
                     <Text
                       as="span"
-                      color="#06c"
+                      color="#171b29"
                       textDecoration="underline"
                       fontWeight={600}
-                      _hover={{ color: "#0040aa" }}
+                      _hover={{ color: "#8f8570" }}
                       transition="color 0.2s ease">
                       
                       Terms of Service
@@ -602,10 +572,10 @@ const LoginPageContent = () => {
                   <Link href="/privacy">
                     <Text
                       as="span"
-                      color="#06c"
+                      color="#171b29"
                       textDecoration="underline"
                       fontWeight={600}
-                      _hover={{ color: "#0040aa" }}
+                      _hover={{ color: "#8f8570" }}
                       transition="color 0.2s ease">
                       
                       Privacy Policy

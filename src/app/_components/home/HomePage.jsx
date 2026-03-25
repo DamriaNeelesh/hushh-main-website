@@ -61,9 +61,9 @@ const featureCards = [
 
 const productCards = [
   {
-    title: "Hushh Agent",
-    description: "Your intelligent companion. Acts with context and absolute user consent.",
-    href: "/agents",
+    title: "Agent Kai",
+    description: "Explainable investing with consented PKM context and transparent committee-style reasoning.",
+    href: "/products/kai",
     background: "/figma-assets/personal-agent-interface-luxury.svg",
     overlay: "/figma-assets/overlay-agent-5.svg",
     icon: Bot,

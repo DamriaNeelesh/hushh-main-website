@@ -19,22 +19,13 @@ const requiredFiles = [
   "docs/architecture/agent-api-proxy-pattern.md",
   "docs/design-system/site-shell.md",
   "docs/features/agent-signin.md",
-  "docs/features/hushh-vani.md",
   "docs/features/site-search.md",
   "docs/guides/hooks.md",
-  "docs/integrations/a2a-website-integration.md",
   "docs/integrations/apple-signin-setup.md",
   "docs/integrations/email-api.md",
-  "docs/integrations/whatsapp-graph-api.md",
   "docs/operations/api-verification.md",
   "docs/operations/vercel-timeout.md",
-  "docs/runbooks/plaid-production-demo.md",
-  "support/postman/agents-collection.postman_collection.json",
-  "support/postman/brand-agent.postman_collection.json",
-  "support/postman/hushh-agent.postman_collection.json",
   "support/postman/hushh-email-integration.postman_collection.json",
-  "support/postman/hushh-public-data-agent.postman_collection.json",
-  "support/postman/hushh-whatsapp-integration.postman_collection.json",
   "support/prompts/agent-queries.txt",
   "support/prompts/hushh-and-brand-agent-queries.txt",
   "support/prompts/legacy-searchbar-snippet.txt",
@@ -80,6 +71,15 @@ const deletedLegacyDocs = [
   "contentlayer.config.js",
   "mdx-components.js",
   ".eslintrc.json",
+  "docs/features/hushh-vani.md",
+  "docs/integrations/a2a-website-integration.md",
+  "docs/integrations/whatsapp-graph-api.md",
+  "docs/runbooks/plaid-production-demo.md",
+  "support/postman/agents-collection.postman_collection.json",
+  "support/postman/brand-agent.postman_collection.json",
+  "support/postman/hushh-agent.postman_collection.json",
+  "support/postman/hushh-public-data-agent.postman_collection.json",
+  "support/postman/hushh-whatsapp-integration.postman_collection.json",
 ];
 
 const allowedRootFiles = [
@@ -107,6 +107,9 @@ const allowedRootFiles = [
 ];
 
 const ignoredGeneratedRootFiles = [
+  ".env.local",
+  ".env.development.local",
+  ".env.production.local",
   "tsconfig.tsbuildinfo",
 ];
 

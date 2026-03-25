@@ -26,8 +26,13 @@ const FACEBOOK_WHATSAPP_URL = 'https://graph.facebook.com/v22.0/829639396896769/
 // Timeout for agent API calls (50 seconds to leave buffer for Vercel)
 const AGENT_TIMEOUT = 50000;
 
-export async function POST(req, { params }) {
-  const agent = params?.agent?.toLowerCase();
+async function resolveAgent(context) {
+  const params = await Promise.resolve(context?.params);
+  return params?.agent?.toLowerCase();
+}
+
+export async function POST(req, context) {
+  const agent = await resolveAgent(context);
 
   try {
     let upstream = AGENT_URLS[agent];
@@ -179,4 +184,3 @@ export async function POST(req, { params }) {
     }, { status: 500 });
   }
 }
-

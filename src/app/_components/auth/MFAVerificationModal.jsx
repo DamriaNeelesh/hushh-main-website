@@ -140,7 +140,7 @@ const MFAVerificationModal = ({ isOpen, onClose, onSuccess, factorId, challengeI
         my="auto">
         
                 <ModalHeader
-          bg="linear-gradient(135deg, #0071E3 0%, #5E5CE6 100%)"
+          bg="linear-gradient(135deg, #171b29 0%, #8f8570 100%)"
           color="white"
           py={4}
           fontSize="lg"
@@ -186,12 +186,12 @@ const MFAVerificationModal = ({ isOpen, onClose, onSuccess, factorId, challengeI
                   onComplete={handleVerifyOTP}
                   isInvalid={!!error}>
                   
-                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#0071E3", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(0, 113, 227, 0.1)" }} />
-                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#0071E3", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(0, 113, 227, 0.1)" }} />
-                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#0071E3", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(0, 113, 227, 0.1)" }} />
-                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#0071E3", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(0, 113, 227, 0.1)" }} />
-                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#0071E3", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(0, 113, 227, 0.1)" }} />
-                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#0071E3", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(0, 113, 227, 0.1)" }} />
+                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#171b29", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
+                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#171b29", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
+                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#171b29", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
+                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#171b29", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
+                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#171b29", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
+                                    <PinInputField bg="#f5f5f7" border="2px solid" borderColor={error ? "#FF3B30" : "#e5e5ea"} borderRadius="lg" fontSize="lg" fontWeight={700} color="#1d1d1f" w="40px" h="48px" _focus={{ borderColor: error ? "#FF3B30" : "#171b29", boxShadow: error ? "0 0 0 3px rgba(255, 59, 48, 0.1)" : "0 0 0 3px rgba(23, 27, 41, 0.12)" }} />
                                 </PinInput>
                             </HStack>
 
@@ -212,13 +212,13 @@ const MFAVerificationModal = ({ isOpen, onClose, onSuccess, factorId, challengeI
                                 <Button
                   w="full"
                   h="44px"
-                  bg="#0071E3"
+                  bg="#171b29"
                   color="white"
                   fontSize="sm"
                   fontWeight={600}
                   borderRadius="lg"
-                  _hover={{ bg: "#0051B3" }}
-                  _active={{ bg: "#003D8F" }}
+                  _hover={{ bg: "#0a1128" }}
+                  _active={{ bg: "#070d1c" }}
                   onClick={handleVerifyOTP}
                   isLoading={isLoading}
                   loadingText="Verifying..."

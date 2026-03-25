@@ -6,7 +6,6 @@ import hushhLogo from "../_components/svg/hushhCommunity/Fill5.svg";
 import ContactForm from "../_components/features/contactForm";
 import DisconnectedLux from "../_components/svg/hushhCommunity/discoveryLuxury.svg";
 import LinkedIn from "../_components/svg/hushhCommunity/linkedIn.svg";
-import WhatsApp from "../_components/svg/hushhCommunity/whatsapp.svg";
 import Discord from "../_components/svg/hushhCommunity/discord.svg";
 import AboutFaq from "../_components/features/faq/aboutFaq";
 import HeaderBG from "../_components/svg/hushhCommunity/headerBG.svg";
@@ -49,7 +48,7 @@ const HushhCommunity = () => {
             <Text
               fontSize={{ base: "1rem", md: "1.25rem" }}
               fontWeight={"700"}
-              bgGradient="linear(90deg, hsla(210, 100%, 45%, 1) 0%, hsla(275, 96%, 69%, 1) 25%, hsla(354, 88%, 61%, 1) 50%, hsla(13, 91%, 55%, 1) 100%)"
+              bgGradient="linear(90deg, #171b29 0%, #8f8570 55%, #b7a789 100%)"
               bgClip="text"
               letterSpacing={"-0.02em"}
               mb={{ base: 2, md: 3 }}
@@ -381,8 +380,9 @@ const HushhCommunity = () => {
           </Text>
           <HStack
             mt={{ md: "1.5rem", base: "0.75rem" }}
-            gap={{ md: "9rem", base: "1.5rem" }}
+            gap={{ md: "6rem", base: "1.5rem" }}
             zIndex={4}
+            flexWrap={{ base: "wrap", md: "nowrap" }}
           >
             <VStack
               mt={{ md: "0.25rem" }}
@@ -405,43 +405,12 @@ const HushhCommunity = () => {
                   window.open("https://discord.gg/8Xyf84kdF9", "_blank")
                 }
                 bg="#ffffff"
-                color="#0071E3"
-                border="2px solid #0071E3"
+                color="#171b29"
+                border="2px solid #171b29"
                 borderRadius="60px"
                 fontWeight={"500"}
                 fontSize={{ md: "1rem", base: "0.65rem" }}
-                _hover={{ bg: "#0071E3", color: "white" }}
-              >
-                Join Now
-              </Button>
-            </VStack>
-            <VStack gap={{ md: "1.25rem", base: "0.75rem" }}>
-              <Image
-                src={WhatsApp}
-                alt="WhatsApp Channel of Hushh community"
-                title="Hushh Community WhatsApp Channel"
-              />
-              <Text
-                color={"#1d1d1f"}
-                fontWeight={"600"}
-                fontSize={{ md: "1.25rem", base: "0.85rem" }}
-              >
-                WHATSAPP
-              </Text>
-              <Button
-                onClick={() =>
-                  window.open(
-                    "https://chat.whatsapp.com/CTa7ULornjfHEzVyvNN9gB",
-                    "_blank"
-                  )
-                }
-                bg="#ffffff"
-                color="#0071E3"
-                border="2px solid #0071E3"
-                borderRadius="60px"
-                fontWeight={"500"}
-                fontSize={{ md: "1rem", base: "0.65rem" }}
-                _hover={{ bg: "#0071E3", color: "white" }}
+                _hover={{ bg: "#171b29", color: "white" }}
               >
                 Join Now
               </Button>
@@ -467,12 +436,12 @@ const HushhCommunity = () => {
                   )
                 }
                 bg="#ffffff"
-                color="#0071E3"
-                border="2px solid #0071E3"
+                color="#171b29"
+                border="2px solid #171b29"
                 borderRadius="60px"
                 fontWeight={"500"}
                 fontSize={{ md: "1rem", base: "0.65rem" }}
-                _hover={{ bg: "#0071E3", color: "white" }}
+                _hover={{ bg: "#171b29", color: "white" }}
               >
                 Join Now
               </Button>
