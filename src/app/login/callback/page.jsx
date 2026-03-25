@@ -11,8 +11,6 @@ import {
   Icon } from
 '@chakra-ui/react';
 import { keyframes } from '@emotion/react';
-import authConfig from '../../../lib/config/authConfig.js';
-import dataConfig from '../../../lib/config/config.js';
 
 // Animation keyframes
 const _fadeIn = keyframes`
@@ -41,176 +39,34 @@ const AppleIcon = (props) =>
 
 
 const AppleCallbackContent = () => {
-  const [status, setStatus] = useState('processing'); // 'processing', 'success', 'error'
-  const [_message, setMessage] = useState('Processing Apple authentication...');
+  const [status, setStatus] = useState('processing');
+  const [_message, setMessage] = useState('Redirecting to sign in...');
   const [errorDetails, setErrorDetails] = useState(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const toast = useToast();
+  const _toast = useToast();
 
   useEffect(() => {
-    const handleAppleCallback = async () => {
-      try {
-        console.log('Apple callback received, processing...');
+    const redirectTo = searchParams.get('redirect') || '/login';
+    const error = searchParams.get('error');
+    const errorDescription = searchParams.get('error_description');
 
-        // Get the current URL with all parameters
-        const currentUrl = window.location.href;
-        console.log('Callback URL:', currentUrl);
-
-        // Check for error in URL parameters
-        const error = searchParams.get('error');
-        const errorDescription = searchParams.get('error_description');
-
-        if (error) {
-          console.error('Apple OAuth Error:', error, errorDescription);
-          setStatus('error');
-          setMessage('Apple authentication failed');
-          setErrorDetails({
-            error,
-            description: errorDescription || 'Authentication was declined or failed'
-          });
-
-          // toast({
-          //   title: "Apple Sign-In Failed",
-          //   description: errorDescription || "Authentication was declined or failed",
-          //   status: "error",
-          //   duration: 5000,
-          //   isClosable: true,
-          //   position: "top",
-          // });
-
-          return;
-        }
-
-        // Check for authorization code
-        const code = searchParams.get('code');
-        const _state = searchParams.get('state');
-
-        if (!code) {
-          console.error('No authorization code received from Apple');
-          setStatus('error');
-          setMessage('No authorization code received');
-          setErrorDetails({
-            error: 'missing_code',
-            description: 'No authorization code was provided by Apple'
-          });
-
-          // toast({
-          //   title: "Authentication Error",
-          //   description: "No authorization code received from Apple",
-          //   status: "error",
-          //   duration: 5000,
-          //   isClosable: true,
-          //   position: "top",
-          // });
-
-          return;
-        }
-
-        console.log('Authorization code received, processing...');
-        // Skip loading message for faster UX
-
-        // Create Supabase client
-        const supabase = authConfig.supabaseClient;
-        const dataSupabase = dataConfig.supabaseClient;
-
-        // Exchange the authorization code for a session using Supabase Auth
-        const { data, error: callbackError } = await supabase.auth.exchangeCodeForSession(code);
-
-        if (callbackError) {
-          console.error('Apple callback processing error:', callbackError);
-          setStatus('error');
-          setMessage('Failed to process Apple authentication');
-          setErrorDetails({
-            error: 'callback_processing_failed',
-            description: callbackError.message || 'Failed to process the authentication callback'
-          });
-
-          toast({
-            title: "Authentication Processing Failed",
-            description: callbackError.message || "Failed to process Apple authentication",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-            position: "bottom"
-          });
-
-          return;
-        }
-
-        console.log('Apple authentication successful:', data);
-        setStatus('success');
-        setMessage('Apple authentication successful!');
-
-        // Handle successful authentication - store user profile if needed
-        if (data?.user) {
-          try {
-            // Optional: Store user profile in your database
-            const userData = {
-              user_id: data.user.id,
-              mail: data.user.email,
-              firstname: data.user.user_metadata?.full_name || data.user.user_metadata?.name || '',
-              lastname: '', // Apple doesn't provide separate last name
-              avatar_url: data.user.user_metadata?.avatar_url || null,
-              provider: 'apple',
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            };
-
-            // Upsert user profile to database
-            await dataSupabase.
-            from('dev_api_userprofile').
-            upsert([userData], {
-              onConflict: 'mail',
-              ignoreDuplicates: false
-            });
-          } catch (profileError) {
-            console.warn('Failed to update user profile:', profileError);
-            // Don't fail the auth process if profile update fails
-          }
-        }
-
-        // Store success state for instant redirect detection
-        sessionStorage.setItem('apple_auth_success', 'true');
-
-        // Immediate redirect to home page (no toast delay)
-        const redirectTo = searchParams.get('redirect') || '/';
-
-        // Use window.location for fastest possible redirect
-        if (typeof window !== 'undefined') {
-          window.location.href = redirectTo;
-        } else {
-          router.replace(redirectTo);
-        }
-
-      } catch (error) {
-        console.error('Unexpected error in Apple callback:', error);
-        setStatus('error');
-        setMessage('An unexpected error occurred');
-        setErrorDetails({
-          error: 'unexpected_error',
-          description: error.message || 'An unexpected error occurred during authentication'
-        });
-
-        // toast({
-        //   title: "Unexpected Error",
-        //   description: "An unexpected error occurred during authentication",
-        //   status: "error",
-        //   duration: 5000,
-        //   isClosable: true,
-        //   position: "top",
-        // });
-      }
-    };
-
-    // Only process callback if we have search parameters
-    if (searchParams.toString()) {
-      handleAppleCallback();
-    } else {
-      // If no parameters, redirect back to login
-      router.push('/login');
+    if (error) {
+      setStatus('error');
+      setMessage('Apple authentication failed');
+      setErrorDetails({
+        error,
+        description: errorDescription || 'Authentication was declined or failed',
+      });
+      return;
     }
-  }, [searchParams, router, toast]);
+
+    const timeout = setTimeout(() => {
+      router.replace(redirectTo);
+    }, 250);
+
+    return () => clearTimeout(timeout);
+  }, [router, searchParams]);
 
   const _handleRetryLogin = () => {
     router.push('/login');

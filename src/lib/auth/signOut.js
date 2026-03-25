@@ -1,17 +1,13 @@
-import authConfig from '../config/authConfig';
+import { signOutFirebase } from "../firebase/authService";
+import { deleteWebsiteSession } from "./sessionClient";
 
 export default async function signOut() {
   try {
-    const { error } = await authConfig.supabaseClient.auth.signOut();
-    
-    if (error) {
-      console.error('Error signing out:', error.message);
-      return { error };
-    }
-    
+    await signOutFirebase();
+    await deleteWebsiteSession();
     return { error: null };
   } catch (error) {
-    console.error('Unexpected error during sign out:', error);
+    console.error("Unexpected error during sign out:", error);
     return { error };
   }
-} 
+}

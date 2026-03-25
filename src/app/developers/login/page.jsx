@@ -20,7 +20,6 @@ import AppleIcon from "../../_components/svg/icons/appleIconLogo.svg";
 import 'react-phone-number-input/style.css'
 import MFAEnrollmentModal from "../../_components/auth/MFAEnrollmentModal";
 import MFAVerificationModal from "../../_components/auth/MFAVerificationModal";
-import authentication from "../../../lib/auth/authentication";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
 
 function DeveloperLoginPageContent() {
@@ -34,6 +33,8 @@ function DeveloperLoginPageContent() {
     checkingMFA,
     completeMFAEnrollment,
     completeMFAVerification,
+    signIn,
+    signInWithApple,
   } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -64,19 +65,18 @@ function DeveloperLoginPageContent() {
 
   const handleGoogleLogin = async () => {
     try {
-      await authentication.googleSignIn(null, oauthReturnPath);
+      await signIn(null, oauthReturnPath);
       toast({
-        title: "Redirecting to Google",
-        description: "Complete sign-in to continue.",
-        status: "info",
+        title: "Signed in",
+        description: "Continuing to the developer experience.",
+        status: "success",
         duration: 3000,
         isClosable: true,
       });
-      // router.push("/developers/on-boarding");
     } catch (error) {
       toast({
         title: "Google Sign-In Error",
-        description: error.message,
+        description: error?.message || "Unable to sign in with Google.",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -86,18 +86,18 @@ function DeveloperLoginPageContent() {
 
   const handleAppleLogin = async () => {
     try {
-      await authentication.appleSignIn(null, oauthReturnPath);
+      await signInWithApple(null, oauthReturnPath);
       toast({
-        title: "Redirecting to Apple",
-        description: "Complete sign-in to continue.",
-        status: "info",
+        title: "Signed in",
+        description: "Continuing to the developer experience.",
+        status: "success",
         duration: 3000,
         isClosable: true,
       });
     } catch (error) {
       toast({
         title: "Apple Sign-In Error",
-        description: error.message,
+        description: error?.message || "Unable to sign in with Apple.",
         status: "error",
         duration: 3000,
         isClosable: true,

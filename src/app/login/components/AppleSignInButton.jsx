@@ -9,7 +9,7 @@ import {
   Box } from
 '@chakra-ui/react';
 import { keyframes } from '@emotion/react';
-import authConfig from '../../../lib/config/authConfig.js';
+import authentication from '../../../lib/auth/authentication.js';
 
 // Apple Logo SVG Component
 const AppleIcon = (props) =>
@@ -53,72 +53,26 @@ const AppleSignInButton = ({
     try {
       console.log('Apple Sign-In button clicked');
 
-      // Create Supabase client
-      const supabase = authConfig.supabaseClient;
-
       // Show loading toast
       const loadingToast = toast({
         title: "Connecting to Apple",
-        description: "Please wait while we redirect you to Apple Sign-In...",
+        description: "Please wait while we open Apple Sign-In...",
         status: "loading",
         duration: null,
         isClosable: true,
         position: "bottom"
       });
 
-      // Determine redirect URL based on environment
-      const encodedRedirect = encodeURIComponent(redirectPath || "/");
-      const redirectTo = typeof window !== 'undefined' ?
-      `${window.location.origin}/login/callback?redirect=${encodedRedirect}` :
-      `https://www.hushh.ai/login/callback?redirect=${encodedRedirect}`;
-
-      console.log('Using redirect URL:', redirectTo);
-
-      // Initiate Apple OAuth flow using Supabase Auth
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'apple',
-        options: {
-          redirectTo,
-          queryParams: {
-            response_type: 'code',
-            response_mode: 'query',
-            scope: 'name email'
-          }
-        }
-      });
+      const result = await authentication.appleSignIn(null, redirectPath || "/");
 
       // Close loading toast
       toast.close(loadingToast);
-
-      if (error) {
-        console.error('Apple Sign-In Error:', error);
-
-        toast({
-          title: "Apple Sign-In Error",
-          description: error.message || "Failed to connect to Apple. Please try again.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom"
-        });
-
-        // Call error callback
-        if (onError && typeof onError === 'function') {
-          onError(error);
-        }
-
-        return;
-      }
-
-      console.log('Apple Sign-In initiated successfully:', data);
+      console.log('Apple Sign-In completed successfully:', result);
 
       // Success callback
       if (onSuccess && typeof onSuccess === 'function') {
-        onSuccess(data);
+        onSuccess(result);
       }
-
-      // Note: The user will be redirected to Apple, so we don't set loading to false here
-      // The loading state will be reset when the component unmounts or when user returns
 
     } catch (error) {
       console.error('Unexpected Apple Sign-In error:', error);
@@ -132,17 +86,11 @@ const AppleSignInButton = ({
         position: "bottom"
       });
 
-      // Call error callback
       if (onError && typeof onError === 'function') {
         onError(error);
       }
     } finally {
-      // Only reset loading if we're still on the page (not redirected)
-      setTimeout(() => {
-        if (typeof window !== 'undefined' && window.location.pathname === '/login') {
-          setIsLoading(false);
-        }
-      }, 1000);
+      setIsLoading(false);
     }
   };
 

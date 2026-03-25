@@ -1,4 +1,5 @@
-import authConfig from "../config/authConfig";
+import { signInWithApple } from "../firebase/authService";
+import { createWebsiteSession } from "./sessionClient";
 
 export default async function appleSignIn(callback, customRedirectPath) {
   try {
@@ -24,31 +25,19 @@ export default async function appleSignIn(callback, customRedirectPath) {
       }
     }
 
-    const redirectTo =
-      `${window.location.origin}/login/callback?redirect=${encodeURIComponent(redirectPath)}`;
-    console.log("Redirecting to:", redirectTo);
+    const result = await signInWithApple();
+    await createWebsiteSession(result.idToken);
 
-    if (!authConfig.supabaseClient) {
-      console.error("Supabase client is not initialized");
-      return;
+    if (callback) {
+      await callback(result.user);
     }
 
-    const { error } = await authConfig.supabaseClient.auth.signInWithOAuth({
-      provider: "apple",
-      options: {
-        redirectTo,
-        queryParams: {
-          response_type: "code",
-          response_mode: "query",
-          scope: "name email",
-        },
-      },
-    });
-
-    if (error) {
-      console.error("Error during Apple Sign-In:", error.message);
-    }
+    return {
+      ...result,
+      redirectPath,
+    };
   } catch (error) {
     console.error("Unexpected error during Apple Sign-In:", error);
+    throw error;
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Box,
   Container,
@@ -35,7 +35,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import authConfig from "../../lib/config/authConfig";
 import ContentWrapper from "../_components/layout/ContentWrapper";
 import { HUSHH_API_BASE_URL } from "@/lib/env/public";
 
@@ -53,13 +52,11 @@ const API_HEADERS = {
 
 const UserRegistrationContent = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { user, session: _session, loading: authLoading } = useAuth();
   const toast = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckingUser, setIsCheckingUser] = useState(false);
-  const [isProcessingAuth, setIsProcessingAuth] = useState(false);
   const [error, setError] = useState(null);
   const [userEmail, setUserEmail] = useState("");
   // const [initialEmail, setInitialEmail] = useState(""); // Store the initial email for comparison - COMMENTED OUT FOR UPDATE MODE
@@ -109,86 +106,8 @@ const UserRegistrationContent = () => {
     setMounted(true);
   }, []);
 
-  // Handle OAuth authentication tokens on page load
   useEffect(() => {
-    if (!mounted) return;
-
-    const handleOAuthCallback = async () => {
-      const accessToken = searchParams.get('access_token');
-      const refreshToken = searchParams.get('refresh_token');
-      const _type = searchParams.get('type');
-      const error = searchParams.get('error');
-
-      if (error) {
-        console.error('OAuth error:', error);
-        toast({
-          title: "Authentication Error",
-          description: "There was an error during authentication. Please try again.",
-          status: "error",
-          duration: 4000,
-          isClosable: true
-        });
-        return;
-      }
-
-      if (accessToken && refreshToken) {
-        setIsProcessingAuth(true);
-        try {
-          console.log('Processing OAuth tokens...');
-
-          // Set the session with Supabase
-          const { error: sessionError } = await authConfig.supabaseClient.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken
-          });
-
-          if (sessionError) {
-            console.error('Session error:', sessionError);
-            toast({
-              title: "Authentication Error",
-              description: "Failed to establish session. Please try again.",
-              status: "error",
-              duration: 4000,
-              isClosable: true
-            });
-            return;
-          }
-
-          console.log('OAuth authentication successful');
-          toast({
-            title: "🎉 Welcome to Hushh!",
-            description: "Successfully signed in! Please complete your profile.",
-            status: "success",
-            duration: 3000,
-            isClosable: true
-          });
-
-          // Clean up the URL by removing the auth parameters
-          if (typeof window !== 'undefined') {
-            const cleanUrl = window.location.origin + window.location.pathname;
-            window.history.replaceState({}, document.title, cleanUrl);
-          }
-
-        } catch (error) {
-          console.error('OAuth processing error:', error);
-          toast({
-            title: "Authentication Error",
-            description: "An unexpected error occurred. Please try again.",
-            status: "error",
-            duration: 4000,
-            isClosable: true
-          });
-        } finally {
-          setIsProcessingAuth(false);
-        }
-      }
-    };
-
-    handleOAuthCallback();
-  }, [searchParams, toast, mounted]);
-
-  useEffect(() => {
-    if (authLoading || isProcessingAuth || !mounted) return;
+    if (authLoading || !mounted) return;
 
     if (!user) {
       router.push('/login');
@@ -200,7 +119,7 @@ const UserRegistrationContent = () => {
       // setInitialEmail(user.email); // Store the initial email - COMMENTED OUT FOR UPDATE MODE
       checkExistingUser(user.email);
     }
-  }, [user, authLoading, isProcessingAuth, router, mounted]);
+  }, [user, authLoading, router, mounted]);
 
   const checkExistingUser = async (email) => {
     try {
@@ -474,7 +393,7 @@ const UserRegistrationContent = () => {
     }
   };
 
-  if (!mounted || authLoading || isProcessingAuth) {
+  if (!mounted || authLoading) {
     return (
       <Box
         minH="100vh"
@@ -486,7 +405,7 @@ const UserRegistrationContent = () => {
         <VStack spacing={4}>
           <Spinner size="xl" color="#171b29" />
           <Text fontSize="lg" color="gray.600">
-            {isProcessingAuth ? "Processing authentication..." : "Loading your account..."}
+            Loading your account...
           </Text>
         </VStack>
       </Box>);

@@ -1,22 +1,20 @@
-import authConfig from "../config/authConfig";
+import getSession from "./getSession";
 
 export default async function getUserDetails(setUserDetails) {
   try {
-    const {
-      data: { session },
-    } = await authConfig.supabaseClient.auth.getSession();
+    const { data } = await getSession();
 
     const userDetails = {
-      data: session,
+      data: data?.session || null,
     };
-    
+
     if (setUserDetails) {
       setUserDetails(userDetails);
     }
-    
+
     return userDetails;
   } catch (error) {
-    console.error('Error getting user details:', error);
+    console.error("Error getting user details:", error);
     return { data: null };
   }
 }

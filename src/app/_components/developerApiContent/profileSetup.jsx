@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { keyframes } from '@emotion/react';
 import { useAuth } from "../../context/AuthContext"; // OAuth authentication
-import authConfig from "../../../lib/config/authConfig";
+import config from "../../../lib/config/config";
 
 // Clean animations for Apple-like design
 const fadeIn = keyframes`
@@ -64,7 +64,7 @@ const ProfileSetup = () => {
       console.log("Checking existing profile...");
 
       // Step 1: Check if the user profile already exists
-      const { data: existingUser, error: fetchError } = await authConfig.supabaseClient
+      const { data: existingUser, error: fetchError } = await config.supabaseClient
         .from("dev_api_userprofile")
         .select("mail")
         .eq("mail", userEmail)
@@ -76,7 +76,7 @@ const ProfileSetup = () => {
 
       const profileData = {
         mail: userEmail,
-        user_id: user.id,
+        user_id: user.uid || user.id,
         ...formData,
       };
 
@@ -85,14 +85,14 @@ const ProfileSetup = () => {
       if (existingUser) {
         // Step 2: Update existing user without modifying password
         console.log("Updating profile:", profileData);
-        ({ error } = await authConfig.supabaseClient
+        ({ error } = await config.supabaseClient
           .from("dev_api_userprofile")
           .update(profileData)
           .eq("mail", userEmail));
       } else {
         // Step 3: Insert new user profile
         console.log("Inserting profile:", profileData);
-        ({ error } = await authConfig.supabaseClient
+        ({ error } = await config.supabaseClient
           .from("dev_api_userprofile")
           .insert([profileData]));
       }

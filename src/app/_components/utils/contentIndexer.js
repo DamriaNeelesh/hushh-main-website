@@ -73,19 +73,19 @@ const STATIC_PAGE_ENTRIES = [
     url: "/developers/login",
     type: "page",
     category: "Developers",
-    tags: ["developers", "login", "console", "supabase oauth"],
+    tags: ["developers", "login", "console", "firebase auth"],
     content:
       "Developer console sign-in for Kai integrations, profile setup, and developer workspace access.",
   },
   {
     id: "login",
     title: "Login",
-    description: "Sign in with the active Supabase OAuth flow.",
+    description: "Sign in with the shared Firebase identity flow.",
     url: "/login",
     type: "page",
     category: "Auth",
-    tags: ["login", "authentication", "supabase oauth"],
-    content: "User login powered by Supabase OAuth and Hushh profile flows.",
+    tags: ["login", "authentication", "firebase auth"],
+    content: "User login powered by the shared Firebase identity layer and Hushh profile flows.",
   },
   {
     id: "user-registration",

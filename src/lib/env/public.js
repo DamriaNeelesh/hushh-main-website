@@ -28,16 +28,6 @@ export const SUPABASE_ANON_KEY = firstNonEmpty(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-export const SUPABASE_AUTH_URL = firstNonEmpty(
-  process.env.NEXT_PUBLIC_SUPABASE_AUTH_URL,
-  SUPABASE_URL
-);
-
-export const SUPABASE_AUTH_ANON_KEY = firstNonEmpty(
-  process.env.NEXT_PUBLIC_SUPABASE_AUTH_ANON_KEY,
-  SUPABASE_ANON_KEY
-);
-
 export const GOOGLE_VERIFICATION = firstNonEmpty(
   process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION
 );

@@ -69,24 +69,10 @@ const LoginPageContent = () => {
   const [_windowSize, setWindowSize] = useState({ width: 1920, height: 1080 });
   const [redirecting, setRedirecting] = useState(false);
 
-  // Separate effect for immediate authentication redirect
   useEffect(() => {
-    // Check for Apple auth success flag for instant redirect
-    if (typeof window !== 'undefined') {
-      const appleAuthSuccess = sessionStorage.getItem('apple_auth_success');
-      if (appleAuthSuccess === 'true') {
-        console.log('Apple auth success detected, redirecting immediately...');
-        setRedirecting(true); // Hide form immediately
-        sessionStorage.removeItem('apple_auth_success'); // Clean up
-        router.replace(redirectTo);
-        return;
-      }
-    }
-
-    // Only redirect if authenticated
     if (isAuthenticated && !loading) {
       console.log('✅ User authenticated, redirecting...');
-      setRedirecting(true); // Hide form immediately
+      setRedirecting(true);
       router.replace(redirectTo);
     }
   }, [isAuthenticated, loading, router, redirectTo]);

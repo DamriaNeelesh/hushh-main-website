@@ -18,23 +18,19 @@ import {
     Card,
     CardBody,
     Heading,
-    useDisclosure,
 } from '@chakra-ui/react';
 import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { CheckCircleIcon, WarningIcon, LockIcon } from '@chakra-ui/icons';
-import MFAEnrollmentModal from '../../_components/auth/MFAEnrollmentModal';
 import ContentWrapper from '../../_components/layout/ContentWrapper';
 
 const MFASettingsPage = () => {
-    const { isAuthenticated, loading, refreshMFAStatus } = useAuth();
+    const { isAuthenticated, loading } = useAuth();
     const router = useRouter();
     const toast = useToast();
     const [isLoadingFactors, setIsLoadingFactors] = useState(true);
     const [factors, setFactors] = useState([]);
     const [isRemoving, setIsRemoving] = useState(false);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-
     useEffect(() => {
         if (!loading && !isAuthenticated) {
             router.push('/login?redirect=/settings/mfa');
@@ -43,30 +39,9 @@ const MFASettingsPage = () => {
 
     const loadMFAFactors = useCallback(async () => {
         setIsLoadingFactors(true);
-        try {
-            const { default: authentication } = await import('../../../lib/auth/authentication');
-            const { data, error } = await authentication.mfa.getMFAFactors();
-
-            if (error) {
-                console.error('Error loading MFA factors:', error);
-                toast({
-                    title: 'Error',
-                    description: 'Failed to load MFA settings',
-                    status: 'error',
-                    duration: 4000,
-                    isClosable: true,
-                    position: 'top',
-                });
-                return;
-            }
-
-            setFactors(data || []);
-        } catch (error) {
-            console.error('Exception loading MFA factors:', error);
-        } finally {
-            setIsLoadingFactors(false);
-        }
-    }, [toast]);
+        setFactors([]);
+        setIsLoadingFactors(false);
+    }, []);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -74,68 +49,18 @@ const MFASettingsPage = () => {
         }
     }, [isAuthenticated, loadMFAFactors]);
 
-    const handleRemoveMFA = async (factorId) => {
-        if (!confirm('Are you sure you want to disable two-factor authentication? This will make your account less secure.')) {
-            return;
-        }
-
+    const handleRemoveMFA = async (_factorId) => {
         setIsRemoving(true);
-        try {
-            const { default: authentication } = await import('../../../lib/auth/authentication');
-            const { error } = await authentication.mfa.unenrollMFA(factorId);
-
-            if (error) {
-                toast({
-                    title: 'Error',
-                    description: error.message || 'Failed to remove MFA',
-                    status: 'error',
-                    duration: 4000,
-                    isClosable: true,
-                    position: 'top',
-                });
-                return;
-            }
-
-            toast({
-                title: 'MFA Disabled',
-                description: 'Two-factor authentication has been removed from your account',
-                status: 'success',
-                duration: 4000,
-                isClosable: true,
-                position: 'top',
-            });
-
-            await loadMFAFactors();
-            await refreshMFAStatus();
-        } catch (error) {
-            console.error('Exception removing MFA:', error);
-            toast({
-                title: 'Error',
-                description: 'Failed to remove MFA',
-                status: 'error',
-                duration: 4000,
-                isClosable: true,
-                position: 'top',
-            });
-        } finally {
-            setIsRemoving(false);
-        }
-    };
-
-    const handleEnrollmentSuccess = async () => {
-        await loadMFAFactors();
-        await refreshMFAStatus();
-        onClose();
         toast({
-            title: 'Success! 🎉',
-            description: 'Two-factor authentication has been enabled',
-            status: 'success',
+            title: 'MFA unavailable',
+            description: 'Two-factor authentication is not enabled on the website deployment yet.',
+            status: 'info',
             duration: 4000,
             isClosable: true,
             position: 'top',
         });
+        setIsRemoving(false);
     };
-
     if (loading || !isAuthenticated) {
         return (
             <Box minH="100vh" bg="#ffffff" display="flex" alignItems="center" justifyContent="center">
@@ -280,7 +205,7 @@ const MFASettingsPage = () => {
                                             No Authenticators Configured
                                         </AlertTitle>
                                         <AlertDescription color="#6e6e73" fontSize="sm">
-                                            Set up an authenticator app to enable two-factor authentication
+                                            Website sign-in now uses shared Firebase identity, but MFA is not exposed on this deployment yet
                                         </AlertDescription>
                                     </Box>
                                 </Alert>
@@ -293,21 +218,22 @@ const MFASettingsPage = () => {
                     {/* Actions */}
                     <VStack spacing={4} align="stretch">
                         {!hasMFA && (
-                            <Button
-                                size="lg"
-                                bg="#171b29"
-                                color="white"
-                                fontSize="lg"
-                                fontWeight={700}
+                            <Alert
+                                status="info"
                                 borderRadius="xl"
-                                h="56px"
-                                _hover={{ bg: "#0a1128" }}
-                                _active={{ bg: "#070d1c" }}
-                                onClick={onOpen}
-                                leftIcon={<LockIcon />}
+                                bg="#f8f6f0"
+                                border="1px solid rgba(23, 27, 41, 0.08)"
                             >
-                                Enable Two-Factor Authentication
-                            </Button>
+                                <AlertIcon color="#171b29" />
+                                <Box>
+                                    <AlertTitle color="#1d1d1f" fontSize="md">
+                                        MFA not exposed on the website
+                                    </AlertTitle>
+                                    <AlertDescription color="#6e6e73" fontSize="sm">
+                                        Shared Firebase sign-in is active, but MFA enrollment remains outside the website flow for now.
+                                    </AlertDescription>
+                                </Box>
+                            </Alert>
                         )}
 
                         {/* Security Tips */}
@@ -340,13 +266,6 @@ const MFASettingsPage = () => {
                         </Card>
                     </VStack>
                 </VStack>
-
-                {/* MFA Enrollment Modal */}
-                <MFAEnrollmentModal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    onSuccess={handleEnrollmentSuccess}
-                />
             </Container>
         </ContentWrapper>
     );

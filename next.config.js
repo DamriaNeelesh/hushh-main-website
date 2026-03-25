@@ -11,16 +11,25 @@ const supabaseHostname = (() => {
   }
 })();
 
+const firebaseAuthDomainFromEnv = process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+  || "hushh-pda.firebaseapp.com";
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 const connectSources = [
   "'self'",
   `https://${supabaseHostname}`,
+  `https://${firebaseAuthDomainFromEnv}`,
   "https://www.google-analytics.com",
   "https://region1.google-analytics.com",
   "https://www.googletagmanager.com",
   "https://accounts.google.com",
   "https://appleid.apple.com",
+  "https://identitytoolkit.googleapis.com",
+  "https://securetoken.googleapis.com",
+  "https://firebaseinstallations.googleapis.com",
+  "https://www.googleapis.com",
+  "https://apis.google.com",
   "https://hushh-api-53407187172.us-central1.run.app",
   "https://developer-api-53407187172.us-central1.run.app",
   "https://calendly.com",
@@ -56,9 +65,9 @@ const nextConfig = {
       "media-src 'self' data: blob: https:",
       "font-src 'self' data: https://fonts.gstatic.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://accounts.google.com https://appleid.cdn-apple.com`,
+      `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://accounts.google.com https://appleid.cdn-apple.com https://apis.google.com`,
       `connect-src ${[...new Set(connectSources)].join(" ")}`,
-      "frame-src 'self' https://docs.google.com https://calendly.com https://accounts.google.com https://appleid.apple.com",
+      `frame-src 'self' https://docs.google.com https://calendly.com https://accounts.google.com https://appleid.apple.com https://${firebaseAuthDomainFromEnv}`,
       "worker-src 'self' blob:",
       "form-action 'self' https://docs.google.com",
       "upgrade-insecure-requests",
