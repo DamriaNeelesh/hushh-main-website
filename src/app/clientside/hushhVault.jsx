@@ -6,7 +6,6 @@ import {
   Container,
   Heading,
   Text,
-  Button,
   VStack,
   HStack,
   Center,
@@ -17,7 +16,6 @@ import {
   SimpleGrid,
   Code } from
 '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { FaApple, FaFolder, FaLink, FaShieldAlt } from 'react-icons/fa';
 import HushhVaultMobile from '../_components/svg/hushhVaultMobile.svg';
 // import ExportDelete from '../../../public/exportordelete.svg'
@@ -25,10 +23,12 @@ import HowHushhVaultWorks from '../_components/svg/hushhVault/howthevaultworks.s
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import ContactForm from '../_components/features/contactForm';
-const MotionBox = motion(Box);
-const MotionHeading = motion(Heading);
-const MotionText = motion(Text);
-const MotionButton = motion(Button);
+import {
+  MotionBox,
+  MotionButton,
+  MotionHeading,
+  MotionText
+} from 'src/lib/motion/chakra-motion';
 
 const HushhVault = () => {
   const router = useRouter();

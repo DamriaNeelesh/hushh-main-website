@@ -6,7 +6,6 @@ import {
   Container,
   Heading,
   Text,
-  Button,
   VStack,
   HStack,
   Center,
@@ -14,19 +13,16 @@ import {
   Flex,
   GridItem } from
 '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import GlobeIcon from '../_components/svg/icons/globeIcon.svg';
 import AgentRuntime from '../_components/svg/hushhGrid/agentRuntime.svg';
 import ContactForm from '../_components/features/contactForm';
-
-
-
-
-const MotionBox = motion(Box);
-const MotionHeading = motion(Heading);
-const MotionText = motion(Text);
-const MotionButton = motion(Button);
+import {
+  MotionBox,
+  MotionButton,
+  MotionHeading,
+  MotionText
+} from 'src/lib/motion/chakra-motion';
 
 const HushhGrid = () => {
 

@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./_styles/syntax-highlight.css";
 import { Providers } from "./provider";
 import ResponsiveSizeProvider from "./context/responsive";
 import { AuthProvider } from "./context/AuthContext";

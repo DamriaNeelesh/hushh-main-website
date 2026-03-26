@@ -68,14 +68,14 @@ const STATIC_PAGE_ENTRIES = [
   },
   {
     id: "developers-login",
-    title: "Developer Console Login",
-    description: "Sign in to prepare your developer profile and runtime credentials.",
+    title: "Developer Workspace Login",
+    description: "Sign in to enable Kai developer access and manage your app identity.",
     url: "/developers/login",
     type: "page",
     category: "Developers",
-    tags: ["developers", "login", "console", "firebase auth"],
+    tags: ["developers", "login", "workspace", "firebase auth"],
     content:
-      "Developer console sign-in for Kai integrations, profile setup, and developer workspace access.",
+      "Developer workspace sign-in for Kai integrations, developer access, app identity management, and token rotation.",
   },
   {
     id: "login",

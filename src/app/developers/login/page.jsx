@@ -154,8 +154,7 @@ function DeveloperLoginPageContent() {
             mb={{ md: "1.25rem", base: "1rem" }}
             as={'h1'}
           >
-            {" "}
-            Get your account ready for Hushh{" "}
+            Get your Kai developer workspace ready
           </Text>
 
           <Button

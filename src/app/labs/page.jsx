@@ -8,7 +8,6 @@ import {
   HStack,
   Text,
   Heading,
-  Button,
   SimpleGrid,
   Icon,
   Flex,
@@ -24,6 +23,7 @@ import {
 import Link from 'next/link';
 import ContentWrapper from 'src/app/_components/layout/ContentWrapper';
 import ContactForm from 'src/app/_components/features/contactForm';
+import { MotionButton } from 'src/lib/motion/chakra-motion';
 
 const HushhLabsHome = () => {
   const labValues = [
@@ -146,7 +146,7 @@ const HushhLabsHome = () => {
               
               <Flex gap={4} pt={6} flexWrap="wrap" justify="center" w="full" px={{ base: 2, md: 0 }}>
                 <Link href="/labs/career">
-                  <Button
+                  <MotionButton
                     size="lg"
                     bg="#171b29"
                     color="white"
@@ -173,7 +173,7 @@ const HushhLabsHome = () => {
                     whileTap={{ scale: 0.98 }}
                   >
                     View Open Positions
-                  </Button>
+                  </MotionButton>
                 </Link>
               </Flex>
             </VStack>
@@ -510,7 +510,7 @@ const HushhLabsHome = () => {
                 
                 <Box px={{ base: 2, md: 0 }} w="full" display="flex" justifyContent="center">
                   <Link href="/labs/career">
-                    <Button
+                    <MotionButton
                       bg="#171b29"
                       color="white"
                       px={{ base: 4, sm: 6, md: 10 }}
@@ -536,7 +536,7 @@ const HushhLabsHome = () => {
                       whileTap={{ scale: 0.98 }}
                     >
                       Explore Career Opportunities
-                    </Button>
+                    </MotionButton>
                   </Link>
                 </Box>
                 

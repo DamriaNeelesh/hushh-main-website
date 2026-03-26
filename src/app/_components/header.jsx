@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { Button, useDisclosure, useToast } from "@chakra-ui/react";
 import HushhWalletIcon from "./svg/hushhWalletIcon";
@@ -24,12 +24,9 @@ import HushhVoice from "../_components/svg/icons/vaultLogo.svg";
 import SearchModal from "./features/SearchModal";
 
 export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
-  const mobileMenuOffset = typeof topOffset === "number"
-    ? `${70 + topOffset}px`
-    : `calc(70px + ${topOffset})`;
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileMenuHeight, setMobileMenuHeight] = useState("calc(100dvh - 70px)");
   const pathname = usePathname();
   const router = useRouter();
   const { isOpen: isSearchOpen, onOpen: onSearchOpen, onClose: onSearchClose } = useDisclosure();
@@ -111,6 +108,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
 
   let menuRef = useRef();
   let hamburgerRef = useRef();
+  let headerElementRef = useRef();
   const closeDropdownTimeoutRef = useRef(null);
 
   useEffect(() => {
@@ -213,36 +211,6 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
         description: "Rewards & empowers students with data control (safe & secure)",
         href: "/products/hushh-for-students",
         icon: ValetChat
-      }]
-
-    },
-    developers: {
-      title: "API Reference",
-      items: [
-      {
-        name: "API Reference",
-        description: "Start at the developer hub and choose Agent Kai or Agentic APIs",
-        href: "/developers"
-      },
-      {
-        name: "Agent Kai API",
-        description: "PKM, consent, REST, and MCP runtime guidance",
-        href: "/developers/agent-kai"
-      },
-      {
-        name: "Agentic APIs",
-        description: "A2A, MuleSoft, browser-proxy, and enrichment flows",
-        href: "/developers/agentic-apis"
-      },
-      {
-        name: "Developer Console Setup",
-        description: "Complete profile setup, API key, session token, and validation",
-        href: "/developers/on-boarding"
-      },
-      {
-        name: "Support",
-        description: "Troubleshooting and escalation guidance",
-        href: "/developers/support"
       }]
 
     },
@@ -386,6 +354,50 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
     };
   }, []);
 
+  const updateMobileMenuHeight = useCallback(() => {
+    if (!headerElementRef.current || typeof window === "undefined") {
+      return;
+    }
+
+    const rect = headerElementRef.current.getBoundingClientRect();
+    const viewportBottom = Math.max(rect.bottom, rect.height || 70);
+    const nextHeight = Math.max(window.innerHeight - viewportBottom, 0);
+    setMobileMenuHeight(`${nextHeight}px`);
+  }, []);
+
+  useEffect(() => {
+    updateMobileMenuHeight();
+
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    let frameId = 0;
+    const scheduleMeasure = () => {
+      window.cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(updateMobileMenuHeight);
+    };
+
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(scheduleMeasure)
+        : null;
+
+    if (resizeObserver && headerElementRef.current) {
+      resizeObserver.observe(headerElementRef.current);
+    }
+
+    window.addEventListener("resize", scheduleMeasure);
+
+    return () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+      window.removeEventListener("resize", scheduleMeasure);
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [isMenuOpen, pathname, topOffset, updateMobileMenuHeight]);
+
   const renderDropdownMenu = (menuKey, menuData) => {
     // Check if this is the solutions or products dropdown to apply grid layout
     const isSolutionsDropdown = menuKey === 'solutions';
@@ -516,9 +528,10 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
   return (
     <>
       {shouldShowHeader &&
-      <div>
+      <div className="relative">
           {/* Apple-style Header */}
           <header
+          ref={headerElementRef}
           className="bg-white bg-opacity-95 backdrop-blur-xl border-b border-gray-200 sticky top-0 left-0 right-0 z-50"
           style={{
             height: "70px",
@@ -610,26 +623,15 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     </Link>
                   </div>
 
-                  {/* Developers Dropdown */}
-                  <div
-                  className="relative group"
-                  onMouseEnter={() => openDropdown('developers')}
-                  onMouseLeave={scheduleCloseDropdown}
-                  onFocus={() => openDropdown('developers')}
-                  onBlur={handleDesktopDropdownBlur}>
-                  
-                    <button
-                    type="button"
-                    aria-expanded={activeDropdown === 'developers'}
-                    aria-controls="desktop-menu-developers"
-                    onClick={() => toggleDropdown('developers')}
-                    onKeyDown={(event) => handleDesktopDropdownKeyDown(event, 'developers')}
-                    className="text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 flex items-center space-x-1 py-4 px-2 xl:px-3 nav-button whitespace-nowrap">
+                  <div className="relative group">
+                    <Link
+                    href="/developers"
+                    className={`text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 py-4 px-2 xl:px-3 nav-button whitespace-nowrap inline-flex${
+                      pathname.startsWith('/developers') ? ' text-[#171b29]' : ''
+                    }`}>
                     
-                      <span>API Reference</span>
-                      <ChevronDownIcon className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'developers' ? 'rotate-180' : ''}`} />
-                    </button>
-                    {activeDropdown === 'developers' && renderDropdownMenu('developers', menuItems.developers)}
+                      <span>Developer</span>
+                    </Link>
                   </div>
 
                   {/* Why Hushh Dropdown */}
@@ -777,15 +779,15 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
           {/* Mobile Menu Overlay */}
           {isMenuOpen &&
         <div
-          className="lg:hidden fixed"
+          className="lg:hidden absolute"
           style={{
-            position: "fixed",
-            top: mobileMenuOffset,
+            position: "absolute",
+            top: "calc(100% - 1px)",
             left: "0",
             right: "0",
-            bottom: "0",
             width: "100vw",
-            height: `calc(100vh - ${mobileMenuOffset})`,
+            height: mobileMenuHeight,
+            maxHeight: mobileMenuHeight,
             zIndex: 9999,
             background: "rgba(255, 255, 255, 0.98)",
             backdropFilter: "blur(20px) saturate(180%)",
@@ -918,18 +920,22 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                       </Link>
                     </div>
 
-                    {/* Developers Section */}
                     <div className="mobile-menu-section">
-                      <button
-                    onClick={() => setActiveDropdown(activeDropdown === 'developers' ? null : 'developers')}
-                    className="flex items-center justify-between w-full text-left text-lg font-semibold text-gray-900 py-2">
+                      <Link
+                    href="/developers"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      closeDropdowns();
+                    }}
+                    className="block py-2">
                     
-                        <span>API Reference</span>
-                        <ChevronDownIcon className={`w-5 h-5 transition-transform duration-200 ${activeDropdown === 'developers' ? 'rotate-180' : ''}`} />
-                      </button>
-                      {activeDropdown === 'developers' &&
-                  renderMobileMenuItems("developers", menuItems.developers.items)
-                  }
+                        <div className="text-lg font-semibold text-gray-900 hover:text-[#171b29] transition-colors">
+                          Developer
+                        </div>
+                        <div className="text-sm text-gray-500 mt-1">
+                          Kai docs, developer workspace, and Agentic API references
+                        </div>
+                      </Link>
                     </div>
 
                     {/* Why Hushh Section */}

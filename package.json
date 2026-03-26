@@ -61,6 +61,7 @@
     "framer-motion": "^11.0.5",
     "github-slugger": "^2.0.0",
     "globals": "^17.4.0",
+    "highlight.js": "^11.11.1",
     "hushh-button-sdk": "^1.0.19",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.525.0",

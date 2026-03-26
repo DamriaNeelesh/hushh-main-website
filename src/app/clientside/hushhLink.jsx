@@ -6,7 +6,6 @@ import {
   Container,
   Heading,
   Text,
-  Button,
   VStack,
   HStack,
   Center,
@@ -16,18 +15,18 @@ import {
   Flex,
   Code } from
 '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { FaApple, FaShieldAlt, FaCheckCircle, FaClipboardList, FaUsers, FaHistory } from 'react-icons/fa';
 import { HiOutlineCog, HiOutlineEye, HiOutlineClipboardList, HiOutlineShieldCheck, HiOutlineDocumentText, HiOutlineShoppingBag, HiOutlineMail } from 'react-icons/hi';
 import HushhLinkBox from '../_components/svg/hushhLink/hushhLinkBox.svg';
 import Image from 'next/image';
 import HushhTrail from '../_components/svg/hushhLink/audit-trail.svg';
 import ContactForm from '../_components/features/contactForm';
-
-const MotionBox = motion(Box);
-const MotionHeading = motion(Heading);
-const MotionText = motion(Text);
-const MotionButton = motion(Button);
+import {
+  MotionBox,
+  MotionButton,
+  MotionHeading,
+  MotionText
+} from 'src/lib/motion/chakra-motion';
 
 const HushhLink = () => {
 

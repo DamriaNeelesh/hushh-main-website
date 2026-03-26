@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ContentWrapper from "../layout/ContentWrapper";
+import DeveloperDocsArticle from "./DeveloperDocsArticle";
 import DeveloperWorkspaceMobileDock from "./DeveloperWorkspaceMobileDock";
 import {
   developerOverviewLinks,
@@ -77,6 +78,7 @@ export default function DeveloperWorkspaceLayout({
   headings = [],
   trackTitle,
   relatedTrackLink,
+  showHomeLink = true,
   pagination = null,
   children,
 }) {
@@ -130,22 +132,28 @@ export default function DeveloperWorkspaceLayout({
                     <h1 className="developer-workspace-title">{title}</h1>
                     <p className="developer-workspace-description">{description}</p>
 
-                    <div className="developer-workspace-links">
-                      <Link href="/developers" className="developer-workspace-inline-link">
-                        API Reference Home
-                      </Link>
-                      {relatedTrackLink ? (
-                        <Link
-                          href={relatedTrackLink.href}
-                          className="developer-workspace-inline-link"
-                        >
-                          {relatedTrackLink.label}
-                        </Link>
-                      ) : null}
-                    </div>
+                    {showHomeLink || relatedTrackLink ? (
+                      <div className="developer-workspace-links">
+                        {showHomeLink ? (
+                          <Link href="/developers" className="developer-workspace-inline-link">
+                            Developer Home
+                          </Link>
+                        ) : null}
+                        {relatedTrackLink ? (
+                          <Link
+                            href={relatedTrackLink.href}
+                            className="developer-workspace-inline-link"
+                          >
+                            {relatedTrackLink.label}
+                          </Link>
+                        ) : null}
+                      </div>
+                    ) : null}
                   </header>
 
-                  <div className="developer-docs-prose">{children}</div>
+                  <DeveloperDocsArticle>
+                    <div className="developer-docs-prose">{children}</div>
+                  </DeveloperDocsArticle>
                   <Pagination previous={pagination?.previous} next={pagination?.next} />
                 </div>
               </div>

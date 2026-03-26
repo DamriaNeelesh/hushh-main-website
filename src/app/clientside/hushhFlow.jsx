@@ -6,7 +6,6 @@ import {
   Container,
   Heading,
   Text,
-  Button,
   VStack,
   HStack,
   Center,
@@ -15,7 +14,6 @@ import {
   Flex,
   GridItem } from
 '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
 import Image from 'next/image';
 import ConsentBasedIcon from '../_components/svg/hushhFlow/consentBasedIcon.svg';
@@ -25,12 +23,12 @@ import { FiBriefcase, FiUserCheck } from 'react-icons/fi';
 // import PrivacyEarns from '../_components/svg/hushhFlow/privacyearns.svg'
 import { GrAttachment } from "react-icons/gr";
 import ContactForm from '../_components/features/contactForm';
-
-
-const MotionBox = motion(Box);
-const MotionHeading = motion(Heading);
-const MotionText = motion(Text);
-const MotionButton = motion(Button);
+import {
+  MotionBox,
+  MotionButton,
+  MotionHeading,
+  MotionText
+} from 'src/lib/motion/chakra-motion';
 
 const HushhFlow = () => {
   const fadeInUp = {

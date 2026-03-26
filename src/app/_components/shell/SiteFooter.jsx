@@ -27,10 +27,10 @@ const footerSections = [
   {
     title: "Developers",
     links: [
-      { label: "API Reference", href: "/developers" },
+      { label: "Developer Home", href: "/developers" },
       { label: "Agent Kai API", href: "/developers/agent-kai" },
+      { label: "Developer Workspace", href: "/developers/on-boarding" },
       { label: "Agentic APIs", href: "/developers/agentic-apis" },
-      { label: "Developer Console Setup", href: "/developers/on-boarding" },
       { label: "Support", href: "/developers/support" },
     ],
   },

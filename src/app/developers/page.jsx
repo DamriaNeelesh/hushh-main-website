@@ -1,6 +1,5 @@
 import Link from "next/link";
-import DeveloperHubLayout from "../_components/developerDocs/DeveloperHubLayout";
-import Callout from "../_components/developerDocs/Callout";
+import DeveloperWorkspaceLayout from "../_components/developerDocs/DeveloperWorkspaceLayout";
 import {
   developerTracks,
   getDeveloperDocsByTrack,
@@ -23,51 +22,28 @@ export const metadata = buildPageMetadata({
   ],
 });
 
-const trackComparison = [
-  {
-    topic: "Core model",
-    kai: "Consent-first PKM runtime with approval inside Kai, versioned REST endpoints, and MCP tools.",
-    agentic:
-      "Historical A2A and MuleSoft orchestration for enrichment, CRM activation, browser proxy testing, and enterprise workflows.",
-  },
-  {
-    topic: "Canonical surface",
-    kai: "/developers/agent-kai",
-    agentic: "/developers/agentic-apis",
-  },
-  {
-    topic: "Primary runtime",
-    kai: "Kai app + REST + remote MCP",
-    agentic: "A2A browser proxy + MuleSoft CloudHub agents",
-  },
-  {
-    topic: "When to start here",
-    kai: "You need PKM discovery, scope approval, consent status, or scoped reads for a Kai-connected product.",
-    agentic:
-      "You need profile creation, enrichment, JSON-RPC agent chains, brand activation, or older enterprise onboarding flows.",
-  },
+const trustPoints = [
+  "Agent Kai is the current consent-first runtime.",
+  "Agentic APIs remains available as the older enterprise and browser-proxy lane.",
+  "Choose one track first and follow its docs in order.",
+  "Use browser testing only where the reference explicitly allows it.",
 ];
 
 const quickStartSteps = [
   {
     eyebrow: "Step 01",
-    title: "Choose the right track",
-    copy: "Start with the split. Agent Kai is the consent-first PKM runtime. Agentic APIs is the older A2A, MuleSoft, browser-proxy, and enrichment lane.",
+    title: "Pick the product first",
+    copy: "Use Agent Kai for new consent-first PKM integrations. Use Agentic APIs only when you are working against the older A2A, MuleSoft, or browser-proxy contract.",
   },
   {
     eyebrow: "Step 02",
-    title: "Confirm the runtime surface",
-    copy: "Use the runtime map to decide whether you need Kai REST and MCP, or the historical browser proxy and backend enterprise routes.",
+    title: "Confirm runtime and auth",
+    copy: "Before copying any endpoint, make sure you know whether you need Kai REST and MCP, or the older backend/browser-proxy surfaces.",
   },
   {
     eyebrow: "Step 03",
-    title: "Read the reference in order",
-    copy: "Enter the selected track, then move through setup, runtime behavior, and endpoint reference without mixing the two product stories.",
-  },
-  {
-    eyebrow: "Step 04",
-    title: "Test only where supported",
-    copy: "Use embedded try-it blocks and browser-safe proxy routes from the docs. Keep backend-only flows and secret-bearing routes off the public browser path.",
+    title: "Start with the reference",
+    copy: "Open the track reference first, then move into setup and supporting guides. That keeps the mental model clean and avoids mixing two different API stories.",
   },
 ];
 
@@ -84,10 +60,47 @@ const trackHighlights = {
   ],
 };
 
-function TrackCard({ title, href, summary, docs, eyebrow, ctaLabel, highlights }) {
+const integrationNotes = [
+  {
+    eyebrow: "What is current",
+    title: "Start new work on Agent Kai",
+    copy: "If you are beginning a new integration, Agent Kai is the default lane. It documents the current consent model, PKM data plane, and versioned runtime contract.",
+  },
+  {
+    eyebrow: "What is legacy",
+    title: "Use Agentic APIs only when the backend requires it",
+    copy: "The older A2A, MuleSoft, and browser-proxy surfaces still exist for enterprise and migration scenarios, but they are not the same product as Kai.",
+  },
+  {
+    eyebrow: "What builds trust",
+    title: "Clarity beats volume",
+    copy: "Developers adopt faster when the docs show stable URLs, clear boundaries, and an obvious first page. This hub is meant to help you decide quickly and move with confidence.",
+  },
+];
+
+const homeHeadings = [
+  { text: "Choose your track", level: 2, slug: "choose-your-track" },
+  { text: "A simple path into the docs", level: 2, slug: "start-here" },
+  { text: "The trust cues developers care about", level: 2, slug: "trust-cues" },
+];
+
+function TrackCard({
+  title,
+  href,
+  summary,
+  docs,
+  eyebrow,
+  ctaLabel,
+  highlights,
+  runtimeItems,
+  status,
+}) {
   return (
     <div className="site-page-card developer-hub-track-card">
-      <p className="site-page-eyebrow">{eyebrow}</p>
+      <div className="developer-hub-card-topline">
+        <p className="site-page-eyebrow">{eyebrow}</p>
+        <span className="developer-hub-status-badge">{status}</span>
+      </div>
       <h2 className="developer-hub-card-title">{title}</h2>
       <p className="developer-hub-card-copy">{summary}</p>
       <ul className="developer-hub-feature-list">
@@ -97,15 +110,27 @@ function TrackCard({ title, href, summary, docs, eyebrow, ctaLabel, highlights }
           </li>
         ))}
       </ul>
-      <ul className="developer-hub-link-list">
-        {docs.map((doc) => (
-          <li key={doc.slug}>
-            <Link href={`/developers/${doc.slug}`} className="developer-hub-link">
-              {doc.title}
-            </Link>
-          </li>
+      <div className="developer-runtime-list developer-runtime-list--compact">
+        {runtimeItems.map(([label, value]) => (
+          <div key={label} className="developer-runtime-item">
+            <span className="developer-runtime-label">{label}</span>
+            <span className="developer-runtime-value developer-runtime-value--mono">{value}</span>
+          </div>
         ))}
-      </ul>
+      </div>
+      <div className="developer-hub-card-divider" />
+      <div className="developer-hub-docs-block">
+        <p className="developer-hub-docs-label">Start with</p>
+        <ul className="developer-hub-link-list">
+          {docs.map((doc) => (
+            <li key={doc.slug}>
+              <Link href={`/developers/${doc.slug}`} className="developer-hub-link">
+                {doc.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
       <Link href={href} className="site-cta-solid developer-hub-primary-cta">
         {ctaLabel}
       </Link>
@@ -118,150 +143,108 @@ export default function DevelopersHomePage() {
   const kaiDocs = getDeveloperDocsByTrack("kai");
   const agenticDocs = getDeveloperDocsByTrack("agentic");
 
-  const runtimeCards = [
-    {
-      label: "Agent Kai runtime",
-      items: [
-        ["Kai app", runtime.appUrl],
-        ["REST base", runtime.apiBaseUrl],
-        ["Remote MCP", runtime.mcpUrl],
-      ],
-    },
-    {
-      label: "Agentic APIs runtime",
-      items: [
-        ["Browser proxy", "/api/a2a/{agent}"],
-        ["Testing workspace", "/agents"],
-        ["Backend-only upstream", "Direct MuleSoft/CloudHub endpoints from trusted backend hosts"],
-      ],
-    },
-  ];
-
   return (
-    <DeveloperHubLayout
+    <DeveloperWorkspaceLayout
       title="Developer APIs"
-      description="Choose the correct Hushh API track first. Agent Kai and the older Agentic APIs are separate products with different runtime models, onboarding order, and endpoint families."
+      description="Start with the right Hushh API product. Agent Kai is the current consent-first runtime. Agentic APIs covers the older A2A, MuleSoft, browser-proxy, and enterprise activation surfaces."
+      activeKey="developers-home"
+      headings={homeHeadings}
+      trackTitle="Developer hub"
+      showHomeLink={false}
+      pagination={null}
     >
-      <section className="developer-hub-section">
+      <section id="choose-your-track" className="developer-hub-section">
+        <div className="developer-hub-trust-row">
+          {trustPoints.map((point) => (
+            <div key={point} className="trust-pill developer-hub-trust-pill">
+              <span>{point}</span>
+            </div>
+          ))}
+        </div>
         <div className="developer-hub-section-head">
           <div>
             <p className="site-page-eyebrow">Choose your track</p>
-            <h2 className="developer-hub-section-title">Two API products, two different lanes</h2>
+            <h2 className="developer-hub-section-title">Two API products, kept intentionally separate</h2>
           </div>
           <p className="developer-hub-section-copy">
-            Start here to keep the runtime stories separate. Kai is the consent-first PKM lane.
-            Agentic APIs is the older A2A, MuleSoft, browser-proxy, and enrichment lane.
+            The first job of this page is simple: help you enter the correct docs lane. Kai is
+            the current consent-first PKM product. Agentic APIs is the older A2A, MuleSoft,
+            browser-proxy, and enrichment product family.
           </p>
         </div>
         <div className="developer-hub-track-grid">
           <TrackCard
-            eyebrow="Track one"
+            eyebrow="Current lane"
             title="Agent Kai API"
             href="/developers/agent-kai"
             summary={developerTracks[0].summary}
-            docs={kaiDocs}
+            docs={kaiDocs.slice(0, 3)}
             ctaLabel="Open Agent Kai API"
             highlights={trackHighlights.kai}
+            runtimeItems={[
+              ["Kai app", runtime.appUrl],
+              ["REST base", runtime.apiBaseUrl],
+              ["Remote MCP", runtime.mcpUrl],
+            ]}
+            status="Recommended for new integrations"
           />
           <TrackCard
-            eyebrow="Track two"
+            eyebrow="Legacy + enterprise lane"
             title="Agentic APIs"
             href="/developers/agentic-apis"
             summary={developerTracks[1].summary}
-            docs={agenticDocs.slice(0, 5)}
+            docs={agenticDocs.slice(0, 3)}
             ctaLabel="Open Agentic APIs"
             highlights={trackHighlights.agentic}
+            runtimeItems={[
+              ["Browser proxy", "/api/a2a/{agent}"],
+              ["Testing workspace", "/agents"],
+              ["Backend upstream", "Trusted backend hosts only"],
+            ]}
+            status="Use when your backend already depends on it"
           />
         </div>
-        <Callout type="info">
-          <p className="developer-docs-p">
-            Kai is the current consent-first developer API. The older enterprise A2A and browser
-            proxy surfaces remain available as a separate Agentic APIs track.
-          </p>
-        </Callout>
       </section>
 
-      <div className="developer-hub-support-grid">
-        <section className="developer-hub-section">
-          <div className="developer-hub-section-head">
-            <div>
-              <p className="site-page-eyebrow">Quick-start map</p>
-              <h2 className="developer-hub-section-title">Move through the docs in the right order</h2>
-            </div>
-          </div>
-          <div className="developer-hub-steps-grid">
-            {quickStartSteps.map((step) => (
-              <div key={step.title} className="site-page-card developer-hub-step-card">
-                <p className="site-page-eyebrow">{step.eyebrow}</p>
-                <h3 className="developer-hub-step-title">{step.title}</h3>
-                <p className="developer-hub-step-copy">{step.copy}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="developer-hub-section">
-          <div className="developer-hub-section-head">
-            <div>
-              <p className="site-page-eyebrow">Runtime map</p>
-              <h2 className="developer-hub-section-title">Confirm the operational surface first</h2>
-            </div>
-            <p className="developer-hub-section-copy">
-              Match your implementation to the correct runtime before you copy snippets into
-              production code.
-            </p>
-          </div>
-          <div className="developer-hub-runtime-grid">
-            {runtimeCards.map((card) => (
-              <div key={card.label} className="site-page-card developer-hub-runtime-card">
-                <p className="site-page-eyebrow">{card.label}</p>
-                <div className="developer-runtime-list">
-                  {card.items.map(([label, value]) => (
-                    <div key={label} className="developer-runtime-item">
-                      <span className="developer-runtime-label">{label}</span>
-                      <span className="developer-runtime-value">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      <section className="developer-hub-section">
+      <section id="start-here" className="developer-hub-section">
         <div className="developer-hub-section-head">
           <div>
-            <p className="site-page-eyebrow">Track boundaries</p>
-            <h2 className="developer-hub-section-title">Keep the runtime stories separate</h2>
+            <p className="site-page-eyebrow">Start here</p>
+            <h2 className="developer-hub-section-title">A simple path into the docs</h2>
           </div>
         </div>
-        <p className="developer-docs-p">
-          The split below is the rule for the docs and the public page copy. Kai should explain
-          PKM, consent, and scoped reads. Agentic APIs should explain A2A, MuleSoft,
-          browser-proxy, enrichment, and activation.
-        </p>
-        <div className="developer-docs-table-wrap">
-          <table className="developer-docs-table">
-            <thead>
-              <tr>
-                <th className="developer-docs-th">Topic</th>
-                <th className="developer-docs-th">Agent Kai API</th>
-                <th className="developer-docs-th">Agentic APIs</th>
-              </tr>
-            </thead>
-            <tbody>
-              {trackComparison.map((row) => (
-                <tr key={row.topic}>
-                  <td className="developer-docs-td">{row.topic}</td>
-                  <td className="developer-docs-td">{row.kai}</td>
-                  <td className="developer-docs-td">{row.agentic}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="developer-hub-steps-grid">
+          {quickStartSteps.map((step) => (
+            <div key={step.title} className="site-page-card developer-hub-step-card">
+              <p className="site-page-eyebrow">{step.eyebrow}</p>
+              <h3 className="developer-hub-step-title">{step.title}</h3>
+              <p className="developer-hub-step-copy">{step.copy}</p>
+            </div>
+          ))}
         </div>
       </section>
-    </DeveloperHubLayout>
+
+      <section id="trust-cues" className="developer-hub-section">
+        <div className="developer-hub-section-head">
+          <div>
+            <p className="site-page-eyebrow">Read this before integrating</p>
+            <h2 className="developer-hub-section-title">The trust cues developers care about</h2>
+          </div>
+          <p className="developer-hub-section-copy">
+            Good API adoption usually comes down to three things: a clear current path, an honest
+            explanation of legacy surfaces, and stable runtime information you can trust.
+          </p>
+        </div>
+        <div className="developer-hub-note-grid">
+          {integrationNotes.map((note) => (
+            <div key={note.title} className="site-page-card developer-hub-note-card">
+              <p className="site-page-eyebrow">{note.eyebrow}</p>
+              <h3 className="developer-hub-step-title">{note.title}</h3>
+              <p className="developer-hub-step-copy">{note.copy}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </DeveloperWorkspaceLayout>
   );
 }

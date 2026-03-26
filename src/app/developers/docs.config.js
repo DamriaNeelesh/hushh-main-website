@@ -16,8 +16,9 @@ export const developerTracks = [
 ];
 
 export const developerOverviewLinks = [
-  { key: "developers-home", href: "/developers", label: "API Reference Home" },
+  { key: "developers-home", href: "/developers", label: "Developer Home" },
   { key: "agent-kai", href: "/developers/agent-kai", label: "Agent Kai API" },
+  { key: "on-boarding", href: "/developers/on-boarding", label: "Developer Workspace" },
   { key: "agentic-apis", href: "/developers/agentic-apis", label: "Agentic APIs" },
 ];
 
@@ -32,8 +33,8 @@ export const developerDocs = [
   },
   {
     slug: "on-boarding",
-    title: "Developer Console Setup",
-    description: "Sign in, complete your developer profile, and prepare your app identity.",
+    title: "Developer Workspace",
+    description: "Sign in, enable Kai developer access, rotate tokens, and keep your app identity current.",
     source: "on-boarding.tsx",
     section: "Agent Kai API",
     track: "kai",

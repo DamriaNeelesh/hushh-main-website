@@ -15,15 +15,15 @@ import {
   SimpleGrid,
   Badge } from
 '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { FaApple, FaGlobe, FaEnvelope, FaCalendar, FaHeartbeat, FaBrain, FaLock, FaEye, FaShieldAlt, FaPuzzlePiece } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import ContentWrapper from '../_components/layout/ContentWrapper';
-
-const MotionBox = motion(Box);
-const MotionHeading = motion(Heading);
-const MotionText = motion(Text);
-const MotionButton = motion(Button);
+import {
+  MotionBox,
+  MotionButton,
+  MotionHeading,
+  MotionText
+} from 'src/lib/motion/chakra-motion';
 
 const HushhVoice = () => {
   const _router = useRouter();

@@ -1,31 +1,33 @@
 import Link from "next/link";
-import GenerateApiKey from "../../app/_components/developerApiContent/generateApiKey";
-import ProfileSetup from "../../app/_components/developerApiContent/profileSetup";
-import SessionToken from "../../app/_components/developerApiContent/sessionToken";
-import ValidateToken from "../../app/_components/developerApiContent/validateToken";
-import { DEVELOPER_ACCESS_NOTES } from "../../lib/developers/content";
+import DeveloperAccessWorkspace from "../../app/_components/developerApiContent/DeveloperAccessWorkspace";
+import {
+  DEVELOPER_ACCESS_NOTES,
+  buildWorkspaceSnippets,
+} from "../../lib/developers/content";
+import { resolveDeveloperRuntime } from "../../lib/developers/runtime";
+
+const runtime = resolveDeveloperRuntime();
+const workspaceSnippets = buildWorkspaceSnippets(runtime);
 
 export const contentHeadings = [
-  { text: "Sign in with the active flow", level: 2, slug: "sign-in-with-the-active-flow" },
-  { text: "Complete your developer profile", level: 2, slug: "complete-your-developer-profile" },
-  { text: "Generate your API key", level: 2, slug: "generate-your-api-key" },
-  { text: "Generate a session token", level: 2, slug: "generate-a-session-token" },
-  { text: "Validate the runtime", level: 2, slug: "validate-the-runtime" },
-  { text: "Before requesting consent", level: 2, slug: "before-requesting-consent" },
+  { text: "Sign in with the shared identity", level: 2, slug: "sign-in-with-the-shared-identity" },
+  { text: "Enable developer access", level: 2, slug: "enable-developer-access" },
+  { text: "Keep your app identity current", level: 2, slug: "keep-your-app-identity-current" },
+  { text: "Use the token safely", level: 2, slug: "use-the-token-safely" },
 ];
 
 export const contentPlainText =
-  "Use the live developer console flow to sign in, complete your profile, generate an API key, mint a session token, validate it, and prepare your Kai app identity before requesting user consent.";
+  "Use the Kai developer workspace to sign in with shared Firebase identity, enable access, reveal a developer token once, keep the app identity current, and prepare your runtime before requesting user consent.";
 
 export default function DeveloperOnboardingDoc() {
   return (
     <>
-      <section id="sign-in-with-the-active-flow" className="space-y-4">
-        <h2>Sign in with the active flow</h2>
+      <section id="sign-in-with-the-shared-identity" className="space-y-4">
+        <h2>Sign in with the shared identity</h2>
         <p>
-          The developer surface uses the active Supabase OAuth flow. Start from{" "}
-          <Link href="/developers/login">/developers/login</Link>, finish Google or Apple sign-in,
-          then return here to prepare your developer identity and runtime credentials.
+          The developer workspace uses the same Firebase identity project as Kai. Start from{" "}
+          <Link href="/developers/login">/developers/login</Link> or sign in inline below with
+          Google or Apple, then keep all access and profile changes tied to that single account.
         </p>
         <ul>
           {DEVELOPER_ACCESS_NOTES.map((note) => (
@@ -34,49 +36,45 @@ export default function DeveloperOnboardingDoc() {
         </ul>
       </section>
 
-      <section id="complete-your-developer-profile" className="space-y-4">
-        <h2>Complete your developer profile</h2>
+      <section id="enable-developer-access" className="space-y-4">
+        <h2>Enable developer access</h2>
         <p>
-          Your app identity is what users see during consent review inside Kai. Fill in your
-          company details first so the approval request does not look anonymous or unfinished.
+          Use the local Kai workspace below to enable access, reveal a token once, rotate that
+          token when needed, and keep your app identity aligned with what users see during
+          consent review inside Kai.
         </p>
-        <ProfileSetup />
+        <DeveloperAccessWorkspace runtime={runtime} />
       </section>
 
-      <section id="generate-your-api-key" className="space-y-4">
-        <h2>Generate your API key</h2>
+      <section id="keep-your-app-identity-current" className="space-y-4">
+        <h2>Keep your app identity current</h2>
         <p>
-          Generate the developer key after profile setup. Keep it secure and use it for the REST
-          contract plus the browser-safe tooling on this site.
+          Your display name, site URL, support URL, policy URL, and brand image are part of the
+          trust surface. Users see this identity when they approve or review consent, so do not
+          leave it blank or stale.
         </p>
-        <GenerateApiKey />
-      </section>
-
-      <section id="generate-a-session-token" className="space-y-4">
-        <h2>Generate a session token</h2>
-        <p>
-          Use the API key to mint a session token. This is the cleanest way to move from console
-          setup into the request-consent and status-polling flow.
-        </p>
-        <SessionToken />
-      </section>
-
-      <section id="validate-the-runtime" className="space-y-4">
-        <h2>Validate the runtime</h2>
-        <p>
-          Before you request real user consent, validate the session token once so you know the
-          developer contract is wired correctly.
-        </p>
-        <ValidateToken />
-      </section>
-
-      <section id="before-requesting-consent" className="space-y-4">
-        <h2>Before requesting consent</h2>
         <ul>
-          <li>Keep your display name, support contact, and environment URLs current.</li>
+          <li>Use a human-readable app name that matches your product.</li>
+          <li>Keep support and policy links live before you request real user consent.</li>
+          <li>Rotate the token whenever team ownership or local secrets change.</li>
+        </ul>
+      </section>
+
+      <section id="use-the-token-safely" className="space-y-4">
+        <h2>Use the token safely</h2>
+        <p>
+          The raw developer token is only revealed after enable or rotate. Save it immediately,
+          put it in your environment as an opaque secret, and use the runtime URLs below as the
+          canonical setup shortcuts.
+        </p>
+        <pre>
+          <code>{`${workspaceSnippets.envVar}\n${workspaceSnippets.remoteUrl}`}</code>
+        </pre>
+        <ul>
           <li>Use <Link href="/developers/agent-kai">Agent Kai API Reference</Link> as the canonical contract source.</li>
-          <li>Use <Link href="/agents">/agents</Link> only for browser-safe testing of the restored runtime.</li>
-          <li>Request one narrow scope at a time before you expand into broader PKM branches.</li>
+          <li>Keep the raw token in a secure secret store, not in client code or shared screenshots.</li>
+          <li>Use <code>?token=&lt;developer-token&gt;</code> only where the Kai reference explicitly documents it.</li>
+          <li>Request one narrow scope at a time before expanding into broader PKM branches.</li>
         </ul>
       </section>
     </>

@@ -14,11 +14,11 @@ export const contentHeadings = [
   { text: "What you need", level: 2, slug: "what-you-need" },
   { text: "Pick your runtime path", level: 2, slug: "pick-your-runtime-path" },
   { text: "Follow the consent flow", level: 2, slug: "follow-the-consent-flow" },
-  { text: "Move into the console", level: 2, slug: "move-into-the-console" },
+  { text: "Move into the developer workspace", level: 2, slug: "move-into-the-developer-workspace" },
 ];
 
 export const contentPlainText =
-  "Start with the Kai developer runtime, pick REST or MCP, discover scopes, request consent in Kai, and then complete developer console setup.";
+  "Start with the Kai developer runtime, pick REST or MCP, discover scopes, request consent in Kai, and then complete the Kai developer workspace setup.";
 
 export default function GettingStartedDoc() {
   return (
@@ -69,11 +69,11 @@ export default function GettingStartedDoc() {
         </pre>
       </section>
 
-      <section id="move-into-the-console" className="space-y-4">
-        <h2>Move into the console</h2>
+      <section id="move-into-the-developer-workspace" className="space-y-4">
+        <h2>Move into the developer workspace</h2>
         <p>
-          After the runtime is wired, use the developer console to complete app identity, rotate tokens,
-          and keep your support metadata current before asking real users for consent.
+          After the runtime is wired, use the developer workspace to enable access, rotate tokens,
+          and keep your app identity current before asking real users for consent.
         </p>
         <ul>
           {DEVELOPER_ACCESS_NOTES.map((note) => (

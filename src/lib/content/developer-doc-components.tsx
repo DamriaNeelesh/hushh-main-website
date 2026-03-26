@@ -3,17 +3,38 @@ import Link from "next/link";
 import Callout from "../../app/_components/developerDocs/Callout";
 import Steps from "../../app/_components/developerDocs/Steps";
 
-function SmartLink({ href = "", children, ...props }: { href?: string; children?: ReactNode; [key: string]: any }) {
+function SmartLink({
+  href = "",
+  className = "",
+  children,
+  ...props
+}: {
+  href?: string;
+  className?: string;
+  children?: ReactNode;
+  [key: string]: any;
+}) {
+  const looksLikeLiteralUrl =
+    typeof children === "string" &&
+    (children.startsWith("/") || children.startsWith("http") || children.includes("@"));
+  const linkClassName = [
+    "developer-docs-link",
+    looksLikeLiteralUrl ? "developer-docs-link--mono" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   if (href.startsWith("/")) {
     return (
-      <Link href={href} {...props}>
+      <Link href={href} className={linkClassName} {...props}>
         {children}
       </Link>
     );
   }
 
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={linkClassName} {...props}>
       {children}
     </a>
   );

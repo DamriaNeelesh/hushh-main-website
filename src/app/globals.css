@@ -162,6 +162,13 @@ img {
   font-weight: 700 !important;
   text-transform: uppercase;
   letter-spacing: 0.16em !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 100%;
+  text-align: center;
+  text-decoration: none !important;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
     box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -1862,6 +1869,26 @@ img {
   overflow-wrap: anywhere;
 }
 
+.developer-docs-link {
+  color: var(--site-surface-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(30, 41, 59, 0.24);
+  text-underline-offset: 0.18em;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.developer-docs-link:hover {
+  color: #111827;
+  text-decoration-color: rgba(17, 24, 39, 0.55);
+}
+
+.developer-docs-link--mono {
+  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-size: 0.94em;
+}
+
 .developer-docs-blockquote {
   margin: 1.5rem 0;
   padding-left: 1rem;
@@ -1872,6 +1899,7 @@ img {
 .developer-docs-table-wrap {
   overflow-x: auto;
   margin: 1.5rem 0;
+  max-width: 100%;
 }
 
 .developer-docs-table {
@@ -1887,6 +1915,8 @@ img {
   border: 1px solid #ece7df;
   text-align: left;
   vertical-align: top;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .developer-docs-th {
@@ -2276,6 +2306,10 @@ img {
   margin-top: 1rem;
 }
 
+.developer-runtime-list--compact {
+  margin-top: 0.1rem;
+}
+
 .developer-runtime-item {
   display: grid;
   gap: 0.22rem;
@@ -2293,6 +2327,11 @@ img {
   color: var(--site-text-primary);
   line-height: 1.6;
   word-break: break-word;
+}
+
+.developer-runtime-value--mono {
+  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-size: 0.88rem;
 }
 
 .site-contact-grid {
@@ -2626,6 +2665,14 @@ img {
   .site-contact-cta {
     width: auto;
   }
+
+  .developer-access-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .developer-access-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 767px) {
@@ -2682,6 +2729,11 @@ img {
   .site-contact-meta-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  .developer-access-actions .site-cta-solid,
+  .developer-access-actions .site-cta-outline-branded {
+    width: 100%;
+  }
 }
 
 .developer-hub-shell,
@@ -2692,45 +2744,46 @@ img {
 }
 
 .developer-hub-band {
-  padding-top: clamp(1.5rem, 3vw, 2.4rem);
-  padding-bottom: clamp(3.5rem, 5vw, 4.75rem);
+  padding-top: clamp(1.1rem, 2vw, 1.75rem);
+  padding-bottom: clamp(3rem, 4.5vw, 4.4rem);
 }
 
 .developer-hub-header {
   display: grid;
-  gap: 1rem;
+  gap: 0.8rem;
   align-items: start;
+  max-width: 58rem;
 }
 
 .developer-hub-header-copy {
   display: grid;
-  gap: 0.9rem;
-  max-width: 62rem;
+  gap: 0.7rem;
+  max-width: 52rem;
 }
 
 .developer-hub-title {
   margin: 0;
   color: var(--site-text-primary);
   font-family: "Playfair Display", serif;
-  font-size: clamp(2.35rem, 4.4vw, 4rem);
-  line-height: 0.98;
+  font-size: clamp(2.15rem, 3.8vw, 3.25rem);
+  line-height: 1.02;
   letter-spacing: -0.04em;
-  max-width: 10ch;
+  max-width: 12ch;
   text-wrap: balance;
 }
 
 .developer-hub-copy {
   margin: 0;
-  max-width: 60ch;
+  max-width: 63ch;
   color: var(--site-text-secondary);
-  font-size: clamp(1rem, 1.3vw, 1.12rem);
-  line-height: 1.76;
+  font-size: clamp(1rem, 1.15vw, 1.08rem);
+  line-height: 1.72;
 }
 
 .developer-hub-content {
   display: grid;
-  gap: 2rem;
-  margin-top: 1.75rem;
+  gap: 2.25rem;
+  margin-top: 1.35rem;
 }
 
 .developer-hub-summary-card,
@@ -2789,7 +2842,16 @@ img {
 .developer-hub-summary-cta,
 .developer-hub-primary-cta {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   justify-content: center;
+  align-self: stretch;
+  padding-inline: 1.15rem;
+  padding-block: 0.9rem;
+  min-height: 3rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em !important;
+  line-height: 1.2;
 }
 
 .developer-hub-section {
@@ -2797,9 +2859,248 @@ img {
   gap: 1.25rem;
 }
 
+.developer-hub-trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.developer-hub-trust-pill {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(219, 208, 191, 0.7);
+}
+
 .developer-hub-support-grid {
   display: grid;
   gap: 2rem;
+}
+
+.developer-access-shell {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.developer-access-grid {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.developer-access-card {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.developer-access-topline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.developer-access-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.32rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(23, 27, 41, 0.08);
+  color: var(--site-text-primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.developer-access-badge--muted {
+  background: rgba(248, 246, 241, 0.95);
+  border: 1px solid rgba(219, 208, 191, 0.8);
+  color: var(--site-brand-taupe);
+}
+
+.developer-access-title {
+  margin: 0;
+  color: var(--site-text-primary);
+  font-family: "Inter", sans-serif;
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+}
+
+.developer-access-copy {
+  margin: 0;
+  color: var(--site-text-secondary);
+  line-height: 1.72;
+}
+
+.developer-access-copy--tight {
+  line-height: 1.6;
+}
+
+.developer-access-status {
+  border-radius: 18px;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  background: rgba(248, 246, 241, 0.8);
+  padding: 0.95rem 1rem;
+  color: var(--site-text-secondary);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.developer-access-status--error {
+  border-color: rgba(220, 38, 38, 0.16);
+  background: rgba(254, 242, 242, 0.92);
+  color: #991b1b;
+}
+
+.developer-access-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.developer-access-actions--tight {
+  gap: 0.65rem;
+}
+
+.developer-access-actions .site-cta-solid,
+.developer-access-actions .site-cta-outline-branded {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-width: 0;
+  padding-inline: 1rem;
+}
+
+.developer-access-text-link {
+  color: var(--site-text-primary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  transition: color 0.2s ease;
+}
+
+.developer-access-text-link:hover {
+  color: var(--site-surface-accent);
+}
+
+.developer-access-note-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--site-text-secondary);
+}
+
+.developer-access-note-list li {
+  line-height: 1.65;
+}
+
+.developer-access-token-reveal {
+  display: grid;
+  gap: 0.8rem;
+  border-radius: 20px;
+  border: 1px solid rgba(180, 83, 9, 0.16);
+  background: linear-gradient(180deg, rgba(255, 251, 235, 0.94) 0%, rgba(255, 247, 237, 0.9) 100%);
+  padding: 1rem;
+}
+
+.developer-access-token-title {
+  margin: 0;
+  color: #92400e;
+  font-weight: 700;
+}
+
+.developer-access-token-value {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.85rem 0.95rem;
+  color: var(--site-text-primary);
+  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.developer-access-snippet-stack {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.developer-access-snippet {
+  display: grid;
+  gap: 0.7rem;
+  border-radius: 20px;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  background: rgba(248, 246, 241, 0.72);
+  padding: 1rem;
+}
+
+.developer-access-snippet--compact {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.developer-access-snippet-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.developer-access-copy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  padding: 0.4rem 0.75rem;
+  color: var(--site-text-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.developer-access-copy-button:hover {
+  border-color: rgba(92, 81, 63, 0.32);
+  background: rgba(248, 246, 241, 0.98);
+}
+
+.developer-access-snippet pre {
+  margin: 0;
+}
+
+.developer-access-inline-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--site-text-secondary);
+  line-height: 1.65;
+}
+
+.developer-access-inline-meta a {
+  color: var(--site-text-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.developer-access-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.developer-access-form-span {
+  grid-column: 1 / -1;
 }
 
 .developer-hub-section-head {
@@ -2808,17 +3109,42 @@ img {
 }
 
 .developer-hub-section-title {
-  font-size: clamp(2rem, 3vw, 3rem);
+  font-size: clamp(1.55rem, 2.45vw, 2.35rem);
   line-height: 1.02;
-  max-width: 16ch;
+  max-width: 18ch;
 }
 
 .developer-hub-track-grid,
 .developer-hub-steps-grid,
 .developer-hub-runtime-grid,
-.developer-hub-reference-grid {
+.developer-hub-reference-grid,
+.developer-hub-note-grid {
   display: grid;
   gap: 1.25rem;
+}
+
+.developer-hub-card-topline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.developer-hub-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(143, 133, 112, 0.28);
+  background: rgba(143, 133, 112, 0.08);
+  color: var(--site-text-primary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
 }
 
 .developer-hub-link-list {
@@ -2855,6 +3181,26 @@ img {
   margin-top: 0.5rem;
   background: rgba(143, 133, 112, 0.8);
   box-shadow: 0 0 0 6px rgba(143, 133, 112, 0.12);
+}
+
+.developer-hub-card-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(143, 133, 112, 0.2), rgba(143, 133, 112, 0.04));
+}
+
+.developer-hub-docs-block {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.developer-hub-docs-label {
+  margin: 0;
+  color: var(--site-brand-taupe);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 .developer-hub-link,
@@ -3217,6 +3563,8 @@ img {
 }
 
 .developer-docs-pre code {
+  display: block;
+  min-width: max-content;
   background: transparent;
   border: none;
   color: inherit;
@@ -3439,7 +3787,8 @@ img {
   .developer-hub-track-grid,
   .developer-hub-steps-grid,
   .developer-hub-runtime-grid,
-  .developer-hub-reference-grid {
+  .developer-hub-reference-grid,
+  .developer-hub-note-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -3469,10 +3818,6 @@ img {
 }
 
 @media (min-width: 1024px) {
-  .developer-hub-header {
-    max-width: 66rem;
-  }
-
   .developer-workspace-route {
     display: grid;
     grid-template-rows: minmax(0, 1fr);
@@ -3533,11 +3878,45 @@ img {
     padding-inline: 1rem;
   }
 
+  .developer-hub-primary-cta,
+  .developer-hub-summary-cta {
+    width: 100%;
+    font-size: 0.83rem;
+    letter-spacing: 0.08em !important;
+  }
+
+  .developer-docs-table-wrap {
+    margin-inline: -0.15rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .developer-docs-table {
+    min-width: 100%;
+    table-layout: auto;
+  }
+
+  .developer-docs-th,
+  .developer-docs-td {
+    padding: 0.72rem 0.78rem;
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .developer-docs-pre {
+    padding: 0.95rem 1rem 1.1rem;
+    font-size: 0.8rem;
+  }
+
   .developer-hub-title {
-    font-size: clamp(2.2rem, 9vw, 3.4rem);
+    font-size: clamp(2rem, 8.5vw, 2.85rem);
   }
 
   .developer-hub-section-title {
     max-width: none;
+  }
+
+  .developer-hub-status-badge {
+    width: 100%;
+    justify-content: flex-start;
   }
 }
