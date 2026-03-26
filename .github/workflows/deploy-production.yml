@@ -1,0 +1,90 @@
+name: Deploy Website to Production
+
+on:
+  workflow_dispatch:
+
+env:
+  GCP_PROJECT_ID: hushh-ai-prod
+  GCP_REGION: us-central1
+  FRONTEND_SERVICE: hushh-ai-website
+  ARTIFACT_REPOSITORY: website-images
+  CLOUD_RUN_REVISION_RETENTION: "10"
+
+jobs:
+  deploy:
+    name: Deploy Production Website
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Assert production branch contains latest main
+        run: bash scripts/ci/require-branch-contains-main.sh deploy
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY_PROD }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Set GCP project context
+        run: gcloud config set project "${{ env.GCP_PROJECT_ID }}"
+
+      - name: Assert GCP project scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTIVE_PROJECT="$(gcloud config get-value project 2>/dev/null)"
+          if [ "$ACTIVE_PROJECT" != "${{ env.GCP_PROJECT_ID }}" ]; then
+            echo "Refusing deploy: expected project '${{ env.GCP_PROJECT_ID }}' but got '$ACTIVE_PROJECT'."
+            exit 1
+          fi
+
+      - name: Deploy website using Cloud Build
+        shell: bash
+        run: |
+          set -euo pipefail
+          IMAGE_TAG="${GITHUB_SHA::12}"
+          gcloud builds submit \
+            --project="${{ env.GCP_PROJECT_ID }}" \
+            --config=deploy/frontend.cloudbuild.yaml \
+            "--substitutions=_FRONTEND_SERVICE=${{ env.FRONTEND_SERVICE }},_REGION=${{ env.GCP_REGION }},_APP_ENV=production,_AR_REPOSITORY=${{ env.ARTIFACT_REPOSITORY }},_IMAGE_TAG=${IMAGE_TAG}"
+
+      - name: Get frontend URL
+        id: frontend-url
+        run: |
+          FRONTEND_URL="$(gcloud run services describe "${{ env.FRONTEND_SERVICE }}" \
+            --project="${{ env.GCP_PROJECT_ID }}" \
+            --region="${{ env.GCP_REGION }}" \
+            --format='value(status.url)')"
+          echo "url=$FRONTEND_URL" >> "$GITHUB_OUTPUT"
+          echo "Frontend URL: $FRONTEND_URL"
+
+      - name: Retain latest frontend revisions
+        continue-on-error: true
+        run: bash scripts/ci/cloudrun-retention.sh "${{ env.FRONTEND_SERVICE }}" "${{ env.GCP_REGION }}" "${{ env.CLOUD_RUN_REVISION_RETENTION }}"
+
+      - name: Verify production website runtime env parity
+        run: |
+          python3 scripts/ops/verify-website-env-secrets-parity.py \
+            --project "${{ env.GCP_PROJECT_ID }}" \
+            --region "${{ env.GCP_REGION }}" \
+            --frontend-service "${{ env.FRONTEND_SERVICE }}" \
+            --assert-runtime-env-contract
+
+      - name: Smoke deployed routes
+        env:
+          BASE_URL: ${{ steps.frontend-url.outputs.url }}
+        run: bash scripts/ops/smoke-website-routes.sh
+
+      - name: Deployment Summary
+        if: always()
+        run: |
+          echo "Production website deployment complete"
+          echo "Frontend: ${{ steps.frontend-url.outputs.url }}"

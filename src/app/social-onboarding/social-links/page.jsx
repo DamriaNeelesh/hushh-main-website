@@ -17,7 +17,7 @@ export default function SocialLinksPage() {
 
   return (
     <ContentWrapper>   
-      <main className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
           {/* Left visual section */}
           <section className="hidden lg:block bg-black">
@@ -194,7 +194,7 @@ export default function SocialLinksPage() {
             </div>
           </section>
         </div>
-      </main>
+      </div>
     </ContentWrapper>
   );
 }

@@ -19,15 +19,17 @@ const FundingBanner = () => {
 
   return (
     <Box
-      bg="linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)"
+      as="section"
+      aria-label="Funding announcement"
+      bg="linear-gradient(135deg, #13151b 0%, #171b29 52%, #242a37 100%)"
       color="white"
       position="fixed"
       top={0}
       left={0}
       right={0}
       zIndex={10000}
-      height={{ base: "32px", lg: "36px" }}
-      minHeight={{ base: "32px", lg: "36px" }}
+      height="36px"
+      minHeight="36px"
       display="flex"
       alignItems="center"
       boxShadow="0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
@@ -61,7 +63,7 @@ const FundingBanner = () => {
           }}
         >
           <Text
-            fontSize="xs"
+            fontSize="11px"
             fontWeight="600"
             fontFamily="Figtree"
             px={4}
@@ -76,7 +78,7 @@ const FundingBanner = () => {
           <Box width="100px" />
           
           <Text
-            fontSize="xs"
+            fontSize="11px"
             fontWeight="600"
             fontFamily="Figtree"
             px={4}

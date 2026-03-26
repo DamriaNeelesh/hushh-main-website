@@ -110,35 +110,24 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="get-in-touch" className="border-b border-slate-200 bg-[rgba(248,246,241,0.68)]">
+    <section
+      id="get-in-touch"
+      aria-labelledby="contact-hushh-title"
+      className="border-b border-slate-200 bg-[rgba(248,246,241,0.68)]"
+    >
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
         <div className="site-contact-grid">
-          <aside className="site-page-card site-contact-aside">
+          <div className="site-page-card site-contact-aside">
             <div className="site-contact-aside-block space-y-4">
-              <p className="site-page-eyebrow">Get in touch</p>
-              <h2 className="site-contact-title">Start a project conversation with Hushh</h2>
+              <p className="site-page-eyebrow">Contact</p>
+              <h2 id="contact-hushh-title" className="site-contact-title">Talk with the Hushh team</h2>
               <p className="site-page-copy">
-                Share implementation context, rollout timing, or partnership goals in the form. If
-                a live working session is the better next step, schedule time directly with the
-                team.
+                Share project context, rollout timing, or partnership goals in the form. If you
+                would rather work through it live, book a focused session directly with the team.
               </p>
             </div>
 
             <div className="site-contact-aside-block site-contact-action-stack">
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
-                className="site-contact-link"
-              >
-                <span className="site-contact-link-content">
-                  <span className="site-contact-link-title-wrap">
-                    <MdEmail className="site-contact-link-icon" />
-                    <span className="site-contact-link-title">Email Hushh</span>
-                  </span>
-                  <span className="site-contact-link-copy">{CONTACT_EMAIL}</span>
-                </span>
-                <MdOpenInNew className="site-contact-link-arrow" />
-              </a>
-
               <a
                 href={SCHEDULE_MEETING_URL}
                 target="_blank"
@@ -153,6 +142,20 @@ export default function ContactForm() {
                   <span className="site-contact-link-copy">
                     Office hours · 60 minute working session
                   </span>
+                </span>
+                <MdOpenInNew className="site-contact-link-arrow" />
+              </a>
+
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="site-contact-link"
+              >
+                <span className="site-contact-link-content">
+                  <span className="site-contact-link-title-wrap">
+                    <MdEmail className="site-contact-link-icon" />
+                    <span className="site-contact-link-title">Email Hushh</span>
+                  </span>
+                  <span className="site-contact-link-copy">{CONTACT_EMAIL}</span>
                 </span>
                 <MdOpenInNew className="site-contact-link-arrow" />
               </a>
@@ -188,14 +191,15 @@ export default function ContactForm() {
                 })}
               </div>
             </div>
-          </aside>
+          </div>
 
           <div className="site-page-card site-contact-form-card">
             <div className="space-y-3">
               <p className="site-page-eyebrow">Typed contact form</p>
               <h3 className="site-contact-form-title">Tell us what you are building</h3>
               <p className="site-page-copy">
-                Share a little project context and the team can respond with the right next step.
+                Send the essentials and the team can reply with the right next step, owner, or
+                meeting recommendation.
               </p>
             </div>
 

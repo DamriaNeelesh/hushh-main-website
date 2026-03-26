@@ -48,7 +48,7 @@ export default function SocialOnboardingPage() {
 
   return (
     <ContentWrapper>
-    <main className="relative mx-auto max-w-6xl px-6 md:px-10 py-12 md:py-16">
+    <section className="relative mx-auto max-w-6xl px-6 md:px-10 py-12 md:py-16">
       {/* Header */}
       <section className="text-center mb-10 md:mb-14">
         <div className="mx-auto mb-4 h-10 w-10 rounded-full border border-black grid place-items-center">
@@ -114,8 +114,7 @@ export default function SocialOnboardingPage() {
       <div className="sr-only" aria-live="polite">
         Step 1 of 4
       </div>
-    </main>
+    </section>
     </ContentWrapper>
   );
 }
-

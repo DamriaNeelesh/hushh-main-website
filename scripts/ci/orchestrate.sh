@@ -80,6 +80,7 @@ case "$MODE" in
     run_logged audit_routes npm run audit:routes
     run_logged audit_security npm run audit:security
     run_logged audit_docs npm run audit:docs
+    run_logged audit_brand npm run audit:brand
     run_logged verify_oauth_branding npm run verify:oauth-branding
     run_npm_audit
     start_server

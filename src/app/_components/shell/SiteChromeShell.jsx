@@ -26,15 +26,15 @@ export default function SiteChromeShell({ children, pathname = "/" }) {
       <div
         data-site-shell-spacer
         aria-hidden="true"
-        style={{ height: `${totalOffsetHeight}px`, width: "100%" }}
+        style={{ height: totalOffsetHeight, width: "100%" }}
       />
       <div
         data-site-shell-content
         className="site-shell-content min-h-[calc(100dvh-var(--total-offset-height,106px))] flex flex-col"
       >
-        <div data-site-route-slot className="site-route-slot flex flex-1 flex-col">
+        <main data-site-route-slot className="site-route-slot flex flex-1 flex-col">
           {children}
-        </div>
+        </main>
         <SiteFooter />
       </div>
     </div>

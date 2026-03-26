@@ -77,7 +77,7 @@ const HushhHackhathon = () => {
             <Text fontWeight="400" fontSize={{ md: '1.25rem', base: '0.75rem' }} lineHeight={{ md: '32px', base: '20px' }} color="#E4E4E4">
               Build AI agents that work for you — while you sleep.
             </Text>
-            <Button borderRadius="2px" fontSize={{ md: '1rem', base: '1rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color: 'white', background: 'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', border: 'none' }} onClick={() => window.open('https://forms.gle/AcJUMmhZXXCFytus9')}>
+            <Button borderRadius="2px" fontSize={{ md: '1rem', base: '1rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color: 'white', background: 'linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)', border: 'none' }} onClick={() => window.open('https://forms.gle/AcJUMmhZXXCFytus9')}>
               Apply Now
             </Button>
             {/* <div
@@ -230,7 +230,7 @@ const HushhHackhathon = () => {
           'Wildcard – Any agent solving a real-world, human-first problem'].
           map((text, i) =>
           <HStack key={i}>
-              <Text color="#e0055f" fontWeight="bold">•</Text>
+              <Text color="#8f8570" fontWeight="bold">•</Text>
               <Text color="#E4E4E4" fontSize={{ md: '1.25rem', base: '0.75rem' }}>{text}</Text>
             </HStack>
           )}
@@ -249,7 +249,7 @@ const HushhHackhathon = () => {
           'Opensource tooling available via Hugging Face, Kaggle, Google Colab'].
           map((text, i) =>
           <HStack key={i}>
-              <Text color="#2020ed" fontWeight="bold">•</Text>
+              <Text color="#171b29" fontWeight="bold">•</Text>
               <Text color="#E4E4E4" fontSize={{ md: '1.25rem', base: '0.75rem' }}>{text}</Text>
             </HStack>
           )}
@@ -270,7 +270,7 @@ const HushhHackhathon = () => {
           'Other standout teams may receive internship offers too'].
           map((text, i) =>
           <HStack key={i}>
-              <Text color="#e0055f" fontWeight="bold">•</Text>
+              <Text color="#8f8570" fontWeight="bold">•</Text>
               <Text color="#E4E4E4" fontSize={{ md: '1.25rem', base: '0.75rem' }}>{text}</Text>
             </HStack>
           )}
@@ -335,7 +335,7 @@ const HushhHackhathon = () => {
 
         {/* Submission & Contact */}
         <VStack my={{ md: '4rem', base: '2rem' }} alignItems="center" spacing={4} mb={{ base: '4rem' }}>
-          <Button borderRadius="2px" fontSize={{ md: '1rem', base: '1rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color: 'white', background: 'linear-gradient(256.5deg, #e0055f 6.97%, #2020ed 92.26%)', border: 'none' }} onClick={() => window.open('https://forms.gle/AcJUMmhZXXCFytus9')}>
+          <Button borderRadius="2px" fontSize={{ md: '1rem', base: '1rem' }} letterSpacing="0.29rem" border="1px solid #606060" fontWeight="400" bg="transparent" lineHeight={{ md: '28.8px', base: '15px' }} color="white" _hover={{ color: 'white', background: 'linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)', border: 'none' }} onClick={() => window.open('https://forms.gle/AcJUMmhZXXCFytus9')}>
             Apply Now
           </Button>
           <Text color="#E4E4E4" textAlign="center" fontSize={{ md: '1.25rem', base: '0.85rem' }}>

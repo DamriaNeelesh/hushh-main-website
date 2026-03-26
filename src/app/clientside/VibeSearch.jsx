@@ -76,6 +76,7 @@ const ClientVibeSearch = () => {
               transform: "rotate(-225deg)",
               opacity: "0.5",
               zIndex: "-10",
+              width: "auto",
               height: "40rem",
               filter: "grayscale(100%)"
             }}
@@ -94,6 +95,7 @@ const ClientVibeSearch = () => {
               zIndex: "-10",
               width: "100%",
               height: "13rem",
+              objectFit: "cover",
               filter: "grayscale(100%)"
             }}
             unoptimized />
@@ -129,6 +131,7 @@ const ClientVibeSearch = () => {
             that you come across by just taking a picture or by typing
           </Text>
           <Button
+            className="site-cta-solid"
             border={"1px solid #606060"}
             borderRadius={"2px"}
             w={{ md: "16rem", base: "10rem" }}
@@ -158,6 +161,7 @@ const ClientVibeSearch = () => {
           mr={"3rem"}>
           
           <Button
+            className="site-cta-outline-branded"
             display={{ md: "flex", base: "none" }}
             border={"1px solid #606060"}
             borderRadius={"4rem"}
@@ -183,6 +187,7 @@ const ClientVibeSearch = () => {
           justifyContent={"center"}>
           
           <Button
+            className="site-cta-outline-branded"
             ml={{ md: "55rem" }}
             display={"flex"}
             border={"1px solid #606060"}
@@ -417,6 +422,7 @@ const ClientVibeSearch = () => {
               </Text>
             </Box>
             <Button
+              className="site-cta-solid"
               border={"3px solid #606060"}
               borderRadius={"2px"}
               w={"16rem"}
@@ -491,6 +497,7 @@ const ClientVibeSearch = () => {
             <Image src={VibeSearchBg} alt="VibeSearchBg" />
 
             <Button
+              className="site-cta-solid"
               border={"1px solid #606060"}
               borderRadius={"2px"}
               w={{ md: "16rem", base: "10rem" }}

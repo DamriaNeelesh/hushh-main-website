@@ -28,8 +28,8 @@ const HushhWalletIcon = (props) => (
         y2="48.0957"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#E0055F" />
-        <stop offset="1" stopColor="#2020ED" />
+        <stop stopColor="#8F8570" />
+        <stop offset="1" stopColor="#171B29" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_1212_955"

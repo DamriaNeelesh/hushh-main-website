@@ -96,7 +96,7 @@ export default function PublicProfilePage() {
     if (loading) {
         return (
             <Flex minH="100vh" align="center" justify="center" bg="#f5f5f7">
-                <Spinner size="xl" color="#0071e3" thickness="2px" />
+                <Spinner size="xl" color="#171b29" thickness="2px" />
             </Flex>
         );
     }
@@ -105,7 +105,7 @@ export default function PublicProfilePage() {
         return (
             <Flex minH="100vh" align="center" justify="center" bg="#f5f5f7" direction="column">
                 <Text fontSize="xl" color="#1d1d1f" fontWeight="600" fontFamily={fontFamily}>Profile not found</Text>
-                <Button mt={4} variant="link" color="#0071e3" onClick={() => router.push('/')}>Go Home</Button>
+                <Button mt={4} variant="link" color="#171b29" onClick={() => router.push('/')}>Go Home</Button>
             </Flex>
         );
     }
@@ -166,7 +166,7 @@ export default function PublicProfilePage() {
                             py={1}
                             borderRadius="full"
                             bg="rgba(0,113,227,0.1)"
-                            color="#0071e3"
+                            color="#171b29"
                             textTransform="none"
                             fontSize="sm"
                             fontWeight="500"
@@ -285,7 +285,7 @@ export default function PublicProfilePage() {
 
                     {/* Future Intents */}
                     <BentoCard colSpan={1} title="48h Plan">
-                        <Text fontSize="xl" fontWeight="600" color="#0071e3">{profile.intent_48h_category || "N/A"}</Text>
+                        <Text fontSize="xl" fontWeight="600" color="#171b29">{profile.intent_48h_category || "N/A"}</Text>
                         <Text color="#86868b" fontSize="sm" mt={1}>{fmtMoney(profile.intent_48h_budget_usd)}</Text>
                     </BentoCard>
                     <BentoCard colSpan={1} title="72h Plan">

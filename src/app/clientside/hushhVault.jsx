@@ -443,7 +443,7 @@ const HushhVault = () => {
                   <VStack spacing={4} align="start" w="full">
                     {/* iOS Card */}
                     <Box
-                      bg="rgba(59, 130, 246, 0.1)"
+                      bg="rgba(143, 133, 112, 0.12)"
                       borderRadius="12px"
                       p={4}
                       w="full"
@@ -477,7 +477,7 @@ const HushhVault = () => {
 
                     {/* Storage Card */}
                     <Box
-                      bg="rgba(59, 130, 246, 0.1)"
+                      bg="rgba(143, 133, 112, 0.12)"
                       borderRadius="12px"
                       p={4}
                       w="full"
@@ -511,7 +511,7 @@ const HushhVault = () => {
 
                     {/* Integration Card */}
                     <Box
-                      bg="rgba(59, 130, 246, 0.1)"
+                      bg="rgba(143, 133, 112, 0.12)"
                       borderRadius="12px"
                       p={4}
                       w="full"
@@ -545,7 +545,7 @@ const HushhVault = () => {
 
                     {/* Security Card */}
                     <Box
-                      bg="rgba(59, 130, 246, 0.1)"
+                      bg="rgba(143, 133, 112, 0.12)"
                       borderRadius="12px"
                       p={4}
                       w="full"

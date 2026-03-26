@@ -15,8 +15,8 @@ export default function OnboardingCompletedPage() {
     } catch {}
   }, []);
   return (
-    <ContentWrapper>    
-    <main className="min-h-[70vh] flex flex-col items-center justify-center px-6 py-16 text-center">
+    <ContentWrapper>
+    <section className="min-h-[70vh] flex flex-col items-center justify-center px-6 py-16 text-center">
       <div className="mb-6 h-16 w-16 grid place-items-center rounded-full border border-black">
         <span aria-hidden className="text-2xl">🎉</span>
       </div>
@@ -34,8 +34,7 @@ export default function OnboardingCompletedPage() {
           Visit your Dashboard <span aria-hidden>→</span>
         </Link>
       </div>
-    </main>
+    </section>
     </ContentWrapper>
   );
 }
-

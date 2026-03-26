@@ -7,7 +7,6 @@ import HushhButtonIcon from "./svg/hushhButton";
 import VibeSearchIcon from "./svg/vibeSearch";
 import { SearchIcon } from "@chakra-ui/icons";
 import ChromeExtentionLogo from "./svg/ChromeExtensionLogo";
-import VibeSearchApi from "./svg/vibeSearchApi";
 import ValetChat from "./svg/valetChat";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
@@ -25,6 +24,10 @@ import HushhVoice from "../_components/svg/icons/vaultLogo.svg";
 import SearchModal from "./features/SearchModal";
 
 export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
+  const mobileMenuOffset = typeof topOffset === "number"
+    ? `${70 + topOffset}px`
+    : `calc(70px + ${topOffset})`;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const pathname = usePathname();
@@ -204,12 +207,6 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
         description: "Discover products you love with image-based search and AI recommendations",
         href: "/products/hushh-vibe-search",
         icon: VibeSearchIcon
-      },
-      {
-        name: "API Reference",
-        description: "Developer hub for Agent Kai and the older Agentic APIs",
-        href: "/developers",
-        icon: VibeSearchApi
       },
       {
         name: "Hushh For Students",
@@ -430,7 +427,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                 key={`${menuKey}-${item.href}`}
                 href={item.href}
                 role="menuitem"
-                className="group block p-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-200 hover:shadow-sm dropdown-item cursor-pointer"
+                className="group block cursor-pointer rounded-xl p-3 transition-all duration-200 hover:bg-gradient-to-r hover:from-[rgba(248,246,241,0.94)] hover:to-[rgba(232,224,209,0.72)] hover:shadow-sm dropdown-item"
                 onClick={() => {
                   closeDropdowns();
                 }}>
@@ -443,7 +440,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                       {/* Show icons for products and other dropdowns (not solutions) */}
                       {item.icon && menuKey !== 'solutions' &&
                   <div className="flex-shrink-0">
-                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center group-hover:from-blue-100 group-hover:to-indigo-100 transition-all duration-200">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 transition-all duration-200 group-hover:from-[rgba(248,246,241,0.92)] group-hover:to-[rgba(232,224,209,0.88)]">
                             <Image
                         src={item.icon}
                         alt={item.name}
@@ -783,12 +780,12 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
           className="lg:hidden fixed"
           style={{
             position: "fixed",
-            top: `${70 + topOffset}px`,
+            top: mobileMenuOffset,
             left: "0",
             right: "0",
             bottom: "0",
             width: "100vw",
-            height: `calc(100vh - ${70 + topOffset}px)`,
+            height: `calc(100vh - ${mobileMenuOffset})`,
             zIndex: 9999,
             background: "rgba(255, 255, 255, 0.98)",
             backdropFilter: "blur(20px) saturate(180%)",

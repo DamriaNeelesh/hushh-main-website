@@ -210,7 +210,7 @@ export default function PublicProfilePage() {
   if (loading) {
     return (
       <Flex minH="100vh" align="center" justify="center" bg="#f5f5f7">
-                <Spinner size="xl" color="#0071e3" thickness="2px" />
+                <Spinner size="xl" color="#171b29" thickness="2px" />
             </Flex>);
 
   }
@@ -219,7 +219,7 @@ export default function PublicProfilePage() {
     return (
       <Flex minH="100vh" align="center" justify="center" bg="#f5f5f7" direction="column">
                 <Text fontSize="xl" color="#1d1d1f" fontWeight="600" fontFamily={fontFamily}>Profile not found</Text>
-                <Button mt={4} variant="link" color="#0071e3" onClick={() => router.push('/')}>Go Home</Button>
+                <Button mt={4} variant="link" color="#171b29" onClick={() => router.push('/')}>Go Home</Button>
             </Flex>);
 
   }
@@ -367,7 +367,7 @@ export default function PublicProfilePage() {
               py={1}
               borderRadius="full"
               bg="rgba(0,113,227,0.1)"
-              color="#0071e3"
+              color="#171b29"
               textTransform="none"
               fontSize="sm"
               fontWeight="500">
@@ -404,7 +404,7 @@ export default function PublicProfilePage() {
                             </StatCard>
 
                             <StatCard title="Data Points">
-                                <ValueText size="3xl" color="#0071e3">{dataPoints}</ValueText>
+                                <ValueText size="3xl" color="#171b29">{dataPoints}</ValueText>
                                 <LabelText>Fields extracted and verified</LabelText>
                             </StatCard>
                         </SimpleGrid>
@@ -544,7 +544,7 @@ export default function PublicProfilePage() {
                     </BentoCard>
 
                     <BentoCard colSpan={{ base: 1, md: 1 }} title="Intent - 48 Hours">
-                        <Text fontSize="xl" fontWeight="600" color="#0071e3">
+                        <Text fontSize="xl" fontWeight="600" color="#171b29">
                             {getValueFrom(profile.intent_48h_category)}
                         </Text>
                         <Text color="#86868b" fontSize="sm" mt={1}>

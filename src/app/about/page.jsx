@@ -288,7 +288,7 @@ export default function About() {
                       fontWeight="400"
                     >
                       We're constantly seeking out bright minds and diverse perspectives to join our mission. If you're passionate about data privacy and empowerment, cutting-edge technology, disrupting established industries, and making a real-world impact, then Hushh might be the perfect place for you. Explore our current openings{" "}
-                      <Text as="span" color="#8f8570" fontWeight="600" fontFamily="Inter, sans-serif">
+                      <Text as="span" color="#5c513f" fontWeight="600" fontFamily="Inter, sans-serif">
                         <Link href="/career">here</Link>
                       </Text>{" "}
                       and become part of the team that's changing the data landscape, one user at a time.

@@ -51,6 +51,7 @@ if (isDevelopment) {
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  output: "standalone",
   compiler: {
     removeConsole: true,
   },
@@ -92,6 +93,7 @@ const nextConfig = {
     ];
   },
   images: {
+    qualities: [75, 90],
     remotePatterns: [
       {
         protocol: 'https',

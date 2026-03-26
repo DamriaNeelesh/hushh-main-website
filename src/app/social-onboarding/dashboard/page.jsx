@@ -171,7 +171,7 @@ export default function SocialProfileDashboard() {
 
   return (
     <ContentWrapper>
-    <main className="mx-auto max-w-6xl px-6 md:px-10 py-10 md:py-14">
+    <section className="mx-auto max-w-6xl px-6 md:px-10 py-10 md:py-14">
       {loading && (
         <div>
           <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
@@ -348,7 +348,7 @@ export default function SocialProfileDashboard() {
         <button className="rounded-full bg-black px-6 py-3 text-white">Ask your PDA to edit your Profile</button>
         <Link href="/profile/view" className="rounded-full bg-[#4788f4] px-6 py-3 text-white">View your Profile</Link>
       </div>
-    </main>
+    </section>
     </ContentWrapper>
   );
 }

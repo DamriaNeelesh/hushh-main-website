@@ -298,7 +298,7 @@ const FrequentlyAskedQuestions = () => {
             <Text
               fontSize={{ base: '3xl', md: '4xl' }}
               fontWeight="700"
-            bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+            bgGradient="linear(to-r, #171b29, #BB62FC, #DA4B7A, #F44F22)"
             bgClip="text"
             >
               FAQs
@@ -461,7 +461,7 @@ const FrequentlyAskedQuestions = () => {
                         textAlign="center"
                         mb={8}
                         fontWeight="700"
-            bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+            bgGradient="linear(to-r, #171b29, #BB62FC, #DA4B7A, #F44F22)"
             bgClip="text"
                       >
                         Personal Data Agent (PDA)
@@ -500,7 +500,7 @@ const FrequentlyAskedQuestions = () => {
                         fontWeight="bold"
                         textAlign="center"
                         mb={8}
-            bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+            bgGradient="linear(to-r, #171b29, #BB62FC, #DA4B7A, #F44F22)"
             bgClip="text"
                       >
                         Hushh Vault
@@ -539,7 +539,7 @@ const FrequentlyAskedQuestions = () => {
                         textAlign="center"
                         mb={8}
                         fontWeight="700"
-            bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+            bgGradient="linear(to-r, #171b29, #BB62FC, #DA4B7A, #F44F22)"
             bgClip="text"
                       >
                         Hushh Link
@@ -579,7 +579,7 @@ const FrequentlyAskedQuestions = () => {
                         textAlign="center"
                         mb={8}
                         fontWeight="700"
-            bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+            bgGradient="linear(to-r, #171b29, #BB62FC, #DA4B7A, #F44F22)"
             bgClip="text"
                       >
                         Hushh Flow
@@ -619,7 +619,7 @@ const FrequentlyAskedQuestions = () => {
                         textAlign="center"
                         mb={8}
                         fontWeight="700"
-            bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+            bgGradient="linear(to-r, #171b29, #BB62FC, #DA4B7A, #F44F22)"
             bgClip="text"
                       >
                         Hushh Grid
@@ -688,7 +688,7 @@ const FrequentlyAskedQuestions = () => {
                       textAlign="center"
                       mb={8}
                       fontWeight="700"
-                      bgGradient="linear(to-r, #0071E3, #BB62FC, #DA4B7A, #F44F22)"
+                      bgGradient="linear(to-r, #171b29, #BB62FC, #DA4B7A, #F44F22)"
                       bgClip="text"
                     >
                       Contact Information

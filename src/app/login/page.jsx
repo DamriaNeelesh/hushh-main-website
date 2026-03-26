@@ -464,7 +464,7 @@ const LoginPageContent = () => {
                         status: "success",
                         duration: 3000,
                         isClosable: true,
-                        position: "bottom"
+                        position: "top"
                       });
                     }}
                     onError={(error) => {
@@ -475,7 +475,7 @@ const LoginPageContent = () => {
                         status: "error",
                         duration: 5000,
                         isClosable: true,
-                        position: "bottom"
+                        position: "top"
                       });
                     }} />
                   

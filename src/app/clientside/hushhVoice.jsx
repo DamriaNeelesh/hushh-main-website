@@ -53,11 +53,11 @@ const HushhVoice = () => {
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6, delay, ease: "easeOut" }}
-    bg="rgba(59, 130, 246, 0.05)"
+    bg="rgba(143, 133, 112, 0.08)"
     borderRadius="16px"
     p={6}
     borderWidth="1px"
-    borderColor="rgba(59, 130, 246, 0.2)"
+    borderColor="rgba(143, 133, 112, 0.18)"
     _hover={{
       transform: "translateY(-5px)",
       boxShadow: "0 8px 25px rgba(0, 113, 227, 0.2)",
@@ -556,7 +556,7 @@ const HushhVoice = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  bg="rgba(59, 130, 246, 0.1)"
+                  bg="rgba(143, 133, 112, 0.12)"
                   borderRadius="16px"
                   p={6}
                   borderLeft="4px solid #171b29">

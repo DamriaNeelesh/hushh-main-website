@@ -74,6 +74,7 @@ const ClientHushhButton = () => {
               top: "0px",
               left: "30%",
               zIndex: "-10",
+              width: "auto",
               filter: "grayscale(100%)"
             }}
             unoptimized />
@@ -155,6 +156,7 @@ const ClientHushhButton = () => {
               LEARN MORE
               </Button> */}
             <Button
+              className="site-cta-solid"
               as="a"
               href="https://www.npmjs.com/package/hushh-button-sdk"
               target="_blank"
@@ -187,7 +189,8 @@ const ClientHushhButton = () => {
           justifyContent="flex-end"
           mr={"3rem"}>
           
-          <Button
+            <Button
+            className="site-cta-outline-branded"
             display={{ md: "flex", base: "none" }}
             border={"1px solid #606060"}
             borderRadius={"4rem"}
@@ -213,7 +216,8 @@ const ClientHushhButton = () => {
           mt={"2rem"}
           justifyContent={"center"}>
           
-          <Button
+            <Button
+            className="site-cta-outline-branded"
             ml={{ md: "55rem" }}
             display={"flex"}
             border={"1px solid #606060"}
@@ -283,14 +287,14 @@ const ClientHushhButton = () => {
             justifyContent="flex-start">
             
             <Box display={{ base: "flex", md: "none" }} gap={"1rem"}>
-              <Text className="gradient">
-                <Text fontSize={{ md: "2rem", base: "1.5rem" }}>
+              <Box className="gradient" as="div">
+                <Text as="span" display="block" fontSize={{ md: "2rem", base: "1.5rem" }}>
                   Hushh Button For
                 </Text>
-                <Text fontSize={{ md: "3.75rem", base: "2rem" }}>
+                <Text as="span" display="block" fontSize={{ md: "3.75rem", base: "2rem" }}>
                   Customers
                 </Text>
-              </Text>
+              </Box>
               <Image
                 src={HushhEmoji}
                 alt="hushhButtonCircle"
@@ -298,16 +302,17 @@ const ClientHushhButton = () => {
               
             </Box>
 
-            <Text
+            <Box
               className="gradient"
               display={{ md: "flex", base: "none" }}
-              flexDirection={"column"}>
+              flexDirection={"column"}
+              as="div">
               
-              <Text fontSize={{ md: "2rem", base: "1.5rem" }}>
+              <Text as="span" display="block" fontSize={{ md: "2rem", base: "1.5rem" }}>
                 Hushh Button For
               </Text>
-              <Text fontSize={{ md: "3.75rem", base: "2rem" }}>Customers</Text>
-            </Text>
+              <Text as="span" display="block" fontSize={{ md: "3.75rem", base: "2rem" }}>Customers</Text>
+            </Box>
 
             <UnorderedList
               mb={"1rem"}
@@ -331,6 +336,7 @@ const ClientHushhButton = () => {
               </ListItem>
             </UnorderedList>
             <Button
+              className="site-cta-outline-branded"
               border={"1px solid #606060"}
               borderRadius={"2px"}
               w={{ md: "16.25rem", base: "10rem" }}
@@ -387,23 +393,24 @@ const ClientHushhButton = () => {
                 style={{ width: "40%" }}
                 alt="hushhButtonCircle" />
               
-              <Text className="gradient">
-                <Text fontSize={{ md: "2rem", base: "1.5rem" }}>
+              <Box className="gradient" as="div">
+                <Text as="span" display="block" fontSize={{ md: "2rem", base: "1.5rem" }}>
                   Hushh Button For
                 </Text>
-                <Text fontSize={{ md: "3.75rem", base: "2rem" }}>Brands</Text>
-              </Text>
+                <Text as="span" display="block" fontSize={{ md: "3.75rem", base: "2rem" }}>Brands</Text>
+              </Box>
             </HStack>
-            <Text
+            <Box
               className="gradient"
               display={{ md: "flex", base: "none" }}
-              flexDirection={{ md: "column" }}>
+              flexDirection={{ md: "column" }}
+              as="div">
               
-              <Text fontSize={{ md: "2rem", base: "1.5rem" }}>
+              <Text as="span" display="block" fontSize={{ md: "2rem", base: "1.5rem" }}>
                 Hushh Button For
               </Text>
-              <Text fontSize={{ md: "3.75rem", base: "2rem" }}>Brands</Text>
-            </Text>
+              <Text as="span" display="block" fontSize={{ md: "3.75rem", base: "2rem" }}>Brands</Text>
+            </Box>
             <UnorderedList
               mt={{ base: "0.75rem", md: "1.5rem" }}
               mb={"1rem"}
@@ -426,6 +433,7 @@ const ClientHushhButton = () => {
               </ListItem>
             </UnorderedList>
             <Button
+              className="site-cta-solid"
               border={"1px solid #606060"}
               borderRadius={"2px"}
               w={{ md: "16.25rem", base: "10rem" }}
@@ -490,6 +498,7 @@ const ClientHushhButton = () => {
               relationships with their audience
             </Text>
             <Button
+              className="site-cta-solid"
               pos={"relative"}
               border={"3px solid"}
               borderLeftColor={"#8f8570"}
@@ -501,7 +510,6 @@ const ClientHushhButton = () => {
               borderRadius={"2px"}
               w={"16rem"}
               h={"3.75rem"}
-              className="hushh-gradient"
               lineHeight={"28px"}
               background={"transparent"}
               letterSpacing={"0.5rem"}
@@ -583,6 +591,7 @@ const ClientHushhButton = () => {
               relationships with their audience
             </Text>
             <Button
+              className="site-cta-solid"
               pos={"relative"}
               border={"2px solid"}
               borderLeftColor={"#8f8570"}
@@ -595,7 +604,6 @@ const ClientHushhButton = () => {
               w={"8rem"}
               h={"2.25rem"}
               fontSize={"0.75rem"}
-              className="hushh-gradient"
               lineHeight={"28px"}
               background={"transparent"}
               letterSpacing={"0.1rem"}

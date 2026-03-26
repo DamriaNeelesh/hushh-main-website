@@ -70,19 +70,19 @@ const aboutHighlights = [
     title: "Privacy-first",
     description: "Your data stays yours.",
     icon: MdVerifiedUser,
-    iconTone: "bg-blue-100 text-blue-700",
+    iconTone: "bg-[rgba(23,27,41,0.08)] text-[#171b29]",
   },
   {
     title: "AI-Driven",
     description: "Intelligent organization.",
     icon: MdSmartToy,
-    iconTone: "bg-emerald-100 text-emerald-700",
+    iconTone: "bg-[rgba(143,133,112,0.14)] text-[#171b29]",
   },
   {
     title: "Monetized by You",
     description: "Value from your data.",
     icon: MdMonetizationOn,
-    iconTone: "bg-purple-100 text-purple-700",
+    iconTone: "bg-[rgba(183,167,137,0.18)] text-[#171b29]",
   },
 ];
 
@@ -91,31 +91,31 @@ const solutionItems = [
     title: "Organizes your digital life",
     description: "Collects and organizes your data: email, docs, receipts, and habits.",
     icon: MdFolderShared,
-    tone: "text-blue-700 bg-blue-100",
+    tone: "text-[#171b29] bg-[rgba(23,27,41,0.08)]",
   },
   {
     title: "Predictive Intelligence",
     description: "Answers your questions before you ask.",
     icon: MdPsychology,
-    tone: "text-amber-700 bg-amber-100",
+    tone: "text-[#171b29] bg-[rgba(183,167,137,0.18)]",
   },
   {
     title: "Your Personal Agent",
     description: "Buys things for you. Sells things you permit.",
     icon: MdAssistant,
-    tone: "text-emerald-700 bg-emerald-100",
+    tone: "text-[#171b29] bg-[rgba(143,133,112,0.14)]",
   },
   {
     title: "Tracks your life",
     description: "Tracks your spend, tasks, and life across services.",
     icon: MdTimeline,
-    tone: "text-teal-700 bg-teal-100",
+    tone: "text-[#171b29] bg-[rgba(248,246,241,0.92)]",
   },
   {
     title: "Earn from your data",
     description: "Finds offers you love and pays you when sharing is consented.",
     icon: MdMonetizationOn,
-    tone: "text-purple-700 bg-purple-100",
+    tone: "text-[#171b29] bg-[rgba(183,167,137,0.18)]",
   },
 ];
 
@@ -125,36 +125,36 @@ const nowVsFuture = [
     futureTitle: "Finds & Alerts",
     futureDescription: "Finds recurring charges & alerts you.",
     icon: MdManageSearch,
-    iconTone: "bg-blue-50/80 text-blue-600",
-    arrowTone: "text-blue-600",
-    cornerTone: "from-blue-400/10 to-transparent",
+    iconTone: "bg-[rgba(23,27,41,0.08)] text-[#171b29]",
+    arrowTone: "text-[#171b29]",
+    cornerTone: "from-[rgba(23,27,41,0.12)] to-transparent",
   },
   {
     now: "Book appointments when I have time",
     futureTitle: "Full Scheduling",
     futureDescription: "Logs events automatically for you.",
     icon: MdCalendarToday,
-    iconTone: "bg-purple-50/80 text-purple-600",
-    arrowTone: "text-purple-600",
-    cornerTone: "from-purple-400/10 to-transparent",
+    iconTone: "bg-[rgba(143,133,112,0.14)] text-[#171b29]",
+    arrowTone: "text-[#171b29]",
+    cornerTone: "from-[rgba(143,133,112,0.18)] to-transparent",
   },
   {
     now: "Share preferences with local shops",
     futureTitle: "Consent First",
     futureDescription: "Only what's necessary, with consent.",
     icon: MdVerifiedUser,
-    iconTone: "bg-teal-50/80 text-teal-600",
-    arrowTone: "text-teal-600",
-    cornerTone: "from-teal-400/10 to-transparent",
+    iconTone: "bg-[rgba(183,167,137,0.18)] text-[#171b29]",
+    arrowTone: "text-[#171b29]",
+    cornerTone: "from-[rgba(183,167,137,0.2)] to-transparent",
   },
   {
     now: "Sell my fitness data to brands",
     futureTitle: "You Profit",
     futureDescription: "Earn from your own data.",
     icon: MdPayments,
-    iconTone: "bg-orange-50/80 text-orange-600",
-    arrowTone: "text-orange-600",
-    cornerTone: "from-orange-400/10 to-transparent",
+    iconTone: "bg-[rgba(248,246,241,0.92)] text-[#171b29]",
+    arrowTone: "text-[#171b29]",
+    cornerTone: "from-[rgba(23,27,41,0.1)] to-transparent",
   },
 ];
 
@@ -163,31 +163,31 @@ const differentiators = [
     title: "Elite Expertise",
     description: "Built by former Google AI and Cloud leaders with deep execution experience.",
     icon: MdPsychologyAlt,
-    iconTone: "text-blue-700 bg-blue-100",
+    iconTone: "text-[#171b29] bg-[rgba(23,27,41,0.08)]",
   },
   {
     title: "Consent First",
     description: "Runs on consent-first infrastructure where permission is always explicit.",
     icon: MdVerifiedUser,
-    iconTone: "text-emerald-700 bg-emerald-100",
+    iconTone: "text-[#171b29] bg-[rgba(143,133,112,0.14)]",
   },
   {
     title: "Human Centric",
     description: "Designed with human psychology at the core, not just technology.",
     icon: MdDiversity1,
-    iconTone: "text-purple-700 bg-purple-100",
+    iconTone: "text-[#171b29] bg-[rgba(183,167,137,0.18)]",
   },
   {
     title: "You Profit",
     description: "Monetization powered by you and for you, not for advertisers.",
     icon: MdPayments,
-    iconTone: "text-amber-700 bg-amber-100",
+    iconTone: "text-[#171b29] bg-[rgba(248,246,241,0.92)]",
   },
   {
     title: "Open Protocols",
     description: "Built on open protocols like A2A, MCP, and ADK.",
     icon: MdHub,
-    iconTone: "text-cyan-700 bg-cyan-100",
+    iconTone: "text-[#171b29] bg-[rgba(23,27,41,0.08)]",
   },
 ];
 
@@ -196,25 +196,25 @@ const trustItems = [
     title: "Encrypted Vault",
     description: "End-to-end encrypted personal data vault.",
     icon: MdLock,
-    iconTone: "text-blue-700 bg-blue-100",
+    iconTone: "text-[#171b29] bg-[rgba(23,27,41,0.08)]",
   },
   {
     title: "On-Device Learning",
     description: "Preference learning happens locally on your phone.",
     icon: MdMemory,
-    iconTone: "text-emerald-700 bg-emerald-100",
+    iconTone: "text-[#171b29] bg-[rgba(143,133,112,0.14)]",
   },
   {
     title: "Strict Opt-In",
     description: "No data is shared without your explicit permission.",
     icon: MdRule,
-    iconTone: "text-purple-700 bg-purple-100",
+    iconTone: "text-[#171b29] bg-[rgba(183,167,137,0.18)]",
   },
   {
     title: "Transparent Logs",
     description: "Clear audit logs for every action taken.",
     icon: MdHistory,
-    iconTone: "text-amber-700 bg-amber-100",
+    iconTone: "text-[#171b29] bg-[rgba(248,246,241,0.92)]",
   },
 ];
 
@@ -306,7 +306,7 @@ const HushhPDA = () => {
           bottom: -7px;
           width: 100%;
           height: 8px;
-          background: linear-gradient(90deg, rgba(0, 86, 210, 0.25) 0%, rgba(212, 40, 128, 0.4) 100%);
+          background: linear-gradient(90deg, rgba(23, 27, 41, 0.14) 0%, rgba(143, 133, 112, 0.3) 100%);
           border-radius: 999px;
           transform: skewX(-14deg);
         }
@@ -314,8 +314,8 @@ const HushhPDA = () => {
       `}</style>
 
       <section className="relative overflow-hidden border-b border-slate-200 bg-[#F3F4F6]">
-        <div className="pointer-events-none absolute -left-16 bottom-28 h-44 w-44 rounded-full bg-blue-200/45 blur-3xl" />
-        <div className="pointer-events-none absolute -right-10 top-1/3 h-52 w-52 rounded-full bg-purple-200/35 blur-3xl" />
+        <div className="pointer-events-none absolute -left-16 bottom-28 h-44 w-44 rounded-full bg-[rgba(143,133,112,0.22)] blur-3xl" />
+        <div className="pointer-events-none absolute -right-10 top-1/3 h-52 w-52 rounded-full bg-[rgba(23,27,41,0.12)] blur-3xl" />
 
         <div className="mx-auto w-full max-w-6xl px-4 py-10 md:py-14 xl:py-20">
           <div className="grid gap-10 xl:grid-cols-[1fr_0.95fr] xl:items-center">
@@ -323,7 +323,7 @@ const HushhPDA = () => {
             <p className="flex items-center gap-1.5 text-sm font-medium text-slate-600 md:text-base">
               <span>Powered by</span>
               <img src="/svgs/hushhEmoji.svg" alt="Hushh emoji" className="h-4 w-4 object-contain" />
-              <span className="font-bold text-[#D42880]">Hushh.ai</span>
+              <span className="font-bold text-[#8f8570]">Hushh.ai</span>
             </p>
 
             <h1 className="mt-5 max-w-[320px] text-4xl font-extrabold leading-tight tracking-tight text-[#101828] md:max-w-[360px] md:text-5xl xl:max-w-[520px] xl:text-6xl">
@@ -338,7 +338,7 @@ const HushhPDA = () => {
 
             <a
               href="#get-in-touch"
-              className="mt-8 inline-flex h-[56px] w-full max-w-[370px] items-center justify-center rounded-full bg-[#171b29] px-8 text-lg font-semibold text-white shadow-[0_14px_28px_-10px_rgba(0,113,227,0.6)] transition hover:bg-[#0f1422] xl:max-w-[320px]"
+              className="mt-8 inline-flex h-[56px] w-full max-w-[370px] items-center justify-center rounded-full bg-[#171b29] px-8 text-lg font-semibold text-white shadow-[0_14px_28px_-10px_rgba(23,27,41,0.35)] transition hover:bg-[#0f1422] xl:max-w-[320px]"
             >
               Get Early Access
             </a>
@@ -351,7 +351,7 @@ const HushhPDA = () => {
               <img
                 src="/svgs/pdamobile1.svg"
                 alt="Hushh PDA mobile preview"
-                className="h-auto w-full object-contain drop-shadow-[0_26px_54px_rgba(0,86,210,0.24)] xl:drop-shadow-[0_36px_70px_rgba(0,86,210,0.26)]"
+                className="h-auto w-full object-contain drop-shadow-[0_26px_54px_rgba(23,27,41,0.18)] xl:drop-shadow-[0_36px_70px_rgba(23,27,41,0.22)]"
               />
             </div>
           </div>
@@ -447,7 +447,7 @@ const HushhPDA = () => {
           </div>
 
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-blue-700">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[rgba(143,133,112,0.16)] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#171b29]">
               <MdAutoAwesome className="text-base" /> The Solution
             </div>
 
@@ -486,7 +486,7 @@ const HushhPDA = () => {
               Now <span className="mx-1 align-middle text-2xl font-medium text-[#374151]">vs.</span>
               <span className="relative inline-block">
                 <span className="text-gradient-brand">Future You</span>
-                <svg className="absolute -bottom-2 left-0 h-3 w-full text-[#D42880]/30" preserveAspectRatio="none" viewBox="0 0 100 10">
+                <svg className="absolute -bottom-2 left-0 h-3 w-full text-[rgba(143,133,112,0.34)]" preserveAspectRatio="none" viewBox="0 0 100 10">
                   <path d="M0 5 Q 50 12 100 5" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="3" />
                 </svg>
               </span>
@@ -494,9 +494,9 @@ const HushhPDA = () => {
             <p className="mt-4 text-[16.3px] font-medium leading-[1.4] text-[#333333]">We&apos;re not just another AI app.</p>
           </header>
 
-          <main className="relative z-0 flex flex-col px-[20px] pb-[60px] md:px-10 md:pb-12">
-            <div className="pointer-events-none absolute right-0 top-20 -z-10 h-64 w-64 rounded-full bg-blue-100/40 blur-3xl" />
-            <div className="pointer-events-none absolute bottom-40 left-0 -z-10 h-64 w-64 rounded-full bg-pink-100/40 blur-3xl" />
+          <div className="relative z-0 flex flex-col px-[20px] pb-[60px] md:px-10 md:pb-12">
+            <div className="pointer-events-none absolute right-0 top-20 -z-10 h-64 w-64 rounded-full bg-[rgba(143,133,112,0.16)] blur-3xl" />
+            <div className="pointer-events-none absolute bottom-40 left-0 -z-10 h-64 w-64 rounded-full bg-[rgba(23,27,41,0.08)] blur-3xl" />
 
             <div className="space-y-4">
               <div className="mb-2 grid grid-cols-[1fr_24px_1.4fr] items-center gap-3 px-2 md:grid-cols-[1fr_36px_1fr] md:gap-4">
@@ -544,7 +544,7 @@ const HushhPDA = () => {
                 );
               })}
             </div>
-          </main>
+          </div>
           </div>
         </div>
       </section>
@@ -653,7 +653,7 @@ const HushhPDA = () => {
                 </div>
 
                 <div className="mt-6 text-center lg:text-left">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#D42880]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#8f8570]">
                     HushhLink trust tokens for identity
                   </p>
                   <div className="mt-3 flex items-center justify-center gap-2 lg:justify-start">
@@ -666,7 +666,7 @@ const HushhPDA = () => {
                 <div className="mt-8 pb-1">
                   <a
                     href="/developers"
-                    className="inline-flex h-[54px] w-full items-center justify-center rounded-full bg-[#171b29] px-8 text-[17px] font-semibold text-white shadow-[0_12px_24px_-8px_rgba(0,113,227,0.45)] transition hover:bg-[#0f1422] md:mx-auto md:max-w-[360px] lg:mx-0"
+                    className="inline-flex h-[54px] w-full items-center justify-center rounded-full bg-[#171b29] px-8 text-[17px] font-semibold text-white shadow-[0_12px_24px_-8px_rgba(23,27,41,0.32)] transition hover:bg-[#0f1422] md:mx-auto md:max-w-[360px] lg:mx-0"
                   >
                     Launch Your Agent
                   </a>
@@ -675,12 +675,12 @@ const HushhPDA = () => {
 
               <div className="order-1 lg:order-2">
                 <div className="relative mx-auto flex h-[280px] w-full max-w-[300px] items-center justify-center md:h-[320px] md:max-w-[360px]">
-                  <div className="pointer-events-none absolute inset-0 rounded-full bg-blue-200/30 blur-3xl" />
-                  <div className="pointer-events-none absolute bottom-4 left-5 h-20 w-20 rounded-full bg-pink-200/40 blur-2xl" />
+                  <div className="pointer-events-none absolute inset-0 rounded-full bg-[rgba(143,133,112,0.14)] blur-3xl" />
+                  <div className="pointer-events-none absolute bottom-4 left-5 h-20 w-20 rounded-full bg-[rgba(23,27,41,0.1)] blur-2xl" />
                   <img
                     src="/svgs/develoeprpartnercta.svg"
                     alt="Developer and Partner CTA visual"
-                    className="relative z-10 h-auto w-full max-w-[290px] object-contain drop-shadow-[0_16px_36px_rgba(0,86,210,0.18)]"
+                    className="relative z-10 h-auto w-full max-w-[290px] object-contain drop-shadow-[0_16px_36px_rgba(23,27,41,0.18)]"
                   />
                 </div>
               </div>

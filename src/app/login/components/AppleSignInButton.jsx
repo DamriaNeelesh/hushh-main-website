@@ -60,7 +60,7 @@ const AppleSignInButton = ({
         status: "loading",
         duration: null,
         isClosable: true,
-        position: "bottom"
+        position: "top"
       });
 
       const result = await authentication.appleSignIn(null, redirectPath || "/");
@@ -83,7 +83,7 @@ const AppleSignInButton = ({
         status: "error",
         duration: 5000,
         isClosable: true,
-        position: "bottom"
+        position: "top"
       });
 
       if (onError && typeof onError === 'function') {

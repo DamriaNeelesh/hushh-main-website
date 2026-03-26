@@ -129,6 +129,7 @@ const ClientBrowserCompanion = () => {
             gap={{ md: "4rem", base: "1.5rem" }}>
             
             <Button
+              className="site-cta-solid"
               border={"1px solid #606060"}
               borderRadius={"4rem"}
               p={{ md: "1rem", base: "0.5rem" }}
@@ -155,6 +156,7 @@ const ClientBrowserCompanion = () => {
               Add to your browser
             </Button>
             <Button
+              className="site-cta-outline-branded"
               display={{ md: "none", base: "block" }}
               border={"1px solid #606060"}
               borderRadius={"4rem"}
@@ -188,6 +190,7 @@ const ClientBrowserCompanion = () => {
           mr={"3rem"}>
           
           <Button
+            className="site-cta-outline-branded"
             ml={{ md: "62.375rem" }}
             display={{ md: "flex", base: "none" }}
             border={"1px solid #606060"}
@@ -467,6 +470,7 @@ const ClientBrowserCompanion = () => {
               </Text>
             </Box>
             <Button
+              className="site-cta-solid"
               border={"3px solid #606060"}
               borderRadius={"2px"}
               w={"16.25rem"}

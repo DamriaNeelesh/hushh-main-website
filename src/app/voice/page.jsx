@@ -46,9 +46,9 @@ export default function VoicePage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#ffffff_0%,#f8f6f1_100%)]">
       <div className="text-center p-8 max-w-md mx-auto">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-6"></div>
+        <div className="mx-auto mb-6 h-16 w-16 animate-spin rounded-full border-b-4 border-[#171b29]"></div>
         
         <h1 className="text-2xl font-bold text-gray-800 mb-3">
           Redirecting to Hushh Voice...
@@ -60,7 +60,7 @@ export default function VoicePage() {
         
         {countdown > 0 && (
           <div className="mb-6">
-            <p className="text-lg font-semibold text-blue-600">
+            <p className="text-lg font-semibold text-[#8f8570]">
               Redirecting in {countdown} seconds...
             </p>
           </div>
@@ -73,7 +73,7 @@ export default function VoicePage() {
           
           <a 
             href={redirectUrl}
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+            className="inline-block rounded-full bg-[#171b29] px-6 py-3 font-semibold text-white shadow-lg transition-colors duration-200 hover:bg-[#0f1422] hover:shadow-xl"
             target="_self"
             rel="noopener noreferrer"
           >

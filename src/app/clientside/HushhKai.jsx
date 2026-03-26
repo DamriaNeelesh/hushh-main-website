@@ -359,7 +359,7 @@ const HushhKai = () => {
 
   return (
     <>
-    <main className={styles.page}>
+    <div className={styles.page}>
       <motion.section className={styles.heroStage} {...heroReveal(0, 26)}>
         <div className={styles.heroBackdrop} aria-hidden="true">
           <span className={styles.backdropGlow} />
@@ -939,7 +939,7 @@ const HushhKai = () => {
           </motion.section>
         </div>
       </div>
-    </main>
+    </div>
     </>);
 
 };

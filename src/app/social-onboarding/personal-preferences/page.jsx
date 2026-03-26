@@ -26,7 +26,7 @@ export default function PersonalPreferencesPage() {
 
   return (
     <ContentWrapper>
-    <main className="mx-auto max-w-6xl px-6 md:px-10 py-10 md:py-14">
+    <section className="mx-auto max-w-6xl px-6 md:px-10 py-10 md:py-14">
       <header className="text-center mb-6 md:mb-8">
         <div className="mx-auto mb-4 h-10 w-10 rounded-full border border-black grid place-items-center">
           <span aria-hidden>♥</span>
@@ -103,7 +103,7 @@ export default function PersonalPreferencesPage() {
           {saving ? "Saving..." : "Continue"} <span aria-hidden>→</span>
         </button>
       </div>
-    </main>
+    </section>
     </ContentWrapper>
   );
 }

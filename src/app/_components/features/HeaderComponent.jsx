@@ -53,7 +53,7 @@ const HeaderComponent = () => {
       data-site-header
       className="w-full fixed z-50 transition-transform duration-300 ease-in-out"
       style={{ 
-        top: `${totalBannerHeight}px`,
+        top: totalBannerHeight,
         height: '70px', // Consistent header height
         transform: isVisible ? 'translateY(0)' : 'translateY(-100%)'
       }}

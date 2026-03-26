@@ -58,7 +58,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, article
         status: "success",
         duration: 1800,
         isClosable: true,
-        position: "bottom-right"
+        position: "top"
       });
     } catch {
       toast({
@@ -67,7 +67,7 @@ const ClientBlogContent = ({ blog, formattedDate, readingTime, isUpdate, article
         status: "error",
         duration: 2200,
         isClosable: true,
-        position: "bottom-right"
+        position: "top"
       });
     }
   };

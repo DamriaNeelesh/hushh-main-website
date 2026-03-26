@@ -132,7 +132,7 @@ function DeveloperLoginPageContent() {
           />
 
           {/* {loading && <Loading />} */}
-          <main className="developer-auth-main">
+          <div className="developer-auth-main">
             <Box
               zIndex={"1"}
               w={{ md: "lg", base: "100%" }}
@@ -249,7 +249,7 @@ function DeveloperLoginPageContent() {
             </a>
           </Text>
             </Box>
-          </main>
+          </div>
         </div>
       </section>
 

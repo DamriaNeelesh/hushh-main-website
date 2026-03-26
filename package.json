@@ -12,6 +12,10 @@
     "build": "next build",
     "start": "next start",
     "ci:all": "bash scripts/ci/orchestrate.sh all",
+    "release:ci": "bash scripts/ci/orchestrate.sh all",
+    "release:visual": "bash scripts/release/visual-gate.sh",
+    "deploy:env-parity": "python3 scripts/ops/verify-website-env-secrets-parity.py",
+    "deploy:smoke": "bash scripts/ops/smoke-website-routes.sh",
     "test": "jest --runInBand",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc --noEmit",
@@ -21,13 +25,17 @@
     "audit:seo": "node scripts/audit-seo.cjs",
     "audit:security": "node scripts/audit-security.cjs",
     "audit:docs": "node scripts/audit-docs.cjs",
+    "audit:brand": "node scripts/audit-brand.cjs",
+    "audit:visual": "node scripts/audit-visual.cjs",
     "verify:oauth-branding": "node scripts/verify-oauth-branding.cjs",
-    "verify:oauth-branding:live": "node scripts/verify-oauth-branding-live.cjs"
+    "verify:oauth-branding:live": "node scripts/verify-oauth-branding-live.cjs",
+    "playwright:install": "playwright install chromium"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.8.2",
     "@emailjs/browser": "^4.3.3",
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@eslint/eslintrc": "^3.3.5",
@@ -92,13 +100,17 @@
     "@tootallnate/once": "^3.0.1",
     "dompurify": "^3.3.3",
     "minimatch": "^9.0.7",
+    "picomatch": "^4.0.3",
     "preact": "^10.27.3",
     "tar-fs": "^2.1.4",
-    "undici": "^6.24.0"
+    "undici": "^6.24.0",
+    "yaml": "^2.8.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
     "@babel/preset-env": "^7.29.0",
     "@babel/preset-react": "^7.28.5",
+    "@playwright/test": "^1.58.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",

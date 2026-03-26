@@ -118,17 +118,7 @@ const ClientHushhWallet = () => {
               <button
                 type="button"
                 className="wallet-hero-button"
-                onClick={handleDownloadClick}
-                style={{
-                  background: "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
-                  color: "#ffffff",
-                  border: "1px solid rgba(255,255,255,0.16)",
-                  borderRadius: "999px",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  boxShadow: "0 20px 40px rgba(10, 17, 40, 0.24)",
-                  padding: "18px 28px",
-                }}>
+                onClick={handleDownloadClick}>
 
                 Download Hushh Wallet App
               </button>
@@ -331,7 +321,7 @@ const ClientHushhWallet = () => {
       </Box>
 
       <HStack
-          bg={"#151515"}
+          bg={"#13151b"}
           w={"100%"}
           mt={{ md: "12rem", base: "2.5rem" }}
           gap={{ md: "1rem", base: "0.75rem" }}
@@ -346,7 +336,7 @@ const ClientHushhWallet = () => {
             alignItems={"flex-start"}>
             
           <Text
-              className="color-gradient"
+              color={"#c7b797"}
               fontWeight={"600"}
               fontSize={{ md: "1rem", base: "0.75rem" }}
               lineHeight={"23.8px"}
@@ -642,16 +632,15 @@ const ClientHushhWallet = () => {
                   px={{ md: "32px", base: "20px" }}
                   py={{ md: "27px", base: "16px" }}
                   w={{ md: "18rem" }}
-                  bg={"#000000"}
-                  color={"white"}
+                  bg={"#171b29"}
+                  color={"#ffffff"}
                   cursor={'pointer'}
                   // leftIcon={<PlayStoreIcon />}
-                  border={"1px solid #FFFFFF"}
+                  border={"1px solid rgba(23,27,41,0.14)"}
                   borderRadius={"80px"}
                   _hover={{
-                    border: "1px solid white",
-                    background:
-                    "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)"
+                    border: "1px solid rgba(23,27,41,0.16)",
+                    background: "#0f1422"
                   }}
                   onClick={handleDownloadClick}>
                   
@@ -698,16 +687,15 @@ const ClientHushhWallet = () => {
               ml={"0.5rem"}
               fontSize={"0.75rem"}
               w={"12rem"}
-              bg={"#000000"}
-              color={"white"}
+              bg={"#171b29"}
+              color={"#ffffff"}
               leftIcon={<AppleIcon />}
-              border={"1px solid #FFFFFF"}
+              border={"1px solid rgba(23,27,41,0.14)"}
               borderRadius={"80px"}
               cursor={'pointer'}
               _hover={{
-                background:
-                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
-                border: "none"
+                background: "#0f1422",
+                border: "1px solid rgba(23,27,41,0.16)"
               }}
               onClick={() => window.open("https://bit.ly/hushh-app-ios", "_blank")}>
               
@@ -717,16 +705,15 @@ const ClientHushhWallet = () => {
               ml={"0.5rem"}
               fontSize={"0.75rem"}
               w={"12rem"}
-              bg={"#000000"}
-              color={"white"}
+              bg={"#171b29"}
+              color={"#ffffff"}
               cursor={'pointer'}
               leftIcon={<PlayStoreIcon />}
-              border={"1px solid #FFFFFF"}
+              border={"1px solid rgba(23,27,41,0.14)"}
               borderRadius={"80px"}
               _hover={{
-                background:
-                "linear-gradient(135deg, #171b29 0%, #8f8570 58%, #b7a789 100%)",
-                border: "none"
+                background: "#0f1422",
+                border: "1px solid rgba(23,27,41,0.16)"
               }}
               onClick={() => window.open("https://bit.ly/hushh-wallet-play-store", "_blank")}>
               

@@ -13,14 +13,40 @@ function SmartLink({ href = "", children, ...props }: { href?: string; children?
   }
 
   return (
-    <a href={href} target="_blank" rel="noreferrer" {...props}>
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
       {children}
     </a>
   );
 }
 
+function Code({
+  className = "",
+  children,
+  ...props
+}: {
+  className?: string;
+  children?: ReactNode;
+  [key: string]: any;
+}) {
+  const isBlockCode = className.includes("language-");
+
+  if (isBlockCode) {
+    return (
+      <code className={className} {...props}>
+        {children}
+      </code>
+    );
+  }
+
+  return (
+    <code className="developer-docs-inline-code" {...props}>
+      {children}
+    </code>
+  );
+}
+
 export const developerDocComponents = {
-  h1: (props: any) => <h1 className="developer-docs-h1" {...props} />,
+  h1: (props: any) => <p className="sr-only" {...props} />,
   h2: (props: any) => <h2 className="developer-docs-h2" {...props} />,
   h3: (props: any) => <h3 className="developer-docs-h3" {...props} />,
   h4: (props: any) => <h4 className="developer-docs-h4" {...props} />,
@@ -38,12 +64,9 @@ export const developerDocComponents = {
   td: (props: any) => <td className="developer-docs-td" {...props} />,
   a: SmartLink,
   pre: (props: any) => (
-    <pre
-      className="overflow-x-auto rounded-[20px] bg-[rgba(15,23,42,0.95)] px-5 py-4 text-[13px] leading-6 text-white"
-      {...props}
-    />
+    <pre className="developer-docs-pre" {...props} />
   ),
-  code: (props: any) => <code className="developer-docs-inline-code" {...props} />,
+  code: Code,
   Callout,
   Steps,
 };

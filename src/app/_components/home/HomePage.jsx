@@ -165,8 +165,8 @@ function ArrowIcon() {
 
 function StepArrow() {
   return (
-    <div className="hidden lg:block absolute top-1/2 -right-4 translate-x-1/2 -translate-y-1/2 z-10 opacity-20" aria-hidden="true">
-      <span className="material-symbols-outlined text-4xl text-yukonGold">arrow_forward</span>
+    <div className="absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 opacity-20 lg:block" aria-hidden="true">
+      <span className="material-symbols-outlined text-3xl text-yukonGold">arrow_forward</span>
     </div>
   );
 }
@@ -218,7 +218,7 @@ function UseCaseCard({ step, icon, title, description, children, showArrow = fal
 
 export default function HomePage() {
   return (
-    <main data-site-home-main className="site-home-main min-h-[calc(100dvh-102px)] lg:min-h-[calc(100dvh-106px)] flex flex-col">
+    <div data-site-home-main className="site-home-main min-h-[calc(100dvh-102px)] lg:min-h-[calc(100dvh-106px)] flex flex-col">
       <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 pb-20 pt-12 md:px-12 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <div className="mb-6">
@@ -427,11 +427,11 @@ export default function HomePage() {
           >
             <div className="relative mb-auto flex aspect-video items-center justify-center overflow-hidden rounded-xl bg-richBlack p-4">
               <div className="absolute inset-0 bg-gradient-to-br from-yukonGold/10 to-transparent" />
-              <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-yukonGold/30">
+              <div className="relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border border-yukonGold/30">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yukonGold/20 animate-pulse">
                   <span className="text-xl font-bold text-yukonGold">H</span>
                 </div>
-                <div className="absolute h-full w-full animate-[spin_4s_linear_infinite] rounded-full border border-yukonGold/10" />
+                <div className="absolute inset-1 animate-[spin_4s_linear_infinite] rounded-full border border-yukonGold/10" />
               </div>
             </div>
           </UseCaseCard>
@@ -609,6 +609,6 @@ export default function HomePage() {
           </p>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

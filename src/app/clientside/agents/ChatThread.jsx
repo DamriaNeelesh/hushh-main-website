@@ -98,9 +98,9 @@ export default function ChatThread({ messages, loading, error, userInitials }) {
             )}
             <Box
               flex="1"
-              bg={m.role === 'user' ? 'rgba(99, 102, 241, 0.06)' : 'rgba(13, 148, 136, 0.08)'}
+              bg={m.role === 'user' ? 'rgba(23, 27, 41, 0.04)' : 'rgba(143, 133, 112, 0.08)'}
               borderWidth="1px"
-              borderColor={m.role === 'user' ? 'rgba(99, 102, 241, 0.18)' : 'rgba(13, 148, 136, 0.2)'}
+              borderColor={m.role === 'user' ? 'rgba(23, 27, 41, 0.12)' : 'rgba(143, 133, 112, 0.2)'}
               borderRadius={{ base: '18px', md: '20px' }}
               px={{ base: 4, md: 5 }}
               py={{ base: 3, md: 4 }}
@@ -138,7 +138,8 @@ export default function ChatThread({ messages, loading, error, userInitials }) {
               <Tag
                 size="sm"
                 variant="subtle"
-                colorScheme={m.role === 'user' ? 'purple' : 'teal'}
+                bg={m.role === 'user' ? 'rgba(23, 27, 41, 0.08)' : 'rgba(143, 133, 112, 0.16)'}
+                color="#171b29"
                 borderRadius="full"
                 mb={3}
                 w="fit-content"
@@ -152,12 +153,12 @@ export default function ChatThread({ messages, loading, error, userInitials }) {
                 wordBreak="break-word"
                 sx={{
                   a: {
-                    color: 'blue.500',
+                    color: '#171b29',
                     textDecoration: 'underline',
                     wordBreak: 'break-word',
                   },
                   'a:hover': {
-                    color: 'blue.600',
+                    color: '#8f8570',
                   },
                   ul: {
                     paddingInlineStart: '1.25rem',
@@ -193,9 +194,9 @@ export default function ChatThread({ messages, loading, error, userInitials }) {
               <Image src={HushhLogoS} alt="Hushh Agent" width={40} height={40} />
             </Box>
             <HStack
-              bg="rgba(14, 165, 233, 0.12)"
+              bg="rgba(143, 133, 112, 0.12)"
               borderWidth="1px"
-              borderColor="rgba(14, 165, 233, 0.25)"
+              borderColor="rgba(143, 133, 112, 0.22)"
               borderRadius="18px"
               px={{ base: 4, md: 5 }}
               py={{ base: 3, md: 4 }}

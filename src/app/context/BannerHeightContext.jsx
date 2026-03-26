@@ -1,12 +1,9 @@
 'use client';
-import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
 
 // Constants extracted outside component to prevent recreation
 const HEADER_HEIGHT = 70;
-const DESKTOP_BREAKPOINT = 1024;
-const BANNER_HEIGHTS = {
-  funding: { mobile: 32, desktop: 36 }
-};
+const FUNDING_BANNER_HEIGHT = "var(--funding-banner-height, 36px)";
 
 const BannerHeightContext = createContext();
 
@@ -23,39 +20,14 @@ export const BannerHeightProvider = ({ children }) => {
     funding: true,
   });
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Single useEffect for window resize handling
-  useEffect(() => {
-    const updateScreenSize = () => {
-      if (typeof window !== 'undefined') {
-        setIsMobile(window.innerWidth < DESKTOP_BREAKPOINT);
-      }
-    };
-
-    // Set initial value
-    updateScreenSize();
-
-    // Add resize listener
-    window.addEventListener('resize', updateScreenSize);
-    
-    return () => window.removeEventListener('resize', updateScreenSize);
-  }, []);
-
-  // Memoized banner heights based on screen size
-  const fundingBannerHeight = useMemo(() => 
-    isMobile ? BANNER_HEIGHTS.funding.mobile : BANNER_HEIGHTS.funding.desktop,
-    [isMobile]
+  const fundingBannerHeight = useMemo(
+    () => (activeBanners.funding ? FUNDING_BANNER_HEIGHT : "0px"),
+    [activeBanners.funding]
   );
 
-  // Memoized total calculations
-  const totalBannerHeight = useMemo(() => 
-    (activeBanners.funding ? fundingBannerHeight : 0),
-    [activeBanners.funding, fundingBannerHeight]
-  );
-
-  const totalOffsetHeight = useMemo(() => 
-    totalBannerHeight + HEADER_HEIGHT,
+  const totalBannerHeight = fundingBannerHeight;
+  const totalOffsetHeight = useMemo(
+    () => `calc(${HEADER_HEIGHT}px + ${totalBannerHeight})`,
     [totalBannerHeight]
   );
 
@@ -79,8 +51,9 @@ export const BannerHeightProvider = ({ children }) => {
     unregisterBanner,
     // CSS custom properties as computed values (no side effects)
     cssVars: {
-      '--total-banner-height': `${totalBannerHeight}px`,
-      '--total-offset-height': `${totalOffsetHeight}px`,
+      '--funding-banner-height': "36px",
+      '--total-banner-height': totalBannerHeight,
+      '--total-offset-height': totalOffsetHeight,
       '--header-height': `${HEADER_HEIGHT}px`,
     }
   }), [

@@ -24,7 +24,9 @@ const requiredFiles = [
   "docs/integrations/apple-signin-setup.md",
   "docs/integrations/email-api.md",
   "docs/operations/api-verification.md",
+  "docs/operations/gcp-website-deploy.md",
   "docs/operations/vercel-timeout.md",
+  "docs/runbooks/website-uat-deploy.md",
   "support/postman/hushh-email-integration.postman_collection.json",
   "support/prompts/agent-queries.txt",
   "support/prompts/hushh-and-brand-agent-queries.txt",
@@ -83,11 +85,16 @@ const deletedLegacyDocs = [
 ];
 
 const allowedRootFiles = [
+  ".dockerignore",
   ".env.example",
+  ".env.prod-remote.local.example",
+  ".env.uat-remote.local.example",
+  ".gcloudignore",
   ".gitleaks.toml",
   ".gitignore",
   ".nvmrc",
   ".npmrc",
+  "Dockerfile",
   "README.md",
   "eslint.config.mjs",
   "jest.config.js",

@@ -19,7 +19,7 @@ const Category = ({ link = "#", name, active }) => {
       className={[
         "inline-flex items-center px-4 py-2 rounded-full border text-sm font-semibold transition-colors duration-200",
         active
-          ? "bg-[#0071e3] border-[#0071e3] text-white"
+          ? "bg-[#171b29] border-[#171b29] text-white"
           : "bg-white border-[#dbeafe] text-[#1d4ed8] hover:bg-[#eff6ff]",
       ].join(" ")}
     >

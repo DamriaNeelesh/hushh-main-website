@@ -144,7 +144,7 @@ const TeamSection = () => {
                     w="40px"
                     h="40px"
                     borderRadius="50%"
-                    bg="#0071E3"
+                    bg="#171b29"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -212,7 +212,7 @@ const TeamSection = () => {
                     w="40px"
                     h="40px"
                     borderRadius="50%"
-                    bg="#0071E3"
+                    bg="#171b29"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -312,7 +312,7 @@ const TeamSection = () => {
               
               <VStack spacing={2} textAlign="center">
                 <Heading
-                  as="h4"
+                  as="h3"
                   fontSize={{ base: "16px", md: "18px" }}
                   fontWeight="600"
                   color="black"
@@ -334,7 +334,7 @@ const TeamSection = () => {
                     w="32px"
                     h="32px"
                     borderRadius="50%"
-                    bg="#0071E3"
+                    bg="#171b29"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -380,7 +380,7 @@ const TeamSection = () => {
               
               <VStack spacing={2} textAlign="center">
                 <Heading
-                  as="h4"
+                  as="h3"
                   fontSize={{ base: "16px", md: "18px" }}
                   fontWeight="600"
                   color="black"
@@ -402,7 +402,7 @@ const TeamSection = () => {
                     w="32px"
                     h="32px"
                     borderRadius="50%"
-                    bg="#0071E3"
+                    bg="#171b29"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -448,7 +448,7 @@ const TeamSection = () => {
               
               <VStack spacing={2} textAlign="center">
                 <Heading
-                  as="h4"
+                  as="h3"
                   fontSize={{ base: "16px", md: "18px" }}
                   fontWeight="600"
                   color="black"
@@ -470,7 +470,7 @@ const TeamSection = () => {
                     w="32px"
                     h="32px"
                     borderRadius="50%"
-                    bg="#0071E3"
+                    bg="#171b29"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -515,7 +515,7 @@ const TeamSection = () => {
               
               <VStack spacing={2} textAlign="center">
                 <Heading
-                  as="h4"
+                  as="h3"
                   fontSize={{ base: "16px", md: "18px" }}
                   fontWeight="600"
                   color="black"
@@ -626,7 +626,7 @@ const TeamSection = () => {
                   
                   <VStack spacing={2} textAlign="center">
                     <Heading
-                      as="h4"
+                      as="h3"
                       fontSize={{ base: "14px", md: "16px", lg: "18px" }}
                       fontWeight="600"
                       color="black"
@@ -650,7 +650,7 @@ const TeamSection = () => {
                           w="28px"
                           h="28px"
                           borderRadius="50%"
-                          bg="#0071E3"
+                          bg="#171b29"
                           display="flex"
                           alignItems="center"
                           justifyContent="center"
@@ -670,7 +670,7 @@ const TeamSection = () => {
                       </Link>
                       <Button
                         size="sm"
-                        bg="#0071E3"
+                        bg="#171b29"
                         color="white"
                         borderRadius="full"
                         fontSize={{ base: "10px", md: "12px" }}
@@ -753,7 +753,7 @@ const TeamSection = () => {
                       w={{ base: "20px", md: "28px" }}
                       h={{ base: "20px", md: "28px" }}
                       borderRadius="50%"
-                      bg="#0071E3"
+                      bg="#171b29"
                       display="flex"
                       alignItems="center"
                       justifyContent="center"

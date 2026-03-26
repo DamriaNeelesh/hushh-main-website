@@ -10,7 +10,7 @@ const FALLBACK_IMAGE = "/blogs/blog2o.png";
 
 const CategoryPageContent = ({ blogs = [], allCategories = [], params, categoryName }) => {
   return (
-    <main className="blog-theme blog-page-shell">
+    <div className="blog-theme blog-page-shell">
       <section className="blog-container pt-10 md:pt-14 pb-8">
         <Link href="/hushhBlogs" className="blog-link text-sm font-semibold">
           {"<"} Newsroom
@@ -75,7 +75,7 @@ const CategoryPageContent = ({ blogs = [], allCategories = [], params, categoryN
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 };
 

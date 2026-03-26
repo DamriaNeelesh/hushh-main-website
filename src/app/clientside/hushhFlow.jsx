@@ -974,7 +974,7 @@ const HushhFlow = () => {
                   <Box
                     w={{ base: "60px", md: "100px", lg: "120px" }}
                     h="3px"
-                    bg="#0071e3"
+                    bg="#171b29"
                     borderRadius="2px"
                     position="relative"
                     _after={{
@@ -984,7 +984,7 @@ const HushhFlow = () => {
                       top: "-6px",
                       width: "0",
                       height: "0",
-                      borderLeft: "12px solid #0071e3",
+                      borderLeft: "12px solid #171b29",
                       borderTop: "9px solid transparent",
                       borderBottom: "9px solid transparent"
                     }} />
@@ -996,7 +996,7 @@ const HushhFlow = () => {
                     left="20%"
                     w="4px"
                     h="4px"
-                    bg="#0071e3"
+                    bg="#171b29"
                     borderRadius="full"
                     opacity="0.6"
                     animation="pulse 2s infinite" />
@@ -1006,7 +1006,7 @@ const HushhFlow = () => {
                     left="40%"
                     w="3px"
                     h="3px"
-                    bg="#0071e3"
+                    bg="#171b29"
                     borderRadius="full"
                     opacity="0.4"
                     animation="pulse 2s infinite 0.5s" />
@@ -1016,7 +1016,7 @@ const HushhFlow = () => {
                     left="60%"
                     w="3px"
                     h="3px"
-                    bg="#0071e3"
+                    bg="#171b29"
                     borderRadius="full"
                     opacity="0.4"
                     animation="pulse 2s infinite 1s" />
@@ -1360,7 +1360,7 @@ const HushhFlow = () => {
                   as={FaArrowRight}
                   w="20px"
                   h="20px"
-                  color="#0071e3" />
+                  color="#171b29" />
                 
               </Box>
             </MotionBox>
