@@ -15,10 +15,11 @@ jobs:
     name: Deploy Production Website
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch'
+    environment: Production
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 

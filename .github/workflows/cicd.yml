@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1
 
@@ -48,10 +48,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: "npm"
@@ -68,3 +68,35 @@ jobs:
         with:
           name: website-ci-artifacts
           path: .artifacts/ci
+
+  ci-status:
+    name: CI Status Gate
+    needs:
+      - secret-scan
+      - build
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate job outcomes
+        shell: bash
+        run: |
+          SECRET_SCAN="${{ needs['secret-scan'].result }}"
+          BUILD="${{ needs.build.result }}"
+
+          printf 'secret-scan=%s\n' "$SECRET_SCAN"
+          printf 'build=%s\n' "$BUILD"
+
+          fail=0
+          for result in "$SECRET_SCAN" "$BUILD"; do
+            if [ "$result" = "failure" ] || [ "$result" = "cancelled" ] || [ "$result" = "timed_out" ]; then
+              fail=1
+            fi
+          done
+
+          if [ "$fail" -ne 0 ]; then
+            echo "One or more CI jobs failed."
+            exit 1
+          fi
+
+          echo "All required CI jobs passed or were intentionally skipped."
