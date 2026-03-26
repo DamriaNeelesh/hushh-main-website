@@ -12,6 +12,7 @@ env:
   FRONTEND_SERVICE: hushh-ai-website
   ARTIFACT_REPOSITORY: website-images
   CLOUD_RUN_REVISION_RETENTION: "10"
+  PUBLIC_BASE_URL: https://uat.hushh.ai
 
 jobs:
   deploy:
@@ -80,9 +81,23 @@ jobs:
             --frontend-service "${{ env.FRONTEND_SERVICE }}" \
             --assert-runtime-env-contract
 
-      - name: Smoke deployed routes
+      - name: Verify deployed image and public domain readiness
+        run: |
+          python3 scripts/ops/verify-website-rollout.py \
+            --project "${{ env.GCP_PROJECT_ID }}" \
+            --region "${{ env.GCP_REGION }}" \
+            --service "${{ env.FRONTEND_SERVICE }}" \
+            --expected-image-tag "${GITHUB_SHA::12}" \
+            --domain uat.hushh.ai
+
+      - name: Smoke deployed Cloud Run routes
         env:
           BASE_URL: ${{ steps.frontend-url.outputs.url }}
+        run: bash scripts/ops/smoke-website-routes.sh
+
+      - name: Smoke deployed public routes
+        env:
+          BASE_URL: ${{ env.PUBLIC_BASE_URL }}
         run: bash scripts/ops/smoke-website-routes.sh
 
       - name: Deployment Summary
@@ -90,3 +105,4 @@ jobs:
         run: |
           echo "UAT website deployment complete"
           echo "Frontend: ${{ steps.frontend-url.outputs.url }}"
+          echo "Public URL: ${{ env.PUBLIC_BASE_URL }}"
