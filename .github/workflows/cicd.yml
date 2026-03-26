@@ -3,7 +3,7 @@ name: cicd-workflow
 
 on:
   push:
-    branches: [main]
+    branches: [main, deploy_uat, deploy]
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review, edited, closed]
 

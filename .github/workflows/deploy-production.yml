@@ -9,6 +9,8 @@ env:
   FRONTEND_SERVICE: hushh-ai-website
   ARTIFACT_REPOSITORY: website-images
   CLOUD_RUN_REVISION_RETENTION: "10"
+  PUBLIC_BASE_URL: https://www.hushh.ai
+  APEX_BASE_URL: https://hushh.ai
 
 jobs:
   deploy:
@@ -79,13 +81,46 @@ jobs:
             --frontend-service "${{ env.FRONTEND_SERVICE }}" \
             --assert-runtime-env-contract
 
-      - name: Smoke deployed routes
+      - name: Verify deployed image and public domain readiness
+        run: |
+          python3 scripts/ops/verify-website-rollout.py \
+            --project "${{ env.GCP_PROJECT_ID }}" \
+            --region "${{ env.GCP_REGION }}" \
+            --service "${{ env.FRONTEND_SERVICE }}" \
+            --expected-image-tag "${GITHUB_SHA::12}" \
+            --domain hushh.ai \
+            --domain www.hushh.ai
+
+      - name: Smoke deployed Cloud Run routes
         env:
           BASE_URL: ${{ steps.frontend-url.outputs.url }}
         run: bash scripts/ops/smoke-website-routes.sh
+
+      - name: Smoke deployed public routes
+        env:
+          BASE_URL: ${{ env.PUBLIC_BASE_URL }}
+        run: bash scripts/ops/smoke-website-routes.sh
+
+      - name: Verify apex redirect to www
+        shell: bash
+        run: |
+          set -euo pipefail
+          headers="$(curl -sSI "${{ env.APEX_BASE_URL }}")"
+          status="$(printf '%s' "$headers" | awk 'toupper($1) ~ /^HTTP/ {print $2; exit}')"
+          location="$(printf '%s' "$headers" | awk 'tolower($1) == "location:" {print $2}' | tr -d '\r' | head -n1)"
+          if [ "$status" != "308" ]; then
+            echo "Expected apex redirect status 308, got ${status}."
+            exit 1
+          fi
+          if [ "$location" != "${{ env.PUBLIC_BASE_URL }}" ]; then
+            echo "Expected apex redirect to ${{ env.PUBLIC_BASE_URL }}, got ${location}."
+            exit 1
+          fi
+          echo "Verified apex redirect: ${status} ${location}"
 
       - name: Deployment Summary
         if: always()
         run: |
           echo "Production website deployment complete"
           echo "Frontend: ${{ steps.frontend-url.outputs.url }}"
+          echo "Public URL: ${{ env.PUBLIC_BASE_URL }}"
