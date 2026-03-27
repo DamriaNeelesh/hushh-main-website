@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { List, Menu, X } from "lucide-react";
+import DeveloperWorkspaceToc from "./DeveloperWorkspaceToc";
 
 function MobileSidebarSection({ title, docs, activeKey, onNavigate }) {
   return (
@@ -23,23 +24,6 @@ function MobileSidebarSection({ title, docs, activeKey, onNavigate }) {
         ))}
       </ul>
     </div>
-  );
-}
-
-function MobileTocList({ headings, onNavigate }) {
-  return (
-    <ul className="developer-workspace-toc-list">
-      {headings.map((heading) => (
-        <li
-          key={heading.slug}
-          className={`developer-workspace-toc-item${heading.level === 3 ? " is-nested" : ""}`}
-        >
-          <a href={`#${heading.slug}`} onClick={onNavigate}>
-            {heading.text}
-          </a>
-        </li>
-      ))}
-    </ul>
   );
 }
 
@@ -190,7 +174,7 @@ export default function DeveloperWorkspaceMobileDock({
                   ))}
                 </>
               ) : headings.length ? (
-                <MobileTocList headings={headings} onNavigate={closePanel} />
+                <DeveloperWorkspaceToc headings={headings} onNavigate={closePanel} />
               ) : (
                 <p className="developer-workspace-empty-copy">
                   This page is short enough to read straight through.

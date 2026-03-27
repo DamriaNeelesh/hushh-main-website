@@ -17,9 +17,6 @@ export const developerTracks = [
 
 export const developerOverviewLinks = [
   { key: "developers-home", href: "/developers", label: "Developer Home" },
-  { key: "agent-kai", href: "/developers/agent-kai", label: "Agent Kai API" },
-  { key: "on-boarding", href: "/developers/on-boarding", label: "Developer Workspace" },
-  { key: "agentic-apis", href: "/developers/agentic-apis", label: "Agentic APIs" },
 ];
 
 export const developerDocs = [
