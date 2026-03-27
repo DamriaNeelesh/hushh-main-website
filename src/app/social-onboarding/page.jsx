@@ -1,45 +1,42 @@
 "use client";
+
 import React, { useState } from "react";
-import UploadCard from "../_components/socialOnboarding/UploadCard";
 import { useRouter } from "next/navigation";
+import MultiPhotoUploadPanel from "../_components/socialOnboarding/MultiPhotoUploadPanel";
 import { useAuth } from "../context/AuthContext";
 import { uploadImages } from "../lib/api/socialOnboarding";
 import ContentWrapper from "src/app/_components/layout/ContentWrapper";
 
+const MIN_REQUIRED_PHOTOS = 3;
+const MAX_PROFILE_PHOTOS = 5;
+
 export default function SocialOnboardingPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
-  const [files, setFiles] = useState([null, null, null, null]);
+  const [files, setFiles] = useState([]);
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const updateFileAtIndex = (index) => (file) => {
-    setFiles((prev) => {
-      const next = [...prev];
-      next[index] = file;
-      return next;
-    });
-  };
-
-  const allValid = files.slice(0, 3).every((f) => Boolean(f));
+  const allValid = files.length >= MIN_REQUIRED_PHOTOS;
 
   const handleContinue = async () => {
     setAttemptedSubmit(true);
-    if (!allValid) return;
-    if (authLoading) return;
+    if (!allValid || authLoading) return;
+
     if (!user?.email) {
       router.push("/login");
       return;
     }
+
     try {
       setSubmitting(true);
-      await uploadImages({ email: user.email, files: files.filter(Boolean) });
+      await uploadImages({ email: user.email, files });
       try {
-        sessionStorage.setItem("hushh_social_images_count", String(files.filter(Boolean).length));
+        sessionStorage.setItem("hushh_social_images_count", String(files.length));
       } catch {}
       router.push("/social-onboarding/social-links");
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       alert("Failed to upload images. Please try again.");
     } finally {
       setSubmitting(false);
@@ -48,73 +45,51 @@ export default function SocialOnboardingPage() {
 
   return (
     <ContentWrapper>
-    <section className="relative mx-auto max-w-6xl px-6 md:px-10 py-12 md:py-16">
-      {/* Header */}
-      <section className="text-center mb-10 md:mb-14">
-        <div className="mx-auto mb-4 h-10 w-10 rounded-full border border-black grid place-items-center">
-          <span className="text-lg" aria-hidden>
-            🙂
-          </span>
-        </div>
-        <h1 className="m-0 text-2xl md:text-3xl font-bold text-[#161616]">
-          Basic Information
-        </h1>
-        <p className="mt-2 text-gray-600">
-          Please upload a few pictures of yourself
-        </p>
-      </section>
+      <section className="relative mx-auto max-w-6xl px-6 py-12 md:px-10 md:py-16">
+        <section className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
+          <div className="mx-auto mb-4 grid h-11 w-11 place-items-center rounded-full border border-[rgba(23,27,41,0.12)] bg-white text-lg shadow-sm">
+            <span aria-hidden>🙂</span>
+          </div>
+          <h1 className="m-0 text-[2rem] font-semibold tracking-[-0.03em] text-[#171b29] md:text-[2.6rem]">
+            Add your best profile photos
+          </h1>
+          <p className="mx-auto mt-3 max-w-2xl text-[0.98rem] leading-7 text-[#57524a] md:text-[1.05rem]">
+            A single upload step keeps this clean. Add between {MIN_REQUIRED_PHOTOS} and{" "}
+            {MAX_PROFILE_PHOTOS} recent photos so we can personalize the rest of your setup.
+          </p>
+        </section>
 
-      {/* Upload grid */}
-      <section className="grid gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <UploadCard
-          id="upload-1"
-          required
-          onSelect={updateFileAtIndex(0)}
-          hasError={attemptedSubmit && !files[0]}
-        />
-        <UploadCard
-          id="upload-2"
-          required
-          onSelect={updateFileAtIndex(1)}
-          hasError={attemptedSubmit && !files[1]}
-        />
-        <UploadCard
-          id="upload-3"
-          required
-          onSelect={updateFileAtIndex(2)}
-          hasError={attemptedSubmit && !files[2]}
-        />
-        <UploadCard
-          id="upload-4"
-          onSelect={updateFileAtIndex(3)}
-          hasError={false}
-          label={
-            attemptedSubmit && !allValid
-              ? "Oh no! This field cannot be left empty"
-              : "Upload a picture from your computer"
-          }
-        />
-      </section>
+        <section className="rounded-[2rem] border border-[rgba(23,27,41,0.08)] bg-white p-6 shadow-[0_24px_60px_rgba(10,17,40,0.06)] md:p-8 lg:p-10">
+          <MultiPhotoUploadPanel
+            files={files}
+            onFilesChange={setFiles}
+            minFiles={MIN_REQUIRED_PHOTOS}
+            maxFiles={MAX_PROFILE_PHOTOS}
+            showRequiredState={attemptedSubmit}
+          />
 
-      {/* Continue button */}
-      <section className="mt-10 md:mt-14 flex justify-center">
-        <button
-          type="button"
-          onClick={handleContinue}
-          disabled={submitting}
-          className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-white shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-black/60 disabled:opacity-60"
-          aria-label="Continue"
-        >
-          {submitting ? "Uploading..." : "Continue"}
-          <span aria-hidden>→</span>
-        </button>
-      </section>
+          <div className="mt-8 flex flex-col gap-5 border-t border-[rgba(23,27,41,0.08)] pt-6 md:mt-10 md:flex-row md:items-center md:justify-between">
+            <div className="space-y-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#73664f]">
+                Step 1 of 4
+              </p>
+              <p className="text-sm leading-6 text-[#57524a]">
+                Your photos stay within the onboarding flow and help shape the rest of your profile.
+              </p>
+            </div>
 
-      {/* Step indicator (placeholder) */}
-      <div className="sr-only" aria-live="polite">
-        Step 1 of 4
-      </div>
-    </section>
+            <button
+              type="button"
+              onClick={handleContinue}
+              disabled={submitting}
+              className="site-cta-solid w-full px-6 text-xs disabled:cursor-not-allowed disabled:opacity-60 md:w-auto md:min-w-[11rem]"
+              aria-label="Continue"
+            >
+              {submitting ? "Uploading..." : "Continue"}
+            </button>
+          </div>
+        </section>
+      </section>
     </ContentWrapper>
   );
 }

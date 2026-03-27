@@ -54,9 +54,10 @@ const theme = {
     },
   },
   fonts: {
-    body: "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
-    heading: "Playfair Display, Georgia, Times New Roman, serif",
-    text: "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
+    body: "var(--font-geist), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
+    heading: "var(--font-inter), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
+    text: "var(--font-geist), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
+    mono: "var(--font-geist-mono), SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace",
   },
   styles: {
     global: {

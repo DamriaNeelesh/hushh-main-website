@@ -22,6 +22,7 @@
 .blog-page-shell {
   width: 100%;
   overflow-x: clip;
+  padding-bottom: clamp(2rem, 5vw, 3.5rem);
 }
 
 .blog-container {
@@ -130,6 +131,9 @@
 
 .blog-btn-primary,
 .blog-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 9999px;
   font-weight: 600;
   transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease,
@@ -156,6 +160,17 @@
 
 .blog-btn-secondary:hover {
   background: rgba(248, 246, 241, 0.95);
+}
+
+.blog-share-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.blog-share-row > * {
+  min-width: fit-content;
 }
 
 .blog-clamp-2,
@@ -265,6 +280,12 @@
   max-width: 100%;
 }
 
+.blog-article iframe,
+.blog-article svg,
+.blog-article .mermaid {
+  max-width: 100%;
+}
+
 .blog-article .my-6.relative {
   max-width: 100%;
   overflow-x: auto;
@@ -282,9 +303,13 @@
 }
 
 .blog-article table {
+  display: block;
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   margin: 1.25rem 0;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .blog-article th,
@@ -321,5 +346,10 @@
 
   .blog-subtitle {
     line-height: 1.5;
+  }
+
+  .blog-share-row > * {
+    width: 100%;
+    justify-content: center;
   }
 }
