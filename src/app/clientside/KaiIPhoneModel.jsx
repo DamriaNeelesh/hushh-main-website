@@ -15,9 +15,21 @@ import * as THREE from "three";
 import { useMemo } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+
+const KAI_MODEL_PATH = "/models/scene.glb";
+const KAI_DRACO_DECODER_PATH = "/draco/gltf/";
+
+const kaiDracoLoader = new DRACOLoader();
+kaiDracoLoader.setDecoderPath(KAI_DRACO_DECODER_PATH);
+kaiDracoLoader.setDecoderConfig({ type: "js" });
+
+function extendKaiModelLoader(loader) {
+  loader.setDRACOLoader(kaiDracoLoader);
+}
 
 export default function KaiIPhoneModel({ screenSrc, ...props }) {
-  const { nodes, materials } = useGLTF("/models/scene.glb");
+  const { nodes, materials } = useGLTF(KAI_MODEL_PATH, false, true, extendKaiModelLoader);
   const texture = useTexture(screenSrc);
   const maxAnisotropy = useThree((state) => state.gl.capabilities.getMaxAnisotropy());
   const tunedMaterials = useMemo(() => {
@@ -326,4 +338,4 @@ export default function KaiIPhoneModel({ screenSrc, ...props }) {
   );
 }
 
-useGLTF.preload("/models/scene.glb");
+useGLTF.preload(KAI_MODEL_PATH, false, true, extendKaiModelLoader);
