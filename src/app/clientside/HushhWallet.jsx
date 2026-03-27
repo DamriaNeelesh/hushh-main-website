@@ -212,7 +212,7 @@ const ClientHushhWallet = () => {
           <Text
               fontWeight={"400"}
               fontSize={"5.43rem"}
-              fontFamily={"Bebas Neue"}
+              fontFamily={"heading"}
               zIndex={10}
               className="gradient"
               textAlign={{ base: "center" }}
@@ -229,7 +229,7 @@ const ClientHushhWallet = () => {
           <Text
               fontWeight={"400"}
               fontSize={"5.43rem"}
-              fontFamily={"Bebas Neue"}
+              fontFamily={"heading"}
               zIndex={10}
               className="gradient"
               textAlign={{ base: "center" }}
@@ -278,7 +278,7 @@ const ClientHushhWallet = () => {
           <Text
               fontWeight={"400"}
               fontSize={"2.75rem"}
-              fontFamily={"Bebas Neue"}
+              fontFamily={"heading"}
               className="gradient"
               textAlign={{ base: "center" }}
               as={'h3'}>
@@ -294,7 +294,7 @@ const ClientHushhWallet = () => {
           <Text
               fontWeight={"400"}
               fontSize={"2.75rem"}
-              fontFamily={"Bebas Neue"}
+              fontFamily={"heading"}
               className="gradient"
               textAlign={{ base: "center" }}
               px={"1rem"}

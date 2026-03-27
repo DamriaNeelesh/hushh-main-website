@@ -65,7 +65,7 @@ const FundingBanner = () => {
           <Text
             fontSize="11px"
             fontWeight="600"
-            fontFamily="Figtree"
+            fontFamily="body"
             px={4}
             display="inline-flex"
             alignItems="center"
@@ -80,7 +80,7 @@ const FundingBanner = () => {
           <Text
             fontSize="11px"
             fontWeight="600"
-            fontFamily="Figtree"
+            fontFamily="body"
             px={4}
             display="inline-flex"
             alignItems="center"
@@ -107,7 +107,7 @@ const FundingBanner = () => {
           <Text
             fontSize={{ base: 'sm', md: 'md' }}
             fontWeight="600"
-            fontFamily="Figtree"
+            fontFamily="body"
             lineHeight="1.3"
           >
             💰 <Text as="span" color="#10b981" fontWeight="700">FUNDING NEWS:</Text>{' '}

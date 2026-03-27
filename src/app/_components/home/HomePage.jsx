@@ -595,15 +595,15 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-20 pt-4 md:px-12">
-        <div className="max-w-3xl">
-          <div className="mb-6">
+        <div className="max-w-3xl text-left items-start">
+          <div className="mb-6 text-left">
             <SectionKicker>Our Marketplace Reach Will Be</SectionKicker>
           </div>
-          <h2 className="mb-8 text-5xl font-medium leading-[0.95] text-richBlack md:text-7xl">
+          <h2 className="mb-8 text-left text-5xl font-medium leading-[0.95] text-richBlack md:text-7xl">
             Everywhere <br />
             <span className="italic text-mutedSlate serif-font">Users Already Are</span>
           </h2>
-          <p className="max-w-2xl text-lg leading-relaxed text-mutedSlate md:text-[1.9rem]">
+          <p className="max-w-2xl text-left text-lg leading-relaxed text-mutedSlate md:text-[1.9rem]">
             Seamlessly accessible across major marketplaces — from the iOS App Store to Hugging Face — ensuring your
             users can discover, integrate, and launch effortlessly within their existing ecosystems.
           </p>

@@ -26,7 +26,7 @@ import ContentWrapper from "../layout/ContentWrapper";
         color="white"
         py={{ base: 20, md: 24 }}
         px={{ base: 6, md: 24 }}
-        fontFamily="Figtree, sans-serif"
+        fontFamily="body"
         lineHeight="1.8"
       >
         <VStack spacing={{ base: 8, md: 12 }} align="start" w="full">

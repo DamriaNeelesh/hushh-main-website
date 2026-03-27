@@ -1,34 +1,110 @@
-.developer-docs-pre--enhanced {
-  position: relative;
+.developer-docs-code-shell {
   margin: 1.5rem 0;
-  overflow-x: auto;
   border: 1px solid rgba(61, 66, 75, 0.8);
   border-radius: 20px;
+  overflow: hidden;
   background: linear-gradient(180deg, #272822 0%, #1f201b 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 30px rgba(15, 23, 42, 0.12);
-  color: #f8f8f2;
-  padding: 2.9rem 1.15rem 1.25rem;
 }
 
-.developer-docs-pre--enhanced::before {
-  content: attr(data-language);
-  position: absolute;
-  top: 0.8rem;
-  right: 1rem;
+.developer-docs-code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.8rem 0.95rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(10, 12, 9, 0.34);
+}
+
+.developer-docs-code-toolbar-meta,
+.developer-docs-code-actions,
+.developer-docs-code-dots {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 1.7rem;
-  padding: 0.2rem 0.55rem;
+}
+
+.developer-docs-code-toolbar-meta {
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.developer-docs-code-actions,
+.developer-docs-code-dots {
+  gap: 0.45rem;
+}
+
+.developer-docs-code-dot {
+  width: 0.65rem;
+  height: 0.65rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(10, 12, 9, 0.38);
-  color: rgba(248, 248, 242, 0.72);
-  font-family: "Inter", sans-serif;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.developer-docs-code-dot.is-red {
+  background: #ff5f56;
+}
+
+.developer-docs-code-dot.is-yellow {
+  background: #ffbd2e;
+}
+
+.developer-docs-code-dot.is-green {
+  background: #27c93f;
+}
+
+.developer-docs-code-language,
+.developer-docs-code-action {
+  min-height: 1.9rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.developer-docs-code-language {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 12, 9, 0.38);
+  color: rgba(248, 248, 242, 0.72);
+  font-family: var(--site-font-body);
+}
+
+.developer-docs-code-action {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #d6d7cd;
+  font-family: var(--site-font-body);
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.developer-docs-code-action:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.developer-docs-code-action.is-copied {
+  color: #a6e22e;
+  border-color: rgba(166, 226, 46, 0.22);
+}
+
+.developer-docs-pre--enhanced {
+  position: relative;
+  margin: 0;
+  overflow-x: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #f8f8f2;
+  padding: 1rem 1.1rem 1.2rem;
+}
+
+.developer-docs-pre--enhanced::before {
+  content: none;
 }
 
 .developer-docs-block-code,
@@ -37,10 +113,37 @@
   min-width: max-content;
   background: transparent;
   color: #f8f8f2;
-  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-family: var(--site-font-mono);
   font-size: 0.87rem;
   line-height: 1.72;
   white-space: pre;
+}
+
+.developer-docs-code-shell.is-wrapped .developer-docs-pre--enhanced {
+  overflow-x: hidden;
+}
+
+.developer-docs-code-shell.is-wrapped .developer-docs-block-code,
+.developer-docs-code-shell.is-wrapped .developer-docs-block-code.hljs {
+  min-width: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 767px) {
+  .developer-docs-code-toolbar {
+    padding: 0.72rem 0.8rem;
+  }
+
+  .developer-docs-code-actions {
+    width: 100%;
+  }
+
+  .developer-docs-code-action {
+    flex: 1 1 0;
+    justify-content: center;
+  }
 }
 
 .developer-docs-block-code .hljs-comment,

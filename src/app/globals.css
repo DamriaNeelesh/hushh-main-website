@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 :root {
+  --site-font-body: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --site-font-heading: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --site-font-mono: var(--font-geist-mono), "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
+  --site-font-italic: var(--font-playfair-italic), Georgia, "Times New Roman", serif;
   --figma-mobile-frame-width: 390px;
   --figma-mobile-gutter: 24px;
   --figma-primary-card-width: 342px;
@@ -34,7 +38,7 @@ body {
   overflow-x: hidden;
   background-color: #ffffff;
   color: #1a1a1b;
-  font-family: "Inter", sans-serif;
+  font-family: var(--site-font-body);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -50,7 +54,21 @@ h2,
 h3,
 h4,
 .serif-font {
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--site-font-mono);
+}
+
+em,
+i,
+.site-italic {
+  font-family: var(--site-font-italic);
+  font-style: italic;
 }
 
 a {
@@ -275,7 +293,7 @@ img {
 }
 
 .site-page-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(2.2rem, 4.8vw, 4.6rem);
   line-height: 0.98;
   letter-spacing: -0.03em;
@@ -325,7 +343,7 @@ img {
   max-width: 11ch;
   margin: 0;
   color: #f8f6f1;
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(2.65rem, 6.4vw, 5.7rem);
   line-height: 0.92;
   letter-spacing: -0.045em;
@@ -1540,7 +1558,7 @@ img {
 
 .developer-landing-card-title,
 .developer-landing-section-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   color: var(--site-text-primary);
   letter-spacing: -0.03em;
 }
@@ -1789,7 +1807,7 @@ img {
 }
 
 .developer-docs-h1 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(2rem, 3vw, 2.9rem);
   line-height: 1.04;
   margin: 0 0 1.5rem;
@@ -1798,7 +1816,7 @@ img {
 }
 
 .developer-docs-h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(1.45rem, 1.8vw, 2rem);
   line-height: 1.1;
   margin: 2.8rem 0 1.25rem;
@@ -1983,10 +2001,11 @@ img {
 
 .docs-code-block {
   margin: 1.5rem 0;
-  border: 1px solid #d7dce5;
+  border: 1px solid rgba(61, 66, 75, 0.8);
   border-radius: 18px;
   overflow: hidden;
-  background: #0b1220;
+  background: linear-gradient(180deg, #272822 0%, #1f201b 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 30px rgba(15, 23, 42, 0.12);
 }
 
 .docs-code-header {
@@ -1994,8 +2013,8 @@ img {
   align-items: center;
   justify-content: space-between;
   padding: 0.85rem 1rem;
-  background: rgba(15, 23, 42, 0.92);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(10, 12, 9, 0.34);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .docs-code-lang,
@@ -2003,7 +2022,7 @@ img {
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: rgba(248, 248, 242, 0.72);
 }
 
 .docs-code-copy {
@@ -2014,14 +2033,14 @@ img {
 }
 
 .docs-code-copy.is-copied {
-  color: #86efac;
+  color: #a6e22e;
 }
 
 .docs-code-block pre {
   margin: 0;
   padding: 1rem 1.1rem 1.2rem;
   overflow-x: auto;
-  color: #e2e8f0;
+  color: #f8f8f2;
 }
 
 .docs-code-block pre code {
@@ -2040,7 +2059,7 @@ img {
 }
 
 .docs-tryout-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(1.8rem, 2.4vw, 2.4rem);
   margin: 0 0 0.35rem;
   color: var(--site-text-primary);
@@ -2330,8 +2349,9 @@ img {
 }
 
 .developer-runtime-value--mono {
-  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-family: var(--site-font-mono);
   font-size: 0.88rem;
+  overflow-wrap: anywhere;
 }
 
 .site-contact-grid {
@@ -2369,7 +2389,7 @@ img {
 }
 
 .site-contact-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(1.25rem, 1.55vw, 1.65rem);
   line-height: 1.12;
   letter-spacing: -0.03em;
@@ -2378,7 +2398,7 @@ img {
 }
 
 .site-contact-form-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(1.45rem, 1.9vw, 1.95rem);
   line-height: 1.08;
   letter-spacing: -0.03em;
@@ -2666,10 +2686,6 @@ img {
     width: auto;
   }
 
-  .developer-access-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .developer-access-form {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2764,7 +2780,7 @@ img {
 .developer-hub-title {
   margin: 0;
   color: var(--site-text-primary);
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(2.15rem, 3.8vw, 3.25rem);
   line-height: 1.02;
   letter-spacing: -0.04em;
@@ -2807,7 +2823,7 @@ img {
 
 .developer-hub-summary-title,
 .developer-hub-section-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
 }
 
 .developer-hub-summary-title {
@@ -2883,12 +2899,14 @@ img {
 .developer-access-grid {
   display: grid;
   gap: 1.35rem;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .developer-access-card {
   display: grid;
   gap: 1rem;
   align-content: start;
+  min-width: 0;
 }
 
 .developer-access-topline {
@@ -2904,6 +2922,7 @@ img {
   align-items: center;
   justify-content: center;
   min-height: 2rem;
+  max-width: 100%;
   padding: 0.32rem 0.8rem;
   border-radius: 999px;
   background: rgba(23, 27, 41, 0.08);
@@ -2912,6 +2931,8 @@ img {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .developer-access-badge--muted {
@@ -2923,16 +2944,18 @@ img {
 .developer-access-title {
   margin: 0;
   color: var(--site-text-primary);
-  font-family: "Inter", sans-serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(1.2rem, 1.8vw, 1.55rem);
   line-height: 1.22;
   letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
 }
 
 .developer-access-copy {
   margin: 0;
   color: var(--site-text-secondary);
   line-height: 1.72;
+  overflow-wrap: anywhere;
 }
 
 .developer-access-copy--tight {
@@ -2947,6 +2970,7 @@ img {
   color: var(--site-text-secondary);
   font-size: 0.94rem;
   line-height: 1.65;
+  overflow-wrap: anywhere;
 }
 
 .developer-access-status--error {
@@ -2995,6 +3019,7 @@ img {
   margin: 0;
   padding-left: 1.15rem;
   color: var(--site-text-secondary);
+  overflow-wrap: anywhere;
 }
 
 .developer-access-note-list li {
@@ -3025,7 +3050,7 @@ img {
   background: rgba(255, 255, 255, 0.85);
   padding: 0.85rem 0.95rem;
   color: var(--site-text-primary);
-  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-family: var(--site-font-mono);
   font-size: 0.85rem;
   line-height: 1.5;
 }
@@ -3033,6 +3058,7 @@ img {
 .developer-access-snippet-stack {
   display: grid;
   gap: 0.95rem;
+  min-width: 0;
 }
 
 .developer-access-snippet {
@@ -3042,6 +3068,7 @@ img {
   border: 1px solid rgba(17, 24, 39, 0.08);
   background: rgba(248, 246, 241, 0.72);
   padding: 1rem;
+  min-width: 0;
 }
 
 .developer-access-snippet--compact {
@@ -3053,6 +3080,8 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .developer-access-copy-button {
@@ -3068,6 +3097,7 @@ img {
   font-size: 0.78rem;
   font-weight: 700;
   transition: border-color 0.2s ease, background-color 0.2s ease;
+  max-width: 100%;
 }
 
 .developer-access-copy-button:hover {
@@ -3077,11 +3107,45 @@ img {
 
 .developer-access-snippet pre {
   margin: 0;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.developer-access-code-pre {
+  margin: 0;
+  padding: 0.85rem 0.95rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(17, 24, 39, 0.05);
+}
+
+.developer-access-code {
+  display: block;
+  min-width: max-content;
+  color: var(--site-text-primary);
+  font-family: var(--site-font-mono);
+  font-size: 0.84rem;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.developer-access-code.hljs {
+  background: transparent;
+}
+
+@media (max-width: 767px) {
+  .developer-access-code {
+    min-width: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
 }
 
 .developer-access-inline-meta {
-  display: inline-flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
   gap: 0.55rem;
   color: var(--site-text-secondary);
   line-height: 1.65;
@@ -3370,8 +3434,8 @@ img {
 }
 
 .developer-workspace-nav-group + .developer-workspace-nav-group {
-  margin-top: 1rem;
-  padding-top: 1rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
   border-top: 1px solid rgba(236, 231, 223, 0.9);
 }
 
@@ -3441,7 +3505,7 @@ img {
 .developer-workspace-title {
   margin: 0;
   color: var(--site-text-primary);
-  font-family: "Playfair Display", serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(2rem, 2.7vw, 2.85rem);
   line-height: 1.02;
   letter-spacing: -0.035em;
@@ -3487,15 +3551,45 @@ img {
 
 .developer-workspace-toc-item a {
   display: block;
-  padding: 0.35rem 0;
+  padding: 0.38rem 0 0.38rem 0.95rem;
   color: var(--site-text-secondary);
   font-size: 0.9rem;
   line-height: 1.5;
+  position: relative;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.developer-workspace-toc-item a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 2px;
+  height: calc(100% - 1.2rem);
+  border-radius: 999px;
+  background: rgba(115, 102, 79, 0.18);
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  opacity: 0.6;
 }
 
 .developer-workspace-toc-item.is-nested a {
-  padding-left: 0.8rem;
+  padding-left: 1.55rem;
   font-size: 0.84rem;
+}
+
+.developer-workspace-toc-item.is-nested a::before {
+  left: 0.6rem;
+}
+
+.developer-workspace-toc-item.is-active a {
+  color: var(--site-text-primary);
+  font-weight: 700;
+  transform: translateX(2px);
+}
+
+.developer-workspace-toc-item.is-active a::before {
+  background: linear-gradient(180deg, #171b29 0%, #8f8570 100%);
+  opacity: 1;
 }
 
 .developer-workspace-empty-copy {
@@ -3510,13 +3604,17 @@ img {
 }
 
 .developer-docs-prose > section + section {
-  margin-top: 3rem;
-  padding-top: 1.15rem;
+  margin-top: 2.2rem;
+  padding-top: 0.95rem;
   border-top: 1px solid rgba(236, 231, 223, 0.88);
 }
 
+.developer-docs-prose > section > :first-child {
+  margin-top: 0 !important;
+}
+
 .developer-docs-h2 {
-  font-family: "Inter", sans-serif;
+  font-family: var(--site-font-heading);
   font-size: clamp(1.28rem, 1.7vw, 1.72rem);
   line-height: 1.22;
   margin: 2.75rem 0 1.15rem;
@@ -3533,7 +3631,7 @@ img {
   padding-top: 0.9rem;
   border-top: 1px solid rgba(236, 231, 223, 0.82);
   font-weight: 700;
-  font-family: "Inter", sans-serif;
+  font-family: var(--site-font-heading);
   letter-spacing: -0.01em;
 }
 
@@ -3555,11 +3653,12 @@ img {
   margin: 1.4rem 0;
   overflow-x: auto;
   border-radius: 20px;
-  background: rgba(15, 23, 42, 0.96);
-  color: #e2e8f0;
+  background: linear-gradient(180deg, #272822 0%, #1f201b 100%);
+  color: #f8f8f2;
   padding: 1rem 1.1rem 1.2rem;
   font-size: 0.84rem;
   line-height: 1.65;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 30px rgba(15, 23, 42, 0.12);
 }
 
 .developer-docs-pre code {
@@ -3652,7 +3751,7 @@ img {
 .docs-endpoint-path {
   min-width: 0;
   color: var(--site-text-primary);
-  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-family: var(--site-font-mono);
   font-size: 0.88rem;
   line-height: 1.5;
   overflow-wrap: anywhere;
@@ -3725,7 +3824,7 @@ img {
 .docs-endpoint-textarea,
 .docs-endpoint-response,
 .docs-endpoint-meta {
-  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-family: var(--site-font-mono);
   font-size: 0.84rem;
   line-height: 1.65;
 }
@@ -3833,9 +3932,10 @@ img {
     align-items: stretch;
   }
 
-  .developer-workspace-panel,
   .developer-workspace-main,
-  .developer-workspace-rail {
+  .developer-workspace-rail,
+  .developer-workspace-panel--nav,
+  .developer-workspace-panel--article {
     height: 100%;
     min-height: 0;
   }
@@ -3853,6 +3953,31 @@ img {
     max-width: 46rem;
     margin-inline: auto;
     padding: clamp(1.6rem, 3vw, 2.4rem);
+  }
+
+  .developer-workspace-rail--right {
+    display: flex;
+    align-items: flex-start;
+    min-height: 0;
+  }
+
+  .developer-workspace-panel--toc {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    height: auto;
+    max-height: 100%;
+  }
+
+  .developer-workspace-panel--toc .developer-workspace-scroll {
+    height: auto;
+    max-height: 100%;
+  }
+
+  .developer-workspace-toc {
+    display: grid;
+    gap: 0.15rem;
+    align-content: start;
   }
 
   .docs-tryout-grid {
@@ -3904,6 +4029,16 @@ img {
 
   .developer-docs-pre {
     padding: 0.95rem 1rem 1.1rem;
+    font-size: 0.8rem;
+  }
+
+  .developer-access-actions .site-cta-solid,
+  .developer-access-actions .site-cta-outline-branded,
+  .developer-access-copy-button {
+    width: 100%;
+  }
+
+  .developer-access-token-value {
     font-size: 0.8rem;
   }
 
