@@ -104,13 +104,15 @@
   },
   "overrides": {
     "@tootallnate/once": "^3.0.1",
+    "brace-expansion@^2.0.2": "^2.0.3",
+    "brace-expansion@^5.0.2": "^5.0.5",
     "dompurify": "^3.3.3",
     "minimatch": "^9.0.7",
     "picomatch": "^4.0.3",
     "preact": "^10.27.3",
     "tar-fs": "^2.1.4",
     "undici": "^6.24.0",
-    "yaml": "^2.8.0"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
