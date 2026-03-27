@@ -2,6 +2,7 @@ import Link from "next/link";
 import ContentWrapper from "../layout/ContentWrapper";
 import DeveloperDocsArticle from "./DeveloperDocsArticle";
 import DeveloperWorkspaceMobileDock from "./DeveloperWorkspaceMobileDock";
+import DeveloperWorkspaceToc from "./DeveloperWorkspaceToc";
 import {
   developerOverviewLinks,
   getDeveloperDocSections,
@@ -24,21 +25,6 @@ function SidebarSection({ title, docs, activeKey }) {
         ))}
       </ul>
     </div>
-  );
-}
-
-function TocList({ headings }) {
-  return (
-    <ul className="developer-workspace-toc-list">
-      {headings.map((heading) => (
-        <li
-          key={heading.slug}
-          className={`developer-workspace-toc-item${heading.level === 3 ? " is-nested" : ""}`}
-        >
-          <a href={`#${heading.slug}`}>{heading.text}</a>
-        </li>
-      ))}
-    </ul>
   );
 }
 
@@ -125,7 +111,7 @@ export default function DeveloperWorkspaceLayout({
 
           <article className="developer-workspace-main">
             <div className="developer-workspace-panel developer-workspace-panel--article">
-              <div className="developer-workspace-main-scroll">
+              <div className="developer-workspace-main-scroll" data-developer-scroll-root="true">
                 <div className="developer-workspace-content">
                   <header className="developer-workspace-header">
                     <p className="developer-workspace-track">{trackTitle}</p>
@@ -166,7 +152,7 @@ export default function DeveloperWorkspaceLayout({
                 <div className="developer-workspace-toc">
                   <p className="developer-workspace-nav-label">On this page</p>
                   {headings.length ? (
-                    <TocList headings={headings} />
+                    <DeveloperWorkspaceToc headings={headings} />
                   ) : (
                     <p className="developer-workspace-empty-copy">
                       This page is short enough to read straight through.

@@ -35,7 +35,7 @@ export default function NotFound() {
               fontSize={{ base: "28px", md: "42px" }}
               fontWeight="700"
               color="#111827"
-              fontFamily="Inter, sans-serif"
+              fontFamily="heading"
               mb={4}
               letterSpacing="-0.03em"
             >
@@ -49,7 +49,7 @@ export default function NotFound() {
           <Link
             href="/"
             className="inline-flex items-center justify-center rounded-[12px] bg-[#1A1A1B] px-8 py-4 text-[12px] font-semibold uppercase tracking-[0.16em] text-white transition-colors hover:bg-[#0A1128]"
-            style={{ fontFamily: "Inter, sans-serif" }}
+            style={{ fontFamily: "var(--site-font-heading)" }}
           >
             Return Home
           </Link>

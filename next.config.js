@@ -18,6 +18,7 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 
 const connectSources = [
   "'self'",
+  "blob:",
   `https://${supabaseHostname}`,
   `https://${firebaseAuthDomainFromEnv}`,
   "https://www.google-analytics.com",
