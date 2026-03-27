@@ -19,7 +19,7 @@ import { useThree } from "@react-three/fiber";
 const KAI_MODEL_PATH = "/models/scene.glb";
 
 export default function KaiIPhoneModel({ screenSrc, ...props }) {
-  const { nodes, materials } = useGLTF(KAI_MODEL_PATH);
+  const { nodes, materials } = useGLTF(KAI_MODEL_PATH, false, false);
   const texture = useTexture(screenSrc);
   const maxAnisotropy = useThree((state) => state.gl.capabilities.getMaxAnisotropy());
   const tunedMaterials = useMemo(() => {
@@ -328,4 +328,4 @@ export default function KaiIPhoneModel({ screenSrc, ...props }) {
   );
 }
 
-useGLTF.preload(KAI_MODEL_PATH);
+useGLTF.preload(KAI_MODEL_PATH, false, false);
