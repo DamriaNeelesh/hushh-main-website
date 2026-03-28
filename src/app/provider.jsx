@@ -1,9 +1,7 @@
 "use client";
 import extendedTheme from "./theme";
 import { ChakraProvider } from "@chakra-ui/react";
-import { ApiKeyProvider } from "./context/apiKeyContext";
 import EmotionCacheProvider from "./emotion-cache-provider";
-
 
 export function Providers({ children }) {
   return (
@@ -20,9 +18,7 @@ export function Providers({ children }) {
           },
         }}
       >
-        <ApiKeyProvider>
-          {children}
-        </ApiKeyProvider>
+        {children}
       </ChakraProvider>
     </EmotionCacheProvider>
   );

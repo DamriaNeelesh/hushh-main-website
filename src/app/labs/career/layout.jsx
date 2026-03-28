@@ -8,7 +8,7 @@ export const metadata = {
     title: 'Careers at Hushh Labs - Join Our AI Research Team | 10 Open Positions',
     description: 'Join our elite AI research team building superintelligent AI systems. 10 open positions with competitive salaries up to $500K. Partnership with Stanford, Purdue, and IIT.',
     type: 'website',
-    url: 'https://hushh.ai/labs/career',
+    url: 'https://www.hushh.ai/labs/career',
     images: [
       {
         url: '/Images/Logo/hushh-logo.png',
@@ -33,7 +33,7 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: 'https://hushh.ai/labs/career',
+    canonical: 'https://www.hushh.ai/labs/career',
   },
   other: {
     'job-posting': 'true',

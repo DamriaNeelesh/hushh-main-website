@@ -1,11 +1,9 @@
-"use client";
-
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { sortBlogs } from "../../utils";
 import { FALLBACK_IMAGE } from "../Blog/constants";
 import { formatContentDate } from "../../../lib/content/date-utils";
+import { MotionSection, MotionStaggerGroup, MotionStaggerItem } from "../motion/SectionReveal";
 
 const FeaturedPosts = ({ blogs }) => {
   const sortedBlogs = sortBlogs([...(blogs || [])]);
@@ -14,18 +12,18 @@ const FeaturedPosts = ({ blogs }) => {
   if (!featuredBlogs.length) return null;
 
   return (
-    <section className="blog-container pb-10 md:pb-12">
+    <MotionSection as="section" family="marketing" className="blog-container pb-10 md:pb-12" delay={0.08}>
       <div className="flex items-center justify-between mb-4 md:mb-6">
         <h2 className="blog-section-title">Featured Insights</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
+      <MotionStaggerGroup family="marketing" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
         {featuredBlogs.map((blog) => {
           const publishedAt = formatContentDate(blog.publishedAt);
           const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
 
           return (
-            <article key={blog._id} className="blog-card h-full flex flex-col">
+            <MotionStaggerItem as="article" family="marketing" key={blog._id} className="blog-card h-full flex flex-col">
               <Link href={blog.url} className="blog-card-image block">
                 <Image
                   src={imagePath}
@@ -52,11 +50,11 @@ const FeaturedPosts = ({ blogs }) => {
 
                 <span className="mt-auto pt-4 blog-meta">{publishedAt}</span>
               </div>
-            </article>
+            </MotionStaggerItem>
           );
         })}
-      </div>
-    </section>
+      </MotionStaggerGroup>
+    </MotionSection>
   );
 };
 

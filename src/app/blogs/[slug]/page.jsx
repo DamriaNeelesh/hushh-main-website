@@ -1,9 +1,9 @@
 import { siteMetadata } from "../../sitemetadata";
 import { allBlogs, getBlogBySlug } from "../../../lib/content/blog-registry";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Box, Container, Heading, Text } from "@chakra-ui/react";
-import ContactForm from "src/app/_components/features/contactForm";
 import ClientBlogContent from "../../_components/Blog/ClientBlogContent";
 import RenderContent from "../../_components/Blog/RenderContent";
 import JsonLdScript from "../../_components/seo/JsonLdScript";
@@ -15,9 +15,12 @@ import {
 } from "../../../lib/content/date-utils";
 import { buildPageMetadata, resolveCanonicalUrl } from "../../../lib/seo/pageMetadata";
 
+const ContactForm = dynamic(() => import("src/app/_components/features/contactForm"), {
+  loading: () => <div className="h-24" aria-hidden="true" />,
+});
+
 // Default image path for blogs that don't have an image
 const DEFAULT_BLOG_IMAGE = "/images/default-blog-img.jpg";
-export const revalidate = 3600;
 
 // Function to generate related posts
 function getRelatedPosts(currentBlog, allBlogs) {

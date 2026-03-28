@@ -14,7 +14,7 @@ export const metadata = {
   openGraph: {
     title: 'Consent AI Protocol | Revolutionary Privacy Framework | Hushh.ai',
     description: 'Discover Hushh\'s Consent AI Protocol - a groundbreaking privacy framework that treats code like bacteria with advanced consent agents and verified user systems.',
-    url: 'https://hushh.ai/consent-ai-protocol',
+    url: 'https://www.hushh.ai/consent-ai-protocol',
     siteName: 'Hushh.ai',
     type: 'website',
     images: [
@@ -53,7 +53,7 @@ export const metadata = {
   
   // Canonical URL
   alternates: {
-    canonical: 'https://hushh.ai/consent-ai-protocol',
+    canonical: 'https://www.hushh.ai/consent-ai-protocol',
   },
   
   // Additional SEO metadata

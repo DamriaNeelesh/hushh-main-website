@@ -10,18 +10,18 @@ export const metadata = {
     "Book a personalized demo to experience Hushh's innovative data privacy and monetization solutions. See how our platform empowers users and brands with ethical data practices.",
   keywords:
     "Hushh demo, data privacy demo, data monetization demo, user-controlled data demo, privacy-preserving technology demo, ethical data practices demo, personalized data experiences, luxury consumer data, AI-powered personalization demo, data marketplace demo, human-AI interaction demo, granular user consent, Book a call, Appointment, Live Demo",
-  canonical: "https://hushh.ai/demoBookingPage",
+  canonical: "https://www.hushh.ai/demoBookingPage",
   alternates: {
-    canonical: "https://hushh.ai/demoBookingPage",
+    canonical: "https://www.hushh.ai/demoBookingPage",
     languages: {
-      'en-US': 'https://hushh.ai/demoBookingPage',
+      'en-US': 'https://www.hushh.ai/demoBookingPage',
     },
   },
   openGraph: {
     title: "Schedule a Demo | See Hushh's Data Privacy Solutions in Action",
     description:
       "Book a personalized demo to experience Hushh's innovative data privacy and monetization solutions. See how our platform empowers users and brands with ethical data practices.",
-    url: "https://hushh.ai/demoBookingPage",
+    url: "https://www.hushh.ai/demoBookingPage",
     type: "website",
     siteName: "Hushh AI",
     images: [

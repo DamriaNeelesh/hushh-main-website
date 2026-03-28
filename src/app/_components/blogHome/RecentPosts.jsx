@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { sortBlogs } from "../../utils";
 import { FALLBACK_IMAGE } from "../Blog/constants";
 import { formatContentDate } from "../../../lib/content/date-utils";
+import { MotionSection, MotionStaggerGroup, MotionStaggerItem } from "../motion/SectionReveal";
 
 const RecentPosts = ({ blogs = [] }) => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const RecentPosts = ({ blogs = [] }) => {
   if (!sortedBlogs.length) return null;
 
   return (
-    <section className="blog-container pb-16 md:pb-20">
+    <MotionSection as="section" family="marketing" className="blog-container pb-16 md:pb-20" delay={0.12}>
       <div className="flex items-center justify-between mb-4 md:mb-6">
         <h2 className="blog-section-title">{isLimitedSet ? "Related Articles" : "More News"}</h2>
         {!isLimitedSet && (
@@ -33,13 +34,13 @@ const RecentPosts = ({ blogs = [] }) => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
+      <MotionStaggerGroup family="marketing" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
         {displayedBlogs.map((blog) => {
           const publishedAt = formatContentDate(blog.publishedAt);
           const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
 
           return (
-            <article key={blog._id} className="blog-card h-full flex flex-col">
+            <MotionStaggerItem as="article" family="marketing" key={blog._id} className="blog-card h-full flex flex-col">
               <Link href={blog.url} className="blog-card-image block">
                 <Image
                   src={imagePath}
@@ -66,10 +67,10 @@ const RecentPosts = ({ blogs = [] }) => {
 
                 <span className="mt-auto pt-3 blog-meta">{publishedAt}</span>
               </div>
-            </article>
+            </MotionStaggerItem>
           );
         })}
-      </div>
+      </MotionStaggerGroup>
 
       {!isLimitedSet && displayCount < sortedBlogs.length && (
         <div className="mt-8 text-center">
@@ -82,7 +83,7 @@ const RecentPosts = ({ blogs = [] }) => {
           </button>
         </div>
       )}
-    </section>
+    </MotionSection>
   );
 };
 

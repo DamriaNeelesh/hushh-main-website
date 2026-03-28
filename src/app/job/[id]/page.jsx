@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import { Box, ListItem, Text, UnorderedList, VStack } from "@chakra-ui/react";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
 import { jobs } from "../../_components/career/jobs";
-
-export const revalidate = 3600;
+import { MotionSection } from "../../_components/motion/SectionReveal";
+import DeferredIframe from "../../_components/primitives/DeferredIframe";
 
 export function generateStaticParams() {
   return jobs.map((job) => ({ id: job.id.toString() }));
@@ -49,6 +49,7 @@ export default async function JobDetailPage({ params }) {
   return (
     <ContentWrapper surface="contrast">
       <Box bg="black" color="white" minH="100%">
+        <MotionSection as="div" family="marketing">
         <Box className="gradient-bg" py={{ md: 40, base: 20 }} px={{ base: 6, md: 12 }}>
           <VStack align="start" spacing={4}>
             <Text fontSize={{ base: "xl", md: "4xl" }} fontWeight="bold">
@@ -57,7 +58,9 @@ export default async function JobDetailPage({ params }) {
             <Text fontSize="lg">{job.location}</Text>
           </VStack>
         </Box>
+        </MotionSection>
 
+        <MotionSection as="div" family="marketing" delay={0.04}>
         <Box py={10} px={{ base: 6, md: 12 }} fontSize={{ md: "1.1rem", base: "0.62rem" }} bg="white" color="black">
           <VStack align="start" spacing={6}>
             <Box>
@@ -124,25 +127,24 @@ export default async function JobDetailPage({ params }) {
             </Box>
           </VStack>
         </Box>
+        </MotionSection>
 
+        <MotionSection as="div" family="marketing" delay={0.08}>
         <Box py={10} px={{ base: 6, md: 12 }} bg="gray.100" color="black">
           <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" mb={6}>
             Apply for this Position
           </Text>
-          <Box
-            as="iframe"
-            src={formUrl}
-            width="100%"
-            minH={{ md: "160vh", base: "180vh" }}
-            frameBorder="0"
-            marginHeight="0"
-            marginWidth="0"
-            style={{ border: "none" }}
-            title="Job Application Form"
-          >
-            Loading…
+          <Box minH={{ md: "160vh", base: "180vh" }}>
+            <DeferredIframe
+              src={formUrl}
+              minHeight="100%"
+              height="100%"
+              title="Job Application Form"
+              placeholder="The application form will load as you reach it."
+            />
           </Box>
         </Box>
+        </MotionSection>
       </Box>
     </ContentWrapper>
   );

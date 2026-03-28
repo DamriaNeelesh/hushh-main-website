@@ -26,8 +26,8 @@ try {
   const termsPage = readFile("src/app/terms/page.jsx");
   const legalShell = readFile("src/app/_components/legal/LegalPageShell.jsx");
   const header = readFile("src/app/_components/header.jsx");
-  const serverSitemap = readFile("src/app/server-sitemap.xml/route.js");
-  const sitemap = readFile("public/sitemap-0.xml");
+  const nativeSitemap = readFile("src/app/sitemap.ts");
+  const robotsFile = readFile("src/app/robots.ts");
 
   assertContains(
     kaiPage,
@@ -100,22 +100,16 @@ try {
   );
 
   assertContains(
-    serverSitemap,
-    "'/products/kai'",
-    "Server sitemap must include the Kai product page.",
+    nativeSitemap,
+    "collectStaticPageRoutes(APP_DIRECTORY)",
+    "Native sitemap should build routes from the App Router tree.",
   );
 
-  for (const url of [
-    "https://www.hushh.ai/products/kai",
-    "https://www.hushh.ai/privacy",
-    "https://www.hushh.ai/terms",
-  ]) {
-    assertContains(
-      sitemap,
-      url,
-      "Generated sitemap must include all branding review URLs.",
-    );
-  }
+  assertContains(
+    robotsFile,
+    'sitemap: `${siteMetadata.siteUrl}/sitemap.xml`',
+    "Robots metadata must point crawlers at the native sitemap endpoint.",
+  );
 
   console.log("OAuth branding verification passed.");
 } catch (error) {
