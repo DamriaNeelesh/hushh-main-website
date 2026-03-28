@@ -21,9 +21,6 @@ export const metadata = {
       "Meet the world's first personal data agent platform built with trust, privacy, and power at the core.",
   },
 };
-
-export const revalidate = 3600;
-
 export default function Home() {
   return <HomePage />;
 }

@@ -10,15 +10,15 @@ export const metadata = {
     "Join the Hushh Community to revolutionize luxury sales. Empower agents and delight customers with our innovative platform.",
   keywords:
     "Hushh Community, Luxury Sales, Data Empowerment, Customer Insights, Personalized Communication, Ethical Data Collection, High-Value Customers, Sales Agents, Innovative Platform",
-  canonical: "https://hushh.ai/hushh-community",
+  canonical: "https://www.hushh.ai/hushh-community",
   alternates: {
-    canonical: "https://hushh.ai/hushh-community",
+    canonical: "https://www.hushh.ai/hushh-community",
   },
   openGraph: {
     title: "Join the Hushh Community",
     description:
       "Join the Hushh Community to revolutionize luxury sales. Empower agents and delight customers with our innovative platform.",
-    url: "https://hushh.ai/hushh-community",
+    url: "https://www.hushh.ai/hushh-community",
     // images: [
     //   {
     //     url: "/path/to/community-og-image.jpg",
@@ -51,8 +51,8 @@ const hushhCommunity = () => {
       property="og:description"
       content="Join the Hushh Community to revolutionize luxury sales. Empower agents and delight customers with our innovative platform."
     />
-    <meta property="og:url" content="https://hushh.ai/hushh-community" />
-    <link rel="canonical" href="https://hushh.ai/hushh-community" />
+    <meta property="og:url" content="https://www.hushh.ai/hushh-community" />
+    <link rel="canonical" href="https://www.hushh.ai/hushh-community" />
   </Head>
       <ContentWrapper includeHeaderSpacing={true}>
         <HushhCommunity/>

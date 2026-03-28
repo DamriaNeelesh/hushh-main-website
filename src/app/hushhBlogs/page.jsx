@@ -1,10 +1,12 @@
+import dynamic from "next/dynamic";
 import { allBlogSummaries } from "../../lib/content/blog-registry";
-import ContactForm from "../_components/features/contactForm";
 import HushhBlogsContent from "../_components/Blog/HushhBlogsContent";
 import { siteMetadata } from "../sitemetadata";
 import ContentWrapper from "../_components/layout/ContentWrapper";
 
-export const revalidate = 3600;
+const ContactForm = dynamic(() => import("../_components/features/contactForm"), {
+  loading: () => <div className="h-24" aria-hidden="true" />,
+});
 
 export const metadata = {
   title: "Hushh Newsroom | Latest Insights and Updates",
@@ -12,15 +14,14 @@ export const metadata = {
     "Explore the latest news, articles, and updates from Hushh covering technology, privacy, and data solutions. Stay informed with expert insights and product announcements.",
   keywords:
     "hushh newsroom, technology insights, data privacy, data monetization, user-controlled data, luxury consumers, AI-powered personalization, privacy-preserving technology, decentralized data, ethical advertising, data marketplace, human-AI interaction",
-  canonical: "https://hushh.ai/hushhBlogs",
   alternates: {
-    canonical: "https://hushh.ai/hushhBlogs",
+    canonical: "https://www.hushh.ai/hushhBlogs",
   },
   openGraph: {
     title: "Hushh Newsroom | Latest Insights and Updates",
     description:
       "Explore the latest news, articles, and updates from Hushh covering technology, privacy, and data solutions. Stay informed with expert insights and product announcements.",
-    url: "https://hushh.ai/hushhBlogs",
+    url: "https://www.hushh.ai/hushhBlogs",
     type: "website",
     images: [
       {

@@ -6,7 +6,7 @@ export const metadata = {
     title: 'Hushh Labs - Advanced AI Research & Development | Careers',
     description: 'Join our elite team of AI researchers and engineers building superintelligent AI systems. Partnership with Stanford, Purdue, and IIT.',
     type: 'website',
-    url: 'https://hushh.ai/labs',
+    url: 'https://www.hushh.ai/labs',
     images: [
       {
         url: '/Images/Logo/hushh-logo.png',
@@ -31,7 +31,7 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: 'https://hushh.ai/labs',
+    canonical: 'https://www.hushh.ai/labs',
   },
 };
 

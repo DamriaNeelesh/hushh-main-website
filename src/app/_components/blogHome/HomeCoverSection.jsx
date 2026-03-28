@@ -1,11 +1,9 @@
-"use client";
-
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { sortBlogs } from "../../utils";
 import { FALLBACK_IMAGE } from "../Blog/constants";
 import { formatContentDate } from "../../../lib/content/date-utils";
+import { MotionSection } from "../motion/SectionReveal";
 
 const HomeCoverSection = ({ blogs }) => {
   const sortedBlogs = sortBlogs([...(blogs || [])]);
@@ -17,7 +15,7 @@ const HomeCoverSection = ({ blogs }) => {
   const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
 
   return (
-    <section className="blog-container pb-8 md:pb-12">
+    <MotionSection as="section" family="marketing" className="blog-container pb-8 md:pb-12" delay={0.05}>
       <div className="flex items-center justify-between mb-4 md:mb-6">
         <h2 className="blog-section-title">Latest Story</h2>
       </div>
@@ -57,7 +55,7 @@ const HomeCoverSection = ({ blogs }) => {
           </div>
         </div>
       </article>
-    </section>
+    </MotionSection>
   );
 };
 

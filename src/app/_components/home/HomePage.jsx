@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   BadgeCheck,
   Bot,
@@ -16,6 +17,7 @@ import {
   ShoppingCart,
   Workflow,
 } from "lucide-react";
+import { MotionSection, MotionStaggerGroup, MotionStaggerItem } from "../motion/SectionReveal";
 
 const heroCards = [
   {
@@ -179,8 +181,21 @@ function ProductCard({ title, description, href, background, overlay, icon: Icon
   return (
     <div className="card-premium product-pillar-card relative min-h-[420px] overflow-hidden p-10 flex flex-col justify-between group">
       <div className="absolute inset-0 z-0">
-        <img alt={title} className="w-full h-full object-cover" src={background} />
-        <img alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover product-pillar-overlay" src={overlay} />
+        <Image
+          alt={title}
+          className="object-cover"
+          fill
+          sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, 100vw"
+          src={background}
+        />
+        <Image
+          alt=""
+          aria-hidden="true"
+          className="object-cover product-pillar-overlay"
+          fill
+          sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, 100vw"
+          src={overlay}
+        />
       </div>
       <div className="relative z-10">
         <span className="mb-6 block text-yukonGold">
@@ -219,7 +234,11 @@ function UseCaseCard({ step, icon, title, description, children, showArrow = fal
 export default function HomePage() {
   return (
     <div data-site-home-main className="site-home-main min-h-[calc(100dvh-102px)] lg:min-h-[calc(100dvh-106px)] flex flex-col">
-      <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 pb-20 pt-12 md:px-12 lg:grid-cols-12">
+      <MotionSection
+        as="section"
+        family="marketing"
+        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 pb-20 pt-12 md:px-12 lg:grid-cols-12"
+      >
         <div className="lg:col-span-7">
           <div className="mb-6">
             <span className="badge-taupe">● Personal AI Ecosystem</span>
@@ -240,9 +259,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="space-y-6 lg:col-span-5">
+        <MotionStaggerGroup family="marketing" className="space-y-6 lg:col-span-5">
           {heroCards.map(({ title, description, icon: Icon }) => (
-            <div key={title} className="card-premium flex items-start gap-5 p-8">
+            <MotionStaggerItem key={title} family="marketing" className="card-premium flex items-start gap-5 p-8">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-offWhite text-yukonGold">
                 <Icon size={24} strokeWidth={2} />
               </div>
@@ -250,12 +269,17 @@ export default function HomePage() {
                 <h2 className="mb-2 text-2xl text-richBlack serif-font">{title}</h2>
                 <p className="text-sm leading-relaxed text-mutedSlate">{description}</p>
               </div>
-            </div>
+            </MotionStaggerItem>
           ))}
-        </div>
-      </section>
+        </MotionStaggerGroup>
+      </MotionSection>
 
-      <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-20 border-t border-borderLight px-6 py-24 md:px-12 lg:grid-cols-2">
+      <MotionSection
+        as="section"
+        family="marketing"
+        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-20 border-t border-borderLight px-6 py-24 md:px-12 lg:grid-cols-2"
+        delay={0.04}
+      >
         <div className="flex flex-col items-start">
           <div className="mb-6">
             <SectionKicker>Why Hushh?</SectionKicker>
@@ -300,9 +324,14 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
-      <section className="what-it-does-section mx-auto max-w-7xl border-t border-borderLight px-6 py-24 md:px-12">
+      <MotionSection
+        as="section"
+        family="marketing"
+        className="what-it-does-section mx-auto max-w-7xl border-t border-borderLight px-6 py-24 md:px-12"
+        delay={0.06}
+      >
         <div className="mb-16">
           <div className="mb-6">
             <SectionKicker>What It Does</SectionKicker>
@@ -317,20 +346,26 @@ export default function HomePage() {
             total transparency.
           </p>
         </div>
-        <div className="what-it-does-grid grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <MotionStaggerGroup family="marketing" className="what-it-does-grid grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {featureCards.map(({ title, description, icon: Icon }) => (
-            <div key={title} className="what-it-does-card card-premium flex flex-col items-start p-8">
+            <MotionStaggerItem key={title} family="marketing" className="what-it-does-card card-premium flex flex-col items-start p-8">
               <div className="what-it-does-icon-wrap mb-6 flex h-12 w-12 shrink-0 items-center justify-center rounded-full">
                 <Icon className="what-it-does-icon" size={24} strokeWidth={2} />
               </div>
               <h3 className="mb-3 text-xl">{title}</h3>
               <p className="text-sm leading-relaxed">{description}</p>
-            </div>
+            </MotionStaggerItem>
           ))}
-        </div>
-      </section>
+        </MotionStaggerGroup>
+      </MotionSection>
 
-      <section id="products" className="mx-auto max-w-7xl border-t border-borderLight px-6 py-24 md:px-12">
+      <MotionSection
+        as="section"
+        family="marketing"
+        id="products"
+        className="mx-auto max-w-7xl border-t border-borderLight px-6 py-24 md:px-12"
+        delay={0.08}
+      >
         <div className="mb-16">
           <h2 className="mb-4 text-4xl font-medium leading-tight text-richBlack md:text-6xl">
             One Agent. <br className="md:hidden" />
@@ -338,14 +373,21 @@ export default function HomePage() {
           </h2>
           <p className="text-xl text-mutedSlate serif-font md:text-2xl">Ready to take control of your digital future?</p>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <MotionStaggerGroup family="marketing" className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {productCards.map((card) => (
-            <ProductCard key={card.title} {...card} />
+            <MotionStaggerItem key={card.title} family="marketing">
+              <ProductCard {...card} />
+            </MotionStaggerItem>
           ))}
-        </div>
-      </section>
+        </MotionStaggerGroup>
+      </MotionSection>
 
-      <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 border-t border-borderLight px-6 py-24 md:px-12 lg:grid-cols-2">
+      <MotionSection
+        as="section"
+        family="marketing"
+        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 border-t border-borderLight px-6 py-24 md:px-12 lg:grid-cols-2"
+        delay={0.1}
+      >
         <div className="flex flex-col items-start">
           <div className="mb-6">
             <SectionKicker>Explore the Stack</SectionKicker>
@@ -382,13 +424,24 @@ export default function HomePage() {
         <div className="flex justify-center lg:justify-end">
           <div className="stack-visual-shell">
             <div className="dna-visual-card relative w-full max-w-md overflow-hidden bg-deepNavy shadow-premium">
-              <img alt="DNA protocol visualization" className="h-full w-full object-cover" src="/figma-assets/dna-protocol-visualization.svg" />
+              <Image
+                alt="DNA protocol visualization"
+                className="h-full w-full object-cover"
+                height={960}
+                src="/figma-assets/dna-protocol-visualization.svg"
+                width={960}
+              />
             </div>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
-      <section className="mx-auto max-w-7xl border-t border-borderLight px-6 py-24 md:px-12">
+      <MotionSection
+        as="section"
+        family="marketing"
+        className="mx-auto max-w-7xl border-t border-borderLight px-6 py-24 md:px-12"
+        delay={0.12}
+      >
         <div className="mb-16 text-left">
           <div className="mb-6">
             <SectionKicker>Use Cases</SectionKicker>
@@ -400,7 +453,8 @@ export default function HomePage() {
           <p className="mb-12 max-w-lg text-lg leading-relaxed text-mutedSlate">Real outcomes. One tap. Zero effort.</p>
         </div>
 
-        <div className="relative grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <MotionStaggerGroup family="marketing" className="relative grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <MotionStaggerItem family="marketing">
           <UseCaseCard step="01" icon="chat_bubble" title="1. Send Request" description="You send one smart request." showArrow>
             <div className="mb-auto rounded-xl border border-borderLight bg-offWhite p-4">
               <div className="mb-3 text-[10px] uppercase tracking-widest text-mutedTaupe">Smart Request</div>
@@ -417,7 +471,9 @@ export default function HomePage() {
               </div>
             </div>
           </UseCaseCard>
+          </MotionStaggerItem>
 
+          <MotionStaggerItem family="marketing">
           <UseCaseCard
             step="02"
             icon="psychology"
@@ -435,7 +491,9 @@ export default function HomePage() {
               </div>
             </div>
           </UseCaseCard>
+          </MotionStaggerItem>
 
+          <MotionStaggerItem family="marketing">
           <UseCaseCard
             step="03"
             icon="verified"
@@ -465,7 +523,9 @@ export default function HomePage() {
               ))}
             </div>
           </UseCaseCard>
+          </MotionStaggerItem>
 
+          <MotionStaggerItem family="marketing">
           <UseCaseCard step="04" icon="shopping_cart" title="4. Final Choice" description="You choose, securely and effortlessly.">
             <div className="mb-auto rounded-xl border border-borderLight bg-offWhite p-4">
               <div className="rounded-lg border border-borderLight bg-white p-3 shadow-sm">
@@ -486,16 +546,24 @@ export default function HomePage() {
               </div>
             </div>
           </UseCaseCard>
-        </div>
-      </section>
+          </MotionStaggerItem>
+        </MotionStaggerGroup>
+      </MotionSection>
 
-      <section className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 border-t border-borderLight px-6 py-24 md:px-12 lg:grid-cols-2">
+      <MotionSection
+        as="section"
+        family="marketing"
+        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 border-t border-borderLight px-6 py-24 md:px-12 lg:grid-cols-2"
+        delay={0.14}
+      >
         <div className="order-2 flex justify-center lg:order-1 lg:justify-center">
           <div className="card-premium philosophy-image-card w-full max-w-lg border-richBlack">
-            <img
+            <Image
               alt="A person interacting with Hushh luxury-tech interface on a laptop and smartphone"
               className="aspect-[16/10] h-auto w-full object-cover object-center"
+              height={900}
               src="/figma-assets/personal-agent-interface-luxury.svg"
+              width={1440}
             />
           </div>
         </div>
@@ -520,20 +588,26 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
-      <section className="trust-strip border-y border-borderLight py-12">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 px-6 md:justify-between md:gap-8">
+      <MotionSection as="section" family="marketing" className="trust-strip border-y border-borderLight py-12" delay={0.16}>
+        <MotionStaggerGroup family="marketing" className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 px-6 md:justify-between md:gap-8">
           {trustItems.map(({ label, icon: Icon }) => (
-            <div key={label} className="trust-pill">
+            <MotionStaggerItem key={label} family="marketing" className="trust-pill">
               <Icon className="h-4 w-4 text-yukonGold" />
               <span>{label}</span>
-            </div>
+            </MotionStaggerItem>
           ))}
-        </div>
-      </section>
+        </MotionStaggerGroup>
+      </MotionSection>
 
-      <section id="contact" className="mx-auto max-w-7xl border-t border-borderLight px-6 py-20 md:px-12">
+      <MotionSection
+        as="section"
+        family="marketing"
+        id="contact"
+        className="mx-auto max-w-7xl border-t border-borderLight px-6 py-20 md:px-12"
+        delay={0.18}
+      >
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           <div className="flex flex-col items-start">
             <div className="mb-6">
@@ -563,17 +637,17 @@ export default function HomePage() {
           </div>
 
           <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <MotionStaggerGroup family="marketing" className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {reachCards.map(({ title, description, icon: Icon }) => (
-                <div key={title} className="card-premium bg-white p-6">
+                <MotionStaggerItem key={title} family="marketing" className="card-premium bg-white p-6">
                   <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-offWhite text-yukonGold">
                     <Icon size={22} />
                   </div>
                   <h3 className="mb-3 text-xl text-richBlack serif-font">{title}</h3>
                   <p className="text-sm leading-relaxed text-mutedSlate">{description}</p>
-                </div>
+                </MotionStaggerItem>
               ))}
-            </div>
+            </MotionStaggerGroup>
 
             <div className="card-premium bg-[#FCFCFC] p-6">
               <div className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-mutedTaupe">
@@ -592,9 +666,14 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </MotionSection>
 
-      <section className="mx-auto max-w-7xl px-6 pb-20 pt-4 md:px-12">
+      <MotionSection
+        as="section"
+        family="marketing"
+        className="mx-auto max-w-7xl px-6 pb-20 pt-4 md:px-12"
+        delay={0.2}
+      >
         <div className="max-w-3xl text-left items-start">
           <div className="mb-6 text-left">
             <SectionKicker>Our Marketplace Reach Will Be</SectionKicker>
@@ -608,7 +687,7 @@ export default function HomePage() {
             users can discover, integrate, and launch effortlessly within their existing ecosystems.
           </p>
         </div>
-      </section>
+      </MotionSection>
     </div>
   );
 }

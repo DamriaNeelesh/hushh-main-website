@@ -8,9 +8,13 @@
   },
   "proxy": "https://hushh-api-53407187172.us-central1.run.app",
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/run-local-dev.cjs --port 3002",
+    "dev:clean": "node scripts/run-local-dev.cjs --port 3002 --clean",
+    "dev:turbo": "node scripts/run-local-dev.cjs --port 3002",
+    "dev:webpack": "node scripts/run-local-dev.cjs --port 3002 --webpack",
     "build": "next build",
     "start": "next start",
+    "start:standalone:local": "node scripts/start-standalone-local.cjs --port 3001 --host localhost",
     "ci:all": "bash scripts/ci/orchestrate.sh all",
     "release:ci": "bash scripts/ci/orchestrate.sh all",
     "release:visual": "bash scripts/release/visual-gate.sh",
@@ -19,7 +23,6 @@
     "test": "jest --runInBand",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "postbuild": "next-sitemap",
     "audit:routes": "node scripts/route-manifest.cjs",
     "audit:shell": "node scripts/audit-site-shell.cjs",
     "audit:seo": "node scripts/audit-seo.cjs",
@@ -27,6 +30,10 @@
     "audit:docs": "node scripts/audit-docs.cjs",
     "audit:brand": "node scripts/audit-brand.cjs",
     "audit:visual": "node scripts/audit-visual.cjs",
+    "audit:performance:prod": "node scripts/audit-performance-prod.cjs",
+    "smoke:local": "node scripts/smoke-local-runtime.cjs --mode both",
+    "smoke:local:dev": "node scripts/smoke-local-runtime.cjs --mode dev",
+    "smoke:local:standalone": "node scripts/smoke-local-runtime.cjs --mode standalone",
     "verify:oauth-branding": "node scripts/verify-oauth-branding.cjs",
     "verify:oauth-branding:live": "node scripts/verify-oauth-branding-live.cjs",
     "playwright:install": "playwright install chromium"
@@ -72,7 +79,6 @@
     "mermaid": "^11.13.0",
     "next": "^16.2.1",
     "next-cloudinary": "^6.6.2",
-    "next-sitemap": "^4.2.3",
     "qrcode.react": "^4.2.0",
     "react": "^19.2.4",
     "react-calendly": "^4.3.0",
@@ -104,13 +110,15 @@
   },
   "overrides": {
     "@tootallnate/once": "^3.0.1",
+    "brace-expansion@^2.0.2": "^2.0.3",
+    "brace-expansion@^5.0.2": "^5.0.5",
     "dompurify": "^3.3.3",
     "minimatch": "^9.0.7",
     "picomatch": "^4.0.3",
     "preact": "^10.27.3",
     "tar-fs": "^2.1.4",
     "undici": "^6.24.0",
-    "yaml": "^2.8.0"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",

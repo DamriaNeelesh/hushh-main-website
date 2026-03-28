@@ -1,0 +1,148 @@
+name: Deploy website
+description: Shared Cloud Build / Cloud Run deployment action for Hushh website environments
+
+inputs:
+  gcp_project_id:
+    required: true
+  gcp_region:
+    required: true
+  frontend_service:
+    required: true
+  artifact_repository:
+    required: true
+  cloud_run_revision_retention:
+    required: true
+  public_base_url:
+    required: true
+  app_env:
+    required: true
+  required_branch:
+    required: true
+  gcp_credentials_json:
+    required: true
+  rollout_domains:
+    required: true
+  apex_base_url:
+    required: false
+    default: ""
+
+outputs:
+  frontend_url:
+    description: Cloud Run frontend URL
+    value: ${{ steps.frontend-url.outputs.url }}
+
+runs:
+  using: composite
+  steps:
+    - name: Assert branch contains latest main
+      shell: bash
+      run: bash scripts/ci/require-branch-contains-main.sh "${{ inputs.required_branch }}"
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v3
+      with:
+        credentials_json: ${{ inputs.gcp_credentials_json }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v3
+      with:
+        install_components: beta
+
+    - name: Set GCP project context
+      shell: bash
+      run: gcloud config set project "${{ inputs.gcp_project_id }}"
+
+    - name: Assert GCP project scope
+      shell: bash
+      run: |
+        set -euo pipefail
+        ACTIVE_PROJECT="$(gcloud config get-value project 2>/dev/null)"
+        if [ "$ACTIVE_PROJECT" != "${{ inputs.gcp_project_id }}" ]; then
+          echo "Refusing deploy: expected project '${{ inputs.gcp_project_id }}' but got '$ACTIVE_PROJECT'."
+          exit 1
+        fi
+
+    - name: Deploy website using Cloud Build
+      shell: bash
+      run: |
+        set -euo pipefail
+        IMAGE_TAG="${GITHUB_SHA::12}"
+        gcloud builds submit \
+          --project="${{ inputs.gcp_project_id }}" \
+          --config=deploy/frontend.cloudbuild.yaml \
+          "--substitutions=_FRONTEND_SERVICE=${{ inputs.frontend_service }},_REGION=${{ inputs.gcp_region }},_APP_ENV=${{ inputs.app_env }},_AR_REPOSITORY=${{ inputs.artifact_repository }},_IMAGE_TAG=${IMAGE_TAG}"
+
+    - name: Get frontend URL
+      id: frontend-url
+      shell: bash
+      run: |
+        FRONTEND_URL="$(gcloud run services describe "${{ inputs.frontend_service }}" \
+          --project="${{ inputs.gcp_project_id }}" \
+          --region="${{ inputs.gcp_region }}" \
+          --format='value(status.url)')"
+        echo "url=$FRONTEND_URL" >> "$GITHUB_OUTPUT"
+        echo "Frontend URL: $FRONTEND_URL"
+
+    - name: Retain latest frontend revisions
+      continue-on-error: true
+      shell: bash
+      run: bash scripts/ci/cloudrun-retention.sh "${{ inputs.frontend_service }}" "${{ inputs.gcp_region }}" "${{ inputs.cloud_run_revision_retention }}"
+
+    - name: Verify website runtime env parity
+      shell: bash
+      run: |
+        python3 scripts/ops/verify-website-env-secrets-parity.py \
+          --project "${{ inputs.gcp_project_id }}" \
+          --region "${{ inputs.gcp_region }}" \
+          --frontend-service "${{ inputs.frontend_service }}" \
+          --assert-runtime-env-contract
+
+    - name: Verify deployed image and public domain readiness
+      shell: bash
+      run: |
+        set -euo pipefail
+        declare -a domain_flags=()
+        IFS=',' read -ra domains <<< "${{ inputs.rollout_domains }}"
+        for domain in "${domains[@]}"; do
+          domain="$(printf '%s' "$domain" | xargs)"
+          if [ -n "$domain" ]; then
+            domain_flags+=("--domain" "$domain")
+          fi
+        done
+
+        python3 scripts/ops/verify-website-rollout.py \
+          --project "${{ inputs.gcp_project_id }}" \
+          --region "${{ inputs.gcp_region }}" \
+          --service "${{ inputs.frontend_service }}" \
+          --expected-image-tag "${GITHUB_SHA::12}" \
+          "${domain_flags[@]}"
+
+    - name: Smoke deployed Cloud Run routes
+      shell: bash
+      env:
+        BASE_URL: ${{ steps.frontend-url.outputs.url }}
+      run: bash scripts/ops/smoke-website-routes.sh
+
+    - name: Smoke deployed public routes
+      shell: bash
+      env:
+        BASE_URL: ${{ inputs.public_base_url }}
+      run: bash scripts/ops/smoke-website-routes.sh
+
+    - name: Verify apex redirect to www
+      if: ${{ inputs.apex_base_url != '' }}
+      shell: bash
+      run: |
+        set -euo pipefail
+        headers="$(curl -sSI "${{ inputs.apex_base_url }}")"
+        status="$(printf '%s' "$headers" | awk 'toupper($1) ~ /^HTTP/ {print $2; exit}')"
+        location="$(printf '%s' "$headers" | awk 'tolower($1) == "location:" {print $2}' | tr -d '\r' | head -n1)"
+        if [ "$status" != "308" ]; then
+          echo "Expected apex redirect status 308, got ${status}."
+          exit 1
+        fi
+        if [ "$location" != "${{ inputs.public_base_url }}" ]; then
+          echo "Expected apex redirect to ${{ inputs.public_base_url }}, got ${location}."
+          exit 1
+        fi
+        echo "Verified apex redirect: ${status} ${location}"

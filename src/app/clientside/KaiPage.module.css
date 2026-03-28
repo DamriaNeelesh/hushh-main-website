@@ -338,13 +338,19 @@
 
 .discoveryLayout {
   display: grid;
-  grid-template-columns: minmax(21rem, 0.98fr) minmax(20rem, 22.5rem) minmax(27rem, 32rem);
-  gap: clamp(1.5rem, 3vw, 3rem);
-  align-items: center;
+  grid-template-columns: minmax(22rem, 0.92fr) minmax(31rem, 1.08fr);
+  grid-template-areas:
+    "copy panel"
+    "device device";
+  column-gap: clamp(2rem, 4vw, 4rem);
+  row-gap: clamp(1.8rem, 4vw, 3.25rem);
+  align-items: start;
 }
 
 .discoveryCopy {
+  grid-area: copy;
   max-width: 28rem;
+  align-self: center;
 }
 
 .discoveryTitle {
@@ -415,10 +421,12 @@
 }
 
 .discoveryUnlockPanel {
+  grid-area: panel;
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 100%;
+  max-width: 42rem;
+  justify-self: stretch;
   padding: clamp(1.15rem, 2.2vw, 1.5rem);
   border-radius: 2rem;
   background: rgba(255, 255, 255, 0.82);
@@ -554,19 +562,22 @@
 }
 
 .discoveryDeviceStage {
+  grid-area: device;
   position: relative;
   display: grid;
   justify-items: center;
-  align-items: end;
-  min-height: clamp(28rem, 36vw, 36rem);
+  align-items: center;
+  width: min(100%, 50rem);
+  min-height: clamp(38rem, 54vw, 56rem);
+  margin-inline: auto;
 }
 
 .discoveryDeviceAura {
   position: absolute;
   right: 50%;
-  bottom: 3.8rem;
-  width: clamp(11rem, 20vw, 15rem);
-  height: clamp(11rem, 20vw, 15rem);
+  bottom: 4.4rem;
+  width: clamp(14rem, 26vw, 21rem);
+  height: clamp(14rem, 26vw, 21rem);
   transform: translateX(50%);
   border-radius: 999px;
   background: radial-gradient(circle, rgba(var(--kai-blue-rgb), 0.22), rgba(var(--kai-blue-rgb), 0));
@@ -579,7 +590,7 @@
   display: grid;
   justify-self: center;
   align-self: center;
-  width: min(100%, 23.5rem);
+  width: min(100%, 31rem);
   z-index: 1;
 }
 
@@ -587,7 +598,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 0.74 / 1;
-  min-height: clamp(31rem, 40vw, 38rem);
+  min-height: clamp(40rem, 54vw, 52rem);
   filter: drop-shadow(0 44px 92px rgba(15, 23, 42, 0.18));
   isolation: isolate;
 }
@@ -1279,15 +1290,18 @@
   }
 
   .discoveryLayout {
-    grid-template-columns: minmax(18rem, 1fr) minmax(16rem, 19rem) minmax(15rem, 17rem);
+    grid-template-columns: minmax(18rem, 0.94fr) minmax(24rem, 1.06fr);
+    grid-template-areas:
+      "copy panel"
+      "device device";
   }
 
   .discoveryImageWrap {
-    width: min(100%, 20.5rem);
+    width: min(100%, 27rem);
   }
 
   .discoveryDeviceCanvasShell {
-    min-height: clamp(25rem, 38vw, 31rem);
+    min-height: clamp(35rem, 49vw, 45rem);
   }
 }
 
@@ -1299,6 +1313,10 @@
 
   .discoveryLayout {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "copy copy"
+      "panel panel"
+      "device device";
     justify-items: center;
   }
 
@@ -1326,15 +1344,16 @@
 
   .discoveryDeviceStage {
     width: 100%;
-    min-height: 22rem;
+    max-width: min(100%, 30rem);
+    min-height: clamp(31rem, 66vw, 41rem);
   }
 
   .discoveryImageWrap {
-    width: min(100%, 17rem);
+    width: min(100%, 24rem);
   }
 
   .discoveryDeviceCanvasShell {
-    min-height: clamp(22rem, 52vw, 27rem);
+    min-height: clamp(30rem, 72vw, 39rem);
   }
 
   .scatterCard1 {
@@ -1429,23 +1448,24 @@
 
   .discoveryDeviceStage {
     width: 100%;
-    min-height: 18rem;
+    max-width: min(100%, 24.5rem);
+    min-height: min(84svh, 42rem);
   }
 
   .discoveryDeviceAura {
     right: 50%;
-    bottom: 1.5rem;
+    bottom: 2.4rem;
     transform: translateX(50%);
-    width: 9rem;
-    height: 9rem;
+    width: 12rem;
+    height: 12rem;
   }
 
   .discoveryImageWrap {
-    width: min(76vw, 15.6rem);
+    width: min(92vw, 23rem);
   }
 
   .discoveryDeviceCanvasShell {
-    min-height: clamp(19.5rem, 76vw, 23rem);
+    min-height: min(80svh, 39rem);
   }
 
   .discoveryDeviceCanvas {

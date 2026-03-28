@@ -1,14 +1,16 @@
- 
 import React from "react";
+import dynamic from "next/dynamic";
 import { allBlogSummaries } from "../../../lib/content/blog-registry";
 import GithubSlugger, { slug } from "github-slugger";
-import ContactForm from "src/app/_components/features/contactForm";
 import CategoryPageContent from "../../_components/Blog/CategoryPageContent";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
 import { buildPageMetadata } from "../../../lib/seo/pageMetadata";
 
+const ContactForm = dynamic(() => import("src/app/_components/features/contactForm"), {
+  loading: () => <div className="h-24" aria-hidden="true" />,
+});
+
 const slugger = new GithubSlugger();
-export const revalidate = 3600;
 
 function getSafeTags(blog) {
   if (!Array.isArray(blog?.tags)) {

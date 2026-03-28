@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows, PerspectiveCamera } from "@react-three/drei";
 import { MathUtils } from "three";
 import KaiIPhoneModel from "./KaiIPhoneModel";
@@ -27,7 +27,7 @@ function resolveTargets(progress, viewportWidth) {
       positionX: MathUtils.lerp(0.26, -0.02, progress),
       positionY: MathUtils.lerp(-0.2, 0.015, progress),
       positionZ: MathUtils.lerp(0.05, 0.18, progress),
-      scale: MathUtils.lerp(15.2, 17.1, progress),
+      scale: MathUtils.lerp(19.8, 22.9, progress),
     };
   }
 
@@ -39,7 +39,7 @@ function resolveTargets(progress, viewportWidth) {
       positionX: MathUtils.lerp(0.2, -0.04, progress),
       positionY: MathUtils.lerp(-0.16, 0.02, progress),
       positionZ: MathUtils.lerp(0.04, 0.18, progress),
-      scale: MathUtils.lerp(15.9, 17.9, progress),
+      scale: MathUtils.lerp(22.3, 25.6, progress),
     };
   }
 
@@ -50,8 +50,20 @@ function resolveTargets(progress, viewportWidth) {
     positionX: MathUtils.lerp(0.22, -0.05, progress),
     positionY: MathUtils.lerp(-0.18, 0.03, progress),
     positionZ: MathUtils.lerp(0.05, 0.22, progress),
-    scale: MathUtils.lerp(17.2, 19.4, progress),
+    scale: MathUtils.lerp(26.6, 30.5, progress),
   };
+}
+
+function resolveCameraZ(viewportWidth) {
+  if (viewportWidth < 640) {
+    return 4.75;
+  }
+
+  if (viewportWidth < 1024) {
+    return 4.45;
+  }
+
+  return 4.2;
 }
 
 function resolveProgressWindow(viewportWidth) {
@@ -159,6 +171,22 @@ function KaiSceneRig({ progress, reduceMotion, posterSrc, sectionRef }) {
   );
 }
 
+function ResponsivePerspectiveCamera() {
+  const cameraRef = useRef(null);
+  const viewportWidth = useThree((state) => state.size.width);
+
+  useEffect(() => {
+    if (!cameraRef.current) {
+      return;
+    }
+
+    cameraRef.current.position.set(0, 0, resolveCameraZ(viewportWidth));
+    cameraRef.current.updateProjectionMatrix();
+  }, [viewportWidth]);
+
+  return <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 0, 4.2]} />;
+}
+
 export default function KaiDeviceStage({ className, progress, reduceMotion, posterSrc, sectionRef }) {
   const [canRender, setCanRender] = useState(false);
 
@@ -179,7 +207,7 @@ export default function KaiDeviceStage({ className, progress, reduceMotion, post
             className={styles.discoveryDeviceCanvas}
           >
             <ambientLight intensity={0.3} />
-            <PerspectiveCamera makeDefault position={[0, 0, 3.8]} />
+            <ResponsivePerspectiveCamera />
             <KaiReferenceLights />
             <KaiSceneRig
               progress={progress}
@@ -203,7 +231,7 @@ export default function KaiDeviceStage({ className, progress, reduceMotion, post
               src={posterSrc}
               alt="Kai investment analysis on iPhone"
               fill
-              sizes="(max-width: 767px) 50vw, (max-width: 1023px) 22rem, 18rem"
+              sizes="(max-width: 767px) 88vw, (max-width: 1023px) 28rem, 36rem"
               className={styles.discoveryDeviceFallbackImage}
               priority
             />

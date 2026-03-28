@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import {
   Box,
   Input,
@@ -44,7 +45,10 @@ import {
   FiCheck } from
 'react-icons/fi';
 import ContentWrapper from 'src/app/_components/layout/ContentWrapper';
-import ContactForm from 'src/app/_components/features/contactForm';
+
+const ContactForm = dynamic(() => import('src/app/_components/features/contactForm'), {
+  loading: () => <div className="h-24" aria-hidden="true" />,
+});
 
 const HushhLabsCareers = () => {
   const [selectedJob, setSelectedJob] = useState(null);

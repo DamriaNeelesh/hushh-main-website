@@ -53,6 +53,10 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   output: "standalone",
+  experimental: {
+    webVitalsAttribution: ["CLS", "FCP", "INP", "LCP", "TTFB"],
+    optimizePackageImports: ["date-fns", "lucide-react"],
+  },
   compiler: {
     removeConsole: true,
   },
@@ -107,10 +111,30 @@ const nextConfig = {
         hostname: supabaseHostname,
         pathname: '/storage/v1/object/public/**',
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "github.com",
+        pathname: "/user-attachments/assets/**",
+      },
     ],
   },
   async redirects() {
     return [
+      {
+        source: "/server-sitemap.xml",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/vivaConnect",
+        destination: "/viva-connect",
+        permanent: true,
+      },
       {
         source: '/hushh_id/:path*',
         destination: '/hushh-id/:path*',

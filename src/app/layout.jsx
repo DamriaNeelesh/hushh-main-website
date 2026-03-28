@@ -2,14 +2,14 @@ import "./globals.css";
 import "./_styles/syntax-highlight.css";
 import "./_styles/blog.css";
 import { Geist, Geist_Mono, Inter, Playfair_Display } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Providers } from "./provider";
 import ResponsiveSizeProvider from "./context/responsive";
 import { AuthProvider } from "./context/AuthContext";
 import { BannerHeightProvider } from "./context/BannerHeightContext";
 import GlobalSiteChrome from "./_components/features/GlobalSiteChrome";
+import WebVitalsReporter from "./_components/analytics/WebVitalsReporter";
 import { siteMetadata } from "./sitemetadata";
-
-export const revalidate = 3600;
 
 const geist = Geist({
   subsets: ["latin"],
@@ -89,6 +89,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={geist.className}>
+        <WebVitalsReporter />
+        {siteMetadata.analytics.googleAnalyticsId ? (
+          <GoogleAnalytics gaId={siteMetadata.analytics.googleAnalyticsId} />
+        ) : null}
         <ResponsiveSizeProvider>
           <AuthProvider>
             <BannerHeightProvider>
