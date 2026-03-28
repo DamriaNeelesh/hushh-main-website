@@ -39,7 +39,7 @@ const CHECKS = [
     ],
   },
   {
-    path: "/sitemap-0.xml",
+    path: "/sitemap.xml",
     mustInclude: [
       "https://www.hushh.ai/products/kai",
       "https://www.hushh.ai/privacy",

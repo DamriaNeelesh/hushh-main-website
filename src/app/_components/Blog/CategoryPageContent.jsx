@@ -1,17 +1,15 @@
-"use client";
-
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Categories from "./Categories";
 import { formatContentDate } from "../../../lib/content/date-utils";
+import { MotionSection, MotionStaggerGroup, MotionStaggerItem } from "../motion/SectionReveal";
 
 const FALLBACK_IMAGE = "/blogs/blog2o.png";
 
 const CategoryPageContent = ({ blogs = [], allCategories = [], params, categoryName }) => {
   return (
     <div className="blog-theme blog-page-shell">
-      <section className="blog-container pt-10 md:pt-14 pb-8">
+      <MotionSection as="section" family="marketing" className="blog-container pt-10 md:pt-14 pb-8">
         <Link href="/hushhBlogs" className="blog-link text-sm font-semibold">
           {"<"} Newsroom
         </Link>
@@ -25,21 +23,21 @@ const CategoryPageContent = ({ blogs = [], allCategories = [], params, categoryN
               : `Explore posts focused on ${categoryName}.`}
           </p>
         </div>
-      </section>
+      </MotionSection>
 
-      <section className="blog-container pb-6">
+      <MotionSection as="section" family="marketing" className="blog-container pb-6" delay={0.04}>
         <Categories categories={allCategories} currentSlug={params.slug} />
-      </section>
+      </MotionSection>
 
-      <section className="blog-container pb-16 md:pb-20">
+      <MotionSection as="section" family="marketing" className="blog-container pb-16 md:pb-20" delay={0.08}>
         {blogs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
+          <MotionStaggerGroup family="marketing" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
             {blogs.map((blog) => {
               const imagePath = blog.image?.filePath ? blog.image.filePath.replace("../public", "") : FALLBACK_IMAGE;
               const publishedAt = formatContentDate(blog.publishedAt);
 
               return (
-                <article key={blog._id} className="blog-card h-full flex flex-col">
+                <MotionStaggerItem as="article" family="marketing" key={blog._id} className="blog-card h-full flex flex-col">
                   <Link href={blog.url} className="blog-card-image block">
                     <Image
                       src={imagePath}
@@ -61,10 +59,10 @@ const CategoryPageContent = ({ blogs = [], allCategories = [], params, categoryN
                     {blog.description && <p className="mt-3 text-sm leading-6 text-[#4b5563] blog-clamp-3">{blog.description}</p>}
                     <span className="mt-auto pt-4 blog-meta">{publishedAt}</span>
                   </div>
-                </article>
+                </MotionStaggerItem>
               );
             })}
-          </div>
+          </MotionStaggerGroup>
         ) : (
           <div className="blog-card p-8 md:p-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] text-[#111827]">No articles yet</h2>
@@ -74,7 +72,7 @@ const CategoryPageContent = ({ blogs = [], allCategories = [], params, categoryN
             </Link>
           </div>
         )}
-      </section>
+      </MotionSection>
     </div>
   );
 };

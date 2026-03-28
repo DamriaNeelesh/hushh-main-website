@@ -1,14 +1,12 @@
-"use client";
-
-import React from "react";
 import HomeCoverSection from "../blogHome/HomeCoverSection";
 import FeaturedPosts from "../blogHome/FeaturedPosts";
 import RecentPosts from "../blogHome/RecentPosts";
+import { MotionSection } from "../motion/SectionReveal";
 
 const HushhBlogsContent = ({ blogs }) => {
   return (
     <section className="blog-theme blog-page-shell">
-      <section className="blog-container pt-10 md:pt-14 pb-6 md:pb-10">
+      <MotionSection as="section" family="marketing" className="blog-container pt-10 md:pt-14 pb-6 md:pb-10">
         <div className="max-w-4xl">
           <p className="blog-kicker blog-gradient-text">Hushh Newsroom</p>
           <h1 className="blog-title mt-3">Ideas, releases, and privacy-first product stories</h1>
@@ -16,7 +14,7 @@ const HushhBlogsContent = ({ blogs }) => {
             Discover what we are building across agents, consent infrastructure, and personal data experiences.
           </p>
         </div>
-      </section>
+      </MotionSection>
 
       <HomeCoverSection blogs={blogs} />
       <FeaturedPosts blogs={blogs} />

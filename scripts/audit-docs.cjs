@@ -17,6 +17,7 @@ const requiredDirs = [
 
 const requiredFiles = [
   "docs/architecture/agent-api-proxy-pattern.md",
+  "docs/architecture/nextjs-hardening-baseline-2026-03-27.md",
   "docs/design-system/site-shell.md",
   "docs/features/agent-signin.md",
   "docs/features/site-search.md",
@@ -30,7 +31,6 @@ const requiredFiles = [
   "support/postman/hushh-email-integration.postman_collection.json",
   "support/prompts/agent-queries.txt",
   "support/prompts/hushh-and-brand-agent-queries.txt",
-  "support/prompts/legacy-searchbar-snippet.txt",
   "support/prompts/openai-agent-prompt.txt",
   "README.md",
 ];
@@ -82,6 +82,11 @@ const deletedLegacyDocs = [
   "support/postman/hushh-agent.postman_collection.json",
   "support/postman/hushh-public-data-agent.postman_collection.json",
   "support/postman/hushh-whatsapp-integration.postman_collection.json",
+  "support/prompts/legacy-searchbar-snippet.txt",
+  "tmp",
+  "tmp/capture-kai-frame.cjs",
+  "tmp/kai-playwright-verify.cjs",
+  "tmp/sample.html",
 ];
 
 const allowedRootFiles = [
@@ -101,7 +106,6 @@ const allowedRootFiles = [
   "jest.setup.js",
   "jsconfig.json",
   "next-env.d.ts",
-  "next-sitemap.config.js",
   "next.config.js",
   "package-lock.json",
   "package.json",

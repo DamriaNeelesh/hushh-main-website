@@ -9,15 +9,15 @@ export const metadata = {
     "Explore Hushh's core values, leadership principles, and code of conduct. Learn how we prioritize data privacy, integrity, and innovation.",
   keywords:
     "Hushh, Core Values, Leadership Principles, Code of Conduct, Data Privacy, Integrity, Innovation, Ethical Practices, Business Partnerships",
-  canonical: "https://hushh.ai/hushh-core-values",
+  canonical: "https://www.hushh.ai/hushh-core-values",
   alternates: {
-    canonical: "https://hushh.ai/hushh-core-values",
+    canonical: "https://www.hushh.ai/hushh-core-values",
   },
   openGraph: {
     title: "Hushh | Core Values",
     description:
       "Explore Hushh's core values, leadership principles, and code of conduct. Learn how we prioritize data privacy, integrity, and innovation.",
-    url: "https://hushh.ai/hushh-core-values",
+    url: "https://www.hushh.ai/hushh-core-values",
     // images: [
     //   {
     //     url: "/path/to/core-values-og-image.jpg",
@@ -50,9 +50,9 @@ const HushhCoreValues = () => {
       content="Explore Hushh's core values, leadership principles, and code of conduct. Learn how we prioritize data privacy, integrity, and innovation."
     />
     {/* <meta property="og:image" content="/path/to/community-og-image.jpg" /> */}
-    <meta property="og:url" content="https://hushh.ai/hushh-core-values" />
+    <meta property="og:url" content="https://www.hushh.ai/hushh-core-values" />
     {/* Add canonical URL */}
-    <link rel="canonical" href="https://hushh.ai/hushh-core-values" />
+    <link rel="canonical" href="https://www.hushh.ai/hushh-core-values" />
   </Head>
       <ContentWrapper includeHeaderSpacing={true}>
         <CoreValues/>

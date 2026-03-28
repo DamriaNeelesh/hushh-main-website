@@ -7,7 +7,6 @@ import {
 import { buildPageMetadata } from "../../lib/seo/pageMetadata";
 import { resolveDeveloperRuntime } from "../../lib/developers/runtime";
 
-export const revalidate = 3600;
 export const metadata = buildPageMetadata({
   title: "Developers",
   description:

@@ -103,6 +103,16 @@ a {
   color: var(--site-text-primary);
 }
 
+:root {
+  --motion-duration-page-marketing: 0.74s;
+  --motion-duration-page-docs: 0.42s;
+  --motion-duration-page-app: 0.28s;
+  --motion-duration-section: 0.68s;
+  --motion-duration-fast: 0.22s;
+  --motion-ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 :where(a, button, summary):focus-visible {
   outline: 2px solid rgba(23, 27, 41, 0.22);
   outline-offset: 3px;
@@ -111,6 +121,115 @@ a {
 img {
   display: block;
   max-width: 100%;
+}
+
+.route-motion-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.route-motion-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+}
+
+.route-motion-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: clip;
+}
+
+.route-motion-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(90px);
+  opacity: 0.42;
+  animation: route-motion-drift 18s var(--motion-ease-standard) infinite alternate;
+  will-change: transform, opacity;
+}
+
+.route-motion-orb--primary {
+  top: 7rem;
+  left: -10rem;
+  width: min(34rem, 48vw);
+  height: min(34rem, 48vw);
+}
+
+.route-motion-orb--secondary {
+  right: -8rem;
+  bottom: 8rem;
+  width: min(28rem, 40vw);
+  height: min(28rem, 40vw);
+  animation-delay: -6s;
+}
+
+[data-motion-family="marketing"] .route-motion-orb--primary {
+  background: radial-gradient(circle at center, rgba(183, 167, 137, 0.28) 0%, rgba(183, 167, 137, 0) 72%);
+}
+
+[data-motion-family="marketing"] .route-motion-orb--secondary {
+  background: radial-gradient(circle at center, rgba(23, 27, 41, 0.16) 0%, rgba(23, 27, 41, 0) 74%);
+}
+
+[data-motion-family="docs"] .route-motion-orb--primary {
+  background: radial-gradient(circle at center, rgba(0, 86, 179, 0.14) 0%, rgba(0, 86, 179, 0) 72%);
+}
+
+[data-motion-family="docs"] .route-motion-orb--secondary {
+  background: radial-gradient(circle at center, rgba(23, 27, 41, 0.1) 0%, rgba(23, 27, 41, 0) 72%);
+}
+
+.fluid-cta {
+  transition:
+    background-color var(--motion-duration-fast) ease,
+    border-color var(--motion-duration-fast) ease,
+    color var(--motion-duration-fast) ease,
+    box-shadow var(--motion-duration-fast) ease,
+    transform var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.fluid-cta:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes route-motion-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(2.5rem, -1.5rem, 0) scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-motion-atmosphere {
+    display: none;
+  }
+
+  .route-motion-orb {
+    animation: none !important;
+  }
+
+  .card-premium,
+  .blog-card,
+  .btn-midnight,
+  .btn-outline,
+  .trust-pill,
+  .fluid-cta {
+    transition-duration: 0.01ms !important;
+  }
+
+  .card-premium:hover,
+  .blog-card:hover,
+  .btn-midnight:hover,
+  .btn-outline:hover,
+  .fluid-cta:hover {
+    transform: none !important;
+  }
 }
 
 .letter-spacing-wide {
@@ -146,12 +265,16 @@ img {
   letter-spacing: 0.15em;
   display: inline-flex;
   align-items: center;
-  transition: all 0.2s ease;
+  transition:
+    background-color var(--motion-duration-fast) ease,
+    box-shadow var(--motion-duration-fast) ease,
+    transform var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 .btn-midnight:hover {
   background-color: var(--site-surface-accent);
   box-shadow: 0 14px 30px rgba(10, 17, 40, 0.14);
+  transform: translateY(-2px);
 }
 
 .btn-outline {
@@ -165,12 +288,17 @@ img {
   letter-spacing: 0.15em;
   display: inline-flex;
   align-items: center;
-  transition: all 0.2s ease;
+  transition:
+    background-color var(--motion-duration-fast) ease,
+    border-color var(--motion-duration-fast) ease,
+    color var(--motion-duration-fast) ease,
+    transform var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 .btn-outline:hover {
   background: rgba(23, 27, 41, 0.04);
   border-color: var(--site-surface-accent);
+  transform: translateY(-2px);
 }
 
 .site-cta-solid,

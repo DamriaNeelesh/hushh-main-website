@@ -1,16 +1,30 @@
 import { Box, Heading, Link, Text, VStack, HStack, Grid } from "@chakra-ui/react";
 import React from "react";
-import TeamSection from "../_components/features/teamSection";
+import dynamic from "next/dynamic";
 import AboutGroupPhoto from "../_components/svg/aboutImages/AboutGroupPhoto.svg";
 import AboutOfficePhoto from "../_components/svg/aboutImages/AboutOfficePhoto.svg";
 import AboutDockPhoto from "../_components/svg/aboutImages/AboutDockPhoto.svg";
 import Image from "next/image";
-import ContactUsClient from "../contact-us/ContactUsClient";
-import AboutFaq from "../_components/features/faq/aboutFaq";
-import ImageGrid from "../_components/features/dynamicImageGrid";
 import { siteMetadata } from "../sitemetadata";
 import ContentWrapper from "../_components/layout/ContentWrapper";
 import JsonLdScript from "../_components/seo/JsonLdScript";
+import { MotionSection } from "../_components/motion/SectionReveal";
+
+const TeamSection = dynamic(() => import("../_components/features/teamSection"), {
+  loading: () => <Box minH="720px" w="full" aria-hidden="true" />,
+});
+
+const ContactUsClient = dynamic(() => import("../contact-us/ContactUsClient"), {
+  loading: () => <Box minH="320px" w="full" aria-hidden="true" />,
+});
+
+const AboutFaq = dynamic(() => import("../_components/features/faq/aboutFaq"), {
+  loading: () => <Box minH="280px" w="full" aria-hidden="true" />,
+});
+
+const ImageGrid = dynamic(() => import("../_components/features/dynamicImageGrid"), {
+  loading: () => <Box minH={{ base: "400px", md: "500px" }} w="full" aria-hidden="true" />,
+});
 
 export const metadata = {
   title: "About Hushh | Pioneering Data Empowerment & Privacy",
@@ -18,18 +32,18 @@ export const metadata = {
     "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
   keywords:
     "data privacy, data monetization, user-controlled data, privacy-preserving technology, decentralized data, ethical data practices, data sovereignty, Manish Sainani, Justin Donaldson, data empowerment, privacy-conscious consumers, luxury brands, AI-powered personalization, human-AI interaction, granular user consent",
-  canonical: "https://hushh.ai/about",
+  canonical: "https://www.hushh.ai/about",
   alternates: {
-    canonical: "https://hushh.ai/about",
+    canonical: "https://www.hushh.ai/about",
     languages: {
-      'en-US': 'https://hushh.ai/about',
+      'en-US': 'https://www.hushh.ai/about',
     },
   },
   openGraph: {
     title: "About Hushh | Pioneering Data Empowerment & Privacy",
     description:
       "Discover Hushh's mission to empower individuals through data control and privacy. Learn about our leadership, vision, and commitment to transforming personal data into valuable assets.",
-    url: "https://hushh.ai/about",
+    url: "https://www.hushh.ai/about",
     type: "website",
     siteName: "Hushh AI",
     images: [
@@ -93,6 +107,7 @@ export default function About() {
       <ContentWrapper>
       <Box bg="#f5f5f7" w="full">
         {/* Hero Section */}
+        <MotionSection as="div" family="marketing">
         <Box py={{ base: 20, md: 24, lg: 32 }}>
           <Box maxW="container.xl" mx="auto" px={{ base: 4, md: 6, lg: 8 }}>
             
@@ -148,7 +163,9 @@ export default function About() {
             </VStack>
           </Box>
         </Box>
+        </MotionSection>
         {/* Stats & Images Section */}
+        <MotionSection as="div" family="marketing" delay={0.04}>
         <Box bg="white">
           <Box maxW="container.xl" mx="auto" px={{ base: 4, md: 6, lg: 8 }} py={{ base: 16, md: 20, lg: 24 }}>
             <Box display={{ base: "block", lg: "flex" }} gap={{ lg: 16, xl: 20 }} alignItems="flex-start">
@@ -472,8 +489,10 @@ export default function About() {
             <ImageGrid />
           </Box>
         </Box>
+        </MotionSection>
 
         {/* Core Values and Origin Section */}
+        <MotionSection as="div" family="marketing" delay={0.08}>
         <Box bg="#f5f5f7" py={{ base: 16, md: 20, lg: 24 }}>
           <Box maxW="container.xl" mx="auto" px={{ base: 4, md: 6, lg: 8 }}>
             
@@ -593,19 +612,26 @@ export default function About() {
 
           </Box>
         </Box>
+        </MotionSection>
 
         {/* Team Section */}
+        <MotionSection as="div" family="marketing" delay={0.1}>
         <Box bg="white">
           <Box maxW="container.xl" mx="auto" px={{ base: 4, md: 6, lg: 8 }} py={{ base: 16, md: 20, lg: 24 }}>
           <TeamSection />
           </Box>
         </Box>
+        </MotionSection>
 
         {/* FAQ Section */}
+        <MotionSection as="div" family="marketing" delay={0.12}>
         <AboutFaq />
+        </MotionSection>
 
         {/* Contact Form */}
+        <MotionSection as="div" family="marketing" delay={0.14}>
         <ContactUsClient />
+        </MotionSection>
       </Box>
       </ContentWrapper>
     </>

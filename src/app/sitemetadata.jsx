@@ -4,11 +4,11 @@ export const siteMetadata = {
   headerTitle: 'Hushh',
   description: 'Control your data, monetize your insights, and enjoy personalized experiences with Hushh. The future of digital identity and privacy-first technology.',
   language: 'en-us',
-  theme: 'system', 
-  siteUrl: 'https://www.hushh.ai', 
-  siteLogo: "https://media.licdn.com/dms/image/v2/D4D0BAQGUuHVNh5Cmew/company-logo_200_200/company-logo_200_200/0/1687170916834/hushh_ai_logo?e=1749686400&v=beta&t=xcSJ_qZWycXGP3Ia538rvhDiB7lY4ABoK_oJ2-2dLLE",
-  socialBanner: "https://media.licdn.com/dms/image/v2/D4D0BAQGUuHVNh5Cmew/company-logo_200_200/company-logo_200_200/0/1687170916834/hushh_ai_logo?e=1749686400&v=beta&t=xcSJ_qZWycXGP3Ia538rvhDiB7lY4ABoK_oJ2-2dLLE",
-  email: 'info@hushh1one.com', 
+  theme: 'system',
+  siteUrl: 'https://www.hushh.ai',
+  siteLogo: "https://www.hushh.ai/Logo.png",
+  socialBanner: "https://www.hushh.ai/social-banner.png",
+  email: 'info@hushh1one.com',
   github: '',
   twitter: 'https://x.com/hushh_ai',
   facebook: '',
@@ -23,8 +23,8 @@ export const siteMetadata = {
   },
   organization: {
     name: 'Hushh',
-    url: 'https://www.hushh.ai',  
-    logo: "https://media.licdn.com/dms/image/v2/D4D0BAQGUuHVNh5Cmew/company-logo_200_200/company-logo_200_200/0/1687170916834/hushh_ai_logo?e=1749686400&v=beta&t=xcSJ_qZWycXGP3Ia538rvhDiB7lY4ABoK_oJ2-2dLLE",
+    url: 'https://www.hushh.ai',
+    logo: "https://www.hushh.ai/Logo.png",
   }
 }
 

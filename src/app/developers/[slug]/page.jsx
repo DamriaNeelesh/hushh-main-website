@@ -12,8 +12,6 @@ import {
 import { developerDocComponents } from "../../../lib/content/developer-doc-components";
 import { buildPageMetadata } from "../../../lib/seo/pageMetadata";
 
-export const revalidate = 3600;
-
 export async function generateStaticParams() {
   return developerDocs.map((doc) => ({ slug: doc.slug }));
 }
