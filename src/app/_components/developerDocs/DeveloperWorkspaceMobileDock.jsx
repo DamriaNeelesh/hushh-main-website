@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { List, Menu, X } from "lucide-react";
 import DeveloperWorkspaceToc from "./DeveloperWorkspaceToc";
@@ -34,7 +35,13 @@ export default function DeveloperWorkspaceMobileDock({
   headings,
 }) {
   const [openPanel, setOpenPanel] = useState(null);
+  const [mounted, setMounted] = useState(false);
+  const [showDock, setShowDock] = useState(false);
   const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     setOpenPanel(null);
@@ -42,11 +49,17 @@ export default function DeveloperWorkspaceMobileDock({
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
-    const handleViewportChange = (event) => {
-      if (event.matches) {
+    const syncViewportState = (matchesDesktop) => {
+      setShowDock(!matchesDesktop);
+      if (matchesDesktop) {
         setOpenPanel(null);
       }
     };
+    const handleViewportChange = (event) => {
+      syncViewportState(event.matches);
+    };
+
+    syncViewportState(mediaQuery.matches);
 
     mediaQuery.addEventListener("change", handleViewportChange);
     return () => mediaQuery.removeEventListener("change", handleViewportChange);
@@ -90,8 +103,8 @@ export default function DeveloperWorkspaceMobileDock({
   const togglePanel = (panelKey) =>
     setOpenPanel((current) => (current === panelKey ? null : panelKey));
 
-  return (
-    <div className="developer-mobile-dock-shell">
+  const dockUi = (
+    <>
       <AnimatePresence>
         {openPanel ? (
           <motion.button
@@ -208,6 +221,12 @@ export default function DeveloperWorkspaceMobileDock({
           <span>On this page</span>
         </button>
       </div>
+    </>
+  );
+
+  return (
+    <div className="developer-mobile-dock-shell">
+      {mounted && showDock ? createPortal(dockUi, document.body) : null}
     </div>
   );
 }

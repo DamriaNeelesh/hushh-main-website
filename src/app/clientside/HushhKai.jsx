@@ -249,6 +249,10 @@ export default function HushhKai() {
     target: discoveryRef,
     offset: ["start end", "end start"],
   });
+  const { scrollYProgress: discoveryDeviceProgress } = useScroll({
+    target: discoveryStageRef,
+    offset: ["start end", "start start"],
+  });
   const { scrollYProgress: problemProgress } = useScroll({
     target: problemRef,
     offset: ["start end", "end start"],
@@ -488,10 +492,9 @@ export default function HushhKai() {
               <div className={styles.discoveryDeviceAura} aria-hidden="true" />
               <KaiDeviceStage
                 className={styles.discoveryImageWrap}
-                progress={discoveryProgress}
+                progress={discoveryDeviceProgress}
                 reduceMotion={reduceMotion}
                 posterSrc="/Images/kai/discovery-screen.png"
-                sectionRef={discoveryStageRef}
               />
             </motion.div>
           </div>
