@@ -3549,7 +3549,7 @@ img {
 
 .developer-workspace-panel--nav,
 .developer-workspace-panel--toc {
-  padding: 1.25rem;
+  padding: 1.3rem 1.4rem;
 }
 
 .developer-workspace-panel--article {
@@ -3683,6 +3683,7 @@ img {
   color: var(--site-text-secondary);
   font-size: 0.9rem;
   line-height: 1.5;
+  overflow-wrap: anywhere;
   position: relative;
   transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -4092,20 +4093,25 @@ img {
   .developer-workspace-panel--toc {
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
-    height: auto;
+    align-self: stretch;
+    height: 100%;
     max-height: 100%;
+    min-height: 0;
   }
 
   .developer-workspace-panel--toc .developer-workspace-scroll {
-    height: auto;
+    height: 100%;
     max-height: 100%;
+    min-height: 0;
+    padding-inline: 0.22rem 0.1rem;
+    scrollbar-gutter: stable both-edges;
   }
 
   .developer-workspace-toc {
     display: grid;
     gap: 0.15rem;
     align-content: start;
+    padding-inline-start: 0.18rem;
   }
 
   .docs-tryout-grid {
@@ -4115,13 +4121,13 @@ img {
 
 @media (min-width: 1024px) and (max-width: 1279px) {
   .developer-workspace-grid {
-    grid-template-columns: 256px minmax(0, 1fr) 220px;
+    grid-template-columns: 248px minmax(0, 1fr) 252px;
   }
 }
 
 @media (min-width: 1280px) {
   .developer-workspace-grid {
-    grid-template-columns: 280px minmax(720px, 1fr) 240px;
+    grid-template-columns: 280px minmax(680px, 1fr) 272px;
   }
 }
 
@@ -4141,18 +4147,24 @@ img {
   .developer-docs-table-wrap {
     margin-inline: -0.15rem;
     padding-bottom: 0.2rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 
   .developer-docs-table {
-    min-width: 100%;
+    min-width: 36rem;
+    width: max-content;
     table-layout: auto;
   }
 
   .developer-docs-th,
   .developer-docs-td {
+    min-width: 9rem;
     padding: 0.72rem 0.78rem;
     font-size: 0.84rem;
     line-height: 1.55;
+    vertical-align: top;
   }
 
   .developer-docs-pre {

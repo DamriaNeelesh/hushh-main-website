@@ -66,18 +66,6 @@ function resolveCameraZ(viewportWidth) {
   return 4.2;
 }
 
-function resolveProgressWindow(viewportWidth) {
-  if (viewportWidth < 640) {
-    return { start: 0.9, end: 0.18 };
-  }
-
-  if (viewportWidth < 1024) {
-    return { start: 0.96, end: 0.12 };
-  }
-
-  return { start: 0.98, end: 0.04 };
-}
-
 function resolveDamping(viewportWidth) {
   if (viewportWidth < 640) {
     return 4.6;
@@ -90,21 +78,7 @@ function resolveDamping(viewportWidth) {
   return 3.0;
 }
 
-function resolveSectionProgress(sectionElement, viewportWidth) {
-  if (!sectionElement || typeof window === "undefined") {
-    return 1;
-  }
-
-  const rect = sectionElement.getBoundingClientRect();
-  const viewportHeight = window.innerHeight;
-  const { start, end } = resolveProgressWindow(viewportWidth);
-  const startPx = viewportHeight * start;
-  const endPx = viewportHeight * end;
-
-  return MathUtils.clamp((startPx - rect.top) / (startPx - endPx), 0, 1);
-}
-
-function KaiSceneRig({ progress, reduceMotion, posterSrc, sectionRef }) {
+function KaiSceneRig({ progress, reduceMotion, posterSrc }) {
   const groupRef = useRef(null);
 
   useFrame((state, delta) => {
@@ -113,10 +87,7 @@ function KaiSceneRig({ progress, reduceMotion, posterSrc, sectionRef }) {
     }
 
     const viewportWidth = state.size.width;
-    const sectionProgress = sectionRef?.current
-      ? resolveSectionProgress(sectionRef.current, viewportWidth)
-      : MathUtils.clamp(progress?.get?.() ?? 1, 0, 1);
-    const raw = reduceMotion ? 1 : sectionProgress;
+    const raw = reduceMotion ? 1 : MathUtils.clamp(progress?.get?.() ?? 1, 0, 1);
     const eased = MathUtils.smootherstep(raw, 0.02, 0.98);
     const targets = resolveTargets(eased, viewportWidth);
     const damping = resolveDamping(viewportWidth);
@@ -187,7 +158,7 @@ function ResponsivePerspectiveCamera() {
   return <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 0, 4.2]} />;
 }
 
-export default function KaiDeviceStage({ className, progress, reduceMotion, posterSrc, sectionRef }) {
+export default function KaiDeviceStage({ className, progress, reduceMotion, posterSrc }) {
   const [canRender, setCanRender] = useState(false);
 
   useEffect(() => {
@@ -201,7 +172,7 @@ export default function KaiDeviceStage({ className, progress, reduceMotion, post
 
         {canRender && !reduceMotion ? (
           <Canvas
-            dpr={[3, 5]}
+            dpr={[1.75, 2.4]}
             shadows
             gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
             className={styles.discoveryDeviceCanvas}
@@ -209,12 +180,7 @@ export default function KaiDeviceStage({ className, progress, reduceMotion, post
             <ambientLight intensity={0.3} />
             <ResponsivePerspectiveCamera />
             <KaiReferenceLights />
-            <KaiSceneRig
-              progress={progress}
-              reduceMotion={reduceMotion}
-              posterSrc={posterSrc}
-              sectionRef={sectionRef}
-            />
+            <KaiSceneRig progress={progress} reduceMotion={reduceMotion} posterSrc={posterSrc} />
             <ContactShadows
               position={[0, -1.55, 0]}
               opacity={0.28}
@@ -222,7 +188,7 @@ export default function KaiDeviceStage({ className, progress, reduceMotion, post
               height={5.8}
               blur={2.8}
               far={3.8}
-              resolution={512}
+              resolution={256}
             />
           </Canvas>
         ) : (
