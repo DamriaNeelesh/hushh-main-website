@@ -793,7 +793,6 @@ export default function HushhKai() {
               ref={discoveryStageRef}
               className={`${styles.discoveryDeviceStage} ${styles.kaiDesignerDeviceStage}`}
             >
-              <div className={styles.discoveryDeviceAura} aria-hidden="true" />
               {discoveryStageReady ? (
                 <KaiDeviceStage
                   className={styles.discoveryImageWrap}
