@@ -15,6 +15,7 @@
   width: 100%;
   overflow-x: clip;
   overflow-y: visible;
+  overflow-anchor: none;
   position: relative;
   font-family: var(--site-font-body);
 }
@@ -86,8 +87,9 @@
 
 .accentWord {
   color: var(--kai-blue);
-  font-family: var(--site-font-italic);
-  font-style: italic;
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .heroTitle,
@@ -562,13 +564,13 @@
 }
 
 .discoveryDeviceStage {
-  grid-area: device;
+  grid-area: auto;
   position: relative;
   display: grid;
   justify-items: center;
   align-items: center;
-  width: min(100%, 50rem);
-  min-height: clamp(38rem, 54vw, 56rem);
+  width: min(100%, 40rem);
+  min-height: clamp(34rem, 50vw, 48rem);
   margin-inline: auto;
 }
 
@@ -590,7 +592,7 @@
   display: grid;
   justify-self: center;
   align-self: center;
-  width: min(100%, 31rem);
+  width: min(100%, 28rem);
   z-index: 1;
 }
 
@@ -598,7 +600,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 0.74 / 1;
-  min-height: clamp(40rem, 54vw, 52rem);
+  min-height: clamp(34rem, 48vw, 46rem);
   filter: drop-shadow(0 44px 92px rgba(15, 23, 42, 0.18));
   isolation: isolate;
 }
@@ -774,8 +776,7 @@
   position: relative;
   margin: 0;
   max-width: 16ch;
-  font-family: var(--site-font-italic);
-  font-style: italic;
+  font-family: var(--site-font-heading);
   font-size: clamp(2.2rem, 4.2vw, 4rem);
   line-height: 1.05;
   letter-spacing: -0.04em;
@@ -1073,15 +1074,16 @@
 }
 
 .approvalIconWrap {
-  width: 6.5rem;
-  height: 6.5rem;
-  border-radius: 999px;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 1.35rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(var(--kai-blue-rgb), 0.08);
+  background: #ffffff;
   color: var(--kai-blue);
-  border: 1px solid rgba(var(--kai-blue-rgb), 0.12);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
 }
 
 .approvalCopy p,
@@ -1090,16 +1092,7 @@
   margin: 0;
 }
 
-.approvalCopy p {
-  color: #6e6e73;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-}
-
 .approvalCopy h3 {
-  margin-top: 0.6rem;
   color: var(--kai-ink);
   font-size: clamp(1.9rem, 4vw, 2.8rem);
 }
@@ -1300,6 +1293,10 @@
     width: min(100%, 27rem);
   }
 
+  .discoveryPosterShell {
+    min-height: clamp(35rem, 49vw, 45rem);
+  }
+
   .discoveryDeviceCanvasShell {
     min-height: clamp(35rem, 49vw, 45rem);
   }
@@ -1350,6 +1347,10 @@
 
   .discoveryImageWrap {
     width: min(100%, 24rem);
+  }
+
+  .discoveryPosterShell {
+    min-height: clamp(30rem, 72vw, 39rem);
   }
 
   .discoveryDeviceCanvasShell {
@@ -1464,6 +1465,10 @@
     width: min(92vw, 23rem);
   }
 
+  .discoveryPosterShell {
+    min-height: min(80svh, 39rem);
+  }
+
   .discoveryDeviceCanvasShell {
     min-height: min(80svh, 39rem);
   }
@@ -1510,5 +1515,1345 @@
 
   .discoveryActionCard {
     padding: 0.95rem 1rem;
+  }
+}
+
+/* Kai revised production merge */
+
+.revisedHeroSection {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  min-height: auto;
+  padding-block:
+    clamp(0.85rem, 2vw, 1.5rem)
+    clamp(4.85rem, 8vw, 6.1rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(var(--kai-blue-rgb), 0.12), transparent 34%),
+    radial-gradient(circle at 88% 12%, rgba(17, 24, 39, 0.08), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f7fbff 48%, #ffffff 100%);
+}
+
+.kaiHeroLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(20rem, 0.82fr);
+  gap: clamp(2.6rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.kaiHeroCopy {
+  display: grid;
+  gap: 1.2rem;
+  max-width: 44rem;
+}
+
+.heroActionMotionWrap,
+.heroTrustMotionWrap,
+.heroTrustItemMotionWrap,
+.visibilitySignalMotionItem,
+.visibilityPanelMotionWrap,
+.discoveryDeviceMotionWrap,
+.problemMotionItem,
+.problemArrowWrap,
+.strategyVoiceMotionWrap,
+.strategyStepMotionWrap,
+.executionCardMotionWrap,
+.portfolioRowMotionWrap,
+.governanceCardMotionWrap,
+.finalActionsMotionWrap {
+  display: block;
+}
+
+.heroTitleLine {
+  display: block;
+}
+
+.heroActionMotionWrap,
+.heroTrustMotionWrap,
+.strategyVoiceMotionWrap,
+.executionCardMotionWrap,
+.finalActionsMotionWrap {
+  width: 100%;
+}
+
+.heroActionPanel {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.35rem;
+  padding: 1.35rem 1.35rem 1.45rem;
+  border-radius: 2.1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(245, 248, 252, 0.94));
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.heroActionPanel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--kai-blue-rgb), 0.3), transparent);
+}
+
+.heroActionPanel::after {
+  content: "";
+  position: absolute;
+  right: -4rem;
+  bottom: -6rem;
+  width: 13rem;
+  height: 13rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(var(--kai-blue-rgb), 0.14), transparent 70%);
+  pointer-events: none;
+}
+
+.heroActionEyebrow,
+.heroTrustEyebrow {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8e8e93;
+}
+
+.heroActionEyebrow {
+  text-align: center;
+}
+
+.heroActionPanel .heroActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.95rem;
+}
+
+.heroActionPanel .heroActions > a {
+  width: 100%;
+  justify-content: center;
+}
+
+.heroTrustStack {
+  display: grid;
+  gap: 1rem;
+  align-self: center;
+  padding: 1.4rem;
+  border-radius: 2.2rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(248, 250, 255, 0.94));
+  backdrop-filter: blur(32px);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 34px 88px rgba(15, 23, 42, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.heroTrustStack::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(var(--kai-blue-rgb), 0.08), transparent 35%);
+  pointer-events: none;
+}
+
+.heroTrustItem {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.05rem 1.15rem;
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+  color: var(--kai-ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.heroTrustItemIcon {
+  width: 2.55rem;
+  height: 2.55rem;
+  border-radius: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--kai-blue-rgb), 0.08);
+  color: var(--kai-blue);
+  border: 1px solid rgba(var(--kai-blue-rgb), 0.1);
+  flex: 0 0 auto;
+}
+
+.heroConsentNote {
+  margin: 0.1rem 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding-top: 0.95rem;
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+  color: #5f5f5f;
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.heroConsentNote :global(svg) {
+  color: var(--kai-blue);
+  flex: 0 0 auto;
+}
+
+.problemFrame,
+.visibilityIntro,
+.sectionHeader,
+.finalCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.problemFrame {
+  display: grid;
+  gap: clamp(2.25rem, 4vw, 3rem);
+  overflow: hidden;
+}
+
+.problemFrame::before,
+.problemFrame::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(56px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.problemFrame::before {
+  top: 2rem;
+  left: 5%;
+  width: 14rem;
+  height: 14rem;
+  background: rgba(255, 107, 99, 0.08);
+}
+
+.problemFrame::after {
+  right: 6%;
+  bottom: 2rem;
+  width: 18rem;
+  height: 18rem;
+  background: rgba(var(--kai-blue-rgb), 0.14);
+}
+
+.problemIntro {
+  max-width: 40rem;
+  justify-self: center;
+  text-align: center;
+}
+
+.problemShowcase {
+  display: grid;
+  max-width: 39rem;
+  margin-inline: auto;
+  gap: clamp(1.55rem, 2vw, 2rem);
+  align-items: stretch;
+}
+
+.problemArrowWrap {
+  display: grid;
+  justify-items: center;
+}
+
+.problemGlassCard {
+  position: relative;
+  padding: clamp(1.6rem, 3vw, 2.2rem);
+  border-radius: 2.6rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.problemGlassCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 45%);
+  pointer-events: none;
+}
+
+.problemGlassCardDark {
+  background: rgba(25, 25, 25, 0.42);
+  backdrop-filter: blur(60px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 26px 56px rgba(0, 0, 0, 0.42);
+}
+
+.problemGlassCardVibrant {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%);
+  backdrop-filter: blur(80px) saturate(250%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 42px 82px -18px rgba(var(--kai-blue-rgb), 0.28),
+    inset 0 0 24px rgba(255, 255, 255, 0.08);
+}
+
+.problemCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.problemEyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.problemBadge {
+  padding: 0.34rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.problemBadgeCoral {
+  color: #ff6b63;
+  background: rgba(255, 59, 48, 0.16);
+  border: 1px solid rgba(255, 59, 48, 0.26);
+}
+
+.problemBadgeGreen {
+  color: #52d37c;
+  background: rgba(52, 199, 89, 0.18);
+  border: 1px solid rgba(52, 199, 89, 0.28);
+}
+
+.problemList {
+  display: grid;
+  gap: 1rem;
+}
+
+.problemListRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.problemListRowSoft {
+  opacity: 0.54;
+}
+
+.problemListRow span,
+.problemListRow strong {
+  font-size: 0.94rem;
+}
+
+.problemListRow strong,
+.problemTotalRow strong,
+.problemUnifiedBody strong,
+.problemMetric strong {
+  font-family: var(--site-font-mono);
+}
+
+.problemTotalRow {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.problemTotalRow p {
+  margin: 0;
+  max-width: 12rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.problemTotalRow strong {
+  display: inline-block;
+  flex: 0 0 auto;
+  margin: 0;
+  min-width: max-content;
+  color: #ffffff;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.problemArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(var(--kai-blue-rgb), 0.82);
+  opacity: 0.72;
+  justify-self: center;
+}
+
+.problemUnifiedBody {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  text-align: center;
+}
+
+.problemUnifiedBody strong {
+  display: inline-block;
+  color: #ffffff;
+  font-size: clamp(2.5rem, 5vw, 3.6rem);
+  letter-spacing: -0.06em;
+  min-width: max-content;
+  white-space: nowrap;
+}
+
+.problemUnifiedBody p {
+  margin: 0;
+  color: #7dd3fc;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.problemMetricsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.85rem;
+}
+
+.problemMetric {
+  padding: 1rem;
+  border-radius: 1.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.problemMetric span {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.problemMetric strong {
+  color: #ffffff;
+  font-size: 1.35rem;
+}
+
+.problemFootnote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.85rem 1.1rem;
+  border-radius: 999px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.92rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.problemFootnote :global(svg) {
+  color: #7dd3fc;
+  flex: 0 0 auto;
+}
+
+.visibilityGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  grid-template-areas:
+    "copy panel"
+    "device device";
+  gap: clamp(2.8rem, 6vw, 5.8rem);
+  align-items: center;
+  padding-block: clamp(4rem, 8vw, 6.25rem);
+}
+
+.discoverySection {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f9ff 46%, #ffffff 100%);
+}
+
+.discoverySectionGlow {
+  position: absolute;
+  right: max(-12rem, -10vw);
+  top: clamp(4rem, 14vw, 9rem);
+  width: clamp(22rem, 42vw, 36rem);
+  height: clamp(22rem, 42vw, 36rem);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(var(--kai-blue-rgb), 0.16), transparent 68%);
+  filter: blur(18px);
+  opacity: 0.64;
+  pointer-events: none;
+}
+
+.visibilityCopyColumn {
+  grid-area: copy;
+  display: grid;
+  gap: 1.4rem;
+  align-self: center;
+  max-width: 28rem;
+}
+
+.visibilitySignalStack {
+  display: grid;
+  gap: 1.1rem;
+  padding-top: 0.35rem;
+}
+
+.visibilitySignalCard {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.3rem;
+  border-radius: 2.15rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(245, 248, 255, 0.94));
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 24px 54px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.visibilitySignalCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(var(--kai-blue-rgb), 0.12), transparent 34%);
+  pointer-events: none;
+}
+
+.visibilitySignalIcon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(var(--kai-blue-rgb), 0.12), rgba(var(--kai-blue-rgb), 0.06));
+  color: var(--kai-blue);
+  border: 1px solid rgba(var(--kai-blue-rgb), 0.08);
+  flex: 0 0 auto;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.visibilitySignalIconIndigo {
+  background: linear-gradient(180deg, rgba(88, 86, 214, 0.12), rgba(88, 86, 214, 0.06));
+  color: #5856d6;
+  border-color: rgba(88, 86, 214, 0.12);
+}
+
+.visibilitySignalBody p,
+.visibilitySignalBody strong,
+.visibilitySignalBody span {
+  margin: 0;
+}
+
+.visibilitySignalBody p {
+  color: #8e8e93;
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.visibilitySignalBody strong {
+  display: block;
+  margin-top: 0.3rem;
+  color: #000000;
+  font-size: 1.06rem;
+}
+
+.visibilitySignalBody span {
+  color: #6e6e73;
+}
+
+.visibilitySignalLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.18rem 0.34rem;
+}
+
+.visibilitySignalTitle,
+.visibilitySignalAmount,
+.visibilitySignalSeparator {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.visibilitySignalAmount {
+  white-space: nowrap;
+}
+
+.visibilitySignalMuted {
+  color: #b0b0b7;
+}
+
+.visibilityActionPill {
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1.05rem 1.45rem;
+  border-radius: 999px;
+  background: #0b0b0c;
+  color: #ffffff;
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.18);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.visibilityStageColumn {
+  position: relative;
+  display: contents;
+}
+
+.visibilityPanelMotionWrap {
+  grid-area: panel;
+  width: min(100%, 24.25rem);
+  justify-self: end;
+}
+
+.visibilityPanelFloat {
+  position: relative;
+  inset: auto;
+  z-index: 2;
+  width: 100%;
+  justify-self: stretch;
+  padding: clamp(1.3rem, 2.4vw, 1.55rem);
+  border-radius: 2.35rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(244, 247, 252, 0.96));
+  backdrop-filter: blur(34px);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 36px 90px rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+}
+
+.visibilityPanelFloat::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--kai-blue-rgb), 0.4), transparent);
+}
+
+.visibilityPanelFloat::after {
+  content: "";
+  position: absolute;
+  right: -4.5rem;
+  bottom: -5rem;
+  width: 13rem;
+  height: 13rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(var(--kai-blue-rgb), 0.12), transparent 72%);
+  pointer-events: none;
+}
+
+.discoveryDeviceStage {
+  margin-top: 0;
+}
+
+.discoveryDeviceMotionWrap {
+  grid-area: device;
+  margin-top: clamp(0.6rem, 2vw, 1.25rem);
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.discoveryPosterShell {
+  position: relative;
+  width: min(100%, 28rem);
+  aspect-ratio: 0.74 / 1;
+  min-height: clamp(34rem, 48vw, 46rem);
+  border-radius: 2.7rem;
+  overflow: hidden;
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 28px 56px rgba(15, 23, 42, 0.12);
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(255, 255, 255, 0.98));
+}
+
+.discoveryPosterShell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 28%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.discoveryPosterImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.strategyTopRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 4vw, 2.5rem);
+  align-items: start;
+  margin-top: 3rem;
+}
+
+.voiceConsoleCard {
+  position: relative;
+  padding: clamp(2rem, 4vw, 2.8rem);
+  border-radius: 2.7rem;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(var(--kai-blue-rgb), 0.11), transparent 42%),
+    linear-gradient(180deg, #0b0c10 0%, #070708 100%);
+  color: #ffffff;
+  overflow: hidden;
+  display: grid;
+  gap: 1.4rem;
+  min-height: 29rem;
+  place-items: center;
+  text-align: center;
+  box-shadow: 0 42px 90px rgba(15, 23, 42, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.voiceConsoleCard::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 24%);
+  pointer-events: none;
+}
+
+.voiceConsoleOrb {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 21rem;
+  height: 21rem;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(var(--kai-blue-rgb), 0.62), transparent 70%);
+  filter: blur(28px);
+  opacity: 0.24;
+}
+
+.strategyStepsStack {
+  display: grid;
+  gap: 1rem;
+}
+
+.strategyStepCard {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 0.8rem;
+  padding: 1.6rem;
+  border-radius: 2.1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(246, 249, 254, 0.96));
+  backdrop-filter: blur(28px);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.strategyStepCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(var(--kai-blue-rgb), 0.08), transparent 30%);
+  pointer-events: none;
+}
+
+.strategyStepHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.strategyStepHeader h3,
+.strategyStepCard p {
+  margin: 0;
+}
+
+.strategyStepNumber {
+  color: var(--kai-blue);
+  font-family: var(--site-font-mono);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.strategyStepHeader h3 {
+  color: var(--kai-ink);
+  font-size: 1.18rem;
+}
+
+.strategyStepCard p {
+  color: var(--kai-subtle);
+  line-height: 1.7;
+}
+
+.strategyNoteStack {
+  margin-top: 1.75rem;
+  display: grid;
+  gap: 0.85rem;
+  justify-items: center;
+}
+
+.strategyNoteRow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 999px;
+  text-align: center;
+  color: #1f4fd9;
+  font-size: 0.92rem;
+  font-weight: 700;
+  background: rgba(var(--kai-blue-rgb), 0.08);
+  border: 1px solid rgba(var(--kai-blue-rgb), 0.12);
+  box-shadow: 0 16px 40px rgba(var(--kai-blue-rgb), 0.08);
+}
+
+.strategyNoteRowPositive {
+  color: #15803d;
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.14);
+  box-shadow: 0 16px 40px rgba(34, 197, 94, 0.08);
+}
+
+.strategyNoteRow span {
+  display: block;
+}
+
+.executionGridNew {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(1.8rem, 5vw, 3.2rem);
+  align-items: stretch;
+  margin-top: 3.4rem;
+}
+
+.portfolioCard {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  padding: clamp(1.8rem, 4vw, 2.4rem);
+  border-radius: 2.7rem;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(var(--kai-blue-rgb), 0.11), transparent 42%),
+    linear-gradient(180deg, #0b0c10 0%, #050506 100%);
+  color: #ffffff;
+  box-shadow: 0 46px 104px rgba(15, 23, 42, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.portfolioCard::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 24%);
+  pointer-events: none;
+}
+
+.portfolioLabel {
+  margin: 0 0 1.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.44);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.portfolioRows {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.portfolioRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.08rem 1.12rem;
+  border-radius: 1.65rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
+  backdrop-filter: blur(26px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 18px 36px rgba(0, 0, 0, 0.16);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.portfolioRowMotionWrap:nth-child(2) {
+  margin-inline: clamp(0rem, 1vw, 0.75rem);
+}
+
+.portfolioRowMotionWrap:nth-child(3) {
+  margin-inline: clamp(0rem, 2vw, 1.4rem);
+}
+
+.portfolioCompany {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.portfolioCompany > div {
+  display: grid;
+  gap: 0.24rem;
+}
+
+.portfolioCompany h3,
+.portfolioCompany p,
+.portfolioNote,
+.portfolioAllocation strong,
+.portfolioAllocation span {
+  margin: 0;
+}
+
+.companyLogoMark {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.companyLogoMark svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  display: block;
+}
+
+.portfolioCompany h3 {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.portfolioCompany p {
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.portfolioNote {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.portfolioAllocation {
+  text-align: right;
+}
+
+.portfolioAllocation strong {
+  display: block;
+  color: #ffffff;
+  font-family: var(--site-font-mono);
+  font-size: 1.35rem;
+}
+
+.portfolioAllocation span {
+  display: block;
+  margin-top: 0.15rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-family: var(--site-font-mono);
+  font-size: 0.74rem;
+}
+
+.portfolioMeta {
+  margin: 1.25rem 0 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.8rem;
+}
+
+.approvalExecutionCard {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  justify-items: center;
+  align-content: stretch;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.4rem;
+  height: 100%;
+  padding: clamp(2rem, 5vw, 3rem);
+  border-radius: 2.7rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(244, 247, 252, 0.96));
+  backdrop-filter: blur(34px);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 34px 82px rgba(15, 23, 42, 0.1);
+  text-align: center;
+}
+
+.approvalExecutionCard::before {
+  content: "";
+  position: absolute;
+  right: -4rem;
+  bottom: -5rem;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(var(--kai-blue-rgb), 0.16), transparent 70%);
+  pointer-events: none;
+}
+
+.approvalExecutionCard :global(svg) {
+  transform: none;
+}
+
+.approvalCopy {
+  display: grid;
+  align-content: center;
+  gap: 0.65rem;
+}
+
+.executionStoreCta {
+  width: min(100%, 18rem);
+}
+
+.approvalStatus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: end;
+  gap: 0.55rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+  width: 100%;
+  color: #15803d;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.governanceGridNew {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.governanceCard {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.45rem 1.55rem;
+  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(247, 249, 252, 0.96));
+  backdrop-filter: blur(28px);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: 0 22px 54px rgba(15, 23, 42, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.governanceIconWrap {
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 24, 39, 0.04);
+  color: var(--kai-blue);
+}
+
+.governanceIconGreen {
+  color: #16a34a;
+}
+
+.governanceIconIndigo {
+  color: #5856d6;
+}
+
+.governanceIconInk {
+  color: #111111;
+}
+
+.governanceCard h3,
+.governanceCard p {
+  margin: 0;
+}
+
+.governanceCard h3 {
+  color: var(--kai-ink);
+  font-size: 1.04rem;
+}
+
+.governanceCard p {
+  margin-top: 0.35rem;
+  color: var(--kai-subtle);
+  line-height: 1.65;
+}
+
+.finalCopy {
+  display: grid;
+  gap: 1rem;
+  max-width: 46rem;
+  margin-inline: auto;
+  justify-items: center;
+  text-align: center;
+}
+
+.finalCopy .heroActions {
+  justify-content: center;
+}
+
+.finalLead {
+  text-align: center;
+}
+
+.finalConsentNote {
+  margin: 0.9rem 0 0;
+  color: #8e8e93;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.executionSection {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 48%, #ffffff 100%);
+}
+
+.executionSectionGlow {
+  position: absolute;
+  left: 50%;
+  top: clamp(8rem, 18vw, 11rem);
+  width: clamp(24rem, 42vw, 38rem);
+  height: clamp(24rem, 42vw, 38rem);
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(var(--kai-blue-rgb), 0.14), transparent 68%);
+  filter: blur(24px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .heroTrustItem:hover,
+  .visibilitySignalCard:hover,
+  .strategyStepCard:hover,
+  .portfolioRow:hover,
+  .governanceCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 60px rgba(15, 23, 42, 0.1);
+  }
+}
+
+@media (max-width: 1199px) {
+  .kaiHeroLayout,
+  .strategyTopRow,
+  .executionGridNew {
+    grid-template-columns: 1fr;
+  }
+
+  .visibilityGrid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "panel"
+      "device";
+  }
+
+  .heroTrustStack {
+    max-width: 32rem;
+  }
+
+  .strategyStepCard:nth-child(2),
+  .strategyStepCard:nth-child(3),
+  .portfolioRow:nth-child(2),
+  .portfolioRow:nth-child(3) {
+    margin-inline: 0;
+  }
+
+  .strategyStepMotionWrap:nth-child(2),
+  .strategyStepMotionWrap:nth-child(3),
+  .portfolioRowMotionWrap:nth-child(2),
+  .portfolioRowMotionWrap:nth-child(3) {
+    margin-inline: 0;
+  }
+
+  .visibilityStageColumn {
+    display: contents;
+  }
+
+  .visibilityPanelMotionWrap {
+    width: min(100%, 24rem);
+    margin: 0 auto 1rem;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .revisedHeroSection {
+    padding-block:
+      0.35rem
+      3rem;
+  }
+
+  .kaiHeroLayout {
+    gap: 1.6rem;
+  }
+
+  .heroTrustItem {
+    padding: 0.9rem 1rem;
+    border-radius: 1.25rem;
+  }
+
+  .heroActionPanel {
+    margin-top: 0.65rem;
+    padding-top: 1rem;
+    padding-inline: 1.1rem;
+  }
+
+  .heroActionPanel .heroActions {
+    grid-template-columns: 1fr;
+  }
+
+  .heroTrustStack {
+    padding: 1rem;
+  }
+
+  .visibilitySignalCard:nth-child(2),
+  .visibilitySignalMotionItem:nth-child(2),
+  .strategyStepCard:nth-child(2),
+  .strategyStepCard:nth-child(3),
+  .strategyStepMotionWrap:nth-child(2),
+  .strategyStepMotionWrap:nth-child(3),
+  .portfolioRow:nth-child(2),
+  .portfolioRow:nth-child(3),
+  .portfolioRowMotionWrap:nth-child(2),
+  .portfolioRowMotionWrap:nth-child(3) {
+    margin-inline: 0;
+  }
+
+  .problemGlassCard,
+  .voiceConsoleCard,
+  .portfolioCard,
+  .approvalExecutionCard {
+    border-radius: 2rem;
+  }
+
+  .problemMetricsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .visibilitySignalCard {
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+
+  .visibilityActionPill {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .visibilityStageColumn {
+    display: contents;
+  }
+
+  .visibilityPanelMotionWrap {
+    width: 100%;
+    max-width: 21rem;
+    justify-self: center;
+    margin-bottom: 0;
+  }
+
+  .discoveryDeviceMotionWrap {
+    width: 100%;
+    max-width: min(100%, 22.5rem);
+    min-height: min(76svh, 35rem);
+  }
+
+  .discoveryPosterShell {
+    width: min(92vw, 23rem);
+    min-height: min(76svh, 35rem);
+  }
+
+  .discoveryDeviceStage {
+    width: 100%;
+  }
+
+  .discoveryImageWrap {
+    width: min(100%, 21rem);
+  }
+
+  .discoveryDeviceCanvasShell {
+    min-height: min(72svh, 32rem);
+  }
+
+  .strategyStepsStack,
+  .governanceGridNew,
+  .portfolioRows {
+    gap: 0.85rem;
+  }
+
+  .governanceGridNew {
+    grid-template-columns: 1fr;
+  }
+
+  .strategyStepCard,
+  .governanceCard {
+    border-radius: 1.45rem;
+  }
+
+  .governanceCard {
+    grid-template-columns: 1fr;
+  }
+
+  .approvalStatus {
+    font-size: 0.66rem;
+    letter-spacing: 0.09em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroGlowPrimary,
+  .heroGlowSecondary,
+  .discoverySectionGlow,
+  .voiceConsoleOrb,
+  .problemArrow,
+  .executionSectionGlow,
+  .finalGlow {
+    animation: none !important;
   }
 }

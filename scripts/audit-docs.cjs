@@ -26,7 +26,7 @@ const requiredFiles = [
   "docs/integrations/email-api.md",
   "docs/operations/api-verification.md",
   "docs/operations/gcp-website-deploy.md",
-  "docs/operations/vercel-timeout.md",
+  "docs/operations/runtime-timeout.md",
   "docs/runbooks/website-uat-deploy.md",
   "support/postman/hushh-email-integration.postman_collection.json",
   "support/prompts/agent-queries.txt",
@@ -48,6 +48,7 @@ const deletedLegacyDocs = [
   "SEARCH_FEATURE_DOCUMENTATION.md",
   "UNDERSTANDING_PROXY_PATTERN.md",
   "VERCEL_TIMEOUT_FIX.md",
+  "docs/operations/vercel-timeout.md",
   "WHATSAPP_API_UPDATE.md",
   "theme.config.jsx",
   "pages/_meta.json",
@@ -83,7 +84,6 @@ const deletedLegacyDocs = [
   "support/postman/hushh-public-data-agent.postman_collection.json",
   "support/postman/hushh-whatsapp-integration.postman_collection.json",
   "support/prompts/legacy-searchbar-snippet.txt",
-  "tmp",
   "tmp/capture-kai-frame.cjs",
   "tmp/kai-playwright-verify.cjs",
   "tmp/sample.html",
@@ -113,7 +113,6 @@ const allowedRootFiles = [
   "proxy.js",
   "tailwind.config.js",
   "tsconfig.json",
-  "vercel.json",
   "yarn.lock",
 ];
 

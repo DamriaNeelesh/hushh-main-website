@@ -3,21 +3,6 @@ const { getRouteManifest } = require("./route-manifest.cjs");
 const BASE_URL = process.env.BASE_URL || "http://localhost:3001";
 
 const REDIRECTS = [
-  { from: "/developerApi", to: "/developers" },
-  { from: "/developerApi/on-boarding", to: "/developers/on-boarding" },
-  { from: "/developerApi/rootEndpoints", to: "/developers/agentic-apis" },
-  { from: "/developerApi/use-cases", to: "/developers/use-cases" },
-  { from: "/developerApi/support", to: "/developers/support" },
-  { from: "/developer-Api", to: "/developers" },
-  { from: "/developer-Api/on-boarding", to: "/developers/on-boarding" },
-  { from: "/developer-Api/rootEndpoints", to: "/developers/agentic-apis" },
-  { from: "/developer-Api/use-cases", to: "/developers/use-cases" },
-  { from: "/developer-Api/support", to: "/developers/support" },
-  { from: "/developer-Api/user-on-boarding", to: "/developers/user-on-boarding" },
-  { from: "/developers/rootEndpoints", to: "/developers/agentic-apis" },
-  { from: "/getting-started", to: "/developers/getting-started" },
-  { from: "/use-cases", to: "/developers/use-cases" },
-  { from: "/data-resources", to: "/developers/data-resources" },
   { from: "/legal/privacypolicy", to: "/privacy" },
   { from: "/legal/termsofuse", to: "/terms" },
 ];

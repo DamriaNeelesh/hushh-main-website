@@ -21,7 +21,9 @@ const host = readOption("--host", process.env.LOCAL_HOST || "localhost");
 const standaloneServer = path.join(ROOT, ".next", "standalone", "server.js");
 const standaloneRoot = path.join(ROOT, ".next", "standalone");
 const staticDirectory = path.join(ROOT, ".next", "static");
+const serverDirectory = path.join(ROOT, ".next", "server");
 const standaloneStaticDirectory = path.join(standaloneRoot, ".next", "static");
+const standaloneServerDirectory = path.join(standaloneRoot, ".next", "server");
 const publicDirectory = path.join(ROOT, "public");
 const standalonePublicDirectory = path.join(standaloneRoot, "public");
 
@@ -57,7 +59,13 @@ if (!fs.existsSync(staticDirectory)) {
   process.exit(1);
 }
 
+if (!fs.existsSync(serverDirectory)) {
+  console.error("Server assets are missing at .next/server. Start the standalone server from repo root after a build.");
+  process.exit(1);
+}
+
 ensureRuntimeMirror(staticDirectory, standaloneStaticDirectory);
+ensureRuntimeMirror(serverDirectory, standaloneServerDirectory);
 ensureRuntimeMirror(publicDirectory, standalonePublicDirectory);
 
 console.log(`Starting standalone server from repo root on http://${host}:${port}.`);

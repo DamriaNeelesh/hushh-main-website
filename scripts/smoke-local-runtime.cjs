@@ -42,7 +42,8 @@ const routeExpectations = [
   {
     route: "/products/kai",
     titleIncludes: "Kai | Explainable Investing Copilot",
-    h1Includes: "Your private AI banker.Now in your pocket.",
+    h1Includes: "Kai.Your personalfinancial agent.",
+    sectionOrder: ["hero", "discovery", "problem", "strategy", "execution", "privacy", "final"],
   },
   {
     route: "/hushhBlogs",
@@ -154,6 +155,12 @@ async function runSmoke(target) {
 
       const title = await page.title();
       const h1Text = (await page.locator("h1").first().textContent().catch(() => null)) || "";
+      const sectionOrder =
+        expectation.sectionOrder
+          ? await page.locator("[data-kai-section]").evaluateAll((elements) =>
+              elements.map((element) => element.getAttribute("data-kai-section")),
+            )
+          : null;
 
       try {
         assert(response, `No response received for ${expectation.route}`);
@@ -167,6 +174,14 @@ async function runSmoke(target) {
           assert(
             h1Text.includes(expectation.h1Includes),
             `First h1 mismatch for ${expectation.route}: expected "${expectation.h1Includes}" inside "${h1Text}"`,
+          );
+        }
+
+        if (expectation.sectionOrder) {
+          assert.deepStrictEqual(
+            sectionOrder,
+            expectation.sectionOrder,
+            `Section order mismatch for ${expectation.route}: expected ${expectation.sectionOrder.join(" -> ")}, got ${(sectionOrder || []).join(" -> ")}`,
           );
         }
 

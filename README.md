@@ -58,5 +58,5 @@ BASE_URL=http://localhost:3002 npm run audit:shell
 - [Integrations](docs/integrations/apple-signin-setup.md)
 - [Operations](docs/operations/api-verification.md)
 - [Runbooks](docs/runbooks/)
-- [Timeout runbook](docs/operations/vercel-timeout.md)
+- [Runtime timeout handling](docs/operations/runtime-timeout.md)
 - [Support assets](support/)

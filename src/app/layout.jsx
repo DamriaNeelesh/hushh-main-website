@@ -1,7 +1,7 @@
 import "./globals.css";
 import "./_styles/syntax-highlight.css";
 import "./_styles/blog.css";
-import { Geist, Geist_Mono, Inter, Playfair_Display } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Providers } from "./provider";
 import ResponsiveSizeProvider from "./context/responsive";
@@ -27,14 +27,6 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-});
-
-const playfairItalic = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair-italic",
-  display: "swap",
-  style: ["italic"],
-  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata = {
@@ -80,7 +72,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${inter.variable} ${playfairItalic.variable}`}
+      className={`${geist.variable} ${geistMono.variable} ${inter.variable}`}
     >
       <head>
         <link

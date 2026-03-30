@@ -1,8 +1,7 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import DeveloperDocsShell from "../../_components/developerDocs/DeveloperDocsShell";
 import {
   developerDocs,
-  developerLegacyRedirects,
   getDeveloperDoc,
 } from "../docs.config";
 import {
@@ -18,8 +17,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const redirectedSlug = developerLegacyRedirects[slug];
-  const doc = getDeveloperDoc(redirectedSlug || slug);
+  const doc = getDeveloperDoc(slug);
 
   if (!doc) {
     return {};
@@ -35,11 +33,6 @@ export async function generateMetadata({ params }) {
 
 export default async function DeveloperDocPage({ params }) {
   const { slug } = await params;
-  const redirectedSlug = developerLegacyRedirects[slug];
-  if (redirectedSlug) {
-    redirect(`/developers/${redirectedSlug}`);
-  }
-
   const doc = getDeveloperDoc(slug);
   if (!doc) {
     notFound();

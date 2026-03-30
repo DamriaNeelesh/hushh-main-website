@@ -12,7 +12,6 @@ const NESTED_TEMPLATE_PREFIXES = [
 
 const UTILITY_FAMILY_PREFIXES = [
   "/hushh-id",
-  "/hushh_id",
   "/p/",
   "/u/",
   "/qrCodePage",

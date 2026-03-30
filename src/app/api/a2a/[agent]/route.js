@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-// Configure function timeout (for Vercel deployment)
-export const maxDuration = 60; // 60 seconds for Pro plan, 10 for Hobby
+// Configure route execution duration so upstream calls cannot run indefinitely.
+export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 // Map agent slug => upstream URL (from Postman collections - verified working)
@@ -23,7 +23,7 @@ const AGENT_URLS = {
 // Optional: Facebook Graph API endpoint for WhatsApp Cloud API (used when provider === 'facebook')
 const FACEBOOK_WHATSAPP_URL = 'https://graph.facebook.com/v22.0/829639396896769/messages';
 
-// Timeout for agent API calls (50 seconds to leave buffer for Vercel)
+// Keep the upstream fetch timeout below the route duration to leave response buffer.
 const AGENT_TIMEOUT = 50000;
 
 async function resolveAgent(context) {

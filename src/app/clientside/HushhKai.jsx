@@ -1,20 +1,28 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { useReducedMotion, useScroll } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowRight,
+  BadgeCheck,
   BadgeDollarSign,
+  BarChart3,
+  ChevronsDown,
   CheckCircle2,
+  Clock3,
+  Code2,
   Fingerprint,
-  LockKeyhole,
+  Gem,
+  Info,
+  Landmark,
   Mic,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  SlidersHorizontal,
+  ScanFace,
+  Shield,
+  TrendingUp,
 } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./KaiPage.module.css";
 
 const KaiDeviceStage = dynamic(() => import("./KaiDeviceStage"), {
@@ -24,36 +32,73 @@ const KaiDeviceStage = dynamic(() => import("./KaiDeviceStage"), {
 const KAI_APP_URL = "https://apps.apple.com/au/app/hushh-personal-agent-kai/id6757718917";
 const KAI_WEB_URL = "https://kai.hushh.ai";
 
-const discoveryAccounts = [
+const heroTrustPoints = [
   {
-    label: "Chase Platinum",
-    detail: "$8,420.00 idle",
-    icon: "C",
-    tone: "primary",
+    label: "Instant KYC Onboarding",
+    icon: BadgeCheck,
   },
   {
-    label: "Schwab Brokerage",
-    detail: "$4,000.52 idle",
-    icon: "S",
-    tone: "secondary",
+    label: "Expert RIA Strategy",
+    icon: Landmark,
+  },
+  {
+    label: "Absolute Biometric Consent",
+    icon: Fingerprint,
   },
 ];
 
-const scatteredAccounts = [
+const fragmentedRows = [
+  { label: "Chase Savings", amount: "$4,210.00", tone: "high" },
+  { label: "Amex Rewards", amount: "$890.45", tone: "soft" },
+  { label: "Venmo Balance", amount: "$312.00", tone: "high" },
+];
+
+const visibilityCards = [
   {
-    label: "High Yield Savings",
-    detail: "$24,100",
-    source: "Marcus by Goldman",
+    eyebrow: "Idle Capital Detected",
+    title: "Chase Platinum",
+    detail: "$8,420.00",
+    icon: Landmark,
+    tone: "blue",
   },
   {
-    label: "Brokerage",
-    detail: "$4,000",
-    source: "Schwab Account",
+    eyebrow: "Unused Liquidity",
+    title: "Schwab Brokerage",
+    detail: "$4,000.",
+    detailMuted: "52",
+    icon: BarChart3,
+    tone: "indigo",
+  },
+];
+
+const strategySteps = [
+  {
+    number: "01",
+    title: "Fetch data.",
+    body: "Kai connects to your universe, fetching every dollar instantly.",
   },
   {
-    label: "Checking",
-    detail: "$8,420",
-    source: "Chase Sapphire",
+    number: "02",
+    title: "Recommend next moves.",
+    body: "Expert RIA algorithms and humans curate your optimal portfolio.",
+  },
+  {
+    number: "03",
+    title: "Execute with consent.",
+    body: "One tap is all it takes. Nothing moves without your approval.",
+  },
+];
+
+const strategyNotes = [
+  {
+    body: "Expert Guidance from elite RIA advisors for elite precision.",
+    icon: Info,
+    tone: "neutral",
+  },
+  {
+    body: "Expert-backed strategies built to grow your capital.",
+    icon: TrendingUp,
+    tone: "positive",
   },
 ];
 
@@ -61,97 +106,55 @@ const allocationCards = [
   {
     company: "Apple Inc.",
     symbol: "AAPL",
-    allocation: "42%",
-    amount: "$5,200",
-    note: "Strong ecosystem capture and on-device intelligence support a higher-conviction core position.",
-    meter: "42%",
-    accent: "blue",
+    logo: "apple",
+    allocation: "44%",
+    amount: "$440.00",
+    note: "Value Sanctuary",
   },
   {
     company: "Microsoft",
     symbol: "MSFT",
+    logo: "microsoft",
     allocation: "33%",
-    amount: "$4,100",
-    note: "Cloud cashflow and enterprise AI depth create a steadier defensive layer for the portfolio.",
-    meter: "33%",
-    accent: "slate",
+    amount: "$330.00",
+    note: "AI Alpha",
   },
   {
-    company: "Alphabet",
+    company: "Google",
     symbol: "GOOGL",
+    logo: "google",
     allocation: "25%",
-    amount: "$3,100",
-    note: "Valuation discipline and platform breadth keep the opportunity balanced against risk.",
-    meter: "25%",
-    accent: "ink",
+    amount: "$250.00",
+    note: "Compute Core",
   },
 ];
 
-const flowCards = [
+const governanceCards = [
   {
-    tag: "Discovery",
-    title: "See scattered capital",
-    copy: "Kai brings idle cash and fragmented account context into one private view before you have to hunt for it.",
+    title: "Your keys, your data",
+    body: "All financial information is encrypted and stored strictly on your device.",
+    icon: Shield,
+    tone: "blue",
   },
   {
-    tag: "Strategy",
-    title: "Review the allocation",
-    copy: "Each recommendation carries sizing, conviction, and plain-English reasoning so you can trust the next move.",
+    title: "Zero-knowledge",
+    body: "Every data access generates a Consent Receipt. No silent sharing.",
+    icon: BadgeCheck,
+    tone: "green",
   },
   {
-    tag: "Approval",
-    title: "Confirm with intent",
-    copy: "Every execution waits for your biometric approval. Nothing moves silently in the background.",
-  },
-];
-
-const methodCards = [
-  {
-    title: "See what matters",
-    body: "Kai compresses account noise, market signals, and liquidity into a single frame you can understand in seconds.",
+    title: "Open protocol",
+    body: "The Hushh Protocol is open source. Audit it yourself for peace of mind.",
+    icon: Code2,
+    tone: "indigo",
   },
   {
-    title: "Understand the why",
-    body: "Every suggestion is paired with rationale, sizing, and context instead of a black-box recommendation.",
-  },
-  {
-    title: "Stay in control",
-    body: "The system never hides agency. The final move belongs to you, not the model.",
+    title: "Secure Heritage",
+    body: "Built by veterans of Google Cloud and Azure ML with a focus on security.",
+    icon: Gem,
+    tone: "ink",
   },
 ];
-
-const securityCards = [
-  {
-    title: "Local-only storage",
-    body: "Your financial footprint stays encrypted on your hardware and under your control.",
-    icon: Smartphone,
-  },
-  {
-    title: "Zero-knowledge compute",
-    body: "Kai’s intelligence runs with architectural boundaries that minimize unnecessary data exposure.",
-    icon: Sparkles,
-  },
-  {
-    title: "Sovereign keys",
-    body: "Protected keys and biometric approval keep the final authority in your hands.",
-    icon: LockKeyhole,
-  },
-  {
-    title: "Hard thresholds",
-    body: "Guardrails and explicit limits keep Kai aligned with your intent and appetite for risk.",
-    icon: SlidersHorizontal,
-  },
-];
-
-const springConfig = {
-  stiffness: 120,
-  damping: 22,
-  mass: 0.42,
-};
-
-function useParallax(progress, range) {
-  return useSpring(useTransform(progress, [0, 1], range), springConfig);
-}
 
 function ExternalCta({ href, variant = "primary", className = "", heroSized = false, children }) {
   const baseClassName = variant === "primary" ? styles.primaryCta : styles.secondaryCta;
@@ -194,19 +197,113 @@ function AppStoreCta({ href, className = "", heroSized = false }) {
   );
 }
 
-export default function HushhKai() {
-  const reduceMotion = useReducedMotion();
+function CompanyLogo({ name }) {
+  if (name === "apple") {
+    return (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M16.86 12.83c.03 3.22 2.82 4.29 2.85 4.3-.02.08-.44 1.5-1.44 2.97-.86 1.27-1.76 2.53-3.16 2.56-1.37.03-1.82-.81-3.39-.81-1.57 0-2.07.79-3.36.84-1.35.05-2.38-1.35-3.25-2.62-1.78-2.58-3.13-7.29-1.31-10.46.9-1.58 2.51-2.58 4.26-2.61 1.33-.03 2.59.9 3.39.9.8 0 2.31-1.11 3.89-.95.66.03 2.52.27 3.71 2.02-.1.06-2.22 1.29-2.19 3.86Zm-2.37-8.94c.72-.87 1.21-2.08 1.08-3.29-1.03.04-2.29.69-3.03 1.56-.67.78-1.26 2.02-1.1 3.2 1.15.09 2.33-.59 3.05-1.47Z" />
+      </svg>
+    );
+  }
 
+  if (name === "microsoft") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="2" y="2" width="9" height="9" fill="#F25022" rx="1.2" />
+        <rect x="13" y="2" width="9" height="9" fill="#7FBA00" rx="1.2" />
+        <rect x="2" y="13" width="9" height="9" fill="#00A4EF" rx="1.2" />
+        <rect x="13" y="13" width="9" height="9" fill="#FFB900" rx="1.2" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="#4285F4"
+        d="M23.49 12.27c0-.79-.07-1.55-.21-2.27H12v4.3h6.44a5.5 5.5 0 0 1-2.39 3.61v3h3.88c2.27-2.09 3.56-5.17 3.56-8.64Z"
+      />
+      <path
+        fill="#34A853"
+        d="M12 24c3.24 0 5.95-1.07 7.93-2.91l-3.88-3c-1.07.72-2.45 1.15-4.05 1.15-3.11 0-5.74-2.1-6.68-4.93H1.31v3.09A12 12 0 0 0 12 24Z"
+      />
+      <path
+        fill="#FBBC04"
+        d="M5.32 14.31A7.18 7.18 0 0 1 4.94 12c0-.8.14-1.57.38-2.31V6.6H1.31A12 12 0 0 0 0 12c0 1.94.46 3.78 1.31 5.4l4.01-3.09Z"
+      />
+      <path
+        fill="#EA4335"
+        d="M12 4.77c1.76 0 3.34.61 4.58 1.81l3.43-3.43C17.94 1.2 15.24 0 12 0A12 12 0 0 0 1.31 6.6l4.01 3.09C6.26 6.86 8.89 4.77 12 4.77Z"
+      />
+    </svg>
+  );
+}
+
+export default function HushhKai() {
+  const pageRef = useRef(null);
   const heroRef = useRef(null);
   const discoveryRef = useRef(null);
   const discoveryStageRef = useRef(null);
   const problemRef = useRef(null);
-  const voiceRef = useRef(null);
   const strategyRef = useRef(null);
+  const executionRef = useRef(null);
+  const governanceRef = useRef(null);
   const finalRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const [discoveryStageReady, setDiscoveryStageReady] = useState(false);
+
+  const { scrollYProgress: discoveryDeviceProgress } = useScroll({
+    target: discoveryStageRef,
+    offset: ["start end", "start start"],
+  });
 
   useEffect(() => {
+    if (typeof window === "undefined" || discoveryStageReady) {
+      return undefined;
+    }
+
+    const discoveryElement = discoveryRef.current;
+
+    if (!discoveryElement) {
+      return undefined;
+    }
+
+    const enableStage = () => {
+      setDiscoveryStageReady((current) => current || true);
+    };
+
+    const { top } = discoveryElement.getBoundingClientRect();
+
+    if (top <= window.innerHeight * 1.28) {
+      enableStage();
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          enableStage();
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: "70% 0px 50% 0px",
+        threshold: 0.01,
+      }
+    );
+
+    observer.observe(discoveryElement);
+
+    return () => observer.disconnect();
+  }, [discoveryStageReady]);
+
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
     const root = document.documentElement;
+
     const measureTopChrome = () => {
       const header = document.querySelector("header");
       const banner = document.querySelector('[aria-label="Funding announcement"]');
@@ -241,634 +338,939 @@ export default function HushhKai() {
     };
   }, []);
 
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: heroRef,
-    offset: ["start end", "end start"],
-  });
-  const { scrollYProgress: discoveryProgress } = useScroll({
-    target: discoveryRef,
-    offset: ["start end", "end start"],
-  });
-  const { scrollYProgress: discoveryDeviceProgress } = useScroll({
-    target: discoveryStageRef,
-    offset: ["start end", "start start"],
-  });
-  const { scrollYProgress: problemProgress } = useScroll({
-    target: problemRef,
-    offset: ["start end", "end start"],
-  });
-  const { scrollYProgress: voiceProgress } = useScroll({
-    target: voiceRef,
-    offset: ["start end", "end start"],
-  });
-  const { scrollYProgress: strategyProgress } = useScroll({
-    target: strategyRef,
-    offset: ["start end", "end start"],
-  });
-  const { scrollYProgress: finalProgress } = useScroll({
-    target: finalRef,
-    offset: ["start end", "end start"],
-  });
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
 
-  const heroMeshY = useParallax(heroProgress, [-48, 68]);
-  const heroGlowOneY = useParallax(heroProgress, [-18, 48]);
-  const heroGlowTwoY = useParallax(heroProgress, [24, -36]);
-  const heroGlowOneScale = useParallax(heroProgress, [0.96, 1.08]);
-  const heroGlowTwoScale = useParallax(heroProgress, [1.04, 0.94]);
+    gsap.registerPlugin(ScrollTrigger);
 
-  const discoverySceneY = useParallax(discoveryProgress, [16, -10]);
-  const discoveryPanelY = useParallax(discoveryProgress, [-6, 10]);
-  const discoveryBarOne = useParallax(discoveryProgress, [0.74, 1]);
-  const discoveryBarTwo = useParallax(discoveryProgress, [0.64, 1]);
-  const discoveryBarThree = useParallax(discoveryProgress, [0.82, 1]);
-  const discoveryBarFour = useParallax(discoveryProgress, [0.7, 1]);
-  const discoveryBarFive = useParallax(discoveryProgress, [0.58, 1]);
+    const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        return;
+      }
 
-  const problemCardOneY = useParallax(problemProgress, [68, -92]);
-  const problemCardTwoY = useParallax(problemProgress, [28, -64]);
-  const problemCardThreeY = useParallax(problemProgress, [48, -54]);
-  const problemCenterY = useParallax(problemProgress, [92, -42]);
-  const problemCardOneRotate = useParallax(problemProgress, [-9, -4]);
-  const problemCardTwoRotate = useParallax(problemProgress, [6, 2]);
-  const problemCardThreeRotate = useParallax(problemProgress, [-3, 1]);
-  const problemCardBg = useTransform(
-    problemProgress,
-    [0.26, 0.58],
-    ["rgba(255, 255, 255, 0.2)", "rgba(255, 255, 255, 0.08)"]
-  );
-  const problemCardBorder = useTransform(
-    problemProgress,
-    [0.26, 0.58],
-    ["rgba(255, 255, 255, 0.2)", "rgba(255, 255, 255, 0.1)"]
-  );
-  const problemCardShadow = useTransform(
-    problemProgress,
-    [0.26, 0.58],
-    ["0 28px 56px rgba(15, 23, 42, 0.12)", "0 40px 80px rgba(0, 0, 0, 0.42)"]
-  );
-  const problemKickerColor = useTransform(
-    problemProgress,
-    [0.26, 0.58],
-    ["rgba(255, 255, 255, 0.72)", "rgba(255, 255, 255, 0.45)"]
-  );
-  const problemBodyColor = useTransform(
-    problemProgress,
-    [0.26, 0.58],
-    ["rgba(255, 255, 255, 0.96)", "#ffffff"]
-  );
-  const problemMetaColor = useTransform(
-    problemProgress,
-    [0.26, 0.58],
-    ["rgba(255, 255, 255, 0.76)", "rgba(255, 255, 255, 0.58)"]
-  );
+      const isMobileViewport = window.matchMedia("(max-width: 767px)").matches;
+      const startsNearTop = window.scrollY < 24;
+      const revealStarts = {
+        discovery: isMobileViewport ? "top 80%" : "top 72%",
+        problem: isMobileViewport ? "top 82%" : "top 74%",
+        strategy: isMobileViewport ? "top 80%" : "top 72%",
+        execution: isMobileViewport ? "top 78%" : "top 70%",
+        governance: isMobileViewport ? "top 84%" : "top 78%",
+        final: isMobileViewport ? "top 86%" : "top 80%",
+      };
 
-  const voiceOrbScale = useParallax(voiceProgress, [0.88, 1.18]);
-  const voiceOrbOpacity = useTransform(voiceProgress, [0, 0.4, 1], [0.24, 0.42, 0.18]);
-  const voicePanelY = useParallax(voiceProgress, [40, -24]);
+      const collectTargets = (...selectors) =>
+        selectors.flatMap((selector) => gsap.utils.toArray(selector));
+      const setActiveMotionTargets = (targets, active) => {
+        if (targets.length === 0) {
+          return;
+        }
 
-  const wheelRotate = useParallax(strategyProgress, [-18, 14]);
-  const allocationCardY = useParallax(strategyProgress, [34, -16]);
+        gsap.set(targets, { willChange: active ? "transform, opacity" : "auto" });
+      };
 
-  const finalGlowY = useParallax(finalProgress, [84, -24]);
-  const finalGlowScale = useParallax(finalProgress, [0.92, 1.1]);
+      const sectionControllers = [];
 
-  const reveal = (delay = 0, y = 28) => ({
-    initial: reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false, amount: 0.2 },
-    transition: reduceMotion
-      ? { duration: 0.01, delay: 0 }
-      : { duration: 0.72, delay, ease: [0.22, 1, 0.36, 1] },
-  });
+      const registerController = ({
+        ref,
+        start,
+        timeline,
+        targets,
+        onEnter,
+        onLeave,
+        onEnterBack,
+        onLeaveBack,
+      }) => {
+        if (!ref.current) {
+          return;
+        }
+
+        timeline.pause(0);
+        timeline.eventCallback("onComplete", () => setActiveMotionTargets(targets, false));
+        timeline.eventCallback("onReverseComplete", () => setActiveMotionTargets(targets, false));
+
+        const trigger = ScrollTrigger.create({
+          trigger: ref.current,
+          start,
+          invalidateOnRefresh: true,
+          onEnter: () => {
+            setActiveMotionTargets(targets, true);
+            onEnter?.();
+            timeline.play();
+          },
+          onEnterBack: () => {
+            setActiveMotionTargets(targets, true);
+            onEnterBack?.();
+            timeline.play();
+          },
+          onLeave: () => {
+            onLeave?.();
+          },
+          onLeaveBack: () => {
+            setActiveMotionTargets(targets, true);
+            onLeaveBack?.();
+            timeline.reverse();
+          },
+        });
+
+        sectionControllers.push({
+          element: ref.current,
+          timeline,
+          targets,
+          trigger,
+          onEnter,
+          onLeave,
+        });
+      };
+
+      const heroGlowSelector = "[data-kai-hero-glow]";
+      const heroKickerSelector = "[data-kai-hero-kicker]";
+      const heroLineSelector = "[data-kai-hero-line]";
+      const heroCopySelector = "[data-kai-hero-copy]";
+      const heroActionsWrapSelector = "[data-kai-hero-actions-wrap]";
+      const heroTrustWrapSelector = "[data-kai-hero-trust-wrap]";
+      const heroTrustItemWrapSelector = "[data-kai-hero-trust-item-wrap]";
+      const heroConsentSelector = "[data-kai-hero-consent]";
+
+      const heroTargets = collectTargets(
+        heroGlowSelector,
+        heroKickerSelector,
+        heroLineSelector,
+        heroCopySelector,
+        heroActionsWrapSelector,
+        heroTrustWrapSelector,
+        heroTrustItemWrapSelector,
+        heroConsentSelector
+      );
+
+      if (startsNearTop) {
+        gsap.set(heroGlowSelector, { autoAlpha: 0, y: 18 });
+        gsap.set(heroKickerSelector, { autoAlpha: 0, y: 14 });
+        gsap.set(heroLineSelector, { autoAlpha: 0, y: 44 });
+        gsap.set(heroCopySelector, { autoAlpha: 0, y: 20 });
+        gsap.set(heroActionsWrapSelector, { autoAlpha: 0, y: 24 });
+        gsap.set(heroTrustWrapSelector, { autoAlpha: 0, y: 24 });
+        gsap.set(heroTrustItemWrapSelector, { autoAlpha: 0, y: 16 });
+        gsap.set(heroConsentSelector, { autoAlpha: 0, y: 12 });
+
+        const heroTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        heroTimeline
+          .to(heroGlowSelector, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.08 }, 0)
+          .to(heroKickerSelector, { autoAlpha: 1, y: 0, duration: 0.46 }, 0.08)
+          .to(
+            heroLineSelector,
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.72,
+              stagger: 0.08,
+            },
+            0.12
+          )
+          .to(heroCopySelector, { autoAlpha: 1, y: 0, duration: 0.54 }, 0.28)
+          .to(heroActionsWrapSelector, { autoAlpha: 1, y: 0, duration: 0.58 }, 0.38)
+          .to(heroTrustWrapSelector, { autoAlpha: 1, y: 0, duration: 0.56 }, 0.46)
+          .to(
+            heroTrustItemWrapSelector,
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.48,
+              stagger: 0.07,
+            },
+            0.5
+          )
+          .to(heroConsentSelector, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.66);
+
+        setActiveMotionTargets(heroTargets, true);
+        heroTimeline.eventCallback("onComplete", () => setActiveMotionTargets(heroTargets, false));
+      }
+
+      const discoveryGlowSelector = "[data-kai-discovery-glow]";
+      const discoveryIntroSelector = "[data-kai-discovery-intro]";
+      const discoveryCardSelector = "[data-kai-visibility-card-wrap]";
+      const discoveryPillSelector = "[data-kai-visibility-pill]";
+      const discoveryPanelSelector = "[data-kai-visibility-panel-wrap]";
+      const discoveryBarsSelector = "[data-kai-visibility-bar]";
+      const discoveryActionSelector = "[data-kai-panel-action]";
+      const discoveryDeviceSelector = "[data-kai-visibility-device-wrap]";
+
+      gsap.set(discoveryGlowSelector, { autoAlpha: 0, y: 28 });
+      gsap.set(discoveryIntroSelector, { autoAlpha: 0, y: 40 });
+      gsap.set(discoveryCardSelector, { autoAlpha: 0, y: 44 });
+      gsap.set(discoveryPillSelector, { autoAlpha: 0, y: 22 });
+      gsap.set(discoveryPanelSelector, { autoAlpha: 0, y: 34 });
+      gsap.set(discoveryBarsSelector, { scaleY: 0.35, autoAlpha: 0.3, transformOrigin: "bottom" });
+      gsap.set(discoveryActionSelector, { autoAlpha: 0, y: 18 });
+      gsap.set(discoveryDeviceSelector, { autoAlpha: 0, y: 42 });
+
+      const discoveryTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+      discoveryTimeline
+        .to(discoveryGlowSelector, { autoAlpha: 0.72, y: 0, duration: 0.8 }, 0)
+        .to(discoveryIntroSelector, { autoAlpha: 1, y: 0, duration: 0.68 }, 0.06)
+        .to(
+          discoveryCardSelector,
+          { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.12 },
+          0.16
+        )
+        .to(discoveryPillSelector, { autoAlpha: 1, y: 0, duration: 0.48 }, 0.28)
+        .to(discoveryPanelSelector, { autoAlpha: 1, y: 0, duration: 0.72 }, 0.2)
+        .to(
+          discoveryBarsSelector,
+          { scaleY: 1, autoAlpha: 1, duration: 0.44, stagger: 0.05 },
+          0.34
+        )
+        .to(discoveryActionSelector, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.42)
+        .to(discoveryDeviceSelector, { autoAlpha: 1, y: 0, duration: 0.78 }, 0.28);
+
+      registerController({
+        ref: discoveryRef,
+        start: revealStarts.discovery,
+        timeline: discoveryTimeline,
+        targets: collectTargets(
+          discoveryGlowSelector,
+          discoveryIntroSelector,
+          discoveryCardSelector,
+          discoveryPillSelector,
+          discoveryPanelSelector,
+          discoveryBarsSelector,
+          discoveryActionSelector,
+          discoveryDeviceSelector
+        ),
+      });
+
+      const problemIntroSelector = "[data-kai-problem-intro]";
+      const problemIdleSelector = "[data-kai-problem-card-wrap='idle']";
+      const problemArrowSelector = "[data-kai-problem-card-wrap='arrow']";
+      const problemUnleashedSelector = "[data-kai-problem-card-wrap='unleashed']";
+      const problemFootnoteSelector = "[data-kai-problem-footnote]";
+
+      gsap.set(problemIntroSelector, { autoAlpha: 0, y: 34 });
+      gsap.set(problemIdleSelector, { autoAlpha: 0, y: 40 });
+      gsap.set(problemArrowSelector, { autoAlpha: 0, y: 24 });
+      gsap.set(problemUnleashedSelector, { autoAlpha: 0, y: 46 });
+      gsap.set(problemFootnoteSelector, { autoAlpha: 0, y: 18 });
+
+      const problemTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+      problemTimeline
+        .to(problemIntroSelector, { autoAlpha: 1, y: 0, duration: 0.62 }, 0)
+        .to(problemIdleSelector, { autoAlpha: 1, y: 0, duration: 0.68 }, 0.14)
+        .to(problemArrowSelector, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.28)
+        .to(problemUnleashedSelector, { autoAlpha: 1, y: 0, duration: 0.74 }, 0.34)
+        .to(problemFootnoteSelector, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.52);
+
+      registerController({
+        ref: problemRef,
+        start: revealStarts.problem,
+        timeline: problemTimeline,
+        targets: collectTargets(
+          problemIntroSelector,
+          problemIdleSelector,
+          problemArrowSelector,
+          problemUnleashedSelector,
+          problemFootnoteSelector
+        ),
+      });
+
+      const strategyIntroSelector = "[data-kai-strategy-intro]";
+      const strategyVoiceSelector = "[data-kai-voice-panel-wrap]";
+      const strategyBarsSelector = "[data-kai-voice-bar]";
+      const strategyStepSelector = "[data-kai-strategy-step-wrap]";
+      const strategyNoteSelector = "[data-kai-strategy-note]";
+      const strategyOrbSelector = "[data-kai-voice-orb='true']";
+
+      gsap.set(strategyIntroSelector, { autoAlpha: 0, y: 32 });
+      gsap.set(strategyVoiceSelector, { autoAlpha: 0, y: 36 });
+      gsap.set(strategyBarsSelector, { scaleY: 0.45, autoAlpha: 0.3, transformOrigin: "bottom" });
+      gsap.set(strategyStepSelector, { autoAlpha: 0, y: 28 });
+      gsap.set(strategyNoteSelector, { autoAlpha: 0, y: 16 });
+
+      const strategyTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+      strategyTimeline
+        .to(strategyIntroSelector, { autoAlpha: 1, y: 0, duration: 0.62 }, 0)
+        .to(strategyVoiceSelector, { autoAlpha: 1, y: 0, duration: 0.72 }, 0.12)
+        .to(
+          strategyBarsSelector,
+          { scaleY: 1, autoAlpha: 1, duration: 0.42, stagger: 0.04 },
+          0.32
+        )
+        .to(
+          strategyStepSelector,
+          { autoAlpha: 1, y: 0, duration: 0.52, stagger: 0.1 },
+          0.26
+        )
+        .to(strategyNoteSelector, { autoAlpha: 1, y: 0, duration: 0.38 }, 0.52);
+
+      const voiceOrbPulse = gsap.to(strategyOrbSelector, {
+        scale: isMobileViewport ? 1.04 : 1.06,
+        opacity: 0.3,
+        duration: 1.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        paused: true,
+      });
+
+      registerController({
+        ref: strategyRef,
+        start: revealStarts.strategy,
+        timeline: strategyTimeline,
+        targets: collectTargets(
+          strategyIntroSelector,
+          strategyVoiceSelector,
+          strategyBarsSelector,
+          strategyStepSelector,
+          strategyNoteSelector
+        ),
+        onEnter: () => voiceOrbPulse.play(),
+        onEnterBack: () => voiceOrbPulse.play(),
+        onLeave: () => voiceOrbPulse.pause(),
+        onLeaveBack: () => voiceOrbPulse.pause(),
+      });
+
+      const executionGlowSelector = "[data-kai-execution-glow]";
+      const executionIntroSelector = "[data-kai-execution-intro]";
+      const executionPortfolioSelector = "[data-kai-execution-card-wrap='portfolio']";
+      const executionRowSelector = "[data-kai-portfolio-row-wrap]";
+      const executionApprovalSelector = "[data-kai-execution-card-wrap='approval']";
+      const executionStatusSelector = "[data-kai-execution-status]";
+
+      gsap.set(executionGlowSelector, { autoAlpha: 0, y: 30 });
+      gsap.set(executionIntroSelector, { autoAlpha: 0, y: 34 });
+      gsap.set(executionPortfolioSelector, { autoAlpha: 0, y: 40 });
+      gsap.set(executionRowSelector, { autoAlpha: 0, y: 22 });
+      gsap.set(executionApprovalSelector, { autoAlpha: 0, y: 42 });
+      gsap.set(executionStatusSelector, { autoAlpha: 0, y: 16 });
+
+      const executionTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+      executionTimeline
+        .to(executionGlowSelector, { autoAlpha: 0.78, y: 0, duration: 0.82 }, 0)
+        .to(executionIntroSelector, { autoAlpha: 1, y: 0, duration: 0.62 }, 0.04)
+        .to(executionPortfolioSelector, { autoAlpha: 1, y: 0, duration: 0.72 }, 0.14)
+        .to(
+          executionRowSelector,
+          { autoAlpha: 1, y: 0, duration: 0.44, stagger: 0.08 },
+          0.3
+        )
+        .to(executionApprovalSelector, { autoAlpha: 1, y: 0, duration: 0.68 }, 0.24)
+        .to(executionStatusSelector, { autoAlpha: 1, y: 0, duration: 0.38 }, 0.54);
+
+      registerController({
+        ref: executionRef,
+        start: revealStarts.execution,
+        timeline: executionTimeline,
+        targets: collectTargets(
+          executionGlowSelector,
+          executionIntroSelector,
+          executionPortfolioSelector,
+          executionRowSelector,
+          executionApprovalSelector,
+          executionStatusSelector
+        ),
+      });
+
+      const governanceIntroSelector = "[data-kai-governance-intro]";
+      const governanceCardSelector = "[data-kai-governance-card-wrap]";
+
+      gsap.set(governanceIntroSelector, { autoAlpha: 0, y: 28 });
+      gsap.set(governanceCardSelector, { autoAlpha: 0, y: 22 });
+
+      const governanceTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+      governanceTimeline
+        .to(governanceIntroSelector, { autoAlpha: 1, y: 0, duration: 0.52 }, 0)
+        .to(governanceCardSelector, { autoAlpha: 1, y: 0, duration: 0.44, stagger: 0.06 }, 0.12);
+
+      registerController({
+        ref: governanceRef,
+        start: revealStarts.governance,
+        timeline: governanceTimeline,
+        targets: collectTargets(governanceIntroSelector, governanceCardSelector),
+      });
+
+      const finalGlowSelector = "[data-kai-final-glow]";
+      const finalCopySelector = "[data-kai-final-copy]";
+      const finalActionsSelector = "[data-kai-final-actions-wrap]";
+
+      gsap.set(finalGlowSelector, { autoAlpha: 0, y: 26 });
+      gsap.set(finalCopySelector, { autoAlpha: 0, y: 28 });
+      gsap.set(finalActionsSelector, { autoAlpha: 0, y: 18 });
+
+      const finalTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+      finalTimeline
+        .to(finalGlowSelector, { autoAlpha: 0.72, y: 0, duration: 0.72 }, 0)
+        .to(finalCopySelector, { autoAlpha: 1, y: 0, duration: 0.56 }, 0.08)
+        .to(finalActionsSelector, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.26);
+
+      registerController({
+        ref: finalRef,
+        start: revealStarts.final,
+        timeline: finalTimeline,
+        targets: collectTargets(finalGlowSelector, finalCopySelector, finalActionsSelector),
+      });
+
+      const viewportHeight = window.innerHeight;
+      const completedThreshold = isMobileViewport ? 0.9 : 0.82;
+      sectionControllers.forEach(({ element, timeline, targets, onEnter, onLeave }) => {
+        const rect = element.getBoundingClientRect();
+        const isVisible = rect.top < viewportHeight && rect.bottom > 0;
+        const shouldBeComplete = rect.top <= viewportHeight * completedThreshold;
+
+        if (isVisible || shouldBeComplete) {
+          timeline.progress(1).pause();
+        } else {
+          timeline.progress(0).pause();
+        }
+
+        setActiveMotionTargets(targets, false);
+
+        if (isVisible) {
+          onEnter?.();
+        } else {
+          onLeave?.();
+        }
+      });
+
+      ScrollTrigger.refresh();
+    }, pageRef);
+
+    return () => ctx.revert();
+  }, [reduceMotion]);
 
   return (
-    <div className={styles.page}>
-      <section ref={heroRef} className={styles.heroSection} data-kai-section="hero">
-        <motion.div
-          className={styles.heroMesh}
-          aria-hidden="true"
-          style={reduceMotion ? undefined : { y: heroMeshY }}
-        />
-        <motion.div
-          className={styles.heroGlowPrimary}
-          aria-hidden="true"
-          style={reduceMotion ? undefined : { y: heroGlowOneY, scale: heroGlowOneScale }}
-        />
-        <motion.div
-          className={styles.heroGlowSecondary}
-          aria-hidden="true"
-          style={reduceMotion ? undefined : { y: heroGlowTwoY, scale: heroGlowTwoScale }}
-        />
+    <div ref={pageRef} className={styles.page}>
+      <section ref={heroRef} className={`${styles.heroSection} ${styles.revisedHeroSection}`} data-kai-section="hero">
+        <div className={styles.heroMesh} data-kai-hero-glow aria-hidden="true" />
+        <div className={styles.heroGlowPrimary} data-kai-hero-glow aria-hidden="true" />
+        <div className={styles.heroGlowSecondary} data-kai-hero-glow aria-hidden="true" />
 
         <div className={styles.sectionInnerWide}>
-          <motion.div className={styles.heroStack} data-kai-hero-copy="true" {...reveal(0.04, 24)}>
-            <p className={styles.eyebrow}>Investing, simplified</p>
-            <h1 className={styles.heroTitle}>
-              Your private AI banker.
-              <br />
-              <span className={styles.accentWord}>Now in your pocket.</span>
-            </h1>
-            <p className={styles.heroLead}>
-              A personal AI agent that understands your money and shows what to do next and why,
-              with privacy and control built into every step.
-            </p>
+          <div className={styles.kaiHeroLayout}>
+            <div className={styles.kaiHeroCopy}>
+              <p className={styles.eyebrow} data-kai-hero-kicker>
+                Investing, simplified
+              </p>
+              <h1 className={styles.heroTitle}>
+                <span className={styles.heroTitleLine} data-kai-hero-line>
+                  Kai.
+                </span>
+                <span className={styles.heroTitleLine} data-kai-hero-line>
+                  Your personal
+                </span>
+                <span className={styles.heroTitleLine} data-kai-hero-line>
+                  financial agent.
+                </span>
+              </h1>
+              <p className={styles.heroLead} data-kai-hero-copy>
+                Kai understands your money, helps you invest better, and grows your wealth,
+                <span className={styles.accentWord}> with your consent.</span>
+              </p>
 
-            <div className={styles.heroActions}>
-              <AppStoreCta href={KAI_APP_URL} heroSized />
-              <ExternalCta
-                href={KAI_WEB_URL}
-                variant="secondary"
-                heroSized
-              >
-                Use Kai on the web
-              </ExternalCta>
+              <div className={styles.heroActionMotionWrap} data-kai-hero-actions-wrap>
+                <div className={styles.heroActionPanel} data-kai-hero-actions>
+                  <p className={styles.heroActionEyebrow}>Start with Kai</p>
+                  <div className={styles.heroActions}>
+                    <AppStoreCta href={KAI_APP_URL} heroSized />
+                    <ExternalCta href={KAI_WEB_URL} variant="secondary" heroSized>
+                      Use Kai on the web
+                    </ExternalCta>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className={styles.heroTrustRow}>
-              <span>Private by design</span>
-              <span>Biometric approval</span>
-              <span>Explainable decisions</span>
+            <div className={styles.heroTrustMotionWrap} data-kai-hero-trust-wrap>
+              <div className={styles.heroTrustStack} data-kai-hero-item>
+                <p className={styles.heroTrustEyebrow}>What you unlock</p>
+                {heroTrustPoints.map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <div
+                      key={item.label}
+                      className={styles.heroTrustItemMotionWrap}
+                      data-kai-hero-trust-item-wrap
+                    >
+                      <div className={styles.heroTrustItem} data-kai-hero-trust-item>
+                        <span className={styles.heroTrustItemIcon}>
+                          <Icon size={18} strokeWidth={2} />
+                        </span>
+                        <span>{item.label}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                <p className={styles.heroConsentNote} data-kai-hero-consent>
+                  <Info size={15} strokeWidth={2} />
+                  Nothing executes without your explicit approval.
+                </p>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      <section ref={discoveryRef} className={styles.discoverySection} data-kai-section="discovery">
-        <div className={styles.sectionInner}>
-          <div className={styles.discoveryLayout} data-kai-discovery-stage="true">
-            <motion.div
-              className={`${styles.sectionCopy} ${styles.discoveryCopy}`}
-              {...reveal(0.04, 26)}
-            >
-              <p className={styles.eyebrow}>Discovery</p>
-              <h2 className={`${styles.sectionTitle} ${styles.discoveryTitle}`}>
-                Your capital,
-                <br />
-                <span className={`${styles.accentWord} ${styles.discoveryAccent}`}>unleashed.</span>
-              </h2>
-              <p className={styles.sectionLead}>
-                Kai securely scans your accounts to identify idle cash instantly and turns
-                scattered balance context into one readable private view.
-              </p>
-
-              <div className={styles.accountStack}>
-                {discoveryAccounts.map((item, index) => (
-                  <motion.article
-                    key={item.label}
-                    className={`${styles.accountCard} ${
-                      item.tone === "primary"
-                        ? styles.accountCardPrimary
-                        : styles.accountCardSecondary
-                    }`}
-                    {...reveal(index * 0.06 + 0.12, 18)}
-                  >
-                    <div className={styles.accountIcon}>{item.icon}</div>
-                    <div>
-                      <p>{item.label}</p>
-                      <strong>{item.detail}</strong>
-                    </div>
-                  </motion.article>
-                ))}
+      <section
+        ref={discoveryRef}
+        className={styles.discoverySection}
+        data-kai-section="discovery"
+      >
+        <div className={styles.discoverySectionGlow} data-kai-discovery-glow aria-hidden="true" />
+        <div className={styles.sectionInnerWide}>
+          <div className={styles.visibilityGrid}>
+            <div className={styles.visibilityCopyColumn}>
+              <div className={styles.visibilityIntro} data-kai-discovery-intro>
+                <p className={styles.eyebrow}>Visibility</p>
+                <h2 className={styles.sectionTitle}>
+                  Total clarity,
+                  <br />
+                  <span className={styles.accentWord}>instantly.</span>
+                </h2>
+                <p className={styles.sectionLead}>
+                  Kai securely scans your financial universe to reveal every dollar that could be
+                  working harder for you.
+                </p>
               </div>
-            </motion.div>
 
-            <motion.div
-              className={styles.discoveryUnlockPanel}
-              style={reduceMotion ? undefined : { y: discoveryPanelY }}
-              {...reveal(0.12, 24)}
-            >
-              <div className={styles.discoveryPanelTop}>
-                <div className={styles.metaInline}>
+              <div className={styles.visibilitySignalStack}>
+                {visibilityCards.map((card) => {
+                  const Icon = card.icon;
+
+                  return (
+                    <div
+                      key={card.title}
+                      className={styles.visibilitySignalMotionItem}
+                      data-kai-visibility-card-wrap
+                    >
+                      <article className={styles.visibilitySignalCard} data-kai-visibility-card>
+                        <span
+                          className={`${styles.visibilitySignalIcon} ${
+                            card.tone === "indigo" ? styles.visibilitySignalIconIndigo : ""
+                          }`}
+                        >
+                          <Icon size={24} strokeWidth={2} />
+                        </span>
+                        <div className={styles.visibilitySignalBody}>
+                          <p>{card.eyebrow}</p>
+                          <strong className={styles.visibilitySignalLine}>
+                            <span className={styles.visibilitySignalTitle}>{card.title}</span>
+                            <span className={styles.visibilitySignalSeparator}>&bull;</span>
+                            <span className={styles.visibilitySignalAmount}>
+                              {card.detail}
+                              {card.detailMuted ? (
+                                <span className={styles.visibilitySignalMuted}>{card.detailMuted}</span>
+                              ) : null}
+                            </span>
+                          </strong>
+                        </div>
+                      </article>
+                    </div>
+                  );
+                })}
+
+                <div className={styles.visibilityActionPill} data-kai-visibility-pill>
                   <span className={styles.liveDot} />
-                  <p>Unified portfolio vision</p>
+                  <span>Optimal deployment path ready.</span>
                 </div>
-                <BadgeDollarSign size={18} strokeWidth={2.1} />
               </div>
+            </div>
 
-              <div className={styles.discoveryAmount}>
-                <strong>$12,419</strong>
-                <span>.52</span>
-              </div>
+            <div className={styles.visibilityStageColumn}>
+              <div className={styles.visibilityPanelMotionWrap} data-kai-visibility-panel-wrap>
+                <div
+                  className={styles.visibilityPanelFloat}
+                  data-kai-visibility-panel="true"
+                  data-kai-visibility-column="panel"
+                >
+                  <div className={styles.discoveryPanelTop}>
+                    <div className={styles.metaInline}>
+                      <span className={styles.liveDot} />
+                      <p>Unified portfolio vision</p>
+                    </div>
+                    <BadgeDollarSign size={18} strokeWidth={2.1} />
+                  </div>
 
-              <div className={styles.chartBars} aria-hidden="true">
-                <motion.span
-                  className={styles.chartBar}
-                  style={reduceMotion ? { scaleY: 1 } : { scaleY: discoveryBarOne }}
-                />
-                <motion.span
-                  className={styles.chartBar}
-                  style={reduceMotion ? { scaleY: 1 } : { scaleY: discoveryBarTwo }}
-                />
-                <motion.span
-                  className={`${styles.chartBar} ${styles.chartBarPrimary}`}
-                  style={reduceMotion ? { scaleY: 1 } : { scaleY: discoveryBarThree }}
-                />
-                <motion.span
-                  className={styles.chartBar}
-                  style={reduceMotion ? { scaleY: 1 } : { scaleY: discoveryBarFour }}
-                />
-                <motion.span
-                  className={styles.chartBar}
-                  style={reduceMotion ? { scaleY: 1 } : { scaleY: discoveryBarFive }}
-                />
-              </div>
+                  <div className={styles.discoveryAmount}>
+                    <strong>$12,419</strong>
+                    <span>.52</span>
+                  </div>
 
-              <div className={styles.discoveryActionCard}>
-                <div>
-                  <p>Potential to unlock</p>
-                  <strong>Optimal liquidity detected in 2 accounts</strong>
+                  <div className={styles.chartBars} aria-hidden="true">
+                    <span className={styles.chartBar} data-kai-visibility-bar />
+                    <span className={styles.chartBar} data-kai-visibility-bar />
+                    <span className={`${styles.chartBar} ${styles.chartBarPrimary}`} data-kai-visibility-bar />
+                    <span className={styles.chartBar} data-kai-visibility-bar />
+                    <span className={styles.chartBar} data-kai-visibility-bar />
+                  </div>
+
+                  <div className={styles.discoveryActionCard} data-kai-panel-action>
+                    <div>
+                      <p>Kai unified strategy</p>
+                      <strong>Optimal liquidity detected in 2 accounts</strong>
+                    </div>
+                    <ArrowRight size={18} strokeWidth={2.1} />
+                  </div>
                 </div>
-                <ArrowRight size={18} strokeWidth={2.1} />
               </div>
-            </motion.div>
 
-            <motion.div
-              ref={discoveryStageRef}
-              className={styles.discoveryDeviceStage}
-              data-kai-discovery-visual="true"
-              style={reduceMotion ? undefined : { y: discoverySceneY }}
-              {...reveal(0.18, 30)}
-            >
-              <div className={styles.discoveryDeviceAura} aria-hidden="true" />
-              <KaiDeviceStage
-                className={styles.discoveryImageWrap}
-                progress={discoveryDeviceProgress}
-                reduceMotion={reduceMotion}
-                posterSrc="/Images/kai/discovery-screen.png"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section ref={problemRef} className={styles.problemSection} data-kai-section="problem">
-        <div className={styles.sectionInner}>
-          <motion.div className={styles.problemIntro} {...reveal(0.06, 24)}>
-            <p className={`${styles.eyebrow} ${styles.eyebrowDark}`}>The problem</p>
-            <h2 className={`${styles.sectionTitle} ${styles.sectionTitleDark}`}>
-              Your money is
-              <br />
-              <span className={styles.accentWord}>scattered.</span>
-            </h2>
-            <p className={styles.sectionLeadDark}>
-              Across accounts. Across apps. Sitting idle and not working for you. The modern
-              financial landscape is fragmented, and Kai starts by making that fragmentation
-              obvious.
-            </p>
-          </motion.div>
-
-          <div className={styles.scatterStage}>
-            {scatteredAccounts.map((item, index) => {
-              const yStyles = [
-                { y: problemCardOneY, rotate: problemCardOneRotate },
-                { y: problemCardTwoY, rotate: problemCardTwoRotate },
-                { y: problemCardThreeY, rotate: problemCardThreeRotate },
-              ][index];
-
-              return (
-                <motion.article
-                  key={item.label}
-                  className={`${styles.scatterCard} ${styles[`scatterCard${index + 1}`]}`}
-                  style={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          ...yStyles,
-                          backgroundColor: problemCardBg,
-                          borderColor: problemCardBorder,
-                          boxShadow: problemCardShadow,
-                          "--scatter-kicker": problemKickerColor,
-                          "--scatter-body": problemBodyColor,
-                          "--scatter-meta": problemMetaColor,
-                        }
-                  }
+              <div className={styles.discoveryDeviceMotionWrap} data-kai-visibility-device-wrap>
+                <div
+                  ref={discoveryStageRef}
+                  className={styles.discoveryDeviceStage}
+                  data-kai-discovery-visual="true"
+                  data-kai-visibility-device
                 >
-                  <p>{item.label}</p>
-                  <strong>{item.detail}</strong>
-                  <span>{item.source}</span>
-                </motion.article>
-              );
-            })}
-
-            <motion.article
-              className={styles.scatterCenterCard}
-              style={
-                reduceMotion
-                  ? undefined
-                  : {
-                      y: problemCenterY,
-                      backgroundColor: problemCardBg,
-                      borderColor: problemCardBorder,
-                      boxShadow: problemCardShadow,
-                      "--scatter-kicker": problemKickerColor,
-                      "--scatter-body": problemBodyColor,
-                      "--scatter-meta": problemMetaColor,
-                    }
-              }
-            >
-              <p>Combined idle</p>
-              <strong>$12,419.52</strong>
-              <span>Ready to invest with Kai</span>
-            </motion.article>
-          </div>
-        </div>
-      </section>
-
-      <section ref={voiceRef} className={styles.voiceSection} data-kai-section="voice">
-        <div className={styles.sectionInner}>
-          <div className={styles.twoColumnLayout}>
-            <motion.div className={styles.sectionCopy} {...reveal(0.06, 24)}>
-              <p className={styles.eyebrow}>Zero typing</p>
-              <h2 className={styles.sectionTitle}>
-                Just
-                <br />
-                <span className={styles.accentWord}>say it.</span>
-              </h2>
-              <p className={styles.sectionLead}>
-                Talk to Kai to consolidate your view, understand what matters, and align capital in
-                one motion-rich, private flow.
-              </p>
-              <div className={styles.inlineSecurityTag}>
-                <ShieldCheck size={16} strokeWidth={2.1} />
-                <span>On-device privacy secured</span>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className={styles.voicePanel}
-              style={reduceMotion ? undefined : { y: voicePanelY }}
-              {...reveal(0.16, 28)}
-            >
-              <motion.div
-                className={styles.voiceOrb}
-                aria-hidden="true"
-                style={
-                  reduceMotion
-                    ? undefined
-                    : { scale: voiceOrbScale, opacity: voiceOrbOpacity }
-                }
-              />
-              <p className={styles.voiceTag}>Voice intelligence</p>
-              <blockquote className={styles.voiceQuote}>
-                “Kai, where should I invest my $1000?”
-              </blockquote>
-              <div className={styles.voiceBars} aria-hidden="true">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className={styles.voiceMic}>
-                <Mic size={38} strokeWidth={2.1} />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section ref={strategyRef} className={styles.strategySection} data-kai-section="strategy">
-        <div className={styles.sectionInner}>
-          <motion.div className={styles.sectionHeader} {...reveal(0.06, 24)}>
-            <p className={styles.eyebrow}>Strategy</p>
-            <h2 className={styles.sectionTitle}>
-              Where to
-              <br />
-              <span className={styles.accentWord}>invest.</span>
-            </h2>
-            <p className={styles.sectionLead}>
-              Kai proposes a targeted strategy based on your profile: high-conviction,
-              mathematically sound, and explained in plain English.
-            </p>
-          </motion.div>
-
-          <div className={styles.strategyGrid}>
-            <div className={styles.allocationGrid}>
-              {allocationCards.map((card, index) => (
-                <motion.article
-                  key={card.symbol}
-                  className={styles.allocationCard}
-                  style={reduceMotion ? undefined : { y: allocationCardY }}
-                  {...reveal(index * 0.06 + 0.1, 18)}
-                >
-                  <div className={styles.allocationHeader}>
-                    <div className={`${styles.logoBadge} ${styles[`logoBadge${card.accent}`]}`}>
-                      {card.symbol.slice(0, 1)}
-                    </div>
-                    <div className={styles.allocationMeta}>
-                      <strong>{card.allocation}</strong>
-                      <span>Allocation</span>
-                    </div>
-                  </div>
-                  <div className={styles.allocationCompany}>
-                    <h3>{card.amount}</h3>
-                    <p>
-                      {card.symbol} / {card.company}
-                    </p>
-                  </div>
-                  <div className={styles.allocationMeter}>
-                    <motion.i
-                      className={styles.allocationBar}
-                      initial={reduceMotion ? false : { scaleX: 0.35 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: false, amount: 0.45 }}
-                      transition={
-                        reduceMotion
-                          ? { duration: 0.01 }
-                          : { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }
-                      }
-                      style={{ width: card.meter }}
+                  <div className={styles.discoveryDeviceAura} aria-hidden="true" />
+                  {discoveryStageReady ? (
+                    <KaiDeviceStage
+                      className={styles.discoveryImageWrap}
+                      progress={discoveryDeviceProgress}
+                      reduceMotion={reduceMotion}
+                      posterSrc="/Images/kai/discovery-screen.png"
                     />
+                  ) : (
+                    <div className={styles.discoveryPosterShell} aria-hidden="true">
+                      <img
+                        src="/Images/kai/discovery-screen.png"
+                        alt=""
+                        className={styles.discoveryPosterImage}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        ref={problemRef}
+        className={styles.problemSection}
+        data-kai-section="problem"
+      >
+        <div className={styles.sectionInner}>
+          <div className={styles.problemFrame}>
+            <div className={styles.problemIntro} data-kai-problem-intro>
+              <p className={`${styles.eyebrow} ${styles.eyebrowDark}`}>The problem</p>
+              <h2 className={`${styles.sectionTitle} ${styles.sectionTitleDark}`}>
+                Fragmented money,
+                <br />
+                hidden opportunity.
+              </h2>
+              <p className={styles.sectionLeadDark}>
+                Idle cash hidden across accounts is not just sitting still. It is losing ground.
+                Kai reclaims and transforms it into profit.
+              </p>
+            </div>
+
+            <div className={styles.problemShowcase}>
+              <div className={styles.problemMotionItem} data-kai-problem-card-wrap="idle">
+                <article
+                  className={`${styles.problemGlassCard} ${styles.problemGlassCardDark}`}
+                  data-kai-problem-card="idle"
+                >
+                  <div className={styles.problemCardHeader}>
+                    <span className={styles.problemEyebrow}>Idle capital</span>
+                    <span className={`${styles.problemBadge} ${styles.problemBadgeCoral}`}>Wasted</span>
                   </div>
-                  <p className={styles.allocationNote}>{card.note}</p>
-                </motion.article>
+
+                  <div className={styles.problemList}>
+                    {fragmentedRows.map((row) => (
+                      <div
+                        key={row.label}
+                        className={`${styles.problemListRow} ${
+                          row.tone === "soft" ? styles.problemListRowSoft : ""
+                        }`}
+                      >
+                        <span>{row.label}</span>
+                        <strong>{row.amount}</strong>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className={styles.problemTotalRow}>
+                    <p>Fragmented across 4 platforms</p>
+                    <strong>$5,412.45</strong>
+                  </div>
+                </article>
+              </div>
+
+              <div className={styles.problemArrowWrap} data-kai-problem-card-wrap="arrow">
+                <div className={styles.problemArrow} data-kai-problem-card="arrow">
+                  <ChevronsDown size={34} strokeWidth={1.8} />
+                </div>
+              </div>
+
+              <div className={styles.problemMotionItem} data-kai-problem-card-wrap="unleashed">
+                <article
+                  className={`${styles.problemGlassCard} ${styles.problemGlassCardVibrant}`}
+                  data-kai-problem-card="unleashed"
+                >
+                  <div className={styles.problemCardHeader}>
+                    <span className={styles.problemEyebrow}>Kai unified strategy</span>
+                    <span className={`${styles.problemBadge} ${styles.problemBadgeGreen}`}>Unleashed</span>
+                  </div>
+
+                  <div className={styles.problemUnifiedBody}>
+                    <strong>$5,412.45</strong>
+                    <p>Working for you now</p>
+                  </div>
+
+                  <div className={styles.problemMetricsGrid}>
+                    <div className={styles.problemMetric}>
+                      <span>Yield gain</span>
+                      <strong>+4.8%</strong>
+                    </div>
+                    <div className={styles.problemMetric}>
+                      <span>Active time</span>
+                      <strong>24/7</strong>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <p className={styles.problemFootnote} data-kai-problem-footnote>
+              <Clock3 size={15} strokeWidth={2} />
+              Saving you 4.5 hours of financial friction every week.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        ref={strategyRef}
+        className={styles.strategySection}
+        data-kai-section="strategy"
+      >
+        <div className={styles.sectionInner}>
+          <div className={styles.sectionHeader} data-kai-strategy-intro>
+            <p className={styles.eyebrow}>Strategy</p>
+            <h2 className={styles.sectionTitle}>How Kai works quietly for you.</h2>
+            <p className={styles.sectionLead}>
+              Kai handles the complexity of wealth management so you do not have to. Experience
+              seamless, human-grade precision on every move.
+            </p>
+          </div>
+
+          <div className={styles.strategyTopRow}>
+            <div className={styles.strategyVoiceMotionWrap} data-kai-voice-panel-wrap>
+              <article className={styles.voiceConsoleCard} data-kai-voice-panel="true">
+                <div className={styles.voiceConsoleOrb} data-kai-voice-orb="true" aria-hidden="true" />
+                <p className={styles.voiceTag}>Voice intelligence</p>
+                <blockquote className={styles.voiceQuote}>“Kai, where should I invest my $1,000?”</blockquote>
+                <div className={styles.voiceBars} aria-hidden="true">
+                  {[0, 1, 2, 3, 4].map((bar) => (
+                    <span key={bar} data-kai-voice-bar />
+                  ))}
+                </div>
+                <div className={styles.voiceMic}>
+                  <Mic size={34} strokeWidth={2.1} />
+                </div>
+              </article>
+            </div>
+
+            <div className={styles.strategyStepsStack}>
+              {strategySteps.map((step) => (
+                <div
+                  key={step.number}
+                  className={styles.strategyStepMotionWrap}
+                  data-kai-strategy-step-wrap
+                >
+                  <article className={styles.strategyStepCard} data-kai-strategy-step>
+                    <div className={styles.strategyStepHeader}>
+                      <span className={styles.strategyStepNumber}>{step.number}</span>
+                      <h3>{step.title}</h3>
+                    </div>
+                    <p>{step.body}</p>
+                  </article>
+                </div>
               ))}
             </div>
+          </div>
 
-            <motion.div className={styles.allocationWheelCard} {...reveal(0.18, 24)}>
-              <motion.div
-                className={styles.allocationWheel}
-                style={reduceMotion ? undefined : { rotate: wheelRotate }}
-              >
-                <div className={styles.allocationWheelInner}>
-                  <strong>$1,000</strong>
-                  <span>Allocation</span>
-                </div>
-              </motion.div>
-              <p className={styles.allocationWheelCopy}>
-                Kai keeps the decision visual and legible, so sizing and conviction are obvious
-                before you commit capital.
-              </p>
-            </motion.div>
+          <div className={styles.strategyNoteStack} data-kai-strategy-note>
+            {strategyNotes.map((note) => {
+              const Icon = note.icon;
+
+              return (
+                <p
+                  key={note.body}
+                  className={`${styles.strategyNoteRow} ${
+                    note.tone === "positive" ? styles.strategyNoteRowPositive : ""
+                  }`}
+                >
+                  <Icon size={15} strokeWidth={2} />
+                  <span>{note.body}</span>
+                </p>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className={styles.confirmationSection} data-kai-section="confirmation">
+      <section
+        ref={executionRef}
+        className={styles.executionSection}
+        data-kai-section="execution"
+      >
+        <div className={styles.executionSectionGlow} data-kai-execution-glow aria-hidden="true" />
         <div className={styles.sectionInner}>
-          <div className={styles.twoColumnLayout}>
-            <motion.div className={styles.sectionCopy} {...reveal(0.05, 24)}>
-              <p className={styles.eyebrow}>Confirmation</p>
-              <h2 className={styles.sectionTitle}>
-                One tap.
-                <br />
-                <span className={styles.accentWord}>Absolute control.</span>
-              </h2>
-              <p className={styles.sectionLead}>
-                Review your allocation and confirm when ready. Your money never moves without your
-                biometric approval.
-              </p>
-
-              <div className={styles.flowList}>
-                {flowCards.map((card) => (
-                  <article key={card.title} className={styles.flowCard}>
-                    <p>{card.tag}</p>
-                    <h3>{card.title}</h3>
-                    <span>{card.copy}</span>
-                  </article>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.article className={styles.approvalCard} {...reveal(0.15, 28)}>
-              <div className={styles.approvalIconWrap}>
-                <Fingerprint size={54} strokeWidth={1.8} />
-              </div>
-              <div className={styles.approvalCopy}>
-                <p>On-device privacy core</p>
-                <h3>Biometric approval</h3>
-                <span>The future is private, intelligent, and still entirely yours.</span>
-              </div>
-            </motion.article>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.executionSection} data-kai-section="execution">
-        <div className={styles.sectionInner}>
-          <motion.div className={styles.sectionHeader} {...reveal(0.06, 24)}>
+          <div className={styles.sectionHeader} data-kai-execution-intro>
             <p className={styles.eyebrow}>Execution</p>
             <h2 className={styles.sectionTitle}>
-              Money,
+              Invest with
               <br />
-              <span className={styles.accentWord}>in motion.</span>
+              <span className={styles.accentWord}>clarity.</span>
             </h2>
             <p className={styles.sectionLead}>
-              Your strategy becomes active without clutter. The result feels calm, clear, and easy
-              to audit after the fact.
+              Kai integrates your portfolio view into a single offensive stance with one-tap
+              execution grounded in triple-tier validation.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.article className={styles.outcomeCard} {...reveal(0.14, 26)}>
-            <div className={styles.outcomeCheck}>
-              <CheckCircle2 size={44} strokeWidth={2.1} />
+          <div className={styles.executionGridNew}>
+            <div className={styles.executionCardMotionWrap} data-kai-execution-card-wrap="portfolio">
+              <article className={styles.portfolioCard} data-kai-execution-card="portfolio">
+                <p className={styles.portfolioLabel}>Proposed Portfolio Realignment</p>
+                <div className={styles.portfolioRows}>
+                  {allocationCards.map((card) => (
+                    <div
+                      key={card.symbol}
+                      className={styles.portfolioRowMotionWrap}
+                      data-kai-portfolio-row-wrap
+                    >
+                      <div className={styles.portfolioRow} data-kai-portfolio-row>
+                        <div className={styles.portfolioCompany}>
+                          <span className={styles.companyLogoMark}>
+                            <CompanyLogo name={card.logo} />
+                          </span>
+                          <div>
+                            <h3>{card.company}</h3>
+                            <p>{card.symbol}</p>
+                            <span className={styles.portfolioNote}>{card.note}</span>
+                          </div>
+                        </div>
+                        <div className={styles.portfolioAllocation}>
+                          <strong>{card.allocation}</strong>
+                          <span>{card.amount}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className={styles.portfolioMeta}>
+                  Expert strategies vetted by our optional fiduciary RIA committee.
+                </p>
+              </article>
             </div>
-            <h3>Portfolio synced</h3>
-            <div className={styles.outcomeMetrics}>
-              <div>
-                <span>Previous balance</span>
-                <strong>$124,190.00</strong>
-              </div>
-              <div className={styles.outcomeInvestment}>Investment: +$1,000.00</div>
-              <div>
-                <span>New total</span>
-                <strong>$125,190.00</strong>
-              </div>
+
+            <div className={styles.executionCardMotionWrap} data-kai-execution-card-wrap="approval">
+              <article className={styles.approvalExecutionCard} data-kai-execution-card="approval">
+                <div className={styles.approvalIconWrap}>
+                  <ScanFace size={52} strokeWidth={1.8} />
+                </div>
+                <div className={styles.approvalCopy}>
+                  <h3>Confirm Allocation</h3>
+                  <span>
+                    Verify with FaceID to securely execute the $1,000 strategy. Transactions are
+                    signed locally.
+                  </span>
+                </div>
+                <div className={styles.approvalStatus} data-kai-execution-status>
+                  <CheckCircle2 size={16} strokeWidth={2.1} />
+                  <span>Portfolio synced: execution complete in 11s.</span>
+                </div>
+              </article>
             </div>
-          </motion.article>
-        </div>
-      </section>
-
-      <section className={styles.methodSection} data-kai-section="method">
-        <div className={styles.sectionInner}>
-          <motion.div className={styles.sectionHeader} {...reveal(0.04, 24)}>
-            <p className={styles.eyebrow}>The method</p>
-            <h2 className={styles.sectionTitle}>
-              Simple,
-              <br />
-              <span className={styles.accentWord}>clear decisions.</span>
-            </h2>
-            <p className={styles.sectionLead}>
-              Kai looks at your money, finds the opportunity, and shows what to do and why without
-              turning the process into analysis paralysis.
-            </p>
-          </motion.div>
-
-          <div className={styles.methodGrid}>
-            {methodCards.map((card, index) => (
-              <motion.article
-                key={card.title}
-                className={styles.methodCard}
-                {...reveal(index * 0.06 + 0.1, 18)}
-              >
-                <h3>{card.title}</h3>
-                <p>{card.body}</p>
-              </motion.article>
-            ))}
           </div>
         </div>
       </section>
 
-      <section className={styles.privacySection} data-kai-section="privacy">
+      <section
+        ref={governanceRef}
+        className={styles.privacySection}
+        data-kai-section="privacy"
+      >
         <div className={styles.sectionInner}>
-          <motion.div className={styles.sectionHeader} {...reveal(0.06, 24)}>
-            <p className={styles.eyebrow}>Security</p>
-            <h2 className={styles.sectionTitle}>
-              Your privacy.
-              <br />
-              <span className={styles.accentWord}>Built on iron rules.</span>
-            </h2>
+          <div className={styles.sectionHeader} data-kai-governance-intro>
+            <p className={styles.eyebrow}>Governance</p>
+            <h2 className={styles.sectionTitle}>Trust, consent, and control.</h2>
             <p className={styles.sectionLead}>
-              Uncompromising protection keeps your financial data guarded by architectural rules
-              that preserve human control.
+              Your data never leaves your device without your explicit consent. We built Kai on the
+              Hushh Consent Protocol to ensure zero-knowledge privacy.
             </p>
-          </motion.div>
+          </div>
 
-          <div className={styles.securityGrid}>
-            {securityCards.map((card, index) => {
+          <div className={styles.governanceGridNew}>
+            {governanceCards.map((card) => {
               const Icon = card.icon;
 
               return (
-                <motion.article
+                <div
                   key={card.title}
-                  className={styles.securityCard}
-                  {...reveal(index * 0.05 + 0.1, 18)}
+                  className={styles.governanceCardMotionWrap}
+                  data-kai-governance-card-wrap
                 >
-                  <span className={styles.securityIcon}>
-                    <Icon size={22} strokeWidth={2} />
-                  </span>
-                  <h3>{card.title}</h3>
-                  <p>{card.body}</p>
-                </motion.article>
+                  <article className={styles.governanceCard} data-kai-governance-card>
+                    <span
+                      className={`${styles.governanceIconWrap} ${
+                        card.tone === "green"
+                          ? styles.governanceIconGreen
+                          : card.tone === "indigo"
+                            ? styles.governanceIconIndigo
+                            : card.tone === "ink"
+                              ? styles.governanceIconInk
+                              : ""
+                      }`}
+                    >
+                      <Icon size={20} strokeWidth={2} />
+                    </span>
+                    <div>
+                      <h3>{card.title}</h3>
+                      <p>{card.body}</p>
+                    </div>
+                  </article>
+                </div>
               );
             })}
           </div>
         </div>
       </section>
 
-      <section ref={finalRef} className={styles.finalSection} data-kai-section="final">
-        <motion.div
-          className={styles.finalGlow}
-          aria-hidden="true"
-          style={reduceMotion ? undefined : { y: finalGlowY, scale: finalGlowScale }}
-        />
+      <section
+        ref={finalRef}
+        className={styles.finalSection}
+        data-kai-section="final"
+      >
+        <div className={styles.finalGlow} data-kai-final-glow aria-hidden="true" />
         <div className={styles.sectionInnerWide}>
-          <motion.div className={styles.finalCopy} {...reveal(0.08, 24)}>
-            <p className={styles.eyebrow}>Next step</p>
+          <div className={styles.finalCopy} data-kai-final-copy>
+            <p className={styles.eyebrow}>
+              Next step
+            </p>
             <h2 className={styles.finalTitle}>
-              Own <span className={styles.accentWord}>your</span> future.
+              Own your <span className={styles.accentWord}>financial future.</span>
             </h2>
             <p className={styles.finalLead}>
-              Stop guessing. Start knowing. Bring private intelligence and calmer action to your
-              capital with Kai.
+              Stop letting your capital sit idle. Join the era of intelligent banking today.
             </p>
-            <div className={styles.heroActions}>
-              <AppStoreCta href={KAI_APP_URL} heroSized />
-              <ExternalCta href={KAI_WEB_URL} variant="secondary" heroSized>
-                Use Kai on the web
-              </ExternalCta>
+            <div className={styles.finalActionsMotionWrap} data-kai-final-actions-wrap>
+              <div className={styles.heroActions} data-kai-final-actions>
+                <AppStoreCta href={KAI_APP_URL} heroSized />
+                <ExternalCta href={KAI_WEB_URL} variant="secondary" heroSized>
+                  Use Kai on the web
+                </ExternalCta>
+              </div>
+              <p className={styles.finalConsentNote}>
+                Saving time. Making money. Always with your consent.
+              </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

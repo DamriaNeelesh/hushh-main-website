@@ -44,7 +44,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [onSearchOpen]);
 
-  const noHeaderPaths = ['/vivaConnect', '/viva-connect', '/viva-connect/qrPage', '/qrCodePage'];
+  const noHeaderPaths = ['/viva-connect', '/viva-connect/qrPage', '/qrCodePage'];
   const shouldShowHeader = !noHeaderPaths.includes(pathname);
 
   // Auth context
@@ -174,7 +174,7 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
       {
         name: "Hushh Voice",
         description: "Your private, consent-first AI copilot",
-        href: "/hushh-voice",
+        href: "/voice",
         icon: HushhVoice
       }]
 

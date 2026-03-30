@@ -15,8 +15,8 @@ export const metadata = {
     images: [siteMetadata.socialBanner],
   },
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
 }
 
@@ -25,5 +25,4 @@ export default function AgentsPage() {
     <A2AAgentClient />
   )
 }
-
 

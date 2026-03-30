@@ -85,7 +85,7 @@ const QrCodePage = () => {
       zIndex={"999999999"}
     >
       <Button
-        onClick={() => router.push("/vivaConnect")}
+        onClick={() => router.push("/viva-connect")}
         leftIcon={<ArrowBackIcon color={"#FFFFFF"} />}
         bg={"transparent"}
         color={"#FFFFFF"}

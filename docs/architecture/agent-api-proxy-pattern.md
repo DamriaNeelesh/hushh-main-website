@@ -21,4 +21,4 @@ Detached route families such as A2A, WhatsApp relay flows, Plaid tooling pages, 
 ## Related docs
 - [Developer sign-in and console flow](../features/agent-signin.md)
 - [API verification](../operations/api-verification.md)
-- [Vercel timeout handling](../operations/vercel-timeout.md)
+- [Runtime timeout handling](../operations/runtime-timeout.md)

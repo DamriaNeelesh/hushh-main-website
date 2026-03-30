@@ -6,7 +6,6 @@ const BLOG_CONTENT_DIR = path.join(process.cwd(), "content");
 const ROUTE_PAGE_PATTERN = /^page\.(js|jsx|ts|tsx)$/;
 const EXCLUDED_ROUTE_DIRS = new Set(["_components", "api", "__tests__", "developerApi"]);
 const HIDDEN_CHROME_ROUTES = new Set([
-  "/vivaConnect",
   "/viva-connect",
   "/viva-connect/qrPage",
   "/qrCodePage",

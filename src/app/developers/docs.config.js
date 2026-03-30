@@ -129,11 +129,6 @@ export const developerDocs = [
   },
 ];
 
-export const developerLegacyRedirects = {
-  "user-on-boarding": "on-boarding",
-  rootEndpoints: "agentic-apis",
-};
-
 export function getDeveloperDoc(slug) {
   return developerDocs.find((doc) => doc.slug === slug);
 }

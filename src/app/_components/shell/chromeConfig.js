@@ -1,7 +1,6 @@
 "use client";
 
 export const HIDE_CHROME_PATHS = [
-  "/vivaConnect",
   "/viva-connect",
   "/viva-connect/qrPage",
   "/qrCodePage",

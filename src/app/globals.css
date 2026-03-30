@@ -6,7 +6,6 @@
   --site-font-body: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --site-font-heading: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --site-font-mono: var(--font-geist-mono), "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
-  --site-font-italic: var(--font-playfair-italic), Georgia, "Times New Roman", serif;
   --figma-mobile-frame-width: 390px;
   --figma-mobile-gutter: 24px;
   --figma-primary-card-width: 342px;
@@ -67,7 +66,7 @@ samp {
 em,
 i,
 .site-italic {
-  font-family: var(--site-font-italic);
+  font-family: inherit;
   font-style: italic;
 }
 

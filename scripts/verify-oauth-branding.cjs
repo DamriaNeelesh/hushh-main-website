@@ -101,8 +101,13 @@ try {
 
   assertContains(
     nativeSitemap,
-    "collectStaticPageRoutes(APP_DIRECTORY)",
-    "Native sitemap should build routes from the App Router tree.",
+    "STATIC_INDEXABLE_ROUTES",
+    "Native sitemap should maintain an explicit canonical allowlist for indexable public routes.",
+  );
+  assertContains(
+    nativeSitemap,
+    "buildStaticEntries()",
+    "Native sitemap should compose static entries through the allowlist builder.",
   );
 
   assertContains(

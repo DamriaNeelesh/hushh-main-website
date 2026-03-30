@@ -23,11 +23,11 @@ export const metadata = {
     images: ['/Images/Logo/hushh-logo.png'],
   },
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
     googleBot: {
-      index: true,
-      follow: true,
+      index: false,
+      follow: false,
     },
   },
   alternates: {

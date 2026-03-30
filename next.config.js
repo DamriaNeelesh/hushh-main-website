@@ -126,73 +126,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/server-sitemap.xml",
-        destination: "/sitemap.xml",
-        permanent: true,
-      },
-      {
-        source: "/vivaConnect",
-        destination: "/viva-connect",
-        permanent: true,
-      },
-      {
-        source: '/hushh_id/:path*',
-        destination: '/hushh-id/:path*',
-        permanent: true,
-      },
-      {
         source: '/hushh-hackhathon',
         destination: '/pda/iithackathon',
-        permanent: true,
-      },
-      {
-        source: "/developerApi",
-        destination: "/developers",
-        permanent: true,
-      },
-      {
-        source: "/developerApi/rootEndpoints",
-        destination: "/developers/agentic-apis",
-        permanent: true,
-      },
-      {
-        source: "/developerApi/:path*",
-        destination: "/developers/:path*",
-        permanent: true,
-      },
-      {
-        source: "/developer-Api",
-        destination: "/developers",
-        permanent: true,
-      },
-      {
-        source: "/developer-Api/rootEndpoints",
-        destination: "/developers/agentic-apis",
-        permanent: true,
-      },
-      {
-        source: "/developer-Api/:path*",
-        destination: "/developers/:path*",
-        permanent: true,
-      },
-      {
-        source: "/developers/rootEndpoints",
-        destination: "/developers/agentic-apis",
-        permanent: true,
-      },
-      {
-        source: "/getting-started",
-        destination: "/developers/getting-started",
-        permanent: true,
-      },
-      {
-        source: "/use-cases",
-        destination: "/developers/use-cases",
-        permanent: true,
-      },
-      {
-        source: "/data-resources",
-        destination: "/developers/data-resources",
         permanent: true,
       },
       {
