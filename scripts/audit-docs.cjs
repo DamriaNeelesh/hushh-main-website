@@ -120,6 +120,8 @@ const ignoredGeneratedRootFiles = [
   ".env.local",
   ".env.development.local",
   ".env.production.local",
+  "LICENSE",
+  "gitleaks",
   "tsconfig.tsbuildinfo",
 ];
 
