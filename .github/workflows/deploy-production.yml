@@ -1,10 +1,16 @@
-name: Deploy Website to Production
+name: Production Deploy
 
 on:
   workflow_dispatch:
+    inputs:
+      deploy_ref:
+        description: Main branch ref, tag, or commit SHA to deploy to production
+        required: true
+        default: main
+        type: string
 
 concurrency:
-  group: deploy-production-${{ github.ref }}
+  group: production-deploy
   cancel-in-progress: false
 
 env:
@@ -18,9 +24,8 @@ env:
 
 jobs:
   deploy:
-    name: Deploy Production Website
+    name: Production Deploy
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
     environment: Production
 
     steps:
@@ -28,6 +33,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ inputs.deploy_ref }}
 
       - name: Deploy website
         id: deploy-website
@@ -40,7 +46,7 @@ jobs:
           cloud_run_revision_retention: ${{ env.CLOUD_RUN_REVISION_RETENTION }}
           public_base_url: ${{ env.PUBLIC_BASE_URL }}
           app_env: production
-          required_branch: deploy
+          main_branch: main
           gcp_credentials_json: ${{ secrets.GCP_SA_KEY_PROD }}
           rollout_domains: hushh.ai,www.hushh.ai
           apex_base_url: ${{ env.APEX_BASE_URL }}
@@ -49,5 +55,7 @@ jobs:
         if: always()
         run: |
           echo "Production website deployment complete"
+          echo "Ref: ${{ inputs.deploy_ref }}"
+          echo "Commit: $(git rev-parse HEAD)"
           echo "Frontend: ${{ steps.deploy-website.outputs.frontend_url }}"
           echo "Public URL: ${{ env.PUBLIC_BASE_URL }}"

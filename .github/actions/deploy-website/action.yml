@@ -16,8 +16,9 @@ inputs:
     required: true
   app_env:
     required: true
-  required_branch:
-    required: true
+  main_branch:
+    required: false
+    default: main
   gcp_credentials_json:
     required: true
   rollout_domains:
@@ -34,9 +35,9 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Assert branch contains latest main
+    - name: Assert deploy ref belongs to main history
       shell: bash
-      run: bash scripts/ci/require-branch-contains-main.sh "${{ inputs.required_branch }}"
+      run: bash scripts/ci/require-ref-on-main.sh "${{ inputs.main_branch }}"
 
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v3

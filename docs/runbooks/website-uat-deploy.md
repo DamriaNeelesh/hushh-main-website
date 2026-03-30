@@ -3,7 +3,6 @@
 ## Preconditions
 
 - latest website changes are merged into `main`
-- `deploy_uat` has been updated from `main`
 - GCP project `hushh-ai-uat` exists with billing enabled
 - required APIs are enabled
 - Artifact Registry repository `website-images` exists in `us-central1`
@@ -12,17 +11,17 @@
 
 ## Trigger
 
-Push `deploy_uat` or run `.github/workflows/deploy-uat.yml` manually.
+Run `.github/workflows/deploy-uat.yml` manually and provide a `deploy_ref` from `main`.
 
 ## Workflow responsibilities
 
 The UAT deploy workflow:
 
-1. checks branch containment against `main`
+1. checks that the selected ref belongs to `main`
 2. authenticates with the UAT deployment service account
 3. builds and deploys the website image to Cloud Run
 4. verifies runtime env parity
-5. runs route smoke checks against the deployed service URL
+5. runs route smoke checks against both the deployed service URL and `https://uat.hushh.ai`
 
 ## Post-deploy checks
 

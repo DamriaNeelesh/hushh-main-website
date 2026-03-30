@@ -1,14 +1,14 @@
 # GCP Website Deployment
 
-The Hushh.ai website now supports a branch-gated Cloud Run deployment lane in addition to CI on `main`.
+The Hushh.ai website now runs a three-workflow release lane: one workflow for `main` CI, one for UAT deploys, and one for production deploys.
 
-## Branch model
+## Workflow model
 
-- `main`: CI only
-- `deploy_uat`: automatic UAT deploy workflow
-- `deploy`: manual production deploy workflow
+- `Main CI`: validates pull requests and pushes to `main`
+- `UAT Deploy`: manually deploys a selected `main` ref or commit SHA to the UAT Cloud Run service
+- `Production Deploy`: manually deploys a selected `main` ref or commit SHA to the production Cloud Run service
 
-Both deploy workflows refuse to run unless the target branch already contains the latest `origin/main`.
+Both deploy workflows refuse to run unless the selected checkout commit is contained in `origin/main`.
 
 ## Infrastructure contract
 
@@ -22,9 +22,11 @@ Both deploy workflows refuse to run unless the target branch already contains th
 
 - `Dockerfile`
 - `deploy/frontend.cloudbuild.yaml`
+- `.github/workflows/cicd.yml`
 - `.github/workflows/deploy-uat.yml`
 - `.github/workflows/deploy-production.yml`
-- `scripts/ci/require-branch-contains-main.sh`
+- `.github/actions/deploy-website/action.yml`
+- `scripts/ci/require-ref-on-main.sh`
 - `scripts/ci/cloudrun-retention.sh`
 - `scripts/ops/verify-website-env-secrets-parity.py`
 - `scripts/ops/smoke-website-routes.sh`
@@ -54,3 +56,12 @@ After Cloud Run deploy, verify:
 - route smoke with `scripts/ops/smoke-website-routes.sh`
 - Firebase sign-in on the deployed hostname
 
+## Deployment inputs
+
+Both deploy workflows accept a `deploy_ref` input.
+
+- default: `main`
+- supported values: branch names, tags, or commit SHAs that belong to `main`
+- recommended value for promotion: the exact commit SHA that already passed `Main CI`
+
+The website still rebuilds once per environment because public Next.js build variables are environment-specific today. The optimization in this repo removes branch-promotion churn and duplicate CI runs, while keeping the UAT and production runtime contracts separate.

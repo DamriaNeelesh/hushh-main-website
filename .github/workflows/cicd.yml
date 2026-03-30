@@ -1,12 +1,11 @@
 # .github/workflows/cicd.yml
-name: cicd-workflow
+name: Main CI
 
 on:
   push:
-    branches: [main, deploy_uat, deploy]
+    branches: [main]
   pull_request:
-    types: [opened, reopened, synchronize, ready_for_review, edited, closed]
-
+    types: [opened, reopened, synchronize, ready_for_review]
   workflow_dispatch:
 
 permissions:
@@ -15,13 +14,12 @@ permissions:
   issues: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  secret-scan:
-    name: Secret Scan
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
+  main-ci:
+    name: Main CI
     runs-on: ubuntu-latest
 
     steps:
@@ -37,18 +35,8 @@ jobs:
             | tar -xz
           sudo install -m 0755 gitleaks /usr/local/bin/gitleaks
 
-      - name: Run gitleaks
+      - name: Run secret scan
         run: gitleaks detect --source . --no-git --redact --config .gitleaks.toml
-
-  build:
-    name: Website CI
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    needs: secret-scan
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
@@ -77,35 +65,3 @@ jobs:
         with:
           name: website-ci-artifacts
           path: .artifacts/ci
-
-  ci-status:
-    name: CI Status Gate
-    needs:
-      - secret-scan
-      - build
-    if: always()
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Validate job outcomes
-        shell: bash
-        run: |
-          SECRET_SCAN="${{ needs['secret-scan'].result }}"
-          BUILD="${{ needs.build.result }}"
-
-          printf 'secret-scan=%s\n' "$SECRET_SCAN"
-          printf 'build=%s\n' "$BUILD"
-
-          fail=0
-          for result in "$SECRET_SCAN" "$BUILD"; do
-            if [ "$result" = "failure" ] || [ "$result" = "cancelled" ] || [ "$result" = "timed_out" ]; then
-              fail=1
-            fi
-          done
-
-          if [ "$fail" -ne 0 ]; then
-            echo "One or more CI jobs failed."
-            exit 1
-          fi
-
-          echo "All required CI jobs passed or were intentionally skipped."
