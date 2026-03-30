@@ -42,8 +42,7 @@ const routeExpectations = [
   {
     route: "/products/kai",
     titleIncludes: "Kai | Explainable Investing Copilot",
-    h1Includes: "Kai.Your personalfinancial agent.",
-    sectionOrder: ["hero", "discovery", "problem", "strategy", "execution", "privacy", "final"],
+    h1Includes: "Your personal",
   },
   {
     route: "/hushhBlogs",

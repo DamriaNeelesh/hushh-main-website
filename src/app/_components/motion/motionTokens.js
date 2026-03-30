@@ -1,5 +1,5 @@
-export const MOTION_EASE_EMPHASIZED = [0.22, 1, 0.36, 1];
-export const MOTION_EASE_STANDARD = [0.2, 0.8, 0.2, 1];
+export const MOTION_EASE_EMPHASIZED = "power3.out";
+export const MOTION_EASE_STANDARD = "power2.out";
 
 const NESTED_TEMPLATE_PREFIXES = [
   "/developers",
@@ -17,6 +17,78 @@ const UTILITY_FAMILY_PREFIXES = [
   "/qrCodePage",
   "/viva-connect/qrPage",
 ];
+
+const routeMotionPresets = {
+  marketing: {
+    withAtmosphere: true,
+    initial: { autoAlpha: 0, y: 24, scale: 0.994 },
+    animate: { autoAlpha: 1, y: 0, scale: 1 },
+    duration: 0.68,
+    ease: MOTION_EASE_EMPHASIZED,
+  },
+  docs: {
+    withAtmosphere: true,
+    initial: { autoAlpha: 0, y: 14 },
+    animate: { autoAlpha: 1, y: 0 },
+    duration: 0.34,
+    ease: MOTION_EASE_STANDARD,
+  },
+  app: {
+    withAtmosphere: false,
+    initial: { autoAlpha: 0, y: 10 },
+    animate: { autoAlpha: 1, y: 0 },
+    duration: 0.28,
+    ease: MOTION_EASE_STANDARD,
+  },
+};
+
+const sectionMotionPresets = {
+  marketing: {
+    initial: { autoAlpha: 0, y: 28 },
+    animate: { autoAlpha: 1, y: 0 },
+    duration: 0.62,
+    ease: MOTION_EASE_EMPHASIZED,
+  },
+  docs: {
+    initial: { autoAlpha: 0, y: 18 },
+    animate: { autoAlpha: 1, y: 0 },
+    duration: 0.4,
+    ease: MOTION_EASE_STANDARD,
+  },
+  app: {
+    initial: { autoAlpha: 0, y: 12 },
+    animate: { autoAlpha: 1, y: 0 },
+    duration: 0.28,
+    ease: MOTION_EASE_STANDARD,
+  },
+};
+
+const staggerMotionPresets = {
+  marketing: {
+    itemInitial: { autoAlpha: 0, y: 18 },
+    itemAnimate: { autoAlpha: 1, y: 0 },
+    duration: 0.48,
+    ease: MOTION_EASE_EMPHASIZED,
+    stagger: 0.08,
+    delayChildren: 0.04,
+  },
+  docs: {
+    itemInitial: { autoAlpha: 0, y: 12 },
+    itemAnimate: { autoAlpha: 1, y: 0 },
+    duration: 0.34,
+    ease: MOTION_EASE_STANDARD,
+    stagger: 0.05,
+    delayChildren: 0.02,
+  },
+  app: {
+    itemInitial: { autoAlpha: 0, y: 10 },
+    itemAnimate: { autoAlpha: 1, y: 0 },
+    duration: 0.24,
+    ease: MOTION_EASE_STANDARD,
+    stagger: 0.04,
+    delayChildren: 0.01,
+  },
+};
 
 export function shouldDeferToNestedMotionShell(pathname = "/") {
   return NESTED_TEMPLATE_PREFIXES.some(
@@ -36,157 +108,55 @@ export function resolveRootMotionFamily(pathname = "/") {
   return "marketing";
 }
 
-const routeMotionPresets = {
-  marketing: {
-    withAtmosphere: true,
-    initial: { opacity: 0, y: 28, scale: 0.992, filter: "blur(8px)" },
-    animate: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-    exit: { opacity: 0, y: -14, scale: 0.996, filter: "blur(6px)" },
-    transition: { duration: 0.74, ease: MOTION_EASE_EMPHASIZED },
-  },
-  docs: {
-    withAtmosphere: true,
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.24, ease: MOTION_EASE_STANDARD },
-  },
-  app: {
-    withAtmosphere: false,
-    initial: { opacity: 0, y: 12, scale: 0.998 },
-    animate: { opacity: 1, y: 0, scale: 1 },
-    exit: { opacity: 0, y: -6, scale: 0.999 },
-    transition: { duration: 0.28, ease: MOTION_EASE_STANDARD },
-  },
-};
-
-const sectionMotionPresets = {
-  marketing: {
-    initial: { opacity: 0, y: 34 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.68, ease: MOTION_EASE_EMPHASIZED },
-  },
-  docs: {
-    initial: { opacity: 0, y: 18 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.42, ease: MOTION_EASE_STANDARD },
-  },
-  app: {
-    initial: { opacity: 0, y: 14 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.32, ease: MOTION_EASE_STANDARD },
-  },
-};
-
-const staggerMotionPresets = {
-  marketing: {
-    parent: {
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: 0.08,
-          delayChildren: 0.04,
-        },
-      },
-    },
-    item: {
-      hidden: { opacity: 0, y: 18 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.52, ease: MOTION_EASE_EMPHASIZED },
-      },
-    },
-  },
-  docs: {
-    parent: {
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: 0.05,
-          delayChildren: 0.02,
-        },
-      },
-    },
-    item: {
-      hidden: { opacity: 0, y: 12 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.36, ease: MOTION_EASE_STANDARD },
-      },
-    },
-  },
-  app: {
-    parent: {
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: 0.04,
-          delayChildren: 0.01,
-        },
-      },
-    },
-    item: {
-      hidden: { opacity: 0, y: 10 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.28, ease: MOTION_EASE_STANDARD },
-      },
-    },
-  },
-};
-
 export function getRouteMotionPreset(family = "marketing", reduceMotion = false) {
   const preset = routeMotionPresets[family] || routeMotionPresets.marketing;
 
-  if (!reduceMotion) {
-    return preset;
+  if (reduceMotion) {
+    return {
+      ...preset,
+      withAtmosphere: false,
+      initial: { autoAlpha: 1, y: 0, scale: 1 },
+      animate: { autoAlpha: 1, y: 0, scale: 1 },
+      duration: 0.01,
+      ease: "none",
+    };
   }
 
-  return {
-    ...preset,
-    withAtmosphere: false,
-    initial: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-    animate: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-    exit: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-    transition: { duration: 0.01 },
-  };
+  return preset;
 }
 
 export function getSectionMotionPreset(family = "marketing", reduceMotion = false, delay = 0) {
   const preset = sectionMotionPresets[family] || sectionMotionPresets.marketing;
 
-  if (!reduceMotion) {
+  if (reduceMotion) {
     return {
-      ...preset,
-      transition: {
-        ...preset.transition,
-        delay,
-      },
+      initial: { autoAlpha: 1, y: 0 },
+      animate: { autoAlpha: 1, y: 0 },
+      duration: 0.01,
+      delay: 0,
+      ease: "none",
     };
   }
 
   return {
-    initial: { opacity: 1, y: 0 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.01 },
+    ...preset,
+    delay,
   };
 }
 
 export function getStaggerMotionPreset(family = "marketing", reduceMotion = false) {
   const preset = staggerMotionPresets[family] || staggerMotionPresets.marketing;
 
-  if (!reduceMotion) {
-    return preset;
+  if (reduceMotion) {
+    return {
+      itemInitial: { autoAlpha: 1, y: 0 },
+      itemAnimate: { autoAlpha: 1, y: 0 },
+      duration: 0.01,
+      ease: "none",
+      stagger: 0,
+      delayChildren: 0,
+    };
   }
 
-  return {
-    parent: { hidden: {}, visible: {} },
-    item: {
-      hidden: { opacity: 1, y: 0 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.01 } },
-    },
-  };
+  return preset;
 }

@@ -1,3 +1,5 @@
+const path = require("path");
+
 /** @type {import('next').NextConfig} */
 
 const supabaseUrlFromEnv = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -53,6 +55,11 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   output: "standalone",
+  turbopack: {
+    resolveAlias: {
+      "framer-motion": "./src/lib/motion/framer-shim.js",
+    },
+  },
   experimental: {
     webVitalsAttribution: ["CLS", "FCP", "INP", "LCP", "TTFB"],
     optimizePackageImports: ["date-fns", "lucide-react"],
@@ -163,6 +170,14 @@ const nextConfig = {
         permanent: true,
       },
     ];
+  },
+  webpack(config) {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      "framer-motion": path.resolve(__dirname, "src/lib/motion/framer-shim.js"),
+    };
+
+    return config;
   },
 };
 

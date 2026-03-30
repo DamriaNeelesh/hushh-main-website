@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import gsap from "gsap";
 import { List, Menu, X } from "lucide-react";
+import { ensureGsapPlugins, useReducedMotionPreference } from "../motion/gsapMotion";
 import DeveloperWorkspaceToc from "./DeveloperWorkspaceToc";
 
 function MobileSidebarSection({ title, docs, activeKey, onNavigate }) {
@@ -35,9 +36,12 @@ export default function DeveloperWorkspaceMobileDock({
   headings,
 }) {
   const [openPanel, setOpenPanel] = useState(null);
+  const [renderedPanel, setRenderedPanel] = useState(null);
   const [mounted, setMounted] = useState(false);
   const [showDock, setShowDock] = useState(false);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
+  const backdropRef = useRef(null);
+  const sheetRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
@@ -55,11 +59,12 @@ export default function DeveloperWorkspaceMobileDock({
         setOpenPanel(null);
       }
     };
+
+    syncViewportState(mediaQuery.matches);
+
     const handleViewportChange = (event) => {
       syncViewportState(event.matches);
     };
-
-    syncViewportState(mediaQuery.matches);
 
     mediaQuery.addEventListener("change", handleViewportChange);
     return () => mediaQuery.removeEventListener("change", handleViewportChange);
@@ -87,116 +92,154 @@ export default function DeveloperWorkspaceMobileDock({
     };
   }, [openPanel]);
 
-  const panelAnimation = reduceMotion
-    ? {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-      }
-    : {
-        initial: { opacity: 0, y: 24, scale: 0.98 },
-        animate: { opacity: 1, y: 0, scale: 1 },
-        exit: { opacity: 0, y: 18, scale: 0.98 },
-      };
+  useLayoutEffect(() => {
+    ensureGsapPlugins();
+
+    if (openPanel) {
+      setRenderedPanel(openPanel);
+      return undefined;
+    }
+
+    if (!renderedPanel || !backdropRef.current || !sheetRef.current) {
+      setRenderedPanel(null);
+      return undefined;
+    }
+
+    const complete = () => setRenderedPanel(null);
+
+    if (reduceMotion) {
+      complete();
+      return undefined;
+    }
+
+    const timeline = gsap.timeline({
+      defaults: { ease: "power2.out" },
+      onComplete: complete,
+    });
+
+    timeline
+      .to(backdropRef.current, { autoAlpha: 0, duration: 0.14 }, 0)
+      .to(sheetRef.current, { autoAlpha: 0, y: 18, scale: 0.98, duration: 0.18 }, 0);
+
+    return () => timeline.kill();
+  }, [openPanel, reduceMotion, renderedPanel]);
+
+  useLayoutEffect(() => {
+    ensureGsapPlugins();
+
+    if (!renderedPanel || !backdropRef.current || !sheetRef.current) {
+      return undefined;
+    }
+
+    if (reduceMotion) {
+      gsap.set([backdropRef.current, sheetRef.current], { clearProps: "all" });
+      return undefined;
+    }
+
+    const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    timeline
+      .fromTo(backdropRef.current, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.18 }, 0)
+      .fromTo(
+        sheetRef.current,
+        { autoAlpha: 0, y: 24, scale: 0.98 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.24 },
+        0,
+      );
+
+    return () => timeline.kill();
+  }, [reduceMotion, renderedPanel]);
 
   const closePanel = () => setOpenPanel(null);
   const togglePanel = (panelKey) =>
     setOpenPanel((current) => (current === panelKey ? null : panelKey));
 
+  const activePanel = openPanel || renderedPanel;
+
   const dockUi = (
     <>
-      <AnimatePresence>
-        {openPanel ? (
-          <motion.button
-            key="backdrop"
-            type="button"
-            aria-label="Close developer navigation"
-            className="developer-mobile-backdrop"
-            onClick={closePanel}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
-        ) : null}
-      </AnimatePresence>
+      {activePanel ? (
+        <button
+          ref={backdropRef}
+          type="button"
+          aria-label="Close developer navigation"
+          className="developer-mobile-backdrop"
+          onClick={closePanel}
+        />
+      ) : null}
 
-      <AnimatePresence mode="wait">
-        {openPanel ? (
-          <motion.section
-            key={openPanel}
-            id="developer-mobile-sheet"
-            className="developer-mobile-sheet"
-            initial={panelAnimation.initial}
-            animate={panelAnimation.animate}
-            exit={panelAnimation.exit}
-            transition={{ duration: reduceMotion ? 0.14 : 0.22, ease: "easeOut" }}
-            aria-label={openPanel === "nav" ? "Browse developer docs" : "On this page"}
-          >
-            <div className="developer-mobile-sheet-header">
-              <div>
-                <p className="developer-workspace-nav-label">
-                  {openPanel === "nav" ? "Browse docs" : "On this page"}
-                </p>
-                <p className="developer-mobile-sheet-copy">
-                  {openPanel === "nav"
-                    ? "Jump between the two Hushh developer tracks."
-                    : "Use the local sections below to move through this page."}
-                </p>
-              </div>
-
-              <button
-                type="button"
-                className="developer-mobile-sheet-close"
-                onClick={closePanel}
-                aria-label="Close panel"
-              >
-                <X size={18} strokeWidth={2.1} />
-              </button>
+      {activePanel ? (
+        <section
+          ref={sheetRef}
+          key={activePanel}
+          id="developer-mobile-sheet"
+          className="developer-mobile-sheet"
+          aria-label={activePanel === "nav" ? "Browse developer docs" : "On this page"}
+        >
+          <div className="developer-mobile-sheet-header">
+            <div>
+              <p className="developer-workspace-nav-label">
+                {activePanel === "nav" ? "Browse docs" : "On this page"}
+              </p>
+              <p className="developer-mobile-sheet-copy">
+                {activePanel === "nav"
+                  ? "Jump between the two Hushh developer tracks."
+                  : "Use the local sections below to move through this page."}
+              </p>
             </div>
 
-            <div className="developer-mobile-sheet-body">
-              {openPanel === "nav" ? (
-                <>
-                  <div className="developer-workspace-nav-group">
-                    <p className="developer-workspace-nav-label">Overview</p>
-                    <ul className="developer-workspace-nav-list">
-                      {overviewLinks.map((link) => (
-                        <li key={link.href}>
-                          <Link
-                            href={link.href}
-                            className={`developer-workspace-nav-link${
-                              link.key === activeKey ? " is-active" : ""
-                            }`}
-                            onClick={closePanel}
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+            <button
+              type="button"
+              className="developer-mobile-sheet-close"
+              onClick={closePanel}
+              aria-label="Close panel"
+            >
+              <X size={18} strokeWidth={2.1} />
+            </button>
+          </div>
 
-                  {Object.entries(sections).map(([sectionTitle, docs]) => (
-                    <MobileSidebarSection
-                      key={sectionTitle}
-                      title={sectionTitle}
-                      docs={docs}
-                      activeKey={activeKey}
-                      onNavigate={closePanel}
-                    />
-                  ))}
-                </>
-              ) : headings.length ? (
-                <DeveloperWorkspaceToc headings={headings} onNavigate={closePanel} />
-              ) : (
-                <p className="developer-workspace-empty-copy">
-                  This page is short enough to read straight through.
-                </p>
-              )}
-            </div>
-          </motion.section>
-        ) : null}
-      </AnimatePresence>
+          <div className="developer-mobile-sheet-body">
+            {activePanel === "nav" ? (
+              <>
+                <div className="developer-workspace-nav-group">
+                  <p className="developer-workspace-nav-label">Overview</p>
+                  <ul className="developer-workspace-nav-list">
+                    {overviewLinks.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          className={`developer-workspace-nav-link${
+                            link.key === activeKey ? " is-active" : ""
+                          }`}
+                          onClick={closePanel}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {Object.entries(sections).map(([sectionTitle, docs]) => (
+                  <MobileSidebarSection
+                    key={sectionTitle}
+                    title={sectionTitle}
+                    docs={docs}
+                    activeKey={activeKey}
+                    onNavigate={closePanel}
+                  />
+                ))}
+              </>
+            ) : headings.length ? (
+              <DeveloperWorkspaceToc headings={headings} onNavigate={closePanel} />
+            ) : (
+              <p className="developer-workspace-empty-copy">
+                This page is short enough to read straight through.
+              </p>
+            )}
+          </div>
+        </section>
+      ) : null}
 
       <div className="developer-mobile-dock">
         <button

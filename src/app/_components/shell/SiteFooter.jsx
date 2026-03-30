@@ -54,7 +54,7 @@ const footerSections = [
 ];
 
 function FooterLink({ href, label, external = false }) {
-  const className = "transition-colors hover:text-richBlack";
+  const className = "text-[13px] font-semibold text-neutral-500 transition-colors hover:text-black";
 
   if (external) {
     return (
@@ -75,47 +75,58 @@ export default function SiteFooter() {
   return (
     <footer
       data-site-footer
-      className="bg-offWhite border-t border-borderLight pt-20 px-6 md:px-12 pb-[calc(2.5rem+env(safe-area-inset-bottom))] mt-auto"
+      className="mt-auto border-t border-neutral-100 bg-white px-8 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-24 font-body"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 items-start">
-        <div className="flex flex-col items-start lg:pr-8">
-          <div className="mb-5 flex w-full justify-start leading-none">
-            <Image
-              src={HushhNewLogo}
-              alt="Hushh"
-              className="h-auto w-[128px] object-contain object-left"
-              priority={false}
-            />
+      <div className="mx-auto max-w-screen-xl">
+        <div className="mb-20 grid grid-cols-1 gap-12 md:grid-cols-3 xl:grid-cols-[minmax(0,1.35fr)_repeat(5,minmax(0,1fr))]">
+          <div className="space-y-6 xl:pr-10">
+            <div className="flex items-center gap-3">
+              <Image
+                src={HushhNewLogo}
+                alt="Hushh"
+                className="h-auto w-[132px] object-contain object-left"
+                priority={false}
+              />
+            </div>
+            <p className="max-w-xs text-[14px] font-medium leading-relaxed text-neutral-500">
+              Sophisticated intelligence for consent-first digital identity, secure personalization,
+              and agentic workflows that keep people in control.
+            </p>
           </div>
-          <p className="max-w-[240px] text-left text-xs leading-relaxed text-mutedSlate">
-            Securing the future of digital identity and personalized experiences through
-            consent-first AI technology.
-          </p>
+
+          {footerSections.map((section) => (
+            <div key={section.title} className="space-y-6">
+              <p className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-400">
+                {section.title}
+              </p>
+              <ul className="space-y-4">
+                {section.links.map((link) => (
+                  <li key={`${section.title}-${link.label}`}>
+                    <FooterLink {...link} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {footerSections.map((section) => (
-          <div key={section.title}>
-            <h4 className="text-richBlack font-bold text-xs uppercase tracking-widest mb-6">
-              {section.title}
-            </h4>
-            <ul className="space-y-3 text-xs text-mutedSlate">
-              {section.links.map((link) => (
-                <li key={`${section.title}-${link.label}`}>
-                  <FooterLink {...link} />
-                </li>
-              ))}
-            </ul>
+        <div className="flex flex-col items-start gap-4 border-t border-neutral-100 pt-10 md:flex-row md:items-center md:justify-between">
+          <div className="font-mono text-[11px] tracking-wide text-neutral-400">
+            Hushh <span className="mx-3 text-neutral-200">|</span>
+            <span className="tracking-[0.03em]">Built by Hushh Technologies</span>
           </div>
-        ))}
-      </div>
 
-      <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-borderLight text-left">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] text-mutedTaupe uppercase tracking-widest">
-          <span>© 2026 Hushh Technologies. All rights reserved.</span>
-          <span aria-hidden="true">•</span>
-          <FooterLink href="/privacy" label="Privacy Manifesto" />
-          <span aria-hidden="true">•</span>
-          <FooterLink href="/terms" label="Terms of Use" />
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] tracking-wide text-neutral-400">
+            <span>© 2026 Hushh Technologies. All rights reserved.</span>
+            <span aria-hidden="true" className="text-neutral-200">
+              |
+            </span>
+            <FooterLink href="/privacy" label="Privacy Manifesto" />
+            <span aria-hidden="true" className="text-neutral-200">
+              |
+            </span>
+            <FooterLink href="/terms" label="Terms of Use" />
+          </div>
         </div>
       </div>
     </footer>

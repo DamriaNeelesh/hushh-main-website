@@ -23,7 +23,6 @@ import {
   Spinner,
   Grid,
   GridItem,
-  Card,
   CardBody,
   Divider,
   Flex,
@@ -56,15 +55,12 @@ import {
 import { BiUser } from "react-icons/bi";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
-import { motion } from "framer-motion";
 import ContentWrapper from "../_components/layout/ContentWrapper";
 import {
   HUSHH_API_ANON_KEY,
   HUSHH_API_BASE_URL,
 } from "@/lib/env/public";
-
-const MotionBox = motion(Box);
-const MotionCard = motion(Card);
+import { MotionBox, MotionCard } from "@/lib/motion/chakra-motion";
 
 const API_BASE_URL = HUSHH_API_BASE_URL;
 
@@ -114,17 +110,10 @@ const UserProfile = () => {
     transition: { duration: 0.6, ease: "easeOut" }
   };
 
-  const staggerChildren = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-    }
-  };
-
-  const childVariants = {
+  const childMotion = {
     initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 }
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.48, ease: "power2.out" }
   };
 
   useEffect(() => {
@@ -383,13 +372,12 @@ const UserProfile = () => {
         
         <Container maxW="6xl">
         <MotionBox
-            initial="initial"
-            animate="animate"
-            variants={staggerChildren}>
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}>
             
           {/* Header */}
           <MotionCard
-              variants={childVariants}
+              {...childMotion}
               bg="linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)"
               boxShadow="0px 10px 30px rgba(0, 0, 0, 0.1)"
               borderRadius={{ base: "20px", md: "30px" }}
@@ -726,7 +714,7 @@ const UserProfile = () => {
               <VStack spacing={6}>
                 {/* Account Stats */}
                 <MotionCard
-                    variants={childVariants}
+                    {...childMotion}
                     bg="white"
                     boxShadow="lg"
                     borderRadius="xl"
@@ -765,7 +753,7 @@ const UserProfile = () => {
 
                 {/* Quick Actions */}
                 <MotionCard
-                    variants={childVariants}
+                    {...childMotion}
                     bg="white"
                     boxShadow="lg"
                     borderRadius="xl"
@@ -816,7 +804,7 @@ const UserProfile = () => {
             {/* Main Profile Information */}
             <GridItem order={{ base: 1, lg: 2 }}>
               <MotionCard
-                  variants={childVariants}
+                  {...childMotion}
                   bg="linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)"
                   boxShadow="0px 10px 30px rgba(0, 0, 0, 0.08)"
                   borderRadius={{ base: "20px", md: "30px" }}

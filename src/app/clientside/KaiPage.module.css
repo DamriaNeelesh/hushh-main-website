@@ -2857,3 +2857,1118 @@
     animation: none !important;
   }
 }
+
+.kaiDesignerPage {
+  --kai-page-blue: #2563eb;
+  --kai-page-green: #34c759;
+  --kai-page-indigo: #5856d6;
+  --kai-page-coral: #ff3b30;
+  --kai-page-ink: #000000;
+  --kai-page-body: #5f5f5f;
+  --kai-page-label: #8e8e93;
+  --kai-page-border: rgba(0, 0, 0, 0.05);
+  --kai-page-glass: rgba(255, 255, 255, 0.74);
+  color: var(--kai-page-ink);
+  background: #ffffff;
+  overflow-x: clip;
+  font-family: var(--site-font-body);
+}
+
+.kaiContentContainer {
+  width: min(100%, 48rem);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 3vw, 1.5rem);
+}
+
+.kaiDesignerHero,
+.kaiVisibilitySection,
+.kaiStrategySection,
+.kaiExecutionSection,
+.kaiGovernanceSection,
+.kaiFinalSection {
+  position: relative;
+  background: #ffffff;
+}
+
+.kaiDesignerHero {
+  padding-block: calc(var(--kai-chrome-offset, 72px) + 2.5rem) 5rem;
+  overflow: clip;
+}
+
+.kaiHeroGlowPrimary,
+.kaiHeroGlowSecondary {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(70px);
+}
+
+.kaiHeroGlowPrimary {
+  inset: 8rem auto auto max(1rem, 8vw);
+  width: min(24rem, 48vw);
+  height: min(24rem, 48vw);
+  background: radial-gradient(circle at center, rgba(0, 122, 255, 0.12), transparent 72%);
+}
+
+.kaiHeroGlowSecondary {
+  inset: 16rem max(1rem, 6vw) auto auto;
+  width: min(18rem, 34vw);
+  height: min(18rem, 34vw);
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.06), transparent 72%);
+}
+
+.kaiHeroStack,
+.kaiSectionIntro,
+.kaiFinalCopy {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+}
+
+.kaiHeroStack {
+  max-width: 40rem;
+}
+
+.kaiHeroTitle,
+.kaiFinalTitle,
+.kaiSectionTitle,
+.kaiSectionTitleLight {
+  margin: 0;
+  font-family: var(--site-font-heading);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.kaiHeroTitle {
+  font-size: clamp(3.1rem, 8vw, 4.6rem);
+}
+
+.kaiSectionTitle,
+.kaiSectionTitleLight {
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+}
+
+.kaiFinalTitle {
+  font-size: clamp(2.9rem, 7vw, 4rem);
+  text-align: center;
+}
+
+.kaiSectionTitle em,
+.kaiFinalTitle em {
+  color: var(--kai-page-blue);
+  font-style: italic;
+}
+
+.kaiSectionTitleLight,
+.kaiSectionLeadDark {
+  color: #ffffff;
+}
+
+.kaiHeroBody,
+.kaiSectionLead,
+.kaiSectionLeadDark,
+.kaiFinalBody {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--kai-page-body);
+}
+
+.kaiHeroActions,
+.kaiFinalActions {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.kaiPrimaryCta,
+.kaiSecondaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+  min-height: 3.75rem;
+  padding: 0.95rem 1.35rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-family: var(--site-font-heading);
+  font-size: 0.96rem;
+  font-weight: 700;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.kaiPrimaryCta {
+  background: #000000;
+  color: #ffffff;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.14);
+}
+
+.kaiPrimaryCta:hover,
+.kaiSecondaryCta:hover {
+  transform: translateY(-1px);
+}
+
+.kaiSecondaryCta {
+  color: rgba(0, 0, 0, 0.62);
+}
+
+.kaiStoreIcon {
+  width: 1.28rem;
+  height: 1.28rem;
+}
+
+.kaiHeroTrustList {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.kaiHeroTrustItem,
+.kaiHeroConsent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--kai-page-label);
+  font-size: 0.83rem;
+  font-weight: 600;
+}
+
+.kaiTrustIcon,
+.kaiInfoIcon,
+.kaiProblemNoteIcon,
+.kaiBannerIcon,
+.kaiStrategyNoteIcon,
+.kaiExecutionStatusIcon,
+.kaiWorkingIcon,
+.kaiDiscoveryIcon,
+.kaiVoiceMicIcon,
+.kaiProblemConnectorIcon,
+.kaiConfirmIcon,
+.kaiGovernanceIcon {
+  font-size: 1.2rem;
+  color: var(--kai-page-blue);
+}
+
+.kaiHeroConsent {
+  padding-top: 1.25rem;
+  margin-top: 0.25rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.kaiProblemSection {
+  background: #050505;
+  color: #ffffff;
+  padding-block: 6rem;
+  overflow: clip;
+}
+
+.kaiProblemIntro {
+  display: grid;
+  gap: 0.95rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.kaiEyebrow,
+.kaiMiniEyebrow,
+.kaiMiniEyebrowBlue,
+.kaiPortfolioEyebrow,
+.kaiVoiceEyebrow,
+.kaiProblemUnifiedEyebrow {
+  margin: 0;
+  font-family: var(--site-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.kaiEyebrow {
+  color: var(--kai-page-label);
+}
+
+.kaiEyebrowDark,
+.kaiMiniEyebrow {
+  color: rgba(255, 255, 255, 0.44);
+}
+
+.kaiMiniEyebrowBlue,
+.kaiProblemUnifiedEyebrow,
+.kaiVoiceEyebrow {
+  color: var(--kai-page-blue);
+}
+
+.kaiProblemCard {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 3rem);
+  border-radius: 2.5rem;
+  background: rgba(18, 18, 18, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+}
+
+.kaiProblemState,
+.kaiProblemUnifiedState {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+}
+
+.kaiProblemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.kaiProblemBadge,
+.kaiFoundBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-family: var(--site-font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.kaiProblemBadge {
+  background: rgba(255, 59, 48, 0.12);
+  color: var(--kai-page-coral);
+  border: 1px solid rgba(255, 59, 48, 0.2);
+}
+
+.kaiFoundBadge {
+  background: rgba(0, 122, 255, 0.1);
+  color: var(--kai-page-blue);
+  border: 1px solid rgba(0, 122, 255, 0.18);
+}
+
+.kaiProblemRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.94rem;
+}
+
+.kaiProblemRow strong {
+  color: rgba(255, 255, 255, 0.84);
+  font-family: var(--site-font-mono);
+  white-space: nowrap;
+}
+
+.kaiProblemConnector {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding-block: 2rem;
+}
+
+.kaiProblemConnectorLine {
+  width: 1px;
+  height: 4rem;
+  background: linear-gradient(to bottom, transparent, rgba(0, 122, 255, 0.55), transparent);
+}
+
+.kaiProblemConnectorButton {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  background: #000000;
+  border: 1px solid rgba(0, 122, 255, 0.28);
+  box-shadow: 0 0 20px rgba(0, 122, 255, 0.24);
+}
+
+.kaiProblemUnifiedState {
+  text-align: center;
+}
+
+.kaiProblemUnifiedAmount,
+.kaiDiscoveryAmount {
+  margin: 0;
+  font-family: var(--site-font-mono);
+  font-size: clamp(2.5rem, 7vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+.kaiProblemUnifiedAmount {
+  color: #ffffff;
+}
+
+.kaiProblemWorkingRow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  color: var(--kai-page-green);
+  font-family: var(--site-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.kaiProblemAuraCoral,
+.kaiProblemAuraGreen,
+.kaiVisibilityAuraBlue,
+.kaiVisibilityAuraGreen {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.kaiProblemAuraCoral {
+  top: 0;
+  right: 0;
+  width: 8rem;
+  height: 8rem;
+  background: rgba(255, 59, 48, 0.08);
+}
+
+.kaiProblemAuraGreen {
+  bottom: 0;
+  left: 0;
+  width: 8rem;
+  height: 8rem;
+  background: rgba(52, 199, 89, 0.08);
+}
+
+.kaiProblemNote,
+.kaiStrategyNote,
+.kaiFinalNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 2.2rem auto 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.82rem;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.kaiVisibilitySection,
+.kaiStrategySection,
+.kaiExecutionSection,
+.kaiGovernanceSection,
+.kaiFinalSection {
+  padding-block: 6rem;
+}
+
+.kaiSectionIntro {
+  display: grid;
+  gap: 0.9rem;
+  margin-bottom: 2.5rem;
+}
+
+.kaiSectionLead {
+  color: var(--kai-page-body);
+}
+
+.kaiVisibilityCard {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.8rem, 5vw, 2.5rem);
+  border-radius: 3rem;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(40px);
+  border: 1px solid var(--kai-page-border);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.06);
+}
+
+.kaiDiscoverySummary {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.55rem;
+  margin-bottom: 2rem;
+}
+
+.kaiDiscoveryIconShell,
+.kaiConfirmIconShell {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.kaiDiscoveryIconShell {
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.kaiDiscoveryIcon {
+  font-size: 1.9rem;
+}
+
+.kaiDiscoveryTitleRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.kaiDiscoveryCaption,
+.kaiConfirmCopy p,
+.kaiConfirmNote,
+.kaiPortfolioFootnote,
+.kaiGovernanceCopy p {
+  margin: 0;
+  color: var(--kai-page-body);
+  line-height: 1.6;
+}
+
+.kaiVisibilityRows {
+  display: grid;
+  gap: 1rem;
+}
+
+.kaiVisibilityRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.kaiVisibilityRowInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.kaiVisibilityRowIconShell {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.85rem;
+  background: #f7f7f8;
+}
+
+.kaiVisibilityRowCopy {
+  display: grid;
+  gap: 0.08rem;
+}
+
+.kaiVisibilityRowCopy span,
+.kaiVisibilityRow strong {
+  font-weight: 700;
+  color: var(--kai-page-ink);
+}
+
+.kaiVisibilityRowCopy small {
+  color: var(--kai-page-label);
+  font-family: var(--site-font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.kaiVisibilityRow strong {
+  font-family: var(--site-font-mono);
+  white-space: nowrap;
+}
+
+.kaiVisibilityNote {
+  margin: 1.4rem 0 1.8rem;
+  padding-inline: 1rem;
+  color: var(--kai-page-label);
+  font-size: 0.72rem;
+  font-style: italic;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.kaiVisibilityBanner {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 1.5rem;
+  background: rgba(52, 199, 89, 0.05);
+  border: 1px solid rgba(52, 199, 89, 0.1);
+}
+
+.kaiVisibilityBannerCopy {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.kaiVisibilityBannerCopy strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--kai-page-ink);
+}
+
+.kaiVisibilityBannerCopy p {
+  margin: 0;
+  color: var(--kai-page-body);
+  font-size: 0.8rem;
+}
+
+.kaiVisibilityStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  justify-self: start;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  font-family: var(--site-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.kaiStatusDot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--kai-page-green);
+  box-shadow: 0 0 0 4px rgba(52, 199, 89, 0.12);
+}
+
+.kaiVisibilityAuraBlue {
+  top: -5rem;
+  right: -5rem;
+  width: 12rem;
+  height: 12rem;
+  background: rgba(0, 122, 255, 0.08);
+}
+
+.kaiVisibilityAuraGreen {
+  bottom: -5rem;
+  left: -5rem;
+  width: 12rem;
+  height: 12rem;
+  background: rgba(52, 199, 89, 0.08);
+}
+
+.kaiVisibilityDeviceRow {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.kaiDesignerDeviceStage {
+  width: min(100%, 34rem);
+  min-height: min(78svh, 42rem);
+  margin-inline: auto;
+}
+
+.kaiVisibilityDeviceRow .discoveryDeviceStage {
+  background: radial-gradient(circle at 50% 10%, rgba(0, 122, 255, 0.08), transparent 68%);
+}
+
+.kaiVisibilityDeviceRow .discoveryDeviceAura {
+  opacity: 0.65;
+}
+
+.kaiStrategyStack {
+  display: grid;
+  gap: 0;
+}
+
+.kaiVoicePanel {
+  position: relative;
+  overflow: hidden;
+  padding: 2.5rem 1.5rem;
+  border-radius: 3rem;
+  background: #000000;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.24);
+}
+
+.kaiVoiceOrb {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center, rgba(0, 122, 255, 0.9), transparent 72%);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.kaiVoiceEyebrow,
+.kaiVoiceQuote,
+.kaiVoiceBars,
+.kaiVoiceMic {
+  position: relative;
+  z-index: 1;
+}
+
+.kaiVoiceQuote {
+  margin: 0;
+  font-family: var(--site-font-mono);
+  font-size: clamp(1.8rem, 5vw, 2.2rem);
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.96);
+  padding-inline: 0.6rem;
+}
+
+.kaiVoiceBars {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 0.55rem;
+  height: 3rem;
+  margin-top: 2rem;
+}
+
+.kaiVoiceBars span {
+  display: block;
+  width: 0.3rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.kaiVoiceBars span:nth-child(1),
+.kaiVoiceBars span:nth-child(5) {
+  height: 1rem;
+  opacity: 0.24;
+}
+
+.kaiVoiceBars span:nth-child(2),
+.kaiVoiceBars span:nth-child(4) {
+  height: 2rem;
+  opacity: 0.46;
+}
+
+.kaiVoiceBars span:nth-child(3) {
+  height: 3rem;
+}
+
+.kaiVoiceMic {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 1.5rem auto 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.kaiConnectorLine {
+  width: 2px;
+  height: 3rem;
+  margin-inline: auto;
+  background: linear-gradient(to bottom, rgba(0, 122, 255, 0.85), rgba(0, 122, 255, 0.08));
+}
+
+.kaiStrategyStepCard {
+  padding: 1.75rem;
+  border-radius: 2.5rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(28px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.05);
+}
+
+.kaiStrategyStepHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.kaiStrategyStepHeader h3,
+.kaiConfirmCopy h3,
+.kaiGovernanceCopy h3 {
+  margin: 0;
+  font-family: var(--site-font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--kai-page-ink);
+}
+
+.kaiStrategyStepNumber {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: rgba(0, 122, 255, 0.1);
+  color: var(--kai-page-blue);
+  font-family: var(--site-font-mono);
+  font-weight: 700;
+}
+
+.kaiStrategyStepCard p {
+  margin: 0;
+  color: var(--kai-page-body);
+  line-height: 1.7;
+}
+
+.kaiStrategyNote {
+  margin-inline: 0;
+  justify-self: start;
+  color: var(--kai-page-body);
+}
+
+.kaiExecutionGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.kaiPortfolioCard {
+  padding: 2rem;
+  border-radius: 3rem;
+  background: #000000;
+  color: #ffffff;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.24);
+}
+
+.kaiPortfolioEyebrow {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.kaiPortfolioRows {
+  display: grid;
+  gap: 1rem;
+}
+
+.kaiPortfolioRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1.35rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.kaiPortfolioInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.kaiCompanyLogoShell {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.95rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.kaiCompanyLogoSvg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.kaiPortfolioInfo h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.kaiPortfolioInfo p {
+  margin: 0.18rem 0 0;
+  color: rgba(255, 255, 255, 0.42);
+  font-family: var(--site-font-mono);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.kaiPortfolioMeta {
+  text-align: right;
+}
+
+.kaiPortfolioMeta strong,
+.kaiExecutionMetricGrid strong {
+  display: block;
+  font-family: var(--site-font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.kaiPortfolioMeta span {
+  color: rgba(255, 255, 255, 0.62);
+  font-family: var(--site-font-mono);
+  font-size: 0.68rem;
+}
+
+.kaiPortfolioValueGreen {
+  color: var(--kai-page-green);
+}
+
+.kaiPortfolioValueBlue {
+  color: var(--kai-page-blue);
+}
+
+.kaiPortfolioValueNeutral {
+  color: #b6b6ba;
+}
+
+.kaiPortfolioFootnote {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.78rem;
+}
+
+.kaiConfirmCard {
+  display: grid;
+  align-content: start;
+  gap: 1.5rem;
+  min-height: 100%;
+  padding: 2rem;
+  border-radius: 3rem;
+  background: #f8f8f8;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
+}
+
+.kaiConfirmIconShell {
+  background: #ffffff;
+  border-radius: 1.35rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.kaiConfirmIcon {
+  font-size: 2.2rem;
+}
+
+.kaiConfirmCopy {
+  display: grid;
+  gap: 0.55rem;
+  text-align: center;
+}
+
+.kaiConfirmNote {
+  text-align: center;
+  font-size: 0.78rem;
+}
+
+.kaiExecutionStatusBlock {
+  display: grid;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.kaiExecutionStatusLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin: 0;
+  color: var(--kai-page-green);
+  font-family: var(--site-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.kaiExecutionMetricGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.kaiExecutionMetricGrid div {
+  text-align: center;
+}
+
+.kaiExecutionMetricGrid p {
+  margin: 0 0 0.3rem;
+  color: var(--kai-page-label);
+  font-family: var(--site-font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.kaiGovernanceSection {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.kaiGovernanceList {
+  display: grid;
+  gap: 2rem;
+}
+
+.kaiGovernanceItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.kaiGovernanceIconShell {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  flex: 0 0 auto;
+  border: 1px solid transparent;
+}
+
+.kaiGovernanceIconBlue {
+  background: rgba(0, 122, 255, 0.05);
+  border-color: rgba(0, 122, 255, 0.1);
+}
+
+.kaiGovernanceIconGreen {
+  background: rgba(52, 199, 89, 0.05);
+  border-color: rgba(52, 199, 89, 0.1);
+}
+
+.kaiGovernanceIconIndigo {
+  background: rgba(88, 86, 214, 0.05);
+  border-color: rgba(88, 86, 214, 0.1);
+}
+
+.kaiGovernanceIconInk {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.kaiGovernanceIconGreen .kaiGovernanceIcon {
+  color: var(--kai-page-green);
+}
+
+.kaiGovernanceIconIndigo .kaiGovernanceIcon {
+  color: var(--kai-page-indigo);
+}
+
+.kaiGovernanceIconInk .kaiGovernanceIcon {
+  color: #000000;
+}
+
+.kaiGovernanceCopy {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.kaiFinalSection {
+  padding-bottom: 6.5rem;
+}
+
+.kaiFinalCopy {
+  text-align: center;
+  justify-items: center;
+}
+
+.kaiFinalBody {
+  max-width: 36rem;
+  text-align: center;
+}
+
+.kaiFinalActions {
+  max-width: 32rem;
+  margin: 2.5rem auto 0;
+}
+
+.kaiFinalPrimaryCta,
+.kaiFinalSecondaryCta {
+  width: 100%;
+}
+
+.kaiFinalNote {
+  justify-content: center;
+  margin-top: 0.5rem;
+  color: var(--kai-page-label);
+}
+
+@media (min-width: 768px) {
+  .kaiDesignerHero,
+  .kaiVisibilitySection,
+  .kaiStrategySection,
+  .kaiExecutionSection,
+  .kaiGovernanceSection,
+  .kaiFinalSection {
+    padding-block: 7.5rem;
+  }
+
+  .kaiVisibilityBanner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .kaiExecutionGrid {
+    grid-template-columns: 1.2fr 0.9fr;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 767px) {
+  .kaiDesignerHero {
+    padding-top: calc(var(--kai-chrome-offset, 72px) + 1.5rem);
+    padding-bottom: 4rem;
+  }
+
+  .kaiProblemHeader,
+  .kaiProblemRow,
+  .kaiVisibilityRow,
+  .kaiPortfolioRow {
+    align-items: flex-start;
+  }
+
+  .kaiProblemHeader,
+  .kaiVisibilityRow,
+  .kaiPortfolioRow {
+    flex-direction: column;
+  }
+
+  .kaiProblemRow {
+    flex-wrap: wrap;
+  }
+
+  .kaiVisibilityStatus {
+    justify-self: stretch;
+    justify-content: center;
+  }
+
+  .kaiDesignerDeviceStage {
+    width: 100%;
+    min-height: min(72svh, 34rem);
+  }
+
+  .kaiGovernanceItem {
+    gap: 1rem;
+  }
+}

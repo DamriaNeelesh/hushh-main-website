@@ -22,7 +22,6 @@ import {
   Spinner,
   Grid,
   GridItem,
-  Card,
   CardBody,
   Divider,
   Icon,
@@ -34,12 +33,9 @@ import { BiUser } from "react-icons/bi";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import ContentWrapper from "../_components/layout/ContentWrapper";
 import { HUSHH_API_BASE_URL } from "@/lib/env/public";
-
-const MotionBox = motion(Box);
-const MotionCard = motion(Card);
+import { MotionBox, MotionCard } from "@/lib/motion/chakra-motion";
 
 // Force this page to be dynamic to handle OAuth parameters
 export const dynamic = 'force-dynamic';
@@ -88,17 +84,10 @@ const UserRegistrationContent = () => {
     transition: { duration: 0.6, ease: "easeOut" }
   };
 
-  const staggerChildren = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-    }
-  };
-
-  const childVariants = {
+  const childMotion = {
     initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 }
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.48, ease: "power2.out" }
   };
 
   // Set mounted state to avoid hydration issues
@@ -422,13 +411,12 @@ const UserRegistrationContent = () => {
         
         <Container maxW="4xl">
         <MotionBox
-            initial="initial"
-            animate="animate"
-            variants={staggerChildren}>
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}>
             
           {/* Header */}
           <MotionCard
-              variants={childVariants}
+              {...childMotion}
               bg="linear-gradient(180deg, #ffffff 0%, #faf8f4 100%)"
               boxShadow="0 18px 44px rgba(10, 17, 40, 0.08)"
               borderRadius="2xl"
@@ -479,7 +467,7 @@ const UserRegistrationContent = () => {
 
           {/* Form */}
           <MotionCard
-              variants={childVariants}
+              {...childMotion}
               bg="white"
               boxShadow="0 18px 44px rgba(10, 17, 40, 0.08)"
               borderRadius="2xl"
@@ -749,7 +737,7 @@ const UserRegistrationContent = () => {
 
           {/* Footer */}
           <MotionBox
-              variants={childVariants}
+              {...childMotion}
               textAlign="center"
               mt={8}
               py={6}

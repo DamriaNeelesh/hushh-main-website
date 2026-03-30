@@ -1,13 +1,11 @@
 import React from 'react';
 import { Box, Flex, Text, VStack, Button, HStack, useToast } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import QRCode from 'react-qr-code';
 import { FaApple } from 'react-icons/fa';
 import { WalletService } from '../../services/walletService';
 import HushhHeaderLogo from '../../app/_components/svg/hushhHeaderLogo';
 import { buildHushhId, getSiteUrl } from '../../lib/utils';
-
-const MotionBox = motion(Box);
+import { MotionBox } from '../../lib/motion/chakra-motion';
 
 export default function HushhProfileCard({ userData }) {
     const toast = useToast();
