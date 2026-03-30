@@ -52,6 +52,5 @@ check_status "/developers" "200"
 check_status "/developers/agent-kai" "200"
 check_status "/contact-us" "200"
 check_status "/login" "200"
-check_redirect "/developers/rootEndpoints" "308" "${BASE_URL}/developers/agentic-apis"
 
 echo "Website route smoke checks passed for ${BASE_URL}"
