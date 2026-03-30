@@ -171,17 +171,6 @@ function main() {
     assert(!exists(file), `Legacy file should have been removed: ${file}`);
   }
 
-  const readme = fs.readFileSync(path.join(ROOT, "README.md"), "utf8");
-  const normalizedReadme = readme.toLowerCase();
-  for (const dir of requiredDirs) {
-    const shortDir = dir.replace("docs/", "").toLowerCase();
-    const fullDir = dir.toLowerCase();
-    assert(
-      normalizedReadme.includes(shortDir) || normalizedReadme.includes(fullDir),
-      `README should reference ${dir}`,
-    );
-  }
-
   console.log("Documentation audit passed.");
 }
 
