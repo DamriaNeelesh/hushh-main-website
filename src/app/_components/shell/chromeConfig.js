@@ -6,6 +6,9 @@ export const HIDE_CHROME_PATHS = [
   "/qrCodePage",
 ];
 
+// Paths where chrome is hidden via exact match only (no prefix matching)
+export const HIDE_CHROME_EXACT_PATHS = ["/"];
+
 export function normalizeChromePath(pathname) {
   if (!pathname) {
     return "/";
@@ -16,6 +19,10 @@ export function normalizeChromePath(pathname) {
 
 export function shouldHideChrome(pathname) {
   const normalizedPath = normalizeChromePath(pathname);
+
+  if (HIDE_CHROME_EXACT_PATHS.includes(normalizedPath)) {
+    return true;
+  }
 
   return HIDE_CHROME_PATHS.some(
     (hiddenPath) => normalizedPath === hiddenPath || normalizedPath.startsWith(`${hiddenPath}/`),
