@@ -936,7 +936,7 @@ export default function HushhKai() {
             .fromTo(
               "[data-kai-execution-accent]",
               { color: "rgba(0, 122, 255, 0.36)" },
-              { color: "#007AFF", duration: 0.42 },
+              { color: "rgb(var(--kai-blue-rgb))", duration: 0.42 },
               0.12,
             )
             .fromTo(
@@ -1058,7 +1058,7 @@ export default function HushhKai() {
             .fromTo(
               "[data-kai-final-accent]",
               { color: "rgba(0, 122, 255, 0.36)" },
-              { color: "#007AFF", duration: 0.42 },
+              { color: "rgb(var(--kai-blue-rgb))", duration: 0.42 },
               0.12,
             )
             .fromTo(
