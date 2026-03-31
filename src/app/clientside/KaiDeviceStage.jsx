@@ -21,13 +21,13 @@ function supportsWebGL() {
 function resolveTargets(progress, viewportWidth) {
   if (viewportWidth < 640) {
     return {
-      rotationX: MathUtils.lerp(0.32, 0.08, progress),
-      rotationY: MathUtils.lerp(Math.PI - 1.52, Math.PI + 0.04, progress),
-      rotationZ: MathUtils.lerp(-0.22, 0.02, progress),
-      positionX: MathUtils.lerp(0.26, -0.02, progress),
-      positionY: MathUtils.lerp(-0.2, 0.015, progress),
-      positionZ: MathUtils.lerp(0.05, 0.18, progress),
-      scale: MathUtils.lerp(19.8, 22.9, progress),
+      rotationX: MathUtils.lerp(0.12, 0, progress),
+      rotationY: MathUtils.lerp(Math.PI - 1.5, Math.PI, progress),
+      rotationZ: MathUtils.lerp(-0.06, 0, progress),
+      positionX: MathUtils.lerp(0.08, 0, progress),
+      positionY: MathUtils.lerp(-0.08, 0, progress),
+      positionZ: MathUtils.lerp(0.04, 0.18, progress),
+      scale: MathUtils.lerp(20.8, 23.2, progress),
     };
   }
 
@@ -68,7 +68,7 @@ function resolveCameraZ(viewportWidth) {
 
 function resolveDamping(viewportWidth) {
   if (viewportWidth < 640) {
-    return 4.6;
+    return 6.2;
   }
 
   if (viewportWidth < 1024) {
@@ -168,8 +168,6 @@ export default function KaiDeviceStage({ className, progress, reduceMotion, post
   return (
     <div className={className}>
       <div className={styles.discoveryDeviceCanvasShell}>
-        <div className={styles.discoveryDeviceCanvasGlow} aria-hidden="true" />
-
         {canRender && !reduceMotion ? (
           <Canvas
             dpr={[1.75, 2.4]}

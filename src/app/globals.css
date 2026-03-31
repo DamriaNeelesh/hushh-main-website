@@ -5,6 +5,7 @@
 :root {
   --site-font-body: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --site-font-heading: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --site-font-label: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --site-font-mono: var(--font-geist-mono), "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, monospace;
   --figma-mobile-frame-width: 390px;
   --figma-mobile-gutter: 24px;

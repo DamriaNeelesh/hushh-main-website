@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight } from "lucide-react";
 import styles from "./KaiPage.module.css";
 import { ensureGsapPlugins, useReducedMotionPreference } from "../_components/motion/gsapMotion";
 
@@ -14,6 +13,29 @@ const KaiDeviceStage = dynamic(() => import("./KaiDeviceStage"), {
 
 const KAI_APP_URL = "https://apps.apple.com/au/app/hushh-personal-agent-kai/id6757718917";
 const KAI_WEB_URL = "https://kai.hushh.ai";
+const VISIBILITY_DISCOVERY_TOTAL = 12419.52;
+const STRATEGY_QUOTE_TEXT = "Kai, where should I invest my $1,000?";
+const STRATEGY_QUOTE_STAGES = [
+  "",
+  "Kai,",
+  "Kai, where should",
+  "Kai, where should I invest",
+  "Kai, where should I invest my",
+  STRATEGY_QUOTE_TEXT,
+];
+const EXECUTION_GROWTH_IMPACT = 1000;
+const EXECUTION_TIME_SAVED = 4.5;
+
+function formatCurrency(value) {
+  return `$${value.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
+function formatSignedCurrency(value) {
+  return `${value >= 0 ? "+" : "-"}${formatCurrency(Math.abs(value))}`;
+}
 
 const heroTrustPoints = [
   { icon: "verified_user", label: "Instant KYC Onboarding" },
@@ -193,7 +215,6 @@ function WebCta({ className = "" }) {
       className={[styles.kaiSecondaryCta, className].filter(Boolean).join(" ")}
     >
       <span>Continue on Web</span>
-      <ArrowRight size={18} strokeWidth={2.2} />
     </a>
   );
 }
@@ -202,6 +223,7 @@ export default function HushhKai() {
   const pageRef = useRef(null);
   const heroRef = useRef(null);
   const problemRef = useRef(null);
+  const problemShellRef = useRef(null);
   const visibilityRef = useRef(null);
   const discoveryStageRef = useRef(null);
   const strategyRef = useRef(null);
@@ -300,341 +322,812 @@ export default function HushhKai() {
 
   useLayoutEffect(() => {
     ensureGsapPlugins();
+    let mm;
 
     const ctx = gsap.context(() => {
-      const startsNearTop = typeof window !== "undefined" && window.scrollY < 24;
-      const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
-      const controllers = [];
-      const viewportHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+      mm = gsap.matchMedia();
+      mm.add(
+        {
+          desktop: "(min-width: 1200px)",
+          tablet: "(min-width: 768px) and (max-width: 1199px)",
+          mobile: "(max-width: 767px)",
+          reduce: "(prefers-reduced-motion: reduce)",
+        },
+        (context) => {
+          const { desktop, tablet, mobile, reduce } = context.conditions;
+          const reduced = Boolean(reduce || reduceMotion);
+          const viewportHeight = window.innerHeight;
+          const startsNearTop = window.scrollY < 24;
+          const cleanups = [];
 
-      const collectTargets = (root, selectors) =>
-        selectors.flatMap((selector) => gsap.utils.toArray(selector, root));
+          const pick = (desktopValue, tabletValue, mobileValue) =>
+            mobile ? mobileValue : tablet ? tabletValue : desktopValue;
 
-      const registerController = ({
-        ref,
-        start,
-        selectors,
-        timeline,
-        onEnter,
-        onEnterBack,
-        onLeave,
-        onLeaveBack,
-      }) => {
-        if (!ref.current) {
-          return;
-        }
+          const getMountState = (element, triggerRatio) => {
+            const rect = element.getBoundingClientRect();
+            const isVisible = rect.top < viewportHeight && rect.bottom > 0;
+            const hasCrossedTrigger = rect.top <= viewportHeight * triggerRatio;
+            const isComplete = rect.bottom <= 0 || hasCrossedTrigger;
+            return { isVisible, isComplete };
+          };
 
-        const targets = collectTargets(ref.current, selectors);
-        timeline.pause(0);
+          const registerReveal = ({
+            ref,
+            start,
+            triggerRatio,
+            timeline,
+            onActive,
+            onInactive,
+            onSettle,
+            onReset,
+          }) => {
+            if (!ref.current) {
+              return;
+            }
 
-        const trigger = ScrollTrigger.create({
-          trigger: ref.current,
-          start,
-          onEnter: () => {
-            onEnter?.();
-            timeline.play();
-          },
-          onEnterBack: () => {
-            onEnterBack?.();
-            timeline.play();
-          },
-          onLeave: () => {
-            onLeave?.();
-          },
-          onLeaveBack: () => {
-            onLeaveBack?.();
-            timeline.reverse();
-          },
-        });
+            timeline.eventCallback("onComplete", () => {
+              onSettle?.();
+            });
+            timeline.eventCallback("onReverseComplete", () => {
+              onReset?.();
+            });
 
-        controllers.push({
-          element: ref.current,
-          timeline,
-          trigger,
-          onEnter,
-          onLeave,
-          targets,
-        });
-      };
+            const mountState = getMountState(ref.current, triggerRatio);
 
-      if (discoveryStageRef.current) {
-        discoveryProgressRef.current = reduceMotion ? 1 : 0;
-        ScrollTrigger.create({
-          trigger: discoveryStageRef.current,
-          start: "top bottom",
-          end: "top top",
-          onUpdate: (self) => {
-            discoveryProgressRef.current = reduceMotion ? 1 : self.progress;
-          },
-          onLeave: () => {
-            discoveryProgressRef.current = 1;
-          },
-          onLeaveBack: () => {
-            discoveryProgressRef.current = 0;
-          },
-        });
-      }
+            if (mountState.isComplete) {
+              timeline.progress(1).pause();
+              onSettle?.();
+              if (mountState.isVisible) {
+                onActive?.();
+              } else {
+                onInactive?.();
+              }
+            } else {
+              timeline.progress(0).pause();
+              onReset?.();
+              onInactive?.();
+            }
 
-      if (reduceMotion) {
-        return;
-      }
+            ScrollTrigger.create({
+              trigger: ref.current,
+              start,
+              onEnter: () => {
+                onActive?.();
+                timeline.play();
+              },
+              onEnterBack: () => {
+                onActive?.();
+                timeline.play();
+              },
+              onLeave: () => {
+                onInactive?.();
+              },
+              onLeaveBack: () => {
+                onInactive?.();
+                timeline.reverse();
+              },
+            });
+          };
 
-      const heroGlowSelector = "[data-kai-hero-glow]";
-      const heroTitleSelector = "[data-kai-hero-title]";
-      const heroBodySelector = "[data-kai-hero-body]";
-      const heroActionsSelector = "[data-kai-hero-actions]";
-      const heroTrustSelector = "[data-kai-hero-trust]";
-      const heroTrustItemSelector = "[data-kai-hero-trust-item]";
-      const heroConsentSelector = "[data-kai-hero-consent]";
+          const registerParallax = (selector, triggerRef, yDistance) => {
+            if (reduced || !triggerRef.current) {
+              return;
+            }
 
-      if (startsNearTop) {
-        gsap.set(heroGlowSelector, { autoAlpha: 0, y: 20 });
-        gsap.set(heroTitleSelector, { autoAlpha: 0, y: 36 });
-        gsap.set(heroBodySelector, { autoAlpha: 0, y: 20 });
-        gsap.set(heroActionsSelector, { autoAlpha: 0, y: 20 });
-        gsap.set(heroTrustSelector, { autoAlpha: 0, y: 20 });
-        gsap.set(heroTrustItemSelector, { autoAlpha: 0, y: 14 });
-        gsap.set(heroConsentSelector, { autoAlpha: 0, y: 12 });
+            gsap.to(selector, {
+              y: yDistance,
+              ease: "none",
+              scrollTrigger: {
+                trigger: triggerRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1,
+              },
+            });
+          };
 
-        gsap
-          .timeline({ defaults: { ease: "power3.out" } })
-          .to(heroGlowSelector, { autoAlpha: 1, y: 0, duration: 0.82, stagger: 0.08 }, 0)
-          .to(heroTitleSelector, { autoAlpha: 1, y: 0, duration: 0.74 }, 0.08)
-          .to(heroBodySelector, { autoAlpha: 1, y: 0, duration: 0.56 }, 0.22)
-          .to(heroActionsSelector, { autoAlpha: 1, y: 0, duration: 0.54 }, 0.34)
-          .to(heroTrustSelector, { autoAlpha: 1, y: 0, duration: 0.5 }, 0.42)
-          .to(heroTrustItemSelector, { autoAlpha: 1, y: 0, duration: 0.44, stagger: 0.08 }, 0.48)
-          .to(heroConsentSelector, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.64);
-      }
+          if (discoveryStageRef.current) {
+            discoveryProgressRef.current = reduced ? 1 : 0;
+            ScrollTrigger.create({
+              trigger: discoveryStageRef.current,
+              start: pick("top 88%", "top 90%", "top 92%"),
+              end: pick("top 44%", "top 50%", "top 58%"),
+              onUpdate: (self) => {
+                discoveryProgressRef.current = reduced ? 1 : self.progress;
+              },
+              onLeave: () => {
+                discoveryProgressRef.current = 1;
+              },
+              onLeaveBack: () => {
+                discoveryProgressRef.current = 0;
+              },
+            });
+          }
 
-      const problemIntroSelector = "[data-kai-problem-intro]";
-      const problemBeforeSelector = "[data-kai-problem-before]";
-      const problemArrowSelector = "[data-kai-problem-arrow]";
-      const problemAfterSelector = "[data-kai-problem-after]";
-      const problemNoteSelector = "[data-kai-problem-note]";
+          if (reduced) {
+            return () => {
+              cleanups.forEach((cleanup) => cleanup());
+            };
+          }
 
-      gsap.set(problemIntroSelector, { autoAlpha: 0, y: 30 });
-      gsap.set(problemBeforeSelector, { autoAlpha: 0, y: 32 });
-      gsap.set(problemArrowSelector, { autoAlpha: 0, y: 16 });
-      gsap.set(problemAfterSelector, { autoAlpha: 0, y: 34 });
-      gsap.set(problemNoteSelector, { autoAlpha: 0, y: 14 });
+          if (desktop && heroRef.current) {
+            const primaryAura = heroRef.current.querySelector('[data-kai-hero-aura="primary"]');
+            const secondaryAura = heroRef.current.querySelector('[data-kai-hero-aura="secondary"]');
 
-      const problemTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
-      problemTimeline
-        .to(problemIntroSelector, { autoAlpha: 1, y: 0, duration: 0.58 }, 0)
-        .to(problemBeforeSelector, { autoAlpha: 1, y: 0, duration: 0.66 }, 0.12)
-        .to(problemArrowSelector, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.28)
-        .to(problemAfterSelector, { autoAlpha: 1, y: 0, duration: 0.74 }, 0.34)
-        .to(problemNoteSelector, { autoAlpha: 1, y: 0, duration: 0.38 }, 0.52);
+            if (primaryAura && secondaryAura) {
+              const primaryX = gsap.quickTo(primaryAura, "x", { duration: 0.65, ease: "power3.out" });
+              const primaryY = gsap.quickTo(primaryAura, "y", { duration: 0.65, ease: "power3.out" });
+              const secondaryX = gsap.quickTo(secondaryAura, "x", { duration: 0.8, ease: "power3.out" });
+              const secondaryY = gsap.quickTo(secondaryAura, "y", { duration: 0.8, ease: "power3.out" });
 
-      registerController({
-        ref: problemRef,
-        start: isMobile ? "top 82%" : "top 76%",
-        selectors: [
-          problemIntroSelector,
-          problemBeforeSelector,
-          problemArrowSelector,
-          problemAfterSelector,
-          problemNoteSelector,
-        ],
-        timeline: problemTimeline,
-      });
+              const handlePointerMove = (event) => {
+                const rect = heroRef.current?.getBoundingClientRect();
+                if (!rect) {
+                  return;
+                }
 
-      const visibilityIntroSelector = "[data-kai-visibility-intro]";
-      const visibilityCardSelector = "[data-kai-visibility-card]";
-      const visibilityRowSelector = "[data-kai-visibility-row]";
-      const visibilityNoteSelector = "[data-kai-visibility-note]";
-      const visibilityBannerSelector = "[data-kai-visibility-banner]";
-      const visibilityStatusSelector = "[data-kai-visibility-status]";
-      const visibilityDeviceSelector = "[data-kai-visibility-device]";
+                const offsetX = (event.clientX - rect.left) / rect.width - 0.5;
+                const offsetY = (event.clientY - rect.top) / rect.height - 0.5;
 
-      gsap.set(visibilityIntroSelector, { autoAlpha: 0, y: 28 });
-      gsap.set(visibilityCardSelector, { autoAlpha: 0, y: 32 });
-      gsap.set(visibilityRowSelector, { autoAlpha: 0, y: 18 });
-      gsap.set(visibilityNoteSelector, { autoAlpha: 0, y: 16 });
-      gsap.set(visibilityBannerSelector, { autoAlpha: 0, y: 20 });
-      gsap.set(visibilityStatusSelector, { autoAlpha: 0, y: 12 });
-      gsap.set(visibilityDeviceSelector, { autoAlpha: 0, y: 34 });
+                primaryX(offsetX * 44);
+                primaryY(offsetY * 28);
+                secondaryX(offsetX * -28);
+                secondaryY(offsetY * -18);
+              };
 
-      const visibilityTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
-      visibilityTimeline
-        .to(visibilityIntroSelector, { autoAlpha: 1, y: 0, duration: 0.56 }, 0)
-        .to(visibilityCardSelector, { autoAlpha: 1, y: 0, duration: 0.72 }, 0.12)
-        .to(visibilityRowSelector, { autoAlpha: 1, y: 0, duration: 0.42, stagger: 0.08 }, 0.28)
-        .to(visibilityNoteSelector, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.42)
-        .to(visibilityBannerSelector, { autoAlpha: 1, y: 0, duration: 0.46 }, 0.5)
-        .to(visibilityStatusSelector, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.58)
-        .to(visibilityDeviceSelector, { autoAlpha: 1, y: 0, duration: 0.82 }, 0.42);
+              const resetPointerDrift = () => {
+                primaryX(0);
+                primaryY(0);
+                secondaryX(0);
+                secondaryY(0);
+              };
 
-      registerController({
-        ref: visibilityRef,
-        start: isMobile ? "top 80%" : "top 72%",
-        selectors: [
-          visibilityIntroSelector,
-          visibilityCardSelector,
-          visibilityRowSelector,
-          visibilityNoteSelector,
-          visibilityBannerSelector,
-          visibilityStatusSelector,
-          visibilityDeviceSelector,
-        ],
-        timeline: visibilityTimeline,
-      });
+              heroRef.current.addEventListener("pointermove", handlePointerMove);
+              heroRef.current.addEventListener("pointerleave", resetPointerDrift);
+              cleanups.push(() => {
+                heroRef.current?.removeEventListener("pointermove", handlePointerMove);
+                heroRef.current?.removeEventListener("pointerleave", resetPointerDrift);
+              });
+            }
+          }
 
-      const strategyIntroSelector = "[data-kai-strategy-intro]";
-      const strategyVoiceSelector = "[data-kai-strategy-voice]";
-      const strategyBarsSelector = "[data-kai-strategy-bar]";
-      const strategyConnectorSelector = "[data-kai-strategy-connector]";
-      const strategyStepSelector = "[data-kai-strategy-step]";
-      const strategyNoteSelector = "[data-kai-strategy-note]";
-      const strategyOrbSelector = "[data-kai-strategy-orb]";
+          const heroTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+          heroTimeline
+            .fromTo(
+              "[data-kai-hero-aura]",
+              { autoAlpha: 0, y: 24 },
+              { autoAlpha: 1, y: 0, duration: 1.05, stagger: 0.08 },
+              0,
+            )
+            .fromTo(
+              "[data-kai-hero-line]",
+              { yPercent: 118, rotateZ: 0.8, transformOrigin: "left bottom" },
+              {
+                yPercent: 0,
+                rotateZ: 0,
+                duration: pick(0.94, 0.84, 0.72),
+                stagger: 0.08,
+                ease: "power4.out",
+              },
+              0.06,
+            )
+            .fromTo(
+              "[data-kai-hero-body]",
+              { autoAlpha: 0, y: 24, clipPath: "inset(0% 0% 100% 0%)" },
+              { autoAlpha: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.62 },
+              0.26,
+            )
+            .fromTo(
+              "[data-kai-hero-actions] > *",
+              { autoAlpha: 0, y: 18, scale: 0.985 },
+              { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.08 },
+              0.4,
+            )
+            .fromTo(
+              "[data-kai-hero-trust-item]",
+              { autoAlpha: 0, x: (index) => (index % 2 === 0 ? -16 : 16), y: 10 },
+              { autoAlpha: 1, x: 0, y: 0, duration: 0.46, stagger: 0.08 },
+              0.58,
+            )
+            .fromTo(
+              "[data-kai-hero-consent]",
+              { autoAlpha: 0, y: 12 },
+              { autoAlpha: 1, y: 0, duration: 0.36 },
+              0.82,
+            );
 
-      gsap.set(strategyIntroSelector, { autoAlpha: 0, y: 28 });
-      gsap.set(strategyVoiceSelector, { autoAlpha: 0, y: 36 });
-      gsap.set(strategyBarsSelector, { autoAlpha: 0.3, scaleY: 0.45, transformOrigin: "bottom" });
-      gsap.set(strategyConnectorSelector, { autoAlpha: 0, scaleY: 0.6, transformOrigin: "top" });
-      gsap.set(strategyStepSelector, { autoAlpha: 0, y: 22 });
-      gsap.set(strategyNoteSelector, { autoAlpha: 0, y: 16 });
+          if (startsNearTop) {
+            heroTimeline.play(0);
+          } else {
+            heroTimeline.progress(1).pause();
+          }
 
-      const strategyOrbPulse = gsap.to(strategyOrbSelector, {
-        scale: isMobile ? 1.04 : 1.07,
-        opacity: 0.34,
-        duration: 1.8,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        paused: true,
-      });
+          const strategyOrbPulse = gsap.to("[data-kai-strategy-orb]", {
+            scale: pick(1.09, 1.07, 1.05),
+            opacity: 0.34,
+            duration: pick(2.1, 1.9, 1.65),
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            paused: true,
+          });
 
-      const strategyTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
-      strategyTimeline
-        .to(strategyIntroSelector, { autoAlpha: 1, y: 0, duration: 0.56 }, 0)
-        .to(strategyVoiceSelector, { autoAlpha: 1, y: 0, duration: 0.76 }, 0.12)
-        .to(strategyBarsSelector, { autoAlpha: 1, scaleY: 1, duration: 0.4, stagger: 0.04 }, 0.26)
-        .to(strategyConnectorSelector, { autoAlpha: 1, scaleY: 1, duration: 0.28, stagger: 0.06 }, 0.34)
-        .to(strategyStepSelector, { autoAlpha: 1, y: 0, duration: 0.48, stagger: 0.12 }, 0.42)
-        .to(strategyNoteSelector, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.66);
+          const strategyBarsWave = gsap.timeline({ paused: true, repeat: -1, defaults: { ease: "sine.inOut" } });
+          strategyBarsWave
+            .to(
+              "[data-kai-strategy-bar]",
+              {
+                keyframes: [
+                  { scaleY: (index) => [0.72, 1.2, 1.45, 1.12, 0.78][index], duration: 0.32 },
+                  { scaleY: 1, duration: 0.38 },
+                ],
+                transformOrigin: "bottom",
+                stagger: 0.05,
+              },
+              0,
+            )
+            .to({}, { duration: 0.18 });
 
-      registerController({
-        ref: strategyRef,
-        start: isMobile ? "top 82%" : "top 74%",
-        selectors: [
-          strategyIntroSelector,
-          strategyVoiceSelector,
-          strategyBarsSelector,
-          strategyConnectorSelector,
-          strategyStepSelector,
-          strategyNoteSelector,
-        ],
-        timeline: strategyTimeline,
-        onEnter: () => strategyOrbPulse.play(),
-        onEnterBack: () => strategyOrbPulse.play(),
-        onLeave: () => strategyOrbPulse.pause(),
-        onLeaveBack: () => strategyOrbPulse.pause(),
-      });
+          const visibilityAmountElement = pageRef.current?.querySelector("[data-kai-visibility-amount]");
+          const visibilityAmountState = {
+            value: reduced ? VISIBILITY_DISCOVERY_TOTAL : 0,
+          };
 
-      const executionIntroSelector = "[data-kai-execution-intro]";
-      const executionPortfolioSelector = "[data-kai-execution-portfolio]";
-      const executionRowSelector = "[data-kai-execution-row]";
-      const executionConfirmSelector = "[data-kai-execution-confirm]";
-      const executionMetricSelector = "[data-kai-execution-metric]";
+          const syncVisibilityAmount = () => {
+            if (visibilityAmountElement) {
+              visibilityAmountElement.textContent = formatCurrency(visibilityAmountState.value);
+            }
+          };
 
-      gsap.set(executionIntroSelector, { autoAlpha: 0, y: 28 });
-      gsap.set(executionPortfolioSelector, { autoAlpha: 0, y: 34 });
-      gsap.set(executionRowSelector, { autoAlpha: 0, y: 20 });
-      gsap.set(executionConfirmSelector, { autoAlpha: 0, y: 34 });
-      gsap.set(executionMetricSelector, { autoAlpha: 0, y: 14 });
+          if (visibilityAmountElement) {
+            syncVisibilityAmount();
+          }
 
-      const executionTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
-      executionTimeline
-        .to(executionIntroSelector, { autoAlpha: 1, y: 0, duration: 0.54 }, 0)
-        .to(executionPortfolioSelector, { autoAlpha: 1, y: 0, duration: 0.72 }, 0.12)
-        .to(executionRowSelector, { autoAlpha: 1, y: 0, duration: 0.42, stagger: 0.08 }, 0.3)
-        .to(executionConfirmSelector, { autoAlpha: 1, y: 0, duration: 0.66 }, 0.26)
-        .to(executionMetricSelector, { autoAlpha: 1, y: 0, duration: 0.34, stagger: 0.06 }, 0.56);
+          const strategyQuoteElement = pageRef.current?.querySelector("[data-kai-strategy-quote]");
+          const strategyQuoteState = {
+            stage: reduced ? STRATEGY_QUOTE_STAGES.length - 1 : 0,
+          };
 
-      registerController({
-        ref: executionRef,
-        start: isMobile ? "top 82%" : "top 72%",
-        selectors: [
-          executionIntroSelector,
-          executionPortfolioSelector,
-          executionRowSelector,
-          executionConfirmSelector,
-          executionMetricSelector,
-        ],
-        timeline: executionTimeline,
-      });
+          const syncStrategyQuote = () => {
+            if (strategyQuoteElement) {
+              strategyQuoteElement.textContent = STRATEGY_QUOTE_STAGES[strategyQuoteState.stage];
+            }
+          };
 
-      const governanceIntroSelector = "[data-kai-governance-intro]";
-      const governanceCardSelector = "[data-kai-governance-card]";
+          if (strategyQuoteElement) {
+            syncStrategyQuote();
+          }
 
-      gsap.set(governanceIntroSelector, { autoAlpha: 0, y: 24 });
-      gsap.set(governanceCardSelector, { autoAlpha: 0, y: 18 });
+          const executionMetricValues = {
+            growth: reduced ? EXECUTION_GROWTH_IMPACT : 0,
+            time: reduced ? EXECUTION_TIME_SAVED : 0,
+          };
 
-      const governanceTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
-      governanceTimeline
-        .to(governanceIntroSelector, { autoAlpha: 1, y: 0, duration: 0.5 }, 0)
-        .to(governanceCardSelector, { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.08 }, 0.1);
+          const growthMetricElement = pageRef.current?.querySelector(
+            '[data-kai-execution-metric-value="growth"]',
+          );
+          const timeMetricElement = pageRef.current?.querySelector(
+            '[data-kai-execution-metric-value="time"]',
+          );
 
-      registerController({
-        ref: governanceRef,
-        start: isMobile ? "top 84%" : "top 78%",
-        selectors: [governanceIntroSelector, governanceCardSelector],
-        timeline: governanceTimeline,
-      });
+          const syncExecutionMetrics = () => {
+            if (growthMetricElement) {
+              growthMetricElement.textContent = formatSignedCurrency(executionMetricValues.growth);
+            }
 
-      const finalCopySelector = "[data-kai-final-copy]";
-      const finalActionsSelector = "[data-kai-final-actions]";
+            if (timeMetricElement) {
+              timeMetricElement.textContent = `${executionMetricValues.time.toFixed(1)}h`;
+            }
+          };
 
-      gsap.set(finalCopySelector, { autoAlpha: 0, y: 24 });
-      gsap.set(finalActionsSelector, { autoAlpha: 0, y: 16 });
+          if (growthMetricElement || timeMetricElement) {
+            syncExecutionMetrics();
+          }
 
-      const finalTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
-      finalTimeline
-        .to(finalCopySelector, { autoAlpha: 1, y: 0, duration: 0.5 }, 0)
-        .to(finalActionsSelector, { autoAlpha: 1, y: 0, duration: 0.38 }, 0.16);
+          const problemTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+          problemTimeline
+            .fromTo(
+              "[data-kai-problem-eyebrow]",
+              { autoAlpha: 0, y: 14 },
+              { autoAlpha: 1, y: 0, duration: 0.34 },
+              0,
+            )
+            .fromTo(
+              "[data-kai-problem-title-line]",
+              { yPercent: 118, rotateZ: 0.9, transformOrigin: "left bottom" },
+              {
+                yPercent: 0,
+                rotateZ: 0,
+                duration: 0.82,
+                stagger: 0.08,
+                ease: "power4.out",
+              },
+              0.04,
+            )
+            .fromTo(
+              "[data-kai-problem-lead]",
+              { autoAlpha: 0, y: 18, clipPath: "inset(0% 0% 100% 0%)" },
+              { autoAlpha: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.54 },
+              0.18,
+            )
+            .fromTo(
+              "[data-kai-problem-shell]",
+              {
+                autoAlpha: 0,
+                y: pick(68, 56, 44),
+                scale: 0.965,
+                rotateX: pick(5, 4, 0),
+                transformPerspective: 1400,
+                clipPath: "inset(12% 0% 12% 0% round 2.5rem)",
+              },
+              {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                rotateX: 0,
+                clipPath: "inset(0% 0% 0% 0% round 2.5rem)",
+                duration: 1.08,
+              },
+              0.18,
+            )
+            .fromTo(
+              "[data-kai-problem-sweep]",
+              { autoAlpha: 0, xPercent: -72 },
+              { autoAlpha: 0.72, xPercent: 78, duration: 1.26, ease: "power2.inOut" },
+              0.24,
+            )
+            .to(
+              "[data-kai-problem-sweep]",
+              { autoAlpha: 0, duration: 0.22, ease: "power1.out" },
+              1.28,
+            )
+            .fromTo(
+              "[data-kai-problem-before]",
+              { autoAlpha: 0, y: 24 },
+              { autoAlpha: 1, y: 0, duration: 0.48 },
+              0.34,
+            )
+            .fromTo(
+              "[data-kai-problem-badge]",
+              { autoAlpha: 0, scale: 0.78, transformOrigin: "center" },
+              { autoAlpha: 1, scale: 1, duration: 0.01 },
+              0.56,
+            )
+            .to(
+              "[data-kai-problem-badge]",
+              {
+                keyframes: [
+                  { scale: 1.12, duration: 0.18, ease: "back.out(3)" },
+                  { scale: 1, duration: 0.16, ease: "power2.out" },
+                ],
+              },
+              0.56,
+            )
+            .fromTo(
+              "[data-kai-problem-line]",
+              { scaleY: 0, transformOrigin: "top" },
+              { scaleY: 1, duration: 0.34 },
+              0.5,
+            )
+            .fromTo(
+              "[data-kai-problem-arrow]",
+              { autoAlpha: 0, y: 14 },
+              { autoAlpha: 1, y: 0, duration: 0.34 },
+              0.54,
+            )
+            .to(
+              "[data-kai-problem-arrow-icon]",
+              {
+                keyframes: [
+                  { y: 6, duration: 0.12 },
+                  { y: 0, duration: 0.18 },
+                  { y: 3, duration: 0.1 },
+                  { y: 0, duration: 0.14 },
+                ],
+                ease: "power2.out",
+              },
+              0.74,
+            )
+            .fromTo(
+              "[data-kai-problem-after]",
+              { autoAlpha: 0, y: 34 },
+              { autoAlpha: 1, y: 0, duration: 0.62 },
+              0.62,
+            )
+            .fromTo(
+              "[data-kai-problem-note]",
+              { autoAlpha: 0, y: 14 },
+              { autoAlpha: 1, y: 0, duration: 0.34 },
+              0.84,
+            )
+            .fromTo(
+              "[data-kai-problem-aura]",
+              { autoAlpha: 0, scale: 0.78, transformOrigin: "center" },
+              { autoAlpha: 1, scale: 1, duration: 0.92, stagger: 0.08 },
+              0.18,
+            );
 
-      registerController({
-        ref: finalRef,
-        start: isMobile ? "top 88%" : "top 82%",
-        selectors: [finalCopySelector, finalActionsSelector],
-        timeline: finalTimeline,
-      });
+          registerReveal({
+            ref: problemShellRef,
+            start: pick("top 82%", "top 86%", "top 89%"),
+            triggerRatio: pick(0.82, 0.86, 0.89),
+            timeline: problemTimeline,
+          });
 
-      controllers.forEach(({ element, timeline, onEnter, onLeave }) => {
-        const rect = element.getBoundingClientRect();
-        const shouldComplete = rect.top <= viewportHeight * 0.72;
-        const isVisible = rect.top < viewportHeight && rect.bottom > 0;
+          const visibilityTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+          visibilityTimeline
+            .fromTo(
+              "[data-kai-visibility-intro]",
+              { autoAlpha: 0, y: 30 },
+              { autoAlpha: 1, y: 0, duration: 0.56 },
+              0,
+            )
+            .fromTo(
+              "[data-kai-visibility-card]",
+              { autoAlpha: 0, y: pick(42, 36, 30), scale: 0.985 },
+              { autoAlpha: 1, y: 0, scale: 1, duration: 0.82 },
+              0.14,
+            )
+            .fromTo(
+              "[data-kai-visibility-scan]",
+              { autoAlpha: 0, xPercent: -96 },
+              { autoAlpha: 0.65, xPercent: 126, duration: pick(1.22, 1.04, 0.9), ease: "power2.inOut" },
+              0.22,
+            )
+            .to(
+              visibilityAmountState,
+              {
+                value: VISIBILITY_DISCOVERY_TOTAL,
+                duration: pick(1.18, 1.02, 0.88),
+                ease: "power2.out",
+                onUpdate: syncVisibilityAmount,
+              },
+              0.24,
+            )
+            .fromTo(
+              "[data-kai-visibility-summary]",
+              { autoAlpha: 0, y: 24 },
+              { autoAlpha: 1, y: 0, duration: 0.48 },
+              0.24,
+            )
+            .fromTo(
+              "[data-kai-visibility-row]",
+              { autoAlpha: 0, x: (index) => (index % 2 === 0 ? -18 : 18), y: 12 },
+              { autoAlpha: 1, x: 0, y: 0, duration: 0.38, stagger: 0.1 },
+              0.42,
+            )
+            .fromTo(
+              "[data-kai-visibility-note]",
+              { autoAlpha: 0, y: 14 },
+              { autoAlpha: 1, y: 0, duration: 0.3 },
+              0.58,
+            )
+            .fromTo(
+              "[data-kai-visibility-banner-copy]",
+              { autoAlpha: 0, y: 18, clipPath: "inset(0% 0% 100% 0%)" },
+              { autoAlpha: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.42 },
+              0.7,
+            )
+            .fromTo(
+              "[data-kai-visibility-status]",
+              { autoAlpha: 0, y: 12, scale: 0.92 },
+              { autoAlpha: 1, y: 0, scale: 1, duration: 0.32 },
+              0.82,
+            )
+            .fromTo(
+              "[data-kai-visibility-device]",
+              { autoAlpha: 0, y: pick(56, 46, 34), scale: 0.975 },
+              { autoAlpha: 1, y: 0, scale: 1, duration: pick(0.94, 0.84, 0.74) },
+              0.9,
+            )
+            .fromTo(
+              "[data-kai-visibility-aura]",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.64, stagger: 0.08 },
+              0.2,
+            );
 
-        if (shouldComplete || isVisible) {
-          timeline.progress(1).pause();
-          onEnter?.();
-        } else {
-          timeline.progress(0).pause();
-          onLeave?.();
-        }
-      });
+          registerReveal({
+            ref: visibilityRef,
+            start: pick("top 78%", "top 82%", "top 86%"),
+            triggerRatio: pick(0.78, 0.82, 0.86),
+            timeline: visibilityTimeline,
+            onSettle: () => {
+              visibilityAmountState.value = VISIBILITY_DISCOVERY_TOTAL;
+              syncVisibilityAmount();
+            },
+            onReset: () => {
+              visibilityAmountState.value = 0;
+              syncVisibilityAmount();
+            },
+          });
 
-      ScrollTrigger.refresh();
+          const strategyTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+          strategyTimeline
+            .fromTo(
+              "[data-kai-strategy-intro]",
+              { autoAlpha: 0, y: 30 },
+              { autoAlpha: 1, y: 0, duration: 0.54 },
+              0,
+            )
+            .fromTo(
+              "[data-kai-strategy-voice]",
+              { autoAlpha: 0, y: pick(40, 36, 30) },
+              { autoAlpha: 1, y: 0, duration: 0.82 },
+              0.14,
+            )
+            .to(
+              strategyQuoteState,
+              {
+                stage: STRATEGY_QUOTE_STAGES.length - 1,
+                duration: pick(1.95, 1.72, 1.5),
+                ease: "none",
+                snap: { stage: 1 },
+                onStart: () => {
+                  strategyQuoteState.stage = 0;
+                  syncStrategyQuote();
+                },
+                onUpdate: () => {
+                  syncStrategyQuote();
+                },
+              },
+              0.34,
+            )
+            .fromTo(
+              "[data-kai-strategy-bar]",
+              { autoAlpha: 0.2, scaleY: 0.42, transformOrigin: "bottom" },
+              { autoAlpha: 1, scaleY: 1, duration: 0.36, stagger: 0.04 },
+              0.9,
+            )
+            .call(() => {
+              strategyBarsWave.play(0);
+            }, [], 1.02)
+            .fromTo(
+              "[data-kai-strategy-connector]",
+              { autoAlpha: 0, scaleY: 0.55, transformOrigin: "top" },
+              { autoAlpha: 1, scaleY: 1, duration: 0.26, stagger: 0.05 },
+              1.1,
+            )
+            .fromTo(
+              "[data-kai-strategy-step]",
+              { autoAlpha: 0, x: -20, y: 18 },
+              { autoAlpha: 1, x: 0, y: 0, duration: 0.44, stagger: 0.16 },
+              1.18,
+            )
+            .fromTo(
+              "[data-kai-strategy-note]",
+              { autoAlpha: 0, y: 14 },
+              { autoAlpha: 1, y: 0, duration: 0.32 },
+              1.56,
+            );
+
+          registerReveal({
+            ref: strategyRef,
+            start: pick("top 80%", "top 84%", "top 88%"),
+            triggerRatio: pick(0.8, 0.84, 0.88),
+            timeline: strategyTimeline,
+            onActive: () => {
+              strategyOrbPulse.play();
+            },
+            onInactive: () => {
+              strategyOrbPulse.pause();
+              strategyBarsWave.pause(0);
+            },
+            onSettle: () => {
+              strategyQuoteState.stage = STRATEGY_QUOTE_STAGES.length - 1;
+              syncStrategyQuote();
+              strategyBarsWave.play(0);
+            },
+            onReset: () => {
+              strategyQuoteState.stage = 0;
+              syncStrategyQuote();
+              strategyBarsWave.pause(0);
+            },
+          });
+
+          const executionTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+          executionTimeline
+            .fromTo(
+              "[data-kai-execution-intro]",
+              { autoAlpha: 0, y: 30 },
+              { autoAlpha: 1, y: 0, duration: 0.56 },
+              0,
+            )
+            .fromTo(
+              "[data-kai-execution-accent]",
+              { color: "rgba(0, 122, 255, 0.36)" },
+              { color: "#007AFF", duration: 0.42 },
+              0.12,
+            )
+            .fromTo(
+              "[data-kai-execution-portfolio]",
+              { autoAlpha: 0, y: pick(40, 34, 28), scale: 0.985 },
+              { autoAlpha: 1, y: 0, scale: 1, duration: 0.84 },
+              0.16,
+            )
+            .fromTo(
+              "[data-kai-execution-row]",
+              { autoAlpha: 0, x: (index) => (index % 2 === 0 ? -18 : 18), y: 14 },
+              { autoAlpha: 1, x: 0, y: 0, duration: 0.38, stagger: 0.1 },
+              0.34,
+            )
+            .fromTo(
+              "[data-kai-execution-confirm]",
+              { autoAlpha: 0, y: pick(34, 30, 26), x: pick(18, 14, 0) },
+              { autoAlpha: 1, y: 0, x: 0, duration: 0.68 },
+              0.5,
+            )
+            .fromTo(
+              "[data-kai-execution-status]",
+              { autoAlpha: 0, y: 14 },
+              { autoAlpha: 1, y: 0, duration: 0.3 },
+              0.72,
+            )
+            .fromTo(
+              "[data-kai-execution-metric]",
+              { autoAlpha: 0, y: 14 },
+              { autoAlpha: 1, y: 0, duration: 0.3, stagger: 0.06 },
+              0.8,
+            )
+            .to(
+              executionMetricValues,
+              {
+                growth: EXECUTION_GROWTH_IMPACT,
+                duration: pick(0.92, 0.8, 0.68),
+                ease: "power2.out",
+                onUpdate: syncExecutionMetrics,
+              },
+              0.84,
+            )
+            .to(
+              executionMetricValues,
+              {
+                time: EXECUTION_TIME_SAVED,
+                duration: pick(0.72, 0.62, 0.54),
+                ease: "power2.out",
+                onUpdate: syncExecutionMetrics,
+              },
+              0.92,
+            )
+            .fromTo(
+              "[data-kai-execution-aura]",
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.74, stagger: 0.08 },
+              0.14,
+            );
+
+          registerReveal({
+            ref: executionRef,
+            start: pick("top 78%", "top 82%", "top 86%"),
+            triggerRatio: pick(0.78, 0.82, 0.86),
+            timeline: executionTimeline,
+            onSettle: () => {
+              executionMetricValues.growth = EXECUTION_GROWTH_IMPACT;
+              executionMetricValues.time = EXECUTION_TIME_SAVED;
+              syncExecutionMetrics();
+            },
+            onReset: () => {
+              executionMetricValues.growth = 0;
+              executionMetricValues.time = 0;
+              syncExecutionMetrics();
+            },
+          });
+
+          const governanceTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+          governanceTimeline
+            .fromTo(
+              "[data-kai-governance-intro]",
+              { autoAlpha: 0, y: 24 },
+              { autoAlpha: 1, y: 0, duration: 0.46 },
+              0,
+            )
+            .fromTo(
+              "[data-kai-governance-card]",
+              { autoAlpha: 0, x: -22, y: 8 },
+              { autoAlpha: 1, x: 0, y: 0, duration: 0.38, stagger: 0.1 },
+              0.12,
+            )
+            .fromTo(
+              "[data-kai-governance-icon-shell]",
+              { scale: 0.82, autoAlpha: 0.6 },
+              { scale: 1, autoAlpha: 1, duration: 0.32, stagger: 0.08 },
+              0.2,
+            )
+            .fromTo(
+              "[data-kai-governance-copy]",
+              { autoAlpha: 0, x: -14 },
+              { autoAlpha: 1, x: 0, duration: 0.34, stagger: 0.08 },
+              0.24,
+            );
+
+          registerReveal({
+            ref: governanceRef,
+            start: pick("top 84%", "top 88%", "top 90%"),
+            triggerRatio: pick(0.84, 0.88, 0.9),
+            timeline: governanceTimeline,
+          });
+
+          const finalTimeline = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+          finalTimeline
+            .fromTo(
+              "[data-kai-final-copy]",
+              { autoAlpha: 0, y: 24, clipPath: "inset(0% 0% 100% 0%)" },
+              { autoAlpha: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.48 },
+              0,
+            )
+            .fromTo(
+              "[data-kai-final-accent]",
+              { color: "rgba(0, 122, 255, 0.36)" },
+              { color: "#007AFF", duration: 0.42 },
+              0.12,
+            )
+            .fromTo(
+              "[data-kai-final-actions]",
+              { autoAlpha: 0, y: 16, scale: 0.99 },
+              { autoAlpha: 1, y: 0, scale: 1, duration: 0.4 },
+              0.22,
+            );
+
+          registerReveal({
+            ref: finalRef,
+            start: pick("top 90%", "top 92%", "top 94%"),
+            triggerRatio: pick(0.9, 0.92, 0.94),
+            timeline: finalTimeline,
+          });
+
+          registerParallax("[data-kai-hero-aura]", heroRef, pick(-34, -20, -10));
+          registerParallax("[data-kai-problem-aura]", problemRef, pick(-22, -16, -10));
+          registerParallax("[data-kai-problem-shell]", problemRef, pick(-18, -12, -6));
+          registerParallax("[data-kai-visibility-card]", visibilityRef, pick(-16, -12, -6));
+          registerParallax("[data-kai-visibility-status]", visibilityRef, pick(-10, -7, -4));
+          registerParallax("[data-kai-visibility-device]", visibilityRef, pick(-14, -10, -6));
+          registerParallax("[data-kai-visibility-aura]", visibilityRef, pick(-28, -20, -12));
+          registerParallax("[data-kai-visibility-banner]", visibilityRef, pick(-12, -8, -4));
+          registerParallax("[data-kai-strategy-stack]", strategyRef, pick(-18, -12, -8));
+          registerParallax("[data-kai-execution-aura]", executionRef, pick(-26, -18, -10));
+          registerParallax("[data-kai-execution-confirm]", executionRef, pick(-10, -7, 0));
+
+          ScrollTrigger.refresh();
+
+          return () => {
+            cleanups.forEach((cleanup) => cleanup());
+          };
+        },
+      );
     }, pageRef);
 
-    return () => ctx.revert();
+    return () => {
+      mm?.revert();
+      ctx.revert();
+    };
   }, [discoveryStageReady, discoveryDeviceProgress, reduceMotion]);
 
   return (
     <div ref={pageRef} className={styles.kaiDesignerPage}>
       <section ref={heroRef} className={styles.kaiDesignerHero}>
-        <div className={styles.kaiHeroGlowPrimary} data-kai-hero-glow aria-hidden="true" />
-        <div className={styles.kaiHeroGlowSecondary} data-kai-hero-glow aria-hidden="true" />
+        <div className={styles.kaiHeroAtmosphere} aria-hidden="true">
+          <div className={styles.kaiHeroAuraPrimary} data-kai-hero-aura="primary" />
+          <div className={styles.kaiHeroAuraSecondary} data-kai-hero-aura="secondary" />
+        </div>
+
         <div className={styles.kaiContentContainer}>
           <div className={styles.kaiHeroStack}>
             <h1 className={styles.kaiHeroTitle} data-kai-hero-title>
-              Kai,
-              <br />
-              Your personal
-              <br />
-              financial agent.
+              <span className={styles.kaiHeroTitleLine}>
+                <span className={styles.kaiHeroTitleLineInner} data-kai-hero-line>
+                  Kai,
+                </span>
+              </span>
+              <span className={styles.kaiHeroTitleLine}>
+                <span className={styles.kaiHeroTitleLineInner} data-kai-hero-line>
+                  Your personal
+                </span>
+              </span>
+              <span className={styles.kaiHeroTitleLine}>
+                <span className={styles.kaiHeroTitleLineInner} data-kai-hero-line>
+                  financial agent.
+                </span>
+              </span>
             </h1>
             <p className={styles.kaiHeroBody} data-kai-hero-body>
               Understand your money, invest better, and grow your wealth—always with your consent.
@@ -669,23 +1162,42 @@ export default function HushhKai() {
       <section ref={problemRef} className={styles.kaiProblemSection}>
         <div className={styles.kaiContentContainer}>
           <div className={styles.kaiProblemIntro} data-kai-problem-intro>
-            <p className={`${styles.kaiEyebrow} ${styles.kaiEyebrowDark}`}>THE PROBLEM</p>
+            <p
+              className={`${styles.kaiEyebrow} ${styles.kaiEyebrowDark}`}
+              data-kai-problem-eyebrow
+            >
+              THE PROBLEM
+            </p>
             <h2 className={styles.kaiSectionTitleLight}>
-              Fragmentation is costly.
-              <br />
-              Stop the leakage.
+              <span className={styles.kaiProblemTitleLine}>
+                <span className={styles.kaiProblemTitleLineInner} data-kai-problem-title-line>
+                  Fragmentation is costly.
+                </span>
+              </span>
+              <span className={styles.kaiProblemTitleLine}>
+                <span className={styles.kaiProblemTitleLineInner} data-kai-problem-title-line>
+                  Stop the leakage.
+                </span>
+              </span>
             </h2>
-            <p className={styles.kaiSectionLeadDark}>
+            <p className={styles.kaiSectionLeadDark} data-kai-problem-lead>
               Idle cash across accounts isn&apos;t just sitting still—it&apos;s losing ground.
               Missed signals and manual tracking quietly drain your capital every month.
             </p>
           </div>
 
-          <div className={styles.kaiProblemCard} data-kai-problem-before>
-            <div className={styles.kaiProblemState}>
+          <div
+            ref={problemShellRef}
+            className={styles.kaiProblemCard}
+            data-kai-problem-shell
+          >
+            <div className={styles.kaiProblemRevealSweep} data-kai-problem-sweep aria-hidden="true" />
+            <div className={styles.kaiProblemState} data-kai-problem-before>
               <div className={styles.kaiProblemHeader}>
                 <p className={styles.kaiMiniEyebrow}>Fragmentation is costly</p>
-                <span className={styles.kaiProblemBadge}>Wasted</span>
+                <span className={styles.kaiProblemBadge} data-kai-problem-badge>
+                  Wasted
+                </span>
               </div>
 
               <div className={styles.kaiProblemRow}>
@@ -695,9 +1207,13 @@ export default function HushhKai() {
             </div>
 
             <div className={styles.kaiProblemConnector} data-kai-problem-arrow>
-              <div className={styles.kaiProblemConnectorLine} />
+              <div className={styles.kaiProblemConnectorLine} data-kai-problem-line />
               <div className={styles.kaiProblemConnectorButton}>
-                <MaterialIcon name="south" className={styles.kaiProblemConnectorIcon} />
+                <MaterialIcon
+                  name="south"
+                  className={styles.kaiProblemConnectorIcon}
+                  data-kai-problem-arrow-icon
+                />
               </div>
             </div>
 
@@ -710,8 +1226,8 @@ export default function HushhKai() {
               </div>
             </div>
 
-            <div className={styles.kaiProblemAuraCoral} aria-hidden="true" />
-            <div className={styles.kaiProblemAuraGreen} aria-hidden="true" />
+            <div className={styles.kaiProblemAuraCoral} data-kai-problem-aura aria-hidden="true" />
+            <div className={styles.kaiProblemAuraGreen} data-kai-problem-aura aria-hidden="true" />
           </div>
 
           <p className={styles.kaiProblemNote} data-kai-problem-note>
@@ -723,7 +1239,10 @@ export default function HushhKai() {
 
       <section ref={visibilityRef} className={styles.kaiVisibilitySection}>
         <div className={styles.kaiContentContainer}>
-          <div className={styles.kaiSectionIntro} data-kai-visibility-intro>
+          <div
+            className={`${styles.kaiSectionIntro} ${styles.kaiSectionIntroCentered}`}
+            data-kai-visibility-intro
+          >
             <p className={styles.kaiEyebrow}>VISIBILITY</p>
             <h2 className={styles.kaiSectionTitle}>Total Clarity. Total Control.</h2>
             <p className={styles.kaiSectionLead}>
@@ -733,7 +1252,8 @@ export default function HushhKai() {
           </div>
 
           <div className={styles.kaiVisibilityCard} data-kai-visibility-card>
-            <div className={styles.kaiDiscoverySummary}>
+            <div className={styles.kaiVisibilityScan} data-kai-visibility-scan aria-hidden="true" />
+            <div className={styles.kaiDiscoverySummary} data-kai-visibility-summary>
               <div className={styles.kaiDiscoveryIconShell}>
                 <MaterialIcon name="analytics" className={styles.kaiDiscoveryIcon} filled />
               </div>
@@ -741,7 +1261,9 @@ export default function HushhKai() {
                 <span className={styles.kaiMiniEyebrowBlue}>Discovery Report</span>
                 <span className={styles.kaiFoundBadge}>Found</span>
               </div>
-              <div className={styles.kaiDiscoveryAmount}>$12,419.52</div>
+              <div className={styles.kaiDiscoveryAmount} data-kai-visibility-amount>
+                $12,419.52
+              </div>
               <p className={styles.kaiDiscoveryCaption}>
                 Idle capital found across 4 linked institutions
               </p>
@@ -770,7 +1292,7 @@ export default function HushhKai() {
             </p>
 
             <div className={styles.kaiVisibilityBanner} data-kai-visibility-banner>
-              <div className={styles.kaiVisibilityBannerCopy}>
+              <div className={styles.kaiVisibilityBannerCopy} data-kai-visibility-banner-copy>
                 <MaterialIcon name="verified" className={styles.kaiBannerIcon} filled />
                 <div>
                   <strong>Optimal deployment ready.</strong>
@@ -784,8 +1306,8 @@ export default function HushhKai() {
               </div>
             </div>
 
-            <div className={styles.kaiVisibilityAuraBlue} aria-hidden="true" />
-            <div className={styles.kaiVisibilityAuraGreen} aria-hidden="true" />
+            <div className={styles.kaiVisibilityAuraBlue} data-kai-visibility-aura aria-hidden="true" />
+            <div className={styles.kaiVisibilityAuraGreen} data-kai-visibility-aura aria-hidden="true" />
           </div>
 
           <div className={styles.kaiVisibilityDeviceRow} data-kai-visibility-device>
@@ -816,7 +1338,10 @@ export default function HushhKai() {
 
       <section ref={strategyRef} className={styles.kaiStrategySection}>
         <div className={styles.kaiContentContainer}>
-          <div className={styles.kaiSectionIntro} data-kai-strategy-intro>
+          <div
+            className={`${styles.kaiSectionIntro} ${styles.kaiSectionIntroCentered}`}
+            data-kai-strategy-intro
+          >
             <p className={styles.kaiEyebrow}>Strategy</p>
             <h2 className={styles.kaiSectionTitle}>How KAI works quietly for you.</h2>
             <p className={styles.kaiSectionLead}>
@@ -825,11 +1350,13 @@ export default function HushhKai() {
             </p>
           </div>
 
-          <div className={styles.kaiStrategyStack}>
+          <div className={styles.kaiStrategyStack} data-kai-strategy-stack>
             <div className={styles.kaiVoicePanel} data-kai-strategy-voice>
               <div className={styles.kaiVoiceOrb} data-kai-strategy-orb aria-hidden="true" />
               <p className={styles.kaiVoiceEyebrow}>Just ask Kai</p>
-              <p className={styles.kaiVoiceQuote}>“Kai, where should I invest my $1,000?”</p>
+              <p className={styles.kaiVoiceQuote}>
+                “<span data-kai-strategy-quote>{STRATEGY_QUOTE_TEXT}</span>”
+              </p>
 
               <div className={styles.kaiVoiceBars} aria-hidden="true">
                 <span data-kai-strategy-bar />
@@ -867,11 +1394,16 @@ export default function HushhKai() {
       </section>
 
       <section ref={executionRef} className={styles.kaiExecutionSection}>
+        <div className={styles.kaiExecutionAtmosphere} aria-hidden="true">
+          <div className={styles.kaiExecutionAuraBlue} data-kai-execution-aura />
+          <div className={styles.kaiExecutionAuraGreen} data-kai-execution-aura />
+        </div>
+
         <div className={styles.kaiContentContainer}>
           <div className={styles.kaiSectionIntro} data-kai-execution-intro>
             <p className={styles.kaiEyebrow}>Execution</p>
             <h2 className={styles.kaiSectionTitle}>
-              Invest with <em>clarity.</em>
+              Invest with <span className={styles.kaiAccentWord} data-kai-execution-accent>clarity.</span>
             </h2>
             <p className={styles.kaiSectionLead}>
               Kai integrates your portfolio view into a single offensive stance with one-tap
@@ -936,7 +1468,7 @@ export default function HushhKai() {
               </p>
 
               <div className={styles.kaiExecutionStatusBlock}>
-                <p className={styles.kaiExecutionStatusLabel}>
+                <p className={styles.kaiExecutionStatusLabel} data-kai-execution-status>
                   <MaterialIcon name="check_circle" className={styles.kaiExecutionStatusIcon} filled />
                   Money, in motion.
                 </p>
@@ -944,11 +1476,11 @@ export default function HushhKai() {
                 <div className={styles.kaiExecutionMetricGrid}>
                   <div data-kai-execution-metric>
                     <p>Growth Impact</p>
-                    <strong>+$1,000.00</strong>
+                    <strong data-kai-execution-metric-value="growth">+$1,000.00</strong>
                   </div>
                   <div data-kai-execution-metric>
                     <p>Time Saved</p>
-                    <strong>4.5h</strong>
+                    <strong data-kai-execution-metric-value="time">4.5h</strong>
                   </div>
                 </div>
               </div>
@@ -986,14 +1518,15 @@ export default function HushhKai() {
                           ? styles.kaiGovernanceIconInk
                           : styles.kaiGovernanceIconBlue,
                   ].join(" ")}
+                  data-kai-governance-icon-shell
                 >
                   <MaterialIcon
                     name={card.icon}
                     className={styles.kaiGovernanceIcon}
-                    filled={card.accent !== "ink"}
+                    filled
                   />
                 </div>
-                <div className={styles.kaiGovernanceCopy}>
+                <div className={styles.kaiGovernanceCopy} data-kai-governance-copy>
                   <h3>{card.title}</h3>
                   <p>{card.body}</p>
                 </div>
@@ -1007,7 +1540,7 @@ export default function HushhKai() {
         <div className={styles.kaiContentContainer}>
           <div className={styles.kaiFinalCopy} data-kai-final-copy>
             <h2 className={styles.kaiFinalTitle}>
-              Own your <em>financial future.</em>
+              Own your <span className={styles.kaiAccentWord} data-kai-final-accent>financial future.</span>
             </h2>
             <p className={styles.kaiFinalBody}>
               Stop letting your capital sit idle. Join the era of intelligent banking today.

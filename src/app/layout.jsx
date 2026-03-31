@@ -1,7 +1,7 @@
 import "./globals.css";
 import "./_styles/syntax-highlight.css";
 import "./_styles/blog.css";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Manrope } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Providers } from "./provider";
 import ResponsiveSizeProvider from "./context/responsive";
@@ -26,6 +26,12 @@ const geistMono = Geist_Mono({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
   display: "swap",
 });
 
@@ -72,7 +78,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${inter.variable}`}
+      className={`${geist.variable} ${geistMono.variable} ${inter.variable} ${manrope.variable}`}
     >
       <head>
         <link
