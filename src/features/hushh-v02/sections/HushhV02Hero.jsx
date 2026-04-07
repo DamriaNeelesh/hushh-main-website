@@ -1,6 +1,7 @@
 export default function HushhV02Hero() {
   return (
     <section className="mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+      <div className="mb-5 text-5xl leading-none sm:mb-6 sm:text-7xl md:text-8xl">🤫</div>
       <h1 className="max-w-3xl text-3xl font-extrabold tracking-[-0.04em] text-slate-950 sm:text-4xl sm:leading-[1.08] md:text-[4.25rem] md:leading-[1.02]">
         your personal intelligence agent
       </h1>
