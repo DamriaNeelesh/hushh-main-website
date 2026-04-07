@@ -177,7 +177,7 @@ export default function HushhV02Page() {
           threadCount={activeThread.length}
         />
 
-        <section className="mx-auto mt-8 w-full max-w-5xl md:mt-10">
+        <section className="mx-auto mt-8 w-full max-w-5xl overflow-x-hidden md:mt-10">
           {activeLane === "me" && !isReady && session ? (
             <ResearchCanvas
               phase={phase}

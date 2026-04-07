@@ -177,7 +177,7 @@ export default function HushhV02SearchConsole({
         <form onSubmit={onSubmit} className="space-y-4 sm:space-y-5">
           <div className="relative">
             <span className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">
-              {isMe ? "🤫" : "⌕"}
+              ⌕
             </span>
             <input
               value={query}
