@@ -16,6 +16,11 @@ export const hushhV02Tokens = {
     success: "#157347",
     warning: "#9e3d00",
     danger: "#ba1a1a",
+    /* Me lane — warmer indigo tones for personal/identity context */
+    meAccent: "#4f46e5",
+    meAccentBright: "#6366f1",
+    meAccentGhost: "rgba(79, 70, 229, 0.10)",
+    meGlow: "rgba(99, 102, 241, 0.16)",
   },
   shadows: {
     soft: "0 16px 40px -18px rgba(25, 28, 29, 0.18)",
@@ -23,6 +28,7 @@ export const hushhV02Tokens = {
   },
   gradients: {
     primary: "linear-gradient(135deg, #0058bc 0%, #0070eb 100%)",
+    me: "linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)",
     background:
       "radial-gradient(circle at 20% 12%, rgba(0, 112, 235, 0.12), transparent 32%), radial-gradient(circle at 82% 18%, rgba(0, 88, 188, 0.10), transparent 28%), linear-gradient(180deg, #f8f9fa 0%, #f0f4f8 100%)",
   },
