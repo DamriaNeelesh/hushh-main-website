@@ -15,7 +15,10 @@ import { hushhV02Tokens } from "./theme/tokens";
 
 function FooterLink({ href, children }) {
   return (
-    <Link href={href} className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500 transition-colors hover:text-blue-600 sm:text-xs sm:tracking-[0.2em]">
+    <Link
+      href={href}
+      className="text-[12px] font-medium tracking-[-0.01em] text-[#6e6e73] transition-colors duration-200 hover:text-[#1d1d1f]"
+    >
       {children}
     </Link>
   );
@@ -50,6 +53,14 @@ export default function HushhV02Page() {
   const defaultName = session?.name || user?.displayName || (user?.email ? user.email.split("@")[0] : "");
   const defaultEmail = session?.email || user?.email || "";
 
+  const handleLaneChange = (nextLane) => {
+    if (nextLane !== activeLane) {
+      setQuery("");
+      setIntent("general");
+    }
+    setActiveLane(nextLane);
+  };
+
   useEffect(() => {
     if (!session?.pendingQuery) {
       return;
@@ -71,6 +82,7 @@ export default function HushhV02Page() {
     if (!trimmedQuery) {
       return;
     }
+
     if (activeLane === "web") {
       try {
         await runSearch({ query: trimmedQuery, intent, lane: "web" });
@@ -96,6 +108,7 @@ export default function HushhV02Page() {
       setBootstrapOpen(true);
       return;
     }
+
     try {
       await runSearch({ query: trimmedQuery, intent, lane: "me" });
     } catch {
@@ -122,43 +135,47 @@ export default function HushhV02Page() {
 
   return (
     <div
-      className="relative min-h-screen overflow-hidden bg-[#f8f9fa] text-[#191c1d]"
-      style={{ backgroundImage: hushhV02Tokens.gradients.background }}
+      className="relative min-h-screen overflow-hidden bg-[#f5f5f7] text-[#1d1d1f] antialiased"
+      style={{
+        backgroundImage: hushhV02Tokens.gradients.background,
+        fontFamily: hushhV02Tokens.typography.body,
+      }}
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/80 to-transparent" />
-      <div className="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-blue-500/10 blur-[90px]" />
-      <div className="pointer-events-none absolute -right-20 top-24 h-96 w-96 rounded-full bg-blue-400/10 blur-[110px]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-white/90 via-white/55 to-transparent" />
+      <div className="pointer-events-none absolute left-1/2 top-24 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-white/70 blur-[110px]" />
+      <div className="pointer-events-none absolute -left-24 top-56 h-72 w-72 rounded-full bg-[#7aa6ff]/10 blur-[100px]" />
+      <div className="pointer-events-none absolute -right-16 top-36 h-80 w-80 rounded-full bg-white/80 blur-[120px]" />
 
-      <header className="sticky top-0 z-20 border-b border-white/60 bg-white/65 backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 md:px-10">
-          <Link href="/hushh-v02" className="text-2xl font-extrabold tracking-[-0.06em] text-slate-950">
+      <header className="sticky top-0 z-30 border-b border-black/5 bg-[rgba(251,251,253,0.72)] backdrop-blur-2xl">
+        <div className="mx-auto flex w-full max-w-[1120px] items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <Link href="/hushh-v02" className="text-[2rem] font-semibold tracking-[-0.07em] text-[#1d1d1f]">
             hushh
           </Link>
-          <nav className="hidden items-center gap-8 md:flex">
-            <Link href="/solutions" className="text-sm font-semibold text-slate-600 transition-colors hover:text-blue-600">
+          <nav className="hidden items-center gap-10 md:flex">
+            <Link href="/solutions" className="text-[0.95rem] font-medium tracking-[-0.01em] text-[#424245] transition-colors duration-200 hover:text-[#1d1d1f]">
               Platform
             </Link>
-            <Link href="/privacy" className="text-sm font-semibold text-slate-600 transition-colors hover:text-blue-600">
+            <Link href="/privacy" className="text-[0.95rem] font-medium tracking-[-0.01em] text-[#424245] transition-colors duration-200 hover:text-[#1d1d1f]">
               Privacy
             </Link>
-            <Link href="/developers" className="text-sm font-semibold text-slate-600 transition-colors hover:text-blue-600">
+            <Link href="/developers" className="text-[0.95rem] font-medium tracking-[-0.01em] text-[#424245] transition-colors duration-200 hover:text-[#1d1d1f]">
               Developers
             </Link>
           </nav>
           <Link
             href="/login"
-            className="shrink-0 rounded-full bg-[linear-gradient(135deg,#0058bc_0%,#0070eb_100%)] px-4 py-2.5 text-xs font-semibold text-white shadow-[0_14px_28px_-18px_rgba(0,88,188,0.9)] sm:px-5 sm:py-3 sm:text-sm"
+            className="shrink-0 rounded-full bg-[#0071e3] px-5 py-3 text-sm font-semibold text-white shadow-[0_16px_34px_-22px_rgba(0,113,227,0.75)] transition-transform duration-200 hover:scale-[0.985]"
           >
             Sign In
           </Link>
         </div>
       </header>
 
-      <main className="mx-auto flex w-full max-w-7xl flex-col px-4 pb-16 pt-12 sm:px-6 md:px-10 md:pb-20 md:pt-16">
+      <main className="mx-auto flex w-full max-w-[1120px] flex-col px-4 pb-20 pt-14 sm:px-6 sm:pt-20 lg:px-8 lg:pb-24">
         <HushhV02Hero />
         <HushhV02SearchConsole
           lane={activeLane}
-          onLaneChange={setActiveLane}
+          onLaneChange={handleLaneChange}
           query={query}
           onQueryChange={handleQueryChange}
           onSubmit={handleSearchSubmit}
@@ -177,7 +194,7 @@ export default function HushhV02Page() {
           threadCount={activeThread.length}
         />
 
-        <section className="mx-auto mt-8 w-full max-w-5xl overflow-x-hidden md:mt-10">
+        <section className="mx-auto mt-10 w-full max-w-[1060px] overflow-x-hidden sm:mt-12">
           {activeLane === "me" && !isReady && session ? (
             <ResearchCanvas
               phase={phase}
@@ -201,9 +218,9 @@ export default function HushhV02Page() {
         </section>
       </main>
 
-      <footer className="border-t border-white/60 bg-white/70 backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-6 sm:px-6 md:flex-row md:items-center md:justify-between md:px-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">UAT Search Console</p>
+      <footer className="border-t border-black/5 bg-[rgba(251,251,253,0.72)] backdrop-blur-2xl">
+        <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-3 px-4 py-6 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+          <p className="text-[12px] font-medium tracking-[-0.01em] text-[#8f8f95]">UAT Search Console</p>
           <div className="flex flex-wrap gap-4 sm:gap-5">
             <FooterLink href="/privacy">Privacy</FooterLink>
             <FooterLink href="/terms">Terms</FooterLink>
