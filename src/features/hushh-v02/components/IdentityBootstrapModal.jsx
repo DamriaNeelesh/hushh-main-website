@@ -65,13 +65,13 @@ export default function IdentityBootstrapModal({
       style={{ backgroundColor: "rgba(10, 20, 35, 0.42)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}
     >
       <div
-        className="relative w-full max-w-lg overflow-hidden rounded-[1.75rem] border border-indigo-200/40 bg-white shadow-[0_32px_80px_-30px_rgba(79,70,229,0.3)] sm:rounded-[2rem]"
+        className="relative w-full max-w-lg overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_32px_80px_-30px_rgba(15,23,42,0.3)] sm:rounded-[2rem]"
         role="dialog"
         aria-modal="true"
         aria-label="Unlock Hushh Intelligence"
       >
         {/* Decorative top accent */}
-        <div className="h-1.5 w-full bg-[linear-gradient(90deg,#4f46e5_0%,#6366f1_40%,#818cf8_100%)]" />
+        <div className="h-1.5 w-full bg-[#2563eb]" />
 
         {/* Close button */}
         {!busy && (
@@ -91,7 +91,7 @@ export default function IdentityBootstrapModal({
           {/* Header */}
           <div className="space-y-2 pr-8">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,#4f46e5_0%,#6366f1_100%)] text-base text-white shadow-[0_8px_20px_-10px_rgba(79,70,229,0.6)]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#2563eb] text-base text-white shadow-[0_8px_20px_-10px_rgba(37,99,235,0.6)]">
                 🤫
               </div>
               <h2 className="text-xl font-extrabold tracking-tight text-slate-950 sm:text-2xl">
@@ -116,7 +116,7 @@ export default function IdentityBootstrapModal({
               value={name}
               onChange={(event) => setName(event.target.value)}
               placeholder="Ankit Kumar Singh"
-              className="w-full rounded-2xl border border-indigo-200 bg-indigo-50/30 px-4 py-3.5 text-base text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-300 focus:bg-white focus:ring-4 focus:ring-indigo-100 sm:text-lg"
+              className="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-4 py-3.5 text-base text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-blue-200 focus:bg-white focus:ring-4 focus:ring-blue-100 sm:text-lg"
             />
           </div>
 
@@ -132,7 +132,7 @@ export default function IdentityBootstrapModal({
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="name@example.com"
-              className="w-full rounded-2xl border border-indigo-200 bg-indigo-50/30 px-4 py-3.5 text-base text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-300 focus:bg-white focus:ring-4 focus:ring-indigo-100 sm:text-lg"
+              className="w-full rounded-2xl border border-slate-200 bg-slate-50/60 px-4 py-3.5 text-base text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-blue-200 focus:bg-white focus:ring-4 focus:ring-blue-100 sm:text-lg"
             />
           </div>
 
@@ -153,7 +153,7 @@ export default function IdentityBootstrapModal({
           <button
             type="submit"
             disabled={busy}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#4f46e5_0%,#6366f1_100%)] px-6 py-4 text-sm font-semibold text-white shadow-[0_14px_32px_-16px_rgba(79,70,229,0.8)] transition-all hover:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 sm:text-base"
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#2563eb] px-6 py-4 text-sm font-semibold text-white shadow-[0_14px_32px_-16px_rgba(37,99,235,0.8)] transition-all hover:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 sm:text-base"
           >
             {busy ? (
               <>
