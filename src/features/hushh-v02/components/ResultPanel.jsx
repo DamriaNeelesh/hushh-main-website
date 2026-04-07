@@ -1,10 +1,10 @@
 function Card({ title, children, className = "" }) {
   return (
     <section
-      className={`rounded-[1.5rem] border border-slate-200 bg-white/90 p-5 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.35)] sm:rounded-[2rem] sm:p-6 ${className}`}
+      className={`overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white/90 p-5 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.35)] sm:rounded-[2rem] sm:p-6 ${className}`}
     >
       <h3 className="text-base font-semibold tracking-tight text-slate-900 sm:text-lg">{title}</h3>
-      <div className="mt-4">{children}</div>
+      <div className="mt-4 min-w-0">{children}</div>
     </section>
   );
 }
@@ -72,7 +72,7 @@ function SectionBlock({ label, section }) {
 function AnswerCockpit({ title, summary, confidence, warnings, impactSnapshot }) {
   return (
     <div className="space-y-5">
-      <p className="text-base leading-7 text-slate-900 sm:text-lg sm:leading-8">{title}</p>
+      <p className="break-words text-base leading-7 text-slate-900 sm:text-lg sm:leading-8">{title}</p>
       {summary ? <p className="text-sm leading-7 text-slate-600">{summary}</p> : null}
       <div className="flex flex-wrap items-center gap-3">
         {typeof confidence === "number" ? <Pill tone="blue">Confidence {confidence}</Pill> : null}
@@ -324,7 +324,7 @@ function MeContextRail({ session, dossier }) {
 
 function MeReadyState({ session, dossier, thread, onSuggestionSelect }) {
   return (
-    <div className="grid gap-4 sm:gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+    <div className="grid min-w-0 gap-4 sm:gap-6 lg:grid-cols-[1.15fr_0.85fr]">
       <Card title="Me Workspace" className="lg:col-span-2">
         <div className="space-y-5">
           <div className="flex flex-wrap items-center gap-3">
