@@ -1,0 +1,80 @@
+# Cloud Build configuration for the Hushh identity exploration backend.
+# Builds the FastAPI image from backend/ and deploys it to Cloud Run.
+
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-backend-image"
+    args:
+      - build
+      - "-t"
+      - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_BACKEND_SERVICE}:latest"
+      - "-t"
+      - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_BACKEND_SERVICE}:${_IMAGE_TAG}"
+      - "-f"
+      - "backend/Dockerfile"
+      - "backend"
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-backend-latest"
+    args:
+      - push
+      - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_BACKEND_SERVICE}:latest"
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-backend-version"
+    args:
+      - push
+      - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_BACKEND_SERVICE}:${_IMAGE_TAG}"
+
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "deploy-backend"
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - "${_BACKEND_SERVICE}"
+      - "--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_BACKEND_SERVICE}:${_IMAGE_TAG}"
+      - "--region=${_REGION}"
+      - "--platform=managed"
+      - "--allow-unauthenticated"
+      - "--port=8080"
+      - "--memory=1Gi"
+      - "--cpu=1"
+      - "--timeout=300"
+      - "--max-instances=20"
+      - "--min-instances=0"
+      - "--execution-environment=gen2"
+      - "--service-account=${_RUNTIME_SERVICE_ACCOUNT}"
+      - "--add-cloudsql-instances=${_CLOUD_SQL_INSTANCE}"
+      - "--set-env-vars=APP_NAME=${_APP_NAME},APP_ENV=${_APP_ENV},APP_VERSION=${_IMAGE_TAG},API_V1_PREFIX=${_API_V1_PREFIX},BACKEND_CORS_ORIGINS=${_BACKEND_CORS_ORIGINS},AUTH_ENABLED=true,AUTH_MODE=hybrid,AUTH_AUDIENCE=${_SERVICE_BASE_URL},AUTH_ALLOWED_CALLER_EMAILS=${_AUTH_ALLOWED_CALLER_EMAILS},AUTH_API_KEY_HEADER=x-hushh-api-key,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=${_GOOGLE_CLOUD_LOCATION},IDENTITY_EXPLORATION_MODEL=${_IDENTITY_MODEL},IDENTITY_ENABLE_MAPS_GROUNDING=true,IDENTITY_JOB_TTL_DAYS=${_JOB_TTL_DAYS},IDENTITY_MAX_BATCH_SIZE=10,IDENTITY_MAX_ITEM_ATTEMPTS=3,TASK_QUEUE_MODE=cloud_tasks,TASK_QUEUE_PROJECT=$PROJECT_ID,TASK_QUEUE_LOCATION=${_TASK_QUEUE_LOCATION},TASK_QUEUE_NAME=${_TASK_QUEUE_NAME},TASK_QUEUE_SERVICE_ACCOUNT_EMAIL=${_TASK_QUEUE_SERVICE_ACCOUNT_EMAIL},WORKER_TARGET_URL=${_SERVICE_BASE_URL}${_API_V1_PREFIX}/internal/identity-exploration/worker,WORKER_AUDIENCE=${_SERVICE_BASE_URL},AUTO_CREATE_TABLES=true"
+      - "--set-secrets=DATABASE_URL=IDENTITY_BACKEND_DATABASE_URL:latest,AUTH_API_KEYS=${_AUTH_API_KEYS_SECRET}:latest"
+
+images:
+  - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_BACKEND_SERVICE}:latest"
+  - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_BACKEND_SERVICE}:${_IMAGE_TAG}"
+
+timeout: "1800s"
+
+substitutions:
+  _BACKEND_SERVICE: hushh-ai-backend
+  _REGION: us-central1
+  _AR_REPOSITORY: backend-images
+  _IMAGE_TAG: manual
+  _APP_NAME: Hushh Identity Exploration API
+  _APP_ENV: production
+  _API_V1_PREFIX: /api/v1
+  _BACKEND_CORS_ORIGINS: https://hushh.ai;https://uat.hushh.ai
+  _GOOGLE_CLOUD_LOCATION: global
+  _IDENTITY_MODEL: gemini-2.5-pro
+  _JOB_TTL_DAYS: "7"
+  _TASK_QUEUE_LOCATION: us-central1
+  _TASK_QUEUE_NAME: identity-exploration
+  _AUTH_ALLOWED_CALLER_EMAILS: replace-with-allowed-hushh-service-accounts
+  _AUTH_API_KEYS_SECRET: IDENTITY_BACKEND_API_KEYS
+  _RUNTIME_SERVICE_ACCOUNT: hushh-identity-runtime@$PROJECT_ID.iam.gserviceaccount.com
+  _TASK_QUEUE_SERVICE_ACCOUNT_EMAIL: hushh-identity-tasks@$PROJECT_ID.iam.gserviceaccount.com
+  _CLOUD_SQL_INSTANCE: replace-with-project-region-instance
+  _SERVICE_BASE_URL: https://replace-me.run.app
+
+options:
+  logging: CLOUD_LOGGING_ONLY
