@@ -9,6 +9,7 @@ Core deploy assets:
 
 - `Dockerfile`
 - `deploy/frontend.cloudbuild.yaml`
+- `backend/deploy/cloudbuild.yaml`
 - `scripts/ci/require-branch-contains-main.sh`
 - `scripts/ci/cloudrun-retention.sh`
 - `scripts/ops/verify-website-env-secrets-parity.py`
@@ -22,6 +23,11 @@ Expected Artifact Registry repository:
 Expected Cloud Run service name:
 
 - `hushh-ai-website`
+
+Bootstrap backend service defaults:
+
+- Artifact Registry repository: `backend-images`
+- Cloud Run service: `hushh-ai-backend`
 
 Expected UAT public hostname:
 

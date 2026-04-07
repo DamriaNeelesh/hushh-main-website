@@ -5,6 +5,7 @@ The website is a Next.js app with a shared site shell, marketing and product sur
 ## Repository structure
 
 - `src/` contains the application routes, shared shell, and feature components.
+- `backend/` contains the Python FastAPI API scaffold plus its deploy/docs assets.
 - `docs/` is the canonical home for architecture, design-system, feature, integration, operations, and runbook documentation.
 - `support/postman/` contains durable Postman collections.
 - `support/prompts/` contains durable prompt and query reference assets.
@@ -57,6 +58,7 @@ BASE_URL=http://localhost:3002 npm run audit:shell
 - [Guides](docs/guides/hooks.md)
 - [Integrations](docs/integrations/apple-signin-setup.md)
 - [Operations](docs/operations/api-verification.md)
+- [Backend deploy](backend/docs/gcp-cloud-run.md)
 - [Runbooks](docs/runbooks/)
 - [Runtime timeout handling](docs/operations/runtime-timeout.md)
 - [Support assets](support/)
