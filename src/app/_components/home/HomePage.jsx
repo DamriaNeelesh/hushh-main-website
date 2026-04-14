@@ -18,6 +18,7 @@ import {
   Workflow,
 } from "lucide-react";
 import { MotionSection, MotionStaggerGroup, MotionStaggerItem } from "../motion/SectionReveal";
+import InteractiveSandbox from "./InteractiveSandbox";
 
 const heroCards = [
   {
@@ -358,6 +359,8 @@ export default function HomePage() {
           ))}
         </MotionStaggerGroup>
       </MotionSection>
+
+      <InteractiveSandbox />
 
       <MotionSection
         as="section"
