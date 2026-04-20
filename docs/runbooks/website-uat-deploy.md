@@ -11,21 +11,22 @@
 
 ## Trigger
 
-Run `.github/workflows/deploy-uat.yml` manually and provide a `deploy_ref` from `main`.
+Run `.github/workflows/deploy-uat.yml` manually and provide a full 40-character `deploy_sha` from `main`.
 
 ## Workflow responsibilities
 
 The UAT deploy workflow:
 
-1. checks that the selected ref belongs to `main`
+1. checks that the selected SHA is a full 40-character commit from `main`
 2. authenticates with the UAT deployment service account
-3. builds and deploys the website image to Cloud Run
+3. builds and deploys the website image tagged with that SHA to Cloud Run
 4. verifies runtime env parity
 5. runs route smoke checks against both the deployed service URL and `https://uat.hushh.ai`
 
 ## Post-deploy checks
 
 - `/`
+- `/foundation`
 - `/privacy`
 - `/terms`
 - `/developers`

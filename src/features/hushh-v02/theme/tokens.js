@@ -1,4 +1,8 @@
 export const hushhV02Tokens = {
+  typography: {
+    body: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif',
+    mono: '"SF Mono", ui-monospace, Menlo, Consolas, monospace',
+  },
   colors: {
     background: "#f8f9fa",
     surface: "#ffffff",

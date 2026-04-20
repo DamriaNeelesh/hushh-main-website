@@ -6,6 +6,8 @@ const BLOG_CONTENT_DIR = path.join(process.cwd(), "content");
 const ROUTE_PAGE_PATTERN = /^page\.(js|jsx|ts|tsx)$/;
 const EXCLUDED_ROUTE_DIRS = new Set(["_components", "api", "__tests__", "developerApi"]);
 const HIDDEN_CHROME_ROUTES = new Set([
+  "/foundation",
+  "/hushh-v02",
   "/viva-connect",
   "/viva-connect/qrPage",
   "/qrCodePage",
@@ -51,7 +53,7 @@ function filePathToRoute(filePath) {
 }
 
 function classifyRoute(route) {
-  if (HIDDEN_CHROME_ROUTES.has(route)) {
+  if ([...HIDDEN_CHROME_ROUTES].some((hiddenRoute) => route === hiddenRoute || route.startsWith(`${hiddenRoute}/`))) {
     return "hiddenChrome";
   }
 

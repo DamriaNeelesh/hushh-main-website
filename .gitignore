@@ -63,7 +63,9 @@ backend/.venv/
 .agent/
 .claude/
 .codebuddy/
-.codex/
+.codex/*
+!.codex/skills/
+!.codex/skills/**
 .continue/
 .cursor/
 .gemini/

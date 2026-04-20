@@ -43,11 +43,14 @@ Important local rule:
 ## Verification
 
 ```bash
+npm run local:ci
 npm run build
 npm run verify:oauth-branding
 npm run audit:docs
 BASE_URL=http://localhost:3002 npm run audit:shell
 ```
+
+`npm run local:ci` is the local CI parity command for this repo. It runs the same curated blocking lane as `npm run ci:all` / `npm run release:ci`.
 
 ## Documentation
 

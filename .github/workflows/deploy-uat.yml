@@ -3,10 +3,9 @@ name: UAT Deploy
 on:
   workflow_dispatch:
     inputs:
-      deploy_ref:
-        description: Main branch ref, tag, or commit SHA to deploy to UAT
+      deploy_sha:
+        description: Full 40-character commit SHA from main to deploy to UAT
         required: true
-        default: main
         type: string
 
 concurrency:
@@ -31,7 +30,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          ref: ${{ inputs.deploy_ref }}
+          ref: ${{ inputs.deploy_sha }}
 
       - name: Deploy website
         id: deploy-website
@@ -44,6 +43,7 @@ jobs:
           cloud_run_revision_retention: ${{ env.CLOUD_RUN_REVISION_RETENTION }}
           public_base_url: ${{ env.PUBLIC_BASE_URL }}
           app_env: uat
+          deploy_sha: ${{ inputs.deploy_sha }}
           main_branch: main
           gcp_credentials_json: ${{ secrets.GCP_SA_KEY_UAT }}
           rollout_domains: uat.hushh.ai
@@ -52,7 +52,8 @@ jobs:
         if: always()
         run: |
           echo "UAT website deployment complete"
-          echo "Ref: ${{ inputs.deploy_ref }}"
-          echo "Commit: $(git rev-parse HEAD)"
+          echo "Deploy SHA: ${{ steps.deploy-website.outputs.deploy_sha }}"
+          echo "Image tag: ${{ steps.deploy-website.outputs.image_tag }}"
+          echo "Revision: ${{ steps.deploy-website.outputs.revision_name }}"
           echo "Frontend: ${{ steps.deploy-website.outputs.frontend_url }}"
           echo "Public URL: ${{ env.PUBLIC_BASE_URL }}"

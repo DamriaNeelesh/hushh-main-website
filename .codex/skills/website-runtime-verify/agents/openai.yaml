@@ -1,0 +1,8 @@
+interface:
+  display_name: "Website Runtime Verify"
+  short_description: "Verify hushh.ai runtime, shell, and rollout checks"
+  brand_color: "#D4A574"
+  default_prompt: "Use $website-runtime-verify to run or interpret the runtime verification checks for this repo, including /foundation."
+
+policy:
+  allow_implicit_invocation: true

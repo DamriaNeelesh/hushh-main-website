@@ -37,6 +37,7 @@ function getRepresentativeRoutes() {
   const manifest = getRouteManifest();
   const routes = new Set([
     "/",
+    "/foundation",
     "/products/kai",
     "/privacy",
     "/terms",
@@ -68,6 +69,7 @@ async function main() {
       normalizeUrlForComparison(canonicalMatch[1]) === normalizeUrlForComparison(canonicalUrl),
       `${url} must expose canonical ${canonicalUrl}.`,
     );
+    assert(body.includes('name="robots"') || body.includes("name='robots'"), `${url} must expose robots metadata.`);
     assert(body.includes('property="og:title"') || body.includes("property='og:title'"), `${url} must expose og:title.`);
     assert(body.includes('property="og:description"') || body.includes("property='og:description'"), `${url} must expose og:description.`);
     assert(body.includes('name="twitter:card"') || body.includes("name='twitter:card'"), `${url} must expose twitter:card.`);

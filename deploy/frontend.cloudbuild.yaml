@@ -36,9 +36,12 @@ steps:
           fi
         done
 
+        if [[ -z "${_IMAGE_TAG}" || ! "${_IMAGE_TAG}" =~ ^[0-9a-fA-F]{40}$ ]]; then
+          echo "Expected _IMAGE_TAG to be a full 40-character commit SHA, got '${_IMAGE_TAG:-}'."
+          exit 1
+        fi
+
         docker build \
-          -t "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_FRONTEND_SERVICE}:manual" \
-          -t "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_FRONTEND_SERVICE}:latest" \
           -t "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_FRONTEND_SERVICE}:${_IMAGE_TAG}" \
           --build-arg NEXT_PUBLIC_SITE_URL=$$NEXT_PUBLIC_SITE_URL_VAL \
           --build-arg NEXT_PUBLIC_HUSHH_API_BASE_URL=$$NEXT_PUBLIC_HUSHH_API_BASE_URL_VAL \
@@ -77,18 +80,6 @@ steps:
       - NEXT_PUBLIC_BACKEND_URL_VAL
 
   - name: "gcr.io/cloud-builders/docker"
-    id: "push-frontend-manual"
-    args:
-      - push
-      - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_FRONTEND_SERVICE}:manual"
-
-  - name: "gcr.io/cloud-builders/docker"
-    id: "push-frontend-latest"
-    args:
-      - push
-      - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_FRONTEND_SERVICE}:latest"
-
-  - name: "gcr.io/cloud-builders/docker"
     id: "push-frontend-version"
     args:
       - push
@@ -117,8 +108,6 @@ steps:
       - "--set-secrets=NEXT_PUBLIC_SITE_URL=NEXT_PUBLIC_SITE_URL:latest,NEXT_PUBLIC_HUSHH_API_BASE_URL=NEXT_PUBLIC_HUSHH_API_BASE_URL:latest,NEXT_PUBLIC_HUSHH_API_ANON_KEY=NEXT_PUBLIC_HUSHH_API_ANON_KEY:latest,NEXT_PUBLIC_FIREBASE_API_KEY=NEXT_PUBLIC_FIREBASE_API_KEY:latest,NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN:latest,NEXT_PUBLIC_FIREBASE_PROJECT_ID=NEXT_PUBLIC_FIREBASE_PROJECT_ID:latest,NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET:latest,NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID:latest,NEXT_PUBLIC_FIREBASE_APP_ID=NEXT_PUBLIC_FIREBASE_APP_ID:latest,NEXT_PUBLIC_FIREBASE_VAPID_KEY=NEXT_PUBLIC_FIREBASE_VAPID_KEY:latest,NEXT_PUBLIC_SUPABASE_URL=NEXT_PUBLIC_SUPABASE_URL:latest,NEXT_PUBLIC_SUPABASE_ANON_KEY=NEXT_PUBLIC_SUPABASE_ANON_KEY:latest,NEXT_PUBLIC_DEVELOPER_APP_URL=NEXT_PUBLIC_DEVELOPER_APP_URL:latest,NEXT_PUBLIC_DEVELOPER_API_URL=NEXT_PUBLIC_DEVELOPER_API_URL:latest,NEXT_PUBLIC_DEVELOPER_MCP_URL=NEXT_PUBLIC_DEVELOPER_MCP_URL:latest,NEXT_PUBLIC_BACKEND_URL=NEXT_PUBLIC_BACKEND_URL:latest,SUPABASE_SERVICE_ROLE_KEY=SUPABASE_SERVICE_ROLE_KEY:latest,HUSHH_API_BASE_URL=HUSHH_API_BASE_URL:latest,FIREBASE_SERVICE_ACCOUNT_JSON=FIREBASE_SERVICE_ACCOUNT_JSON:latest,FIREBASE_AUTH_SERVICE_ACCOUNT_JSON=FIREBASE_AUTH_SERVICE_ACCOUNT_JSON:latest,HUSHH_INTELLIGENCE_BACKEND_URL=HUSHH_INTELLIGENCE_BACKEND_URL:latest,HUSHH_INTELLIGENCE_API_KEY=HUSHH_INTELLIGENCE_API_KEY:latest"
 
 images:
-  - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_FRONTEND_SERVICE}:manual"
-  - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_FRONTEND_SERVICE}:latest"
   - "${_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPOSITORY}/${_FRONTEND_SERVICE}:${_IMAGE_TAG}"
 
 timeout: "1800s"
@@ -128,7 +117,7 @@ substitutions:
   _REGION: us-central1
   _APP_ENV: production
   _AR_REPOSITORY: website-images
-  _IMAGE_TAG: manual
+  _IMAGE_TAG: replace-with-full-commit-sha
 
 availableSecrets:
   secretManager:

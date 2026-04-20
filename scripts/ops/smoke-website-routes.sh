@@ -46,6 +46,7 @@ check_redirect() {
 }
 
 check_status "/" "200"
+check_status "/foundation" "200"
 check_status "/privacy" "200"
 check_status "/terms" "200"
 check_status "/developers" "200"

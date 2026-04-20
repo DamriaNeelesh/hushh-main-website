@@ -5,10 +5,10 @@ The Hushh.ai website now runs a three-workflow release lane: one workflow for `m
 ## Workflow model
 
 - `Main CI`: validates pull requests and pushes to `main`
-- `UAT Deploy`: manually deploys a selected `main` ref or commit SHA to the UAT Cloud Run service
-- `Production Deploy`: manually deploys a selected `main` ref or commit SHA to the production Cloud Run service
+- `UAT Deploy`: manually deploys a selected `main` commit SHA to the UAT Cloud Run service
+- `Production Deploy`: manually deploys a selected `main` commit SHA to the production Cloud Run service
 
-Both deploy workflows refuse to run unless the selected checkout commit is contained in `origin/main`.
+Both deploy workflows refuse to run unless the selected checkout commit is a full 40-character SHA contained in `origin/main`.
 
 ## Infrastructure contract
 
@@ -58,10 +58,21 @@ After Cloud Run deploy, verify:
 
 ## Deployment inputs
 
-Both deploy workflows accept a `deploy_ref` input.
+Both deploy workflows accept a `deploy_sha` input.
 
-- default: `main`
-- supported values: branch names, tags, or commit SHAs that belong to `main`
+- required value: a full 40-character commit SHA
+- supported values: commit SHAs that belong to `main`
+- rejected values: branch names, tags, short SHAs, and SHAs outside `main`
 - recommended value for promotion: the exact commit SHA that already passed `Main CI`
+
+## Promotion model
+
+Promote the same SHA end to end:
+
+1. select the exact `main` SHA that passed CI
+2. deploy that SHA to UAT
+3. verify env parity, route smoke, and auth flows in UAT
+4. deploy the exact same SHA to production
+5. roll back by redeploying the last known-good SHA if needed
 
 The website still rebuilds once per environment because public Next.js build variables are environment-specific today. The optimization in this repo removes branch-promotion churn and duplicate CI runs, while keeping the UAT and production runtime contracts separate.

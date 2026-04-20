@@ -1,0 +1,8 @@
+interface:
+  display_name: "Website Release Promote"
+  short_description: "Promote hushh.ai deploys by exact main SHA"
+  brand_color: "#171B29"
+  default_prompt: "Use $website-release-promote to verify a deploy SHA and summarize the UAT or production rollout contract for this repo."
+
+policy:
+  allow_implicit_invocation: true

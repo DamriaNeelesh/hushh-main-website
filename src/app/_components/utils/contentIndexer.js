@@ -219,6 +219,17 @@ const STATIC_PAGE_ENTRIES = [
     content: "Company story, mission, vision, and privacy-first direction for Hushh.",
   },
   {
+    id: "foundation",
+    title: "Foundation",
+    description: "The Hushh handbook covering philosophy, ownership, brand, and operating principles.",
+    url: "/foundation",
+    type: "page",
+    category: "Company",
+    tags: ["foundation", "handbook", "brand", "consent", "privacy"],
+    content:
+      "The canonical Hushh web handbook with chapters on founding philosophy, consent, ownership, brand identity, and how the company works.",
+  },
+  {
     id: "contact",
     title: "Contact Hushh",
     description: "Support, partnership, and general contact options.",

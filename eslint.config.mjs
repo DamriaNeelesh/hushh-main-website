@@ -11,6 +11,8 @@ const eslintConfig = [
       "node_modules/**",
       "out/**",
       "public/**",
+      "tmp/**",
+      "src/features/foundation/artifacts/**",
       "content/**/*.tsx",
       "src/content/**/*.tsx",
     ],

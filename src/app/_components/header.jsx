@@ -218,6 +218,11 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
       title: "Why Hushh?",
       items: [
       {
+        name: "Foundation",
+        description: "Read the co-founder handbook and canonical operating principles",
+        href: "/foundation"
+      },
+      {
         name: "Our Philosophy",
         description: "Understanding our core beliefs",
         href: "/why-hushh"
@@ -634,6 +639,17 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                     </Link>
                   </div>
 
+                  <div className="relative group">
+                    <Link
+                    href="/foundation"
+                    className={`text-gray-800 text-xs lg:text-sm xl:text-sm font-medium hover:text-[#171b29] transition-colors duration-200 py-4 px-2 xl:px-3 nav-button whitespace-nowrap inline-flex${
+                      pathname.startsWith('/foundation') ? ' text-[#171b29]' : ''
+                    }`}>
+                    
+                      <span>Foundation</span>
+                    </Link>
+                  </div>
+
                   {/* Why Hushh Dropdown */}
                   <div
                   className="relative group"
@@ -934,6 +950,24 @@ export default function Header({ borderBottom: _borderBottom, topOffset = 0 }) {
                         </div>
                         <div className="text-sm text-gray-500 mt-1">
                           Kai docs, developer workspace, and Agentic API references
+                        </div>
+                      </Link>
+                    </div>
+
+                    <div className="mobile-menu-section">
+                      <Link
+                    href="/foundation"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      closeDropdowns();
+                    }}
+                    className="block py-2">
+                    
+                        <div className="text-lg font-semibold text-gray-900 hover:text-[#171b29] transition-colors">
+                          Foundation
+                        </div>
+                        <div className="text-sm text-gray-500 mt-1">
+                          The Hushh handbook, operating principles, and brand foundation
                         </div>
                       </Link>
                     </div>

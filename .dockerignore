@@ -11,4 +11,5 @@ yarn-error.log*
 .env.local
 .env*.local
 dev-kai.log
-
+.codex
+tmp

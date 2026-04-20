@@ -38,6 +38,7 @@ const footerSections = [
     title: "Company",
     links: [
       { label: "About", href: "/about" },
+      { label: "Foundation", href: "/foundation" },
       { label: "Contact", href: "/contact-us" },
       { label: "Careers", href: "/career" },
       { label: "Blog", href: "/hushhBlogs" },

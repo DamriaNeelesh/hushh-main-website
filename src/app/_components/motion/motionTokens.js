@@ -2,6 +2,7 @@ export const MOTION_EASE_EMPHASIZED = "power3.out";
 export const MOTION_EASE_STANDARD = "power2.out";
 
 const NESTED_TEMPLATE_PREFIXES = [
+  "/foundation",
   "/developers",
   "/login",
   "/social-onboarding",

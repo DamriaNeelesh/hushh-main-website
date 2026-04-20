@@ -16,6 +16,8 @@ inputs:
     required: true
   app_env:
     required: true
+  deploy_sha:
+    required: true
   main_branch:
     required: false
     default: main
@@ -30,14 +32,32 @@ inputs:
 outputs:
   frontend_url:
     description: Cloud Run frontend URL
-    value: ${{ steps.frontend-url.outputs.url }}
+    value: ${{ steps.runtime-info.outputs.url }}
+  deploy_sha:
+    description: Deployed commit SHA
+    value: ${{ steps.resolve-deploy-sha.outputs.deploy_sha }}
+  image_tag:
+    description: Deployed image tag
+    value: ${{ steps.resolve-deploy-sha.outputs.image_tag }}
+  revision_name:
+    description: Latest ready Cloud Run revision
+    value: ${{ steps.runtime-info.outputs.revision_name }}
 
 runs:
   using: composite
   steps:
-    - name: Assert deploy ref belongs to main history
+    - name: Assert deploy SHA belongs to main history
       shell: bash
-      run: bash scripts/ci/require-ref-on-main.sh "${{ inputs.main_branch }}"
+      run: bash scripts/ci/require-ref-on-main.sh "${{ inputs.main_branch }}" "${{ inputs.deploy_sha }}"
+
+    - name: Resolve deploy SHA
+      id: resolve-deploy-sha
+      shell: bash
+      run: |
+        set -euo pipefail
+        DEPLOY_SHA="$(git rev-parse HEAD)"
+        echo "deploy_sha=$DEPLOY_SHA" >> "$GITHUB_OUTPUT"
+        echo "image_tag=$DEPLOY_SHA" >> "$GITHUB_OUTPUT"
 
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v3
@@ -67,22 +87,27 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        IMAGE_TAG="${GITHUB_SHA::12}"
         gcloud builds submit \
           --project="${{ inputs.gcp_project_id }}" \
           --config=deploy/frontend.cloudbuild.yaml \
-          "--substitutions=_FRONTEND_SERVICE=${{ inputs.frontend_service }},_REGION=${{ inputs.gcp_region }},_APP_ENV=${{ inputs.app_env }},_AR_REPOSITORY=${{ inputs.artifact_repository }},_IMAGE_TAG=${IMAGE_TAG}"
+          "--substitutions=_FRONTEND_SERVICE=${{ inputs.frontend_service }},_REGION=${{ inputs.gcp_region }},_APP_ENV=${{ inputs.app_env }},_AR_REPOSITORY=${{ inputs.artifact_repository }},_IMAGE_TAG=${{ steps.resolve-deploy-sha.outputs.image_tag }}"
 
-    - name: Get frontend URL
-      id: frontend-url
+    - name: Get frontend URL and revision
+      id: runtime-info
       shell: bash
       run: |
         FRONTEND_URL="$(gcloud run services describe "${{ inputs.frontend_service }}" \
           --project="${{ inputs.gcp_project_id }}" \
           --region="${{ inputs.gcp_region }}" \
           --format='value(status.url)')"
+        REVISION_NAME="$(gcloud run services describe "${{ inputs.frontend_service }}" \
+          --project="${{ inputs.gcp_project_id }}" \
+          --region="${{ inputs.gcp_region }}" \
+          --format='value(status.latestReadyRevisionName)')"
         echo "url=$FRONTEND_URL" >> "$GITHUB_OUTPUT"
+        echo "revision_name=$REVISION_NAME" >> "$GITHUB_OUTPUT"
         echo "Frontend URL: $FRONTEND_URL"
+        echo "Latest ready revision: $REVISION_NAME"
 
     - name: Retain latest frontend revisions
       continue-on-error: true
@@ -115,13 +140,13 @@ runs:
           --project "${{ inputs.gcp_project_id }}" \
           --region "${{ inputs.gcp_region }}" \
           --service "${{ inputs.frontend_service }}" \
-          --expected-image-tag "${GITHUB_SHA::12}" \
+          --expected-image-tag "${{ steps.resolve-deploy-sha.outputs.image_tag }}" \
           "${domain_flags[@]}"
 
     - name: Smoke deployed Cloud Run routes
       shell: bash
       env:
-        BASE_URL: ${{ steps.frontend-url.outputs.url }}
+        BASE_URL: ${{ steps.runtime-info.outputs.url }}
       run: bash scripts/ops/smoke-website-routes.sh
 
     - name: Smoke deployed public routes

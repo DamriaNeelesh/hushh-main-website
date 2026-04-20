@@ -1,0 +1,8 @@
+interface:
+  display_name: "Website CI Triage"
+  short_description: "Diagnose hushh.ai CI and build failures"
+  brand_color: "#8F8570"
+  default_prompt: "Use $website-ci-triage to reproduce a failing CI or build check in this repo and identify the smallest safe fix."
+
+policy:
+  allow_implicit_invocation: true
