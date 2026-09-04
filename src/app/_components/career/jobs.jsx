@@ -1,5 +1,16 @@
-// /data/jobs.js
-export const jobs = [
+// Single source of truth for every open role shown on /career and /job/[id].
+//
+// `team` is the axis for future segmentation (e.g. "labs", "engineering",
+// "research") without standing up a second careers system: any role can set
+// its own `team`, and everything that doesn't is grouped under the default
+// below. Do not duplicate this file — add new roles here.
+const DEFAULT_TEAM = "core";
+
+export const TEAMS = {
+  core: "Hushh",
+};
+
+const rawJobs = [
   {
     id: "1",
     title: "Software Engineer Intern",
@@ -343,3 +354,10 @@ export const jobs = [
       ],
   },
 ];
+
+// Normalize once: every role gets a `team`, defaulting where one isn't set.
+export const jobs = rawJobs.map((job) => ({ team: DEFAULT_TEAM, ...job }));
+
+export function getJobById(id) {
+  return jobs.find((job) => job.id.toString() === id?.toString());
+}

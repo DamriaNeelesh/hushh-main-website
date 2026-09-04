@@ -145,7 +145,7 @@ const HushhLabsHome = () => {
               </VStack>
               
               <Flex gap={4} pt={6} flexWrap="wrap" justify="center" w="full" px={{ base: 2, md: 0 }}>
-                <Link href="/labs/career">
+                <Link href="/career">
                   <MotionButton
                     size="lg"
                     bg="#171b29"
@@ -509,7 +509,7 @@ const HushhLabsHome = () => {
                 </Text>
                 
                 <Box px={{ base: 2, md: 0 }} w="full" display="flex" justifyContent="center">
-                  <Link href="/labs/career">
+                  <Link href="/career">
                     <MotionButton
                       bg="#171b29"
                       color="white"

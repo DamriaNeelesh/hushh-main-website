@@ -435,6 +435,17 @@ img {
   color: var(--site-text-secondary);
 }
 
+/* Inverted variants for the two typographic primitives above, used on the
+   dark `surface="accent"` frame (see ContentWrapper) so hero copy never
+   silently renders dark-on-dark. */
+.site-page-title--inverted {
+  color: #ffffff;
+}
+
+.site-page-copy--inverted {
+  color: rgba(255, 255, 255, 0.78);
+}
+
 .site-page-card {
   background: #ffffff;
   border: 1px solid var(--site-border-soft);

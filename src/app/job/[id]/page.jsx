@@ -1,9 +1,12 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Box, ListItem, Text, UnorderedList, VStack } from "@chakra-ui/react";
+import { ArrowLeft, ArrowRight, Briefcase, MapPin } from "lucide-react";
 import ContentWrapper from "../../_components/layout/ContentWrapper";
-import { jobs } from "../../_components/career/jobs";
+import { getJobById, jobs } from "../../_components/career/jobs";
+import { HIRING_PROCESS_STEPS } from "../../_components/career/hiringProcess";
+import HiringProcessSteps from "../../_components/career/HiringProcessSteps";
+import ApplySection from "../../_components/career/ApplySection";
 import { MotionSection } from "../../_components/motion/SectionReveal";
-import DeferredIframe from "../../_components/primitives/DeferredIframe";
 
 export function generateStaticParams() {
   return jobs.map((job) => ({ id: job.id.toString() }));
@@ -11,7 +14,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const job = jobs.find((entry) => entry.id.toString() === id);
+  const job = getJobById(id);
 
   if (!job) {
     return {
@@ -22,130 +25,129 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${job.title} | Hushh Careers`,
-    description: `${job.title} in ${job.location}. Explore responsibilities, qualifications, and the application workflow at Hushh.`,
+    description: `${job.title} in ${job.location}. Explore the mission, responsibilities, and application process at Hushh.`,
     alternates: {
       canonical: `https://www.hushh.ai/job/${job.id}`,
     },
     openGraph: {
       title: `${job.title} | Hushh Careers`,
-      description: `${job.title} in ${job.location}. Explore responsibilities, qualifications, and the application workflow at Hushh.`,
+      description: `${job.title} in ${job.location}. Explore the mission, responsibilities, and application process at Hushh.`,
       url: `https://www.hushh.ai/job/${job.id}`,
     },
   };
 }
 
+function StoryBlock({ eyebrow, title, children }) {
+  return (
+    <div className="site-page-card flex flex-col gap-4">
+      {eyebrow ? <p className="site-page-eyebrow">{eyebrow}</p> : null}
+      {title ? <h2 className="text-2xl font-semibold text-[#1a1a1b]">{title}</h2> : null}
+      {children}
+    </div>
+  );
+}
+
+function RequirementList({ items }) {
+  return (
+    <ul className="flex flex-col gap-3">
+      {items.map((item) => (
+        <li key={item} className="flex items-start gap-3 text-[#57524a]">
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#b7a789]" aria-hidden="true" />
+          <span className="leading-relaxed">{item.trim()}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default async function JobDetailPage({ params }) {
   const { id } = await params;
-  const job = jobs.find((entry) => entry.id.toString() === id);
+  const job = getJobById(id);
 
   if (!job) {
     notFound();
   }
 
-  const jobRole = job.title || "";
-  const baseFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeWzoc7AsiVKm4IX3pCxmHmiJY2OMA7Ulx_9DW6oHsQZPkrRg/viewform?embedded=true";
-  const formUrl = `${baseFormUrl}&entry.472327161=${encodeURIComponent(jobRole)}`;
+  const qualifications = [
+    ...(job.basicQualifications || []),
+    ...(job.additionalRequirements || []),
+  ];
 
   return (
-    <ContentWrapper surface="contrast">
-      <Box bg="black" color="white" minH="100%">
-        <MotionSection as="div" family="marketing">
-        <Box className="gradient-bg" py={{ md: 40, base: 20 }} px={{ base: 6, md: 12 }}>
-          <VStack align="start" spacing={4}>
-            <Text fontSize={{ base: "xl", md: "4xl" }} fontWeight="bold">
-              {job.title}
-            </Text>
-            <Text fontSize="lg">{job.location}</Text>
-          </VStack>
-        </Box>
-        </MotionSection>
+    <ContentWrapper surface="accent" minHeight="100vh">
+      <MotionSection as="div" family="marketing">
+        <div className="site-page-band pb-16 pt-8 md:pb-20">
+          <Link
+            href="/career"
+            className="mb-8 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-white/70 transition-colors hover:text-white"
+          >
+            <ArrowLeft size={15} strokeWidth={2} aria-hidden="true" />
+            All open roles
+          </Link>
 
+          <p className="site-page-eyebrow mb-4" style={{ color: "#d7ccb8" }}>
+            Careers at Hushh
+          </p>
+          <h1 className="site-page-title site-page-title--inverted mb-6">{job.title}</h1>
+
+          <div className="flex flex-wrap gap-3">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/85">
+              <MapPin size={14} strokeWidth={1.8} aria-hidden="true" />
+              {job.location}
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/85">
+              <Briefcase size={14} strokeWidth={1.8} aria-hidden="true" />
+              {job.employmentType}
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/85">
+              {job.category}
+            </span>
+          </div>
+
+          <a href="#apply" className="site-cta-outline-branded mt-10 inline-flex w-fit px-8">
+            Apply for this role
+            <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
+          </a>
+        </div>
+      </MotionSection>
+
+      <div style={{ background: "var(--site-surface-muted)" }}>
         <MotionSection as="div" family="marketing" delay={0.04}>
-        <Box py={10} px={{ base: 6, md: 12 }} fontSize={{ md: "1.1rem", base: "0.62rem" }} bg="white" color="black">
-          <VStack align="start" spacing={6}>
-            <Box>
-              <Text fontSize="xl" fontWeight="bold" mb={4}>
-                About the Company
-              </Text>
-              <Text>{job.aboutCompany}</Text>
-            </Box>
-            <Box>
-              <Text fontSize="xl" fontWeight="bold" mb={4}>
-                Why Hushh ?
-              </Text>
-              <Text>
-                At Hushh, you&apos;ll join an innovative, ambitious startup that values creativity, perseverance, and teamwork.
-                We believe in the transformational power of personal data in the hands of the individual and are committed to
-                building a platform that champions this belief. As part of our team, you&apos;ll have the rare opportunity to
-                shape something meaningful from its inception.
-              </Text>
-              <Text>
-                Hushh is an equal opportunity employer, championing inclusivity and diversity. We welcome all qualified applicants
-                irrespective of race, religion, gender, sexual orientation, age, disability, or veteran status.
-              </Text>
-            </Box>
-            <Box>
-              <Text fontWeight="bold" mb={4}>
-                Responsibilities
-              </Text>
-              <UnorderedList spacing={0}>
-                {job.responsibilities.map((item, index) => (
-                  <ListItem key={index}>{item}</ListItem>
-                ))}
-              </UnorderedList>
-            </Box>
+          <div className="site-page-band grid gap-6 py-16 md:py-20">
+            <StoryBlock eyebrow="Mission" title="Why this role exists">
+              <p className="site-page-copy">{job.aboutCompany}</p>
+            </StoryBlock>
 
-            {job?.basicQualifications && job.basicQualifications.length > 0 && (
-              <Box>
-                <Text fontWeight="bold" mb={4}>
-                  Basic Qualifications
-                </Text>
-                <UnorderedList spacing={0}>
-                  {job.basicQualifications.map((item, index) => (
-                    <ListItem key={index}>{item}</ListItem>
-                  ))}
-                </UnorderedList>
-              </Box>
-            )}
+            {job.responsibilities?.length ? (
+              <StoryBlock eyebrow="Ownership" title="What you'll own">
+                <RequirementList items={job.responsibilities} />
+              </StoryBlock>
+            ) : null}
 
-            <Box>
-              <Text fontSize="xl" fontWeight="bold" mb={4}>
-                Additional Requirements
-              </Text>
-              <UnorderedList spacing={3}>
-                {job.additionalRequirements.length > 0
-                  ? job.additionalRequirements.map((item, index) => <ListItem key={index}>{item}</ListItem>)
-                  : job.personalRequirements.map((item, index) => <ListItem key={index}>{item}</ListItem>)}
-              </UnorderedList>
-              {job?.additionalRequirements?.length > 0 && job?.personalRequirements?.length > 0 && (
-                <UnorderedList spacing={3}>
-                  {job.personalRequirements.map((item, index) => (
-                    <ListItem key={index}>{item}</ListItem>
-                  ))}
-                </UnorderedList>
-              )}
-            </Box>
-          </VStack>
-        </Box>
+            {qualifications.length ? (
+              <StoryBlock eyebrow="Fit" title="What you bring">
+                <RequirementList items={qualifications} />
+              </StoryBlock>
+            ) : null}
+          </div>
         </MotionSection>
 
-        <MotionSection as="div" family="marketing" delay={0.08}>
-        <Box py={10} px={{ base: 6, md: 12 }} bg="gray.100" color="black">
-          <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" mb={6}>
-            Apply for this Position
-          </Text>
-          <Box minH={{ md: "160vh", base: "180vh" }}>
-            <DeferredIframe
-              src={formUrl}
-              minHeight="100%"
-              height="100%"
-              title="Job Application Form"
-              placeholder="The application form will load as you reach it."
-            />
-          </Box>
-        </Box>
+        <MotionSection as="div" family="marketing" delay={0.06}>
+          <div className="site-page-band pt-0">
+            <div className="mb-8 text-center">
+              <p className="site-page-eyebrow">How hiring works</p>
+              <h2 className="mt-3 text-3xl font-semibold text-[#1a1a1b]">A quick, honest process</h2>
+            </div>
+            <HiringProcessSteps steps={HIRING_PROCESS_STEPS} />
+          </div>
         </MotionSection>
-      </Box>
+      </div>
+
+      <MotionSection as="div" family="marketing" delay={0.08}>
+        <div style={{ background: "#ffffff" }} className="py-16 md:py-20">
+          <ApplySection job={job} />
+        </div>
+      </MotionSection>
     </ContentWrapper>
   );
 }

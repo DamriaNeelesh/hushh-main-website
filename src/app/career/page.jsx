@@ -1,5 +1,5 @@
 import React from 'react'
-import CareerPage from '../_components/career/carrer';
+import CareerHub from '../_components/career/CareerHub';
 import { siteMetadata } from '../sitemetadata';
 import ContentWrapper from '../_components/layout/ContentWrapper';
 import JsonLdScript from '../_components/seo/JsonLdScript';
@@ -73,7 +73,7 @@ const Career = () => {
     <>
       <JsonLdScript data={jobPostingJsonLd} />
       <ContentWrapper>
-        <CareerPage />
+        <CareerHub />
       </ContentWrapper>
     </>
   )
